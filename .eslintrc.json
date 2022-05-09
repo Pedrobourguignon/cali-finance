@@ -1,3 +1,60 @@
 {
-  "extends": "next/core-web-vitals"
+	"env": {
+		"browser": true,
+		"es2021": true,
+		"node": true,
+		"jest": true
+	},
+	"extends": [
+		"plugin:react/recommended",
+		"airbnb",
+		"prettier",
+		"next",
+		"next/core-web-vitals",
+		"plugin:@typescript-eslint/recommended",
+		"eslint-config-next"
+	],
+	"parser": "@typescript-eslint/parser",
+	"parserOptions": {
+		"ecmaFeatures": {
+			"jsx": true,
+			"tsx": true
+		},
+		"ecmaVersion": 12,
+		"sourceType": "module"
+	},
+	"plugins": [
+		"react",
+		"@typescript-eslint",
+		"@typescript-eslint/eslint-plugin",
+		"prettier"
+	],
+	"rules": {
+		"prettier/prettier": "error",
+		"react/prop-types": "off",
+		"react/jsx-props-no-spreading": "off",
+		"import/prefer-default-export": "off",
+		"react/no-array-index-key": "warn",
+		"react/jsx-filename-extension": [1, { "extensions": [".ts", ".tsx"] }],
+		"react/function-component-definition": [
+			2,
+			{
+				"namedComponents": "arrow-function",
+				"unnamedComponents": "arrow-function"
+			}
+		],
+		"import/no-cycle": "off",
+		"import/extensions": [
+			"error",
+			"ignorePackages",
+			{
+				"js": "never",
+				"jsx": "never",
+				"ts": "never",
+				"tsx": "never"
+			}
+		],
+		"no-bitwise": ["error", { "allow": ["~"] }],
+		"id-length": ["error", { "min": 2, "max": 30, "exceptions": ["_"] }]
+	}
 }
