@@ -1,6 +1,8 @@
 import { Button, Flex } from '@chakra-ui/react'
+import { usePicasso } from 'hooks/usePicasso'
 
 export const PrimaryButton = () => {
+	const theme = usePicasso()
 	return (
 		<Flex boxShadow="0px 0px 10px rgba(232, 49, 81, 0.5)" mt="16">
 			<Flex
@@ -8,7 +10,7 @@ export const PrimaryButton = () => {
 				ml="1"
 				w="2xs"
 				h="16"
-				borderColor="red.600"
+				borderColor={theme.branding.red}
 				borderBottomWidth="0.25rem"
 				borderBottomStyle="solid"
 				borderRightWidth="0.25rem"
@@ -20,7 +22,7 @@ export const PrimaryButton = () => {
 				w="2xs"
 				h="16"
 				variant="outline"
-				borderColor="red.600"
+				borderColor={theme.branding.red}
 				fontSize="3xl"
 			>
 				Open app

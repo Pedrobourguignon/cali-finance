@@ -10,7 +10,7 @@ const Home: NextPage = () => {
 				<Flex fontSize="5xl" textAlign="center">
 					A new meaning of “time is money.”
 				</Flex>
-				<Flex fontSize="lg" w="md" textAlign="center">
+				<Flex fontSize="lg" textAlign="center">
 					No need for wait your payday anymore. Meet the future of payroll
 					immerse on blockchain.
 				</Flex>
