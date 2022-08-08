@@ -5,20 +5,12 @@ import { ColorHandler } from 'utils'
 const MyApp = ({ Component, pageProps }: AppProps) => (
 	<>
 		<Head>
-			<title>Pegasys Protocol</title>
+			<title>Cali Finance</title>
 			<meta name="description" content="" />
-			<meta
-				property="og:url"
-				content="https://pegasys.financefinance"
-				key="ogurl"
-			/>
+			<meta property="og:url" content="https://cali.finance" key="ogurl" />
 			<meta property="og:image" content="/meta.png" key="ogimage" />
-			<meta
-				property="og:site_name"
-				content="Pegasys Protocol"
-				key="ogsitename"
-			/>
-			<meta property="og:title" content="Pegasys Protocol" key="ogtitle" />
+			<meta property="og:site_name" content="Cali Finance" key="ogsitename" />
+			<meta property="og:title" content="Cali Finance" key="ogtitle" />
 			<meta
 				property="og:description"
 				content="Swap, earn, and build with the leading decentralized crypto trading protocol on Syscoin."
