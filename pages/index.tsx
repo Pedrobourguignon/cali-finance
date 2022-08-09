@@ -4,8 +4,10 @@ import { Background } from 'layouts/Background/Background'
 import { FaDiscord, FaTwitter } from 'react-icons/fa'
 import NextLink from 'next/link'
 import type { NextPage } from 'next'
+import { usePicasso } from '../hooks/usePicasso'
 
 const Home: NextPage = () => {
+	const theme = usePicasso()
 	return (
 		<Background>
 			<Flex minH="100vh" justify="center" align="center" direction="column">
@@ -16,7 +18,18 @@ const Home: NextPage = () => {
 					mb={{ base: '8', lg: '3.5' }}
 					lineHeight="normal"
 				>
-					A new meaning of “time is money.”
+					<Flex>A new meaning of</Flex>
+					<Flex ml="4">
+						“
+						<Flex
+							borderBottomWidth="0.25rem"
+							borderBottomStyle="solid"
+							borderColor={theme.branding.blue}
+						>
+							time is money
+						</Flex>
+						.”
+					</Flex>
 				</Flex>
 				<Flex
 					fontSize={{ base: 'md', lg: 'lg' }}
