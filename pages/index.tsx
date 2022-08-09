@@ -8,11 +8,21 @@ import type { NextPage } from 'next'
 const Home: NextPage = () => {
 	return (
 		<Background>
-			<Flex h="full" justify="center" align="center" direction="column">
-				<Flex fontSize="5xl" textAlign="center">
+			<Flex minH="100vh" justify="center" align="center" direction="column">
+				<Flex
+					w={{ base: '2xs', lg: '3xl' }}
+					fontSize={{ base: '3xl', lg: '5xl' }}
+					textAlign="center"
+					mb={{ base: '8', lg: '3.5' }}
+					lineHeight="normal"
+				>
 					A new meaning of “time is money.”
 				</Flex>
-				<Flex fontSize="lg" textAlign="center">
+				<Flex
+					fontSize={{ base: 'md', lg: 'lg' }}
+					w={{ base: '2xs', lg: 'lg' }}
+					textAlign="center"
+				>
 					No need for wait your payday anymore. Meet the future of payroll
 					immerse on blockchain.
 				</Flex>

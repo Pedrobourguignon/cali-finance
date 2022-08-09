@@ -14,7 +14,14 @@ import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai'
 import NextLink from 'next/link'
 export const Header = () => {
 	return (
-		<Flex justify="space-between" my="6" mx="12" align="center">
+		<Flex
+			justify="space-between"
+			px="12"
+			w="100%"
+			minH="20"
+			align="center"
+			position="absolute"
+		>
 			<Flex>
 				<NextLink href="/">
 					<Img src="/images/cali-logo-with-text.svg" w="32" h="8" />
