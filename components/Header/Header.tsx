@@ -13,6 +13,7 @@ import { FaDiscord, FaTwitter } from 'react-icons/fa'
 import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai'
 import NextLink from 'next/link'
 export const Header = () => {
+	const menuOptions = ['Home', 'Roadmap', 'Docs', 'Contact']
 	return (
 		<Flex
 			justify="space-between"
@@ -32,18 +33,11 @@ export const Header = () => {
 				justify="space-between"
 				display={{ base: 'none', lg: 'flex' }}
 			>
-				<NextLink href="/">
-					<Link>Home</Link>
-				</NextLink>
-				<NextLink href="/">
-					<Link>Roadmap</Link>
-				</NextLink>
-				<NextLink href="/">
-					<Link>Docs</Link>
-				</NextLink>
-				<NextLink href="/">
-					<Link>Contact</Link>
-				</NextLink>
+				{menuOptions.map(item => (
+					<NextLink href="/">
+						<Link>{item}</Link>
+					</NextLink>
+				))}
 			</Flex>
 			<Flex display={{ base: 'none', lg: 'flex' }}>
 				<Flex
@@ -80,26 +74,13 @@ export const Header = () => {
 								{isOpen ? <AiOutlineClose /> : <AiOutlineMenu />}
 							</MenuButton>
 							<MenuList>
-								<MenuItem>
-									<NextLink href="/">
-										<Link>Home</Link>
-									</NextLink>
-								</MenuItem>
-								<MenuItem>
-									<NextLink href="/">
-										<Link>Roadmap</Link>
-									</NextLink>
-								</MenuItem>
-								<MenuItem>
-									<NextLink href="/">
-										<Link>Docs</Link>
-									</NextLink>
-								</MenuItem>
-								<MenuItem>
-									<NextLink href="/">
-										<Link>Contact</Link>
-									</NextLink>
-								</MenuItem>
+								{menuOptions.map(item => (
+									<MenuItem>
+										<NextLink href="/">
+											<Link>{item}</Link>
+										</NextLink>
+									</MenuItem>
+								))}
 							</MenuList>
 						</>
 					)}

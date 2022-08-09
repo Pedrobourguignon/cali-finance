@@ -1,4 +1,4 @@
-import { Flex, Icon } from '@chakra-ui/react'
+import { Flex, Icon, Text } from '@chakra-ui/react'
 import { PrimaryButton } from 'components/Button/PrimaryButton'
 import { Background } from 'layouts/Background/Background'
 import { FaDiscord, FaTwitter } from 'react-icons/fa'
@@ -20,7 +20,7 @@ const Home: NextPage = () => {
 				>
 					<Flex>A new meaning of</Flex>
 					<Flex ml="4">
-						“
+						<Text>“</Text>
 						<Flex
 							borderBottomWidth="0.25rem"
 							borderBottomStyle="solid"
@@ -28,7 +28,7 @@ const Home: NextPage = () => {
 						>
 							time is money
 						</Flex>
-						.”
+						<Text>.”</Text>
 					</Flex>
 				</Flex>
 				<Flex

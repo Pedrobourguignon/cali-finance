@@ -4,7 +4,7 @@ import { usePicasso } from 'hooks/usePicasso'
 export const PrimaryButton = () => {
 	const theme = usePicasso()
 	return (
-		<Flex boxShadow="0px 0px 10px rgba(232, 49, 81, 0.5)" mt="16">
+		<Flex boxShadow={theme.shadow.red} mt="16">
 			<Flex
 				mt="1"
 				ml="1"
