@@ -6,18 +6,19 @@ import NextLink from 'next/link'
 import type { NextPage } from 'next'
 import { usePicasso } from '../hooks/usePicasso'
 import Sidebar from 'components/SideBar/Sidebar'
+import AppHeader from 'components/AppHeader/AppHeader'
 
 const Teams = () => {
 	return (
-		<Flex
-			minH="100vh"
-			minW="100vw"
-			justify="center"
-			direction="column"
-			position="absolute"
-			bg="black"
-		>
-			<Sidebar />
+		<Flex minH="100vh" minW="100vw" direction="column" bg="black">
+			<Flex>
+				<Flex>
+					<Sidebar />
+				</Flex>
+				<Flex>
+					<AppHeader />
+				</Flex>
+			</Flex>
 		</Flex>
 	)
 }
