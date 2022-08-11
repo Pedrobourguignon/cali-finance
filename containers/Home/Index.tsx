@@ -1,15 +1,15 @@
 import { Flex } from '@chakra-ui/react'
 import { CoinsBox } from 'components/CoinsBox/CoinsBox'
-import { AppBackground } from 'layouts'
+import { AppLayout } from 'layouts'
 
 export const HomeContainer: React.FC = () => {
 	return (
-		<AppBackground>
+		<AppLayout>
 			<Flex minHeight="100vh">
 				<Flex mt="40" ml="28">
 					<CoinsBox />
 				</Flex>
 			</Flex>
-		</AppBackground>
+		</AppLayout>
 	)
 }

@@ -1,10 +1,13 @@
 import { Flex } from '@chakra-ui/react'
 import TeamTable from 'components/Teams/TeamTable'
+import { AppLayout } from 'layouts'
 
 const TeamsContainer = () => {
 	return (
 		<Flex>
-			<TeamTable />
+			<AppLayout>
+				<TeamTable />
+			</AppLayout>
 		</Flex>
 	)
 }

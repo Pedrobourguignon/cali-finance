@@ -1,5 +1,5 @@
 import { Flex } from '@chakra-ui/react'
-import { LandingPageHeader } from 'components/Header/LandingPageHeader'
+import { LandingPageHeader } from 'components/Header/LandingPageHeader/LandingPageHeader'
 import { usePicasso } from 'hooks/usePicasso'
 import { IBackground } from 'types'
 
