@@ -1,1 +1,1 @@
-export * from './CoinsBox'
+export * from './Cards'

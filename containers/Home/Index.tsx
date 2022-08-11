@@ -1,13 +1,21 @@
 import { Flex } from '@chakra-ui/react'
-import { CoinsBox } from 'components/CoinsBox/CoinsBox'
+import { CoinsCardsStatic, NewCoinCard } from 'components'
+import { CoinsCardsDinamic } from 'components/Cards/CoinsCardsDinamic/CoinCardsDinamic'
+
 import { AppLayout } from 'layouts'
 
 export const HomeContainer: React.FC = () => {
 	return (
 		<AppLayout>
-			<Flex minHeight="100vh">
-				<Flex mt="40" ml="28">
-					<CoinsBox />
+			<Flex bg="red">
+				<Flex>
+					<CoinsCardsStatic />
+				</Flex>
+				<Flex>
+					<CoinsCardsDinamic />
+				</Flex>
+				<Flex>
+					<NewCoinCard />
 				</Flex>
 			</Flex>
 		</AppLayout>

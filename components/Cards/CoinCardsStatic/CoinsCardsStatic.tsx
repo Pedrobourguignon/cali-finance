@@ -1,7 +1,7 @@
 import { Flex, Text } from '@chakra-ui/react'
 import { usePicasso } from 'hooks/usePicasso'
 
-export const CoinsBox = () => {
+export const CoinsCardsStatic = () => {
 	const theme = usePicasso()
 	return (
 		<Flex
