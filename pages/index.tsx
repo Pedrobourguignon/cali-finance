@@ -1,15 +1,15 @@
 import { Flex, Icon, Text } from '@chakra-ui/react'
 import { PrimaryButton } from 'components/Button/PrimaryButton'
-import { Background } from 'layouts/Background/Background'
+import { LandingPageBackground } from 'layouts/Backgrounds/LandingPageBackground'
 import { FaDiscord, FaTwitter } from 'react-icons/fa'
 import NextLink from 'next/link'
 import type { NextPage } from 'next'
 import { usePicasso } from '../hooks/usePicasso'
 
-const Home: NextPage = () => {
+const LandingPage: NextPage = () => {
 	const theme = usePicasso()
 	return (
-		<Background>
+		<LandingPageBackground>
 			<Flex minH="100vh" justify="center" align="center" direction="column">
 				<Flex
 					w={{ base: '2xs', lg: '3xl' }}
@@ -53,8 +53,8 @@ const Home: NextPage = () => {
 					</NextLink>
 				</Flex>
 			</Flex>
-		</Background>
+		</LandingPageBackground>
 	)
 }
 
-export default Home
+export default LandingPage

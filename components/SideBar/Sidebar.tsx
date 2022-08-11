@@ -16,7 +16,6 @@ const Sidebar: React.FC = () => {
 			flexDirection="column"
 			justifyContent="space-between"
 			alignItems="center"
-			position="fixed"
 		>
 			<Flex w="full" flexDirection="column">
 				<Flex ml="6" mt="8" mb="10" alignItems="center">

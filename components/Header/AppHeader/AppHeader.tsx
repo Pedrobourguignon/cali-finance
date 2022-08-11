@@ -10,7 +10,6 @@ const AppHeader: React.FC = () => {
 			flexDirection="row"
 			justifyContent="space-between"
 			alignItems="center"
-			position="absolute"
 			color="white"
 			mt="4"
 		>
@@ -25,10 +24,12 @@ const AppHeader: React.FC = () => {
 						</Text>
 					</Flex>
 				</Flex>
-				<Flex mx="24">
+			</Flex>
+			<Flex pr="12">
+				<Flex>
 					<NotificationButton />
 				</Flex>
-				<Flex ml="36">
+				<Flex ml="32">
 					<ProfileButton />
 				</Flex>
 			</Flex>
