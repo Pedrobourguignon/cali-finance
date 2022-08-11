@@ -12,6 +12,7 @@ import {
 import { FaDiscord, FaTwitter } from 'react-icons/fa'
 import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai'
 import NextLink from 'next/link'
+
 export const Header = () => {
 	const menuOptions = ['Home', 'Roadmap', 'Docs', 'Contact']
 	return (
@@ -34,8 +35,8 @@ export const Header = () => {
 				display={{ base: 'none', lg: 'flex' }}
 			>
 				{menuOptions.map(item => (
-					<NextLink href="/">
-						<Link>{item}</Link>
+					<NextLink key={item} href="/">
+						{item}
 					</NextLink>
 				))}
 			</Flex>
@@ -67,7 +68,7 @@ export const Header = () => {
 				</Flex>
 			</Flex>
 			<Flex display={{ base: 'flex', lg: 'none' }}>
-				<Menu autoSelect={false} closeOnBlur={true}>
+				<Menu autoSelect={false} closeOnBlur>
 					{({ isOpen }) => (
 						<>
 							<MenuButton isActive={isOpen} as={Button}>
@@ -75,11 +76,9 @@ export const Header = () => {
 							</MenuButton>
 							<MenuList>
 								{menuOptions.map(item => (
-									<MenuItem>
-										<NextLink href="/">
-											<Link>{item}</Link>
-										</NextLink>
-									</MenuItem>
+									<NextLink href="/" key={item}>
+										<MenuItem>{item}</MenuItem>
+									</NextLink>
 								))}
 							</MenuList>
 						</>
