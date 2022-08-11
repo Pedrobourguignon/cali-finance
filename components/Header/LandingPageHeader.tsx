@@ -12,7 +12,7 @@ import {
 import { FaDiscord, FaTwitter } from 'react-icons/fa'
 import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai'
 import NextLink from 'next/link'
-export const Header = () => {
+export const LandingPageHeader = () => {
 	const menuOptions = ['Home', 'Roadmap', 'Docs', 'Contact']
 	return (
 		<Flex

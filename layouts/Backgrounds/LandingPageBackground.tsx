@@ -1,16 +1,13 @@
 import { Flex } from '@chakra-ui/react'
-import { Header } from 'components/Header/Header'
+import { LandingPageHeader } from 'components/Header/LandingPageHeader'
 import { usePicasso } from 'hooks/usePicasso'
+import { IBackground } from 'types'
 
-interface IBackground {
-	children: React.ReactNode
-}
-
-export const Background: React.FC<IBackground> = ({ children }) => {
+export const LandingPageBackground: React.FC<IBackground> = ({ children }) => {
 	const theme = usePicasso()
 	return (
 		<Flex direction="column" w="full" background={theme.bg.gradient}>
-			<Header />
+			<LandingPageHeader />
 			{children}
 		</Flex>
 	)
