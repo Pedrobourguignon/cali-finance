@@ -1,6 +1,6 @@
 import { Flex } from '@chakra-ui/react';
-import { Header } from 'components/Header';
-import { usePicasso } from 'hooks/usePicasso';
+import { Header } from 'components';
+import { usePicasso } from 'hooks';
 
 interface IBackground {
 	children: React.ReactNode;
