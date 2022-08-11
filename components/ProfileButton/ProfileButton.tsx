@@ -10,12 +10,10 @@ import {
 import { IoChevronDownOutline } from 'react-icons/io5'
 import { usePicasso } from '../../hooks/usePicasso'
 
-const ProfileButton = () => {
+const ProfileButton: React.FC = () => {
 	const theme = usePicasso()
 
 	return (
-		// <Button w="36" h="10" borderRadius="20">
-
 		<Menu>
 			<Button
 				as={Button}

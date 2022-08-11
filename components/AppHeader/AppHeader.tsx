@@ -2,7 +2,7 @@ import { Flex, Text } from '@chakra-ui/react'
 import NotificationButton from 'components/NotificationButton/NotificationButton'
 import ProfileButton from 'components/ProfileButton/ProfileButton'
 
-const AppHeader = () => {
+const AppHeader: React.FC = () => {
 	return (
 		<Flex
 			minW="100vw"

@@ -7,6 +7,7 @@ import type { NextPage } from 'next'
 import { usePicasso } from '../hooks/usePicasso'
 import Sidebar from 'components/SideBar/Sidebar'
 import AppHeader from 'components/AppHeader/AppHeader'
+import TeamsContainer from 'container/TeamsContainer/TeamsContainer'
 
 const Teams = () => {
 	return (
@@ -18,6 +19,7 @@ const Teams = () => {
 				<Flex>
 					<AppHeader />
 				</Flex>
+				<TeamsContainer />
 			</Flex>
 		</Flex>
 	)

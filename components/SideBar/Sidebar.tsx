@@ -6,7 +6,9 @@ import { IoLogOutOutline } from 'react-icons/io5'
 import { BsArrowLeftRight } from 'react-icons/bs'
 import { FaDiscord, FaTwitter } from 'react-icons/fa'
 
-const Sidebar = () => {
+const Sidebar: React.FC = () => {
+	const menuOptions = [AiOutlineAppstore, RiTeamLine, BsArrowLeftRight]
+
 	return (
 		<Flex
 			minH="100vh"
@@ -16,27 +18,23 @@ const Sidebar = () => {
 			alignItems="center"
 			position="fixed"
 		>
-			<Flex w="100%" flexDirection="column">
+			<Flex w="full" flexDirection="column">
 				<Flex ml="6" mt="8" mb="10" alignItems="center">
 					<NextLink href="/">
 						<Img src="/images/cali-logo.svg" w="16" h="10" />
 					</NextLink>
 				</Flex>
 				<Flex className="menu" flexDirection="column" align="center" ml="4">
-					<Flex mt="8">
-						<Icon as={AiOutlineAppstore} boxSize="6" color="gray.400" />
-					</Flex>
-					<Flex mt="8">
-						<Icon as={RiTeamLine} boxSize="4" color="gray.400" />
-					</Flex>
-					<Flex mt="8">
-						<Icon as={BsArrowLeftRight} boxSize="4" color="gray.400" />
-					</Flex>
+					{menuOptions.map(menuItem => (
+						<Flex mt="8">
+							<Icon as={menuItem} boxSize="5" color="gray.400" />
+						</Flex>
+					))}
 					<Flex mt="8">
 						<Divider orientation="horizontal" w="8" bg="gray.400" />
 					</Flex>
 					<Flex mt="8">
-						<Icon as={IoLogOutOutline} boxSize="4" color="gray.400" />
+						<Icon as={IoLogOutOutline} boxSize="5" color="gray.400" />
 					</Flex>
 				</Flex>
 			</Flex>
