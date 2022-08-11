@@ -5,7 +5,7 @@ import { LandingBackground } from 'layouts';
 import { FaDiscord, FaTwitter } from 'react-icons/fa';
 import NextLink from 'next/link';
 
-export const HomeContainer: React.FC = () => {
+export const LandingContainer: React.FC = () => {
 	const theme = usePicasso();
 	return (
 		<LandingBackground>

@@ -1,6 +1,6 @@
-import { HomeContainer } from 'containers';
+import { LandingContainer } from 'containers';
 import type { NextPage } from 'next';
 
-const Home: NextPage = () => <HomeContainer />;
+const Home: NextPage = () => <LandingContainer />;
 
 export default Home;
