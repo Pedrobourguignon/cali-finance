@@ -6,6 +6,13 @@ import {
 	Menu,
 	MenuItem,
 	MenuList,
+	Table,
+	TableContainer,
+	Tbody,
+	Td,
+	Th,
+	Thead,
+	Tr,
 } from '@chakra-ui/react'
 import { usePicasso } from 'hooks/usePicasso'
 import { AiOutlineSearch } from 'react-icons/ai'
@@ -21,18 +28,14 @@ const TeamTable = () => {
 			mx="48"
 			my="32"
 			position="absolute"
-			bg={theme.bg.tertiary}
+			bg={theme.bg.container}
 			borderRadius="12"
+			flexDirection="column"
 		>
 			<Flex m="3.5">
 				<Flex mr="28">
 					<Menu>
-						<Button
-							as={Button}
-							rightIcon={<IoChevronDownOutline />}
-							h="9"
-							bg="#9B93AB"
-						>
+						<Button as={Button} rightIcon={<IoChevronDownOutline />} h="9">
 							All groups
 						</Button>
 						<MenuList bg="none">
@@ -65,6 +68,48 @@ const TeamTable = () => {
 						</MenuList>
 					</Menu>
 				</Flex>
+			</Flex>
+			<Flex>
+				<TableContainer>
+					<Table variant="simple" color="white">
+						<Thead>
+							<Tr>
+								<Th color="white">Name</Th>
+								<Th color="white">Adress</Th>
+								<Th color="white">Group</Th>
+								<Th color="white">Amount</Th>
+								<Th color="white">Withdrawable</Th>
+								<Th color="white">Coin</Th>
+							</Tr>
+						</Thead>
+						<Tbody>
+							<Tr>
+								<Td>Bradley Cooper</Td>
+								<Td>0x969Cf86eeb3f9354D89f357c8dFe43DE8e645148</Td>
+								<Td>Marketing</Td>
+								<Td>15,000/month</Td>
+								<Td>1,923.12</Td>
+								<Td>USDT</Td>
+							</Tr>
+							<Tr>
+								<Td>Bradley Cooper</Td>
+								<Td>0x969Cf86eeb3f9354D89f357c8dFe43DE8e645148</Td>
+								<Td>Marketing</Td>
+								<Td>15,000/month</Td>
+								<Td>1,923.12</Td>
+								<Td>USDT</Td>
+							</Tr>
+							<Tr>
+								<Td>Bradley Cooper</Td>
+								<Td>0x969Cf86eeb3f9354D89f357c8dFe43DE8e645148</Td>
+								<Td>Marketing</Td>
+								<Td>15,000/month</Td>
+								<Td>1,923.12</Td>
+								<Td>USDT</Td>
+							</Tr>
+						</Tbody>
+					</Table>
+				</TableContainer>
 			</Flex>
 		</Flex>
 	)

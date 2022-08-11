@@ -17,7 +17,7 @@ const AppHeader: React.FC = () => {
 			<Flex flexDirection="row" ml="32" alignItems="center">
 				<Flex flexDirection="column" mr="96">
 					<Flex>
-						<Text fontSize="2xl">Good Nigth, Bradley</Text>
+						<Text fontSize="2xl">Good Night, Bradley</Text>
 					</Flex>
 					<Flex>
 						<Text fontSize="md">
