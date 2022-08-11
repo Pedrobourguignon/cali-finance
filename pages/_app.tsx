@@ -1,6 +1,6 @@
-import Head from 'next/head'
-import type { AppProps } from 'next/app'
-import { ColorHandler } from 'utils'
+import Head from 'next/head';
+import type { AppProps } from 'next/app';
+import { ColorHandler } from 'utils';
 
 const MyApp = ({ Component, pageProps }: AppProps) => (
 	<>
@@ -30,6 +30,6 @@ const MyApp = ({ Component, pageProps }: AppProps) => (
 			<Component {...pageProps} />
 		</ColorHandler>
 	</>
-)
+);
 
-export default MyApp
+export default MyApp;

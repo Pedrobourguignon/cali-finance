@@ -7,13 +7,13 @@ import {
 	MenuButton,
 	MenuItem,
 	MenuList,
-} from '@chakra-ui/react'
-import { FaDiscord, FaTwitter } from 'react-icons/fa'
-import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai'
-import NextLink from 'next/link'
+} from '@chakra-ui/react';
+import { FaDiscord, FaTwitter } from 'react-icons/fa';
+import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai';
+import NextLink from 'next/link';
 
 export const Header = () => {
-	const menuOptions = ['Home', 'Roadmap', 'Docs', 'Contact']
+	const menuOptions = ['Home', 'Roadmap', 'Docs', 'Contact'];
 	return (
 		<Flex
 			justify="space-between"
@@ -85,5 +85,5 @@ export const Header = () => {
 				</Menu>
 			</Flex>
 		</Flex>
-	)
-}
+	);
+};
