@@ -1,15 +1,4 @@
-import {
-	Button,
-	Flex,
-	Icon,
-	Img,
-	Link,
-	Menu,
-	MenuButton,
-	MenuItem,
-	MenuList,
-	Divider,
-} from '@chakra-ui/react'
+import { Flex, Icon, Img, Divider } from '@chakra-ui/react'
 import NextLink from 'next/link'
 import { RiTeamLine } from 'react-icons/ri'
 import { AiOutlineAppstore } from 'react-icons/ai'
@@ -17,37 +6,40 @@ import { IoLogOutOutline } from 'react-icons/io5'
 import { BsArrowLeftRight } from 'react-icons/bs'
 import { FaDiscord, FaTwitter } from 'react-icons/fa'
 
-const Sidebar = () => {
+const Sidebar: React.FC = () => {
+	const menuOptions = [AiOutlineAppstore, RiTeamLine, BsArrowLeftRight]
+
 	return (
 		<Flex
-			h="100vh"
+			minH="100vh"
 			w="20"
 			flexDirection="column"
 			justifyContent="space-between"
+			alignItems="center"
+			position="fixed"
 		>
-			<Flex ml="6" mt="6" alignItems="center">
-				<NextLink href="/">
-					<Img src="/images/cali-logo.svg" w="16" h="10" />
-				</NextLink>
-			</Flex>
-			<Flex className="menu" flexDirection="column" mx="8" align="center">
-				<Flex mt="8">
-					<Icon as={AiOutlineAppstore} boxSize="6" color="gray.400" />
+			<Flex w="full" flexDirection="column">
+				<Flex ml="6" mt="8" mb="10" alignItems="center">
+					<NextLink href="/">
+						<Img src="/images/cali-logo.svg" w="16" h="10" />
+					</NextLink>
 				</Flex>
-				<Flex mt="8">
-					<Icon as={RiTeamLine} boxSize="4" color="gray.400" />
-				</Flex>
-				<Flex mt="8">
-					<Icon as={BsArrowLeftRight} boxSize="4" color="gray.400" />
-				</Flex>
-				<Flex mt="8">
-					<Divider orientation="horizontal" />
-				</Flex>
-				<Flex mt="8">
-					<Icon as={IoLogOutOutline} boxSize="4" color="gray.400" />
+				<Flex className="menu" flexDirection="column" align="center" ml="4">
+					{menuOptions.map(menuItem => (
+						<Flex mt="8">
+							<Icon as={menuItem} boxSize="5" color="gray.400" />
+						</Flex>
+					))}
+					<Flex mt="8">
+						<Divider orientation="horizontal" w="8" bg="gray.400" />
+					</Flex>
+					<Flex mt="8">
+						<Icon as={IoLogOutOutline} boxSize="5" color="gray.400" />
+					</Flex>
 				</Flex>
 			</Flex>
-			<Flex flexDirection="column" alignItems="center">
+
+			<Flex flexDirection="column" alignItems="center" ml="4">
 				<Flex
 					w="10"
 					h="10"
