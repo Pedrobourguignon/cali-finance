@@ -8,9 +8,9 @@ import {
 	MenuItem,
 	MenuList,
 } from '@chakra-ui/react';
+import NextLink from 'next/link';
 import { FaDiscord, FaTwitter } from 'react-icons/fa';
 import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai';
-import NextLink from 'next/link';
 
 export const LandingPageHeader = () => {
 	const menuOptions = ['Home', 'Roadmap', 'Docs', 'Contact'];
@@ -33,8 +33,8 @@ export const LandingPageHeader = () => {
 				justify="space-between"
 				display={{ base: 'none', lg: 'flex' }}
 			>
-				{menuOptions.map(item => (
-					<NextLink key={item} href="/">
+				{menuOptions.map((item, index) => (
+					<NextLink key={item + Number(index)} href="/">
 						{item}
 					</NextLink>
 				))}
@@ -74,10 +74,10 @@ export const LandingPageHeader = () => {
 								{isOpen ? <AiOutlineClose /> : <AiOutlineMenu />}
 							</MenuButton>
 							<MenuList>
-								{menuOptions.map(item => (
-									<NextLink href="/" key={item}>
-										<MenuItem>{item}</MenuItem>
-									</NextLink>
+								{menuOptions.map((item, index) => (
+									<MenuItem key={item + Number(index)}>
+										<NextLink href="/">{item}</NextLink>
+									</MenuItem>
 								))}
 							</MenuList>
 						</>
