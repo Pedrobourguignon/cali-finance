@@ -11,6 +11,7 @@ export const CoinsCardsDinamic = () => {
 			bg={theme.bg.primary}
 			rounded="lg"
 			align="center"
+			ml="4"
 		>
 			<Img src="/images/cali-logo.svg" w="12" h="12" />
 			<Flex justify="space-between" ml="4" w="48">
@@ -19,7 +20,7 @@ export const CoinsCardsDinamic = () => {
 						USDT
 					</Text>
 					<Text fontSize="sm" color={theme.text.green}>
-						+0,6 %
+						+0,6%
 					</Text>
 				</Flex>
 				<Flex direction="column">

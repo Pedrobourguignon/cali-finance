@@ -1,4 +1,4 @@
-import { Flex } from '@chakra-ui/react'
+import { Container, Flex } from '@chakra-ui/react'
 import AppHeader from 'components/Header/AppHeader/AppHeader'
 import Sidebar from 'components/SideBar/Sidebar'
 import { usePicasso } from 'hooks/usePicasso'
@@ -19,7 +19,9 @@ export const AppLayout: React.FC<IBackground> = ({ children }) => {
 			<Flex position="fixed">
 				<Sidebar />
 			</Flex>
-			<Flex pl="24">{children}</Flex>
+			<Flex pl="40" pt="16">
+				{children}
+			</Flex>
 		</Flex>
 	)
 }
