@@ -71,7 +71,7 @@ const TeamTable = () => {
 				</Flex>
 			</Flex>
 			<Flex>
-				<TableContainer>
+				<TableContainer >
 					<Table variant="simple" color="white">
 						<Thead>
 							<Tr>

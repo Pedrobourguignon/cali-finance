@@ -10,14 +10,14 @@ const TeamFinanceOverall = () => {
 	const theme = usePicasso()
 	return (
 		<Flex
-			h="60vh"
-			ml="24"
-			mt="16"
-			mr="12"
-			position="fixed"
-			bg={theme.bg.container}
-			borderRadius="12"
-			flexDirection="column"
+		h="60vh"
+		ml="16"
+		mt="16"
+		mr='12'
+		bg={theme.bg.container}
+		borderRadius="12"
+		flexDirection="column"
+		position='fixed'
 		>
 			<Flex mt="5" ml="6">
 				<Flex mr="80">

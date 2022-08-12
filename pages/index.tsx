@@ -1,5 +1,5 @@
 import { Flex, Icon, Text } from '@chakra-ui/react'
-import { PrimaryButton } from 'components/Button/PrimaryButton'
+import { PrimaryButton } from 'components'
 import { LandingPageBackground } from 'layouts/Backgrounds/LandingPageBackground'
 import { FaDiscord, FaTwitter } from 'react-icons/fa'
 import NextLink from 'next/link'
@@ -56,5 +56,7 @@ const LandingPage: NextPage = () => {
 		</LandingPageBackground>
 	)
 }
+const Home: NextPage = () => <Flex>Test</Flex>
+
 
 export default LandingPage
