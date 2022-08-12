@@ -1,0 +1,8 @@
+{
+  "exportall.config.relExclusion": [
+    "/components/Buttons/index.ts"
+  ],
+  "exportall.config.folderListener": [
+    "/components/Buttons"
+  ]
+}

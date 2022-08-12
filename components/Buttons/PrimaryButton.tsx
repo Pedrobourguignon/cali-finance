@@ -30,3 +30,5 @@ export const PrimaryButton = () => {
 		</Flex>
 	)
 }
+
+export default PrimaryButton

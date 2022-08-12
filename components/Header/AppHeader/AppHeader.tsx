@@ -1,6 +1,5 @@
-import { Flex, Text } from '@chakra-ui/react'
-import NotificationButton from 'components/NotificationButton/NotificationButton'
-import ProfileButton from 'components/ProfileButton/ProfileButton'
+import { Button, Flex, Text } from '@chakra-ui/react'
+import { ColorModeButton, NotificationButton, ProfileButton } from 'components'
 
 const AppHeader: React.FC = () => {
 	return (
@@ -11,9 +10,9 @@ const AppHeader: React.FC = () => {
 			justifyContent="space-between"
 			alignItems="center"
 			color="white"
-			mt="4"
+			mt="3"
 		>
-			<Flex flexDirection="row" ml="32" alignItems="center">
+			<Flex flexDirection="row" ml="40" alignItems="center">
 				<Flex flexDirection="column" mr="96">
 					<Flex>
 						<Text fontSize="2xl">Good Night, Bradley</Text>
@@ -28,6 +27,9 @@ const AppHeader: React.FC = () => {
 			<Flex pr="12">
 				<Flex>
 					<NotificationButton />
+				</Flex>
+				<Flex>
+					<ColorModeButton />
 				</Flex>
 				<Flex ml="32">
 					<ProfileButton />

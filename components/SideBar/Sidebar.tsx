@@ -23,7 +23,7 @@ const Sidebar: React.FC = () => {
 						<Img src="/images/cali-logo.svg" w="16" h="10" />
 					</NextLink>
 				</Flex>
-				<Flex className="menu" flexDirection="column" align="center" ml="4">
+				<Flex className="menu" flexDirection="column" align="center" ml="6">
 					{menuOptions.map(menuItem => (
 						<Flex mt="8">
 							<Icon as={menuItem} boxSize="5" color="gray.400" />
@@ -38,7 +38,7 @@ const Sidebar: React.FC = () => {
 				</Flex>
 			</Flex>
 
-			<Flex flexDirection="column" alignItems="center" ml="4">
+			<Flex flexDirection="column" alignItems="center" ml="6">
 				<Flex
 					w="10"
 					h="10"

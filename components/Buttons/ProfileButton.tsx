@@ -6,12 +6,12 @@ import {
 	MenuItem,
 	MenuList,
 	Img,
-} from '@chakra-ui/react'
-import { IoChevronDownOutline } from 'react-icons/io5'
-import { usePicasso } from '../../hooks/usePicasso'
+} from '@chakra-ui/react';
+import { IoChevronDownOutline } from 'react-icons/io5';
+import { usePicasso } from '../../hooks/usePicasso';
 
-const ProfileButton: React.FC = () => {
-	const theme = usePicasso()
+export const ProfileButton: React.FC = () => {
+	const theme = usePicasso();
 
 	return (
 		<Menu>
@@ -30,7 +30,7 @@ const ProfileButton: React.FC = () => {
 			</MenuList>
 		</Menu>
 		// </Button>
-	)
-}
+	);
+};
 
-export default ProfileButton
+export default ProfileButton;
