@@ -75,7 +75,7 @@ export const LandingPageHeader = () => {
 							</MenuButton>
 							<MenuList>
 								{menuOptions.map(item => (
-									<NextLink key={item} href="/">
+									<NextLink href="/" key={item}>
 										<MenuItem>{item}</MenuItem>
 									</NextLink>
 								))}
