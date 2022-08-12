@@ -4,6 +4,7 @@ import {
 	NotificationButton,
 	ProfileButton,
 } from 'components/Buttons';
+import { MarginLeftContainer } from 'containers';
 
 export const AppHeader: React.FC = () => (
 	<Flex
@@ -15,16 +16,17 @@ export const AppHeader: React.FC = () => (
 		color="white"
 		mt="4"
 	>
-		<Flex flexDirection="row" ml="32" alignItems="center">
+		<Flex flexDirection="row" alignItems="center">
 			<Flex flexDirection="column" mr="96">
-				<Flex>
-					<Text fontSize="2xl">Good Night, Bradley</Text>
-				</Flex>
-				<Flex>
-					<Text fontSize="md">
-						Seems like market has been bulish. Your assets increased 10%
-					</Text>
-				</Flex>
+				<MarginLeftContainer>
+					<Flex direction="column">
+						<Text fontSize="2xl">Good Night, Bradley</Text>
+
+						<Text fontSize="md">
+							Seems like market has been bulish. Your assets increased 10%
+						</Text>
+					</Flex>
+				</MarginLeftContainer>
 			</Flex>
 		</Flex>
 		<Flex pr="12">

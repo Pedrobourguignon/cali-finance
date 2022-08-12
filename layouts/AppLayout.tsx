@@ -18,9 +18,7 @@ export const AppLayout: React.FC<IBackground> = ({ children }) => {
 			<Flex position="fixed">
 				<Sidebar />
 			</Flex>
-			<Flex pl="40" pt="16">
-				{children}
-			</Flex>
+			{children}
 		</Flex>
 	);
 };

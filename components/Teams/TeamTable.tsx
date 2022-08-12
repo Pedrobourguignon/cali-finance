@@ -27,7 +27,6 @@ export const TeamTable = () => {
 	return (
 		<Flex
 			h="60vh"
-			ml="16"
 			mt="16"
 			bg={theme.bg.container}
 			borderRadius="12"
