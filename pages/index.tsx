@@ -1,6 +1,6 @@
-import { Flex } from '@chakra-ui/react'
-import type { NextPage } from 'next'
+import { LandingContainer } from 'containers';
+import type { NextPage } from 'next';
 
-const Home: NextPage = () => <Flex>Test</Flex>
+const Home: NextPage = () => <LandingContainer />;
 
-export default Home
+export default Home;

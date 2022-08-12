@@ -1,1 +1,1 @@
-export * from './ColorHandler'
+export * from './ColorHandler';
