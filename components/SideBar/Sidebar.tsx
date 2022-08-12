@@ -5,6 +5,7 @@ import { AiOutlineAppstore } from 'react-icons/ai';
 import { IoLogOutOutline } from 'react-icons/io5';
 import { BsArrowLeftRight } from 'react-icons/bs';
 import { FaDiscord, FaTwitter } from 'react-icons/fa';
+import { MarginTopContainer } from 'containers/MarginTopContainer';
 
 export const Sidebar: React.FC = () => {
 	const menuOptions = [AiOutlineAppstore, RiTeamLine, BsArrowLeftRight];
@@ -18,24 +19,22 @@ export const Sidebar: React.FC = () => {
 			alignItems="center"
 		>
 			<Flex w="full" flexDirection="column">
-				<Flex ml="6" mt="8" mb="10" alignItems="center">
+				<Flex ml="6" mt="8" alignItems="center" position="absolute">
 					<NextLink href="/">
 						<Img src="/images/cali-logo.svg" w="16" h="10" />
 					</NextLink>
 				</Flex>
-				<Flex
-					className="menu"
-					flexDirection="column"
-					align="center"
-					ml="6"
-					mt="4"
-				>
-					{menuOptions.map((menuItem, index) => (
-						<Flex mt="6" key={+index}>
-							<Icon as={menuItem} boxSize="5" color="gray.400" />
+				<Flex className="menu" flexDirection="column" align="center" ml="6">
+					<MarginTopContainer>
+						<Flex flexDirection="column">
+							{menuOptions.map((menuItem, index) => (
+								<Flex mb="8" key={+index}>
+									<Icon as={menuItem} boxSize="5" color="gray.400" />
+								</Flex>
+							))}
 						</Flex>
-					))}
-					<Flex mt="8">
+					</MarginTopContainer>
+					<Flex>
 						<Divider orientation="horizontal" w="8" bg="gray.400" />
 					</Flex>
 					<Flex mt="8">

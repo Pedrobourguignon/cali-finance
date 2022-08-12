@@ -139,7 +139,7 @@ export const TeamTable = () => {
 						<Tr>
 							<Th>
 								<Button border="none" bg="none">
-									See moore
+									See more
 								</Button>
 							</Th>
 						</Tr>

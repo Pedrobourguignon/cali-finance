@@ -1,5 +1,10 @@
 import { Flex, Text } from '@chakra-ui/react';
-import { NotificationButton, ProfileButton } from 'components/Buttons';
+import {
+	ColorModeButton,
+	NotificationButton,
+	ProfileButton,
+} from 'components/Buttons';
+import { MarginLeftContainer } from 'containers';
 
 export const AppHeader: React.FC = () => (
 	<Flex
@@ -11,23 +16,29 @@ export const AppHeader: React.FC = () => (
 		color="white"
 		mt="4"
 	>
-		<Flex flexDirection="row" ml="32" alignItems="center">
-			<Flex flexDirection="column" mr="96" ml="8">
-				<Flex>
-					<Text fontSize="2xl">Good Night, Bradley</Text>
-				</Flex>
-				<Flex>
-					<Text fontSize="md">
-						Seems like market has been bulish. Your assets increased 10%
-					</Text>
-				</Flex>
+		<Flex flexDirection="row" alignItems="center">
+			<Flex flexDirection="column" mr="96">
+				<MarginLeftContainer>
+					<Flex direction="column">
+						<Text fontSize="2xl">Good Night, Bradley</Text>
+
+						<Text fontSize="md">
+							Seems like market has been bulish. Your assets increased 10%
+						</Text>
+					</Flex>
+				</MarginLeftContainer>
 			</Flex>
 		</Flex>
-		<Flex ml="52">
-			<NotificationButton />
-		</Flex>
-		<Flex mr="12">
-			<ProfileButton />
+		<Flex pr="12">
+			<Flex>
+				<NotificationButton />
+			</Flex>
+			<Flex>
+				<ColorModeButton />
+			</Flex>
+			<Flex ml="32">
+				<ProfileButton />
+			</Flex>
 		</Flex>
 	</Flex>
 );

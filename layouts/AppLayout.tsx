@@ -12,13 +12,13 @@ export const AppLayout: React.FC<IBackground> = ({ children }) => {
 			background={theme.bg.secondary}
 			minHeight="100vh"
 		>
-			<Flex as="header">
+			<Flex as="header" position="absolute">
 				<AppHeader />
 			</Flex>
 			<Flex position="fixed">
 				<Sidebar />
 			</Flex>
-			<Flex pt="16">{children}</Flex>
+			{children}
 		</Flex>
 	);
 };
