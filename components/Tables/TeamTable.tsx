@@ -1,9 +1,12 @@
 import {
 	Button,
+	Divider,
 	Flex,
 	Icon,
 	Img,
 	Input,
+	InputGroup,
+	InputLeftElement,
 	Menu,
 	MenuItem,
 	MenuList,
@@ -11,7 +14,7 @@ import {
 	TableContainer,
 	Tbody,
 	Td,
-	Tfoot,
+	Text,
 	Th,
 	Thead,
 	Tr,
@@ -112,16 +115,20 @@ export const TeamTable = () => {
 					</Menu>
 				</Flex>
 				<Flex mr="7">
-					<Input
-						type="text"
-						placeholder="Search someone..."
-						w="48"
-						h="9"
-						bg={theme.bg.bgCard}
-						color={theme.text.gray}
-						border="none"
-					/>
-					<Icon as={AiOutlineSearch} />
+					<InputGroup w="48" h="9" color={theme.text.gray}>
+						<Input
+							type="text"
+							placeholder="Search someone..."
+							w="48"
+							h="9"
+							bg={theme.bg.bgCard}
+							_placeholder={{ color: theme.text.gray }}
+							border="none"
+						/>
+						<InputLeftElement h="full">
+							<Icon as={AiOutlineSearch} />
+						</InputLeftElement>
+					</InputGroup>
 				</Flex>
 				<Flex mr="7">
 					<Button w="12" bg="none" color="white">
@@ -190,7 +197,7 @@ export const TeamTable = () => {
 					</Tbody>
 				</Table>
 			</TableContainer>
-			<Button border="none" bg="none" _hover={{ opacity: 0.8 }}>
+			<Button border="none" bg="none" _hover={{ opacity: 0.8 }} mt="40">
 				See more
 			</Button>
 		</Flex>

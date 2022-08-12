@@ -30,7 +30,7 @@ export const AppHeader: React.FC = () => (
 			</Flex>
 		</Flex>
 		<Flex pr="12">
-			<Flex>
+			<Flex mr="2">
 				<NotificationButton />
 			</Flex>
 			<Flex>
