@@ -1,6 +1,5 @@
 import { Flex } from '@chakra-ui/react';
 import { TeamTable, TeamFinanceOverall } from 'components';
-
 import { AppLayout } from 'layouts';
 import { MarginLeftContainer } from './MarginLeftContainer';
 import { MarginTopContainer } from './MarginTopContainer';
