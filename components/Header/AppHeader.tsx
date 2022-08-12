@@ -1,6 +1,5 @@
 import { Flex, Text } from '@chakra-ui/react';
-import { NotificationButton } from 'components/NotificationButton';
-import { ProfileButton } from 'components/ProfileButton';
+import { NotificationButton, ProfileButton } from 'components/Buttons';
 
 export const AppHeader: React.FC = () => (
 	<Flex
