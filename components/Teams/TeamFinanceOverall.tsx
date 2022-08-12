@@ -1,33 +1,45 @@
 import { Button, Flex, Icon, Text } from '@chakra-ui/react';
-import truncateEthAddress from 'truncate-eth-address';
+import {
+	CostPerMonthCard,
+	TeamBalanceCard,
+	TimeLeftCard,
+} from 'components/Cards';
 import { usePicasso } from 'hooks/usePicasso';
-import { AiOutlineSearch } from 'react-icons/ai';
-import { FiFilter } from 'react-icons/fi';
-import { IoChevronDownOutline } from 'react-icons/io5';
 import { BsThreeDotsVertical } from 'react-icons/bs';
 
-const TeamFinanceOverall = () => {
+export const TeamFinanceOverall = () => {
 	const theme = usePicasso();
 	return (
 		<Flex
-			h="60vh"
-			ml="16"
-			mt="16"
-			mr="12"
-			bg={theme.bg.container}
+			h={theme.boxSize.teamTableH}
+			w={theme.boxSize.teamFinanceOverallW}
+			ml="32"
+			bg={theme.bg.primary}
 			borderRadius="12"
 			flexDirection="column"
-			position="fixed"
 		>
-			<Flex mt="5" ml="6">
-				<Flex mr="80">
-					<Text>Celebrities Team</Text>
+			<Flex
+				mt="4"
+				ml="6"
+				flexDirection="row"
+				justifyContent="space-between"
+				alignItems="center"
+			>
+				<Flex>
+					<Text fontSize="xl" whiteSpace="nowrap">
+						Celebrities Team
+					</Text>
 				</Flex>
 				<Flex>
 					<Button bg="none">
 						<Icon as={BsThreeDotsVertical} />
 					</Button>
 				</Flex>
+			</Flex>
+			<Flex mt="6">
+				<TeamBalanceCard />
+				<TimeLeftCard />
+				<CostPerMonthCard />
 			</Flex>
 		</Flex>
 	);

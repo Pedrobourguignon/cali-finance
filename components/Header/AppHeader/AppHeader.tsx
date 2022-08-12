@@ -1,7 +1,7 @@
 import { Flex, Text } from '@chakra-ui/react';
-import { NotificationButton, ProfileButton } from 'components/Buttons';
+import { ColorModeButton, NotificationButton, ProfileButton } from 'components';
 
-export const AppHeader: React.FC = () => (
+const AppHeader: React.FC = () => (
 	<Flex
 		minW="100vw"
 		minH="20"
@@ -9,10 +9,10 @@ export const AppHeader: React.FC = () => (
 		justifyContent="space-between"
 		alignItems="center"
 		color="white"
-		mt="4"
+		mt="3"
 	>
-		<Flex flexDirection="row" ml="32" alignItems="center">
-			<Flex flexDirection="column" mr="96" ml="8">
+		<Flex flexDirection="row" ml="40" alignItems="center">
+			<Flex flexDirection="column" mr="96">
 				<Flex>
 					<Text fontSize="2xl">Good Night, Bradley</Text>
 				</Flex>
@@ -23,11 +23,16 @@ export const AppHeader: React.FC = () => (
 				</Flex>
 			</Flex>
 		</Flex>
-		<Flex ml="52">
-			<NotificationButton />
-		</Flex>
-		<Flex mr="12">
-			<ProfileButton />
+		<Flex pr="12">
+			<Flex>
+				<NotificationButton />
+			</Flex>
+			<Flex>
+				<ColorModeButton />
+			</Flex>
+			<Flex ml="32">
+				<ProfileButton />
+			</Flex>
 		</Flex>
 	</Flex>
 );

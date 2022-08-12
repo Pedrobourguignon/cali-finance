@@ -28,10 +28,10 @@ export const Sidebar: React.FC = () => {
 					flexDirection="column"
 					align="center"
 					ml="6"
-					mt="3"
+					mt="4"
 				>
 					{menuOptions.map((menuItem, index) => (
-						<Flex mt="8" key={index}>
+						<Flex mt="6" key={+index}>
 							<Icon as={menuItem} boxSize="5" color="gray.400" />
 						</Flex>
 					))}
