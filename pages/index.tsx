@@ -1,13 +1,13 @@
-import { Flex, Icon, Text } from '@chakra-ui/react'
-import { PrimaryButton } from 'components/Button/PrimaryButton'
-import { LandingPageBackground } from 'layouts/Backgrounds/LandingPageBackground'
-import { FaDiscord, FaTwitter } from 'react-icons/fa'
-import NextLink from 'next/link'
-import type { NextPage } from 'next'
-import { usePicasso } from '../hooks/usePicasso'
+import { Flex, Icon, Text } from '@chakra-ui/react';
+import { PrimaryButton } from 'components';
+import { LandingPageBackground } from 'layouts/Backgrounds/LandingPageBackground';
+import { FaDiscord, FaTwitter } from 'react-icons/fa';
+import NextLink from 'next/link';
+import type { NextPage } from 'next';
+import { usePicasso } from '../hooks/usePicasso';
 
 const LandingPage: NextPage = () => {
-	const theme = usePicasso()
+	const theme = usePicasso();
 	return (
 		<LandingPageBackground>
 			<Flex minH="100vh" justify="center" align="center" direction="column">
@@ -54,7 +54,7 @@ const LandingPage: NextPage = () => {
 				</Flex>
 			</Flex>
 		</LandingPageBackground>
-	)
-}
+	);
+};
 
-export default LandingPage
+export default LandingPage;

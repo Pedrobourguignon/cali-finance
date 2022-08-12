@@ -1,17 +1,9 @@
-import {
-	Flex,
-	Button,
-	Menu,
-	MenuButton,
-	MenuItem,
-	MenuList,
-	Img,
-} from '@chakra-ui/react'
-import { IoChevronDownOutline } from 'react-icons/io5'
-import { usePicasso } from '../../hooks/usePicasso'
+import { Button, Menu, MenuItem, MenuList, Img } from '@chakra-ui/react';
+import { IoChevronDownOutline } from 'react-icons/io5';
+import { usePicasso } from '../../hooks/usePicasso';
 
-const ProfileButton: React.FC = () => {
-	const theme = usePicasso()
+export const ProfileButton: React.FC = () => {
+	const theme = usePicasso();
 
 	return (
 		<Menu>
@@ -29,8 +21,7 @@ const ProfileButton: React.FC = () => {
 				<MenuItem>Download</MenuItem>
 			</MenuList>
 		</Menu>
-		// </Button>
-	)
-}
+	);
+};
 
-export default ProfileButton
+export default ProfileButton;

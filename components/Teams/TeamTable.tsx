@@ -6,14 +6,13 @@ import {
 	Menu,
 	MenuItem,
 	MenuList,
-} from '@chakra-ui/react'
-import { usePicasso } from 'hooks/usePicasso'
-import { AiOutlineSearch } from 'react-icons/ai'
-import { FiFilter } from 'react-icons/fi'
-import { IoChevronDownOutline } from 'react-icons/io5'
+} from '@chakra-ui/react';
+import { usePicasso } from 'hooks/usePicasso';
+import { FiFilter } from 'react-icons/fi';
+import { IoChevronDownOutline } from 'react-icons/io5';
 
-const TeamTable = () => {
-	const theme = usePicasso()
+export const TeamTable = () => {
+	const theme = usePicasso();
 
 	return (
 		<Flex
@@ -67,7 +66,7 @@ const TeamTable = () => {
 				</Flex>
 			</Flex>
 		</Flex>
-	)
-}
+	);
+};
 
-export default TeamTable
+export default TeamTable;

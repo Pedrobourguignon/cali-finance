@@ -1,13 +1,13 @@
-import { Flex, Icon, Img, Divider } from '@chakra-ui/react'
-import NextLink from 'next/link'
-import { RiTeamLine } from 'react-icons/ri'
-import { AiOutlineAppstore } from 'react-icons/ai'
-import { IoLogOutOutline } from 'react-icons/io5'
-import { BsArrowLeftRight } from 'react-icons/bs'
-import { FaDiscord, FaTwitter } from 'react-icons/fa'
+import { Flex, Icon, Img, Divider } from '@chakra-ui/react';
+import NextLink from 'next/link';
+import { RiTeamLine } from 'react-icons/ri';
+import { AiOutlineAppstore } from 'react-icons/ai';
+import { IoLogOutOutline } from 'react-icons/io5';
+import { BsArrowLeftRight } from 'react-icons/bs';
+import { FaDiscord, FaTwitter } from 'react-icons/fa';
 
-const Sidebar: React.FC = () => {
-	const menuOptions = [AiOutlineAppstore, RiTeamLine, BsArrowLeftRight]
+export const Sidebar: React.FC = () => {
+	const menuOptions = [AiOutlineAppstore, RiTeamLine, BsArrowLeftRight];
 
 	return (
 		<Flex
@@ -24,8 +24,8 @@ const Sidebar: React.FC = () => {
 					</NextLink>
 				</Flex>
 				<Flex className="menu" flexDirection="column" align="center" ml="4">
-					{menuOptions.map(menuItem => (
-						<Flex mt="8">
+					{menuOptions.map((menuItem, index) => (
+						<Flex mt="8" key={+index}>
 							<Icon as={menuItem} boxSize="5" color="gray.400" />
 						</Flex>
 					))}
@@ -63,7 +63,7 @@ const Sidebar: React.FC = () => {
 				</Flex>
 			</Flex>
 		</Flex>
-	)
-}
+	);
+};
 
-export default Sidebar
+export default Sidebar;

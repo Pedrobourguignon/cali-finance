@@ -1,9 +1,9 @@
-import { Flex, Icon, Img, Text } from '@chakra-ui/react'
-import { usePicasso } from 'hooks/usePicasso'
-import { AiOutlinePlus } from 'react-icons/ai'
+import { Flex, Icon, Text } from '@chakra-ui/react';
+import { usePicasso } from 'hooks';
+import { AiOutlinePlus } from 'react-icons/ai';
 
 export const NewCoinCard = () => {
-	const theme = usePicasso()
+	const theme = usePicasso();
 	return (
 		<Flex
 			w="56"
@@ -30,5 +30,5 @@ export const NewCoinCard = () => {
 				Add a new coin...
 			</Text>
 		</Flex>
-	)
-}
+	);
+};

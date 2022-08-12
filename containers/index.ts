@@ -1,2 +1,2 @@
-export * from './Home'
-export * from './Teams'
+export * from './HomeContainer';
+export * from './TeamsContainer';

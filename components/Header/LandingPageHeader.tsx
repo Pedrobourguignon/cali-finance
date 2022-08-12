@@ -3,17 +3,17 @@ import {
 	Flex,
 	Icon,
 	Img,
-	Link,
 	Menu,
 	MenuButton,
 	MenuItem,
 	MenuList,
-} from '@chakra-ui/react'
-import { FaDiscord, FaTwitter } from 'react-icons/fa'
-import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai'
-import NextLink from 'next/link'
+} from '@chakra-ui/react';
+import { FaDiscord, FaTwitter } from 'react-icons/fa';
+import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai';
+import NextLink from 'next/link';
+
 export const LandingPageHeader = () => {
-	const menuOptions = ['Home', 'Roadmap', 'Docs', 'Contact']
+	const menuOptions = ['Home', 'Roadmap', 'Docs', 'Contact'];
 	return (
 		<Flex
 			justify="space-between"
@@ -34,8 +34,8 @@ export const LandingPageHeader = () => {
 				display={{ base: 'none', lg: 'flex' }}
 			>
 				{menuOptions.map(item => (
-					<NextLink href="/">
-						<Link>{item}</Link>
+					<NextLink key={item} href="/">
+						{item}
 					</NextLink>
 				))}
 			</Flex>
@@ -67,7 +67,7 @@ export const LandingPageHeader = () => {
 				</Flex>
 			</Flex>
 			<Flex display={{ base: 'flex', lg: 'none' }}>
-				<Menu autoSelect={false} closeOnBlur={true}>
+				<Menu autoSelect={false} closeOnBlur>
 					{({ isOpen }) => (
 						<>
 							<MenuButton isActive={isOpen} as={Button}>
@@ -75,11 +75,9 @@ export const LandingPageHeader = () => {
 							</MenuButton>
 							<MenuList>
 								{menuOptions.map(item => (
-									<MenuItem>
-										<NextLink href="/">
-											<Link>{item}</Link>
-										</NextLink>
-									</MenuItem>
+									<NextLink key={item} href="/">
+										<MenuItem>{item}</MenuItem>
+									</NextLink>
 								))}
 							</MenuList>
 						</>
@@ -87,5 +85,5 @@ export const LandingPageHeader = () => {
 				</Menu>
 			</Flex>
 		</Flex>
-	)
-}
+	);
+};

@@ -1,8 +1,6 @@
-import { HomeContainer } from 'containers'
-import { NextPage } from 'next'
+import { HomeContainer } from 'containers';
+import { NextPage } from 'next';
 
-const Home: NextPage = () => {
-	return <HomeContainer />
-}
+const Home: NextPage = () => <HomeContainer />;
 
-export default Home
+export default Home;

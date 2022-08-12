@@ -1,8 +1,8 @@
-import { Flex, Img, Text } from '@chakra-ui/react'
-import { usePicasso } from 'hooks/usePicasso'
+import { Flex, Img, Text } from '@chakra-ui/react';
+import { usePicasso } from 'hooks/usePicasso';
 
 export const CoinsCardsDinamic = () => {
-	const theme = usePicasso()
+	const theme = usePicasso();
 	return (
 		<Flex
 			w="56"
@@ -31,5 +31,5 @@ export const CoinsCardsDinamic = () => {
 				</Flex>
 			</Flex>
 		</Flex>
-	)
-}
+	);
+};

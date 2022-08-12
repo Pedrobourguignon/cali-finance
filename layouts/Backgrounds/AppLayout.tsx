@@ -1,11 +1,10 @@
-import { Container, Flex } from '@chakra-ui/react'
-import AppHeader from 'components/Header/AppHeader/AppHeader'
-import Sidebar from 'components/SideBar/Sidebar'
-import { usePicasso } from 'hooks/usePicasso'
-import { IBackground } from 'types'
+import { Flex } from '@chakra-ui/react';
+import { AppHeader, Sidebar } from 'components';
+import { usePicasso } from 'hooks/usePicasso';
+import { IBackground } from 'types';
 
 export const AppLayout: React.FC<IBackground> = ({ children }) => {
-	const theme = usePicasso()
+	const theme = usePicasso();
 	return (
 		<Flex
 			direction="column"
@@ -23,5 +22,5 @@ export const AppLayout: React.FC<IBackground> = ({ children }) => {
 				{children}
 			</Flex>
 		</Flex>
-	)
-}
+	);
+};

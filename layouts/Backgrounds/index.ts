@@ -1,2 +1,2 @@
-export * from './AppLayout'
-export * from './LandingPageBackground'
+export * from './AppLayout';
+export * from './LandingPageBackground';

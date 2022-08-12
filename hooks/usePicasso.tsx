@@ -1,5 +1,5 @@
-import { useColorModeValue } from '@chakra-ui/react'
-import { BsFillMoonFill, BsFillSunFill } from 'react-icons/bs'
+import { useColorModeValue } from '@chakra-ui/react';
+import { BsFillMoonFill, BsFillSunFill } from 'react-icons/bs';
 
 const usePicasso = () => {
 	const theme = {
@@ -30,9 +30,9 @@ const usePicasso = () => {
 			gradient:
 				'linear-gradient(112.87deg, rgba(26, 29, 225, 0.1) 0%, rgba(16, 15, 18, 0.1) 32.29%, rgba(16, 15, 18, 0.1) 66.15%, rgba(2, 228, 209, 0.1) 100%);',
 		},
-	}
+	};
 
-	return theme
-}
+	return theme;
+};
 
-export { usePicasso }
+export { usePicasso };

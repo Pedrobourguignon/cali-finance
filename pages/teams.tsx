@@ -1,7 +1,5 @@
-import TeamsContainer from 'containers/Teams'
+import { TeamsContainer } from 'containers';
 
-const Teams = () => {
-	return <TeamsContainer />
-}
+const Teams = () => <TeamsContainer />;
 
-export default Teams
+export default Teams;
