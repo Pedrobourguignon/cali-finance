@@ -1,12 +1,12 @@
 import { Flex } from '@chakra-ui/react';
-import { TeamTable, TeamOverall } from 'components';
+import { TeamOverall, TeamTable } from 'components';
 
 import { AppLayout } from 'layouts';
 
 export const TeamsContainer = () => (
 	<Flex>
 		<AppLayout>
-			<Flex>
+			<Flex gap="32">
 				<TeamTable />
 				<TeamOverall />
 			</Flex>
