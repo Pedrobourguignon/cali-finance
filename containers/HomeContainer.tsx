@@ -1,25 +1,36 @@
 import { Flex } from '@chakra-ui/react';
-import { CoinsCardsDinamic, CoinsCardsStatic, NewCoinCard } from 'components';
+import {
+	CoinsCardsDinamic,
+	CoinsCardsStatic,
+	MyAssetsTable,
+	NewCoinCard,
+} from 'components';
+
 import { AppLayout } from 'layouts';
 import { MarginLeftContainer } from './MarginLeftContainer';
 
 export const HomeContainer: React.FC = () => (
 	<AppLayout>
 		<MarginLeftContainer>
-			<Flex>
-				<Flex>
-					<CoinsCardsStatic />
-				</Flex>
-				<Flex>
+			<Flex direction="column">
+				<Flex mt="36">
 					<Flex>
-						<CoinsCardsDinamic />
+						<CoinsCardsStatic />
 					</Flex>
 					<Flex>
-						<CoinsCardsDinamic />
+						<Flex>
+							<CoinsCardsDinamic />
+						</Flex>
+						<Flex>
+							<CoinsCardsDinamic />
+						</Flex>
+					</Flex>
+					<Flex>
+						<NewCoinCard />
 					</Flex>
 				</Flex>
 				<Flex>
-					<NewCoinCard />
+					<MyAssetsTable />
 				</Flex>
 			</Flex>
 		</MarginLeftContainer>

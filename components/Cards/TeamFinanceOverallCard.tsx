@@ -7,7 +7,7 @@ import {
 import { usePicasso } from 'hooks/usePicasso';
 import { BsThreeDotsVertical } from 'react-icons/bs';
 
-export const TeamFinanceOverall = () => {
+export const TeamFinanceOverallCard = () => {
 	const theme = usePicasso();
 	return (
 		<Flex
@@ -45,4 +45,4 @@ export const TeamFinanceOverall = () => {
 	);
 };
 
-export default TeamFinanceOverall;
+export default TeamFinanceOverallCard;
