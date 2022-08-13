@@ -1,5 +1,5 @@
-import { Button, Flex } from '@chakra-ui/react';
 import { usePicasso } from 'hooks';
+import { Button, Flex } from '@chakra-ui/react';
 
 export const PrimaryButton = () => {
 	const theme = usePicasso();
@@ -30,3 +30,5 @@ export const PrimaryButton = () => {
 		</Flex>
 	);
 };
+
+export default PrimaryButton;

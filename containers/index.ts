@@ -1,1 +1,3 @@
-export * from './Landing';
+export * from './home';
+export * from './landing';
+export * from './TeamsContainer';

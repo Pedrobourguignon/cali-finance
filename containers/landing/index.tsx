@@ -1,14 +1,14 @@
 import { Flex, Icon, Text } from '@chakra-ui/react';
 import { PrimaryButton } from 'components';
 import { usePicasso } from 'hooks';
-import { LandingBackground } from 'layouts';
 import { FaDiscord, FaTwitter } from 'react-icons/fa';
+import { LandingLayout } from 'layouts';
 import NextLink from 'next/link';
 
 export const LandingContainer: React.FC = () => {
 	const theme = usePicasso();
 	return (
-		<LandingBackground>
+		<LandingLayout>
 			<Flex minH="100vh" justify="center" align="center" direction="column">
 				<Flex
 					w={{ base: '2xs', lg: '3xl' }}
@@ -52,6 +52,6 @@ export const LandingContainer: React.FC = () => {
 					</NextLink>
 				</Flex>
 			</Flex>
-		</LandingBackground>
+		</LandingLayout>
 	);
 };
