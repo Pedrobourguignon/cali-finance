@@ -7,13 +7,12 @@ import {
 import { usePicasso } from 'hooks/usePicasso';
 import { BsThreeDotsVertical } from 'react-icons/bs';
 
-export const TeamFinanceOverallCard = () => {
+export const TeamOverall = () => {
 	const theme = usePicasso();
 	return (
 		<Flex
 			h={theme.boxSize.teamTableH}
 			w={theme.boxSize.teamFinanceOverallW}
-			ml="32"
 			bg={theme.bg.primary}
 			borderRadius="12"
 			flexDirection="column"
@@ -45,4 +44,4 @@ export const TeamFinanceOverallCard = () => {
 	);
 };
 
-export default TeamFinanceOverallCard;
+export default TeamOverall;

@@ -1,7 +1,7 @@
 import { Button, Divider, Flex, Img, Link, Text } from '@chakra-ui/react';
 import { usePicasso } from 'hooks';
 
-export const MyAssetsTable = () => {
+export const MyAssets = () => {
 	const theme = usePicasso();
 	return (
 		<Flex
@@ -47,4 +47,4 @@ export const MyAssetsTable = () => {
 	);
 };
 
-export default MyAssetsTable;
+export default MyAssets;

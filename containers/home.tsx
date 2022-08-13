@@ -1,10 +1,5 @@
 import { Flex } from '@chakra-ui/react';
-import {
-	CoinsCardsDinamic,
-	CoinsCardsStatic,
-	MyAssetsTable,
-	NewCoinCard,
-} from 'components';
+import { CoinsCardsDinamic, CoinsCardsStatic, NewCoinCard } from 'components';
 
 import { AppLayout } from 'layouts';
 
