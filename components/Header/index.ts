@@ -1,2 +1,2 @@
 export * from './AppHeader';
-export * from './LandingPageHeader';
+export * from './LandingHeader';

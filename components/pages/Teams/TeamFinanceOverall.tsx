@@ -6,7 +6,7 @@ import { FiFilter } from 'react-icons/fi';
 import { IoChevronDownOutline } from 'react-icons/io5';
 import { BsThreeDotsVertical } from 'react-icons/bs';
 
-const TeamFinanceOverall = () => {
+export const TeamFinanceOverall = () => {
 	const theme = usePicasso();
 	return (
 		<Flex
