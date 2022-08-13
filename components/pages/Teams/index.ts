@@ -1,2 +1,2 @@
-export * from './TeamFinanceOverall';
+export * from './MyAssetsTable';
 export * from './TeamTable';

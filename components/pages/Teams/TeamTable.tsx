@@ -26,16 +26,22 @@ export const TeamTable = () => {
 
 	return (
 		<Flex
-			h="60vh"
-			mt="16"
-			bg={theme.bg.container}
+			h={theme.boxSize.teamTableH}
+			w={theme.boxSize.teamTableW}
+			bg={theme.bg.primary}
 			borderRadius="12"
 			flexDirection="column"
 		>
 			<Flex m="3.5">
 				<Flex mr="28">
 					<Menu>
-						<Button as={Button} rightIcon={<IoChevronDownOutline />} h="9">
+						<Button
+							as={Button}
+							rightIcon={<IoChevronDownOutline />}
+							h="9"
+							bg={theme.bg.bgCard}
+							color={theme.text.gray}
+						>
 							All groups
 						</Button>
 						<MenuList bg="none">
@@ -44,8 +50,16 @@ export const TeamTable = () => {
 					</Menu>
 				</Flex>
 				<Flex mr="7">
-					{/* <Icon as={AiOutlineSearch} /> */}
-					<Input type="text" placeholder="Search someone..." w="48" h="9" />
+					<Input
+						type="text"
+						placeholder="Search someone..."
+						w="48"
+						h="9"
+						bg={theme.bg.bgCard}
+						color={theme.text.gray}
+						border="none"
+					/>
+					<Icon as={AiOutlineSearch} />
 				</Flex>
 				<Flex mr="7">
 					<Button w="12" bg="none" color="white">
@@ -60,6 +74,8 @@ export const TeamTable = () => {
 							rightIcon={<IoChevronDownOutline />}
 							w="24"
 							h="9"
+							bg={theme.bg.bgCard}
+							color={theme.text.gray}
 						>
 							Rows
 						</Button>
@@ -69,69 +85,67 @@ export const TeamTable = () => {
 					</Menu>
 				</Flex>
 			</Flex>
-			<Flex>
-				<TableContainer>
-					<Table variant="simple" color="white">
-						<Thead>
-							<Tr>
-								<Th color="white">Name</Th>
-								<Th color="white">Adress</Th>
-								<Th color="white">Group</Th>
-								<Th color="white">Amount</Th>
-								<Th color="white">Withdrawable</Th>
-								<Th color="white">Coin</Th>
-							</Tr>
-						</Thead>
-						<Tbody>
-							<Tr>
-								<Td>Bradley Cooper</Td>
-								<Td>
-									{truncateEthAddress(
-										'0x969Cf86eeb3f9354D89f357c8dFe43DE8e645148'
-									)}
-								</Td>
-								<Td bg="red.600">Marketing</Td>
-								<Td>15,000/month</Td>
-								<Td>1,923.12</Td>
-								<Td>USDT</Td>
-							</Tr>
-							<Tr>
-								<Td>Bradley Cooper</Td>
-								<Td>
-									{truncateEthAddress(
-										'0x969Cf86eeb3f9354D89f357c8dFe43DE8e645148'
-									)}
-								</Td>
-								<Td bg="blue.600">Marketing</Td>
-								<Td>15,000/month</Td>
-								<Td>1,923.12</Td>
-								<Td>USDT</Td>
-							</Tr>
-							<Tr>
-								<Td>Bradley Cooper</Td>
-								<Td>
-									{truncateEthAddress(
-										'0x969Cf86eeb3f9354D89f357c8dFe43DE8e645148'
-									)}
-								</Td>
-								<Td bg="green.600">Marketing</Td>
-								<Td>15,000/month</Td>
-								<Td>1,923.12</Td>
-								<Td>USDT</Td>
-							</Tr>
-						</Tbody>
-						<Tfoot>
-							<Tr>
-								<Th>
-									<Button border="none" bg="none">
-										See moore
-									</Button>
-								</Th>
-							</Tr>
-						</Tfoot>
-					</Table>
-				</TableContainer>
-			</Flex>
+			<TableContainer>
+				<Table variant="simple" color="white">
+					<Thead>
+						<Tr>
+							<Th color="white">Name</Th>
+							<Th color="white">Adress</Th>
+							<Th color="white">Group</Th>
+							<Th color="white">Amount</Th>
+							<Th color="white">Withdrawable</Th>
+							<Th color="white">Coin</Th>
+						</Tr>
+					</Thead>
+					<Tbody>
+						<Tr>
+							<Td>Bradley Cooper</Td>
+							<Td>
+								{truncateEthAddress(
+									'0x969Cf86eeb3f9354D89f357c8dFe43DE8e645148'
+								)}
+							</Td>
+							<Td bg="red.600">Marketing</Td>
+							<Td>15,000/month</Td>
+							<Td>1,923.12</Td>
+							<Td>USDT</Td>
+						</Tr>
+						<Tr>
+							<Td>Bradley Cooper</Td>
+							<Td>
+								{truncateEthAddress(
+									'0x969Cf86eeb3f9354D89f357c8dFe43DE8e645148'
+								)}
+							</Td>
+							<Td bg="blue.600">Marketing</Td>
+							<Td>15,000/month</Td>
+							<Td>1,923.12</Td>
+							<Td>USDT</Td>
+						</Tr>
+						<Tr>
+							<Td>Bradley Cooper</Td>
+							<Td>
+								{truncateEthAddress(
+									'0x969Cf86eeb3f9354D89f357c8dFe43DE8e645148'
+								)}
+							</Td>
+							<Td bg="green.600">Marketing</Td>
+							<Td>15,000/month</Td>
+							<Td>1,923.12</Td>
+							<Td>USDT</Td>
+						</Tr>
+					</Tbody>
+					<Tfoot>
+						<Tr>
+							<Th>
+								<Button border="none" bg="none">
+									See more
+								</Button>
+							</Th>
+						</Tr>
+					</Tfoot>
+				</Table>
+			</TableContainer>
 		</Flex>
 	);
 };

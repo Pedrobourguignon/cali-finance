@@ -18,24 +18,20 @@ export const Sidebar: React.FC = () => {
 			alignItems="center"
 		>
 			<Flex w="full" flexDirection="column">
-				<Flex ml="6" mt="8" mb="10" alignItems="center">
+				<Flex ml="6" mt="8" alignItems="center" position="absolute">
 					<NextLink href="/">
 						<Img src="/images/cali-logo.svg" w="16" h="10" />
 					</NextLink>
 				</Flex>
-				<Flex
-					className="menu"
-					flexDirection="column"
-					align="center"
-					ml="6"
-					mt="3"
-				>
-					{menuOptions.map((menuItem, index) => (
-						<Flex mt="8" key={index}>
-							<Icon as={menuItem} boxSize="5" color="gray.400" />
-						</Flex>
-					))}
-					<Flex mt="8">
+				<Flex className="menu" flexDirection="column" align="center" ml="6">
+					<Flex flexDirection="column" mt="36">
+						{menuOptions.map((menuItem, index) => (
+							<Flex mb="8" key={+index}>
+								<Icon as={menuItem} boxSize="5" color="gray.400" />
+							</Flex>
+						))}
+					</Flex>
+					<Flex>
 						<Divider orientation="horizontal" w="8" bg="gray.400" />
 					</Flex>
 					<Flex mt="8">

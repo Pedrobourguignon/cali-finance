@@ -1,5 +1,5 @@
 import { Flex } from '@chakra-ui/react';
-import { TeamTable } from 'components';
+import { TeamFinanceOverallCard, TeamTable } from 'components';
 import { AppLayout } from 'layouts';
 
 export const TeamsContainer = () => (
