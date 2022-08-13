@@ -1,4 +1,3 @@
-export * from './HomeContainer';
-export * from './LandingContainer';
-export * from './MarginLeftContainer';
+export * from './home';
+export * from './landing';
 export * from './TeamsContainer';

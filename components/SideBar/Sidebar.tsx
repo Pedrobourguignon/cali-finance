@@ -5,7 +5,6 @@ import { AiOutlineAppstore } from 'react-icons/ai';
 import { IoLogOutOutline } from 'react-icons/io5';
 import { BsArrowLeftRight } from 'react-icons/bs';
 import { FaDiscord, FaTwitter } from 'react-icons/fa';
-import { MarginTopContainer } from 'containers/MarginTopContainer';
 
 export const Sidebar: React.FC = () => {
 	const menuOptions = [AiOutlineAppstore, RiTeamLine, BsArrowLeftRight];
@@ -25,15 +24,13 @@ export const Sidebar: React.FC = () => {
 					</NextLink>
 				</Flex>
 				<Flex className="menu" flexDirection="column" align="center" ml="6">
-					<MarginTopContainer>
-						<Flex flexDirection="column">
-							{menuOptions.map((menuItem, index) => (
-								<Flex mb="8" key={+index}>
-									<Icon as={menuItem} boxSize="5" color="gray.400" />
-								</Flex>
-							))}
-						</Flex>
-					</MarginTopContainer>
+					<Flex flexDirection="column" mt="36">
+						{menuOptions.map((menuItem, index) => (
+							<Flex mb="8" key={+index}>
+								<Icon as={menuItem} boxSize="5" color="gray.400" />
+							</Flex>
+						))}
+					</Flex>
 					<Flex>
 						<Divider orientation="horizontal" w="8" bg="gray.400" />
 					</Flex>

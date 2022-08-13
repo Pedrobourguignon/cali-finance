@@ -1,22 +1,15 @@
 import { Flex } from '@chakra-ui/react';
-import { TeamTable, TeamFinanceOverall } from 'components';
+import { TeamTable, TeamOverall } from 'components';
+
 import { AppLayout } from 'layouts';
-import { MarginLeftContainer } from './MarginLeftContainer';
-import { MarginTopContainer } from './MarginTopContainer';
 
 export const TeamsContainer = () => (
 	<Flex>
 		<AppLayout>
-			<MarginTopContainer>
-				<MarginLeftContainer>
-					<Flex>
-						<TeamTable />
-					</Flex>
-					<Flex>
-						<TeamFinanceOverall />
-					</Flex>
-				</MarginLeftContainer>
-			</MarginTopContainer>
+			<Flex>
+				<TeamTable />
+				<TeamOverall />
+			</Flex>
 		</AppLayout>
 	</Flex>
 );
