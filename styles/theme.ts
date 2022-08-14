@@ -32,6 +32,7 @@ export const theme = extendTheme({
 	},
 	zIndices: {
 		default: 1,
+		ultrahide: '-100',
 		behind: '-1000',
 	},
 	colors: {},

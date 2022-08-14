@@ -33,10 +33,16 @@ export const LandingBody = () => {
 					</Text>
 				</Flex>
 				<Flex gap="8" flexDir="column" alignItems="center">
-					<Text fontSize="2xl" textAlign="center" px="4" color="gray.400">
-						No need for wait your payday anymore.
+					<Flex
+						fontSize="xl"
+						textAlign="center"
+						py="4"
+						color="gray.400"
+						flexDir="column"
+					>
+						<Text>No need for wait your payday anymore.</Text>
 						<Text>Meet the future of payroll immerse on blockchain.</Text>
-					</Text>
+					</Flex>
 					<Link href="/app">
 						<PrimaryButton>
 							<Text fontSize={{ base: '2xl', lg: '3xl' }}>Open app</Text>
