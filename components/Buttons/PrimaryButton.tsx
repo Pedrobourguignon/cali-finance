@@ -1,33 +1,38 @@
 import { usePicasso } from 'hooks';
-import { Button, Flex } from '@chakra-ui/react';
+import { Button, ButtonProps, Flex } from '@chakra-ui/react';
+import React from 'react';
 
-export const PrimaryButton = () => {
+interface IPrimaryButton extends ButtonProps {
+	children: React.ReactNode;
+}
+
+export const PrimaryButton: React.FC<IPrimaryButton> = ({
+	children,
+	...props
+}) => {
 	const theme = usePicasso();
 	return (
-		<Flex boxShadow={theme.shadow.red} mt="16">
-			<Flex
-				mt="1"
-				ml="1"
-				w="2xs"
-				h="16"
-				borderColor={theme.branding.red}
-				borderBottomWidth="0.25rem"
-				borderBottomStyle="solid"
-				borderRightWidth="0.25rem"
-				borderRightStyle="solid"
-				position="absolute"
-			/>
-			<Button
-				borderRadius="none"
-				w="2xs"
-				h="16"
-				variant="outline"
-				borderColor={theme.branding.red}
-				fontSize="3xl"
-			>
-				Open app
-			</Button>
-		</Flex>
+		<Button
+			borderRadius="none"
+			w="2xs"
+			h="16"
+			variant="outline"
+			borderColor={theme.branding.red}
+			fontSize="3xl"
+			boxShadow={theme.shadow.red}
+			_hover={{
+				opacity: 0.6,
+			}}
+			_active={{
+				opacity: 0.4,
+			}}
+			_focus={{
+				opacity: 0.4,
+			}}
+			{...props}
+		>
+			{children}
+		</Button>
 	);
 };
 

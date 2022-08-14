@@ -7,7 +7,13 @@ import { IBackground } from 'types';
 export const LandingLayout: React.FC<IBackground> = ({ children }) => {
 	const theme = usePicasso();
 	return (
-		<Flex direction="column" w="full" background={theme.bg.gradient}>
+		<Flex
+			minH="100vh"
+			direction="column"
+			w="full"
+			justifyContent={['space-between', 'center']}
+			background={theme.bg.gradient}
+		>
 			<LandingHeader />
 			{children}
 		</Flex>

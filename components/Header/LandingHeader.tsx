@@ -1,32 +1,39 @@
 import {
 	Button,
 	Flex,
-	Icon,
 	Img,
 	Menu,
 	MenuButton,
 	MenuItem,
 	MenuList,
 } from '@chakra-ui/react';
-import NextLink from 'next/link';
-import { FaDiscord, FaTwitter } from 'react-icons/fa';
+import Link from 'next/link';
 import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai';
+import { usePath, usePicasso } from 'hooks';
+import { SocialMediaButton } from 'components';
+
+interface IMenuOptions {
+	link: string;
+	title: string;
+}
+
+const menuOptions: IMenuOptions[] = [
+	{ title: 'Home', link: '/' },
+	{ title: 'Roadmap', link: '/roadmap' },
+	{ title: 'Docs', link: '/docs' },
+	{ title: 'Contact', link: '/contact' },
+];
 
 export const LandingHeader = () => {
-	const menuOptions = ['Home', 'Roadmap', 'Docs', 'Contact'];
+	const { isSamePath } = usePath();
+	const theme = usePicasso();
+
 	return (
-		<Flex
-			justify="space-between"
-			px="12"
-			w="100%"
-			minH="20"
-			align="center"
-			position="absolute"
-		>
+		<Flex justify="space-between" px="12" w="100%" minH="20" align="center">
 			<Flex>
-				<NextLink href="/">
+				<Link href="/">
 					<Img src="/images/cali-logo-with-text.svg" w="32" h="8" />
-				</NextLink>
+				</Link>
 			</Flex>
 			<Flex
 				w="sm"
@@ -34,37 +41,29 @@ export const LandingHeader = () => {
 				display={{ base: 'none', lg: 'flex' }}
 			>
 				{menuOptions.map((item, index) => (
-					<NextLink key={item + Number(index)} href="/">
-						{item}
-					</NextLink>
+					<Link key={item.title + Number(index)} href={item.link}>
+						<Button
+							bg="transparent"
+							borderColor={
+								isSamePath(item.link) ? theme.branding.red : 'transparent'
+							}
+							borderBottomWidth="0.2rem"
+							borderStyle="solid"
+							borderRadius="0"
+							_hover={{
+								borderBottom: '0.2rem',
+								borderStyle: 'solid',
+								borderColor: theme.branding.red,
+							}}
+						>
+							{item.title}
+						</Button>
+					</Link>
 				))}
 			</Flex>
-			<Flex display={{ base: 'none', lg: 'flex' }}>
-				<Flex
-					w="10"
-					h="10"
-					bg="whiteAlpha.50"
-					borderRadius="full"
-					justify="center"
-					align="center"
-				>
-					<NextLink href="/">
-						<Icon as={FaDiscord} boxSize="6" />
-					</NextLink>
-				</Flex>
-				<Flex
-					ml="5"
-					w="10"
-					h="10"
-					bg="whiteAlpha.50"
-					borderRadius="full"
-					justify="center"
-					align="center"
-				>
-					<NextLink href="/">
-						<Icon as={FaTwitter} boxSize="6" />
-					</NextLink>
-				</Flex>
+			<Flex display={{ base: 'none', lg: 'flex' }} gap="5">
+				<SocialMediaButton media="discord" />
+				<SocialMediaButton media="twitter" />
 			</Flex>
 			<Flex display={{ base: 'flex', lg: 'none' }}>
 				<Menu autoSelect={false} closeOnBlur>
@@ -75,9 +74,11 @@ export const LandingHeader = () => {
 							</MenuButton>
 							<MenuList>
 								{menuOptions.map((item, index) => (
-									<MenuItem key={item + Number(index)}>
-										<NextLink href="/">{item}</NextLink>
-									</MenuItem>
+									<Link href={item.link} key={+index}>
+										<MenuItem key={item.title + Number(index)}>
+											{item.title}
+										</MenuItem>
+									</Link>
 								))}
 							</MenuList>
 						</>
