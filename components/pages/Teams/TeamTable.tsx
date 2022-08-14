@@ -1,25 +1,17 @@
 import {
 	Button,
 	Flex,
-	Icon,
-	Input,
-	Menu,
-	MenuItem,
-	MenuList,
 	Table,
 	TableContainer,
 	Tbody,
 	Td,
-	Tfoot,
 	Th,
 	Thead,
 	Tr,
 } from '@chakra-ui/react';
 import truncateEthAddress from 'truncate-eth-address';
 import { usePicasso } from 'hooks/usePicasso';
-import { AiOutlineSearch } from 'react-icons/ai';
-import { FiFilter } from 'react-icons/fi';
-import { IoChevronDownOutline } from 'react-icons/io5';
+import { TeamFilters } from './Filters';
 
 export const TeamTable = () => {
 	const theme = usePicasso();
@@ -32,59 +24,7 @@ export const TeamTable = () => {
 			borderRadius="12"
 			flexDirection="column"
 		>
-			<Flex m="3.5">
-				<Flex mr="28">
-					<Menu>
-						<Button
-							as={Button}
-							rightIcon={<IoChevronDownOutline />}
-							h="9"
-							bg={theme.bg.bgCard}
-							color={theme.text.gray}
-						>
-							All groups
-						</Button>
-						<MenuList bg="none">
-							<MenuItem>Download</MenuItem>
-						</MenuList>
-					</Menu>
-				</Flex>
-				<Flex mr="7">
-					<Input
-						type="text"
-						placeholder="Search someone..."
-						w="48"
-						h="9"
-						bg={theme.bg.bgCard}
-						color={theme.text.gray}
-						border="none"
-					/>
-					<Icon as={AiOutlineSearch} />
-				</Flex>
-				<Flex mr="7">
-					<Button w="12" bg="none" color="white">
-						<Icon as={FiFilter} mr="1" />
-						Filter
-					</Button>
-				</Flex>
-				<Flex>
-					<Menu>
-						<Button
-							as={Button}
-							rightIcon={<IoChevronDownOutline />}
-							w="24"
-							h="9"
-							bg={theme.bg.bgCard}
-							color={theme.text.gray}
-						>
-							Rows
-						</Button>
-						<MenuList bg="none">
-							<MenuItem>Teste</MenuItem>
-						</MenuList>
-					</Menu>
-				</Flex>
-			</Flex>
+			<TeamFilters />
 			<TableContainer>
 				<Table variant="simple" color="white">
 					<Thead>
