@@ -34,11 +34,7 @@ export const theme = extendTheme({
 		default: 1,
 		behind: '-1000',
 	},
-	colors: {
-		gray: {
-			'700': '#2c2f36',
-		},
-	},
+	colors: {},
 	fonts: {
 		heading: 'Roboto',
 		body: 'Roboto',

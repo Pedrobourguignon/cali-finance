@@ -1,13 +1,41 @@
-import { Flex, Icon, Img, Divider } from '@chakra-ui/react';
+import { Flex, Icon, Img, Divider, Button } from '@chakra-ui/react';
 import NextLink from 'next/link';
 import { RiTeamLine } from 'react-icons/ri';
 import { AiOutlineAppstore } from 'react-icons/ai';
 import { IoLogOutOutline } from 'react-icons/io5';
 import { BsArrowLeftRight } from 'react-icons/bs';
 import { FaDiscord, FaTwitter } from 'react-icons/fa';
+import { IconType } from 'react-icons';
+import { useRouter } from 'next/router';
+import { usePicasso } from 'hooks';
+import { socialMediaLinks } from 'utils';
+
+interface IMenuItem {
+	icon: IconType;
+	route: string;
+}
+
+const menuOptions: IMenuItem[] = [
+	{
+		icon: AiOutlineAppstore,
+		route: '/app',
+	},
+	{
+		icon: RiTeamLine,
+		route: '/app/teams',
+	},
+	{
+		icon: BsArrowLeftRight,
+		route: '/app/swap',
+	},
+];
 
 export const Sidebar: React.FC = () => {
-	const menuOptions = [AiOutlineAppstore, RiTeamLine, BsArrowLeftRight];
+	const theme = usePicasso();
+	const router = useRouter();
+	const { pathname } = router;
+
+	const compareRoute = (path: string) => pathname === path;
 
 	return (
 		<Flex
@@ -20,49 +48,69 @@ export const Sidebar: React.FC = () => {
 			<Flex w="full" flexDirection="column">
 				<Flex ml="6" mt="8" alignItems="center" position="absolute">
 					<NextLink href="/">
-						<Img src="/images/cali-logo.svg" w="16" h="10" />
+						<Img src="/images/cali-logo.svg" w="16" h="10" cursor="pointer" />
 					</NextLink>
 				</Flex>
 				<Flex className="menu" flexDirection="column" align="center" ml="6">
-					<Flex flexDirection="column" mt="36">
-						{menuOptions.map((menuItem, index) => (
-							<Flex mb="8" key={+index}>
-								<Icon as={menuItem} boxSize="5" color="gray.400" />
-							</Flex>
-						))}
+					<Flex flexDirection="column" mt="36" gap="8">
+						{menuOptions.map((item, index) => {
+							const isSamePath = compareRoute(item.route);
+							return (
+								<NextLink href={item.route} key={+index}>
+									<Button
+										bgColor={isSamePath ? 'gray.700' : 'transparent'}
+										w="max-content"
+										p="2"
+										_hover={{
+											bgColor: 'gray.600',
+											color: 'white',
+											boxShadow: isSamePath ? theme.shadow.gray : '',
+										}}
+										color={isSamePath ? 'white' : 'gray.400'}
+										boxShadow={isSamePath ? theme.shadow.gray : ''}
+									>
+										<Icon as={item.icon} boxSize="5" />
+									</Button>
+								</NextLink>
+							);
+						})}
 					</Flex>
-					<Flex>
+					<Flex my="8">
 						<Divider orientation="horizontal" w="8" bg="gray.400" />
 					</Flex>
-					<Flex mt="8">
+					<Flex>
 						<Icon as={IoLogOutOutline} boxSize="5" color="gray.400" />
 					</Flex>
 				</Flex>
 			</Flex>
 
 			<Flex flexDirection="column" alignItems="center" ml="6">
-				<Flex
-					w="10"
-					h="10"
-					bg="whiteAlpha.50"
-					borderRadius="full"
-					justify="center"
-					align="center"
-					mb="6"
-				>
-					<Icon as={FaDiscord} boxSize="5" color="gray.400" />
-				</Flex>
-				<Flex
-					w="10"
-					h="10"
-					bg="whiteAlpha.50"
-					borderRadius="full"
-					justify="center"
-					align="center"
-					mb="6"
-				>
-					<Icon as={FaTwitter} boxSize="5" color="gray.400" />
-				</Flex>
+				<NextLink href={socialMediaLinks.discord}>
+					<Button
+						w="10"
+						h="10"
+						bg="whiteAlpha.50"
+						borderRadius="full"
+						justifyContent="center"
+						alignItems="center"
+						mb="6"
+					>
+						<Icon as={FaDiscord} boxSize="5" color="gray.400" />
+					</Button>
+				</NextLink>
+				<NextLink href={socialMediaLinks.twitter}>
+					<Button
+						w="10"
+						h="10"
+						bg="whiteAlpha.50"
+						borderRadius="full"
+						justifyContent="center"
+						alignItems="center"
+						mb="6"
+					>
+						<Icon as={FaTwitter} boxSize="5" color="gray.400" />
+					</Button>
+				</NextLink>
 			</Flex>
 		</Flex>
 	);
