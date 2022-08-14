@@ -11,8 +11,8 @@ export const TeamOverall = () => {
 	const theme = usePicasso();
 	return (
 		<Flex
-			h={theme.boxSize.teamTableH}
-			w={theme.boxSize.teamFinanceOverallW}
+			minH="486px"
+			minW="520px"
 			bg={theme.bg.primary}
 			borderRadius="12"
 			flexDirection="column"

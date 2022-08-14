@@ -26,8 +26,8 @@ export const TeamTable = () => {
 
 	return (
 		<Flex
-			h={theme.boxSize.teamTableH}
-			w={theme.boxSize.teamTableW}
+			minH="489px"
+			minW="684px"
 			bg={theme.bg.primary}
 			borderRadius="12"
 			flexDirection="column"
@@ -135,16 +135,17 @@ export const TeamTable = () => {
 							<Td>USDT</Td>
 						</Tr>
 					</Tbody>
-					<Tfoot>
-						<Tr>
-							<Th>
-								<Button border="none" bg="none">
-									See more
-								</Button>
-							</Th>
-						</Tr>
-					</Tfoot>
 				</Table>
+				<Button
+					border="none"
+					bg="none"
+					w="full"
+					py="6"
+					h="max-content"
+					fontWeight="normal"
+				>
+					See more
+				</Button>
 			</TableContainer>
 		</Flex>
 	);

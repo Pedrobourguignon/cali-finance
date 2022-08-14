@@ -18,7 +18,7 @@ export const ProfileProvider: React.FC<{ children: React.ReactNode }> = ({
 	const [isLoading, setIsLoading] = useState(true);
 
 	useEffect(() => {
-		const randomNumber = Math.floor(Math.random() * 3);
+		const randomNumber = Math.floor(Math.random() * 4);
 		const randomName = [
 			'Bradley Cooper',
 			'Jack Chan',
