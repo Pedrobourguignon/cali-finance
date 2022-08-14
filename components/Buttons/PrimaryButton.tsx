@@ -1,5 +1,5 @@
 import { usePicasso } from 'hooks';
-import { Button, ButtonProps, Flex } from '@chakra-ui/react';
+import { Button, ButtonProps } from '@chakra-ui/react';
 import React from 'react';
 
 interface IPrimaryButton extends ButtonProps {

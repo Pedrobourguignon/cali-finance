@@ -6,7 +6,6 @@ import { IoLogOutOutline } from 'react-icons/io5';
 import { BsArrowLeftRight } from 'react-icons/bs';
 import { FaDiscord, FaTwitter } from 'react-icons/fa';
 import { IconType } from 'react-icons';
-import { useRouter } from 'next/router';
 import { usePath, usePicasso } from 'hooks';
 import { socialMediaLinks } from 'utils';
 

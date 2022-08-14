@@ -1,6 +1,5 @@
 import React from 'react';
 import Link from 'next/link';
-import { usePicasso } from 'hooks';
 import { Button, ButtonProps, Icon } from '@chakra-ui/react';
 import { FaDiscord, FaTwitter } from 'react-icons/fa';
 import { IconType } from 'react-icons';

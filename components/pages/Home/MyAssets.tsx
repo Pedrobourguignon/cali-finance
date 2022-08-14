@@ -1,4 +1,4 @@
-import { Button, Divider, Flex, Img, Link, Text } from '@chakra-ui/react';
+import { Button, Divider, Flex, Img, Text } from '@chakra-ui/react';
 import { usePicasso } from 'hooks';
 
 export const MyAssets = () => {
