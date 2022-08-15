@@ -4,6 +4,7 @@ import { BiDollarCircle } from 'react-icons/bi';
 
 export const TeamBalanceCard = () => {
 	const theme = usePicasso();
+	const teamBalance = '$123,123.98';
 	return (
 		<Flex
 			w="36"
@@ -19,7 +20,7 @@ export const TeamBalanceCard = () => {
 				<Icon as={BiDollarCircle} mr="2" />
 				<Flex direction="column">
 					<Text fontSize="xs">Balance</Text>
-					<Text fontSize="md">$123,123.98</Text>
+					<Text fontSize="md">{teamBalance}</Text>
 				</Flex>
 			</Flex>
 		</Flex>

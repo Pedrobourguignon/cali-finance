@@ -5,6 +5,7 @@ import {
 	TableContainer,
 	Tbody,
 	Td,
+	Text,
 	Th,
 	Thead,
 	Tr,
@@ -12,6 +13,54 @@ import {
 import truncateEthAddress from 'truncate-eth-address';
 import { usePicasso } from 'hooks/usePicasso';
 import { TeamFilters } from './Filters';
+
+interface IEmployeeData {
+	name: string;
+	address: string;
+	group: {
+		groupName: string;
+		color: string;
+	};
+	amount: number;
+	withdrawable: number;
+	coin: string;
+}
+
+const employeeData: IEmployeeData[] = [
+	{
+		name: 'Bradley Cooper',
+		address: '0x969Cf86eeb3f9354D89f357c8dFe43DE8e645148',
+		group: {
+			groupName: 'Marketing',
+			color: 'red.600',
+		},
+		amount: 15000,
+		withdrawable: 192312,
+		coin: 'USDT',
+	},
+	{
+		name: 'Denzel Washington',
+		address: '0x969Cf86eeb3f9354D89f357c8dFe43DE8e645148',
+		group: {
+			groupName: 'Dev',
+			color: 'green.600',
+		},
+		amount: 15000,
+		withdrawable: 192312,
+		coin: 'USDT',
+	},
+	{
+		name: 'Jackie Chan',
+		address: '0x969Cf86eeb3f9354D89f357c8dFe43DE8e645148',
+		group: {
+			groupName: 'Business',
+			color: 'blue.600',
+		},
+		amount: 15000,
+		withdrawable: 192312,
+		coin: 'USDT',
+	},
+];
 
 export const TeamTable = () => {
 	const theme = usePicasso();
@@ -38,42 +87,16 @@ export const TeamTable = () => {
 						</Tr>
 					</Thead>
 					<Tbody>
-						<Tr>
-							<Td>Bradley Cooper</Td>
-							<Td>
-								{truncateEthAddress(
-									'0x969Cf86eeb3f9354D89f357c8dFe43DE8e645148'
-								)}
-							</Td>
-							<Td bg="red.600">Marketing</Td>
-							<Td>15,000/month</Td>
-							<Td>1,923.12</Td>
-							<Td>USDT</Td>
-						</Tr>
-						<Tr>
-							<Td>Bradley Cooper</Td>
-							<Td>
-								{truncateEthAddress(
-									'0x969Cf86eeb3f9354D89f357c8dFe43DE8e645148'
-								)}
-							</Td>
-							<Td bg="blue.600">Marketing</Td>
-							<Td>15,000/month</Td>
-							<Td>1,923.12</Td>
-							<Td>USDT</Td>
-						</Tr>
-						<Tr>
-							<Td>Bradley Cooper</Td>
-							<Td>
-								{truncateEthAddress(
-									'0x969Cf86eeb3f9354D89f357c8dFe43DE8e645148'
-								)}
-							</Td>
-							<Td bg="green.600">Marketing</Td>
-							<Td>15,000/month</Td>
-							<Td>1,923.12</Td>
-							<Td>USDT</Td>
-						</Tr>
+						{employeeData.map((employee, index) => (
+							<Tr key={+index}>
+								<Td>{employee.name}</Td>
+								<Td>{truncateEthAddress(employee.address)}</Td>
+								<Td bg={employee.group.color}>{employee.group.groupName}</Td>
+								<Td>{employee.amount}</Td>
+								<Td>{employee.withdrawable}</Td>
+								<Td>{employee.coin}</Td>
+							</Tr>
+						))}
 					</Tbody>
 				</Table>
 				<Button

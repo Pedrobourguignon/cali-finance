@@ -15,8 +15,8 @@ import { SearchFilter } from './SearchFilter';
 export const TeamFilters = () => {
 	const theme = usePicasso();
 	return (
-		<Flex m="3.5">
-			<Flex mr="28">
+		<Flex gap="24" m="3.5">
+			<Flex>
 				<Menu>
 					<Button
 						rightIcon={<IoChevronDownOutline />}
@@ -31,10 +31,10 @@ export const TeamFilters = () => {
 					</MenuList>
 				</Menu>
 			</Flex>
-			<Flex mr="7">
+			<Flex>
 				<SearchFilter />
 			</Flex>
-			<Flex mr="7">
+			<Flex>
 				<Button w="12" bg="none" color="white">
 					<Icon as={FiFilter} mr="1" />
 					Filter
