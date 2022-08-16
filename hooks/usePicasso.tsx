@@ -20,13 +20,13 @@ const usePicasso = () => {
 		},
 		shadow: {
 			gray: '2px 2px 4px rgba(255, 255, 255, 0.1);',
-			blue: '0px 0px 9px #1A94E1;',
+			blue: '0px 0px 4px #1A94E1;',
 			red: '0px 0px 10px rgba(232, 49, 81, 0.5)',
 		},
 		bg: {
-			primary: useColorModeValue('blackAlpha.50', '#282729'),
-			secondary: useColorModeValue('gray.300', '#100F12'),
-			bgCard: useColorModeValue('#2c2f36', '#333333'),
+			primary: useColorModeValue('gray.400', '#282729'),
+			secondary: useColorModeValue('gray.200', '#100F12'),
+			bgCard: useColorModeValue('gray.100', '#333333'),
 			gray: '#6C657A',
 			landing: useColorModeValue('#100F12', '#100F12'),
 			gradient:

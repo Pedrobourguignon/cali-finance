@@ -1,9 +1,5 @@
 import { Flex, Text } from '@chakra-ui/react';
-import {
-	ColorModeButton,
-	NotificationButton,
-	ProfileButton,
-} from 'components/Buttons';
+import { NotificationButton, ProfilePopover } from 'components';
 import { useProfile } from 'hooks';
 
 export const AppHeader: React.FC = () => {
@@ -33,11 +29,9 @@ export const AppHeader: React.FC = () => {
 				<Flex>
 					<NotificationButton />
 				</Flex>
-				<Flex>
-					<ColorModeButton />
-				</Flex>
+
 				<Flex ml="32">
-					<ProfileButton />
+					<ProfilePopover />
 				</Flex>
 			</Flex>
 		</Flex>
