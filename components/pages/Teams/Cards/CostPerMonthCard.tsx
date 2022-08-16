@@ -1,9 +1,10 @@
 import { Flex, Icon, Text } from '@chakra-ui/react';
 import { usePicasso } from 'hooks/usePicasso';
-import { IoTimeOutline } from 'react-icons/io5';
+import { TiDocumentText } from 'react-icons/ti';
 
-export const TimeLeftCard = () => {
+export const CostPerMonthCard = () => {
 	const theme = usePicasso();
+	const costPerMonth = '$600,000.00';
 	return (
 		<Flex
 			w="36"
@@ -16,13 +17,13 @@ export const TimeLeftCard = () => {
 			ml="6"
 		>
 			<Flex direction="row" alignItems="center">
-				<Icon as={IoTimeOutline} mr="2" />
+				<Icon as={TiDocumentText} mr="2" />
 				<Flex direction="column">
-					<Text fontSize="xs">Time left</Text>
-					<Text fontSize="md">10d 9h 8m</Text>
+					<Text fontSize="xs">Cost (30d)</Text>
+					<Text fontSize="md">{costPerMonth}</Text>
 				</Flex>
 			</Flex>
 		</Flex>
 	);
 };
-export default TimeLeftCard;
+export default CostPerMonthCard;
