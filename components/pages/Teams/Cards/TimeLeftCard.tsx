@@ -2,7 +2,7 @@ import { Flex, Icon, Text } from '@chakra-ui/react';
 import { usePicasso } from 'hooks/usePicasso';
 import { IoTimeOutline } from 'react-icons/io5';
 
-export const TimeLeftCard = () => {
+export const TimeLeftCard: React.FC = () => {
 	const theme = usePicasso();
 	const timeLeft = '10d 9h 8m';
 	return (

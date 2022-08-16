@@ -2,7 +2,7 @@ import { Flex, Icon, Text } from '@chakra-ui/react';
 import { usePicasso } from 'hooks/usePicasso';
 import { BiDollarCircle } from 'react-icons/bi';
 
-export const TeamBalanceCard = () => {
+export const TeamBalanceCard: React.FC = () => {
 	const theme = usePicasso();
 	const teamBalance = '$123,123.98';
 	return (

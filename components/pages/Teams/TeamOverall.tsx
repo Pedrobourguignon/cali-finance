@@ -3,7 +3,7 @@ import { CostPerMonthCard, TeamBalanceCard, TimeLeftCard } from 'components';
 import { usePicasso } from 'hooks/usePicasso';
 import { BsThreeDotsVertical } from 'react-icons/bs';
 
-export const TeamOverall = () => {
+export const TeamOverall: React.FC = () => {
 	const theme = usePicasso();
 	return (
 		<Flex

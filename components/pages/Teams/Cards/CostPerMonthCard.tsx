@@ -2,7 +2,7 @@ import { Flex, Icon, Text } from '@chakra-ui/react';
 import { usePicasso } from 'hooks/usePicasso';
 import { TiDocumentText } from 'react-icons/ti';
 
-export const CostPerMonthCard = () => {
+export const CostPerMonthCard: React.FC = () => {
 	const theme = usePicasso();
 	const costPerMonth = '$600,000.00';
 	return (

@@ -61,7 +61,7 @@ const employeeData: IEmployeeData[] = [
 	},
 ];
 
-export const TeamTable = () => {
+export const TeamTable: React.FC = () => {
 	const theme = usePicasso();
 
 	return (
