@@ -17,7 +17,7 @@ interface IEmployeeData {
 	name: string;
 	address: string;
 	group: {
-		groupName: string;
+		name: string;
 		color: string;
 	};
 	amount: number;
@@ -30,7 +30,7 @@ const employeeData: IEmployeeData[] = [
 		name: 'Bradley Cooper',
 		address: '0x969Cf86eeb3f9354D89f357c8dFe43DE8e645148',
 		group: {
-			groupName: 'Marketing',
+			name: 'Marketing',
 			color: 'red.600',
 		},
 		amount: 15000,
@@ -41,7 +41,7 @@ const employeeData: IEmployeeData[] = [
 		name: 'Denzel Washington',
 		address: '0x969Cf86eeb3f9354D89f357c8dFe43DE8e645148',
 		group: {
-			groupName: 'Dev',
+			name: 'Dev',
 			color: 'green.600',
 		},
 		amount: 15000,
@@ -52,7 +52,7 @@ const employeeData: IEmployeeData[] = [
 		name: 'Jackie Chan',
 		address: '0x969Cf86eeb3f9354D89f357c8dFe43DE8e645148',
 		group: {
-			groupName: 'Business',
+			name: 'Business',
 			color: 'blue.600',
 		},
 		amount: 15000,
@@ -90,7 +90,7 @@ export const TeamTable: React.FC = () => {
 							<Tr key={+index}>
 								<Td>{employee.name}</Td>
 								<Td>{truncateEthAddress(employee.address)}</Td>
-								<Td bg={employee.group.color}>{employee.group.groupName}</Td>
+								<Td bg={employee.group.color}>{employee.group.name}</Td>
 								<Td>{employee.amount}</Td>
 								<Td>{employee.withdrawable}</Td>
 								<Td>{employee.coin}</Td>
