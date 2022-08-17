@@ -15,7 +15,11 @@ import { SearchFilter } from './SearchFilter';
 export const TeamFilters = () => {
 	const theme = usePicasso();
 	return (
-		<Flex gap="24" m="3.5">
+		<Flex
+			// gap={{ base: '10', xl: '16' }}
+			m="3.5"
+			direction={{ base: 'column', xl: 'row' }}
+		>
 			<Flex>
 				<Menu>
 					<Button

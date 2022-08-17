@@ -8,12 +8,7 @@ export const AppLayout: React.FC<IBackground> = ({ children }) => {
 	const theme = usePicasso();
 	return (
 		<ProfileProvider>
-			<Flex
-				direction="column"
-				w="full"
-				background={theme.bg.secondary}
-				minHeight="100vh"
-			>
+			<Flex direction="column" background={theme.bg.secondary} h="100vh">
 				<Flex as="header">
 					<AppHeader />
 				</Flex>

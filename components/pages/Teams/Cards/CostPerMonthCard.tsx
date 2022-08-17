@@ -14,7 +14,7 @@ export const CostPerMonthCard: React.FC = () => {
 			rounded="lg"
 			pl="4"
 			justify="center"
-			ml="6"
+			// ml="6"
 		>
 			<Flex direction="row" alignItems="center">
 				<Icon as={TiDocumentText} mr="2" />

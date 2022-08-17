@@ -7,8 +7,8 @@ export const TeamOverall: React.FC = () => {
 	const theme = usePicasso();
 	return (
 		<Flex
-			minH="486px"
-			minW="520px"
+			h={{ base: '380px', sm: '350px', md: '400px', xl: '486px' }}
+			w={{ base: '380px', sm: '350px', md: '400px', xl: '520px' }}
 			bg={theme.bg.primary}
 			borderRadius="12"
 			flexDirection="column"
@@ -35,10 +35,13 @@ export const TeamOverall: React.FC = () => {
 				mt="6"
 				flexDirection={{
 					base: 'column',
-					sm: 'row',
-					md: 'row',
+					sm: 'column',
+					md: 'column',
 					xl: 'row',
 				}}
+				gap="6"
+				justify="center"
+				align="center"
 			>
 				<TeamBalanceCard />
 				<TimeLeftCard />

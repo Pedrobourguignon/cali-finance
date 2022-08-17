@@ -1,6 +1,7 @@
 import { Flex, Text } from '@chakra-ui/react';
 import { NotificationButton, ProfilePopover } from 'components';
 import { useProfile } from 'hooks';
+import { SandwichMenu } from './SandwichMenu';
 
 export const AppHeader: React.FC = () => {
 	const { name } = useProfile();
@@ -9,18 +10,22 @@ export const AppHeader: React.FC = () => {
 			minW="100vw"
 			minH="20"
 			flexDirection="row"
-			justifyContent="space-between"
+			justifyContent={{ base: 'center', xl: 'space-between' }}
 			alignItems="center"
 			color="white"
 			mt="4"
+			gap={{ base: '6' }}
 		>
 			<Flex flexDirection="row" alignItems="center">
 				<Flex
 					direction={{ base: 'row', md: 'column', xl: 'column' }}
-					ml="40"
-					mr="96"
+					ml={{ base: '0', md: '40', xl: '40' }}
 				>
-					<Text fontSize="2xl" whiteSpace="nowrap">
+					<Text
+						fontSize={{ base: '3xl', xl: '2xl' }}
+						whiteSpace="nowrap"
+						display={{ base: 'none', sm: 'none', md: 'flex', lg: 'flex' }}
+					>
 						Good Night, {name}
 					</Text>
 					<Text
@@ -32,12 +37,14 @@ export const AppHeader: React.FC = () => {
 					</Text>
 				</Flex>
 			</Flex>
-			<Flex pr="12">
+			<Flex display={{ base: 'flex', sm: 'flex', md: 'none', xl: 'none' }}>
+				<SandwichMenu />
+			</Flex>
+			<Flex direction="row" gap="10">
 				<Flex>
 					<NotificationButton />
 				</Flex>
-
-				<Flex ml="32">
+				<Flex mr="12">
 					<ProfilePopover />
 				</Flex>
 			</Flex>
