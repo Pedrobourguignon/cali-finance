@@ -66,8 +66,8 @@ export const TeamTable: React.FC = () => {
 
 	return (
 		<Flex
-			minH="489px"
-			minW="684px"
+			minH={{ base: '100px', lg: '489px' }}
+			minW={{ base: '100px', lg: '684px' }}
 			bg={theme.bg.primary}
 			borderRadius="12"
 			flexDirection="column"

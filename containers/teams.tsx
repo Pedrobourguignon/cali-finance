@@ -6,7 +6,15 @@ import { AppLayout } from 'layouts';
 export const TeamsContainer = () => (
 	<Flex>
 		<AppLayout>
-			<Flex gap="32">
+			<Flex
+				gap="32"
+				flexDirection={{
+					base: 'column',
+					sm: 'column',
+					md: 'column',
+					xl: 'row',
+				}}
+			>
 				<TeamTable />
 				<TeamOverall />
 			</Flex>

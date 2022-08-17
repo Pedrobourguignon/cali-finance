@@ -50,7 +50,11 @@ export const ProfilePopover: React.FC = () => {
 								objectFit="cover"
 							/>
 						</SkeletonCircle>
-						<Skeleton isLoaded={!isLoading} w="12">
+						<Skeleton
+							isLoaded={!isLoading}
+							w="12"
+							display={{ base: 'none', sm: 'none', md: 'flex', xl: 'flex' }}
+						>
 							{name}
 						</Skeleton>
 					</Flex>

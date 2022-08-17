@@ -35,7 +35,7 @@ export const Sidebar: React.FC = () => {
 
 	return (
 		<Flex
-			minH="100vh"
+			minH={{ base: '100vh' }}
 			w="20"
 			flexDirection="column"
 			justifyContent="space-between"

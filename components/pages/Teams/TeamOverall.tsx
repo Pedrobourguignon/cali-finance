@@ -31,7 +31,15 @@ export const TeamOverall: React.FC = () => {
 					</Button>
 				</Flex>
 			</Flex>
-			<Flex mt="6">
+			<Flex
+				mt="6"
+				flexDirection={{
+					base: 'column',
+					sm: 'row',
+					md: 'row',
+					xl: 'row',
+				}}
+			>
 				<TeamBalanceCard />
 				<TimeLeftCard />
 				<CostPerMonthCard />

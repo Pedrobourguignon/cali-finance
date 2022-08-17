@@ -15,14 +15,21 @@ export const AppHeader: React.FC = () => {
 			mt="4"
 		>
 			<Flex flexDirection="row" alignItems="center">
-				<Flex flexDirection="column" ml="40" mr="96">
-					<Flex direction="column">
-						<Text fontSize="2xl">Good Night, {name}</Text>
-
-						<Text fontSize="md">
-							Seems like market has been bullish. Your assets increased 10%
-						</Text>
-					</Flex>
+				<Flex
+					direction={{ base: 'row', md: 'column', xl: 'column' }}
+					ml="40"
+					mr="96"
+				>
+					<Text fontSize="2xl" whiteSpace="nowrap">
+						Good Night, {name}
+					</Text>
+					<Text
+						fontSize="md"
+						display={{ base: 'none', sm: 'none', md: 'none', xl: 'flex' }}
+						whiteSpace="nowrap"
+					>
+						Seems like market has been bullish. Your assets increased 10%
+					</Text>
 				</Flex>
 			</Flex>
 			<Flex pr="12">
