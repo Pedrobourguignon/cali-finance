@@ -10,11 +10,13 @@ import {
 	Tr,
 } from '@chakra-ui/react';
 import truncateEthAddress from 'truncate-eth-address';
+import useTranslation from 'next-translate/useTranslation';
 import { usePicasso } from 'hooks/usePicasso';
 import { TeamFilters } from './Filters';
 
 export const TeamTable = () => {
 	const theme = usePicasso();
+	const { t: trans } = useTranslation('common');
 
 	return (
 		<Flex
@@ -29,7 +31,7 @@ export const TeamTable = () => {
 				<Table variant="simple" color="white">
 					<Thead>
 						<Tr>
-							<Th color="white">Name</Th>
+							<Th color="white">{trans('title')}</Th>
 							<Th color="white">Adress</Th>
 							<Th color="white">Group</Th>
 							<Th color="white">Amount</Th>
