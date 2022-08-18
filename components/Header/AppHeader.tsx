@@ -8,13 +8,13 @@ export const AppHeader: React.FC = () => {
 	return (
 		<Flex
 			minW="100vw"
-			minH="20"
+			minH={{ base: '20' }}
 			flexDirection="row"
 			justifyContent={{ base: 'center', xl: 'space-between' }}
 			alignItems="center"
 			color="white"
 			mt="4"
-			gap={{ base: '6' }}
+			// ml="4"
 		>
 			<Flex flexDirection="row" alignItems="center">
 				<Flex
@@ -44,7 +44,7 @@ export const AppHeader: React.FC = () => {
 				<Flex>
 					<NotificationButton />
 				</Flex>
-				<Flex mr="12">
+				<Flex>
 					<ProfilePopover />
 				</Flex>
 			</Flex>

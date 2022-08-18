@@ -8,14 +8,32 @@ export const AppLayout: React.FC<IBackground> = ({ children }) => {
 	const theme = usePicasso();
 	return (
 		<ProfileProvider>
-			<Flex direction="column" background={theme.bg.secondary} h="100vh">
-				<Flex as="header">
+			<Flex
+				direction="column"
+				background={theme.bg.secondary}
+				minH="100vh"
+				position="relative"
+			>
+				<Flex
+					zIndex="hide"
+					position="absolute"
+					background={theme.bg.gradient}
+					w="full"
+					h="full"
+					opacity="0.6"
+				/>
+				<Flex as="header" w="full" h="full" direction="column" zIndex="base">
 					<AppHeader />
 				</Flex>
 				<Flex position="fixed">
 					<Sidebar />
 				</Flex>
-				<Flex ml="40">{children}</Flex>
+				<Flex
+					ml={{ base: '0', lg: '40' }}
+					justify={{ base: 'center', lg: 'flex-start' }}
+				>
+					{children}
+				</Flex>
 			</Flex>
 		</ProfileProvider>
 	);
