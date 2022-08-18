@@ -5,10 +5,13 @@ import {
 	TimeLeftCard,
 } from 'components/Cards';
 import { usePicasso } from 'hooks/usePicasso';
+import useTranslation from 'next-translate/useTranslation';
 import { BsThreeDotsVertical } from 'react-icons/bs';
 
 export const TeamOverall = () => {
 	const theme = usePicasso();
+	const { t: trans } = useTranslation('common');
+
 	return (
 		<Flex
 			minH="486px"
@@ -26,7 +29,7 @@ export const TeamOverall = () => {
 			>
 				<Flex>
 					<Text fontSize="xl" whiteSpace="nowrap">
-						Celebrities Team
+						{trans('teamName')}
 					</Text>
 				</Flex>
 				<Flex>

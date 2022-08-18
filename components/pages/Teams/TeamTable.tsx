@@ -32,11 +32,11 @@ export const TeamTable = () => {
 					<Thead>
 						<Tr>
 							<Th color="white">{trans('title')}</Th>
-							<Th color="white">Adress</Th>
-							<Th color="white">Group</Th>
-							<Th color="white">Amount</Th>
-							<Th color="white">Withdrawable</Th>
-							<Th color="white">Coin</Th>
+							<Th color="white">{trans('address')}</Th>
+							<Th color="white">{trans('group')}</Th>
+							<Th color="white">{trans('amount')}</Th>
+							<Th color="white">{trans('withdrawable')}</Th>
+							<Th color="white">{trans('coin')}</Th>
 						</Tr>
 					</Thead>
 					<Tbody>
@@ -86,7 +86,7 @@ export const TeamTable = () => {
 					h="max-content"
 					fontWeight="normal"
 				>
-					See more
+					{trans('seeMore')}
 				</Button>
 			</TableContainer>
 		</Flex>
