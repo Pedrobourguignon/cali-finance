@@ -17,11 +17,12 @@ export const TeamsContainer = () => (
 			}}
 		>
 			{/* <TeamTable />
-				<TeamOverall /> */}
+			<TeamOverall /> */}
 			<Flex
+				w="48"
 				display={{ base: 'flex', sm: 'flex', md: 'none', lg: 'none' }}
 				direction="row"
-				gap="10"
+				justify="space-evenly"
 			>
 				<Link href="/">
 					<Icon as={FaDiscord} boxSize="10" />

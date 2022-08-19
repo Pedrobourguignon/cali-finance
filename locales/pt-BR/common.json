@@ -1,0 +1,27 @@
+{
+	"teamTable": {
+		"name": "Nome",
+		"address": "Endereço",
+		"group": "Grupo",
+		"amount": "Quantia",
+		"withdrawable": "Retirável",
+		"coin": "Moeda",
+		"seeMore": "Veja mais"
+	},
+	"teamOverall": {
+		"teamName": "Equipe das Celebridades",
+		"balance": "Saldo",
+		"timeLeftCard": "Tempo restante",
+		"costPerMonthCard": "Custo"
+	},
+	"teamTableFilter": {
+		"allGroups": "Todos grupos",
+		"search": "Procure alguém",
+		"filter": "Filtro",
+		"rows": "Linhas"
+	},
+	"appHeader": {
+		"salutation": "Boa noite, Jack",
+		"assetInfo": "Parece que o mercado está em alta. Seus ativos aumentaram 10%"
+	}
+}

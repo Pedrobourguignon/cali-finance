@@ -1,20 +1,27 @@
 import { Flex, Text } from '@chakra-ui/react';
 import { NotificationButton, ProfilePopover } from 'components';
 import { useProfile } from 'hooks';
+import useTranslation from 'next-translate/useTranslation';
 import { SandwichMenu } from './SandwichMenu';
 
 export const AppHeader: React.FC = () => {
 	const { name } = useProfile();
+	const { t: translate } = useTranslation('common');
+
 	return (
 		<Flex
 			minW="100vw"
 			minH={{ base: '20' }}
 			flexDirection="row"
-			justifyContent={{ base: 'center', xl: 'space-between' }}
+			justifyContent={{
+				base: 'center',
+				md: 'space-between',
+				xl: 'space-between',
+			}}
 			alignItems="center"
 			color="white"
 			mt="4"
-			// ml="4"
+			gap="6"
 		>
 			<Flex flexDirection="row" alignItems="center">
 				<Flex
@@ -33,7 +40,7 @@ export const AppHeader: React.FC = () => {
 						display={{ base: 'none', sm: 'none', md: 'none', xl: 'flex' }}
 						whiteSpace="nowrap"
 					>
-						Seems like market has been bullish. Your assets increased 10%
+						{translate('appHeader.assetInfo')}
 					</Text>
 				</Flex>
 			</Flex>
@@ -41,7 +48,7 @@ export const AppHeader: React.FC = () => {
 				<SandwichMenu />
 			</Flex>
 			<Flex direction="row" gap="10">
-				<Flex>
+				<Flex display={{ base: 'none', sm: 'none', md: 'flex', xl: 'flex' }}>
 					<NotificationButton />
 				</Flex>
 				<Flex>

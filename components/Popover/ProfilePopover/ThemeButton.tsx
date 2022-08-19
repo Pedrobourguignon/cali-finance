@@ -11,7 +11,6 @@ export const ThemeButton = () => {
 			onClick={toggleColorMode}
 			fontWeight="400"
 		>
-			Theme
 			<Icon
 				as={theme.icon.theme}
 				p="2"
@@ -20,6 +19,7 @@ export const ThemeButton = () => {
 				bgColor={theme.bg.primary}
 				borderRadius="full"
 			/>
+			Theme
 		</Button>
 	);
 };
