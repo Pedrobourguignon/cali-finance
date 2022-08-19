@@ -27,7 +27,7 @@ export const TeamFilters = () => {
 						bg={theme.bg.bgCard}
 						color={theme.text.gray}
 					>
-						{trans('allGroups')}
+						{trans('teamTableFilter.allGroups')}
 					</Button>
 					<MenuList bg="none">
 						<MenuItem>Download</MenuItem>
@@ -40,7 +40,7 @@ export const TeamFilters = () => {
 			<Flex mr="7">
 				<Button w="12" bg="none" color="white">
 					<Icon as={FiFilter} mr="1" />
-					{trans('filter')}
+					{trans('teamTableFilter.filter')}
 				</Button>
 			</Flex>
 			<Flex>
@@ -53,7 +53,7 @@ export const TeamFilters = () => {
 						bg={theme.bg.bgCard}
 						color={theme.text.gray}
 					>
-						{trans('rows')}
+						{trans('teamTableFilter.rows')}
 					</Button>
 					<MenuList bg="none">
 						<MenuItem>Teste</MenuItem>

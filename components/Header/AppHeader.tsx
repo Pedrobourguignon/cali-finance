@@ -20,9 +20,9 @@ export const AppHeader: React.FC = () => {
 			<Flex flexDirection="row" alignItems="center">
 				<Flex flexDirection="column" ml="40" mr="96">
 					<Flex direction="column">
-						<Text fontSize="2xl">{trans('salutation')}</Text>
+						<Text fontSize="2xl">{trans('appHeader.salutation')}</Text>
 
-						<Text fontSize="md">{trans('assetInfo')}</Text>
+						<Text fontSize="md">{trans('appHeader.assetInfo')}</Text>
 					</Flex>
 				</Flex>
 			</Flex>

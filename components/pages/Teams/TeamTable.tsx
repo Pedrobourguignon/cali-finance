@@ -31,12 +31,12 @@ export const TeamTable = () => {
 				<Table variant="simple" color="white">
 					<Thead>
 						<Tr>
-							<Th color="white">{trans('title')}</Th>
-							<Th color="white">{trans('address')}</Th>
-							<Th color="white">{trans('group')}</Th>
-							<Th color="white">{trans('amount')}</Th>
-							<Th color="white">{trans('withdrawable')}</Th>
-							<Th color="white">{trans('coin')}</Th>
+							<Th color="white">{trans('teamTable.name')}</Th>
+							<Th color="white">{trans('teamTable.address')}</Th>
+							<Th color="white">{trans('teamTable.group')}</Th>
+							<Th color="white">{trans('teamTable.amount')}</Th>
+							<Th color="white">{trans('teamTable.withdrawable')}</Th>
+							<Th color="white">{trans('teamTable.coin')}</Th>
 						</Tr>
 					</Thead>
 					<Tbody>
@@ -86,7 +86,7 @@ export const TeamTable = () => {
 					h="max-content"
 					fontWeight="normal"
 				>
-					{trans('seeMore')}
+					{trans('teamTable.seeMore')}
 				</Button>
 			</TableContainer>
 		</Flex>

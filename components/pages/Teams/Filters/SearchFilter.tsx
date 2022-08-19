@@ -11,7 +11,7 @@ export const SearchFilter: React.FC = () => {
 		<InputGroup w="48" h="9" color={theme.text.gray}>
 			<Input
 				type="text"
-				placeholder={trans('search')}
+				placeholder={trans('teamTableFilter.search')}
 				w="48"
 				h="9"
 				bg={theme.bg.bgCard}

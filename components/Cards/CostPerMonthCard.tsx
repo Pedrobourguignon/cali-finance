@@ -23,7 +23,7 @@ export const CostPerMonthCard = () => {
 				<Flex direction="column">
 					<Text fontSize="xs">
 						{' '}
-						{trans('costPerMonthCard')}
+						{trans('teamOverall.costPerMonthCard')}
 						(30d)
 					</Text>
 					<Text fontSize="md">$600,00.00</Text>

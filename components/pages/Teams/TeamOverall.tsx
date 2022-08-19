@@ -29,7 +29,7 @@ export const TeamOverall = () => {
 			>
 				<Flex>
 					<Text fontSize="xl" whiteSpace="nowrap">
-						{trans('teamName')}
+						{trans('teamOverall.teamName')}
 					</Text>
 				</Flex>
 				<Flex>

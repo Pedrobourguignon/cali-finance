@@ -21,7 +21,7 @@ export const TeamBalanceCard = () => {
 			<Flex direction="row" alignItems="center">
 				<Icon as={BiDollarCircle} mr="2" />
 				<Flex direction="column">
-					<Text fontSize="xs">{trans('balance')}</Text>
+					<Text fontSize="xs">{trans('teamOverall.balance')}</Text>
 					<Text fontSize="md">$123,123.98</Text>
 				</Flex>
 			</Flex>

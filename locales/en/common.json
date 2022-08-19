@@ -1,19 +1,27 @@
 {
-	"name": "Name",
-	"address": "Address",
-	"group": "Group",
-	"amount": "Amount",
-	"withdrawable": "Withdrawable",
-	"coin": "Coin",
-	"seeMore": "See more",
-	"teamName": "Celebrities Team",
-	"balance": "Balance",
-	"timeLeftCard": "Time Left",
-	"costPerMonthCard": "Cost",
-	"allGroups": "All groups",
-	"search": "Search Someone",
-	"filter": "Filter",
-	"rows": "Rows",
-	"salutation": "Good Night, Jack",
-	"assetInfo": "Seems like market has been bullish. Your assets increased 10%"
+	"teamTable": {
+		"name": "Name",
+		"address": "Address",
+		"group": "Group",
+		"amount": "Amount",
+		"withdrawable": "Withdrawable",
+		"coin": "Coin",
+		"seeMore": "See more"
+	},
+	"teamOverall": {
+		"teamName": "Celebrities Team",
+		"balance": "Balance",
+		"timeLeftCard": "Time Left",
+		"costPerMonthCard": "Cost"
+	},
+	"teamTableFilter": {
+		"allGroups": "All groups",
+		"search": "Search Someone",
+		"filter": "Filter",
+		"rows": "Rows"
+	},
+	"appHeader": {
+		"salutation": "Boa noite, Jack",
+		"assetInfo": "Parece que o mercado está em alta. Seus ativos aumentaram 10%"
+	}
 }

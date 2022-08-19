@@ -21,7 +21,7 @@ export const TimeLeftCard = () => {
 			<Flex direction="row" alignItems="center">
 				<Icon as={IoTimeOutline} mr="2" />
 				<Flex direction="column">
-					<Text fontSize="xs">{trans('timeLeftCard')}</Text>
+					<Text fontSize="xs">{trans('teamOverall.timeLeftCard')}</Text>
 					<Text fontSize="md">10d 9h 8m</Text>
 				</Flex>
 			</Flex>
