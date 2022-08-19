@@ -5,7 +5,7 @@ import { IoTimeOutline } from 'react-icons/io5';
 
 export const TimeLeftCard = () => {
 	const theme = usePicasso();
-	const { t: trans } = useTranslation('common');
+	const { t: translate } = useTranslation('common');
 
 	return (
 		<Flex
@@ -21,7 +21,7 @@ export const TimeLeftCard = () => {
 			<Flex direction="row" alignItems="center">
 				<Icon as={IoTimeOutline} mr="2" />
 				<Flex direction="column">
-					<Text fontSize="xs">{trans('teamOverall.timeLeftCard')}</Text>
+					<Text fontSize="xs">{translate('teamOverall.timeLeftCard')}</Text>
 					<Text fontSize="md">10d 9h 8m</Text>
 				</Flex>
 			</Flex>

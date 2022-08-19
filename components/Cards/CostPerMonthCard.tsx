@@ -5,7 +5,7 @@ import { TiDocumentText } from 'react-icons/ti';
 
 export const CostPerMonthCard = () => {
 	const theme = usePicasso();
-	const { t: trans } = useTranslation('common');
+	const { t: translate } = useTranslation('common');
 
 	return (
 		<Flex
@@ -22,7 +22,7 @@ export const CostPerMonthCard = () => {
 				<Icon as={TiDocumentText} mr="2" />
 				<Flex direction="column">
 					<Text fontSize="xs">
-						{trans('teamOverall.costPerMonthCard')}
+						{translate('teamOverall.costPerMonthCard')}
 						(30d)
 					</Text>
 					<Text fontSize="md">$600,00.00</Text>

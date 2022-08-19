@@ -5,13 +5,13 @@ import useTranslation from 'next-translate/useTranslation';
 
 export const SearchFilter: React.FC = () => {
 	const theme = usePicasso();
-	const { t: trans } = useTranslation('common');
+	const { t: translate } = useTranslation('common');
 
 	return (
 		<InputGroup w="48" h="9" color={theme.text.gray}>
 			<Input
 				type="text"
-				placeholder={trans('teamTableFilter.search')}
+				placeholder={translate('teamTableFilter.search')}
 				w="48"
 				h="9"
 				bg={theme.bg.bgCard}

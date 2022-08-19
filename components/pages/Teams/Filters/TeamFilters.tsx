@@ -15,7 +15,7 @@ import { SearchFilter } from './SearchFilter';
 
 export const TeamFilters = () => {
 	const theme = usePicasso();
-	const { t: trans } = useTranslation('common');
+	const { t: translate } = useTranslation('common');
 
 	return (
 		<Flex m="3.5">
@@ -27,7 +27,7 @@ export const TeamFilters = () => {
 						bg={theme.bg.bgCard}
 						color={theme.text.gray}
 					>
-						{trans('teamTableFilter.allGroups')}
+						{translate('teamTableFilter.allGroups')}
 					</Button>
 					<MenuList bg="none">
 						<MenuItem>Download</MenuItem>
@@ -40,7 +40,7 @@ export const TeamFilters = () => {
 			<Flex mr="7">
 				<Button w="12" bg="none" color="white">
 					<Icon as={FiFilter} mr="1" />
-					{trans('teamTableFilter.filter')}
+					{translate('teamTableFilter.filter')}
 				</Button>
 			</Flex>
 			<Flex>
@@ -53,7 +53,7 @@ export const TeamFilters = () => {
 						bg={theme.bg.bgCard}
 						color={theme.text.gray}
 					>
-						{trans('teamTableFilter.rows')}
+						{translate('teamTableFilter.rows')}
 					</Button>
 					<MenuList bg="none">
 						<MenuItem>Teste</MenuItem>

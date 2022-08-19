@@ -5,7 +5,7 @@ import useTranslation from 'next-translate/useTranslation';
 
 export const TeamBalanceCard = () => {
 	const theme = usePicasso();
-	const { t: trans } = useTranslation('common');
+	const { t: translate } = useTranslation('common');
 
 	return (
 		<Flex
@@ -21,7 +21,7 @@ export const TeamBalanceCard = () => {
 			<Flex direction="row" alignItems="center">
 				<Icon as={BiDollarCircle} mr="2" />
 				<Flex direction="column">
-					<Text fontSize="xs">{trans('teamOverall.balance')}</Text>
+					<Text fontSize="xs">{translate('teamOverall.balance')}</Text>
 					<Text fontSize="md">$123,123.98</Text>
 				</Flex>
 			</Flex>

@@ -16,7 +16,7 @@ import { TeamFilters } from './Filters';
 
 export const TeamTable = () => {
 	const theme = usePicasso();
-	const { t: trans } = useTranslation('common');
+	const { t: translate } = useTranslation('common');
 
 	return (
 		<Flex
@@ -31,12 +31,12 @@ export const TeamTable = () => {
 				<Table variant="simple" color="white">
 					<Thead>
 						<Tr>
-							<Th color="white">{trans('teamTable.name')}</Th>
-							<Th color="white">{trans('teamTable.address')}</Th>
-							<Th color="white">{trans('teamTable.group')}</Th>
-							<Th color="white">{trans('teamTable.amount')}</Th>
-							<Th color="white">{trans('teamTable.withdrawable')}</Th>
-							<Th color="white">{trans('teamTable.coin')}</Th>
+							<Th color="white">{translate('teamTable.name')}</Th>
+							<Th color="white">{translate('teamTable.address')}</Th>
+							<Th color="white">{translate('teamTable.group')}</Th>
+							<Th color="white">{translate('teamTable.amount')}</Th>
+							<Th color="white">{translate('teamTable.withdrawable')}</Th>
+							<Th color="white">{translate('teamTable.coin')}</Th>
 						</Tr>
 					</Thead>
 					<Tbody>
@@ -86,7 +86,7 @@ export const TeamTable = () => {
 					h="max-content"
 					fontWeight="normal"
 				>
-					{trans('teamTable.seeMore')}
+					{translate('teamTable.seeMore')}
 				</Button>
 			</TableContainer>
 		</Flex>

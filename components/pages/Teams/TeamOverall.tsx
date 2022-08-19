@@ -10,7 +10,7 @@ import { BsThreeDotsVertical } from 'react-icons/bs';
 
 export const TeamOverall = () => {
 	const theme = usePicasso();
-	const { t: trans } = useTranslation('common');
+	const { t: translate } = useTranslation('common');
 
 	return (
 		<Flex
@@ -29,7 +29,7 @@ export const TeamOverall = () => {
 			>
 				<Flex>
 					<Text fontSize="xl" whiteSpace="nowrap">
-						{trans('teamOverall.teamName')}
+						{translate('teamOverall.teamName')}
 					</Text>
 				</Flex>
 				<Flex>
