@@ -22,7 +22,6 @@ export const CostPerMonthCard = () => {
 				<Icon as={TiDocumentText} mr="2" />
 				<Flex direction="column">
 					<Text fontSize="xs">
-						{' '}
 						{trans('teamOverall.costPerMonthCard')}
 						(30d)
 					</Text>
