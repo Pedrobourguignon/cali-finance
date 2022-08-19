@@ -1,9 +1,12 @@
 import { Flex, Icon, Text } from '@chakra-ui/react';
 import { usePicasso } from 'hooks/usePicasso';
+import useTranslation from 'next-translate/useTranslation';
 import { TiDocumentText } from 'react-icons/ti';
 
 export const CostPerMonthCard = () => {
 	const theme = usePicasso();
+	const { t: translate } = useTranslation('common');
+
 	return (
 		<Flex
 			w="36"
@@ -18,7 +21,10 @@ export const CostPerMonthCard = () => {
 			<Flex direction="row" alignItems="center">
 				<Icon as={TiDocumentText} mr="2" />
 				<Flex direction="column">
-					<Text fontSize="xs">Cost (30d)</Text>
+					<Text fontSize="xs">
+						{translate('teamOverall.costPerMonthCard')}
+						(30d)
+					</Text>
 					<Text fontSize="md">$600,00.00</Text>
 				</Flex>
 			</Flex>

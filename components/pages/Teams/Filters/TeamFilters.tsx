@@ -8,12 +8,15 @@ import {
 	MenuList,
 } from '@chakra-ui/react';
 import { usePicasso } from 'hooks';
+import useTranslation from 'next-translate/useTranslation';
 import { FiFilter } from 'react-icons/fi';
 import { IoChevronDownOutline } from 'react-icons/io5';
 import { SearchFilter } from './SearchFilter';
 
 export const TeamFilters = () => {
 	const theme = usePicasso();
+	const { t: translate } = useTranslation('common');
+
 	return (
 		<Flex m="3.5">
 			<Flex mr="28">
@@ -24,7 +27,7 @@ export const TeamFilters = () => {
 						bg={theme.bg.bgCard}
 						color={theme.text.gray}
 					>
-						All groups
+						{translate('teamTableFilter.allGroups')}
 					</Button>
 					<MenuList bg="none">
 						<MenuItem>Download</MenuItem>
@@ -37,7 +40,7 @@ export const TeamFilters = () => {
 			<Flex mr="7">
 				<Button w="12" bg="none" color="white">
 					<Icon as={FiFilter} mr="1" />
-					Filter
+					{translate('teamTableFilter.filter')}
 				</Button>
 			</Flex>
 			<Flex>
@@ -50,7 +53,7 @@ export const TeamFilters = () => {
 						bg={theme.bg.bgCard}
 						color={theme.text.gray}
 					>
-						Rows
+						{translate('teamTableFilter.rows')}
 					</Button>
 					<MenuList bg="none">
 						<MenuItem>Teste</MenuItem>
