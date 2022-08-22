@@ -10,8 +10,8 @@ export const TeamOverall: React.FC = () => {
 
 	return (
 		<Flex
-			h="max-content"
-			minW={{ base: '96', sm: '22rem', md: '25rem', xl: '30rem' }}
+			// h="max-content"
+			w={{ base: '96', sm: '22rem', md: '25rem', xl: '30rem' }}
 			bg={theme.bg.primary}
 			borderRadius="12"
 			flexDirection="column"
@@ -40,7 +40,7 @@ export const TeamOverall: React.FC = () => {
 				flexDirection={{
 					base: 'column',
 					sm: 'column',
-					md: 'column',
+					md: 'row',
 					xl: 'row',
 				}}
 				gap="6"

@@ -13,6 +13,7 @@ import truncateEthAddress from 'truncate-eth-address';
 import useTranslation from 'next-translate/useTranslation';
 import { usePicasso } from 'hooks/usePicasso';
 import { TeamFilters } from './Filters';
+import { FilterSandwichMenu } from './Filters/FilterSandwichMenu';
 
 interface IEmployeeData {
 	name: string;
@@ -69,12 +70,18 @@ export const TeamTable: React.FC = () => {
 	return (
 		<Flex
 			h="max-content"
-			w="max-content"
+			// w="max-content"
+			w={{ base: '96', sm: '22rem', md: '25rem', xl: '30rem' }}
 			bg={theme.bg.primary}
 			borderRadius="12"
 			flexDirection="column"
 		>
-			<TeamFilters />
+			<Flex display={{ base: 'none', sm: 'none', md: 'none', lg: 'flex' }}>
+				<TeamFilters />
+			</Flex>
+			<Flex display={{ base: 'flex', sm: 'flex', md: 'flex', lg: 'none' }}>
+				<FilterSandwichMenu />
+			</Flex>
 			<TableContainer>
 				<Table variant="simple" color="white">
 					<Thead>

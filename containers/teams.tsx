@@ -14,6 +14,7 @@ export const TeamsContainer = () => (
 				md: 'column',
 				xl: 'row',
 			}}
+			align={{ base: 'center' }}
 		>
 			<TeamTable />
 			<TeamOverall />
