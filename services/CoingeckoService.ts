@@ -17,10 +17,20 @@ class CoingeckoService {
 	}
 
 	static async tokenPriceVarianceById(tokenId: string): Promise<string> {
-		const url = `https://api.coingecko.com/api/v3/coins/${tokenId}/market_chart?vs_currency=usd&days=1&interval=daily`;
+		const url = `coins/${tokenId}/market_chart?vs_currency=usd&days=1&interval=daily`;
 		try {
 			const result = await this.api.get(url);
 			return result?.data?.prices;
+		} catch (error) {
+			return '';
+		}
+	}
+
+	static async allTokensData() {
+		const url = `coins/list?include_platform=false`;
+		try {
+			const result = await this.api.get(url);
+			return result.data;
 		} catch (error) {
 			return '';
 		}
