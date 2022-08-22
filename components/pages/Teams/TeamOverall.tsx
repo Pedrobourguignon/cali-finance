@@ -10,15 +10,15 @@ export const TeamOverall: React.FC = () => {
 
 	return (
 		<Flex
-			minH="486px"
-			minW="520px"
+			h="max-content"
+			minW={{ base: '96', sm: '22rem', md: '25rem', xl: '30rem' }}
 			bg={theme.bg.primary}
 			borderRadius="12"
 			flexDirection="column"
 		>
 			<Flex
-				mt="4"
-				mx="6"
+				py="4"
+				px="6"
 				flexDirection="row"
 				justifyContent="space-between"
 				alignItems="center"
@@ -34,7 +34,19 @@ export const TeamOverall: React.FC = () => {
 					</Button>
 				</Flex>
 			</Flex>
-			<Flex mt="6">
+			<Flex
+				py="6"
+				px="6"
+				flexDirection={{
+					base: 'column',
+					sm: 'column',
+					md: 'column',
+					xl: 'row',
+				}}
+				gap="6"
+				justify="center"
+				align="center"
+			>
 				<TeamBalanceCard />
 				<TimeLeftCard />
 				<CostPerMonthCard />

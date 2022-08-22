@@ -10,7 +10,7 @@ export const TeamFilters = () => {
 	const { t: translate } = useTranslation('common');
 
 	return (
-		<Flex m="3.5">
+		<Flex m="3.5" gap="4" justifyContent="space-between" direction="row">
 			<Flex>
 				<Menu>
 					<Button

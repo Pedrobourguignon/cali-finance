@@ -7,6 +7,7 @@ export const TeamBalanceCard: React.FC = () => {
 	const theme = usePicasso();
 	const { t: translate } = useTranslation('common');
 
+	const teamBalance = '$123,123.98';
 	return (
 		<Flex
 			w="36"
@@ -16,13 +17,12 @@ export const TeamBalanceCard: React.FC = () => {
 			rounded="lg"
 			pl="4"
 			justify="center"
-			ml="6"
 		>
 			<Flex direction="row" alignItems="center">
 				<Icon as={BiDollarCircle} mr="2" />
 				<Flex direction="column">
 					<Text fontSize="xs">{translate('teamOverall.balance')}</Text>
-					<Text fontSize="md">$123,123.98</Text>
+					<Text fontSize="md">{teamBalance}</Text>
 				</Flex>
 			</Flex>
 		</Flex>

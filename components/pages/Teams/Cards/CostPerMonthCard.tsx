@@ -7,6 +7,7 @@ export const CostPerMonthCard: React.FC = () => {
 	const theme = usePicasso();
 	const { t: translate } = useTranslation('common');
 
+	const costPerMonth = '$600,000.00';
 	return (
 		<Flex
 			w="36"
@@ -16,7 +17,6 @@ export const CostPerMonthCard: React.FC = () => {
 			rounded="lg"
 			pl="4"
 			justify="center"
-			ml="6"
 		>
 			<Flex direction="row" alignItems="center">
 				<Icon as={TiDocumentText} mr="2" />
@@ -25,7 +25,7 @@ export const CostPerMonthCard: React.FC = () => {
 						{translate('teamOverall.costPerMonthCard')}
 						(30d)
 					</Text>
-					<Text fontSize="md">$600,00.00</Text>
+					<Text fontSize="md">{costPerMonth}</Text>
 				</Flex>
 			</Flex>
 		</Flex>

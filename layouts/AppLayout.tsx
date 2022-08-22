@@ -10,17 +10,30 @@ export const AppLayout: React.FC<IBackground> = ({ children }) => {
 		<ProfileProvider>
 			<Flex
 				direction="column"
-				w="full"
 				background={theme.bg.secondary}
-				minHeight="100vh"
+				minH="100vh"
+				position="relative"
 			>
-				<Flex as="header">
+				<Flex
+					zIndex="hide"
+					position="absolute"
+					background={theme.bg.gradient}
+					w="full"
+					h="full"
+					opacity="0.6"
+				/>
+				<Flex as="header" w="full" h="full" direction="column" zIndex="base">
 					<AppHeader />
 				</Flex>
 				<Flex position="fixed">
 					<Sidebar />
 				</Flex>
-				<Flex ml="40">{children}</Flex>
+				<Flex
+					ml={{ base: '0', lg: '40' }}
+					justify={{ base: 'center', lg: 'flex-start' }}
+				>
+					{children}
+				</Flex>
 			</Flex>
 		</ProfileProvider>
 	);

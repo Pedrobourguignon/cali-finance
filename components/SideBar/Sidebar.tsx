@@ -40,6 +40,7 @@ export const Sidebar: React.FC = () => {
 			flexDirection="column"
 			justifyContent="space-between"
 			alignItems="center"
+			display={{ base: 'none', md: 'flex' }}
 		>
 			<Flex w="full" flexDirection="column">
 				<Flex ml="6" mt="8" alignItems="center" position="absolute">

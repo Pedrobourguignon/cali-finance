@@ -23,6 +23,7 @@ import { useProfile } from 'hooks';
 import { IoChevronDownOutline } from 'react-icons/io5';
 import { usePicasso } from '../../../hooks/usePicasso';
 import { LogoutButton } from './LogoutButton';
+import { NotificationButton } from './NotificationButton';
 import { ThemeButton } from './ThemeButton';
 
 export const ProfilePopover: React.FC = () => {
@@ -50,7 +51,11 @@ export const ProfilePopover: React.FC = () => {
 								objectFit="cover"
 							/>
 						</SkeletonCircle>
-						<Skeleton isLoaded={!isLoading} w="12">
+						<Skeleton
+							isLoaded={!isLoading}
+							w="12"
+							display={{ base: 'none', sm: 'none', md: 'flex' }}
+						>
 							{name}
 						</Skeleton>
 					</Flex>
@@ -65,6 +70,8 @@ export const ProfilePopover: React.FC = () => {
 					<ThemeButton />
 					<Divider />
 					<LogoutButton />
+					<Divider />
+					<NotificationButton />
 				</PopoverBody>
 			</PopoverContent>
 		</Popover>

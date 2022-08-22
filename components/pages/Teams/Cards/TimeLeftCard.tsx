@@ -7,6 +7,7 @@ export const TimeLeftCard: React.FC = () => {
 	const theme = usePicasso();
 	const { t: translate } = useTranslation('common');
 
+	const timeLeft = '10d 9h 8m';
 	return (
 		<Flex
 			w="36"
@@ -16,13 +17,12 @@ export const TimeLeftCard: React.FC = () => {
 			rounded="lg"
 			pl="4"
 			justify="center"
-			ml="6"
 		>
 			<Flex direction="row" alignItems="center">
 				<Icon as={IoTimeOutline} mr="2" />
 				<Flex direction="column">
 					<Text fontSize="xs">{translate('teamOverall.timeLeftCard')}</Text>
-					<Text fontSize="md">10d 9h 8m</Text>
+					<Text fontSize="md">{timeLeft}</Text>
 				</Flex>
 			</Flex>
 		</Flex>
