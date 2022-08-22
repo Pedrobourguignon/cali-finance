@@ -1,10 +1,12 @@
 import { Flex, Icon, Text } from '@chakra-ui/react';
 import { usePicasso } from 'hooks/usePicasso';
+import useTranslation from 'next-translate/useTranslation';
 import { IoTimeOutline } from 'react-icons/io5';
 
 export const TimeLeftCard: React.FC = () => {
 	const theme = usePicasso();
-	const timeLeft = '10d 9h 8m';
+	const { t: translate } = useTranslation('common');
+
 	return (
 		<Flex
 			w="36"
@@ -19,8 +21,8 @@ export const TimeLeftCard: React.FC = () => {
 			<Flex direction="row" alignItems="center">
 				<Icon as={IoTimeOutline} mr="2" />
 				<Flex direction="column">
-					<Text fontSize="xs">Time left</Text>
-					<Text fontSize="md">{timeLeft}</Text>
+					<Text fontSize="xs">{translate('teamOverall.timeLeftCard')}</Text>
+					<Text fontSize="md">10d 9h 8m</Text>
 				</Flex>
 			</Flex>
 		</Flex>
