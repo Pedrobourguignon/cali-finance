@@ -54,7 +54,7 @@ export const ProfilePopover: React.FC = () => {
 						<Skeleton
 							isLoaded={!isLoading}
 							w="12"
-							display={{ base: 'none', sm: 'none', md: 'flex', xl: 'flex' }}
+							display={{ base: 'none', sm: 'none', md: 'flex' }}
 						>
 							{name}
 						</Skeleton>

@@ -35,12 +35,12 @@ export const Sidebar: React.FC = () => {
 
 	return (
 		<Flex
-			minH={{ base: '100vh' }}
+			minH="100vh"
 			w="20"
 			flexDirection="column"
 			justifyContent="space-between"
 			alignItems="center"
-			display={{ base: 'none', sm: 'none', md: 'flex', lg: 'flex' }}
+			display={{ base: 'none', md: 'flex' }}
 		>
 			<Flex w="full" flexDirection="column">
 				<Flex ml="6" mt="8" alignItems="center" position="absolute">

@@ -10,15 +10,15 @@ export const TeamOverall: React.FC = () => {
 
 	return (
 		<Flex
-			h={{ base: '96', sm: '21.8rem', md: '25rem', xl: '30.3rem' }}
-			w={{ base: '96', sm: '21.8rem', md: '25rem', xl: '30.3rem' }}
+			h="max-content"
+			minW={{ base: '96', sm: '22rem', md: '25rem', xl: '30rem' }}
 			bg={theme.bg.primary}
 			borderRadius="12"
 			flexDirection="column"
 		>
 			<Flex
-				mt="4"
-				mx="6"
+				py="4"
+				px="6"
 				flexDirection="row"
 				justifyContent="space-between"
 				alignItems="center"
@@ -35,7 +35,8 @@ export const TeamOverall: React.FC = () => {
 				</Flex>
 			</Flex>
 			<Flex
-				mt="6"
+				py="6"
+				px="6"
 				flexDirection={{
 					base: 'column',
 					sm: 'column',

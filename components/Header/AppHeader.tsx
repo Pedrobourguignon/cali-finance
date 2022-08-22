@@ -11,12 +11,11 @@ export const AppHeader: React.FC = () => {
 	return (
 		<Flex
 			minW="100vw"
-			minH={{ base: '20' }}
+			minH="20"
 			flexDirection="row"
 			justifyContent={{
 				base: 'center',
 				md: 'space-between',
-				xl: 'space-between',
 			}}
 			alignItems="center"
 			color="white"
@@ -25,13 +24,13 @@ export const AppHeader: React.FC = () => {
 		>
 			<Flex flexDirection="row" alignItems="center">
 				<Flex
-					direction={{ base: 'row', md: 'column', xl: 'column' }}
+					direction={{ base: 'row', md: 'column' }}
 					ml={{ base: '0', md: '40', xl: '40' }}
 				>
 					<Text
 						fontSize={{ base: '3xl', xl: '2xl' }}
 						whiteSpace="nowrap"
-						display={{ base: 'none', sm: 'none', md: 'flex', lg: 'flex' }}
+						display={{ base: 'none', sm: 'none', md: 'flex' }}
 					>
 						Good Night, {name}
 					</Text>
@@ -44,11 +43,11 @@ export const AppHeader: React.FC = () => {
 					</Text>
 				</Flex>
 			</Flex>
-			<Flex display={{ base: 'flex', sm: 'flex', md: 'none', xl: 'none' }}>
+			<Flex display={{ base: 'flex', sm: 'flex', md: 'none' }}>
 				<SandwichMenu />
 			</Flex>
 			<Flex direction="row" gap="10">
-				<Flex display={{ base: 'none', sm: 'none', md: 'flex', xl: 'flex' }}>
+				<Flex display={{ base: 'none', sm: 'none', md: 'flex' }}>
 					<NotificationButton />
 				</Flex>
 				<Flex>

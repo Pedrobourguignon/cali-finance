@@ -18,7 +18,12 @@ export const TeamFilters = () => {
 	const { t: translate } = useTranslation('common');
 
 	return (
-		<Flex m="3.5" direction={{ base: 'column', xl: 'row' }}>
+		<Flex
+			m="3.5"
+			gap="4"
+			justifyContent="space-between"
+			direction={{ base: 'column', xl: 'row' }}
+		>
 			<Flex>
 				<Menu>
 					<Button
