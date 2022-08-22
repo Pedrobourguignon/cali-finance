@@ -1,12 +1,4 @@
-import {
-	Button,
-	Flex,
-	Icon,
-	Input,
-	Menu,
-	MenuItem,
-	MenuList,
-} from '@chakra-ui/react';
+import { Button, Flex, Icon, Menu, MenuItem, MenuList } from '@chakra-ui/react';
 import { usePicasso } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
 import { FiFilter } from 'react-icons/fi';
@@ -18,12 +10,7 @@ export const TeamFilters = () => {
 	const { t: translate } = useTranslation('common');
 
 	return (
-		<Flex
-			m="3.5"
-			gap="4"
-			justifyContent="space-between"
-			direction={{ base: 'column', xl: 'row' }}
-		>
+		<Flex m="3.5" gap="4" justifyContent="space-between" direction="row">
 			<Flex>
 				<Menu>
 					<Button
