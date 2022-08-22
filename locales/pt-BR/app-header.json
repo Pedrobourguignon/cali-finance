@@ -1,4 +1,4 @@
 {
-	"salutation": "Boa noite, Jack",
+	"greeting": "{{greeting}}, {{name}}",
 	"assetInfo": "Parece que o mercado está em alta. Seus ativos aumentaram 10%"
 }

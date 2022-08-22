@@ -2,7 +2,7 @@
 	"locales": ["en", "pt-BR"],
 	"defaultLocale": "en",
 	"pages": {
-		"*": ["teams-page", "appHeader"],
+		"*": ["teams-page", "app-header"],
 		"/": ["home", "example"],
 		"/app": ["teams-page"]
 	}

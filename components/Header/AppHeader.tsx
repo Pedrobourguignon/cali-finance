@@ -1,12 +1,42 @@
+/* eslint-disable no-nested-ternary */
 import { Flex, Text } from '@chakra-ui/react';
 import { NotificationButton, ProfilePopover } from 'components';
 import { useProfile } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
 import { SandwichMenu } from './SandwichMenu';
 
 export const AppHeader: React.FC = () => {
 	const { name } = useProfile();
-	const { t: translate } = useTranslation('appHeader');
+	const { t: translate } = useTranslation('app-header');
+	const [greeting, setGreeting] = useState<string>('');
+	const router = useRouter();
+	const pathName = router.defaultLocale;
+
+	const greetingMessage = () => {
+		const hour = new Date().getHours();
+		if (pathName?.includes('en-us')) {
+			return hour <= 5
+				? setGreeting('Late at Night')
+				: hour < 12
+				? setGreeting('Good morning')
+				: hour < 18
+				? setGreeting('Good afternoon')
+				: setGreeting('Good night');
+		}
+
+		return hour <= 5
+			? setGreeting('Boa madrugada')
+			: hour < 12
+			? setGreeting('Bom dia')
+			: hour < 18
+			? setGreeting('Boa tarde')
+			: setGreeting('Boa noite');
+	};
+	useEffect(() => {
+		greetingMessage();
+	}, []);
 
 	return (
 		<Flex
@@ -32,7 +62,10 @@ export const AppHeader: React.FC = () => {
 						whiteSpace="nowrap"
 						display={{ base: 'none', sm: 'none', md: 'flex' }}
 					>
-						Good Night, {name}
+						{translate('greeting', {
+							greeting,
+							name,
+						})}
 					</Text>
 					<Text
 						fontSize="md"

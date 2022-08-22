@@ -1,0 +1,4 @@
+{
+	"greeting": "{{greeting}}, {{name}}",
+	"assetInfo": "Seems like market has been bullish. Your assets increased 10%"
+}
