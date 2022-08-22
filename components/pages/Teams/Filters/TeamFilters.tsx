@@ -1,12 +1,4 @@
-import {
-	Button,
-	Flex,
-	Icon,
-	Input,
-	Menu,
-	MenuItem,
-	MenuList,
-} from '@chakra-ui/react';
+import { Button, Flex, Icon, Menu, MenuItem, MenuList } from '@chakra-ui/react';
 import { usePicasso } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
 import { FiFilter } from 'react-icons/fi';
@@ -19,7 +11,7 @@ export const TeamFilters = () => {
 
 	return (
 		<Flex m="3.5">
-			<Flex mr="28">
+			<Flex>
 				<Menu>
 					<Button
 						rightIcon={<IoChevronDownOutline />}
@@ -34,10 +26,10 @@ export const TeamFilters = () => {
 					</MenuList>
 				</Menu>
 			</Flex>
-			<Flex mr="7">
+			<Flex>
 				<SearchFilter />
 			</Flex>
-			<Flex mr="7">
+			<Flex>
 				<Button w="12" bg="none" color="white">
 					<Icon as={FiFilter} mr="1" />
 					{translate('teamTableFilter.filter')}

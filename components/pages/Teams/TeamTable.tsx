@@ -14,7 +14,55 @@ import useTranslation from 'next-translate/useTranslation';
 import { usePicasso } from 'hooks/usePicasso';
 import { TeamFilters } from './Filters';
 
-export const TeamTable = () => {
+interface IEmployeeData {
+	name: string;
+	address: string;
+	group: {
+		name: string;
+		color: string;
+	};
+	amount: number;
+	withdrawable: number;
+	coin: string;
+}
+
+const employeeData: IEmployeeData[] = [
+	{
+		name: 'Bradley Cooper',
+		address: '0x969Cf86eeb3f9354D89f357c8dFe43DE8e645148',
+		group: {
+			name: 'Marketing',
+			color: 'red.600',
+		},
+		amount: 15000,
+		withdrawable: 192312,
+		coin: 'USDT',
+	},
+	{
+		name: 'Denzel Washington',
+		address: '0x969Cf86eeb3f9354D89f357c8dFe43DE8e645148',
+		group: {
+			name: 'Dev',
+			color: 'green.600',
+		},
+		amount: 15000,
+		withdrawable: 192312,
+		coin: 'USDT',
+	},
+	{
+		name: 'Jackie Chan',
+		address: '0x969Cf86eeb3f9354D89f357c8dFe43DE8e645148',
+		group: {
+			name: 'Business',
+			color: 'blue.600',
+		},
+		amount: 15000,
+		withdrawable: 192312,
+		coin: 'USDT',
+	},
+];
+
+export const TeamTable: React.FC = () => {
 	const theme = usePicasso();
 	const { t: translate } = useTranslation('common');
 
@@ -40,42 +88,16 @@ export const TeamTable = () => {
 						</Tr>
 					</Thead>
 					<Tbody>
-						<Tr>
-							<Td>Bradley Cooper</Td>
-							<Td>
-								{truncateEthAddress(
-									'0x969Cf86eeb3f9354D89f357c8dFe43DE8e645148'
-								)}
-							</Td>
-							<Td bg="red.600">Marketing</Td>
-							<Td>15,000/month</Td>
-							<Td>1,923.12</Td>
-							<Td>USDT</Td>
-						</Tr>
-						<Tr>
-							<Td>Bradley Cooper</Td>
-							<Td>
-								{truncateEthAddress(
-									'0x969Cf86eeb3f9354D89f357c8dFe43DE8e645148'
-								)}
-							</Td>
-							<Td bg="blue.600">Marketing</Td>
-							<Td>15,000/month</Td>
-							<Td>1,923.12</Td>
-							<Td>USDT</Td>
-						</Tr>
-						<Tr>
-							<Td>Bradley Cooper</Td>
-							<Td>
-								{truncateEthAddress(
-									'0x969Cf86eeb3f9354D89f357c8dFe43DE8e645148'
-								)}
-							</Td>
-							<Td bg="green.600">Marketing</Td>
-							<Td>15,000/month</Td>
-							<Td>1,923.12</Td>
-							<Td>USDT</Td>
-						</Tr>
+						{employeeData.map((employee, index) => (
+							<Tr key={+index}>
+								<Td>{employee.name}</Td>
+								<Td>{truncateEthAddress(employee.address)}</Td>
+								<Td bg={employee.group.color}>{employee.group.name}</Td>
+								<Td>{employee.amount}</Td>
+								<Td>{employee.withdrawable}</Td>
+								<Td>{employee.coin}</Td>
+							</Tr>
+						))}
 					</Tbody>
 				</Table>
 				<Button

@@ -3,7 +3,7 @@ import { usePicasso } from 'hooks/usePicasso';
 import useTranslation from 'next-translate/useTranslation';
 import { IoTimeOutline } from 'react-icons/io5';
 
-export const TimeLeftCard = () => {
+export const TimeLeftCard: React.FC = () => {
 	const theme = usePicasso();
 	const { t: translate } = useTranslation('common');
 

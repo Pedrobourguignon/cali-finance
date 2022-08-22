@@ -3,7 +3,7 @@ import { usePicasso } from 'hooks/usePicasso';
 import { BiDollarCircle } from 'react-icons/bi';
 import useTranslation from 'next-translate/useTranslation';
 
-export const TeamBalanceCard = () => {
+export const TeamBalanceCard: React.FC = () => {
 	const theme = usePicasso();
 	const { t: translate } = useTranslation('common');
 

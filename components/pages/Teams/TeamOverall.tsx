@@ -1,14 +1,10 @@
 import { Button, Flex, Icon, Text } from '@chakra-ui/react';
-import {
-	CostPerMonthCard,
-	TeamBalanceCard,
-	TimeLeftCard,
-} from 'components/Cards';
+import { CostPerMonthCard, TeamBalanceCard, TimeLeftCard } from 'components';
 import { usePicasso } from 'hooks/usePicasso';
 import useTranslation from 'next-translate/useTranslation';
 import { BsThreeDotsVertical } from 'react-icons/bs';
 
-export const TeamOverall = () => {
+export const TeamOverall: React.FC = () => {
 	const theme = usePicasso();
 	const { t: translate } = useTranslation('common');
 
@@ -22,7 +18,7 @@ export const TeamOverall = () => {
 		>
 			<Flex
 				mt="4"
-				ml="6"
+				mx="6"
 				flexDirection="row"
 				justifyContent="space-between"
 				alignItems="center"

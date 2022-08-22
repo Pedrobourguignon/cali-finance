@@ -3,7 +3,7 @@ import { usePicasso } from 'hooks/usePicasso';
 import useTranslation from 'next-translate/useTranslation';
 import { TiDocumentText } from 'react-icons/ti';
 
-export const CostPerMonthCard = () => {
+export const CostPerMonthCard: React.FC = () => {
 	const theme = usePicasso();
 	const { t: translate } = useTranslation('common');
 
