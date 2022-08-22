@@ -2,8 +2,8 @@
 	"locales": ["en", "pt-BR"],
 	"defaultLocale": "en",
 	"pages": {
-		"*": ["common"],
+		"*": ["teams-page", "appHeader"],
 		"/": ["home", "example"],
-		"/app": ["common"]
+		"/app": ["teams-page"]
 	}
 }

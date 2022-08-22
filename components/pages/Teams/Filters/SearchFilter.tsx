@@ -5,7 +5,7 @@ import useTranslation from 'next-translate/useTranslation';
 
 export const SearchFilter: React.FC = () => {
 	const theme = usePicasso();
-	const { t: translate } = useTranslation('common');
+	const { t: translate } = useTranslation('teams-page');
 
 	return (
 		<InputGroup w="48" h="9" color={theme.text.gray}>

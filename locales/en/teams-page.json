@@ -19,9 +19,5 @@
 		"search": "Search Someone",
 		"filter": "Filter",
 		"rows": "Rows"
-	},
-	"appHeader": {
-		"salutation": "Boa noite, Jack",
-		"assetInfo": "Parece que o mercado está em alta. Seus ativos aumentaram 10%"
 	}
 }

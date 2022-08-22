@@ -6,7 +6,7 @@ import { SandwichMenu } from './SandwichMenu';
 
 export const AppHeader: React.FC = () => {
 	const { name } = useProfile();
-	const { t: translate } = useTranslation('common');
+	const { t: translate } = useTranslation('appHeader');
 
 	return (
 		<Flex
@@ -39,7 +39,7 @@ export const AppHeader: React.FC = () => {
 						display={{ base: 'none', sm: 'none', md: 'none', xl: 'flex' }}
 						whiteSpace="nowrap"
 					>
-						{translate('appHeader.assetInfo')}
+						{translate('assetInfo')}
 					</Text>
 				</Flex>
 			</Flex>

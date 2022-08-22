@@ -6,7 +6,7 @@ import { BsThreeDotsVertical } from 'react-icons/bs';
 
 export const TeamOverall: React.FC = () => {
 	const theme = usePicasso();
-	const { t: translate } = useTranslation('common');
+	const { t: translate } = useTranslation('teams-page');
 
 	return (
 		<Flex

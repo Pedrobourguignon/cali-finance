@@ -7,7 +7,7 @@ import { SearchFilter } from './SearchFilter';
 
 export const TeamFilters = () => {
 	const theme = usePicasso();
-	const { t: translate } = useTranslation('common');
+	const { t: translate } = useTranslation('teams-page');
 
 	return (
 		<Flex m="3.5" gap="4" justifyContent="space-between" direction="row">

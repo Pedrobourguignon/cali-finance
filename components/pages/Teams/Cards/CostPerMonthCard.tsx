@@ -5,7 +5,7 @@ import { TiDocumentText } from 'react-icons/ti';
 
 export const CostPerMonthCard: React.FC = () => {
 	const theme = usePicasso();
-	const { t: translate } = useTranslation('common');
+	const { t: translate } = useTranslation('teams-page');
 
 	const costPerMonth = '$600,000.00';
 	return (

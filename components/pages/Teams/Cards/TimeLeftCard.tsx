@@ -5,7 +5,7 @@ import { IoTimeOutline } from 'react-icons/io5';
 
 export const TimeLeftCard: React.FC = () => {
 	const theme = usePicasso();
-	const { t: translate } = useTranslation('common');
+	const { t: translate } = useTranslation('teams-page');
 
 	const timeLeft = '10d 9h 8m';
 	return (

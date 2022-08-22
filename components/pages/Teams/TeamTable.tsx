@@ -64,7 +64,7 @@ const employeeData: IEmployeeData[] = [
 
 export const TeamTable: React.FC = () => {
 	const theme = usePicasso();
-	const { t: translate } = useTranslation('common');
+	const { t: translate } = useTranslation('teams-page');
 
 	return (
 		<Flex

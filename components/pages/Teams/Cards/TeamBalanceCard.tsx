@@ -5,7 +5,7 @@ import useTranslation from 'next-translate/useTranslation';
 
 export const TeamBalanceCard: React.FC = () => {
 	const theme = usePicasso();
-	const { t: translate } = useTranslation('common');
+	const { t: translate } = useTranslation('teams-page');
 
 	const teamBalance = '$123,123.98';
 	return (
