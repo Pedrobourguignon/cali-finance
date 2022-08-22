@@ -1,12 +1,4 @@
-import {
-	Button,
-	Flex,
-	Icon,
-	Input,
-	Menu,
-	MenuItem,
-	MenuList,
-} from '@chakra-ui/react';
+import { Button, Flex, Icon, Menu, MenuItem, MenuList } from '@chakra-ui/react';
 import { usePicasso } from 'hooks';
 import { FiFilter } from 'react-icons/fi';
 import { IoChevronDownOutline } from 'react-icons/io5';
@@ -15,7 +7,7 @@ import { SearchFilter } from './SearchFilter';
 export const TeamFilters = () => {
 	const theme = usePicasso();
 	return (
-		<Flex gap="24" m="3.5">
+		<Flex m="3.5">
 			<Flex>
 				<Menu>
 					<Button
