@@ -33,7 +33,7 @@ const employeeData: IEmployeeData[] = [
 		address: '0x969Cf86eeb3f9354D89f357c8dFe43DE8e645148',
 		group: {
 			name: 'Marketing',
-			color: 'red.600',
+			color: 'blue.600',
 		},
 		amount: 15000,
 		withdrawable: 192312,
@@ -46,8 +46,8 @@ const employeeData: IEmployeeData[] = [
 			name: 'Dev',
 			color: 'green.600',
 		},
-		amount: 15000,
-		withdrawable: 192312,
+		amount: 230789,
+		withdrawable: 320,
 		coin: 'USDT',
 	},
 	{
@@ -57,8 +57,8 @@ const employeeData: IEmployeeData[] = [
 			name: 'Business',
 			color: 'blue.600',
 		},
-		amount: 15000,
-		withdrawable: 192312,
+		amount: 1563,
+		withdrawable: 1240,
 		coin: 'USDT',
 	},
 ];
@@ -70,16 +70,32 @@ export const TeamTable: React.FC = () => {
 	return (
 		<Flex
 			h="max-content"
-			// w="max-content"
-			w={{ base: '96', sm: '22rem', md: '25rem', xl: '30rem' }}
+			w={{
+				base: '72',
+				sm: '29rem',
+				md: '35rem',
+				lg: 'max-content',
+				xl: 'max-content',
+			}}
 			bg={theme.bg.primary}
 			borderRadius="12"
 			flexDirection="column"
 		>
-			<Flex display={{ base: 'none', sm: 'none', md: 'none', lg: 'flex' }}>
+			<Flex
+				display={{
+					base: 'none',
+					sm: 'none',
+					md: 'flex',
+					lg: 'flex',
+				}}
+			>
 				<TeamFilters />
 			</Flex>
-			<Flex display={{ base: 'flex', sm: 'flex', md: 'flex', lg: 'none' }}>
+			<Flex
+				display={{ base: 'flex', sm: 'flex', md: 'none', lg: 'none' }}
+				justify="end"
+				p="2"
+			>
 				<FilterSandwichMenu />
 			</Flex>
 			<TableContainer>

@@ -12,7 +12,7 @@ export const SandwichMenu = () => {
 	};
 
 	return (
-		<Flex direction="row" gap="6">
+		<Flex direction="row" gap={{ base: '6', sm: '14' }}>
 			<SandwichMenuModal isOpen={isOpen} onClose={closeModal} />
 			<Flex alignItems="center">
 				<Link href="/">

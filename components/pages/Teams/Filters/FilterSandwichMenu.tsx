@@ -15,7 +15,7 @@ export const FilterSandwichMenu = () => {
 		<Flex direction="row" gap="6">
 			<FilterSandwichModal isOpen={isOpen} onClose={closeModal} />
 			<Flex>
-				<Button onClick={onOpen}>
+				<Button onClick={onOpen} bg="none">
 					<Icon as={AiOutlineMenu} />
 				</Button>
 			</Flex>
