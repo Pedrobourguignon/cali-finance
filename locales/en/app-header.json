@@ -1,4 +1,8 @@
 {
-	"greeting": "{{greeting}}, {{name}}",
+	"greetings": {
+		"morning": "Good morning",
+		"afternoon": "Good afternoon",
+		"night": "Good night"
+	},
 	"assetInfo": "Seems like market has been bullish. Your assets increased 10%"
 }
