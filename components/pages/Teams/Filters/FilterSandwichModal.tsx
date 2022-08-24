@@ -42,7 +42,7 @@ export const FilterSandwichModal = (props: IModal) => {
 				<ModalHeader display="flex" justifyContent="center">
 					Filters
 				</ModalHeader>
-				<ModalBody borderRadius="14" display="flex" flexDir="column">
+				<ModalBody borderRadius="3xl" display="flex" flexDir="column">
 					<Flex gap="4" direction="column" align="flex-start">
 						<Flex>
 							<Menu>
@@ -64,8 +64,14 @@ export const FilterSandwichModal = (props: IModal) => {
 							<SearchFilter />
 						</Flex>
 						<Flex>
-							<Button w="48" bg={theme.bg.bgCard} color={theme.text.gray}>
-								<Icon as={FiFilter} mr="1" />
+							<Button
+								w="48"
+								bg={theme.bg.bgCard}
+								color={theme.text.gray}
+								display="flex"
+								gap="1"
+							>
+								<Icon as={FiFilter} />
 								{translate('teamTableFilter.filter')}
 							</Button>
 						</Flex>

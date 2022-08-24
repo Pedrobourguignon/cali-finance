@@ -44,17 +44,17 @@ export const AppHeader: React.FC = () => {
 				</Flex>
 			</Flex>
 			<Flex
-				display={{ base: 'flex', sm: 'flex', md: 'none' }}
+				display={{ base: 'flex', md: 'none' }}
 				align="center"
-				mr={{ base: '0', sm: '14' }}
+				mr={{ sm: '14' }}
 			>
 				<SandwichMenu />
 			</Flex>
 			<Flex direction="row" gap="10">
-				<Flex display={{ base: 'none', sm: 'none', md: 'flex' }}>
+				<Flex display={{ base: 'none', md: 'flex' }}>
 					<NotificationButton />
 				</Flex>
-				<Flex mr={{ base: '0', md: '12', xl: '12' }}>
+				<Flex mr={{ md: '12' }}>
 					<ProfilePopover />
 				</Flex>
 			</Flex>

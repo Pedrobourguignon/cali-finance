@@ -12,7 +12,7 @@ export const TeamOverall: React.FC = () => {
 		<Flex
 			h="max-content"
 			w={{
-				base: '72',
+				base: '18rem',
 				sm: '29rem',
 				md: '35rem',
 				lg: 'max-content',

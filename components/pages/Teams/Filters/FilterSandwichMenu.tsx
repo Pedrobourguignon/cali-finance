@@ -6,14 +6,10 @@ import { FilterSandwichModal } from './FilterSandwichModal';
 
 export const FilterSandwichMenu = () => {
 	const { onOpen, isOpen, onClose } = useDisclosure();
-	const closeModal = () => {
-		onClose();
-		Router.push('/app/teams');
-	};
 
 	return (
 		<Flex direction="row" gap="6">
-			<FilterSandwichModal isOpen={isOpen} onClose={closeModal} />
+			<FilterSandwichModal isOpen={isOpen} onClose={onClose} />
 			<Flex>
 				<Button onClick={onOpen} bg="none">
 					<Icon as={AiOutlineMenu} />

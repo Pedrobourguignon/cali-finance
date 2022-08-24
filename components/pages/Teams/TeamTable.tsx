@@ -71,7 +71,7 @@ export const TeamTable: React.FC = () => {
 		<Flex
 			h="max-content"
 			w={{
-				base: '72',
+				base: '18rem',
 				sm: '29rem',
 				md: '35rem',
 				lg: 'max-content',
@@ -84,18 +84,12 @@ export const TeamTable: React.FC = () => {
 			<Flex
 				display={{
 					base: 'none',
-					sm: 'none',
 					md: 'flex',
-					lg: 'flex',
 				}}
 			>
 				<TeamFilters />
 			</Flex>
-			<Flex
-				display={{ base: 'flex', sm: 'flex', md: 'none', lg: 'none' }}
-				justify="end"
-				p="2"
-			>
+			<Flex display={{ base: 'flex', md: 'none' }} justify="end" p="2">
 				<FilterSandwichMenu />
 			</Flex>
 			<TableContainer>
