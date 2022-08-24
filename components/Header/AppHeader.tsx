@@ -1,3 +1,5 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable consistent-return */
 /* eslint-disable no-nested-ternary */
 import { Flex, Text } from '@chakra-ui/react';
 import { NotificationButton, ProfilePopover } from 'components';
@@ -8,6 +10,7 @@ import { SandwichMenu } from './SandwichMenu';
 export const AppHeader: React.FC = () => {
 	const { name } = useProfile();
 	const { t: translate } = useTranslation('app-header');
+	const percentage = 0;
 
 	const greetingMessage = () => {
 		const hour = new Date().getHours();
@@ -15,6 +18,15 @@ export const AppHeader: React.FC = () => {
 		if (hour >= 6 && hour < 12) return translate('greetings.morning');
 		if (hour >= 12 && hour < 18) return translate('greetings.afternoon');
 		return translate('greetings.night');
+	};
+
+	const dynamicAssetInfo = () => {
+		if (percentage < 0)
+			return { status: translate('bearish'), color: 'red.500' };
+		if (percentage === 0)
+			return { status: translate('neutral'), color: 'gray.500' };
+		if (percentage > 0)
+			return { status: translate('bullish'), color: 'blue.500' };
 	};
 
 	return (
@@ -31,32 +43,52 @@ export const AppHeader: React.FC = () => {
 			mt="4"
 			gap="6"
 		>
-			<Flex flexDirection="row" alignItems="center">
+			<Flex flexDirection="column">
 				<Flex
 					direction={{ base: 'row', md: 'column' }}
 					ml={{ base: '0', md: '40', xl: '40' }}
 				>
 					<Text
 						fontSize={{ base: '3xl', xl: '2xl' }}
-						whiteSpace="nowrap"
-						display={{ base: 'none', sm: 'none', md: 'flex' }}
+						display={{ base: 'none', md: 'flex' }}
 					>
-						{`${greetingMessage()}, ${name}`}
+						{greetingMessage()}, {name}
 					</Text>
-					<Text
-						fontSize="md"
-						display={{ base: 'none', sm: 'none', md: 'none', xl: 'flex' }}
-						whiteSpace="nowrap"
-					>
+				</Flex>
+				<Flex ml={{ base: '0', md: '40', xl: '40' }}>
+					<Text fontSize="md" display={{ base: 'none', xl: 'flex' }}>
 						{translate('assetInfo')}
+						<Text
+							as="span"
+							fontSize="md"
+							display={{ base: 'none', xl: 'flex' }}
+							color={dynamicAssetInfo()?.color}
+						>
+							{'\u00A0'}
+							{dynamicAssetInfo()?.status}
+							{'\u00A0'}
+						</Text>
+					</Text>
+
+					<Text fontSize="md" display={{ base: 'none', xl: 'flex' }}>
+						{translate('increased')}
+						<Text
+							as="span"
+							fontSize="md"
+							display={{ base: 'none', xl: 'flex' }}
+							color={dynamicAssetInfo()?.color}
+						>
+							{'\u00A0'}
+							{translate('percentage', { percentage })}
+						</Text>
 					</Text>
 				</Flex>
 			</Flex>
-			<Flex display={{ base: 'flex', sm: 'flex', md: 'none' }}>
+			<Flex display={{ base: 'flex', md: 'none' }}>
 				<SandwichMenu />
 			</Flex>
 			<Flex direction="row" gap="10">
-				<Flex display={{ base: 'none', sm: 'none', md: 'flex' }}>
+				<Flex display={{ base: 'none', md: 'flex' }}>
 					<NotificationButton />
 				</Flex>
 				<Flex>
