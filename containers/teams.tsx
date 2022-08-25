@@ -1,37 +1,40 @@
 import { Flex, Icon } from '@chakra-ui/react';
 import { TeamOverall, TeamTable } from 'components';
+import { TeamsProvider } from 'contexts';
 import { AppLayout } from 'layouts';
 import Link from 'next/link';
 import { FaDiscord, FaTwitter } from 'react-icons/fa';
 
 export const TeamsContainer = () => (
-	<AppLayout>
-		<Flex
-			gap="32"
-			flexDirection={{
-				base: 'column',
-				sm: 'column',
-				md: 'column',
-				xl: 'row',
-			}}
-		>
-			<TeamTable />
-			<TeamOverall />
+	<TeamsProvider>
+		<AppLayout>
 			<Flex
-				w="48"
-				display={{ base: 'flex', md: 'none' }}
-				direction="row"
-				justify="space-evenly"
+				gap="32"
+				flexDirection={{
+					base: 'column',
+					sm: 'column',
+					md: 'column',
+					xl: 'row',
+				}}
 			>
-				<Link href="/">
-					<Icon as={FaDiscord} boxSize="10" />
-				</Link>
-				<Link href="/">
-					<Icon as={FaTwitter} boxSize="10" />
-				</Link>
+				<TeamTable />
+				<TeamOverall />
+				<Flex
+					w="48"
+					display={{ base: 'flex', md: 'none' }}
+					direction="row"
+					justify="space-evenly"
+				>
+					<Link href="/">
+						<Icon as={FaDiscord} boxSize="10" />
+					</Link>
+					<Link href="/">
+						<Icon as={FaTwitter} boxSize="10" />
+					</Link>
+				</Flex>
 			</Flex>
-		</Flex>
-	</AppLayout>
+		</AppLayout>
+	</TeamsProvider>
 );
 
 export default TeamsContainer;

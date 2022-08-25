@@ -12,6 +12,7 @@ import {
 import truncateEthAddress from 'truncate-eth-address';
 import useTranslation from 'next-translate/useTranslation';
 import { usePicasso } from 'hooks/usePicasso';
+import { useTeams } from 'hooks';
 import { TeamFilters } from './Filters';
 
 interface IEmployeeData {
@@ -65,6 +66,7 @@ const employeeData: IEmployeeData[] = [
 export const TeamTable: React.FC = () => {
 	const theme = usePicasso();
 	const { t: translate } = useTranslation('teams-page');
+	const { teams } = useTeams();
 
 	return (
 		<Flex
