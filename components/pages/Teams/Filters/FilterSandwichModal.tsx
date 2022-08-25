@@ -10,9 +10,13 @@ import {
 	Menu,
 	MenuList,
 	MenuItem,
+	MenuButton,
 } from '@chakra-ui/react';
 import { usePicasso } from 'hooks';
-import { IoChevronDownOutline } from 'react-icons/io5';
+import {
+	IoChevronDownCircleOutline,
+	IoChevronDownOutline,
+} from 'react-icons/io5';
 import useTranslation from 'next-translate/useTranslation';
 import { FiFilter } from 'react-icons/fi';
 import { SearchFilter } from './SearchFilter';
@@ -46,17 +50,19 @@ export const FilterSandwichModal = (props: IModal) => {
 					<Flex gap="4" direction="column" align="flex-start">
 						<Flex>
 							<Menu>
-								<Button
-									rightIcon={<IoChevronDownOutline />}
-									minW="48"
-									minH="9"
-									bg={theme.bg.bgCard}
+								<MenuButton
+									as={Button}
+									rightIcon={<IoChevronDownCircleOutline />}
 									color={theme.text.gray}
+									w="48"
+									h="9"
 								>
 									{translate('teamTableFilter.allGroups')}
-								</Button>
-								<MenuList bg="none">
-									<MenuItem>Download</MenuItem>
+								</MenuButton>
+								<MenuList bg={theme.bg.bgCard}>
+									<MenuItem>Dev</MenuItem>
+									<MenuItem>Marketing</MenuItem>
+									<MenuItem>Business</MenuItem>
 								</MenuList>
 							</Menu>
 						</Flex>
@@ -77,7 +83,7 @@ export const FilterSandwichModal = (props: IModal) => {
 						</Flex>
 						<Flex>
 							<Menu>
-								<Button
+								<MenuButton
 									as={Button}
 									rightIcon={<IoChevronDownOutline />}
 									w="48"
@@ -86,9 +92,11 @@ export const FilterSandwichModal = (props: IModal) => {
 									color={theme.text.gray}
 								>
 									{translate('teamTableFilter.rows')}
-								</Button>
-								<MenuList bg="none">
-									<MenuItem>Teste</MenuItem>
+								</MenuButton>
+								<MenuList bg={theme.bg.bgCard}>
+									<MenuItem>5</MenuItem>
+									<MenuItem>10</MenuItem>
+									<MenuItem>15</MenuItem>
 								</MenuList>
 							</Menu>
 						</Flex>
