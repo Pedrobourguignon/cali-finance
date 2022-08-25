@@ -2,12 +2,10 @@ import { Button, Flex, Icon, Text } from '@chakra-ui/react';
 import { CostPerMonthCard, TeamBalanceCard, TimeLeftCard } from 'components';
 import { useTeams } from 'hooks';
 import { usePicasso } from 'hooks/usePicasso';
-import useTranslation from 'next-translate/useTranslation';
 import { BsThreeDotsVertical } from 'react-icons/bs';
 
 export const TeamOverall: React.FC = () => {
 	const theme = usePicasso();
-	const { t: translate } = useTranslation('teams-page');
 	const { teams } = useTeams();
 
 	return (
@@ -27,7 +25,7 @@ export const TeamOverall: React.FC = () => {
 			>
 				<Flex>
 					<Text fontSize="xl" whiteSpace="nowrap">
-						{translate('teamOverall.teamName')}
+						{teams[0].name}
 					</Text>
 				</Flex>
 				<Flex>

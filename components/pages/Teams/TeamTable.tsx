@@ -15,54 +15,6 @@ import { usePicasso } from 'hooks/usePicasso';
 import { useTeams } from 'hooks';
 import { TeamFilters } from './Filters';
 
-interface IEmployeeData {
-	name: string;
-	address: string;
-	group: {
-		name: string;
-		color: string;
-	};
-	amount: number;
-	withdrawable: number;
-	coin: string;
-}
-
-const employeeData: IEmployeeData[] = [
-	{
-		name: 'Bradley Cooper',
-		address: '0x969Cf86eeb3f9354D89f357c8dFe43DE8e645148',
-		group: {
-			name: 'Marketing',
-			color: 'red.600',
-		},
-		amount: 15000,
-		withdrawable: 192312,
-		coin: 'USDT',
-	},
-	{
-		name: 'Denzel Washington',
-		address: '0x969Cf86eeb3f9354D89f357c8dFe43DE8e645148',
-		group: {
-			name: 'Dev',
-			color: 'green.600',
-		},
-		amount: 15000,
-		withdrawable: 192312,
-		coin: 'USDT',
-	},
-	{
-		name: 'Jackie Chan',
-		address: '0x969Cf86eeb3f9354D89f357c8dFe43DE8e645148',
-		group: {
-			name: 'Business',
-			color: 'blue.600',
-		},
-		amount: 15000,
-		withdrawable: 192312,
-		coin: 'USDT',
-	},
-];
-
 export const TeamTable: React.FC = () => {
 	const theme = usePicasso();
 	const { t: translate } = useTranslation('teams-page');
@@ -90,14 +42,16 @@ export const TeamTable: React.FC = () => {
 						</Tr>
 					</Thead>
 					<Tbody>
-						{employeeData.map((employee, index) => (
+						{teams.map((team, index) => (
 							<Tr key={+index}>
-								<Td>{employee.name}</Td>
-								<Td>{truncateEthAddress(employee.address)}</Td>
-								<Td bg={employee.group.color}>{employee.group.name}</Td>
-								<Td>{employee.amount}</Td>
-								<Td>{employee.withdrawable}</Td>
-								<Td>{employee.coin}</Td>
+								<Td>{team.employees[index].name}</Td>
+								<Td>{truncateEthAddress(team.employees[index].address)}</Td>
+								<Td bg={team.employees[index].group.color}>
+									{team.employees[index].group.name}
+								</Td>
+								<Td>{team.employees[index].amount}</Td>
+								<Td>{team.employees[index].withdrawable}</Td>
+								<Td>{team.employees[index].coin}</Td>
 							</Tr>
 						))}
 					</Tbody>
