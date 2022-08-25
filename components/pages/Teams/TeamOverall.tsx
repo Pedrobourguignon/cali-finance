@@ -16,7 +16,6 @@ export const TeamOverall: React.FC = () => {
 				sm: '29rem',
 				md: '35rem',
 				lg: 'max-content',
-				xl: 'max-content',
 			}}
 			bg={theme.bg.primary}
 			borderRadius="12"
@@ -49,7 +48,6 @@ export const TeamOverall: React.FC = () => {
 					base: 'column',
 					sm: 'column',
 					md: 'row',
-					xl: 'row',
 				}}
 				align="center"
 			>

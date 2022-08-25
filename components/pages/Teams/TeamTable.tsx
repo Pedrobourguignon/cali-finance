@@ -75,7 +75,6 @@ export const TeamTable: React.FC = () => {
 				sm: '29rem',
 				md: '35rem',
 				lg: 'max-content',
-				xl: 'max-content',
 			}}
 			bg={theme.bg.primary}
 			borderRadius="12"
