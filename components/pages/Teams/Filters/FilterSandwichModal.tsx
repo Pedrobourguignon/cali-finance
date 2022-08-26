@@ -19,12 +19,11 @@ import {
 } from 'react-icons/io5';
 import useTranslation from 'next-translate/useTranslation';
 import { FiFilter } from 'react-icons/fi';
+import { IModal } from 'types';
 import { SearchFilter } from './SearchFilter';
 
-interface IModal {
-	isOpen: boolean;
-	onClose: () => void;
-}
+const groupOptions = ['Dev', 'Marketing', 'Business'];
+const numberOfRowsOptions = [5, 10, 15];
 
 export const FilterSandwichModal = (props: IModal) => {
 	const { isOpen, onClose } = props;
@@ -60,9 +59,9 @@ export const FilterSandwichModal = (props: IModal) => {
 									{translate('teamTableFilter.allGroups')}
 								</MenuButton>
 								<MenuList bg={theme.bg.bgCard}>
-									<MenuItem>Dev</MenuItem>
-									<MenuItem>Marketing</MenuItem>
-									<MenuItem>Business</MenuItem>
+									{groupOptions.map((group, index) => (
+										<MenuItem key={+index}>{group}</MenuItem>
+									))}
 								</MenuList>
 							</Menu>
 						</Flex>
@@ -94,9 +93,9 @@ export const FilterSandwichModal = (props: IModal) => {
 									{translate('teamTableFilter.rows')}
 								</MenuButton>
 								<MenuList bg={theme.bg.bgCard}>
-									<MenuItem>5</MenuItem>
-									<MenuItem>10</MenuItem>
-									<MenuItem>15</MenuItem>
+									{numberOfRowsOptions.map((option, index) => (
+										<MenuItem key={+index}>{option}</MenuItem>
+									))}
 								</MenuList>
 							</Menu>
 						</Flex>
