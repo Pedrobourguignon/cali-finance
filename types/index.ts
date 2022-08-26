@@ -1,3 +1,2 @@
-export interface IBackground {
-	children: React.ReactNode;
-}
+export * from './contexts';
+export * from './layouts';
