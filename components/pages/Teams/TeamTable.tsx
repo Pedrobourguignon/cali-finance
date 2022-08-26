@@ -42,16 +42,14 @@ export const TeamTable: React.FC = () => {
 						</Tr>
 					</Thead>
 					<Tbody>
-						{teams.map((team, index) => (
+						{teams[0].employees.map((employee, index) => (
 							<Tr key={+index}>
-								<Td>{team.employees[index].name}</Td>
-								<Td>{truncateEthAddress(team.employees[index].address)}</Td>
-								<Td bg={team.employees[index].group.color}>
-									{team.employees[index].group.name}
-								</Td>
-								<Td>{team.employees[index].amount}</Td>
-								<Td>{team.employees[index].withdrawable}</Td>
-								<Td>{team.employees[index].coin}</Td>
+								<Td>{employee.name}</Td>
+								<Td>{truncateEthAddress(employee.address)}</Td>
+								<Td bg={employee.group.color}>{employee.group.name}</Td>
+								<Td>{employee.amount}</Td>
+								<Td>{employee.withdrawable}</Td>
+								<Td>{employee.coin}</Td>
 							</Tr>
 						))}
 					</Tbody>
