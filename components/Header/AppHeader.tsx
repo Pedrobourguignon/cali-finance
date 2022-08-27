@@ -41,7 +41,7 @@ export const AppHeader: React.FC = () => {
 			alignItems="center"
 			color="white"
 			mt="4"
-			gap="6"
+			gap={{ base: '6', sm: '10' }}
 		>
 			<Flex flexDirection="column">
 				<Flex
@@ -91,7 +91,7 @@ export const AppHeader: React.FC = () => {
 				<Flex display={{ base: 'none', md: 'flex' }}>
 					<NotificationButton />
 				</Flex>
-				<Flex>
+				<Flex mr={{ md: '12' }}>
 					<ProfilePopover />
 				</Flex>
 			</Flex>

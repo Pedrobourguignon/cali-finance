@@ -7,13 +7,14 @@ import { FaDiscord, FaTwitter } from 'react-icons/fa';
 export const TeamsContainer = () => (
 	<AppLayout>
 		<Flex
-			gap="32"
 			flexDirection={{
 				base: 'column',
-				sm: 'column',
-				md: 'column',
 				xl: 'row',
 			}}
+			align={{ base: 'center', md: 'flex-start' }}
+			gap="20"
+			mt="8"
+			flexWrap="wrap"
 		>
 			<TeamTable />
 			<TeamOverall />
@@ -22,6 +23,7 @@ export const TeamsContainer = () => (
 				display={{ base: 'flex', md: 'none' }}
 				direction="row"
 				justify="space-evenly"
+				mb="8"
 			>
 				<Link href="/">
 					<Icon as={FaDiscord} boxSize="10" />

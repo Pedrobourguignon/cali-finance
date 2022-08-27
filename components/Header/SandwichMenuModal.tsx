@@ -13,11 +13,7 @@ import { BsArrowLeftRight } from 'react-icons/bs';
 import { MdPeopleAlt } from 'react-icons/md';
 import { RiHome3Line } from 'react-icons/ri';
 import { IconType } from 'react-icons';
-
-interface IModal {
-	isOpen: boolean;
-	onClose: () => void;
-}
+import { IModal } from 'types';
 
 interface IMenuItem {
 	route: string;
