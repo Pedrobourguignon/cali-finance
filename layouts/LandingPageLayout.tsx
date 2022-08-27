@@ -2,7 +2,10 @@ import { Flex } from '@chakra-ui/react';
 import { LandingHeader } from 'components';
 
 import { usePicasso } from 'hooks';
-import { IBackground } from 'types';
+
+export interface IBackground {
+	children: React.ReactNode;
+}
 
 export const LandingLayout: React.FC<IBackground> = ({ children }) => {
 	const theme = usePicasso();

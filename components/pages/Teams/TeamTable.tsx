@@ -16,7 +16,6 @@ import { useTeams } from 'hooks';
 import { TeamFilters } from './Filters';
 import { FilterSandwichMenu } from './Filters/FilterSandwichMenu';
 
-
 export const TeamTable: React.FC = () => {
 	const theme = usePicasso();
 	const { t: translate } = useTranslation('teams-page');

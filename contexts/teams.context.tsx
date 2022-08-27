@@ -1,23 +1,5 @@
 import { createContext, useMemo, useState } from 'react';
-
-interface IEmployeeData {
-	name: string;
-	address: string;
-	group: {
-		name: string;
-		color: string;
-	};
-	amount: number;
-	withdrawable: number;
-	coin: string;
-}
-
-interface ITeamsData {
-	id: number;
-	name: string;
-	balance: number;
-	employees: IEmployeeData[];
-}
+import { IEmployeeData, ITeamsData } from 'types';
 
 interface ITeamsContext {
 	teams: ITeamsData[];
@@ -64,7 +46,7 @@ export const TeamsContext = createContext({} as ITeamsContext);
 export const TeamsProvider: React.FC<{ children: React.ReactNode }> = ({
 	children,
 }) => {
-	const [teams] = useState<ITeamsData[]>([
+	const [teams, setTeams] = useState<ITeamsData[]>([
 		{ id: 1, name: 'Cali Team', balance: 123432, employees: employeeData },
 	]);
 

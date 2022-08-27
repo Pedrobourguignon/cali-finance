@@ -13,12 +13,17 @@ import { BsArrowLeftRight } from 'react-icons/bs';
 import { MdPeopleAlt } from 'react-icons/md';
 import { RiHome3Line } from 'react-icons/ri';
 import { IconType } from 'react-icons';
-import { IModal } from 'types';
+import { FC } from 'react';
 
 interface IMenuItem {
 	route: string;
 	option: string;
 	icon: IconType;
+}
+
+interface IModalProps {
+	isOpen: boolean;
+	onClose: () => void;
 }
 
 const menuOptions: IMenuItem[] = [
@@ -39,7 +44,7 @@ const menuOptions: IMenuItem[] = [
 	},
 ];
 
-export const SandwichMenuModal = (props: IModal) => {
+export const SandwichMenuModal: FC<IModalProps> = props => {
 	const { isOpen, onClose } = props;
 	const theme = usePicasso();
 
