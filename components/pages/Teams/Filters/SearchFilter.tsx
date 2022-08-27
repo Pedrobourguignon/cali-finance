@@ -8,17 +8,16 @@ export const SearchFilter: React.FC = () => {
 	const { t: translate } = useTranslation('teams-page');
 
 	return (
-		<InputGroup w="48" h="9" color={theme.text.gray}>
+		<InputGroup w="full" h="9" color={theme.text.gray}>
 			<Input
 				type="text"
 				placeholder={translate('teamTableFilter.search')}
-				w="48"
 				h="9"
-				bg={theme.bg.bgCard}
+				bg={theme.bg.card}
 				_placeholder={{ color: theme.text.gray }}
 				border="none"
 			/>
-			<InputLeftElement h="full">
+			<InputLeftElement h="full" zIndex="base">
 				<Icon as={AiOutlineSearch} />
 			</InputLeftElement>
 		</InputGroup>

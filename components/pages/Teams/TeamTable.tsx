@@ -1,5 +1,4 @@
 import {
-	Button,
 	Flex,
 	Table,
 	TableContainer,
@@ -9,17 +8,24 @@ import {
 	Thead,
 	Tr,
 } from '@chakra-ui/react';
+import { useState } from 'react';
 import truncateEthAddress from 'truncate-eth-address';
 import useTranslation from 'next-translate/useTranslation';
-import { usePicasso } from 'hooks/usePicasso';
-import { useTeams } from 'hooks';
-import { TeamFilters } from './Filters';
-import { FilterSandwichMenu } from './Filters/FilterSandwichMenu';
+import { ITeamsData } from 'types';
+import { usePicasso } from 'hooks';
+import { TeamFilters, FilterSandwichMenu } from './Filters';
+import { Paginator } from './Misc';
 
-export const TeamTable: React.FC = () => {
+interface ITeamTableProps {
+	selectedTeam: ITeamsData;
+}
+
+export const TeamTable: React.FC<ITeamTableProps> = props => {
+	const { selectedTeam } = props;
 	const theme = usePicasso();
 	const { t: translate } = useTranslation('teams-page');
-	const { teams } = useTeams();
+	const [actualPage, setActualPage] = useState(1);
+	const [maxPage, setMaxPage] = useState(1);
 
 	return (
 		<Flex
@@ -58,7 +64,7 @@ export const TeamTable: React.FC = () => {
 						</Tr>
 					</Thead>
 					<Tbody>
-						{teams[0].employees.map((employee, index) => (
+						{selectedTeam.employees.map((employee, index) => (
 							<Tr key={+index}>
 								<Td>{employee.name}</Td>
 								<Td>{truncateEthAddress(employee.address)}</Td>
@@ -70,16 +76,7 @@ export const TeamTable: React.FC = () => {
 						))}
 					</Tbody>
 				</Table>
-				<Button
-					border="none"
-					bg="none"
-					w="full"
-					py="6"
-					h="max-content"
-					fontWeight="normal"
-				>
-					{translate('teamTable.seeMore')}
-				</Button>
+				<Paginator actualPage={actualPage} maxPage={maxPage} />
 			</TableContainer>
 		</Flex>
 	);

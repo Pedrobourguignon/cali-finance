@@ -1,21 +1,23 @@
 import { Button, Flex, Icon, Img, useDisclosure } from '@chakra-ui/react';
 import Link from 'next/link';
 import Router from 'next/router';
-import { AiOutlineMenu } from 'react-icons/ai';
+import { BsFilter } from 'react-icons/bs';
 import { FilterSandwichModal } from './FilterSandwichModal';
 
 export const FilterSandwichMenu = () => {
 	const { onOpen, isOpen, onClose } = useDisclosure();
 
 	return (
-		<Flex direction="row" gap="6">
+		<>
 			<FilterSandwichModal isOpen={isOpen} onClose={onClose} />
-			<Flex>
-				<Button onClick={onOpen} bg="none">
-					<Icon as={AiOutlineMenu} />
-				</Button>
+			<Flex direction="row" gap="6" w="full">
+				<Flex w="full" align="center" justify="center">
+					<Button onClick={onOpen} bg="none" w="full">
+						<Icon as={BsFilter} w="8" h="8" />
+					</Button>
+				</Flex>
 			</Flex>
-		</Flex>
+		</>
 	);
 };
 

@@ -6,7 +6,11 @@
 		"amount": "Amount",
 		"withdrawable": "Withdrawable",
 		"coin": "Coin",
-		"seeMore": "See more"
+		"paginator": {
+			"text": "Page {{actualPage}} of {{maxPage}}",
+			"previous": "Previous",
+			"next": "Next"
+		}
 	},
 	"teamOverall": {
 		"balance": "Balance",
@@ -15,7 +19,7 @@
 	},
 	"teamTableFilter": {
 		"allGroups": "All groups",
-		"search": "Search Someone",
+		"search": "Search someone...",
 		"filter": "Filter",
 		"rows": "Rows"
 	}

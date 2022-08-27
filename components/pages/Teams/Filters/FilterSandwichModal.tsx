@@ -33,77 +33,73 @@ interface IModalProps {
 export const FilterSandwichModal: FC<IModalProps> = props => {
 	const { isOpen, onClose } = props;
 	const theme = usePicasso();
-	const { t: translate } = useTranslation('common');
+	const { t: translate } = useTranslation('teams-page');
 
 	return (
-		<Modal isOpen={isOpen} onClose={onClose} size="xl">
+		<Modal isOpen={isOpen} onClose={onClose} size="md">
 			<ModalOverlay bg="none" backdropFilter="auto" backdropBlur="2px" />
 			<ModalContent
-				w="60"
-				h="80"
+				w="100%"
+				h="max-content"
 				bgColor={theme.bg.primary}
 				display="flex"
 				flexDir="column"
+				pb="8"
 				m="auto"
 				alignContent="center"
 			>
 				<ModalHeader display="flex" justifyContent="center">
-					Filters
+					{translate('teamTableFilter.filter')}
 				</ModalHeader>
 				<ModalBody borderRadius="3xl" display="flex" flexDir="column">
-					<Flex gap="4" direction="column" align="flex-start">
-						<Flex>
-							<Menu>
-								<MenuButton
-									as={Button}
-									rightIcon={<IoChevronDownCircleOutline />}
-									color={theme.text.gray}
-									w="48"
-									h="9"
-								>
-									{translate('teamTableFilter.allGroups')}
-								</MenuButton>
-								<MenuList bg={theme.bg.bgCard}>
-									{groupOptions.map((group, index) => (
-										<MenuItem key={+index}>{group}</MenuItem>
-									))}
-								</MenuList>
-							</Menu>
-						</Flex>
-						<Flex>
-							<SearchFilter />
-						</Flex>
-						<Flex>
-							<Button
-								w="48"
-								bg={theme.bg.bgCard}
+					<Flex gap="4" direction="column" w="full">
+						<Menu>
+							<MenuButton
+								as={Button}
+								rightIcon={<IoChevronDownCircleOutline />}
 								color={theme.text.gray}
-								display="flex"
-								gap="1"
+								w="full"
+								h="9"
+								textAlign="start"
 							>
-								<Icon as={FiFilter} />
-								{translate('teamTableFilter.filter')}
-							</Button>
-						</Flex>
-						<Flex>
-							<Menu>
-								<MenuButton
-									as={Button}
-									rightIcon={<IoChevronDownOutline />}
-									w="48"
-									h="9"
-									bg={theme.bg.bgCard}
-									color={theme.text.gray}
-								>
-									{translate('teamTableFilter.rows')}
-								</MenuButton>
-								<MenuList bg={theme.bg.bgCard}>
-									{numberOfRowsOptions.map((option, index) => (
-										<MenuItem key={+index}>{option}</MenuItem>
-									))}
-								</MenuList>
-							</Menu>
-						</Flex>
+								{translate('teamTableFilter.allGroups')}
+							</MenuButton>
+							<MenuList bg={theme.bg.card}>
+								{groupOptions.map((group, index) => (
+									<MenuItem key={+index}>{group}</MenuItem>
+								))}
+							</MenuList>
+						</Menu>
+						<SearchFilter />
+						<Button
+							w="full"
+							bg={theme.bg.card}
+							color={theme.text.gray}
+							display="flex"
+							gap="1"
+							justifyContent="start"
+						>
+							<Icon as={FiFilter} zIndex="base" />
+							{translate('teamTableFilter.filter')}
+						</Button>
+						<Menu>
+							<MenuButton
+								as={Button}
+								rightIcon={<IoChevronDownOutline />}
+								w="full"
+								h="9"
+								bg={theme.bg.card}
+								color={theme.text.gray}
+								textAlign="start"
+							>
+								{translate('teamTableFilter.rows')}
+							</MenuButton>
+							<MenuList bg={theme.bg.card}>
+								{numberOfRowsOptions.map((option, index) => (
+									<MenuItem key={+index}>{option}</MenuItem>
+								))}
+							</MenuList>
+						</Menu>
 					</Flex>
 				</ModalBody>
 			</ModalContent>

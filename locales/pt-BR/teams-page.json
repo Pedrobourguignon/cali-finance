@@ -6,7 +6,11 @@
 		"amount": "Quantia",
 		"withdrawable": "Retirável",
 		"coin": "Moeda",
-		"seeMore": "Veja mais"
+		"paginator": {
+			"text": "Página {{actualPage}} de {{maxPage}}",
+			"previous": "Anterior",
+			"next": "Próximo"
+		}
 	},
 	"teamOverall": {
 		"balance": "Saldo",
@@ -14,8 +18,8 @@
 		"costPerMonthCard": "Custo"
 	},
 	"teamTableFilter": {
-		"allGroups": "Todos grupos",
-		"search": "Procure alguém",
+		"allGroups": "Todos os grupos",
+		"search": "Procure alguém...",
 		"filter": "Filtro",
 		"rows": "Linhas"
 	}
