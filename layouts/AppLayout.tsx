@@ -13,6 +13,7 @@ export const AppLayout: React.FC<IBackground> = ({ children }) => {
 				background={theme.bg.secondary}
 				minH="100vh"
 				position="relative"
+				overflow="hidden"
 			>
 				<Flex
 					zIndex="hide"

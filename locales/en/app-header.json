@@ -4,5 +4,10 @@
 		"afternoon": "Good afternoon",
 		"night": "Good night"
 	},
-	"assetInfo": "Seems like market has been bullish. Your assets increased 10%"
+	"assetInfo": "Seems like market has been",
+	"increased": "Your assets increased",
+	"bearish": "bearish.",
+	"neutral": "neutral.",
+	"bullish": "bullish.",
+	"percentage": "{{percentage}}%"
 }

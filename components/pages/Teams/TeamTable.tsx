@@ -14,6 +14,8 @@ import useTranslation from 'next-translate/useTranslation';
 import { usePicasso } from 'hooks/usePicasso';
 import { useTeams } from 'hooks';
 import { TeamFilters } from './Filters';
+import { FilterSandwichMenu } from './Filters/FilterSandwichMenu';
+
 
 export const TeamTable: React.FC = () => {
 	const theme = usePicasso();
@@ -23,12 +25,27 @@ export const TeamTable: React.FC = () => {
 	return (
 		<Flex
 			h="max-content"
-			w="max-content"
+			w={{
+				base: '18rem',
+				sm: '29rem',
+				md: '35rem',
+				lg: 'max-content',
+			}}
 			bg={theme.bg.primary}
 			borderRadius="12"
 			flexDirection="column"
 		>
-			<TeamFilters />
+			<Flex
+				display={{
+					base: 'none',
+					md: 'flex',
+				}}
+			>
+				<TeamFilters />
+			</Flex>
+			<Flex display={{ base: 'flex', md: 'none' }} justify="end" p="2">
+				<FilterSandwichMenu />
+			</Flex>
 			<TableContainer>
 				<Table variant="simple" color="white">
 					<Thead>

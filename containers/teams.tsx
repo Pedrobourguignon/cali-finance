@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { FaDiscord, FaTwitter } from 'react-icons/fa';
 
 export const TeamsContainer = () => (
+
 	<TeamsProvider>
 		<AppLayout>
 			<Flex

@@ -1,28 +1,44 @@
-import { Button, Flex, Icon, Menu, MenuItem, MenuList } from '@chakra-ui/react';
+import {
+	Button,
+	Flex,
+	Icon,
+	Menu,
+	MenuButton,
+	MenuItem,
+	MenuList,
+} from '@chakra-ui/react';
 import { usePicasso } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
-import { FiFilter } from 'react-icons/fi';
-import { IoChevronDownOutline } from 'react-icons/io5';
+import {
+	IoChevronDownCircleOutline,
+	IoChevronDownOutline,
+} from 'react-icons/io5';
 import { SearchFilter } from './SearchFilter';
+
+const groupOptions = ['Dev', 'Marketing', 'Business'];
+const numberOfRowsOptions = [5, 10, 15];
 
 export const TeamFilters = () => {
 	const theme = usePicasso();
 	const { t: translate } = useTranslation('teams-page');
 
 	return (
-		<Flex m="3.5" gap="4" justifyContent="space-between" direction="row">
+		<Flex m="3.5" justifyContent="space-between" direction="row" w="full">
 			<Flex>
 				<Menu>
-					<Button
-						rightIcon={<IoChevronDownOutline />}
-						h="9"
-						bg={theme.bg.bgCard}
+					<MenuButton
+						as={Button}
+						rightIcon={<IoChevronDownCircleOutline />}
 						color={theme.text.gray}
+						w="32"
+						h="9"
 					>
 						{translate('teamTableFilter.allGroups')}
-					</Button>
-					<MenuList bg="none">
-						<MenuItem>Download</MenuItem>
+					</MenuButton>
+					<MenuList bg={theme.bg.bgCard}>
+						{groupOptions.map((group, index) => (
+							<MenuItem key={+index}>{group}</MenuItem>
+						))}
 					</MenuList>
 				</Menu>
 			</Flex>
@@ -31,24 +47,24 @@ export const TeamFilters = () => {
 			</Flex>
 			<Flex>
 				<Button w="12" bg="none" color="white">
-					<Icon as={FiFilter} mr="1" />
 					{translate('teamTableFilter.filter')}
 				</Button>
 			</Flex>
 			<Flex>
 				<Menu>
-					<Button
+					<MenuButton
 						as={Button}
 						rightIcon={<IoChevronDownOutline />}
-						w="24"
 						h="9"
 						bg={theme.bg.bgCard}
 						color={theme.text.gray}
 					>
 						{translate('teamTableFilter.rows')}
-					</Button>
-					<MenuList bg="none">
-						<MenuItem>Teste</MenuItem>
+					</MenuButton>
+					<MenuList bg={theme.bg.bgCard}>
+						{numberOfRowsOptions.map((option, index) => (
+							<MenuItem key={+index}>{option}</MenuItem>
+						))}
 					</MenuList>
 				</Menu>
 			</Flex>
