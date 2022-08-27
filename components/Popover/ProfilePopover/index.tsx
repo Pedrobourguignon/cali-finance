@@ -1,22 +1,13 @@
 import {
-	Menu,
-	MenuItem,
-	MenuList,
 	Img,
 	Skeleton,
 	SkeletonCircle,
-	MenuButton,
 	Button,
 	Flex,
 	Popover,
 	PopoverTrigger,
 	PopoverContent,
-	PopoverArrow,
-	PopoverCloseButton,
-	PopoverHeader,
 	PopoverBody,
-	Switch,
-	Icon,
 	Divider,
 } from '@chakra-ui/react';
 import { useProfile } from 'hooks';
