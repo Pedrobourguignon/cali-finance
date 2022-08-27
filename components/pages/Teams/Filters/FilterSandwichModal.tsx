@@ -19,13 +19,18 @@ import {
 } from 'react-icons/io5';
 import useTranslation from 'next-translate/useTranslation';
 import { FiFilter } from 'react-icons/fi';
-import { IModal } from 'types';
+import { FC } from 'react';
 import { SearchFilter } from './SearchFilter';
 
 const groupOptions = ['Dev', 'Marketing', 'Business'];
 const numberOfRowsOptions = [5, 10, 15];
 
-export const FilterSandwichModal = (props: IModal) => {
+interface IModalProps {
+	isOpen: boolean;
+	onClose: () => void;
+}
+
+export const FilterSandwichModal: FC<IModalProps> = props => {
 	const { isOpen, onClose } = props;
 	const theme = usePicasso();
 	const { t: translate } = useTranslation('common');
