@@ -12,69 +12,39 @@ import {
 import truncateEthAddress from 'truncate-eth-address';
 import useTranslation from 'next-translate/useTranslation';
 import { usePicasso } from 'hooks/usePicasso';
+import { useTeams } from 'hooks';
 import { TeamFilters } from './Filters';
-
-interface IEmployeeData {
-	name: string;
-	address: string;
-	group: {
-		name: string;
-		color: string;
-	};
-	amount: number;
-	withdrawable: number;
-	coin: string;
-}
-
-const employeeData: IEmployeeData[] = [
-	{
-		name: 'Bradley Cooper',
-		address: '0x969Cf86eeb3f9354D89f357c8dFe43DE8e645148',
-		group: {
-			name: 'Marketing',
-			color: 'red.600',
-		},
-		amount: 15000,
-		withdrawable: 192312,
-		coin: 'USDT',
-	},
-	{
-		name: 'Denzel Washington',
-		address: '0x969Cf86eeb3f9354D89f357c8dFe43DE8e645148',
-		group: {
-			name: 'Dev',
-			color: 'green.600',
-		},
-		amount: 15000,
-		withdrawable: 192312,
-		coin: 'USDT',
-	},
-	{
-		name: 'Jackie Chan',
-		address: '0x969Cf86eeb3f9354D89f357c8dFe43DE8e645148',
-		group: {
-			name: 'Business',
-			color: 'blue.600',
-		},
-		amount: 15000,
-		withdrawable: 192312,
-		coin: 'USDT',
-	},
-];
+import { FilterSandwichMenu } from './Filters/FilterSandwichMenu';
 
 export const TeamTable: React.FC = () => {
 	const theme = usePicasso();
 	const { t: translate } = useTranslation('teams-page');
+	const { teams } = useTeams();
 
 	return (
 		<Flex
 			h="max-content"
-			w="max-content"
+			w={{
+				base: '18rem',
+				sm: '29rem',
+				md: '35rem',
+				lg: 'max-content',
+			}}
 			bg={theme.bg.primary}
 			borderRadius="12"
 			flexDirection="column"
 		>
-			<TeamFilters />
+			<Flex
+				display={{
+					base: 'none',
+					md: 'flex',
+				}}
+			>
+				<TeamFilters />
+			</Flex>
+			<Flex display={{ base: 'flex', md: 'none' }} justify="end" p="2">
+				<FilterSandwichMenu />
+			</Flex>
 			<TableContainer>
 				<Table variant="simple" color="white">
 					<Thead>
@@ -88,7 +58,7 @@ export const TeamTable: React.FC = () => {
 						</Tr>
 					</Thead>
 					<Tbody>
-						{employeeData.map((employee, index) => (
+						{teams[0].employees.map((employee, index) => (
 							<Tr key={+index}>
 								<Td>{employee.name}</Td>
 								<Td>{truncateEthAddress(employee.address)}</Td>

@@ -2,12 +2,13 @@ import { Flex, Icon, Text } from '@chakra-ui/react';
 import { usePicasso } from 'hooks/usePicasso';
 import { BiDollarCircle } from 'react-icons/bi';
 import useTranslation from 'next-translate/useTranslation';
+import { useTeams } from 'hooks';
 
 export const TeamBalanceCard: React.FC = () => {
 	const theme = usePicasso();
 	const { t: translate } = useTranslation('teams-page');
+	const { teams } = useTeams();
 
-	const teamBalance = '$123,123.98';
 	return (
 		<Flex
 			w="36"
@@ -22,7 +23,7 @@ export const TeamBalanceCard: React.FC = () => {
 				<Icon as={BiDollarCircle} mr="2" />
 				<Flex direction="column">
 					<Text fontSize="xs">{translate('teamOverall.balance')}</Text>
-					<Text fontSize="md">{teamBalance}</Text>
+					<Text fontSize="md">{teams[0].balance}</Text>
 				</Flex>
 			</Flex>
 		</Flex>

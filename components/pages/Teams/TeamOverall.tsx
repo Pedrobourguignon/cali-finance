@@ -1,20 +1,31 @@
 import { Button, Flex, Icon, Text } from '@chakra-ui/react';
 import { CostPerMonthCard, TeamBalanceCard, TimeLeftCard } from 'components';
 import { usePicasso } from 'hooks/usePicasso';
-import useTranslation from 'next-translate/useTranslation';
 import { BsThreeDotsVertical } from 'react-icons/bs';
+import { ITeamsData } from 'types';
 
-export const TeamOverall: React.FC = () => {
+interface ITeamOverallProps {
+	selectedTeam: ITeamsData;
+}
+
+export const TeamOverall: React.FC<ITeamOverallProps> = props => {
+	const { selectedTeam } = props;
 	const theme = usePicasso();
-	const { t: translate } = useTranslation('teams-page');
 
 	return (
 		<Flex
 			h="max-content"
-			minW={{ base: '96', sm: '22rem', md: '25rem', xl: '30rem' }}
+			w={{
+				base: '18rem',
+				sm: '29rem',
+				md: '35rem',
+				lg: 'max-content',
+			}}
 			bg={theme.bg.primary}
 			borderRadius="12"
 			flexDirection="column"
+			minW="max-content"
+			mb="8"
 		>
 			<Flex
 				py="4"
@@ -25,7 +36,7 @@ export const TeamOverall: React.FC = () => {
 			>
 				<Flex>
 					<Text fontSize="xl" whiteSpace="nowrap">
-						{translate('teamOverall.teamName')}
+						{selectedTeam.name}
 					</Text>
 				</Flex>
 				<Flex>
@@ -35,16 +46,13 @@ export const TeamOverall: React.FC = () => {
 				</Flex>
 			</Flex>
 			<Flex
-				py="6"
-				px="6"
+				p="6"
+				gap="6"
 				flexDirection={{
 					base: 'column',
 					sm: 'column',
-					md: 'column',
-					xl: 'row',
+					md: 'row',
 				}}
-				gap="6"
-				justify="center"
 				align="center"
 			>
 				<TeamBalanceCard />
