@@ -4,5 +4,10 @@
 		"afternoon": "Boa tarde",
 		"night": "Boa noite"
 	},
-	"assetInfo": "Parece que o mercado está em alta. Seus ativos aumentaram 10%"
+	"assetInfo": "Parece que o mercado está",
+	"increased": "Seus ativos variaram",
+	"bearish": "em baixa.",
+	"neutral": "neutro.",
+	"bullish": "otimista.",
+	"percentage": "{{percentage}}%"
 }
