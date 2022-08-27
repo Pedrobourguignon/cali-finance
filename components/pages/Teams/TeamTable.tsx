@@ -13,6 +13,7 @@ import truncateEthAddress from 'truncate-eth-address';
 import useTranslation from 'next-translate/useTranslation';
 import { usePicasso } from 'hooks/usePicasso';
 import { TeamFilters } from './Filters';
+import { FilterSandwichMenu } from './Filters/FilterSandwichMenu';
 
 interface IEmployeeData {
 	name: string;
@@ -32,7 +33,7 @@ const employeeData: IEmployeeData[] = [
 		address: '0x969Cf86eeb3f9354D89f357c8dFe43DE8e645148',
 		group: {
 			name: 'Marketing',
-			color: 'red.600',
+			color: 'blue.600',
 		},
 		amount: 15000,
 		withdrawable: 192312,
@@ -45,8 +46,8 @@ const employeeData: IEmployeeData[] = [
 			name: 'Dev',
 			color: 'green.600',
 		},
-		amount: 15000,
-		withdrawable: 192312,
+		amount: 230789,
+		withdrawable: 320,
 		coin: 'USDT',
 	},
 	{
@@ -56,8 +57,8 @@ const employeeData: IEmployeeData[] = [
 			name: 'Business',
 			color: 'blue.600',
 		},
-		amount: 15000,
-		withdrawable: 192312,
+		amount: 1563,
+		withdrawable: 1240,
 		coin: 'USDT',
 	},
 ];
@@ -69,12 +70,27 @@ export const TeamTable: React.FC = () => {
 	return (
 		<Flex
 			h="max-content"
-			w="max-content"
+			w={{
+				base: '18rem',
+				sm: '29rem',
+				md: '35rem',
+				lg: 'max-content',
+			}}
 			bg={theme.bg.primary}
 			borderRadius="12"
 			flexDirection="column"
 		>
-			<TeamFilters />
+			<Flex
+				display={{
+					base: 'none',
+					md: 'flex',
+				}}
+			>
+				<TeamFilters />
+			</Flex>
+			<Flex display={{ base: 'flex', md: 'none' }} justify="end" p="2">
+				<FilterSandwichMenu />
+			</Flex>
 			<TableContainer>
 				<Table variant="simple" color="white">
 					<Thead>

@@ -29,7 +29,7 @@ export const AppHeader: React.FC = () => {
 			alignItems="center"
 			color="white"
 			mt="4"
-			gap="6"
+			gap={{ base: '6', sm: '10' }}
 		>
 			<Flex flexDirection="row" alignItems="center">
 				<Flex
@@ -52,14 +52,18 @@ export const AppHeader: React.FC = () => {
 					</Text>
 				</Flex>
 			</Flex>
-			<Flex display={{ base: 'flex', sm: 'flex', md: 'none' }}>
+			<Flex
+				display={{ base: 'flex', md: 'none' }}
+				align="center"
+				mr={{ sm: '14' }}
+			>
 				<SandwichMenu />
 			</Flex>
 			<Flex direction="row" gap="10">
-				<Flex display={{ base: 'none', sm: 'none', md: 'flex' }}>
+				<Flex display={{ base: 'none', md: 'flex' }}>
 					<NotificationButton />
 				</Flex>
-				<Flex>
+				<Flex mr={{ md: '12' }}>
 					<ProfilePopover />
 				</Flex>
 			</Flex>
