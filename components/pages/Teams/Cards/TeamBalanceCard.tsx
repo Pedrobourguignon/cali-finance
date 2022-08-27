@@ -13,7 +13,7 @@ export const TeamBalanceCard: React.FC = () => {
 		<Flex
 			w="36"
 			h="14"
-			bg={theme.bg.bgCard}
+			bg={theme.bg.card}
 			direction="column"
 			rounded="lg"
 			pl="4"
