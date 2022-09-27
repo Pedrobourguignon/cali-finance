@@ -1,53 +1,47 @@
 import { Button, Flex, Icon, Img, Link } from '@chakra-ui/react';
 import React from 'react';
-import { IconType } from 'react-icons';
-import { BsArrowLeftRight, BsBriefcase } from 'react-icons/bs';
-import { AiOutlineAppstore, AiOutlineCreditCard } from 'react-icons/ai';
-import { RiTeamLine } from 'react-icons/ri';
-import { FiFolderMinus } from 'react-icons/fi';
-import { TiEdit } from 'react-icons/ti';
 import { FaDiscord, FaTwitter } from 'react-icons/fa';
 import { usePath, usePicasso } from 'hooks';
 
 interface IMenuItem {
-	icon: IconType;
+	icon: string;
 	route: string;
 	option: string;
 }
 
 const menuOptions: IMenuItem[] = [
 	{
-		icon: AiOutlineAppstore,
-		route: '/app',
+		icon: '/icons/category.svg',
+		route: '/app/dashboard',
 		option: 'Dashboard',
 	},
 	{
-		icon: BsBriefcase,
+		icon: '/icons/category.svg',
 		route: '/app/organizations',
 		option: 'Organizations',
 	},
 	{
-		icon: RiTeamLine,
+		icon: '/icons/category.svg',
 		route: '/app/teams',
 		option: 'Teams',
 	},
 	{
-		icon: AiOutlineCreditCard,
+		icon: '/icons/category.svg',
 		route: '/app/funds',
 		option: 'Funds',
 	},
 	{
-		icon: TiEdit,
+		icon: '/icons/category.svg',
 		route: '/app/edit-profile',
 		option: 'Edit Profile',
 	},
 	{
-		icon: FiFolderMinus,
+		icon: '/icons/category.svg',
 		route: '/app/history',
 		option: 'History',
 	},
 	{
-		icon: BsArrowLeftRight,
+		icon: '/icons/category.svg',
 		route: '/app/customize',
 		option: 'Customize',
 	},
@@ -59,51 +53,85 @@ export const Sidebar: React.FC = () => {
 	return (
 		<Flex
 			minH="100vh"
-			w="60"
+			w="56"
 			flexDirection="column"
 			display={{ base: 'none', md: 'flex' }}
 			bg="black"
 			align="flex-start"
 			color="white"
-			gap="6"
 		>
-			<Flex w="full" justify="center">
+			<Flex
+				w="full"
+				justify="center"
+				mt="10"
+				mb="12"
+				direction="column"
+				align="center"
+				gap="6"
+			>
 				<Link href="/">
-					<Img src="/images/cali-logo.svg" w="20" h="20" cursor="pointer" />
+					<Img src="/images/cali-logo.svg" boxSize="20" cursor="pointer" />
+				</Link>
+				<Link href="/">
+					<Flex
+						position="relative"
+						display=" block"
+						p="4"
+						border=" 2px solid white"
+						borderRadius="base"
+						w="40"
+					>
+						<Button
+							w="40"
+							h="8"
+							fontSize="sm"
+							color="black"
+							borderRadius="base"
+							display=" block"
+							borderWidth="0 2.5"
+							m="-22px 0px -10px -22px"
+							bg="white"
+							_hover={{ bg: 'white' }}
+						>
+							Connect Wallet
+						</Button>
+					</Flex>
 				</Link>
 			</Flex>
-			<Flex w="full" justify="center">
-				<Link href="/">
-					<Button w="40" h="8" fontSize="sm" color="black">
-						Connect Wallet
-					</Button>
-				</Link>
-			</Flex>
-			<Flex direction="column" gap="7" ml="8">
+			<Flex direction="column" gap="7" ml="8" w="full">
 				{menuOptions.map((item, index) => {
 					const comparedPath = isSamePath(item.route);
 					return (
 						<Link href={item.route} key={+index}>
 							<Button
-								bgColor={comparedPath ? 'gray.700' : 'transparent'}
 								w="max-content"
 								p="2"
+								gap="3.5"
+								bgColor="transparent"
+								fontSize="sm"
+								boxShadow={comparedPath ? theme.branding.blue : ''}
 								color={comparedPath ? theme.branding.blue : 'white'}
 								_hover={{
 									textDecoration: 'none',
 								}}
-								boxShadow={comparedPath ? theme.branding.blue : ''}
-								gap="3.5"
-								fontSize="sm"
+								borderLeft={comparedPath ? 'solid' : ''}
+								borderRadius="none"
 							>
-								<Icon as={item.icon} boxSize="6" />
+								<Img src={item.icon} w="6" h="6" />
 								{item.option}
 							</Button>
 						</Link>
 					);
 				})}
 			</Flex>
-			<Flex direction="column" align="flex-start" gap="3" ml="10">
+			<Flex
+				direction="column"
+				align="flex-start"
+				gap="3"
+				ml="10"
+				mt="20"
+				mb="12"
+			>
 				<Link href="/">Help</Link>
 				<Link href="/">Docs</Link>
 			</Flex>
