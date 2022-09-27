@@ -2,7 +2,7 @@ import { Button, Flex, Icon, Img, Link } from '@chakra-ui/react';
 import React from 'react';
 import { FaDiscord, FaTwitter } from 'react-icons/fa';
 import { usePath, usePicasso } from 'hooks';
-// import { ConnectWalletButton } from 'components/Buttons';
+import { ConnectWalletButton } from 'components';
 
 interface IMenuItem {
 	icon: string;
@@ -17,17 +17,17 @@ const menuOptions: IMenuItem[] = [
 		option: 'Dashboard',
 	},
 	{
-		icon: '/icons/organizations.svg',
+		icon: '/icons/work.svg',
 		route: '/app/organizations',
 		option: 'Organizations',
 	},
 	{
-		icon: '/icons/teams.svg',
+		icon: '/icons/user.svg',
 		route: '/app/teams',
 		option: 'Teams',
 	},
 	{
-		icon: '/icons/funds.svg',
+		icon: '/icons/card.svg',
 		route: '/app/funds',
 		option: 'Funds',
 	},
@@ -42,7 +42,7 @@ const menuOptions: IMenuItem[] = [
 		option: 'History',
 	},
 	{
-		icon: '/icons/customize.svg',
+		icon: '/icons/filter.svg',
 		route: '/app/customize',
 		option: 'Customize',
 	},
@@ -73,9 +73,11 @@ export const Sidebar: React.FC = () => {
 				<Link href="/">
 					<Img src="/images/cali-logo.svg" boxSize="20" cursor="pointer" />
 				</Link>
-				<Link href="/app/dashboard">{/* <ConnectWalletButton /> */}</Link>
+				<Link href="/app/dashboard">
+					<ConnectWalletButton />
+				</Link>
 			</Flex>
-			<Flex direction="column" gap="7" ml="2" w="full">
+			<Flex direction="column" gap="7" w="full">
 				{menuOptions.map((item, index) => {
 					const comparedPath = isSamePath(item.route);
 					return (
@@ -84,6 +86,7 @@ export const Sidebar: React.FC = () => {
 								w="full"
 								p="2"
 								gap="3.5"
+								justifyContent="flex-start"
 								bgColor="transparent"
 								fontSize="sm"
 								borderRadius="none"
@@ -93,17 +96,16 @@ export const Sidebar: React.FC = () => {
 								_hover={{
 									textDecoration: 'none',
 								}}
-								justifyContent="flex-start"
 							>
-								<Img src={item.icon} color="white" />
+								<Img src={item.icon} color="white" ml="4" />
 								{item.option}
 								<Flex
 									justify="space-between"
 									display={comparedPath ? 'flex' : 'none'}
 									w="full"
-									borderTop=" 20px solid transparent"
-									borderBottom="20px solid transparent"
-									borderRight="20px solid blue"
+									borderTop="15px solid transparent"
+									borderBottom="15px solid transparent"
+									borderRight="15px solid blue"
 								/>
 							</Button>
 						</Link>
