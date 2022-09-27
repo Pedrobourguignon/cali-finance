@@ -1,5 +1,5 @@
 import { Flex } from '@chakra-ui/react';
-import { Sidebar } from 'components';
+import { Sidebar, DashboardComponent } from 'components';
 
 import React from 'react';
 
@@ -8,6 +8,7 @@ export const DashboardContainer = () => {
 	return (
 		<Flex bg="black">
 			<Sidebar />
+			<DashboardComponent />
 		</Flex>
 	);
 };

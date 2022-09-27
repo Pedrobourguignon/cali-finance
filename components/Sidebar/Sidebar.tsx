@@ -98,7 +98,7 @@ export const Sidebar: React.FC = () => {
 					</Flex>
 				</Link>
 			</Flex>
-			<Flex direction="column" gap="7" ml="8" w="full">
+			<Flex direction="column" gap="7" ml="4" w="full">
 				{menuOptions.map((item, index) => {
 					const comparedPath = isSamePath(item.route);
 					return (
