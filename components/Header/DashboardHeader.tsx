@@ -14,8 +14,14 @@ export const DashboardHeader: React.FC = () => {
 	};
 
 	return (
-		<Flex w="740px" direction="row" justify="space-between" h="max-content">
-			<Flex direction="column" gap="1.5" p="6">
+		<Flex
+			w="740px"
+			direction="row"
+			justify="space-between"
+			h="max-content"
+			my="6"
+		>
+			<Flex direction="column" gap="1.5" ml="8">
 				<Text
 					color="black"
 					fontSize="2xl"

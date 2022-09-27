@@ -1,5 +1,5 @@
 import { Flex, Text } from '@chakra-ui/react';
-import { DashboardHeader } from 'components';
+import { DashboardHeader, Coins } from 'components';
 import { usePicasso } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
 import React from 'react';
@@ -17,8 +17,9 @@ export const DashboardComponent: React.FC = () => {
 			borderLeft="8px solid"
 			borderColor={theme.branding.blue}
 		>
-			<Flex>
+			<Flex direction="column" p="6">
 				<DashboardHeader />
+				<Coins />
 			</Flex>
 		</Flex>
 	);
