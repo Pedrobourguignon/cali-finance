@@ -103,9 +103,9 @@ export const Sidebar: React.FC = () => {
 									justify="space-between"
 									display={comparedPath ? 'flex' : 'none'}
 									w="full"
-									borderTop="15px solid transparent"
-									borderBottom="15px solid transparent"
-									borderRight="15px solid blue"
+									borderTop="1rem solid transparent"
+									borderBottom="1rem solid transparent"
+									borderRight="1rem solid"
 								/>
 							</Button>
 						</Link>
@@ -116,14 +116,14 @@ export const Sidebar: React.FC = () => {
 				direction="column"
 				align="flex-start"
 				gap="3"
-				ml="4"
+				ml="6"
 				mt="20"
 				mb="12"
 			>
 				<Link href="/">Help</Link>
 				<Link href="/">Docs</Link>
 			</Flex>
-			<Flex flexDirection="row">
+			<Flex flexDirection="row" ml="2">
 				<Link href="/">
 					<Button bg="transparent" borderRadius="full">
 						<Icon as={FaDiscord} w="6" h="5" color={theme.branding.blue} />
