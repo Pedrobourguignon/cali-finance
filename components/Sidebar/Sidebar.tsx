@@ -81,8 +81,9 @@ export const Sidebar: React.FC = () => {
 				{menuOptions.map((item, index) => {
 					const comparedPath = isSamePath(item.route);
 					return (
-						<Link href={item.route} key={+index} display="flex" bg="red">
+						<Link href={item.route} key={+index} display="flex">
 							<Button
+								justifyContent="flex-start"
 								alignItems="center"
 								w="full"
 								p="2"
@@ -102,9 +103,9 @@ export const Sidebar: React.FC = () => {
 								<Flex
 									display={comparedPath ? 'flex' : 'none'}
 									w="full"
-									borderTop=" 20px solid transparent"
-									borderBottom="20px solid transparent"
-									borderRight="20px solid blue"
+									borderTop=" 1rem solid transparent"
+									borderBottom="1rem solid transparent"
+									borderRight="1rem solid"
 								/>
 							</Button>
 						</Link>

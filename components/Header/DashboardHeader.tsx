@@ -32,7 +32,7 @@ export const DashboardHeader: React.FC = () => {
 					{greetingMessage()}
 				</Text>
 				<Text fontSize="sm" font-weight=" 400" lineHeight="5">
-					Please connect your wallet to be able to automate your payments.
+					{translate('loginMessage')}
 				</Text>
 			</Flex>
 			<NotificationButton />

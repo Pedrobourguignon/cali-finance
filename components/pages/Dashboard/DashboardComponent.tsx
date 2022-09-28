@@ -14,7 +14,7 @@ export const DashboardComponent: React.FC = () => {
 			w="full"
 			h="95vh"
 			m="auto"
-			borderLeft="8px solid"
+			borderLeft="0.25rem solid"
 			borderColor={theme.branding.blue}
 		>
 			<Flex direction="column" p="6">
