@@ -2,7 +2,7 @@ import { Button, Flex, Icon, Img, Link } from '@chakra-ui/react';
 import React from 'react';
 import { FaDiscord, FaTwitter } from 'react-icons/fa';
 import { usePath, usePicasso } from 'hooks';
-import { ConnectWalletButton } from 'components';
+import { ConnectWalletButton } from 'components/Buttons';
 
 interface IMenuItem {
 	icon: string;
@@ -17,17 +17,17 @@ const menuOptions: IMenuItem[] = [
 		option: 'Dashboard',
 	},
 	{
-		icon: '/icons/work.svg',
+		icon: '/icons/organizations.svg',
 		route: '/app/organizations',
 		option: 'Organizations',
 	},
 	{
-		icon: '/icons/user.svg',
+		icon: '/icons/teams.svg',
 		route: '/app/teams',
 		option: 'Teams',
 	},
 	{
-		icon: '/icons/card.svg',
+		icon: '/icons/funds.svg',
 		route: '/app/funds',
 		option: 'Funds',
 	},
@@ -42,7 +42,7 @@ const menuOptions: IMenuItem[] = [
 		option: 'History',
 	},
 	{
-		icon: '/icons/filter.svg',
+		icon: '/icons/customize.svg',
 		route: '/app/customize',
 		option: 'Customize',
 	},
@@ -77,16 +77,17 @@ export const Sidebar: React.FC = () => {
 					<ConnectWalletButton />
 				</Link>
 			</Flex>
-			<Flex direction="column" gap="7" w="full">
+			<Flex direction="column" gap="7" ml="2" w="full">
 				{menuOptions.map((item, index) => {
 					const comparedPath = isSamePath(item.route);
 					return (
 						<Link href={item.route} key={+index} display="flex">
 							<Button
+								justifyContent="flex-start"
+								alignItems="center"
 								w="full"
 								p="2"
 								gap="3.5"
-								justifyContent="flex-start"
 								bgColor="transparent"
 								fontSize="sm"
 								borderRadius="none"
@@ -97,13 +98,12 @@ export const Sidebar: React.FC = () => {
 									textDecoration: 'none',
 								}}
 							>
-								<Img src={item.icon} color="white" ml="4" />
+								<Img src={item.icon} color="white" />
 								{item.option}
 								<Flex
-									justify="space-between"
 									display={comparedPath ? 'flex' : 'none'}
 									w="full"
-									borderTop="1rem solid transparent"
+									borderTop=" 1rem solid transparent"
 									borderBottom="1rem solid transparent"
 									borderRight="1rem solid"
 								/>
@@ -116,21 +116,21 @@ export const Sidebar: React.FC = () => {
 				direction="column"
 				align="flex-start"
 				gap="3"
-				ml="6"
+				ml="4"
 				mt="20"
 				mb="12"
 			>
 				<Link href="/">Help</Link>
 				<Link href="/">Docs</Link>
 			</Flex>
-			<Flex flexDirection="row" ml="2">
+			<Flex flexDirection="row">
 				<Link href="/">
-					<Button bg="transparent" borderRadius="full">
+					<Button bg="whiteAlpha.50" borderRadius="full">
 						<Icon as={FaDiscord} w="6" h="5" color={theme.branding.blue} />
 					</Button>
 				</Link>
 				<Link href="/">
-					<Button bg="transparent" borderRadius="full">
+					<Button bg="whiteAlpha.50" borderRadius="full">
 						<Icon as={FaTwitter} w="6" h="5" color={theme.branding.blue} />
 					</Button>
 				</Link>
