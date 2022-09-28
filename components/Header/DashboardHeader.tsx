@@ -31,7 +31,7 @@ export const DashboardHeader: React.FC = () => {
 				>
 					{greetingMessage()}
 				</Text>
-				<Text fontSize="sm" font-weight=" 400" lineHeight="5">
+				<Text fontSize="sm" fontWeight=" 400" lineHeight="5">
 					{translate('loginMessage')}
 				</Text>
 			</Flex>

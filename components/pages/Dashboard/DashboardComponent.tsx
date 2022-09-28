@@ -1,5 +1,11 @@
 import { Flex } from '@chakra-ui/react';
-import { DashboardHeader, Coins, CreateOrganizationCard } from 'components';
+import {
+	DashboardHeader,
+	Coins,
+	CreateOrganizationCard,
+	SwapToken,
+	HaveProblemCard,
+} from 'components';
 import { usePicasso } from 'hooks';
 import React from 'react';
 
@@ -18,6 +24,10 @@ export const DashboardComponent: React.FC = () => {
 				<DashboardHeader />
 				<Coins />
 				<CreateOrganizationCard />
+			</Flex>
+			<Flex direction="column">
+				<SwapToken />
+				<HaveProblemCard />
 			</Flex>
 		</Flex>
 	);

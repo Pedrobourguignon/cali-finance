@@ -125,12 +125,12 @@ export const Sidebar: React.FC = () => {
 			</Flex>
 			<Flex flexDirection="row">
 				<Link href="/">
-					<Button bg="whiteAlpha.50" borderRadius="full">
+					<Button bg="none" borderRadius="full">
 						<Icon as={FaDiscord} w="6" h="5" color={theme.branding.blue} />
 					</Button>
 				</Link>
 				<Link href="/">
-					<Button bg="whiteAlpha.50" borderRadius="full">
+					<Button bg="none" borderRadius="full">
 						<Icon as={FaTwitter} w="6" h="5" color={theme.branding.blue} />
 					</Button>
 				</Link>

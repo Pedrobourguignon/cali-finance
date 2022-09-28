@@ -16,7 +16,7 @@ export const CreateOrganizationCard = () => (
 	>
 		<Flex align="center" justify="center" gap="5" w="44">
 			<Img src="/icons/avatar.svg" boxSize="8" />
-			<Text font-style="normal">You don’t have a Organization yet</Text>
+			<Text fontStyle="normal">You don’t have a Organization yet</Text>
 		</Flex>
 		<Button
 			color="white"
@@ -27,6 +27,7 @@ export const CreateOrganizationCard = () => (
 			fontWeight="500"
 			lineHeight="5"
 			borderRadius="sm"
+			_hover={{ bg: 'black' }}
 		>
 			+ Create a Organization
 		</Button>
