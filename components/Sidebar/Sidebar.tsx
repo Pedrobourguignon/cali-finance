@@ -73,9 +73,7 @@ export const Sidebar: React.FC = () => {
 				<Link href="/">
 					<Img src="/images/cali-logo.svg" boxSize="20" cursor="pointer" />
 				</Link>
-				<Link href="/app/dashboard">
-					<ConnectWalletButton />
-				</Link>
+				<ConnectWalletButton />
 			</Flex>
 			<Flex direction="column" gap="7" ml="2" w="full">
 				{menuOptions.map((item, index) => {
