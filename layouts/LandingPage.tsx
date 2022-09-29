@@ -4,6 +4,7 @@ import { usePicasso } from 'hooks';
 interface ILanding {
 	children: React.ReactNode;
 }
+
 export const LandingPage: React.FC<ILanding> = ({ children }) => {
 	const theme = usePicasso();
 	return (
