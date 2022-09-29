@@ -17,17 +17,17 @@ const menuOptions: IMenuItem[] = [
 		option: 'Dashboard',
 	},
 	{
-		icon: '/icons/organizations.svg',
+		icon: '/icons/work.svg',
 		route: '/app/organizations',
 		option: 'Organizations',
 	},
 	{
-		icon: '/icons/teams.svg',
+		icon: '/icons/user.svg',
 		route: '/app/teams',
 		option: 'Teams',
 	},
 	{
-		icon: '/icons/funds.svg',
+		icon: '/icons/card.svg',
 		route: '/app/funds',
 		option: 'Funds',
 	},
@@ -42,7 +42,7 @@ const menuOptions: IMenuItem[] = [
 		option: 'History',
 	},
 	{
-		icon: '/icons/customize.svg',
+		icon: '/icons/filter.svg',
 		route: '/app/customize',
 		option: 'Customize',
 	},
@@ -123,12 +123,12 @@ export const Sidebar: React.FC = () => {
 			</Flex>
 			<Flex flexDirection="row">
 				<Link href="/">
-					<Button bg="whiteAlpha.50" borderRadius="full">
+					<Button bg="transparent" borderRadius="full">
 						<Icon as={FaDiscord} w="6" h="5" color={theme.branding.blue} />
 					</Button>
 				</Link>
 				<Link href="/">
-					<Button bg="whiteAlpha.50" borderRadius="full">
+					<Button bg="transparent" borderRadius="full">
 						<Icon as={FaTwitter} w="6" h="5" color={theme.branding.blue} />
 					</Button>
 				</Link>

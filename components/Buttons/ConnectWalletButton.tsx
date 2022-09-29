@@ -1,12 +1,35 @@
 import { Button, Flex, useDisclosure } from '@chakra-ui/react';
-import { WalletsOptionsModal } from 'components/Modals';
-import React from 'react';
+import React, { useState } from 'react';
+import {
+	LoadingWalletConnectModal,
+	WalletsOptionsModal,
+} from 'components/Modals';
 
 export const ConnectWalletButton = () => {
 	const { isOpen, onOpen, onClose } = useDisclosure();
+	const [walletData, setWalletData] = useState({
+		name: '',
+		icon: '',
+	});
+	const {
+		isOpen: isOpenLoading,
+		onClose: onCloseLoading,
+		onOpen: onOpenLoading,
+	} = useDisclosure();
 	return (
 		<Flex>
-			<WalletsOptionsModal isOpen={isOpen} onClose={onClose} />
+			<WalletsOptionsModal
+				setWalletData={setWalletData}
+				isOpen={isOpen}
+				onClose={onClose}
+				openSecondModal={onOpenLoading}
+			/>
+			<LoadingWalletConnectModal
+				walletIcon={walletData.icon}
+				walletName={walletData.name}
+				isOpen={isOpenLoading}
+				onClose={onCloseLoading}
+			/>
 			<Button
 				w="40"
 				h="8"
