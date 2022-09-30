@@ -5,11 +5,43 @@ import {
 	CreateOrganizationCard,
 	SwapToken,
 	HaveProblemCard,
+	TeamsList,
+	MyAssets,
+	RecentActivities,
 } from 'components';
 import { usePicasso } from 'hooks';
 import React from 'react';
+import { IRecentActivitiesList } from 'types';
+
+const recentActivitiesList: IRecentActivitiesList[] = [
+	{
+		type: 'Deposit',
+		date: '08 Aug 22, 20:57',
+		value: '10,000 USDT',
+		status: 'Completed',
+	},
+	{
+		type: 'Deposit',
+		date: '08 Aug 22, 20:57',
+		value: '10,000 USDT',
+		status: 'Completed',
+	},
+	{
+		type: 'Deposit',
+		date: '08 Aug 22, 20:57',
+		value: '10,000 USDT',
+		status: 'Completed',
+	},
+	{
+		type: 'Deposit',
+		date: '08 Aug 22, 20:57',
+		value: '10,000 USDT',
+		status: 'Completed',
+	},
+];
 
 export const DashboardComponent: React.FC = () => {
+	const isLogged = true;
 	const theme = usePicasso();
 	return (
 		<Flex
@@ -23,9 +55,18 @@ export const DashboardComponent: React.FC = () => {
 			<Flex direction="column">
 				<DashboardHeader />
 				<Coins />
-				<CreateOrganizationCard />
+				<Flex display={isLogged === true ? 'none' : 'flex'}>
+					<CreateOrganizationCard />
+				</Flex>
+				<Flex display={isLogged === true ? 'flex' : 'none'} mt="8">
+					<TeamsList />
+				</Flex>
+				<Flex display={isLogged === true ? 'flex' : 'none'}>
+					<MyAssets />
+					<RecentActivities recentActivitiesList={recentActivitiesList} />
+				</Flex>
 			</Flex>
-			<Flex direction="column">
+			<Flex direction="column" gap="6">
 				<SwapToken />
 				<HaveProblemCard />
 			</Flex>

@@ -7,6 +7,7 @@ import useTranslation from 'next-translate/useTranslation';
 
 export const SwapToken = () => {
 	const theme = usePicasso();
+	const isLogged = false;
 	const { t: translate } = useTranslation('swap-token');
 
 	return (
@@ -37,7 +38,7 @@ export const SwapToken = () => {
 						{translate('youPay')}
 					</Text>
 					<Select
-						disabled
+						disabled={isLogged}
 						placeholder="0"
 						_placeholder={{ color: 'whiteAlpha.500' }}
 						w="60"
@@ -54,7 +55,7 @@ export const SwapToken = () => {
 						{translate('youReceive')}
 					</Text>
 					<Select
-						disabled
+						disabled={isLogged}
 						placeholder="0"
 						_placeholder={{ color: 'whiteAlpha.500' }}
 						w="60"
@@ -128,7 +129,7 @@ export const SwapToken = () => {
 						borderRadius="base"
 					/>
 					<Button
-						disabled
+						disabled={isLogged}
 						w="60"
 						h="8"
 						fontSize="sm"

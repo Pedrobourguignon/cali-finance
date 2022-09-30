@@ -9,8 +9,7 @@ export const HaveProblemCard = () => {
 		<Link href="/app/dashboard">
 			<Flex
 				w="72"
-				h="24"
-				mt="6"
+				h="95px"
 				ml="4"
 				borderRadius="base"
 				bgImage="url(/images/haveproblem.png)"
