@@ -1,13 +1,19 @@
-import { Button, Flex, useDisclosure } from '@chakra-ui/react';
+import { Button, Flex, Text, useDisclosure } from '@chakra-ui/react';
 import React, { useState } from 'react';
 import {
 	LoadingWalletConnectModal,
 	WalletsOptionsModal,
-} from 'components/Modals';
+	OffsetShadow,
+} from 'components';
+
+interface IWalletData {
+	name: string;
+	icon: string;
+}
 
 export const ConnectWalletButton = () => {
 	const { isOpen, onOpen, onClose } = useDisclosure();
-	const [walletData, setWalletData] = useState({
+	const [walletData, setWalletData] = useState<IWalletData>({
 		name: '',
 		icon: '',
 	});
@@ -30,34 +36,25 @@ export const ConnectWalletButton = () => {
 				isOpen={isOpenLoading}
 				onClose={onCloseLoading}
 			/>
-			<Button
-				w="40"
-				h="8"
-				fontSize="sm"
-				color="black"
-				borderRadius="base"
-				bg="white"
-				_hover={{ background: 'white' }}
-				_focus={{ background: 'white' }}
-				_active={{
-					background: 'white',
-					transform: 'translateY(6px) translateX(5px)',
-				}}
-				_after={{
-					content: '""',
-					position: 'fixed',
-					width: '100%',
-					height: '100%',
-					border: '1px solid white',
-					borderRadius: 'sm',
-					left: '2',
-					top: '2',
-					zIndex: '-1',
-				}}
-				onClick={onOpen}
-			>
-				Connect Wallet
-			</Button>
+			<OffsetShadow width="44" height="8" borderColor="white">
+				<Button
+					fontSize="sm"
+					color="black"
+					borderRadius="base"
+					bg="white"
+					_hover={{ background: 'white' }}
+					_focus={{ background: 'white' }}
+					_active={{
+						background: 'white',
+						transform: 'translateY(6px) translateX(5px)',
+					}}
+					onClick={onOpen}
+				>
+					<Text px="7" py="1.5">
+						Connect Wallet
+					</Text>
+				</Button>
+			</OffsetShadow>
 		</Flex>
 	);
 };

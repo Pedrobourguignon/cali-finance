@@ -54,7 +54,6 @@ export const Sidebar: React.FC = () => {
 	return (
 		<Flex
 			minH="100vh"
-			w="56"
 			flexDirection="column"
 			display={{ base: 'none', md: 'flex' }}
 			bg="black"
@@ -69,6 +68,7 @@ export const Sidebar: React.FC = () => {
 				direction="column"
 				align="center"
 				gap="6"
+				px="6"
 			>
 				<Link href="/">
 					<Img src="/images/cali-logo.svg" boxSize="20" cursor="pointer" />
@@ -89,8 +89,8 @@ export const Sidebar: React.FC = () => {
 								bgColor="transparent"
 								fontSize="sm"
 								borderRadius="none"
-								boxShadow={comparedPath ? theme.branding.blue : ''}
-								borderLeft={comparedPath ? 'solid' : ''}
+								boxShadow={comparedPath ? theme.branding.blue : 'none'}
+								borderLeft={comparedPath ? 'solid' : 'none'}
 								color={comparedPath ? theme.branding.blue : 'white'}
 								_hover={{
 									textDecoration: 'none',
@@ -101,7 +101,7 @@ export const Sidebar: React.FC = () => {
 								<Flex
 									display={comparedPath ? 'flex' : 'none'}
 									w="full"
-									borderTop=" 1rem solid transparent"
+									borderTop="1rem solid transparent"
 									borderBottom="1rem solid transparent"
 									borderRight="1rem solid"
 								/>
@@ -110,26 +110,19 @@ export const Sidebar: React.FC = () => {
 					);
 				})}
 			</Flex>
-			<Flex
-				direction="column"
-				align="flex-start"
-				gap="3"
-				ml="4"
-				mt="20"
-				mb="12"
-			>
+			<Flex direction="column" align="flex-start" gap="3" px="4" py="10">
 				<Link href="/">Help</Link>
 				<Link href="/">Docs</Link>
 			</Flex>
 			<Flex flexDirection="row">
 				<Link href="/">
 					<Button bg="transparent" borderRadius="full">
-						<Icon as={FaDiscord} w="6" h="5" color={theme.branding.blue} />
+						<Icon as={FaDiscord} boxSize="6" color={theme.branding.blue} />
 					</Button>
 				</Link>
 				<Link href="/">
 					<Button bg="transparent" borderRadius="full">
-						<Icon as={FaTwitter} w="6" h="5" color={theme.branding.blue} />
+						<Icon as={FaTwitter} boxSize="6" color={theme.branding.blue} />
 					</Button>
 				</Link>
 			</Flex>

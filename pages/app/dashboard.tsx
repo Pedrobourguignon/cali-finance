@@ -1,6 +1,6 @@
 import { DashboardContainer } from 'containers';
 import React from 'react';
 
-const dashboard = () => <DashboardContainer />;
+const Dashboard = () => <DashboardContainer />;
 
-export default dashboard;
+export default Dashboard;

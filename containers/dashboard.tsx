@@ -3,13 +3,10 @@ import { Sidebar } from 'components';
 
 import React from 'react';
 
-export const DashboardContainer = () => {
-	const banana = 123;
-	return (
-		<Flex bg="black">
-			<Sidebar />
-		</Flex>
-	);
-};
+export const DashboardContainer = () => (
+	<Flex bg="black">
+		<Sidebar />
+	</Flex>
+);
 
 export default DashboardContainer;

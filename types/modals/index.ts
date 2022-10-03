@@ -1,2 +1,2 @@
-export * from './IModal';
 export * from './IWalletData';
+export * from './IWalletOptionsModal';

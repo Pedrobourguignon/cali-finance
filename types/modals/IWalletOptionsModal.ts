@@ -1,6 +1,6 @@
 import { IWalletData } from './IWalletData';
 
-export interface IModal {
+export interface IWalletOptionsModal {
 	isOpen: boolean;
 	onClose: () => void;
 	openSecondModal: () => void;
