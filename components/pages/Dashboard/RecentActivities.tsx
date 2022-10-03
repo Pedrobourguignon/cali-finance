@@ -41,7 +41,7 @@ export const RecentActivities: React.FC<IRecentActivitiesComponent> = ({
 				borderRadius="base"
 			>
 				<Flex gap="2" align="center" p="0.5">
-					<Img src="/icons/usdc.svg" boxSize="6" />
+					<Img src="/icons/deposit.svg" boxSize="4" />
 					<Flex direction="column" justify="center">
 						<Text color="black" fontSize="sm" fontWeight="normal">
 							{activity.type}
