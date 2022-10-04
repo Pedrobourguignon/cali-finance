@@ -41,21 +41,21 @@ const walletsOptions = [
 export const WalletsOptionsModal: React.FC<IWalletOptionsModal> = ({
 	isOpen,
 	onClose,
-	openSecondModal,
+	openLoadingWalletModal,
 	setWalletData,
 }) => {
-	const triggerLoadingModal = (icon: string, name: string) => {
+	const onTriggerLoadingModal = (icon: string, name: string) => {
 		setWalletData({
 			icon,
 			name,
 		});
-		openSecondModal();
+		openLoadingWalletModal();
 		onClose();
 	};
 	return (
 		<Flex>
 			<Modal isOpen={isOpen} onClose={onClose} size="sm">
-				<OffsetShadow width="1000px" height="full" borderColor="white">
+				<OffsetShadow width="full" height="full" borderColor="white">
 					<Flex>
 						<ModalOverlay />
 						<ModalContent m="auto">
@@ -79,7 +79,7 @@ export const WalletsOptionsModal: React.FC<IWalletOptionsModal> = ({
 											bg: 'black',
 										}}
 										onClick={() =>
-											triggerLoadingModal(wallet.icon, wallet.name)
+											onTriggerLoadingModal(wallet.icon, wallet.name)
 										}
 									>
 										<Button bg="transparent">{wallet.name}</Button>

@@ -41,9 +41,9 @@ export const LoadingWalletConnectModal: React.FC<
 								borderColor="blackAlpha.200"
 								align="center"
 								px="3"
-								justify="center"
+								justify="space-between"
 							>
-								<Text bg="transparent" fontSize="sm" py="2" pr="52">
+								<Text bg="transparent" fontSize="sm" py="2">
 									{walletName}
 								</Text>
 								<Img src={walletIcon} boxSize="6" />

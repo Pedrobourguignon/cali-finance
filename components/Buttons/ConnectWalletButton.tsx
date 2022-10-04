@@ -28,7 +28,7 @@ export const ConnectWalletButton = () => {
 				setWalletData={setWalletData}
 				isOpen={isOpen}
 				onClose={onClose}
-				openSecondModal={onOpenLoading}
+				openLoadingWalletModal={onOpenLoading}
 			/>
 			<LoadingWalletConnectModal
 				walletIcon={walletData.icon}

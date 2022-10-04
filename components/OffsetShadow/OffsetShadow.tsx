@@ -16,7 +16,7 @@ export const OffsetShadow: React.FC<IOffsetShadow> = ({
 }) => (
 	<Flex w={width} height={height} position="relative" borderRadius="base">
 		<Flex
-			boxSize="100%"
+			boxSize="full"
 			top="4"
 			left="1"
 			zIndex="0"
@@ -25,7 +25,7 @@ export const OffsetShadow: React.FC<IOffsetShadow> = ({
 			borderColor={borderColor}
 			borderRadius="inherit"
 		/>
-		<Flex zIndex="1" position="absolute" boxSize="100%">
+		<Flex zIndex="1" position="absolute" boxSize="full">
 			{children}
 		</Flex>
 	</Flex>
