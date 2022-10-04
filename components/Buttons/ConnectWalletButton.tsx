@@ -3,14 +3,6 @@ import React from 'react';
 
 export const ConnectWalletButton = () => (
 	<Flex>
-		<Flex
-			position="absolute"
-			display=" block"
-			p="4"
-			border=" 1px solid white"
-			borderRadius="base"
-			w="40"
-		/>
 		<Button
 			w="40"
 			h="8"

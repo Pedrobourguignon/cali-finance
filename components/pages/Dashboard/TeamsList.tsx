@@ -1,4 +1,5 @@
-import { Flex } from '@chakra-ui/react';
+import { Button, Flex, Icon } from '@chakra-ui/react';
+import { AiOutlineRight } from 'react-icons/ai';
 import React from 'react';
 import { TeamCard } from './Cards';
 
@@ -21,7 +22,7 @@ const teamList = [
 ];
 
 export const TeamsList = () => (
-	<Flex w="696px" ml="8">
+	<Flex gap="4" align="center">
 		{teamList.map((team, index) => (
 			<TeamCard
 				key={+index}
@@ -30,6 +31,9 @@ export const TeamsList = () => (
 				members={team.members}
 			/>
 		))}
+		<Button>
+			<Icon as={AiOutlineRight} />
+		</Button>
 	</Flex>
 );
 

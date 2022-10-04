@@ -30,67 +30,54 @@ export const MyAssets = () => (
 	<Flex
 		position="relative"
 		zIndex="0"
-		h="60"
-		w="376px"
-		ml="8"
-		mt="4"
+		h="max-content"
+		w="max-content"
 		direction="column"
 		borderRadius="base"
 		borderColor="black"
 		border="1px solid"
-		gap="2"
 	>
-		<Flex direction="column" gap="2" zIndex="1" bg="white" boxSize="100%">
-			<Flex justify="space-between">
-				<Flex direction="column" px="4" py="2.5">
+		<Flex direction="column" zIndex="1" bg="white" boxSize="full">
+			<Flex justify="space-between" px="4" py="2">
+				<Flex direction="column">
 					<Text fontSize="md" fontWeight="medium">
 						My Assets
 					</Text>
 					<Text fontSize="sm">$92,234.11</Text>
 				</Flex>
 				<Link href="/">
-					<Text fontSize="sm" cursor="pointer" px="4" py="2.5" color="gray.500">
+					<Text fontSize="sm" cursor="pointer" color="gray.500">
 						See all
 					</Text>
 				</Link>
 			</Flex>
-			{assetsOptions.map((asset, index) => (
-				<Flex
-					key={+index}
-					justify="space-between"
-					bg="black"
-					color="white"
-					px="4"
-					mx="auto"
-					w="344px"
-					borderRadius="base"
-				>
-					<Flex gap="2" align="center" p="0.5">
-						<Img src="/icons/usdc.svg" boxSize="6" />
-						<Flex direction="column" justify="center" fontSize="sm">
-							<Text>{asset.name}</Text>
-							<Text>{asset.initials}</Text>
+			<Flex direction="column" px="4" gap="2" py="3">
+				{assetsOptions.map((asset, index) => (
+					<Flex
+						key={+index}
+						justify="space-between"
+						bg="black"
+						color="white"
+						px="4"
+						mx="auto"
+						w="344px"
+						borderRadius="base"
+					>
+						<Flex gap="2" align="center" p="0.5">
+							<Img src="/icons/usdc.svg" boxSize="6" />
+							<Flex direction="column" justify="center" fontSize="sm">
+								<Text>{asset.name}</Text>
+								<Text>{asset.initials}</Text>
+							</Flex>
+						</Flex>
+						<Flex direction="column" align="flex-end" p="0.5">
+							<Text fontSize="sm">{asset.units}</Text>
+							<Text fontSize="xs">{asset.value}</Text>
 						</Flex>
 					</Flex>
-					<Flex direction="column" align="flex-end" p="0.5">
-						<Text fontSize="sm">{asset.units}</Text>
-						<Text fontSize="xs">{asset.value}</Text>
-					</Flex>
-				</Flex>
-			))}
+				))}
+			</Flex>
 		</Flex>
-		<Flex
-			position="absolute"
-			display=" block"
-			p="4"
-			border="1px solid black"
-			borderRadius="base"
-			w="376px"
-			h="60"
-			zIndex="-1"
-			left="2"
-			top="2"
-		/>
 	</Flex>
 );
 

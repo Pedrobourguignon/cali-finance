@@ -52,21 +52,21 @@ export const DashboardComponent: React.FC = () => {
 			borderLeft="0.25rem solid"
 			borderColor={theme.branding.blue}
 		>
-			<Flex direction="column">
+			<Flex direction="column" gap="4">
 				<DashboardHeader />
 				<Coins />
 				<Flex display={isLogged === true ? 'none' : 'flex'}>
 					<CreateOrganizationCard />
 				</Flex>
-				<Flex display={isLogged === true ? 'flex' : 'none'} mt="8">
+				<Flex display={isLogged === true ? 'flex' : 'none'} px="8">
 					<TeamsList />
 				</Flex>
-				<Flex display={isLogged === true ? 'flex' : 'none'}>
+				<Flex display={isLogged === true ? 'flex' : 'none'} px="8" gap="6">
 					<MyAssets />
 					<RecentActivities recentActivitiesList={recentActivitiesList} />
 				</Flex>
 			</Flex>
-			<Flex direction="column" gap="6">
+			<Flex direction="column" gap="2">
 				<SwapToken />
 				<HaveProblemCard />
 			</Flex>
