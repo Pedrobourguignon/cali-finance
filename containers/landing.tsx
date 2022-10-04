@@ -1,7 +1,7 @@
 import { Button, Flex, Img, Text } from '@chakra-ui/react';
-import { LandingHeader } from 'components';
+import { LandingHeader, OffsetShadow } from 'components';
 import { usePicasso } from 'hooks';
-import { LandingPage } from 'layouts/LandingPage';
+import { LandingPage } from 'layouts';
 
 export const LandingContainer: React.FC = () => {
 	const theme = usePicasso();
@@ -30,7 +30,7 @@ export const LandingContainer: React.FC = () => {
 								ml="2"
 								mt="1"
 								position="absolute"
-								zIndex="1"
+								zIndex="docked"
 							>
 								any time.
 							</Text>
@@ -58,110 +58,84 @@ export const LandingContainer: React.FC = () => {
 						<Flex
 							display={{ sm: 'flex', lg: 'none' }}
 							border="1px solid white"
-							zIndex="999"
+							zIndex="docked"
+							maxW={{ base: '2xs', md: 'sm', lg: 'sm', xl: 'xl' }}
 						>
 							<Img
 								src="/images/dashboard.svg"
 								position="relative"
 								right="5"
 								bottom="5"
+								maxW={{ base: '2xs', md: 'sm', lg: 'sm', xl: 'xl' }}
 							/>
 						</Flex>
 						<Flex
-							zIndex="999"
+							zIndex="docked"
 							justify={{ base: 'center', lg: 'initial' }}
 							direction={{ base: 'column', md: 'row' }}
 							gap="10"
 						>
-							<Button
-								_hover={{ background: 'white' }}
-								_focus={{ background: 'white' }}
-								_active={{
-									background: 'white',
-									top: '2',
-									left: '2',
-									_after: {
+							<OffsetShadow borderColor="white">
+								<Button
+									_hover={{ background: 'white' }}
+									_focus={{ background: 'white' }}
+									_active={{
+										background: 'white',
 										top: '0',
 										left: '0',
-									},
-								}}
-								_after={{
-									content: '""',
-									position: 'absolute',
-									width: '100%',
-									height: '100%',
-									border: '1px solid white',
-									borderRadius: 'sm',
-									left: '2',
-									top: '2',
-									zIndex: '-1',
-								}}
-								borderRadius="sm"
-								bg="white"
-								color={theme.text.black}
-								fontWeight="normal"
-								fontSize="md"
-								px="12"
-								py="3"
-							>
-								Book a Demo
-							</Button>
-							<Button
-								_hover={{ background: 'white' }}
-								_focus={{ background: 'white' }}
-								_active={{
-									background: 'white',
-									top: '2',
-									left: '2',
-									_after: {
-										top: '0',
-										left: '0',
-									},
-								}}
-								display={{ base: 'flex', md: 'none' }}
-								borderRadius="none"
-								bg="white"
-								color={theme.text.black}
-								px="12"
-								py="3"
-								fontSize="md"
-								fontWeight="normal"
-								_after={{
-									content: '""',
-									position: 'absolute',
-									width: '100%',
-									height: '100%',
-									border: '1px solid white',
-									borderRadius: 'sm',
-									left: '2',
-									top: '2',
-									zIndex: '-1',
-								}}
-							>
-								Launch App
-							</Button>
+									}}
+									position="relative"
+									bottom="2"
+									right="2"
+									borderRadius="sm"
+									bg="white"
+									color={theme.text.black}
+									fontWeight="normal"
+									fontSize="md"
+									px="12"
+									py="3"
+								>
+									Book a Demo
+								</Button>
+							</OffsetShadow>
+							<Flex display={{ md: 'none', base: 'flex' }}>
+								<OffsetShadow borderColor="white">
+									<Button
+										_hover={{ background: 'white' }}
+										_focus={{ background: 'white' }}
+										_active={{
+											background: 'white',
+											top: '0',
+											left: '0',
+										}}
+										position="relative"
+										display={{ base: 'flex', md: 'none' }}
+										borderRadius="none"
+										bg="white"
+										color={theme.text.black}
+										px="12"
+										py="3"
+										fontSize="md"
+										fontWeight="normal"
+									>
+										Launch App
+									</Button>
+								</OffsetShadow>
+							</Flex>
 						</Flex>
 					</Flex>
 				</Flex>
-				<Flex display={{ base: 'none', lg: 'flex' }} border="1px solid white">
+				<OffsetShadow borderColor={theme.branding.cyan}>
 					<Img
+						display={{ base: 'none', md: 'flex' }}
 						src="/images/dashboard.svg"
 						position="relative"
 						right="5"
 						bottom="5"
 						maxW={{ base: 'sm', md: 'sm', lg: 'sm', xl: 'xl' }}
 					/>
-				</Flex>
+				</OffsetShadow>
 			</Flex>
-			<Flex
-				bg={theme.bg.landing}
-				w="100%"
-				h="20vh"
-				position="absolute"
-				top="90%"
-				clipPath="polygon(0 45%, 100% 0, 100% 100%, 0% 100%)"
-				zIndex="hidden"
-			/>
 		</LandingPage>
 	);
 };

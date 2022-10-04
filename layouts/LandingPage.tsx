@@ -8,7 +8,7 @@ interface ILanding {
 export const LandingPage: React.FC<ILanding> = ({ children }) => {
 	const theme = usePicasso();
 	return (
-		<Flex minH="100vh" direction="column" maxW="100%">
+		<Flex minH="100vh" direction="column" maxW="100%" position="relative">
 			{children}
 		</Flex>
 	);

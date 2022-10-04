@@ -1,9 +1,0 @@
-{
-	"exportall.config.relExclusion": [
-		"/components/Buttons/index.ts",
-		"/components/Teams/TeamFinanceOverall.tsx",
-		"/layouts/LandingPage.tsx",
-		"/layouts"
-	],
-	"exportall.config.folderListener": ["/components/Buttons"]
-}

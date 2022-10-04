@@ -5,13 +5,15 @@ export const LandingHeader: React.FC = () => {
 	const theme = usePicasso();
 	return (
 		<Flex
-			minH="20"
+			h="20"
+			w="100%"
 			justify={{ base: 'center', md: 'space-between' }}
 			align="center"
-			bg={theme.bg.landing}
+			bg={theme.text.black}
 			px="6"
+			position="absolute"
 		>
-			<Img src="/images/cali-logo-with-text.svg" />
+			<Img minH="10" src="/images/cali-logo-with-text.svg" />
 			<Button
 				_hover={{ bg: 'white' }}
 				_focus={{ border: '2px solid white', color: 'white' }}
@@ -19,8 +21,8 @@ export const LandingHeader: React.FC = () => {
 				borderRadius="none"
 				bg="white"
 				color={theme.text.black}
-				h="10"
-				w="48"
+				px="12"
+				py="3"
 				fontSize="md"
 				fontWeight="normal"
 			>
