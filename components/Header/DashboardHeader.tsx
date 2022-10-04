@@ -15,26 +15,27 @@ export const DashboardHeader: React.FC = () => {
 
 	return (
 		<Flex
-			w="740px"
+			w="max-content"
 			direction="row"
 			justify="space-between"
 			h="max-content"
-			my="6"
+			mt="6"
 		>
-			<Flex direction="column" gap="1.5" ml="8">
+			<Flex direction="column">
 				<Text
 					color="black"
 					fontSize="2xl"
-					fontWeight="500"
+					fontWeight="medium"
 					lineHeight="8"
 					fontStyle="normal"
 				>
 					{greetingMessage()}
 				</Text>
-				<Text fontSize="sm" fontWeight=" 400" lineHeight="5">
+				<Text fontSize="sm" lineHeight="5">
 					{translate('loginMessage')}
 				</Text>
 			</Flex>
+			<Flex px="20" />
 			<NotificationButton />
 		</Flex>
 	);

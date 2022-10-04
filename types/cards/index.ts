@@ -1,1 +1,1 @@
-export * from './coinCard';
+export * from './CoinCard';

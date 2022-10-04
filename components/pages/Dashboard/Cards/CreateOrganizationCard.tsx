@@ -3,34 +3,34 @@ import React from 'react';
 
 export const CreateOrganizationCard = () => (
 	<Flex
-		w="56"
-		h="32"
-		mt="4"
-		ml="8"
-		gap="6"
+		w="max-content"
+		h="max-content"
 		boxShadow="2xl"
 		direction="column"
 		justify="center"
 		align="center"
 		borderRadius="base"
 	>
-		<Flex align="center" justify="center" gap="5" w="44">
+		<Flex align="center" justify="center" gap="5" py="4">
 			<Img src="/icons/avatar.svg" boxSize="8" />
-			<Text fontStyle="normal">You don’t have a Organization yet</Text>
+			<Flex direction="column">
+				<Text fontStyle="normal">You don’t have</Text>
+				<Text fontStyle="normal">a Organization yet</Text>
+			</Flex>
 		</Flex>
-		<Button
-			color="white"
-			bg="black"
-			w="48"
-			h="8"
-			fontSize="sm"
-			fontWeight="500"
-			lineHeight="5"
-			borderRadius="sm"
-			_hover={{ bg: 'black' }}
-		>
-			+ Create a Organization
-		</Button>
+		<Flex px="4" py="2">
+			<Button
+				color="white"
+				bg="black"
+				px="4"
+				fontSize="sm"
+				fontWeight="medium"
+				borderRadius="sm"
+				_hover={{ bg: 'black' }}
+			>
+				+ Create a Organization
+			</Button>
+		</Flex>
 	</Flex>
 );
 

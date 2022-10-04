@@ -11,22 +11,23 @@ export const CoinCard: React.FC<ICoinCard> = ({
 	const theme = usePicasso();
 	return (
 		<Flex
-			w="28"
-			h={theme.cardHeight.height}
+			w="max-content"
+			h="max-content"
+			px="4"
 			borderRadius="base"
-			border="2px solid"
+			border="1px solid"
 			direction="column"
 		>
-			<Flex direction="row" align="center" gap="2" ml="3">
+			<Flex direction="row" align="center" gap="2">
 				<Img src={icon} boxSize="6" />
-				<Flex direction="column" mt="2">
+				<Flex direction="column" py="2">
 					<Text fontSize="xs">{name}</Text>
 					<Text fontSize="xs" color={theme.text.green}>
 						{value}
 					</Text>
 				</Flex>
 			</Flex>
-			<Text fontSize="xs" ml="3" color="green.400">
+			<Text fontSize="xs" color="green.400">
 				{variation}
 			</Text>
 		</Flex>
