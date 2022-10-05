@@ -11,7 +11,7 @@ import {
 } from 'components';
 import { usePicasso } from 'hooks';
 import React from 'react';
-import { IRecentActivitiesList } from 'types';
+import { IRecentActivitiesList, INotificationList } from 'types';
 
 const recentActivitiesList: IRecentActivitiesList[] = [
 	{
