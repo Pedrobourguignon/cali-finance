@@ -1,7 +1,16 @@
 import { Flex, Img, Text } from '@chakra-ui/react';
 
+interface IActivities {
+	name: string;
+	type: string;
+	date: string;
+	value: string;
+	coin: string;
+	status: string;
+}
+
 export const ActivitiesData = () => {
-	const activities = {
+	const activities: IActivities = {
 		name: 'Kylie Cosmetics',
 		type: 'Deposit',
 		date: '08 Aug 22, 20:57',
@@ -23,7 +32,7 @@ export const ActivitiesData = () => {
 					{activities.name}
 				</Text>
 				<Flex align="center" gap="2">
-					<Img src="/images/deposit.png" boxSize="4" />
+					<Img src="/images/deposit.svg" boxSize="4" />
 					<Flex direction="column">
 						<Text fontSize="sm" fontWeight="normal">
 							{activities.type}

@@ -3,14 +3,11 @@ import { OrganizationsDashboard } from 'components/OrganizationsDashboard/Organi
 import { RecentActivities } from 'components/RecentActivities/RecentActivities';
 import type { NextPage } from 'next';
 
-const Home: NextPage = () => {
-	const banana = 123;
-	return (
-		<Flex direction="column">
-			<OrganizationsDashboard />
-			<RecentActivities />
-		</Flex>
-	);
-};
+const Home: NextPage = () => (
+	<Flex direction="column">
+		<OrganizationsDashboard />
+		<RecentActivities />
+	</Flex>
+);
 
 export default Home;

@@ -35,7 +35,7 @@ export const OrganizationsDashboard = () => {
 				</Flex>
 				<Flex direction="column">
 					<Text fontSize="xl" fontWeight="medium">
-						{data.members}{' '}
+						{data.members}
 					</Text>
 					<Text fontSize="sm" fontWeight="normal">
 						Members
