@@ -30,6 +30,16 @@ const teamList = [
 		funds: '$5,234.1',
 		members: 13,
 	},
+	{
+		teamName: 'Sobrancheila Design',
+		funds: '$5,234.1',
+		members: 13,
+	},
+	{
+		teamName: 'Sobrancheila Design',
+		funds: '$5,234.1',
+		members: 13,
+	},
 ];
 
 export const TeamsList = () => {
@@ -39,7 +49,7 @@ export const TeamsList = () => {
 	const side = useBreakpointValue({ base: '30%', md: '1px' });
 
 	return (
-		<Box position="relative" overflowX="scroll" bg="green" w="full">
+		<Box position="relative" w="full">
 			{/* CSS files for react-slick */}
 			<link
 				rel="stylesheet"
@@ -81,16 +91,18 @@ export const TeamsList = () => {
 				<BiRightArrowAlt />
 			</IconButton>
 			{/* Slider */}
-			<Slider {...settings} ref={slider => setSlider(slider)}>
-				{teamList.map((team, index) => (
-					<TeamCard
-						key={+index}
-						teamName={team.teamName}
-						funds={team.funds}
-						members={team.members}
-					/>
-				))}
-			</Slider>
+			<Flex w="xl" justify="center" display="block">
+				<Slider {...settings} ref={slider => setSlider(slider)}>
+					{teamList.map((team, index) => (
+						<TeamCard
+							key={+index}
+							teamName={team.teamName}
+							funds={team.funds}
+							members={team.members}
+						/>
+					))}
+				</Slider>
+			</Flex>
 		</Box>
 	);
 };
