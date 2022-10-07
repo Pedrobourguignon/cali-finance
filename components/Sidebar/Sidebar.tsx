@@ -56,7 +56,7 @@ export const Sidebar: React.FC = () => {
 			minH="100vh"
 			flexDirection="column"
 			display={{ base: 'none', md: 'flex' }}
-			bg="black"
+			bg={theme.bg.primary}
 			align="flex-start"
 			color="white"
 		>
@@ -79,7 +79,14 @@ export const Sidebar: React.FC = () => {
 				{menuOptions.map((item, index) => {
 					const comparedPath = isSamePath(item.route);
 					return (
-						<Link href={item.route} key={+index} display="flex">
+						<Link
+							href={item.route}
+							key={+index}
+							display="flex"
+							_hover={{
+								textDecoration: 'none',
+							}}
+						>
 							<Button
 								justifyContent="flex-start"
 								alignItems="center"
@@ -92,9 +99,6 @@ export const Sidebar: React.FC = () => {
 								boxShadow={comparedPath ? theme.branding.blue : 'none'}
 								borderLeft={comparedPath ? 'solid' : 'none'}
 								color={comparedPath ? theme.branding.blue : 'white'}
-								_hover={{
-									textDecoration: 'none',
-								}}
 							>
 								<Img src={item.icon} color="white" />
 								{item.option}
@@ -111,8 +115,24 @@ export const Sidebar: React.FC = () => {
 				})}
 			</Flex>
 			<Flex direction="column" align="flex-start" gap="3" px="4" py="10">
-				<Link href="/">Help</Link>
-				<Link href="/">Docs</Link>
+				<Link
+					href="/"
+					_hover={{
+						textDecoration: 'none',
+						opacity: 0.8,
+					}}
+				>
+					Help
+				</Link>
+				<Link
+					href="/"
+					_hover={{
+						textDecoration: 'none',
+						opacity: 0.8,
+					}}
+				>
+					Docs
+				</Link>
 			</Flex>
 			<Flex flexDirection="row">
 				<Link href="/">

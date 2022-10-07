@@ -24,7 +24,7 @@ const usePicasso = () => {
 			red: '0px 0px 10px rgba(232, 49, 81, 0.5)',
 		},
 		bg: {
-			primary: useColorModeValue('gray.400', '#282729'),
+			primary: '#121212',
 			secondary: useColorModeValue('gray.200', '#100F12'),
 			card: useColorModeValue('gray.100', '#333333'),
 			gray: '#6C657A',
