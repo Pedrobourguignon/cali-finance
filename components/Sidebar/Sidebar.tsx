@@ -63,23 +63,22 @@ export const Sidebar: React.FC = () => {
 			<Flex
 				w="full"
 				justify="center"
-				mt="10"
-				mb="12"
+				py="10"
 				direction="column"
 				align="center"
 				gap="6"
-				px="6"
+				px="8"
 			>
 				<Link href="/">
-					<Img src="/images/cali-logo.svg" boxSize="20" cursor="pointer" />
+					<Img src="/images/cali-logo.svg" h="8" w="20" cursor="pointer" />
 				</Link>
 				<ConnectWalletButton />
 			</Flex>
-			<Flex direction="column" gap="7" ml="2" w="full">
+			<Flex direction="column" gap="7" w="full">
 				{menuOptions.map((item, index) => {
 					const comparedPath = isSamePath(item.route);
 					return (
-						<Link href={item.route} key={+index} display="flex">
+						<Link href={item.route} key={+index} display="flex" w="full">
 							<Button
 								justifyContent="flex-start"
 								alignItems="center"
@@ -96,7 +95,7 @@ export const Sidebar: React.FC = () => {
 									textDecoration: 'none',
 								}}
 							>
-								<Img src={item.icon} color="white" />
+								<Img src={item.icon} color="white" px="2" />
 								{item.option}
 								<Flex
 									display={comparedPath ? 'flex' : 'none'}
