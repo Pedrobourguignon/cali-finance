@@ -9,52 +9,49 @@ const cardInfo = {
 	variation: '+ 0,6%',
 };
 
-export const Coins = () => {
-	const banana = 123;
-	return (
-		<Flex
-			bg="black"
-			color="white"
-			w="696px"
-			h="24"
-			ml="8"
-			p="3"
-			borderRadius="base"
-			justify="space-between"
-		>
-			<Flex direction="column">
-				<Text fontSize="md" fontWeight="500" lineHeight="6">
-					Coins
-				</Text>
-				<Text fontSize="sm" fontWeight="500" lineHeight="5">
-					Stay always tuned on{' '}
-				</Text>
-				<Text fontSize="sm" fontWeight="500" lineHeight="5">
-					principal coin prices
-				</Text>
-			</Flex>
-			<CoinCard
-				icon={cardInfo.icon}
-				name={cardInfo.name}
-				value={cardInfo.value}
-				variation={cardInfo.variation}
-			/>
-			<CoinCard
-				icon={cardInfo.icon}
-				name={cardInfo.name}
-				value={cardInfo.value}
-				variation={cardInfo.variation}
-			/>
-			<CoinCard
-				icon={cardInfo.icon}
-				name={cardInfo.name}
-				value={cardInfo.value}
-				variation={cardInfo.variation}
-			/>
-
-			<NewCoinButton />
+export const Coins = () => (
+	<Flex
+		bg="black"
+		color="white"
+		w="696px"
+		h="24"
+		ml="8"
+		p="3"
+		borderRadius="base"
+		justify="space-between"
+	>
+		<Flex direction="column">
+			<Text fontSize="md" fontWeight="500" lineHeight="6">
+				Coins
+			</Text>
+			<Text fontSize="sm" fontWeight="500" lineHeight="5">
+				Stay always tuned on{' '}
+			</Text>
+			<Text fontSize="sm" fontWeight="500" lineHeight="5">
+				principal coin prices
+			</Text>
 		</Flex>
-	);
-};
+		<CoinCard
+			icon={cardInfo.icon}
+			name={cardInfo.name}
+			value={cardInfo.value}
+			variation={cardInfo.variation}
+		/>
+		<CoinCard
+			icon={cardInfo.icon}
+			name={cardInfo.name}
+			value={cardInfo.value}
+			variation={cardInfo.variation}
+		/>
+		<CoinCard
+			icon={cardInfo.icon}
+			name={cardInfo.name}
+			value={cardInfo.value}
+			variation={cardInfo.variation}
+		/>
+
+		<NewCoinButton />
+	</Flex>
+);
 
 export default Coins;

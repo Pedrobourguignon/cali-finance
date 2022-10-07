@@ -1,5 +1,5 @@
 /* eslint-disable no-shadow */
-import { Box, Flex, IconButton } from '@chakra-ui/react';
+import { Box, Flex, IconButton, useBreakpointValue } from '@chakra-ui/react';
 import Slider from 'react-slick';
 import { BiLeftArrowAlt, BiRightArrowAlt } from 'react-icons/bi';
 import React from 'react';
@@ -35,47 +35,62 @@ const teamList = [
 export const TeamsList = () => {
 	const theme = usePicasso();
 	const [slider, setSlider] = React.useState<Slider | null>(null);
+	const top = useBreakpointValue({ base: '90%', md: '50%' });
+	const side = useBreakpointValue({ base: '30%', md: '1px' });
 
 	return (
-		<Box
-			overflow="hidden"
-			bg="green.200"
-			position="relative"
-			w="full"
-			h="600px"
-		>
+		<Box position="relative" overflowX="scroll" bg="green" w="full">
+			{/* CSS files for react-slick */}
+			<link
+				rel="stylesheet"
+				type="text/css"
+				charSet="UTF-8"
+				href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css"
+			/>
+			<link
+				rel="stylesheet"
+				type="text/css"
+				href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css"
+			/>
+			{/* Left Icon */}
 			<IconButton
-				_hover={{ bg: theme.branding.blue, color: 'white' }}
-				bg="white"
 				aria-label="left-arrow"
-				border="1px"
+				colorScheme="messenger"
+				borderRadius="full"
+				position="absolute"
+				left={side}
+				top={top}
+				transform="translate(0%, -50%)"
 				zIndex={2}
 				onClick={() => slider?.slickPrev()}
 			>
 				<BiLeftArrowAlt />
 			</IconButton>
+			{/* Right Icon */}
 			<IconButton
-				bg="white"
-				_hover={{ bg: theme.branding.blue, color: 'white' }}
 				aria-label="right-arrow"
-				border="1px"
+				colorScheme="messenger"
+				borderRadius="full"
+				position="absolute"
+				right={side}
+				top={top}
+				transform="translate(0%, -50%)"
 				zIndex={2}
 				onClick={() => slider?.slickNext()}
 			>
 				<BiRightArrowAlt />
 			</IconButton>
-			<Flex w="96">
-				<Slider {...settings} ref={slider => setSlider(slider)} arrows={false}>
-					{teamList.map((team, index) => (
-						<TeamCard
-							key={+index}
-							teamName={team.teamName}
-							funds={team.funds}
-							members={team.members}
-						/>
-					))}
-				</Slider>
-			</Flex>
+			{/* Slider */}
+			<Slider {...settings} ref={slider => setSlider(slider)}>
+				{teamList.map((team, index) => (
+					<TeamCard
+						key={+index}
+						teamName={team.teamName}
+						funds={team.funds}
+						members={team.members}
+					/>
+				))}
+			</Slider>
 		</Box>
 	);
 };
