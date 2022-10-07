@@ -28,6 +28,7 @@ const usePicasso = () => {
 			secondary: useColorModeValue('gray.200', '#100F12'),
 			card: useColorModeValue('gray.100', '#333333'),
 			gray: '#6C657A',
+			grey: '#191919',
 			landing: useColorModeValue('#100F12', '#100F12'),
 			gradient:
 				'linear-gradient(112.87deg, rgba(26, 29, 225, 0.1) 0%, rgba(16, 15, 18, 0.1) 32.29%, rgba(16, 15, 18, 0.1) 66.15%, rgba(2, 228, 209, 0.1) 100%);',

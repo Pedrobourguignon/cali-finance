@@ -1,5 +1,5 @@
 import { Flex, Text } from '@chakra-ui/react';
-import { ActivitiesData } from 'components/ActivitiesData/ActivitiesData';
+import { ActivitiesData } from 'components/ActivitiesData';
 import NextLink from 'next/link';
 
 export const RecentActivities = () => (
