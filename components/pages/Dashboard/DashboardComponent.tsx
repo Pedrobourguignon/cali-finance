@@ -8,6 +8,7 @@ import {
 	TeamsList,
 	MyAssets,
 	RecentActivities,
+	ErrorAlert,
 } from 'components';
 import { usePicasso } from 'hooks';
 import React from 'react';
@@ -42,6 +43,7 @@ const recentActivitiesList: IRecentActivitiesList[] = [
 
 export const DashboardComponent: React.FC = () => {
 	const isLogged = true;
+	const error = false;
 	const theme = usePicasso();
 	return (
 		<Flex
@@ -52,7 +54,11 @@ export const DashboardComponent: React.FC = () => {
 			borderLeft="0.25rem solid"
 			borderColor={theme.branding.blue}
 		>
-			<Flex direction="column" gap="4">
+			<Flex
+				direction="column"
+				gap="4"
+				display={error === true ? 'none' : 'flex'}
+			>
 				<DashboardHeader />
 				<Coins />
 				<Flex display={isLogged === true ? 'none' : 'flex'}>
@@ -66,9 +72,21 @@ export const DashboardComponent: React.FC = () => {
 					<RecentActivities recentActivitiesList={recentActivitiesList} />
 				</Flex>
 			</Flex>
-			<Flex direction="column" gap="2">
+			<Flex
+				direction="column"
+				gap="2"
+				display={error === true ? 'none' : 'flex'}
+			>
 				<SwapToken />
 				<HaveProblemCard />
+			</Flex>
+			<Flex
+				align="center"
+				w="full"
+				justify="center"
+				display={error === true ? 'flex' : 'none'}
+			>
+				<ErrorAlert />
 			</Flex>
 		</Flex>
 	);
