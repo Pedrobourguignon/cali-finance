@@ -122,14 +122,14 @@ export const SwapToken = () => {
 				color="white"
 				direction="column"
 				h="max-content"
-				w="max-content"
+				w="full"
+				px="12"
 				py="4"
 			>
 				<Flex align="center" justify="space-between">
 					<Text fontStyle="normal" fontSize="xs" color="whiteAlpha.600">
 						Rate
 					</Text>
-					<Flex px="20" />
 					<Text>-</Text>
 				</Flex>
 				<Flex align="center" justify="space-between">

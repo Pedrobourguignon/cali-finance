@@ -1,5 +1,6 @@
-import { Button, Flex, Img, Text } from '@chakra-ui/react';
+import { Button, Flex, Img, Text, Icon } from '@chakra-ui/react';
 import React from 'react';
+import { AiOutlinePlus } from 'react-icons/ai';
 
 export const CreateOrganizationCard = () => (
 	<Flex
@@ -22,13 +23,15 @@ export const CreateOrganizationCard = () => (
 			<Button
 				color="white"
 				bg="black"
-				px="4"
+				px="2"
 				fontSize="sm"
 				fontWeight="medium"
 				borderRadius="sm"
 				_hover={{ bg: 'black' }}
+				gap="2"
 			>
-				+ Create a Organization
+				<Icon as={AiOutlinePlus} />
+				Create a Organization
 			</Button>
 		</Flex>
 	</Flex>

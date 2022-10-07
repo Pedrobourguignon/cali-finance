@@ -1,8 +1,9 @@
 import { Flex, Text } from '@chakra-ui/react';
 import { NewCoinButton, CoinCard } from 'components';
 import React from 'react';
+import { ICoinCard } from 'types';
 
-const cardInfo = {
+const cardInfo: ICoinCard = {
 	icon: '/icons/tether.svg',
 	name: 'USDT',
 	value: '$1,00',
@@ -19,6 +20,7 @@ export const Coins = () => (
 		color="white"
 		borderRadius="base"
 		justify="space-between"
+		align="center"
 	>
 		<Flex direction="column">
 			<Text fontSize="md" fontWeight="medium" lineHeight="6">
