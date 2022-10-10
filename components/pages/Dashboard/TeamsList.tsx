@@ -3,7 +3,6 @@ import { Box, Flex, IconButton, useBreakpointValue } from '@chakra-ui/react';
 import Slider from 'react-slick';
 import { BiLeftArrowAlt, BiRightArrowAlt } from 'react-icons/bi';
 import React from 'react';
-import { usePicasso } from 'hooks';
 import { TeamCard } from './Cards';
 
 const settings = {
@@ -26,31 +25,29 @@ const teamList = [
 		members: 170,
 	},
 	{
-		teamName: 'Sobrancheila Design',
+		teamName: 'Sobrancheila ',
 		funds: '$5,234.1',
 		members: 13,
 	},
 	{
-		teamName: 'Sobrancheila Design',
+		teamName: 'Sobrancheila ',
 		funds: '$5,234.1',
 		members: 13,
 	},
 	{
-		teamName: 'Sobrancheila Design',
+		teamName: 'Sobrancheila ',
 		funds: '$5,234.1',
 		members: 13,
 	},
 ];
 
 export const TeamsList = () => {
-	const theme = usePicasso();
 	const [slider, setSlider] = React.useState<Slider | null>(null);
 	const top = useBreakpointValue({ base: '90%', md: '50%' });
 	const side = useBreakpointValue({ base: '30%', md: '1px' });
 
 	return (
-		<Box position="relative" w="full">
-			{/* CSS files for react-slick */}
+		<Box position="relative">
 			<link
 				rel="stylesheet"
 				type="text/css"
@@ -62,7 +59,6 @@ export const TeamsList = () => {
 				type="text/css"
 				href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css"
 			/>
-			{/* Left Icon */}
 			<IconButton
 				aria-label="left-arrow"
 				colorScheme="messenger"
@@ -76,7 +72,6 @@ export const TeamsList = () => {
 			>
 				<BiLeftArrowAlt />
 			</IconButton>
-			{/* Right Icon */}
 			<IconButton
 				aria-label="right-arrow"
 				colorScheme="messenger"
@@ -91,7 +86,7 @@ export const TeamsList = () => {
 				<BiRightArrowAlt />
 			</IconButton>
 			{/* Slider */}
-			<Flex w="xl" justify="center" display="block">
+			<Flex w="2xl" display="block" bg="blue.200">
 				<Slider {...settings} ref={slider => setSlider(slider)}>
 					{teamList.map((team, index) => (
 						<TeamCard

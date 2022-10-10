@@ -58,7 +58,12 @@ export const DashboardComponent: React.FC = () => {
 				<Flex display={isLogged === true ? 'none' : 'flex'}>
 					<CreateOrganizationCard />
 				</Flex>
-				<Flex display={isLogged === true ? 'flex' : 'none'} px="8">
+				<Flex
+					display={isLogged === true ? 'flex' : 'none'}
+					px="8"
+					w="max-content"
+					bg="green.200"
+				>
 					<TeamsList />
 				</Flex>
 				<Flex display={isLogged === true ? 'flex' : 'none'} px="8" gap="6">

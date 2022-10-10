@@ -11,7 +11,7 @@ interface ITeamCard {
 export const TeamCard: React.FC<ITeamCard> = ({ teamName, funds, members }) => {
 	const theme = usePicasso();
 	return (
-		<Flex boxShadow="lg" bg="red.200">
+		<Flex boxShadow="lg" bg="red.200" mr="2">
 			<Flex direction="column" px="1">
 				<Flex align="center" gap="2.5" px="4" py="2.5">
 					<Img src="/icons/organizations.svg" boxSize="6" />
