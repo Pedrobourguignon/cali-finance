@@ -1,48 +1,55 @@
 import { Button, Flex, Icon, Img, Link } from '@chakra-ui/react';
 import React from 'react';
-import { FaDiscord, FaTwitter } from 'react-icons/fa';
+import { FaDiscord, FaTwitter, FaEdit } from 'react-icons/fa';
 import { usePath, usePicasso } from 'hooks';
 import { ConnectWalletButton } from 'components/Buttons';
+import { IconType } from 'react-icons';
+import { MdWorkOutline } from 'react-icons/md';
+import { CgFolderRemove } from 'react-icons/cg';
+import { GiSettingsKnobs } from 'react-icons/gi';
+import { HiOutlineCreditCard } from 'react-icons/hi';
+
+import { RiTeamLine, RiDashboardLine } from 'react-icons/ri';
 
 interface IMenuItem {
-	icon: string;
+	icon: IconType;
 	route: string;
 	option: string;
 }
 
 const menuOptions: IMenuItem[] = [
 	{
-		icon: '/icons/category.svg',
+		icon: RiDashboardLine,
 		route: '/app/dashboard',
 		option: 'Dashboard',
 	},
 	{
-		icon: '/icons/work.svg',
+		icon: MdWorkOutline,
 		route: '/app/organizations',
 		option: 'Organizations',
 	},
 	{
-		icon: '/icons/user.svg',
+		icon: RiTeamLine,
 		route: '/app/teams',
 		option: 'Teams',
 	},
 	{
-		icon: '/icons/card.svg',
+		icon: HiOutlineCreditCard,
 		route: '/app/funds',
 		option: 'Funds',
 	},
 	{
-		icon: '/icons/edit.svg',
+		icon: FaEdit,
 		route: '/app/edit-profile',
 		option: 'Edit Profile',
 	},
 	{
-		icon: '/icons/folder.svg',
+		icon: CgFolderRemove,
 		route: '/app/history',
 		option: 'History',
 	},
 	{
-		icon: '/icons/filter.svg',
+		icon: GiSettingsKnobs,
 		route: '/app/customize',
 		option: 'Customize',
 	},
@@ -99,7 +106,7 @@ export const Sidebar: React.FC = () => {
 								borderLeft={comparedPath ? 'solid' : 'none'}
 								color={comparedPath ? theme.branding.blue : 'white'}
 							>
-								<Img src={item.icon} color="white" px="2" />
+								<Icon as={item.icon} boxSize="6" ml="2" />
 								{item.option}
 								<Flex
 									display={comparedPath ? 'flex' : 'none'}
