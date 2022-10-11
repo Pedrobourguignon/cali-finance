@@ -31,9 +31,6 @@ export const TeamsList = () => (
 				members={team.members}
 			/>
 		))}
-		<Button>
-			<Icon as={AiOutlineRight} />
-		</Button>
 	</Flex>
 );
 
