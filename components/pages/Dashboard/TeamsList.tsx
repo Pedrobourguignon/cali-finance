@@ -6,7 +6,6 @@ import React from 'react';
 import { TeamCard } from './Cards';
 
 const settings = {
-	dots: true,
 	infinite: true,
 	speed: 500,
 	slidesToShow: 3,
@@ -30,12 +29,7 @@ const teamList = [
 		members: 13,
 	},
 	{
-		teamName: 'Sobrancheila ',
-		funds: '$5,234.1',
-		members: 13,
-	},
-	{
-		teamName: 'Sobrancheila ',
+		teamName: 'Aucelora ',
 		funds: '$5,234.1',
 		members: 13,
 	},
@@ -59,10 +53,10 @@ export const TeamsList = () => {
 				type="text/css"
 				href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css"
 			/>
-			<IconButton
+			{/* <IconButton
+				border="1px solid"
+				bg="transparent"
 				aria-label="left-arrow"
-				colorScheme="messenger"
-				borderRadius="full"
 				position="absolute"
 				left={side}
 				top={top}
@@ -71,23 +65,29 @@ export const TeamsList = () => {
 				onClick={() => slider?.slickPrev()}
 			>
 				<BiLeftArrowAlt />
-			</IconButton>
+			</IconButton> */}
 			<IconButton
+				border="1px solid"
 				aria-label="right-arrow"
-				colorScheme="messenger"
-				borderRadius="full"
 				position="absolute"
+				bg="white"
 				right={side}
 				top={top}
 				transform="translate(0%, -50%)"
 				zIndex={2}
+				_focus={{ bg: 'white' }}
 				onClick={() => slider?.slickNext()}
 			>
 				<BiRightArrowAlt />
 			</IconButton>
 			{/* Slider */}
-			<Flex w="2xl" display="block" bg="blue.200">
-				<Slider {...settings} ref={slider => setSlider(slider)}>
+			<Flex w="720px" display="block" bg="white">
+				<Slider
+					{...settings}
+					ref={slider => setSlider(slider)}
+					arrows={false}
+					className="slider"
+				>
 					{teamList.map((team, index) => (
 						<TeamCard
 							key={+index}

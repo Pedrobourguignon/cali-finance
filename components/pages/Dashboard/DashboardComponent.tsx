@@ -60,9 +60,8 @@ export const DashboardComponent: React.FC = () => {
 				</Flex>
 				<Flex
 					display={isLogged === true ? 'flex' : 'none'}
-					px="8"
 					w="max-content"
-					bg="green.200"
+					ml="8"
 				>
 					<TeamsList />
 				</Flex>
