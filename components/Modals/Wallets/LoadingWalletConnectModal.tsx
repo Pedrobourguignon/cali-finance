@@ -10,6 +10,7 @@ import {
 	Img,
 } from '@chakra-ui/react';
 import { OffsetShadow } from 'components';
+import { usePicasso } from 'hooks';
 import React from 'react';
 
 interface ILoadingWalletConnectModal {
@@ -21,27 +22,44 @@ interface ILoadingWalletConnectModal {
 
 export const LoadingWalletConnectModal: React.FC<
 	ILoadingWalletConnectModal
-> = ({ walletIcon, walletName, isOpen, onClose }) => (
-	<Flex>
-		<Modal isOpen={isOpen} onClose={onClose} size="sm">
-			<OffsetShadow width="full" borderColor="red" height="full">
+> = ({ walletIcon, walletName, isOpen, onClose }) => {
+	const theme = usePicasso();
+	return (
+		<Flex>
+			<Modal isOpen={isOpen} onClose={onClose} size="sm">
 				<Flex>
 					<ModalOverlay />
-					<ModalContent m="auto" zIndex="1" bg="white">
-						<ModalHeader display="flex" justifyContent="center">
+					<ModalContent
+						m="auto"
+						zIndex="1"
+						bg="white"
+						borderWidth="1px"
+						borderStyle="solid"
+						borderColor="black"
+					>
+						<ModalHeader display="flex" justifyContent="center" py="6">
 							<Img src="/images/cali-logo.svg" w="16" h="10" />
-							<ModalCloseButton />
+							<ModalCloseButton color="gray.400" py="6" />
 						</ModalHeader>
-						<ModalBody display="flex" flexDirection="column" gap="2" mb="4">
-							<Text textAlign="center" fontWeight="semi-bold" fontSize="lg">
+						<ModalBody display="flex" flexDirection="column" gap="6" pb="6">
+							<Text
+								textAlign="center"
+								fontWeight="semibold"
+								fontSize="lg"
+								color={theme.text.mono}
+							>
 								Initializing...
 							</Text>
 							<Flex
-								border="2px"
+								border="1px"
 								borderColor="blackAlpha.200"
+								borderStyle="solid"
 								align="center"
 								px="3"
 								justify="space-between"
+								color={theme.text.mono}
+								fontWeight="medium"
+								borderRadius="base"
 							>
 								<Text bg="transparent" fontSize="sm" py="2">
 									{walletName}
@@ -51,9 +69,9 @@ export const LoadingWalletConnectModal: React.FC<
 						</ModalBody>
 					</ModalContent>
 				</Flex>
-			</OffsetShadow>
-		</Modal>
-	</Flex>
-);
+			</Modal>
+		</Flex>
+	);
+};
 
 export default LoadingWalletConnectModal;

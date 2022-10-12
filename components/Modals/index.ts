@@ -1,2 +1,1 @@
-export * from './LoadingWalletConnectModal';
-export * from './WalletsOptionsModal';
+export * from './Wallets';

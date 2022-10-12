@@ -1,4 +1,4 @@
-import { Button, Flex, Icon, Img, Link } from '@chakra-ui/react';
+import { Box, Button, Flex, Icon, Img, Link } from '@chakra-ui/react';
 import React from 'react';
 import { FaDiscord, FaTwitter, FaEdit } from 'react-icons/fa';
 import { usePath, usePicasso } from 'hooks';
@@ -97,17 +97,30 @@ export const Sidebar: React.FC = () => {
 								justifyContent="flex-start"
 								alignItems="center"
 								w="full"
-								p="2"
-								gap="3.5"
+								p="0"
 								bgColor="transparent"
 								fontSize="sm"
 								borderRadius="none"
 								boxShadow={comparedPath ? theme.branding.blue : 'none'}
-								borderLeft={comparedPath ? 'solid' : 'none'}
 								color={comparedPath ? theme.branding.blue : 'white'}
 							>
-								<Icon as={item.icon} boxSize="6" ml="2" />
-								{item.option}
+								{comparedPath && (
+									<Box
+										bgColor={theme.branding.blue}
+										h="full"
+										w="4px"
+										borderRightRadius="sm"
+										ml="1"
+									/>
+								)}
+								<Flex align="center" justify="center" gap="3">
+									<Icon
+										as={item.icon}
+										boxSize="6"
+										ml={comparedPath ? '5' : '6'}
+									/>
+									{item.option}
+								</Flex>
 								<Flex
 									display={comparedPath ? 'flex' : 'none'}
 									w="full"
