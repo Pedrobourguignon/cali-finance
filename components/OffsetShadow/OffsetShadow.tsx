@@ -1,19 +1,14 @@
-import { Flex } from '@chakra-ui/react';
+import { Flex, FlexProps } from '@chakra-ui/react';
 import React from 'react';
 
-interface IOffsetShadow {
-	width: string;
-	height: string;
-	top: string;
-	left: string;
-	borderColor: string;
+interface IOffsetShadow extends FlexProps {
 	children: JSX.Element;
 }
 
 export const OffsetShadow: React.FC<IOffsetShadow> = ({
 	width,
 	height,
-	borderColor,
+	borderColor = 'black',
 	children,
 	top,
 	left,
@@ -25,7 +20,7 @@ export const OffsetShadow: React.FC<IOffsetShadow> = ({
 			left={left}
 			zIndex="0"
 			position="absolute"
-			border="2px solid"
+			border="1px solid"
 			borderColor={borderColor}
 			borderRadius="inherit"
 		/>

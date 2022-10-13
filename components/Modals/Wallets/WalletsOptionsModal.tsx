@@ -58,14 +58,14 @@ export const WalletsOptionsModal: React.FC<IWalletOptionsModal> = ({
 	return (
 		<Modal isOpen={isOpen} onClose={onClose} size="sm">
 			<ModalOverlay />
-			<ModalContent m="auto" bg="white" w="350px" borderRadius="base">
-				<OffsetShadow
-					width="350px"
-					height="410px"
-					borderColor="white"
-					top="2"
-					left="2"
-				>
+			<ModalContent
+				m="auto"
+				bg="white"
+				w="full"
+				h="min-content"
+				borderRadius="base"
+			>
+				<OffsetShadow width="full" height="410px" top="2" left="2">
 					<Flex
 						direction="column"
 						bg={theme.bg.modal}
