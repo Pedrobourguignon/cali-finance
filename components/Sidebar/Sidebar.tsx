@@ -2,7 +2,6 @@ import { Box, Button, Flex, Icon, Img, Link } from '@chakra-ui/react';
 import React from 'react';
 import { FaDiscord, FaTwitter } from 'react-icons/fa';
 import { usePath, usePicasso } from 'hooks';
-import { ConnectWalletButton } from 'components/Buttons';
 
 import {
 	TeamsIcon,
@@ -12,7 +11,9 @@ import {
 	EditProfileIcon,
 	HistoryIcon,
 	CustomizeIcon,
+	ConnectWalletButton,
 } from 'components';
+import { socialMediaLinks } from 'utils';
 
 interface IMenuItem {
 	icon: typeof Icon;
@@ -67,11 +68,11 @@ export const Sidebar: React.FC = () => {
 			flexDirection="column"
 			display={{ base: 'none', md: 'flex' }}
 			bg={theme.bg.primary}
-			align="flex-start"
+			align="center"
 			color="white"
+			w="220px"
 		>
 			<Flex
-				w="full"
 				justify="center"
 				py="10"
 				direction="column"
@@ -115,7 +116,13 @@ export const Sidebar: React.FC = () => {
 										borderRightRadius="sm"
 									/>
 								)}
-								<Flex align="center" justify="center" gap="3" position="fixed">
+								<Flex
+									align="center"
+									justify="center"
+									gap="3"
+									position="fixed"
+									fontWeight="normal"
+								>
 									<Icon
 										as={item.icon}
 										boxSize="6"
@@ -135,7 +142,14 @@ export const Sidebar: React.FC = () => {
 					);
 				})}
 			</Flex>
-			<Flex direction="column" align="flex-start" gap="3" px="7" py="10">
+			<Flex
+				direction="column"
+				align="flex-start"
+				gap="3"
+				px="7"
+				py="10"
+				w="full"
+			>
 				<Link
 					href="/"
 					_hover={{
@@ -155,13 +169,13 @@ export const Sidebar: React.FC = () => {
 					Docs
 				</Link>
 			</Flex>
-			<Flex flexDirection="row" px="2">
-				<Link href="/">
+			<Flex flexDirection="row" px="2" w="full" alignItems="flex-start">
+				<Link href={socialMediaLinks.discord} isExternal>
 					<Button bg="transparent" borderRadius="full">
 						<Icon as={FaDiscord} boxSize="6" color={theme.branding.blue} />
 					</Button>
 				</Link>
-				<Link href="/">
+				<Link href={socialMediaLinks.twitter} isExternal>
 					<Button bg="transparent" borderRadius="full">
 						<Icon as={FaTwitter} boxSize="6" color={theme.branding.blue} />
 					</Button>
