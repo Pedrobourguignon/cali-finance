@@ -25,17 +25,28 @@ export const LoadingWalletConnectModal: React.FC<
 > = ({ walletIcon, walletName, isOpen, onClose }) => {
 	const theme = usePicasso();
 	return (
-		<Flex>
-			<Modal isOpen={isOpen} onClose={onClose} size="sm">
-				<Flex>
-					<ModalOverlay />
-					<ModalContent
-						m="auto"
-						zIndex="1"
-						bg="white"
-						borderWidth="1px"
-						borderStyle="solid"
-						borderColor="black"
+		<Modal isOpen={isOpen} onClose={onClose} size="sm">
+			<ModalOverlay />
+			<ModalContent
+				m="auto"
+				zIndex="1"
+				bg="white"
+				borderWidth="1px"
+				borderStyle="solid"
+				borderColor="black"
+			>
+				<OffsetShadow
+					width="385px"
+					height="210px"
+					borderColor="white"
+					top="2"
+					left="2"
+				>
+					<Flex
+						direction="column"
+						w="full"
+						bg={theme.bg.modal}
+						borderRadius="base"
 					>
 						<ModalHeader display="flex" justifyContent="center" py="6">
 							<Img src="/images/cali-logo.svg" w="16" h="10" />
@@ -67,10 +78,10 @@ export const LoadingWalletConnectModal: React.FC<
 								<Img src={walletIcon} boxSize="6" />
 							</Flex>
 						</ModalBody>
-					</ModalContent>
-				</Flex>
-			</Modal>
-		</Flex>
+					</Flex>
+				</OffsetShadow>
+			</ModalContent>
+		</Modal>
 	);
 };
 

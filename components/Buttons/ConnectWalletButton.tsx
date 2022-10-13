@@ -36,8 +36,10 @@ export const ConnectWalletButton = () => {
 				isOpen={isOpenLoading}
 				onClose={onCloseLoading}
 			/>
-			<OffsetShadow width="44" height="8" borderColor="white">
+			<OffsetShadow width="36" height="7" borderColor="white" top="3" left="1">
 				<Button
+					h="max-content"
+					py="2"
 					fontSize="sm"
 					color="black"
 					borderRadius="base"
@@ -50,9 +52,7 @@ export const ConnectWalletButton = () => {
 					}}
 					onClick={onOpen}
 				>
-					<Text px="7" py="1.5">
-						Connect Wallet
-					</Text>
+					<Text px="8">Connect Wallet</Text>
 				</Button>
 			</OffsetShadow>
 		</Flex>
