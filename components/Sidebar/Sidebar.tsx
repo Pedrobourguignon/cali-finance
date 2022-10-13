@@ -1,55 +1,58 @@
 import { Box, Button, Flex, Icon, Img, Link } from '@chakra-ui/react';
 import React from 'react';
-import { FaDiscord, FaTwitter, FaEdit } from 'react-icons/fa';
+import { FaDiscord, FaTwitter } from 'react-icons/fa';
 import { usePath, usePicasso } from 'hooks';
 import { ConnectWalletButton } from 'components/Buttons';
-import { IconType } from 'react-icons';
-import { MdWorkOutline } from 'react-icons/md';
-import { CgFolderRemove } from 'react-icons/cg';
-import { GiSettingsKnobs } from 'react-icons/gi';
-import { HiOutlineCreditCard } from 'react-icons/hi';
 
-import { RiTeamLine, RiDashboardLine } from 'react-icons/ri';
+import {
+	TeamsIcon,
+	FundsIcon,
+	DashboardIcon,
+	OrganizationIcon,
+	EditProfileIcon,
+	HistoryIcon,
+	CustomizeIcon,
+} from 'components';
 
 interface IMenuItem {
-	icon: IconType;
+	icon: typeof Icon;
 	route: string;
 	option: string;
 }
 
 const menuOptions: IMenuItem[] = [
 	{
-		icon: RiDashboardLine,
+		icon: DashboardIcon,
 		route: '/app/dashboard',
 		option: 'Dashboard',
 	},
 	{
-		icon: MdWorkOutline,
+		icon: OrganizationIcon,
 		route: '/app/organizations',
 		option: 'Organizations',
 	},
 	{
-		icon: RiTeamLine,
+		icon: TeamsIcon,
 		route: '/app/teams',
 		option: 'Teams',
 	},
 	{
-		icon: HiOutlineCreditCard,
+		icon: FundsIcon,
 		route: '/app/funds',
 		option: 'Funds',
 	},
 	{
-		icon: FaEdit,
+		icon: EditProfileIcon,
 		route: '/app/edit-profile',
 		option: 'Edit Profile',
 	},
 	{
-		icon: CgFolderRemove,
+		icon: HistoryIcon,
 		route: '/app/history',
 		option: 'History',
 	},
 	{
-		icon: GiSettingsKnobs,
+		icon: CustomizeIcon,
 		route: '/app/customize',
 		option: 'Customize',
 	},
@@ -110,14 +113,13 @@ export const Sidebar: React.FC = () => {
 										h="full"
 										w="4px"
 										borderRightRadius="sm"
-										ml="1"
 									/>
 								)}
-								<Flex align="center" justify="center" gap="3">
+								<Flex align="center" justify="center" gap="3" position="fixed">
 									<Icon
 										as={item.icon}
 										boxSize="6"
-										ml={comparedPath ? '5' : '6'}
+										ml={comparedPath ? '6' : '6'}
 									/>
 									{item.option}
 								</Flex>
@@ -133,7 +135,7 @@ export const Sidebar: React.FC = () => {
 					);
 				})}
 			</Flex>
-			<Flex direction="column" align="flex-start" gap="3" px="4" py="10">
+			<Flex direction="column" align="flex-start" gap="3" px="7" py="10">
 				<Link
 					href="/"
 					_hover={{
@@ -153,7 +155,7 @@ export const Sidebar: React.FC = () => {
 					Docs
 				</Link>
 			</Flex>
-			<Flex flexDirection="row">
+			<Flex flexDirection="row" px="2">
 				<Link href="/">
 					<Button bg="transparent" borderRadius="full">
 						<Icon as={FaDiscord} boxSize="6" color={theme.branding.blue} />
