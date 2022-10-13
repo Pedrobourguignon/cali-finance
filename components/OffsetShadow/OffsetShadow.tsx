@@ -4,6 +4,8 @@ import React from 'react';
 interface IOffsetShadow {
 	width: string;
 	height: string;
+	top: string;
+	left: string;
 	borderColor: string;
 	children: JSX.Element;
 }
@@ -13,12 +15,14 @@ export const OffsetShadow: React.FC<IOffsetShadow> = ({
 	height,
 	borderColor,
 	children,
+	top,
+	left,
 }) => (
 	<Flex w={width} height={height} position="relative" borderRadius="base">
 		<Flex
 			boxSize="full"
-			top="4"
-			left="1"
+			top={top}
+			left={left}
 			zIndex="0"
 			position="absolute"
 			border="2px solid"

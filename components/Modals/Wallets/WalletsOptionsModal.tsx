@@ -56,16 +56,33 @@ export const WalletsOptionsModal: React.FC<IWalletOptionsModal> = ({
 		onClose();
 	};
 	return (
-		<Flex>
-			<Modal isOpen={isOpen} onClose={onClose} size="sm">
-				<Flex>
-					<ModalOverlay />
-					<ModalContent m="auto" bgColor={theme.bg.modal}>
-						<ModalHeader py="6">
+		<Modal isOpen={isOpen} onClose={onClose} size="sm">
+			<ModalOverlay />
+			<ModalContent m="auto" bg="white" w="350px" borderRadius="base">
+				<OffsetShadow
+					width="350px"
+					height="410px"
+					borderColor="white"
+					top="2"
+					left="2"
+				>
+					<Flex
+						direction="column"
+						bg={theme.bg.modal}
+						borderRadius="base"
+						w="full"
+					>
+						<ModalHeader
+							py="6"
+							bg={theme.bg.modal}
+							borderRadius="base"
+							display="flex"
+							w="full"
+						>
 							<Text fontSize="lg" fontStyle="semi-bold" color={theme.text.mono}>
 								Connect to a Wallet
 							</Text>
-							<ModalCloseButton color="gray.400" py="6" />
+							<ModalCloseButton color="gray.400" py="7" />
 						</ModalHeader>
 						<ModalBody
 							display="flex"
@@ -120,10 +137,10 @@ export const WalletsOptionsModal: React.FC<IWalletOptionsModal> = ({
 								</Link>
 							</Flex>
 						</ModalBody>
-					</ModalContent>
-				</Flex>
-			</Modal>
-		</Flex>
+					</Flex>
+				</OffsetShadow>
+			</ModalContent>
+		</Modal>
 	);
 };
 
