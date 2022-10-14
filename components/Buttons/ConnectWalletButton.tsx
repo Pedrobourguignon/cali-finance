@@ -1,36 +1,62 @@
-import { Button, Flex } from '@chakra-ui/react';
-import React from 'react';
+import { Button, Flex, Text, useDisclosure } from '@chakra-ui/react';
+import React, { useState } from 'react';
+import {
+	LoadingWalletConnectModal,
+	WalletsOptionsModal,
+	OffsetShadow,
+} from 'components';
 
-export const ConnectWalletButton = () => (
-	<Flex>
-		<Flex
-			position="absolute"
-			display=" block"
-			p="4"
-			border=" 1px solid white"
-			borderRadius="base"
-			w="40"
-		/>
-		<Button
-			w="40"
-			h="8"
-			fontSize="sm"
-			color="black"
-			borderRadius="base"
-			display=" block"
-			borderWidth="0 2.5"
-			m="-5px 0px -10px -5px"
-			bg="white"
-			_hover={{ background: 'white' }}
-			_focus={{ background: 'white' }}
-			_active={{
-				background: 'white',
-				transform: 'translateY(6px) translateX(5px)',
-			}}
-		>
-			Connect Wallet
-		</Button>
-	</Flex>
-);
+interface IWalletData {
+	name: string;
+	icon: string;
+}
+
+export const ConnectWalletButton = () => {
+	const { isOpen, onOpen, onClose } = useDisclosure();
+	const [walletData, setWalletData] = useState<IWalletData>({
+		name: '',
+		icon: '',
+	});
+	const {
+		isOpen: isOpenLoading,
+		onClose: onCloseLoading,
+		onOpen: onOpenLoading,
+	} = useDisclosure();
+	return (
+		<Flex>
+			<WalletsOptionsModal
+				setWalletData={setWalletData}
+				isOpen={isOpen}
+				onClose={onClose}
+				openLoadingWalletModal={onOpenLoading}
+			/>
+			<LoadingWalletConnectModal
+				walletIcon={walletData.icon}
+				walletName={walletData.name}
+				isOpen={isOpenLoading}
+				onClose={onCloseLoading}
+			/>
+			<OffsetShadow width="36" height="7" borderColor="white" top="3" left="1">
+				<Button
+					h="max-content"
+					py="2"
+					fontSize="sm"
+					color="black"
+					borderRadius="base"
+					bg="white"
+					_hover={{ background: 'white' }}
+					_focus={{ background: 'white' }}
+					_active={{
+						background: 'white',
+						transform: 'translateY(6px) translateX(5px)',
+					}}
+					onClick={onOpen}
+				>
+					<Text px="8">Connect Wallet</Text>
+				</Button>
+			</OffsetShadow>
+		</Flex>
+	);
+};
 
 export default ConnectWalletButton;
