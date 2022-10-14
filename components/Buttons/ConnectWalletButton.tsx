@@ -36,7 +36,13 @@ export const ConnectWalletButton = () => {
 				isOpen={isOpenLoading}
 				onClose={onCloseLoading}
 			/>
-			<OffsetShadow width="36" height="7" borderColor="white" top="3" left="1">
+			<OffsetShadow
+				width="36"
+				height="8"
+				borderColor="white"
+				top="2"
+				left="1.5"
+			>
 				<Button
 					h="max-content"
 					py="2"
