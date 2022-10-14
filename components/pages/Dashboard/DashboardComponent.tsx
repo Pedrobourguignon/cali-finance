@@ -56,6 +56,7 @@ export const DashboardComponent: React.FC = () => {
 		>
 			<Flex
 				direction="column"
+				px="8"
 				gap="4"
 				display={error === true ? 'none' : 'flex'}
 			>
@@ -64,10 +65,10 @@ export const DashboardComponent: React.FC = () => {
 				<Flex display={isLogged === true ? 'none' : 'flex'}>
 					<CreateOrganizationCard />
 				</Flex>
-				<Flex display={isLogged === true ? 'flex' : 'none'} px="8">
+				<Flex display={isLogged === true ? 'flex' : 'none'}>
 					<TeamsList />
 				</Flex>
-				<Flex display={isLogged === true ? 'flex' : 'none'} px="8" gap="6">
+				<Flex display={isLogged === true ? 'flex' : 'none'} gap="6">
 					<MyAssets />
 					<RecentActivities recentActivitiesList={recentActivitiesList} />
 				</Flex>

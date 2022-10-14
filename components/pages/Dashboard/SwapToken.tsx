@@ -4,6 +4,7 @@ import Link from 'next/link';
 import React from 'react';
 import { BsArrowDownUp } from 'react-icons/bs';
 import useTranslation from 'next-translate/useTranslation';
+import { OffsetShadow } from 'components';
 
 export const SwapToken = () => {
 	const theme = usePicasso();
@@ -25,9 +26,9 @@ export const SwapToken = () => {
 				<Text
 					color="white"
 					fontStyle="normal"
-					fontWeight="500"
-					fontSize="20px"
-					lineHeight="28px"
+					fontWeight="medium"
+					fontSize="xl"
+					lineHeight="7"
 				>
 					{translate('title')}
 				</Text>
@@ -71,9 +72,7 @@ export const SwapToken = () => {
 				<Flex align="center" justify="space-between" ml="10">
 					<Text
 						fontStyle="normal"
-						fontWeight="400"
 						fontSize="xs"
-						lineHeight="16px"
 						color="whiteAlpha.600"
 						textAlign="justify"
 					>
@@ -82,37 +81,19 @@ export const SwapToken = () => {
 					<Text>-</Text>
 				</Flex>
 				<Flex align="center" justify="space-between" ml="10">
-					<Text
-						fontStyle="normal"
-						fontWeight="400"
-						fontSize="xs"
-						lineHeight="16px"
-						color="whiteAlpha.600"
-					>
+					<Text fontStyle="normal" fontSize="xs" color="whiteAlpha.600">
 						Slippage tolerance
 					</Text>
 					<Text>-</Text>
 				</Flex>
 				<Flex align="center" justify="space-between" ml="10">
-					<Text
-						fontStyle="normal"
-						fontWeight="400"
-						fontSize="xs"
-						lineHeight="16px"
-						color="whiteAlpha.600"
-					>
+					<Text fontStyle="normal" fontSize="xs" color="whiteAlpha.600">
 						Estimated fees
 					</Text>
 					<Text>-</Text>
 				</Flex>
 				<Flex align="center" justify="space-between" ml="10">
-					<Text
-						fontStyle="normal"
-						fontWeight="400"
-						fontSize="xs"
-						lineHeight="16px"
-						color="whiteAlpha.600"
-					>
+					<Text fontStyle="normal" fontSize="xs" color="whiteAlpha.600">
 						Price impact
 					</Text>
 					<Text>-</Text>
@@ -120,33 +101,31 @@ export const SwapToken = () => {
 			</Flex>
 			<Link href="/app/dashboard">
 				<Flex justify="center">
-					<Flex
-						position="absolute"
-						display=" block"
-						w="60"
-						p="4"
-						border="1px solid white"
-						borderRadius="base"
-					/>
-					<Button
-						disabled={isLogged}
-						w="60"
-						h="8"
-						fontSize="sm"
-						color="black"
-						borderRadius="base"
-						display=" block"
-						m="-5px 0px -10px -10px"
-						bg="white"
-						_hover={{ background: 'white' }}
-						_focus={{ background: 'white' }}
-						_active={{
-							background: 'white',
-							transform: 'translateY(6px) translateX(5px)',
-						}}
+					<OffsetShadow
+						width="60"
+						height="8"
+						borderColor="white"
+						top="2"
+						left="1"
 					>
-						{translate('swap')}
-					</Button>
+						<Button
+							disabled={isLogged}
+							w="full"
+							h="full"
+							fontSize="sm"
+							color="black"
+							borderRadius="base"
+							bg="white"
+							_hover={{ background: 'white' }}
+							_focus={{ background: 'white' }}
+							_active={{
+								background: 'white',
+								transform: 'translateY(6px) translateX(5px)',
+							}}
+						>
+							{translate('swap')}
+						</Button>
+					</OffsetShadow>
 				</Flex>
 			</Link>
 		</Flex>

@@ -1,5 +1,4 @@
 import { Button, Icon } from '@chakra-ui/react';
-import { usePicasso } from 'hooks/usePicasso';
 import { VscBell } from 'react-icons/vsc';
 
 export const NotificationButton: React.FC = () => (
