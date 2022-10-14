@@ -5,6 +5,7 @@ import {
 	OrganizationsDashboard,
 	OrganizationsDashboardNoConnected,
 	RecentActivities,
+	UpgradeAccountBanner,
 } from 'components';
 import type { NextPage } from 'next';
 
@@ -15,6 +16,7 @@ const Home: NextPage = () => (
 		<OrganizationsDashboardNoConnected />
 		<NewOrganizationsDashboard />
 		<NewOrganizationLinks />
+		<UpgradeAccountBanner />
 	</Flex>
 );
 
