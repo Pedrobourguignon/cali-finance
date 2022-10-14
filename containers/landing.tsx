@@ -9,45 +9,54 @@ export const LandingContainer: React.FC = () => {
 		<LandingPage>
 			<LandingHeader />
 			<Flex
-				backgroundImage="url('/images/dollar-face.svg')"
+				backgroundImage="url('/images/dollar-face.png')"
 				backgroundRepeat="no-repeat"
 				backgroundSize="cover"
 				h="100vh"
 				align="center"
 				px={{ base: '5', lg: '10', xl: '24' }}
 				direction={{ xs: 'column', md: 'row' }}
-				justify={{ base: 'center', lg: 'space-between' }}
+				gap="56"
+				justify={{ base: 'center', lg: 'center' }}
 			>
-				<Flex direction="column" maxW="lg" gap="40">
-					<Flex direction="column">
-						<Text fontSize={{ base: '4xl', sm: '6xl' }} fontWeight="extrabold">
+				<Flex direction="column" maxW="lg" gap="24">
+					<Flex direction="column" position="relative">
+						<Text
+							fontSize={{ base: '4xl', sm: '6xl' }}
+							fontWeight="extrabold"
+							bgImage={theme.bg.gradient}
+							bgClip="text"
+							css={{ WebkitTextFillColor: 'transparent' }}
+						>
 							Your money,
 						</Text>
-						<Flex direction="column">
-							<Text
-								fontSize={{ base: '6xl', sm: '8xl' }}
-								fontWeight="black"
-								ml="2"
-								mt="1"
-								position="absolute"
-								zIndex="docked"
-							>
-								any time.
-							</Text>
-							<Text
-								css={{
-									WebkitTextStroke: '1px #02E4D1',
-								}}
-								color="transparent"
-								fontSize={{ base: '6xl', sm: '8xl' }}
-								fontWeight="black"
-								ml="3"
-								mt="2"
-								position="absolute"
-							>
-								any time.
-							</Text>
-						</Flex>
+						<Text
+							fontSize={{ base: '6xl', sm: '8xl' }}
+							fontWeight="black"
+							top="7"
+							left="12"
+							position="absolute"
+							zIndex="docked"
+							bgImage={theme.bg.gradient}
+							bgClip="text"
+							css={{ WebkitTextFillColor: 'transparent' }}
+						>
+							any time.
+						</Text>
+						<Text
+							css={{
+								WebkitTextStroke: '1px #02E4D1',
+							}}
+							color="transparent"
+							top="8"
+							left="12"
+							ml="1"
+							fontSize={{ base: '6xl', sm: '8xl' }}
+							fontWeight="black"
+							position="absolute"
+						>
+							any time.
+						</Text>
 					</Flex>
 					<Flex direction="column" gap="10">
 						<Text fontSize={{ base: 'lg', sm: 'xl' }}>
@@ -59,6 +68,7 @@ export const LandingContainer: React.FC = () => {
 							display={{ sm: 'flex', lg: 'none' }}
 							border="1px solid white"
 							zIndex="docked"
+							borderColor={theme.branding.cyan}
 							maxW={{ base: '2xs', md: 'sm', lg: 'sm', xl: 'xl' }}
 						>
 							<Img
@@ -75,14 +85,21 @@ export const LandingContainer: React.FC = () => {
 							direction={{ base: 'column', md: 'row' }}
 							gap="10"
 						>
-							<OffsetShadow borderColor="white">
+							<OffsetShadow
+								width="48"
+								height="10"
+								borderColor="white"
+								top="0.5"
+								left="0.5"
+								borderRadius="sm"
+							>
 								<Button
 									_hover={{ background: 'white' }}
 									_focus={{ background: 'white' }}
 									_active={{
 										background: 'white',
-										top: '0',
-										left: '0',
+										top: '0.5',
+										left: '0.5',
 									}}
 									position="relative"
 									bottom="2"
@@ -125,16 +142,21 @@ export const LandingContainer: React.FC = () => {
 						</Flex>
 					</Flex>
 				</Flex>
-				<OffsetShadow borderColor={theme.branding.cyan}>
+				<Flex
+					display={{ sm: 'none', lg: 'flex' }}
+					border="1px solid white"
+					zIndex="docked"
+					borderColor={theme.branding.cyan}
+					maxW={{ base: '2xs', md: 'sm', lg: 'sm', xl: 'xl' }}
+				>
 					<Img
-						display={{ base: 'none', md: 'flex' }}
 						src="/images/dashboard.svg"
 						position="relative"
 						right="5"
 						bottom="5"
-						maxW={{ base: 'sm', md: 'sm', lg: 'sm', xl: 'xl' }}
+						maxW={{ base: '2xs', md: 'sm', lg: 'sm', xl: 'xl' }}
 					/>
-				</OffsetShadow>
+				</Flex>
 			</Flex>
 		</LandingPage>
 	);
