@@ -1,6 +1,7 @@
 import { Button, Flex, Img, Text } from '@chakra-ui/react';
 import { usePath, usePicasso } from 'hooks';
 import NextLink from 'next/link';
+import { navigationPaths } from 'utils';
 
 interface IMenu {
 	name: string;
@@ -10,15 +11,15 @@ interface IMenu {
 const menuOptions: IMenu[] = [
 	{
 		name: 'About',
-		route: '/',
+		route: navigationPaths.about,
 	},
 	{
 		name: 'FAQ',
-		route: '/faq',
+		route: navigationPaths.faq,
 	},
 	{
 		name: 'Docs',
-		route: '/docs',
+		route: navigationPaths.docs,
 	},
 ];
 export const LandingHeader: React.FC = () => {
@@ -34,7 +35,7 @@ export const LandingHeader: React.FC = () => {
 			px="6"
 			position="absolute"
 		>
-			<NextLink href="/">
+			<NextLink href={navigationPaths.landing}>
 				<Img minH="10" src="/images/cali-logo-with-text.svg" />
 			</NextLink>
 			<Flex gap="6">
@@ -45,6 +46,7 @@ export const LandingHeader: React.FC = () => {
 							<Text
 								borderBottomColor={comparedPath ? 'white' : 'none'}
 								borderBottomWidth={comparedPath ? '0.125rem' : 'none'}
+								cursor="pointer"
 							>
 								{item.name}
 							</Text>
@@ -52,20 +54,29 @@ export const LandingHeader: React.FC = () => {
 					);
 				})}
 			</Flex>
-			<Button
-				_hover={{ bg: 'white' }}
-				_focus={{ border: '2px solid white', color: 'white' }}
-				display={{ base: 'none', md: 'flex' }}
-				borderRadius="sm"
-				bg="white"
-				color={theme.text.black}
-				px="12"
-				py="3"
-				fontSize="md"
-				fontWeight="normal"
-			>
-				Launch App
-			</Button>
+			<NextLink href={navigationPaths.dashboard.home}>
+				<Button
+					_hover={{ bg: 'white' }}
+					_focus={{
+						border: '2px solid white',
+						color: 'white',
+						bgColor: 'transparent',
+					}}
+					_active={{ color: 'black' }}
+					display={{ base: 'none', md: 'flex' }}
+					borderRadius="sm"
+					bg="white"
+					border="2px solid"
+					borderColor="transparent"
+					color={theme.text.black}
+					px="12"
+					py="3"
+					fontSize="md"
+					fontWeight="normal"
+				>
+					Launch App
+				</Button>
+			</NextLink>
 		</Flex>
 	);
 };

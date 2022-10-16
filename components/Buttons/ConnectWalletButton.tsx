@@ -38,24 +38,27 @@ export const ConnectWalletButton = () => {
 			/>
 			<OffsetShadow
 				borderRadius="base"
-				width="36"
-				height="7"
+				width="40"
+				height="8"
 				borderColor="white"
-				top="3"
-				left="1"
+				position="absolute"
 			>
 				<Button
-					h="max-content"
+					position="relative"
 					py="2"
 					fontSize="sm"
 					color="black"
 					borderRadius="base"
 					bg="white"
+					w="40"
+					h="8"
 					_hover={{ background: 'white' }}
 					_focus={{ background: 'white' }}
+					bottom="0.5rem"
+					right="0.5rem"
 					_active={{
 						background: 'white',
-						transform: 'translateY(6px) translateX(5px)',
+						transform: 'translateY(0.5rem) translateX(0.5rem)',
 					}}
 					onClick={onOpen}
 				>

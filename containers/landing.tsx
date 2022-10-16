@@ -33,8 +33,8 @@ export const LandingContainer: React.FC = () => {
 						<Text
 							fontSize={{ base: '6xl', sm: '8xl' }}
 							fontWeight="black"
-							top="7"
-							left="12"
+							top="30px"
+							left="57px"
 							position="absolute"
 							zIndex="docked"
 							bgImage={theme.bg.gradient}
@@ -48,8 +48,8 @@ export const LandingContainer: React.FC = () => {
 								WebkitTextStroke: '1px #02E4D1',
 							}}
 							color="transparent"
-							top="8"
-							left="12"
+							top="31px"
+							left="55px"
 							ml="1"
 							fontSize={{ base: '6xl', sm: '8xl' }}
 							fontWeight="black"
@@ -89,21 +89,22 @@ export const LandingContainer: React.FC = () => {
 								width="48"
 								height="10"
 								borderColor="white"
-								top="0.5"
-								left="0.5"
 								borderRadius="sm"
+								position="absolute"
 							>
 								<Button
-									_hover={{ background: 'white' }}
+									_hover={{
+										background: 'white',
+										transform: 'translateY(0.5rem) translateX(0.5rem)',
+									}}
 									_focus={{ background: 'white' }}
 									_active={{
 										background: 'white',
-										top: '0.5',
-										left: '0.5',
+										transform: 'translateY(0.5rem) translateX(0.5rem)',
 									}}
 									position="relative"
-									bottom="2"
-									right="2"
+									bottom="0.5rem"
+									right="0.5rem"
 									borderRadius="sm"
 									bg="white"
 									color={theme.text.black}
@@ -115,30 +116,6 @@ export const LandingContainer: React.FC = () => {
 									Book a Demo
 								</Button>
 							</OffsetShadow>
-							<Flex display={{ md: 'none', base: 'flex' }}>
-								<OffsetShadow borderColor="white">
-									<Button
-										_hover={{ background: 'white' }}
-										_focus={{ background: 'white' }}
-										_active={{
-											background: 'white',
-											top: '0',
-											left: '0',
-										}}
-										position="relative"
-										display={{ base: 'flex', md: 'none' }}
-										borderRadius="none"
-										bg="white"
-										color={theme.text.black}
-										px="12"
-										py="3"
-										fontSize="md"
-										fontWeight="normal"
-									>
-										Launch App
-									</Button>
-								</OffsetShadow>
-							</Flex>
 						</Flex>
 					</Flex>
 				</Flex>
