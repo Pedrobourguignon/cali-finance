@@ -13,7 +13,7 @@ import {
 	CustomizeIcon,
 	ConnectWalletButton,
 } from 'components';
-import { socialMediaLinks } from 'utils';
+import { navigationPaths, socialMediaLinks } from 'utils';
 
 interface IMenuItem {
 	icon: typeof Icon;
@@ -80,7 +80,7 @@ export const Sidebar: React.FC = () => {
 				gap="6"
 				px="8"
 			>
-				<Link href="/">
+				<Link href={navigationPaths.dashboard.home}>
 					<Img src="/images/cali-logo.svg" h="8" w="20" cursor="pointer" />
 				</Link>
 				<ConnectWalletButton />
@@ -151,7 +151,7 @@ export const Sidebar: React.FC = () => {
 				w="full"
 			>
 				<Link
-					href="/"
+					href={navigationPaths.help}
 					_hover={{
 						textDecoration: 'none',
 						opacity: 0.8,
@@ -160,7 +160,7 @@ export const Sidebar: React.FC = () => {
 					Help
 				</Link>
 				<Link
-					href="/"
+					href={navigationPaths.docs}
 					_hover={{
 						textDecoration: 'none',
 						opacity: 0.8,
