@@ -16,6 +16,7 @@ import Link from 'next/link';
 import { OffsetShadow } from 'components';
 import { usePicasso } from 'hooks';
 import { MoreIcon } from 'components/Icons';
+import { navigationPaths } from 'utils';
 
 const walletsOptions = [
 	{
@@ -125,7 +126,7 @@ export const WalletsOptionsModal: React.FC<IWalletOptionsModal> = ({
 							>
 								<Text>By connecting your wallet you accept the</Text>
 
-								<Link href="/app/dashboard">
+								<Link href={navigationPaths.termsAndConditions}>
 									<Text fontWeight="bold" cursor="pointer">
 										<Text as="span" textDecor="underline">
 											Terms and Conditions
