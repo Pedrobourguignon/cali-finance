@@ -1,0 +1,16 @@
+{
+	"connectWallet": "Conectar Carteira",
+	"dashboard": "Painel",
+	"organizations": "Organizações",
+	"teams": "Times",
+	"funds": "Fundos",
+	"editProfile": "Editar perfil",
+	"history": "Histórico",
+	"customize": "Customizar",
+	"help": "Ajuda",
+	"docs": "Docs",
+	"connectWalletModal": "Conectar a uma carteira",
+	"accept": "Ao conectar sua carteira, você aceita os",
+	"terms": "Termos e Condições",
+	"initializing": "Inicializando..."
+}

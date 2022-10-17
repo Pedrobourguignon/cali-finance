@@ -2,6 +2,7 @@ import { Box, Button, Flex, Icon, Img, Link } from '@chakra-ui/react';
 import React from 'react';
 import { FaDiscord, FaTwitter } from 'react-icons/fa';
 import { usePath, usePicasso } from 'hooks';
+import useTranslation from 'next-translate/useTranslation';
 
 import {
 	TeamsIcon,
@@ -18,48 +19,48 @@ import { socialMediaLinks } from 'utils';
 interface IMenuItem {
 	icon: typeof Icon;
 	route: string;
-	option: string;
+	option: () => void;
 }
 
-const menuOptions: IMenuItem[] = [
-	{
-		icon: DashboardIcon,
-		route: '/app/dashboard',
-		option: 'Dashboard',
-	},
-	{
-		icon: OrganizationIcon,
-		route: '/app/organizations',
-		option: 'Organizations',
-	},
-	{
-		icon: TeamsIcon,
-		route: '/app/teams',
-		option: 'Teams',
-	},
-	{
-		icon: FundsIcon,
-		route: '/app/funds',
-		option: 'Funds',
-	},
-	{
-		icon: EditProfileIcon,
-		route: '/app/edit-profile',
-		option: 'Edit Profile',
-	},
-	{
-		icon: HistoryIcon,
-		route: '/app/history',
-		option: 'History',
-	},
-	{
-		icon: CustomizeIcon,
-		route: '/app/customize',
-		option: 'Customize',
-	},
-];
-
 export const Sidebar: React.FC = () => {
+	const { t: translate } = useTranslation('sidebar');
+	const menuOptions: IMenuItem[] = [
+		{
+			icon: DashboardIcon,
+			route: '/app/dashboard',
+			option: translate('dashboard'),
+		},
+		{
+			icon: OrganizationIcon,
+			route: '/app/organizations',
+			option: translate('organizations'),
+		},
+		{
+			icon: TeamsIcon,
+			route: '/app/teams',
+			option: translate('teams'),
+		},
+		{
+			icon: FundsIcon,
+			route: '/app/funds',
+			option: translate('funds'),
+		},
+		{
+			icon: EditProfileIcon,
+			route: '/app/edit-profile',
+			option: translate('editProfile'),
+		},
+		{
+			icon: HistoryIcon,
+			route: '/app/history',
+			option: translate('history'),
+		},
+		{
+			icon: CustomizeIcon,
+			route: '/app/customize',
+			option: translate('customize'),
+		},
+	];
 	const theme = usePicasso();
 	const { isSamePath } = usePath();
 	return (
@@ -157,7 +158,7 @@ export const Sidebar: React.FC = () => {
 						opacity: 0.8,
 					}}
 				>
-					Help
+					{translate('help')}
 				</Link>
 				<Link
 					href="/"
@@ -166,7 +167,7 @@ export const Sidebar: React.FC = () => {
 						opacity: 0.8,
 					}}
 				>
-					Docs
+					{translate('docs')}
 				</Link>
 			</Flex>
 			<Flex flexDirection="row" px="2" w="full" alignItems="flex-start">

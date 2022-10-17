@@ -11,6 +11,7 @@ import {
 } from '@chakra-ui/react';
 import { OffsetShadow } from 'components';
 import { usePicasso } from 'hooks';
+import useTranslation from 'next-translate/useTranslation';
 import React from 'react';
 
 interface ILoadingWalletConnectModal {
@@ -24,6 +25,8 @@ export const LoadingWalletConnectModal: React.FC<
 	ILoadingWalletConnectModal
 > = ({ walletIcon, walletName, isOpen, onClose }) => {
 	const theme = usePicasso();
+	const { t: translate } = useTranslation('sidebar');
+
 	return (
 		<Modal isOpen={isOpen} onClose={onClose} size="sm">
 			<ModalOverlay />
@@ -53,7 +56,7 @@ export const LoadingWalletConnectModal: React.FC<
 								fontSize="lg"
 								color={theme.text.mono}
 							>
-								Initializing...
+								{translate('initializing')}
 							</Text>
 							<Flex
 								border="1px"

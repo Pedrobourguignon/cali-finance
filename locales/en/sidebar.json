@@ -1,0 +1,16 @@
+{
+	"connectWallet": "Connect Wallet",
+	"dashboard": "Dashboard",
+	"organizations": "Organizations",
+	"teams": "Teams",
+	"funds": "Funds",
+	"editProfile": "Edit profile",
+	"history": "History",
+	"customize": "Customize",
+	"help": "Help",
+	"docs": "Docs",
+	"connectWalletModal": "Connect to a Wallet",
+	"accept": "By connecting your wallet you accept the",
+	"terms": "Terms and Conditions",
+	"initializing": "Initializing..."
+}

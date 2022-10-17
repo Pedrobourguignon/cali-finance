@@ -1,5 +1,6 @@
 import { Button, Flex, Text, useDisclosure } from '@chakra-ui/react';
 import React, { useState } from 'react';
+import useTranslation from 'next-translate/useTranslation';
 import {
 	LoadingWalletConnectModal,
 	WalletsOptionsModal,
@@ -12,6 +13,7 @@ interface IWalletData {
 }
 
 export const ConnectWalletButton = () => {
+	const { t: translate } = useTranslation('sidebar');
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const [walletData, setWalletData] = useState<IWalletData>({
 		name: '',
@@ -58,7 +60,7 @@ export const ConnectWalletButton = () => {
 					}}
 					onClick={onOpen}
 				>
-					<Text px="8">Connect Wallet</Text>
+					<Text px="8">{translate('connectWallet')}</Text>
 				</Button>
 			</OffsetShadow>
 		</Flex>
