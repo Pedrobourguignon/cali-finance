@@ -20,7 +20,6 @@ export const DashboardHeader: React.FC = () => {
 			direction="row"
 			justify="space-between"
 			h="max-content"
-			mt="6"
 		>
 			<Flex direction="column">
 				<Text

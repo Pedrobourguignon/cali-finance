@@ -8,7 +8,7 @@ export const HaveProblemCard = () => {
 	return (
 		<Link href="/app/dashboard">
 			<Flex
-				w="max-content"
+				w="full"
 				h="max-content"
 				px="12"
 				py="6"

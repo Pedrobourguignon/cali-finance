@@ -35,7 +35,13 @@ export const LoadingWalletConnectModal: React.FC<
 				borderStyle="solid"
 				borderColor="black"
 			>
-				<OffsetShadow width="full" height="210px" top="2" left="2">
+				<OffsetShadow
+					width="full"
+					height="210px"
+					top="2"
+					left="2"
+					buttonText="Initializing..."
+				>
 					<Flex
 						direction="column"
 						w="full"

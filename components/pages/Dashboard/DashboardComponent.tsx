@@ -17,14 +17,17 @@ export const DashboardComponent: React.FC = () => {
 			w="full"
 			borderLeft="0.25rem solid"
 			borderColor={theme.branding.blue}
+			borderLeftRadius="sm"
 			gap="4"
+			justify="space-between"
+			px="8"
 		>
-			<Flex direction="column" ml="8" gap="4">
+			<Flex direction="column" gap="4" pt="8">
 				<DashboardHeader />
 				<Coins />
 				<CreateOrganizationCard />
 			</Flex>
-			<Flex direction="column" gap="4" mt="4">
+			<Flex direction="column" gap="4" mt="4" w="74">
 				<SwapToken />
 				<HaveProblemCard />
 			</Flex>

@@ -11,7 +11,8 @@ export const CoinCard: React.FC<ICoinCard> = ({
 	const theme = usePicasso();
 	return (
 		<Flex
-			w="max-content"
+			minW="max-content"
+			w="32"
 			h="max-content"
 			px="4"
 			borderRadius="base"
@@ -21,8 +22,10 @@ export const CoinCard: React.FC<ICoinCard> = ({
 			<Flex direction="row" align="center" gap="2">
 				<Img src={icon} boxSize="6" />
 				<Flex direction="column" py="2">
-					<Text fontSize="xs">{name}</Text>
-					<Text fontSize="xs" color={theme.text.green}>
+					<Text fontSize="xs" color={theme.text.white}>
+						{name}
+					</Text>
+					<Text fontSize="xs" color={theme.text.white}>
 						{value}
 					</Text>
 				</Flex>

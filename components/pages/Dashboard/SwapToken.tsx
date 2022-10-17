@@ -25,7 +25,7 @@ export const SwapToken = () => {
 
 	return (
 		<Flex
-			w="72"
+			w="full"
 			h="max-content"
 			py="6"
 			bg="black"
@@ -57,32 +57,27 @@ export const SwapToken = () => {
 						borderColor="transparent"
 						borderRadius="base"
 					>
-						<Input placeholder="0" disabled />
-						<InputRightElement
-							children={
-								<Flex>
-									<Menu>
-										<MenuButton
-											as={Button}
-											rightIcon={<BiChevronDown />}
-											bg="none"
-											color="white"
-											disabled
-											_hover={{ bg: 'none' }}
-										>
-											Select
-										</MenuButton>
-										<MenuList>
-											<MenuItem>Bitícu</MenuItem>
-										</MenuList>
-									</Menu>
-								</Flex>
-							}
-							w="max-content"
-						/>
+						<Input placeholder="0" />
+						<Flex>
+							<Menu>
+								<MenuButton
+									as={Button}
+									rightIcon={<BiChevronDown />}
+									bg="none"
+									color="white"
+									_hover={{ bg: 'none' }}
+									w="full"
+								>
+									Select
+								</MenuButton>
+								<MenuList>
+									<MenuItem>Bitícu</MenuItem>
+								</MenuList>
+							</Menu>
+						</Flex>
 					</InputGroup>
 				</Flex>
-				<Flex direction="column" gap="2">
+				<Flex direction="column" gap="2" w="full">
 					<Text color="white" fontSize="sm">
 						{translate('youReceive')}
 					</Text>
@@ -93,28 +88,23 @@ export const SwapToken = () => {
 						borderRadius="base"
 					>
 						<Input placeholder="0" disabled />
-						<InputRightElement
-							children={
-								<Flex>
-									<Menu>
-										<MenuButton
-											as={Button}
-											rightIcon={<BiChevronDown />}
-											bg="none"
-											color="white"
-											disabled
-											_hover={{ bg: 'none' }}
-										>
-											Select
-										</MenuButton>
-										<MenuList>
-											<MenuItem>Bitícu</MenuItem>
-										</MenuList>
-									</Menu>
-								</Flex>
-							}
-							w="max-content"
-						/>
+						<Flex>
+							<Menu>
+								<MenuButton
+									as={Button}
+									rightIcon={<BiChevronDown />}
+									bg="none"
+									color="white"
+									_hover={{ bg: 'none' }}
+									w="full"
+								>
+									Select
+								</MenuButton>
+								<MenuList>
+									<MenuItem>Bitícu</MenuItem>
+								</MenuList>
+							</Menu>
+						</Flex>
 					</InputGroup>
 				</Flex>
 			</Flex>

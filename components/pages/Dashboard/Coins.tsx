@@ -51,7 +51,6 @@ export const Coins = () => (
 			value={cardInfo.value}
 			variation={cardInfo.variation}
 		/>
-
 		<NewCoinButton />
 	</Flex>
 );
