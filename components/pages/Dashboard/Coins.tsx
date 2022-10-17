@@ -3,13 +3,6 @@ import { NewCoinButton, CoinCard } from 'components';
 import React from 'react';
 import { ICoinCard } from 'types';
 
-// const cardInfo: ICoinCard = {
-// 	icon: '/icons/tether.svg',
-// 	name: 'USDT',
-// 	value: '$1,00',
-// 	variation: '+ 0,6%',
-// };
-
 const coinCard: ICoinCard[] = [
 	{
 		icon: '/icons/tether.svg',
