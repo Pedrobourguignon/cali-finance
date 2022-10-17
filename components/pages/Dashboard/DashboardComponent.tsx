@@ -44,6 +44,10 @@ const recentActivitiesList: IRecentActivitiesList[] = [
 export const DashboardComponent: React.FC = () => {
 	const isLogged = true;
 	const error = false;
+	const shouldNotDisplayError = error ? 'none' : 'flex';
+	const shouldDisplayError = error ? 'flex' : 'none';
+	const shouldNotDisplayDash = isLogged ? 'none' : 'flex';
+	const shouldDisplayDash = isLogged ? 'flex' : 'none';
 	const theme = usePicasso();
 	return (
 		<Flex
@@ -54,30 +58,21 @@ export const DashboardComponent: React.FC = () => {
 			borderLeft="0.25rem solid"
 			borderColor={theme.branding.blue}
 		>
-			<Flex
-				direction="column"
-				px="8"
-				gap="4"
-				display={error === true ? 'none' : 'flex'}
-			>
+			<Flex direction="column" px="8" gap="4" display={shouldNotDisplayError}>
 				<DashboardHeader />
 				<Coins />
-				<Flex display={isLogged === true ? 'none' : 'flex'}>
+				<Flex display={shouldNotDisplayDash}>
 					<CreateOrganizationCard />
 				</Flex>
-				<Flex display={isLogged === true ? 'flex' : 'none'}>
+				<Flex display={shouldDisplayDash}>
 					<TeamsList />
 				</Flex>
-				<Flex display={isLogged === true ? 'flex' : 'none'} gap="6">
+				<Flex display={shouldDisplayDash} gap="6">
 					<MyAssets />
 					<RecentActivities recentActivitiesList={recentActivitiesList} />
 				</Flex>
 			</Flex>
-			<Flex
-				direction="column"
-				gap="2"
-				display={error === true ? 'none' : 'flex'}
-			>
+			<Flex direction="column" gap="2" display={shouldNotDisplayError}>
 				<SwapToken />
 				<HaveProblemCard />
 			</Flex>
@@ -85,7 +80,7 @@ export const DashboardComponent: React.FC = () => {
 				align="center"
 				w="full"
 				justify="center"
-				display={error === true ? 'flex' : 'none'}
+				display={shouldDisplayError}
 			>
 				<ErrorAlert />
 			</Flex>
