@@ -31,9 +31,7 @@ const usePicasso = () => {
 			gray: '#6C657A',
 			modal: useColorModeValue('white', 'white'),
 			gradient:
-
 				'linear-gradient(180.04deg, #FFFFFF 29.33%, rgba(255, 255, 255, 0) 150.28%);',
-
 		},
 	};
 

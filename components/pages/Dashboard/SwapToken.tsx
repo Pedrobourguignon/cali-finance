@@ -1,26 +1,34 @@
-import { Button, Flex, Icon, Select, Text } from '@chakra-ui/react';
+import {
+	Button,
+	Flex,
+	Icon,
+	Select,
+	Text,
+	useDisclosure,
+} from '@chakra-ui/react';
 import { usePicasso } from 'hooks';
 import Link from 'next/link';
 import React from 'react';
 import { BsArrowDownUp } from 'react-icons/bs';
 import useTranslation from 'next-translate/useTranslation';
-import { OffsetShadow } from 'components';
+import { OffsetShadow, WaitingForConfirmation } from 'components';
 
 export const SwapToken = () => {
 	const theme = usePicasso();
 	const isLogged = false;
 	const { t: translate } = useTranslation('swap-token');
+	const { isOpen, onOpen, onClose } = useDisclosure();
 
 	return (
 		<Flex
 			w="72"
-			h={theme.cardHeight.swap}
 			bg="black"
 			mt="6"
 			ml="4"
 			borderRadius="base"
 			direction="column"
 		>
+			<WaitingForConfirmation isOpen={isOpen} onClose={onClose} />
 			<Flex gap="3" mt="5" ml="7" align="center">
 				<Icon as={BsArrowDownUp} color="white" boxSize="5" />
 				<Text
@@ -45,7 +53,6 @@ export const SwapToken = () => {
 						w="60"
 						color="white"
 						alignContent="flex-end"
-						bg={theme.bg.select}
 						border="none"
 					>
 						<option value="option1">Option 1</option>
@@ -61,7 +68,6 @@ export const SwapToken = () => {
 						_placeholder={{ color: 'whiteAlpha.500' }}
 						w="60"
 						color="white"
-						bg={theme.bg.select}
 						border="none"
 					>
 						<option value="option3">Option 1</option>
@@ -122,6 +128,7 @@ export const SwapToken = () => {
 								background: 'white',
 								transform: 'translateY(6px) translateX(5px)',
 							}}
+							onClick={onOpen}
 						>
 							{translate('swap')}
 						</Button>
