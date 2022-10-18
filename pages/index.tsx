@@ -1,23 +1,7 @@
-import { Flex } from '@chakra-ui/react';
-import {
-	NewOrganizationLinks,
-	NewOrganizationsDashboard,
-	OrganizationsDashboard,
-	OrganizationsDashboardNoConnected,
-	RecentActivities,
-	UpgradeAccountBanner,
-} from 'components';
+import { Text } from '@chakra-ui/react';
+import { LandingContainer } from 'containers';
 import type { NextPage } from 'next';
 
-const Home: NextPage = () => (
-	<Flex direction="column">
-		<OrganizationsDashboard />
-		<RecentActivities />
-		<OrganizationsDashboardNoConnected />
-		<NewOrganizationsDashboard />
-		<NewOrganizationLinks />
-		<UpgradeAccountBanner />
-	</Flex>
-);
+const Home: NextPage = () => <LandingContainer />;
 
 export default Home;
