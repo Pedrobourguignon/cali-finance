@@ -45,10 +45,10 @@ export const Coins = () => {
 		>
 			<Flex direction="column">
 				<Text fontSize="md" fontWeight="500" lineHeight="6">
-					{translate('coin')}
+					{translate('coins')}
 				</Text>
 				<Text fontSize="sm" fontWeight="500" lineHeight="5">
-					{translate('stayAways')}
+					{translate('stayConnected')}
 				</Text>
 				<Text fontSize="sm" fontWeight="500" lineHeight="5">
 					{translate('principalCoin')}

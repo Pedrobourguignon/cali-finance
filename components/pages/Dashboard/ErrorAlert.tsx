@@ -12,9 +12,9 @@ export const ErrorAlert = () => {
 			</Flex>
 			<Flex direction="column" gap="7">
 				<Text fontSize="6xl" fontWeight="bold">
-					Ops...
+					{translate('ops')}
 				</Text>
-				<Text fontSize="4xl">{translate('wentWrong')}</Text>
+				<Text fontSize="4xl">{translate('somethingWentWrong')}</Text>
 				<Link href="/">
 					<Button
 						color="white"

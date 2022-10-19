@@ -1,6 +1,6 @@
 {
-	"coin": "Moedas",
-	"stayAways": "Fique sempre ligado",
+	"coins": "Moedas",
+	"stayConnected": "Fique sempre ligado",
 	"principalCoin": "nas principais moedas",
 	"newCoin": "Nova Moeda",
 	"funds": "Fundos",
@@ -13,6 +13,7 @@
 	"completed": "Completo",
 	"dontHaveOrganization": "Você não possui uma organização ainda",
 	"createOrganization": "Criar organização",
-	"wentWrong": "Algo deu errado",
-	"backDashboard": "Voltar ao painel"
+	"somethingWentWrong": "Algo deu errado",
+	"backDashboard": "Voltar ao painel",
+	"ops": "Ops..."
 }
