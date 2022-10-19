@@ -30,7 +30,7 @@ export const WaitingForConfirmation: React.FC<IBasicModal> = ({
 				borderStyle="solid"
 				borderColor="black"
 			>
-				<OffsetShadow width="full" height="210px" top="2" left="2">
+				<OffsetShadow width="full" height="56" top="2" left="2">
 					<Flex
 						direction="column"
 						w="full"

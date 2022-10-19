@@ -12,7 +12,7 @@ interface IWalletData {
 }
 
 export const ConnectWalletButton = () => {
-	const picture =
+	const profilePicture =
 		'http://t0.gstatic.com/licensed-image?q=tbn:ANd9GcRIJYVo526c4XTP0V4CyE2XbTLsdYcxSilLYaSDYC4XDtXArbTNxmX63MnX3gP6d2cI';
 	const walletAddress = '0x6856...BF99';
 	const isLogged = true;
@@ -48,51 +48,49 @@ export const ConnectWalletButton = () => {
 				borderColor="white"
 				top="2"
 				left="1.5"
-				display="none"
+				display={shouldDisplay}
 			>
-				<Flex>
-					<Button
-						h="max-content"
-						py="2"
-						fontSize="sm"
-						color="black"
-						borderRadius="base"
-						bg="white"
-						_hover={{ background: 'white' }}
-						_focus={{ background: 'white' }}
-						_active={{
-							background: 'white',
-							transform: 'translateY(6px) translateX(5px)',
-						}}
-						onClick={onOpen}
-						display={shouldDisplay}
-					>
-						<Text px="8" display={shouldDisplay}>
-							Connect Wallet
+				<Button
+					h="max-content"
+					py="2"
+					fontSize="sm"
+					color="black"
+					borderRadius="base"
+					bg="white"
+					_hover={{ background: 'white' }}
+					_focus={{ background: 'white' }}
+					_active={{
+						background: 'white',
+						transform: 'translateY(6px) translateX(5px)',
+					}}
+					onClick={onOpen}
+					display={shouldDisplay}
+				>
+					<Text px="8" display={shouldDisplay}>
+						Connect Wallet
+					</Text>
+				</Button>
+				<Flex
+					h="max-content"
+					py="2"
+					fontSize="sm"
+					color="black"
+					borderRadius="base"
+					bg="white"
+					_hover={{ background: 'white' }}
+					_focus={{ background: 'white' }}
+					display={shouldntDisplay}
+				>
+					<Flex display={shouldntDisplay} align="center" gap="2" px="4">
+						<Img
+							src={profilePicture}
+							borderRadius="full"
+							boxSize="6"
+							objectFit="cover"
+						/>
+						<Text fontWeight="500" fontSize="sm">
+							{walletAddress}
 						</Text>
-					</Button>
-					<Flex
-						h="max-content"
-						py="2"
-						fontSize="sm"
-						color="black"
-						borderRadius="base"
-						bg="white"
-						_hover={{ background: 'white' }}
-						_focus={{ background: 'white' }}
-						display={shouldntDisplay}
-					>
-						<Flex display={shouldntDisplay} align="center" gap="2" px="4">
-							<Img
-								src={picture}
-								borderRadius="full"
-								boxSize="6"
-								objectFit="cover"
-							/>
-							<Text fontWeight="500" fontSize="sm">
-								{walletAddress}
-							</Text>
-						</Flex>
 					</Flex>
 				</Flex>
 			</OffsetShadow>
