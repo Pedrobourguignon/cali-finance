@@ -2,7 +2,7 @@ import { Flex, Text } from '@chakra-ui/react';
 
 interface ITeamsData {
 	name: string;
-	percentage: number;
+	percentage: string;
 	color: string;
 }
 export const TeamsData: React.FC<ITeamsData> = ({
@@ -18,7 +18,7 @@ export const TeamsData: React.FC<ITeamsData> = ({
 			</Text>
 		</Flex>
 		<Text color="black" fontSize="sm" fontWeight="medium">
-			{percentage}%
+			{percentage}
 		</Text>
 	</Flex>
 );
