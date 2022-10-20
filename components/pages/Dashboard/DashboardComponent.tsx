@@ -57,6 +57,10 @@ export const DashboardComponent: React.FC = () => {
 			m="auto"
 			borderLeft="0.25rem solid"
 			borderColor={theme.branding.blue}
+			borderLeftRadius="sm"
+			gap="4"
+			justify="space-between"
+			py="6"
 		>
 			<Flex direction="column" px="8" gap="4" display={shouldNotDisplayError}>
 				<DashboardHeader />

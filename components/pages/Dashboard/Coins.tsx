@@ -32,6 +32,7 @@ export const Coins = () => (
 		p="3"
 		borderRadius="base"
 		justify="space-between"
+		align="center"
 	>
 		<Flex direction="column">
 			<Text fontSize="md" fontWeight="500" lineHeight="6">
@@ -53,7 +54,6 @@ export const Coins = () => (
 				variation={card.variation}
 			/>
 		))}
-
 		<NewCoinButton />
 	</Flex>
 );

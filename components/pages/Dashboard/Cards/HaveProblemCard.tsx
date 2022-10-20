@@ -8,16 +8,18 @@ export const HaveProblemCard = () => {
 	return (
 		<Link href="/app/dashboard">
 			<Flex
-				w="72"
-				h="95px"
-				ml="4"
+				w="full"
+				h="max-content"
+				px="12"
+				py="6"
 				borderRadius="base"
 				bgImage="url(/images/haveproblem.png)"
 				backgroundSize="cover"
 				backgroundRepeat="no-repeat"
 				cursor="pointer"
+				justify="center"
 			>
-				<Flex direction="column" my="auto" mx="7">
+				<Flex direction="column" justify="center">
 					<Text fontStyle="Medium" fontSize="xl" lineHeight="7" color="white">
 						{translate('haveAProblem')}
 					</Text>
