@@ -1,4 +1,5 @@
-import { Button, Flex, Img, Text } from '@chakra-ui/react';
+import { Button, Flex, Icon, Img, Text } from '@chakra-ui/react';
+import { OrganizationForCard } from 'components/Icons';
 import { usePicasso } from 'hooks';
 import React from 'react';
 
@@ -11,10 +12,10 @@ interface ITeamCard {
 export const TeamCard: React.FC<ITeamCard> = ({ teamName, funds, members }) => {
 	const theme = usePicasso();
 	return (
-		<Flex boxShadow="lg">
+		<Flex boxShadow="lg" justify="center">
 			<Flex direction="column" px="1">
 				<Flex align="center" gap="2.5" px="4" py="2.5">
-					<Img src="/icons/organizations.svg" boxSize="6" />
+					<Icon as={OrganizationForCard} boxSize="6" color="blue" />
 					<Text fontSize="md" fontWeight="bold">
 						{teamName}
 					</Text>

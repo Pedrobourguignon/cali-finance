@@ -38,7 +38,8 @@ const teamList = [
 export const TeamsList = () => {
 	const [slider, setSlider] = React.useState<Slider | null>(null);
 	const top = useBreakpointValue({ base: '90%', md: '50%' });
-	const side = useBreakpointValue({ base: '30%', md: '1px' });
+	const side = useBreakpointValue({ base: '30%', md: '-10px' });
+	const sideLeft = useBreakpointValue({ base: '30%', md: '-27px' });
 
 	return (
 		<Box position="relative">
@@ -53,19 +54,20 @@ export const TeamsList = () => {
 				type="text/css"
 				href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css"
 			/>
-			{/* <IconButton
+			<IconButton
+				w="8"
 				border="1px solid"
-				bg="transparent"
+				bg="white"
 				aria-label="left-arrow"
 				position="absolute"
 				left={side}
 				top={top}
 				transform="translate(0%, -50%)"
-				zIndex={2}
+				zIndex={1}
 				onClick={() => slider?.slickPrev()}
 			>
 				<BiLeftArrowAlt />
-			</IconButton> */}
+			</IconButton>
 			<IconButton
 				border="1px solid"
 				aria-label="right-arrow"

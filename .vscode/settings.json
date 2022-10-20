@@ -1,7 +1,0 @@
-{
-	"exportall.config.relExclusion": [
-		"/components/Buttons/index.ts",
-		"/components/Teams/TeamFinanceOverall.tsx"
-	],
-	"exportall.config.folderListener": ["/components/Buttons"]
-}

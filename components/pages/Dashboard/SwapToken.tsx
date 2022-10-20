@@ -13,7 +13,6 @@ export const SwapToken = () => {
 	return (
 		<Flex
 			w="72"
-			h={theme.cardHeight.swap}
 			bg="black"
 			mt="6"
 			ml="4"
@@ -44,7 +43,6 @@ export const SwapToken = () => {
 						w="60"
 						color="white"
 						alignContent="flex-end"
-						bg={theme.bg.select}
 						border="none"
 					>
 						<option value="option1">Option 1</option>
@@ -60,7 +58,6 @@ export const SwapToken = () => {
 						_placeholder={{ color: 'whiteAlpha.500' }}
 						w="60"
 						color="white"
-						bg={theme.bg.select}
 						border="none"
 					>
 						<option value="option3">Option 1</option>

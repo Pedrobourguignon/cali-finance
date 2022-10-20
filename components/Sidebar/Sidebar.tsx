@@ -1,48 +1,59 @@
-import { Button, Flex, Icon, Img, Link } from '@chakra-ui/react';
+import { Box, Button, Flex, Icon, Img, Link } from '@chakra-ui/react';
 import React from 'react';
 import { FaDiscord, FaTwitter } from 'react-icons/fa';
 import { usePath, usePicasso } from 'hooks';
-import { ConnectWalletButton } from 'components/Buttons';
+
+import {
+	TeamsIcon,
+	FundsIcon,
+	DashboardIcon,
+	OrganizationIcon,
+	EditProfileIcon,
+	HistoryIcon,
+	CustomizeIcon,
+	ConnectWalletButton,
+} from 'components';
+import { navigationPaths, socialMediaLinks } from 'utils';
 
 interface IMenuItem {
-	icon: string;
+	icon: typeof Icon;
 	route: string;
 	option: string;
 }
 
 const menuOptions: IMenuItem[] = [
 	{
-		icon: '/icons/category.svg',
+		icon: DashboardIcon,
 		route: '/app/dashboard',
 		option: 'Dashboard',
 	},
 	{
-		icon: '/icons/organizations.svg',
+		icon: OrganizationIcon,
 		route: '/app/organizations',
 		option: 'Organizations',
 	},
 	{
-		icon: '/icons/teams.svg',
+		icon: TeamsIcon,
 		route: '/app/teams',
 		option: 'Teams',
 	},
 	{
-		icon: '/icons/funds.svg',
+		icon: FundsIcon,
 		route: '/app/funds',
 		option: 'Funds',
 	},
 	{
-		icon: '/icons/edit.svg',
+		icon: EditProfileIcon,
 		route: '/app/edit-profile',
 		option: 'Edit Profile',
 	},
 	{
-		icon: '/icons/folder.svg',
+		icon: HistoryIcon,
 		route: '/app/history',
 		option: 'History',
 	},
 	{
-		icon: '/icons/customize.svg',
+		icon: CustomizeIcon,
 		route: '/app/customize',
 		option: 'Customize',
 	},
@@ -54,58 +65,77 @@ export const Sidebar: React.FC = () => {
 	return (
 		<Flex
 			minH="100vh"
-			w="56"
 			flexDirection="column"
 			display={{ base: 'none', md: 'flex' }}
-			bg="black"
-			align="flex-start"
+			bg={theme.bg.primary}
+			align="center"
 			color="white"
+			w="220px"
 		>
 			<Flex
-				w="full"
 				justify="center"
-				mt="10"
-				mb="12"
+				py="10"
 				direction="column"
 				align="center"
 				gap="6"
+				px="8"
 			>
-				<Link href="/">
-					<Img src="/images/cali-logo.svg" boxSize="20" cursor="pointer" />
+				<Link href={navigationPaths.dashboard.home}>
+					<Img src="/images/cali-logo.svg" h="8" w="20" cursor="pointer" />
 				</Link>
-				<Link href="/app/dashboard">
-					<ConnectWalletButton />
-				</Link>
+				<ConnectWalletButton />
 			</Flex>
-			<Flex direction="column" gap="7" ml="2" w="full">
+			<Flex direction="column" gap="7" w="full">
 				{menuOptions.map((item, index) => {
 					const comparedPath = isSamePath(item.route);
 					return (
-						<Link href={item.route} key={+index} display="flex">
+						<Link
+							href={item.route}
+							key={+index}
+							display="flex"
+							_hover={{
+								textDecoration: 'none',
+							}}
+						>
 							<Button
 								justifyContent="flex-start"
 								alignItems="center"
 								w="full"
-								p="2"
-								gap="3.5"
+								p="0"
 								bgColor="transparent"
 								fontSize="sm"
 								borderRadius="none"
-								boxShadow={comparedPath ? theme.branding.blue : ''}
-								borderLeft={comparedPath ? 'solid' : ''}
+								boxShadow={comparedPath ? theme.branding.blue : 'none'}
 								color={comparedPath ? theme.branding.blue : 'white'}
-								_hover={{
-									textDecoration: 'none',
-								}}
 							>
-								<Img src={item.icon} color="white" />
-								{item.option}
+								{comparedPath && (
+									<Box
+										bgColor={theme.branding.blue}
+										h="full"
+										w="4px"
+										borderRightRadius="sm"
+									/>
+								)}
+								<Flex
+									align="center"
+									justify="center"
+									gap="3"
+									position="fixed"
+									fontWeight="normal"
+								>
+									<Icon
+										as={item.icon}
+										boxSize="6"
+										ml={comparedPath ? '6' : '6'}
+									/>
+									{item.option}
+								</Flex>
 								<Flex
 									display={comparedPath ? 'flex' : 'none'}
 									w="full"
-									borderTop=" 1rem solid transparent"
+									borderTop="1rem solid transparent"
 									borderBottom="1rem solid transparent"
-									borderRight="1rem solid"
+									borderRight="1.5rem solid"
 								/>
 							</Button>
 						</Link>
@@ -116,22 +146,38 @@ export const Sidebar: React.FC = () => {
 				direction="column"
 				align="flex-start"
 				gap="3"
-				ml="4"
-				mt="20"
-				mb="12"
+				px="7"
+				py="10"
+				w="full"
 			>
-				<Link href="/">Help</Link>
-				<Link href="/">Docs</Link>
+				<Link
+					href={navigationPaths.help}
+					_hover={{
+						textDecoration: 'none',
+						opacity: 0.8,
+					}}
+				>
+					Help
+				</Link>
+				<Link
+					href={navigationPaths.docs}
+					_hover={{
+						textDecoration: 'none',
+						opacity: 0.8,
+					}}
+				>
+					Docs
+				</Link>
 			</Flex>
-			<Flex flexDirection="row">
-				<Link href="/">
-					<Button bg="none" borderRadius="full">
-						<Icon as={FaDiscord} w="6" h="5" color={theme.branding.blue} />
+			<Flex flexDirection="row" px="2" w="full" alignItems="flex-start">
+				<Link href={socialMediaLinks.discord} isExternal>
+					<Button bg="transparent" borderRadius="full">
+						<Icon as={FaDiscord} boxSize="6" color={theme.branding.blue} />
 					</Button>
 				</Link>
-				<Link href="/">
-					<Button bg="none" borderRadius="full">
-						<Icon as={FaTwitter} w="6" h="5" color={theme.branding.blue} />
+				<Link href={socialMediaLinks.twitter} isExternal>
+					<Button bg="transparent" borderRadius="full">
+						<Icon as={FaTwitter} boxSize="6" color={theme.branding.blue} />
 					</Button>
 				</Link>
 			</Flex>

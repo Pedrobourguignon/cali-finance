@@ -10,13 +10,7 @@ export const CoinCard: React.FC<ICoinCard> = ({
 }) => {
 	const theme = usePicasso();
 	return (
-		<Flex
-			w="28"
-			h={theme.cardHeight.height}
-			borderRadius="base"
-			border="2px solid"
-			direction="column"
-		>
+		<Flex w="28" borderRadius="base" border="2px solid" direction="column">
 			<Flex direction="row" align="center" gap="2" ml="3">
 				<Img src={icon} boxSize="6" />
 				<Flex direction="column" mt="2">
