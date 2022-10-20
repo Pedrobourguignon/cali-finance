@@ -5,6 +5,7 @@ import { LandingPage } from 'layouts';
 
 export const LandingContainer: React.FC = () => {
 	const theme = usePicasso();
+
 	return (
 		<LandingPage>
 			<LandingHeader />
