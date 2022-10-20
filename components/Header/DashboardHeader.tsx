@@ -1,10 +1,12 @@
 import { Flex, Text } from '@chakra-ui/react';
-import { NotificationButton } from 'components/Buttons';
+import { NotificationButton } from 'components';
+import { usePicasso } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
 import { useMemo } from 'react';
 
 export const DashboardHeader: React.FC = () => {
 	const { t: translate } = useTranslation('app-header');
+	const theme = usePicasso();
 
 	const greetingMessage = useMemo(() => {
 		const hour = new Date().getHours();
@@ -23,7 +25,7 @@ export const DashboardHeader: React.FC = () => {
 		>
 			<Flex direction="column">
 				<Text
-					color="black"
+					color={theme.text.mono}
 					fontSize="2xl"
 					fontWeight="medium"
 					lineHeight="8"
@@ -31,7 +33,7 @@ export const DashboardHeader: React.FC = () => {
 				>
 					{greetingMessage}
 				</Text>
-				<Text fontSize="sm" lineHeight="5">
+				<Text fontSize="sm" lineHeight="5" color={theme.text.mono}>
 					{translate('loginMessage')}
 				</Text>
 			</Flex>

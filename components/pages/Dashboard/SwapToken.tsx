@@ -57,7 +57,7 @@ export const SwapToken = () => {
 						borderColor="transparent"
 						borderRadius="base"
 					>
-						<Input placeholder="0" />
+						<Input placeholder="0" disabled />
 						<Flex>
 							<Menu>
 								<MenuButton
