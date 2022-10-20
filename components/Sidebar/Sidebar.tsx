@@ -112,7 +112,7 @@ export const Sidebar: React.FC = () => {
 									<Box
 										bgColor={theme.branding.blue}
 										h="full"
-										w="4px"
+										w="1.5"
 										borderRightRadius="sm"
 									/>
 								)}
@@ -120,7 +120,6 @@ export const Sidebar: React.FC = () => {
 									align="center"
 									justify="center"
 									gap="3"
-									position="fixed"
 									fontWeight="normal"
 								>
 									<Icon

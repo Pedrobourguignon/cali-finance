@@ -4,6 +4,7 @@
 		"afternoon": "Boa tarde",
 		"night": "Boa noite"
 	},
+	"loginMessage": "Please connect your wallet to be able to automate your payments.",
 	"assetInfo": "Parece que o mercado está",
 	"increased": "Seus ativos variaram",
 	"bearish": "em baixa.",

@@ -1,9 +1,10 @@
 {
 	"greetings": {
-		"morning": "Good morning",
-		"afternoon": "Good afternoon",
-		"night": "Good night"
+		"morning": "Good morning,",
+		"afternoon": "Good afternoon,",
+		"night": "Good night,"
 	},
+	"loginMessage": "Please connect your wallet to be able to automate your payments.",
 	"assetInfo": "Seems like market has been",
 	"increased": "Your assets increased",
 	"bearish": "bearish.",
