@@ -1,8 +1,8 @@
 /* eslint-disable no-shadow */
 import { Box, Flex, IconButton, useBreakpointValue } from '@chakra-ui/react';
 import Slider from 'react-slick';
-import { BiLeftArrowAlt, BiRightArrowAlt } from 'react-icons/bi';
 import React from 'react';
+import { BsChevronCompactLeft, BsChevronCompactRight } from 'react-icons/bs';
 import { TeamCard } from './Cards';
 
 const settings = {
@@ -66,7 +66,7 @@ export const TeamsList = () => {
 				zIndex={1}
 				onClick={() => slider?.slickPrev()}
 			>
-				<BiLeftArrowAlt />
+				<BsChevronCompactLeft />
 			</IconButton>
 			<IconButton
 				border="1px solid"
@@ -80,7 +80,7 @@ export const TeamsList = () => {
 				_focus={{ bg: 'white' }}
 				onClick={() => slider?.slickNext()}
 			>
-				<BiRightArrowAlt />
+				<BsChevronCompactRight />
 			</IconButton>
 			{/* Slider */}
 			<Flex w="720px" display="block" bg="white">
