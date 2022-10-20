@@ -91,6 +91,7 @@ export const LandingContainer: React.FC = () => {
 								borderColor="white"
 								borderRadius="sm"
 								position="absolute"
+								buttonText="Book a Demo"
 							>
 								<Button
 									_hover={{
