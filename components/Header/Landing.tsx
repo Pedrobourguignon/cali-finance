@@ -38,7 +38,7 @@ export const LandingHeader: React.FC = () => {
 			<NextLink href={navigationPaths.landing}>
 				<Img minH="10" src="/images/cali-logo-with-text.svg" />
 			</NextLink>
-			<Flex gap="6">
+			<Flex display={{ base: 'none', lg: 'flex' }} gap="6">
 				{menuOptions.map((item, index) => {
 					const comparedPath = isSamePath(item.route);
 					return (

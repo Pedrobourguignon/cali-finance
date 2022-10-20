@@ -27,6 +27,7 @@ export const LandingContainer: React.FC = () => {
 							bgImage={theme.bg.gradient}
 							bgClip="text"
 							css={{ WebkitTextFillColor: 'transparent' }}
+							width="max-content"
 						>
 							Your money,
 						</Text>
@@ -40,6 +41,7 @@ export const LandingContainer: React.FC = () => {
 							bgImage={theme.bg.gradient}
 							bgClip="text"
 							css={{ WebkitTextFillColor: 'transparent' }}
+							width="max-content"
 						>
 							any time.
 						</Text>
@@ -54,6 +56,7 @@ export const LandingContainer: React.FC = () => {
 							fontSize={{ base: '6xl', sm: '8xl' }}
 							fontWeight="black"
 							position="absolute"
+							width="max-content"
 						>
 							any time.
 						</Text>
@@ -65,25 +68,11 @@ export const LandingContainer: React.FC = () => {
 							compliant way.
 						</Text>
 						<Flex
-							display={{ sm: 'flex', lg: 'none' }}
-							border="1px solid white"
-							zIndex="docked"
-							borderColor={theme.branding.cyan}
-							maxW={{ base: '2xs', md: 'sm', lg: 'sm', xl: 'xl' }}
-						>
-							<Img
-								src="/images/dashboard.svg"
-								position="relative"
-								right="5"
-								bottom="5"
-								maxW={{ base: '2xs', md: 'sm', lg: 'sm', xl: 'xl' }}
-							/>
-						</Flex>
-						<Flex
 							zIndex="docked"
 							justify={{ base: 'center', lg: 'initial' }}
 							direction={{ base: 'column', md: 'row' }}
 							gap="10"
+							align={{ base: 'center', lg: 'flex-start' }}
 						>
 							<OffsetShadow
 								width="48"
@@ -121,7 +110,7 @@ export const LandingContainer: React.FC = () => {
 					</Flex>
 				</Flex>
 				<Flex
-					display={{ sm: 'none', lg: 'flex' }}
+					display={{ base: 'none', lg: 'flex' }}
 					border="1px solid white"
 					zIndex="docked"
 					borderColor={theme.branding.cyan}
