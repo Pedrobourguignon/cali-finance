@@ -5,7 +5,6 @@ import {
 	Icon,
 	Input,
 	InputGroup,
-	InputRightElement,
 	Menu,
 	MenuButton,
 	MenuItem,
@@ -46,7 +45,7 @@ export const SwapToken = () => {
 					{translate('title')}
 				</Text>
 			</Flex>
-			<Flex direction="column" align="center" gap="6" w="max-content">
+			<Flex direction="column" align="center" gap="6" w="max-content" px="6">
 				<Flex direction="column" gap="2" w="full">
 					<Text color="white" fontSize="sm">
 						{translate('youPay')}
