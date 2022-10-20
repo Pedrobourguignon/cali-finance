@@ -5,12 +5,12 @@ import {
 	Icon,
 	Input,
 	InputGroup,
-	InputRightElement,
 	Menu,
 	MenuButton,
 	MenuItem,
 	MenuList,
 	Text,
+	useDisclosure,
 } from '@chakra-ui/react';
 import { usePicasso } from 'hooks';
 import Link from 'next/link';
@@ -21,7 +21,9 @@ import useTranslation from 'next-translate/useTranslation';
 
 export const SwapToken = () => {
 	const theme = usePicasso();
+	const isLogged = true;
 	const { t: translate } = useTranslation('swap-token');
+	const { isOpen, onOpen, onClose } = useDisclosure();
 
 	return (
 		<Flex
@@ -46,7 +48,7 @@ export const SwapToken = () => {
 					{translate('title')}
 				</Text>
 			</Flex>
-			<Flex direction="column" align="center" gap="6" w="max-content">
+			<Flex direction="column" align="center" gap="6" w="max-content" px="6">
 				<Flex direction="column" gap="2" w="full">
 					<Text color="white" fontSize="sm">
 						{translate('youPay')}
@@ -57,7 +59,11 @@ export const SwapToken = () => {
 						borderColor="transparent"
 						borderRadius="base"
 					>
-						<Input placeholder="0" disabled />
+						<Input
+							placeholder="0"
+							disabled={!isLogged}
+							_hover={{ focus: 'none' }}
+						/>
 						<Flex>
 							<Menu>
 								<MenuButton
@@ -87,7 +93,11 @@ export const SwapToken = () => {
 						borderColor="transparent"
 						borderRadius="base"
 					>
-						<Input placeholder="0" disabled />
+						<Input
+							placeholder="0"
+							disabled={!isLogged}
+							_hover={{ focus: 'none' }}
+						/>
 						<Flex>
 							<Menu>
 								<MenuButton

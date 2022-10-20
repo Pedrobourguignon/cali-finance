@@ -1,8 +1,9 @@
-import { Button, Flex, Text } from '@chakra-ui/react';
+import { Flex, Text } from '@chakra-ui/react';
+import { CreateOrganizationButton } from 'components';
 
 // eslint-disable-next-line id-length
 export const NewOrganizationsDashboard = () => (
-	<Flex bg="red">
+	<Flex>
 		<Flex gap="10" bg="black" py="6" px="4" borderRadius="base">
 			<Flex direction="column">
 				<Text fontSize="xl" fontWeight="medium">
@@ -36,17 +37,7 @@ export const NewOrganizationsDashboard = () => (
 					Total Funds
 				</Text>
 			</Flex>
-			<Button
-				px="3"
-				py="1.5"
-				bg="white"
-				fontSize="sm"
-				fontWeight="medium"
-				color="black"
-				borderRadius="base"
-			>
-				Create Organization
-			</Button>
+			<CreateOrganizationButton />
 		</Flex>
 	</Flex>
 );
