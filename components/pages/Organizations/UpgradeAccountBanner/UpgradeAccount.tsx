@@ -1,9 +1,9 @@
 import { Button, Flex, Icon, Text } from '@chakra-ui/react';
-import { usePicasso } from 'hooks';
-import { StarIcon } from 'components/Icons/Organizations/Star';
+import { StarIcon } from 'components/Icons';
 import { OffsetShadow } from 'components/OffsetShadow';
-import { ActiveTeamsBar } from '../ActiveTeamsBar/ActiveTeamsBar';
-import { InfosBanner } from '../InfosBanner/InfosBanner';
+import { usePicasso } from 'hooks';
+import { ActiveTeamsBar } from '../ActiveTeamsBar';
+import { InfosBanner } from '../InfosBanner';
 
 export const UpgradeAccount = () => {
 	const theme = usePicasso();

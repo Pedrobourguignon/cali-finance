@@ -4,6 +4,7 @@ import { BsFillMoonFill, BsFillSunFill } from 'react-icons/bs';
 const usePicasso = () => {
 	const theme = {
 		text: {
+			white: useColorModeValue('#FFFFFF', '#FFFFFF'),
 			mono: useColorModeValue('black', 'black'),
 			gray: useColorModeValue('#9B93AB', '#9B93AB'),
 			green: useColorModeValue('#9B93AB', '#2ECC71'),
@@ -33,7 +34,8 @@ const usePicasso = () => {
 			black: '#191919',
 			modal: useColorModeValue('white', 'white'),
 			gradient:
-				'linear-gradient(180.04deg, #FFFFFF 29.33%, rgba(255, 255, 255, 0) 150.28%);',
+				'linear-gradient(112.87deg, rgba(26, 29, 225, 0.1) 0%, rgba(16, 15, 18, 0.1) 32.29%, rgba(16, 15, 18, 0.1) 66.15%, rgba(2, 228, 209, 0.1) 100%);',
+			select: '#191919',
 		},
 	};
 

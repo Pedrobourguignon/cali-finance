@@ -3,23 +3,28 @@ import React from 'react';
 
 interface IOffsetShadow extends FlexProps {
 	children: JSX.Element;
+	buttonText: string;
 }
 
 export const OffsetShadow: React.FC<IOffsetShadow> = ({
-	width,
-	height,
 	borderColor = 'black',
+	width = 'max-content',
+	height = 'max-content',
 	children,
 	top,
 	left,
 	borderRadius = 'base',
+	buttonText = '',
 }) => (
 	<Flex
-		w={width}
+		width={width}
 		height={height}
 		position="relative"
 		borderRadius={borderRadius}
 	>
+		<Flex px="5" py="1">
+			{buttonText}
+		</Flex>
 		<Flex
 			boxSize="full"
 			top={top}

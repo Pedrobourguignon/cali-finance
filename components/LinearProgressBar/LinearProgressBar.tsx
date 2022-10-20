@@ -13,3 +13,4 @@ export const LinearProgressBar: React.FC<IBar> = ({ children }) => {
 		</Flex>
 	);
 };
+export default LinearProgressBar;

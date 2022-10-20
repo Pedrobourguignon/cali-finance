@@ -1,9 +1,9 @@
 import { Flex, Icon, Text } from '@chakra-ui/react';
-import { WithdrawsBar } from 'components/pages/Organizations/WithdrawsBar';
 import { usePicasso } from 'hooks';
 import NextLink from 'next/link';
 import { FiInstagram, FiLinkedin, FiTwitter } from 'react-icons/fi';
-import { InfosBanner } from '../InfosBanner/InfosBanner';
+import { InfosBanner } from '../InfosBanner';
+import { WithdrawsBar } from '../WithdrawsBar';
 
 export const WithdrawalsBanner = () => {
 	const theme = usePicasso();

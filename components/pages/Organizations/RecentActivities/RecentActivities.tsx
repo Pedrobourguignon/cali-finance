@@ -1,6 +1,6 @@
 import { Flex, Text } from '@chakra-ui/react';
-import { ActivitiesData } from 'components/pages/Organizations/ActivitiesData';
 import NextLink from 'next/link';
+import { ActivitiesData } from '../ActivitiesData';
 
 export const RecentActivities = () => (
 	<Flex color="black">

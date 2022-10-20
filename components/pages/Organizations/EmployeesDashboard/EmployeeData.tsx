@@ -1,6 +1,6 @@
 import { Button, Flex, Icon, Img, Select, Text } from '@chakra-ui/react';
 import { MdContentCopy } from 'react-icons/md';
-import { truncateWallet } from 'utils/truncateWallet';
+import { truncateWallet } from 'utils';
 
 interface IEmployee {
 	name: string;

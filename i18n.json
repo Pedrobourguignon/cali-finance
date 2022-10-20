@@ -2,8 +2,8 @@
 	"locales": ["en", "pt-BR"],
 	"defaultLocale": "en",
 	"pages": {
-		"*": ["teams-page", "app-header"],
+		"*": ["teams-page", "app-header", "swap-token", "have-a-problem"],
 		"/": ["home", "example"],
-		"/app": ["teams-page"]
+		"/app": ["teams-page", "swap-token", "have-a-problem"]
 	}
 }

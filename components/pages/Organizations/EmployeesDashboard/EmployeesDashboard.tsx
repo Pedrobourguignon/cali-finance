@@ -28,6 +28,22 @@ const employees = [
 		coin: 'USDT',
 		team: 'Finance',
 	},
+	{
+		name: 'Kloe Kardashian',
+		wallet: '0x7E48CA2BD05EC61C2FA83CF34B066A8FF36C3QER',
+		photo: '/images/avatar.png',
+		amount: '80.000',
+		coin: 'USDT',
+		team: 'Finance',
+	},
+	{
+		name: 'Kloe Kardashian',
+		wallet: '0x7E48CA2BD05EC61C2FA83CF34B066A8FF36C3QER',
+		photo: '/images/avatar.png',
+		amount: '80.000',
+		coin: 'USDT',
+		team: 'Finance',
+	},
 ];
 
 export const EmployeesDashboard = () => {
@@ -67,7 +83,7 @@ export const EmployeesDashboard = () => {
 				<Text>Amount</Text>
 			</Flex>
 			<Flex direction="column" gap="2">
-				{employees.map((item, index) => (
+				{employees.slice(0, 3).map((item, index) => (
 					<EmployeeData
 						key={index}
 						name={item.name}

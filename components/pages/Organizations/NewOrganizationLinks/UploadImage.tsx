@@ -5,18 +5,12 @@ import {
 	InputGroup,
 	useDisclosure,
 } from '@chakra-ui/react';
+import { ImageUploaderPopover } from 'components/Popover';
 import { useRef } from 'react';
-import { imageUploader } from 'utils/Validations/Schemas/imageUploader';
-import { useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { ImageUploaderPopover } from 'components/Popover/ImageUploader';
 
 export const ImageUploader = () => {
 	const fileInput = useRef<HTMLInputElement | null>(null);
 	const { isOpen, onOpen, onClose } = useDisclosure();
-	const { register, handleSubmit } = useForm({
-		resolver: yupResolver(imageUploader),
-	});
 
 	const loadFile = () => {
 		const newFile = new FileReader();
