@@ -1,3 +1,2 @@
-export * from './Dashboard';
+export * from './app';
 export * from './Landing';
-export * from './Organizations';

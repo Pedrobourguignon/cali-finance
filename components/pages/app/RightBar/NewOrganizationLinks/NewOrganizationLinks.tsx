@@ -26,7 +26,7 @@ const handleLogoImage = () => {
 export const NewOrganizationLinks = () => {
 	const theme = usePicasso();
 	return (
-		<Flex>
+		<Flex direction="column" gap="4" w="max-content" bg="white" py="6" px="6">
 			<Flex
 				bg={theme.bg.black}
 				direction="column"
@@ -35,6 +35,7 @@ export const NewOrganizationLinks = () => {
 				px="4"
 				py="24"
 				gap="10"
+				borderRadius="base"
 			>
 				<Flex direction="column" align="center" gap="4">
 					{organizations.logo ? (
@@ -57,7 +58,7 @@ export const NewOrganizationLinks = () => {
 				<Flex>
 					<form>
 						<FormControl>
-							<Flex direction="column" gap="2">
+							<Flex direction="column" gap="2" minW="72">
 								<InputGroup bg="whiteAlpha.200">
 									<InputLeftElement
 										pointerEvents="none"

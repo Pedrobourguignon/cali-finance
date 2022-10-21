@@ -1,5 +1,4 @@
-import { AppContainer } from 'containers/appContainer';
-import { OrganizationsContainer } from 'containers/organizations';
+import { CreateOrganizationContainer } from 'containers';
 
-export const Create = () => <AppContainer />;
+export const Create = () => <CreateOrganizationContainer />;
 export default Create;

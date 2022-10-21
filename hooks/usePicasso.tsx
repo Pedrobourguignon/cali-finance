@@ -31,6 +31,7 @@ const usePicasso = () => {
 			secondary: useColorModeValue('gray.200', '#100F12'),
 			card: useColorModeValue('gray.100', '#333333'),
 			gray: '#6C657A',
+			gray2: '#EDF2F7',
 			black: '#191919',
 			modal: useColorModeValue('white', 'white'),
 			gradient:
