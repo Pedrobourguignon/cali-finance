@@ -15,9 +15,9 @@ export const ConnectWalletButton = () => {
 	const profilePicture =
 		'http://t0.gstatic.com/licensed-image?q=tbn:ANd9GcRIJYVo526c4XTP0V4CyE2XbTLsdYcxSilLYaSDYC4XDtXArbTNxmX63MnX3gP6d2cI';
 	const walletAddress = '0x6856...BF99';
-	const isLogged = true;
-	const shouldDisplay = isLogged ? 'none' : 'flex';
-	const shouldntDisplay = isLogged ? 'flex' : 'none';
+	const isConnected = true;
+	const shouldDisplay = isConnected ? 'none' : 'flex';
+	const shouldntDisplay = isConnected ? 'flex' : 'none';
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const [walletData, setWalletData] = useState<IWalletData>({
 		name: '',
@@ -43,6 +43,8 @@ export const ConnectWalletButton = () => {
 				onClose={onCloseLoading}
 			/>
 			<OffsetShadow
+				px=""
+				buttonText=""
 				width="36"
 				height="8"
 				borderColor="white"

@@ -9,7 +9,6 @@ export const HaveProblemCard = () => {
 		<Link href="/app/dashboard">
 			<Flex
 				w="full"
-				h="max-content"
 				px="12"
 				py="6"
 				borderRadius="base"
@@ -17,9 +16,8 @@ export const HaveProblemCard = () => {
 				backgroundSize="cover"
 				backgroundRepeat="no-repeat"
 				cursor="pointer"
-				justify="center"
 			>
-				<Flex direction="column" justify="center">
+				<Flex direction="column">
 					<Text fontStyle="Medium" fontSize="xl" lineHeight="7" color="white">
 						{translate('haveAProblem')}
 					</Text>

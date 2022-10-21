@@ -42,12 +42,12 @@ const recentActivitiesList: IRecentActivitiesList[] = [
 ];
 
 export const DashboardComponent: React.FC = () => {
-	const isLogged = true;
+	const isConnected = true;
 	const error = false;
 	const shouldNotDisplayError = error ? 'none' : 'flex';
 	const shouldDisplayError = error ? 'flex' : 'none';
-	const shouldNotDisplayDash = isLogged ? 'none' : 'flex';
-	const shouldDisplayDash = isLogged ? 'flex' : 'none';
+	const shouldNotDisplayDash = isConnected ? 'none' : 'flex';
+	const shouldDisplayDash = isConnected ? 'flex' : 'none';
 	const theme = usePicasso();
 	return (
 		<Flex
@@ -76,7 +76,7 @@ export const DashboardComponent: React.FC = () => {
 					<RecentActivities recentActivitiesList={recentActivitiesList} />
 				</Flex>
 			</Flex>
-			<Flex direction="column" gap="2" display={shouldNotDisplayError}>
+			<Flex direction="column" gap="2" display={shouldNotDisplayError} px="6">
 				<SwapToken />
 				<HaveProblemCard />
 			</Flex>

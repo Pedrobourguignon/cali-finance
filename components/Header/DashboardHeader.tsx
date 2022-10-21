@@ -7,7 +7,7 @@ import { useMemo } from 'react';
 export const DashboardHeader: React.FC = () => {
 	const { t: translate } = useTranslation('app-header');
 	const isConnected = true;
-	const percentage = 2;
+	const percentage = 1;
 	const name = 'Bradley';
 
 	const greetingMessage = useMemo(() => {
@@ -29,7 +29,7 @@ export const DashboardHeader: React.FC = () => {
 
 	return (
 		<Flex direction="row" justify="space-between" h="max-content" pb="4">
-			<Flex flexDirection="column">
+			<Flex flexDirection="column" gap="1.5">
 				<Flex>
 					<Text
 						color="black"
@@ -38,7 +38,7 @@ export const DashboardHeader: React.FC = () => {
 						lineHeight="8"
 						fontStyle="normal"
 					>
-						{greetingMessage}, {isConnected ? name : ''}
+						{greetingMessage} {isConnected ? name : ''}
 					</Text>
 				</Flex>
 				<Flex>
