@@ -159,7 +159,7 @@ export const SwapToken = () => {
 						w="max-content"
 						h="max-content"
 						py="2"
-						px="24"
+						px="32"
 						fontSize="sm"
 						color="black"
 						borderRadius="base"

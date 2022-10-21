@@ -27,7 +27,7 @@ export const CreateOrganizationCard = () => {
 				gap="5"
 				color={theme.text.mono}
 			>
-				<Icon as={OrganizationIcon} boxSize="8" color={theme.text.mono} />
+				<Icon as={OrganizationIcon} boxSize="9" color={theme.text.mono} />
 				<Flex direction="column">
 					<Text fontStyle="normal" fontWeight="medium" color={theme.text.mono}>
 						You don’t have a Organization yet
