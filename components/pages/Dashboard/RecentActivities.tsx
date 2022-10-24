@@ -9,7 +9,7 @@ export const RecentActivities: React.FC<IRecentActivitiesComponent> = ({
 	<Flex direction="column" borderRadius="base" gap="2" boxShadow="xl" px="3">
 		<Flex justify="space-between" py="2">
 			<Flex>
-				<Text fontSize="md" fontWeight="medium">
+				<Text fontSize="md" fontWeight="medium" color="black">
 					Recent Activities
 				</Text>
 			</Flex>

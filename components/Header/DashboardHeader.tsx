@@ -42,7 +42,7 @@ export const DashboardHeader: React.FC = () => {
 					</Text>
 				</Flex>
 				<Flex>
-					<Text fontSize="sm">
+					<Text fontSize="sm" color="black">
 						{translate('assetInfo')}
 						<Text as="span" fontSize="sm" color={dynamicAssetInfo()?.color}>
 							{'\u00A0'}
@@ -51,7 +51,7 @@ export const DashboardHeader: React.FC = () => {
 						</Text>
 					</Text>
 
-					<Text fontSize="sm">
+					<Text fontSize="sm" color="black">
 						{translate('increased')}
 						<Text as="span" fontSize="sm" color={dynamicAssetInfo()?.color}>
 							{'\u00A0'}
