@@ -7,7 +7,7 @@ import {
 
 export const OrganizationsContainer = () => {
 	const theme = usePicasso();
-	const isConnected = false;
+	const isConnected = true;
 	return (
 		<Flex>
 			{isConnected ? (

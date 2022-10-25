@@ -2,7 +2,7 @@ import { Flex, Img, LinkBox, LinkOverlay, Text } from '@chakra-ui/react';
 import React, { useState, useEffect } from 'react';
 import { usePicasso } from 'hooks';
 import NextLink from 'next/link';
-import { LinearProgressBar } from 'components/LinearProgressBar';
+import { LinearProgressBar } from 'components/ProgressBar';
 import { SurplusTeams } from '../SurplusTeamsIcon';
 import { TeamsData } from './TeamsData';
 

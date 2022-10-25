@@ -26,7 +26,14 @@ const handleLogoImage = () => {
 export const NewOrganizationLinks = () => {
 	const theme = usePicasso();
 	return (
-		<Flex direction="column" gap="4" w="max-content" bg="white" py="6" px="6">
+		<Flex
+			direction="column"
+			gap="4"
+			w="max-content"
+			py="6"
+			px="6"
+			zIndex="docked"
+		>
 			<Flex
 				bg={theme.bg.black}
 				direction="column"

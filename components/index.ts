@@ -1,6 +1,6 @@
 export * from './Buttons';
 export * from './Icons';
-export * from './LinearProgressBar';
+export * from './ProgressBar';
 export * from './Modals';
 export * from './OffsetShadow';
 export * from './pages';

@@ -74,7 +74,7 @@ export const Sidebar: React.FC = () => {
 		>
 			<Flex
 				justify="center"
-				py="10"
+				py="4"
 				direction="column"
 				align="center"
 				gap="6"

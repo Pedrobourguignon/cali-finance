@@ -10,7 +10,7 @@ interface ILanding {
 export const AppLayout: React.FC<ILanding> = ({ children, right }) => {
 	const theme = usePicasso();
 	return (
-		<Flex bg="black" py="6" w="100%">
+		<Flex bg={theme.bg.primary} py="6" w="100%">
 			<Sidebar />
 			<Flex
 				bg="white"
@@ -20,13 +20,23 @@ export const AppLayout: React.FC<ILanding> = ({ children, right }) => {
 				borderLeftRadius="sm"
 				gap="4"
 				justify="space-between"
-				px="8"
+				position="relative"
 			>
-				<Flex direction="column" gap="4" pt="8" w="100%">
-					{children}
+				<Flex
+					bg={theme.bg.gray2}
+					w="full"
+					h="100%"
+					bgImage="/images/calipattern.png"
+					bgRepeat="no-repeat"
+					bgPosition="right bottom"
+					position="relative"
+				>
+					<Flex direction="column" w="100%">
+						{children}
+					</Flex>
+					{right}
 				</Flex>
 			</Flex>
-			{right}
 		</Flex>
 	);
 };
