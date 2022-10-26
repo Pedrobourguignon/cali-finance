@@ -2,7 +2,7 @@ import { Flex, FlexProps } from '@chakra-ui/react';
 import React from 'react';
 
 interface IOffsetShadow extends FlexProps {
-	children: JSX.Element;
+	children: JSX.Element | JSX.Element[];
 	buttonText: string;
 }
 
@@ -15,6 +15,8 @@ export const OffsetShadow: React.FC<IOffsetShadow> = ({
 	left,
 	borderRadius = 'base',
 	buttonText = '',
+	display,
+	px,
 }) => (
 	<Flex
 		width={width}
@@ -22,7 +24,7 @@ export const OffsetShadow: React.FC<IOffsetShadow> = ({
 		position="relative"
 		borderRadius={borderRadius}
 	>
-		<Flex px="5" py="1">
+		<Flex px={px} py="1">
 			{buttonText}
 		</Flex>
 		<Flex
@@ -34,6 +36,7 @@ export const OffsetShadow: React.FC<IOffsetShadow> = ({
 			border="1px solid"
 			borderColor={borderColor}
 			borderRadius="inherit"
+			display={display}
 		/>
 		<Flex zIndex="1" position="absolute" boxSize="full">
 			{children}

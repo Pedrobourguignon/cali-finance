@@ -11,7 +11,7 @@ const HistoryIcon = (props: IconProps) => (
 		>
 			<path
 				d="M7.88281 15.0865H16.6178"
-				stroke="white"
+				stroke="currentColor"
 				strokeWidth="1.5"
 				strokeLinecap="square"
 			/>
@@ -19,7 +19,7 @@ const HistoryIcon = (props: IconProps) => (
 				fillRule="evenodd"
 				clipRule="evenodd"
 				d="M21.5 20.3265H3V3.67346H9.96326L12.2249 6.45239H21.5V20.3265Z"
-				stroke="white"
+				stroke="currentColor"
 				strokeWidth="1.5"
 				strokeLinecap="square"
 			/>
