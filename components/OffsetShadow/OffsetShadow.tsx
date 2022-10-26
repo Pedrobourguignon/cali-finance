@@ -3,7 +3,7 @@ import React from 'react';
 
 interface IOffsetShadow extends FlexProps {
 	children: JSX.Element | JSX.Element[];
-	buttonText: string;
+	buttonText?: string;
 }
 
 export const OffsetShadow: React.FC<IOffsetShadow> = ({
