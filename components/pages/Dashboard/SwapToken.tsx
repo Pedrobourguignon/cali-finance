@@ -160,8 +160,8 @@ export const SwapToken = () => {
 						borderColor="white"
 						position="absolute"
 						buttonText="Swap"
-						top="1.5"
-						left="1.5"
+						top="0.375rem"
+						left="0.375rem"
 						px="32"
 					>
 						<Button
@@ -170,7 +170,7 @@ export const SwapToken = () => {
 							w="full"
 							h="full"
 							py="2"
-							fontSize="sm"
+							fontSize="md"
 							color="black"
 							borderRadius="base"
 							bg="white"
@@ -178,7 +178,7 @@ export const SwapToken = () => {
 							_focus={{ background: 'white' }}
 							_active={{
 								background: 'white',
-								transform: 'translateY(6px) translateX(5px)',
+								transform: 'translateY(0.375rem) translateX(0.375rem)',
 							}}
 							onClick={onOpen}
 						>

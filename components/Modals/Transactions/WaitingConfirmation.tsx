@@ -55,7 +55,7 @@ export const WaitingForConfirmation: React.FC<IBasicModal> = ({
 							>
 								Waiting for confirmation...
 							</Text>
-							<Text fontSize="sm">
+							<Text fontSize="sm" color="black">
 								Please confirm this transaction in your wallet
 							</Text>
 						</ModalBody>

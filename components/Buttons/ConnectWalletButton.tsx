@@ -15,7 +15,7 @@ export const ConnectWalletButton = () => {
 	const profilePicture =
 		'http://t0.gstatic.com/licensed-image?q=tbn:ANd9GcRIJYVo526c4XTP0V4CyE2XbTLsdYcxSilLYaSDYC4XDtXArbTNxmX63MnX3gP6d2cI';
 	const walletAddress = '0x6856...BF99';
-	const isConnected = true;
+	const isConnected = false;
 	const shouldDisplay = isConnected ? 'none' : 'flex';
 	const shouldntDisplay = isConnected ? 'flex' : 'none';
 	const { isOpen, onOpen, onClose } = useDisclosure();
@@ -48,8 +48,8 @@ export const ConnectWalletButton = () => {
 				width="36"
 				height="8"
 				borderColor="white"
-				top="2"
-				left="1.5"
+				top="0.5rem"
+				left="0.375rem"
 				display={shouldDisplay}
 			>
 				<Button
@@ -63,7 +63,7 @@ export const ConnectWalletButton = () => {
 					_focus={{ background: 'white' }}
 					_active={{
 						background: 'white',
-						transform: 'translateY(6px) translateX(5px)',
+						transform: 'translateY(0.5rem) translateX(0.375rem)',
 					}}
 					onClick={onOpen}
 					display={shouldDisplay}
