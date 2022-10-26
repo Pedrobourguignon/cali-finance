@@ -1,8 +1,9 @@
 import { Flex } from '@chakra-ui/react';
 import React from 'react';
+import { ITeamsList } from 'types';
 import { TeamCard } from './Cards';
 
-const teamList = [
+const teamList: ITeamsList[] = [
 	{
 		teamName: 'Bar do Zé',
 		funds: '$2,234.05',

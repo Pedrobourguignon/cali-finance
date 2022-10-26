@@ -1,3 +1,4 @@
+
 /* eslint-disable no-param-reassign */
 import { Button, Icon, useDisclosure } from '@chakra-ui/react';
 import { NotificationModal } from 'components';
@@ -61,5 +62,6 @@ export const NotificationButton: React.FC = () => {
 		</Button>
 	);
 };
+
 
 export default NotificationButton;

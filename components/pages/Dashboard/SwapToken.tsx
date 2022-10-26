@@ -1,118 +1,154 @@
-import { Button, Flex, Icon, Select, Text } from '@chakra-ui/react';
+/* eslint-disable react/no-children-prop */
+import {
+	Button,
+	Flex,
+	Icon,
+	Input,
+	InputGroup,
+	Menu,
+	MenuButton,
+	MenuItem,
+	MenuList,
+	Text,
+	useDisclosure,
+} from '@chakra-ui/react';
 import { usePicasso } from 'hooks';
 import Link from 'next/link';
 import React from 'react';
 import { BsArrowDownUp } from 'react-icons/bs';
+import { BiChevronDown } from 'react-icons/bi';
 import useTranslation from 'next-translate/useTranslation';
+import { OffsetShadow, WaitingForConfirmation } from 'components';
 
 export const SwapToken = () => {
 	const theme = usePicasso();
-	const isLogged = false;
+	const isConnected = true;
 	const { t: translate } = useTranslation('swap-token');
+	const { isOpen, onOpen, onClose } = useDisclosure();
 
 	return (
 		<Flex
-			w="72"
-			h={theme.cardHeight.swap}
+			w="full"
+			h="max-content"
+			py="6"
 			bg="black"
-			mt="6"
-			ml="4"
 			borderRadius="base"
 			direction="column"
+			align="center"
+			gap="4"
 		>
-			<Flex gap="3" mt="5" ml="7" align="center">
+			<WaitingForConfirmation isOpen={isOpen} onClose={onClose} />
+			<Flex gap="3" align="center" w="full" px="6">
 				<Icon as={BsArrowDownUp} color="white" boxSize="5" />
 				<Text
 					color="white"
 					fontStyle="normal"
 					fontWeight="500"
-					fontSize="20px"
-					lineHeight="28px"
+					fontSize="lg"
+					lineHeight="tall"
 				>
 					{translate('title')}
 				</Text>
 			</Flex>
-			<Flex direction="column" align="center" gap="6" mt="7" mb="10">
-				<Flex direction="column" gap="2">
+			<Flex direction="column" align="center" gap="6" w="max-content" px="6">
+				<Flex direction="column" gap="2" w="full">
 					<Text color="white" fontSize="sm">
 						{translate('youPay')}
 					</Text>
-					<Select
-						disabled={isLogged}
-						placeholder="0"
-						_placeholder={{ color: 'whiteAlpha.500' }}
-						w="60"
-						color="white"
-						alignContent="flex-end"
+					<InputGroup
 						bg={theme.bg.select}
 						border="none"
+						borderColor="transparent"
+						borderRadius="base"
 					>
-						<option value="option1">Option 1</option>
-					</Select>
+						<Input
+							placeholder="0"
+							disabled={!isConnected}
+							_hover={{ focus: 'none' }}
+						/>
+						<Flex>
+							<Menu>
+								<MenuButton
+									as={Button}
+									rightIcon={<BiChevronDown />}
+									bg="none"
+									color="white"
+									_hover={{ bg: 'none' }}
+									w="full"
+								>
+									Select
+								</MenuButton>
+								<MenuList>
+									<MenuItem>Bitícu</MenuItem>
+								</MenuList>
+							</Menu>
+						</Flex>
+					</InputGroup>
 				</Flex>
-				<Flex direction="column" gap="2">
+				<Flex direction="column" gap="2" w="full">
 					<Text color="white" fontSize="sm">
 						{translate('youReceive')}
 					</Text>
-					<Select
-						disabled={isLogged}
-						placeholder="0"
-						_placeholder={{ color: 'whiteAlpha.500' }}
-						w="60"
-						color="white"
+					<InputGroup
 						bg={theme.bg.select}
 						border="none"
+						borderColor="transparent"
+						borderRadius="base"
 					>
-						<option value="option3">Option 1</option>
-					</Select>
+						<Input
+							placeholder="0"
+							disabled={!isConnected}
+							_hover={{ focus: 'none' }}
+						/>
+						<Flex>
+							<Menu>
+								<MenuButton
+									as={Button}
+									rightIcon={<BiChevronDown />}
+									bg="none"
+									color="white"
+									_hover={{ bg: 'none' }}
+									w="full"
+								>
+									Select
+								</MenuButton>
+								<MenuList>
+									<MenuItem>Bitícu</MenuItem>
+								</MenuList>
+							</Menu>
+						</Flex>
+					</InputGroup>
 				</Flex>
 			</Flex>
-			<Flex color="white" direction="column" w="60" h="32">
-				<Flex align="center" justify="space-between" ml="10">
-					<Text
-						fontStyle="normal"
-						fontWeight="400"
-						fontSize="xs"
-						lineHeight="16px"
-						color="whiteAlpha.600"
-						textAlign="justify"
-					>
+			<Flex
+				color="white"
+				direction="column"
+				h="max-content"
+				w="full"
+				px="12"
+				py="4"
+			>
+				<Flex align="center" justify="space-between">
+					<Text fontStyle="normal" fontSize="xs" color="whiteAlpha.600">
 						Rate
 					</Text>
 					<Text>-</Text>
 				</Flex>
-				<Flex align="center" justify="space-between" ml="10">
-					<Text
-						fontStyle="normal"
-						fontWeight="400"
-						fontSize="xs"
-						lineHeight="16px"
-						color="whiteAlpha.600"
-					>
+				<Flex align="center" justify="space-between">
+					<Text fontStyle="normal" fontSize="xs" color="whiteAlpha.600">
 						Slippage tolerance
 					</Text>
+
 					<Text>-</Text>
 				</Flex>
-				<Flex align="center" justify="space-between" ml="10">
-					<Text
-						fontStyle="normal"
-						fontWeight="400"
-						fontSize="xs"
-						lineHeight="16px"
-						color="whiteAlpha.600"
-					>
+				<Flex align="center" justify="space-between">
+					<Text fontStyle="normal" fontSize="xs" color="whiteAlpha.600">
 						Estimated fees
 					</Text>
 					<Text>-</Text>
 				</Flex>
-				<Flex align="center" justify="space-between" ml="10">
-					<Text
-						fontStyle="normal"
-						fontWeight="400"
-						fontSize="xs"
-						lineHeight="16px"
-						color="whiteAlpha.600"
-					>
+				<Flex align="center" justify="space-between">
+					<Text fontStyle="normal" fontSize="xs" color="whiteAlpha.600">
 						Price impact
 					</Text>
 					<Text>-</Text>
@@ -120,33 +156,35 @@ export const SwapToken = () => {
 			</Flex>
 			<Link href="/app/dashboard">
 				<Flex justify="center">
-					<Flex
+					<OffsetShadow
+						borderColor="white"
 						position="absolute"
-						display=" block"
-						w="60"
-						p="4"
-						border="1px solid white"
-						borderRadius="base"
-					/>
-					<Button
-						disabled={isLogged}
-						w="60"
-						h="8"
-						fontSize="sm"
-						color="black"
-						borderRadius="base"
-						display=" block"
-						m="-5px 0px -10px -10px"
-						bg="white"
-						_hover={{ background: 'white' }}
-						_focus={{ background: 'white' }}
-						_active={{
-							background: 'white',
-							transform: 'translateY(6px) translateX(5px)',
-						}}
+						buttonText="Swap"
+						top="0.375rem"
+						left="0.375rem"
+						px="32"
 					>
-						{translate('swap')}
-					</Button>
+						<Button
+							position="relative"
+							disabled={!isConnected}
+							w="full"
+							h="full"
+							py="2"
+							fontSize="md"
+							color="black"
+							borderRadius="base"
+							bg="white"
+							_hover={{ background: 'white' }}
+							_focus={{ background: 'white' }}
+							_active={{
+								background: 'white',
+								transform: 'translateY(0.375rem) translateX(0.375rem)',
+							}}
+							onClick={onOpen}
+						>
+							{translate('swap')}
+						</Button>
+					</OffsetShadow>
 				</Flex>
 			</Link>
 		</Flex>
