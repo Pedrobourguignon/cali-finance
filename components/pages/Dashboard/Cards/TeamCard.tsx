@@ -27,7 +27,7 @@ export const TeamCard: React.FC<ITeamCard> = ({ teamName, funds, members }) => {
 						</Text>
 						{funds}
 					</Flex>
-					<Flex direction="column">
+					<Flex direction="column" color="black">
 						<Text fontSize="sm" color="gray.500">
 							Members
 						</Text>

@@ -3,6 +3,7 @@ import { Box, Flex, Text } from '@chakra-ui/react';
 import Slider from 'react-slick';
 import React, { useState } from 'react';
 import { Paginator, TeamCard } from 'components';
+import { ITeamsList } from 'types';
 
 const settings = {
 	infinite: false,
@@ -11,7 +12,7 @@ const settings = {
 	slidesToScroll: 1,
 };
 
-const teamList = [
+const teamList: ITeamsList[] = [
 	{
 		teamName: 'Kylie Cosmetics',
 		funds: '$2,234.05',

@@ -12,17 +12,12 @@ import {
 import { OffsetShadow } from 'components';
 import { usePicasso } from 'hooks';
 import React from 'react';
+import { IBasicModal } from 'types';
 
-interface ILoadingWalletConnectModal {
-	walletName: string;
-	walletIcon: string;
-	isOpen: boolean;
-	onClose: () => void;
-}
-
-export const LoadingWalletConnectModal: React.FC<
-	ILoadingWalletConnectModal
-> = ({ walletIcon, walletName, isOpen, onClose }) => {
+export const WaitingForConfirmation: React.FC<IBasicModal> = ({
+	isOpen,
+	onClose,
+}) => {
 	const theme = usePicasso();
 	return (
 		<Modal isOpen={isOpen} onClose={onClose} size="sm">
@@ -46,31 +41,23 @@ export const LoadingWalletConnectModal: React.FC<
 							<Img src="/images/cali-logo.svg" w="16" h="10" />
 							<ModalCloseButton color="gray.400" py="6" />
 						</ModalHeader>
-						<ModalBody display="flex" flexDirection="column" gap="6" pb="6">
+						<ModalBody
+							display="flex"
+							flexDirection="column"
+							gap="6"
+							alignItems="center"
+						>
 							<Text
 								textAlign="center"
 								fontWeight="semibold"
 								fontSize="lg"
 								color={theme.text.mono}
 							>
-								Initializing...
+								Waiting for confirmation...
 							</Text>
-							<Flex
-								border="1px"
-								borderColor="blackAlpha.200"
-								borderStyle="solid"
-								align="center"
-								px="3"
-								justify="space-between"
-								color={theme.text.mono}
-								fontWeight="medium"
-								borderRadius="base"
-							>
-								<Text bg="transparent" fontSize="sm" py="2">
-									{walletName}
-								</Text>
-								<Img src={walletIcon} boxSize="6" />
-							</Flex>
+							<Text fontSize="sm" color="black">
+								Please confirm this transaction in your wallet
+							</Text>
 						</ModalBody>
 					</Flex>
 				</OffsetShadow>
@@ -79,4 +66,4 @@ export const LoadingWalletConnectModal: React.FC<
 	);
 };
 
-export default LoadingWalletConnectModal;
+export default WaitingForConfirmation;

@@ -38,7 +38,7 @@ export const LandingHeader: React.FC = () => {
 			<NextLink href={navigationPaths.landing}>
 				<Img minH="10" src="/images/cali-logo-with-text.svg" />
 			</NextLink>
-			<Flex gap="6">
+			<Flex display={{ base: 'none', lg: 'flex' }} gap="6">
 				{menuOptions.map((item, index) => {
 					const comparedPath = isSamePath(item.route);
 					return (
@@ -54,29 +54,29 @@ export const LandingHeader: React.FC = () => {
 					);
 				})}
 			</Flex>
-			<NextLink href={navigationPaths.dashboard.home}>
-				<Button
-					_hover={{ bg: 'white' }}
-					_focus={{
-						border: '2px solid white',
-						color: 'white',
-						bgColor: 'transparent',
-					}}
-					_active={{ color: 'black' }}
-					display={{ base: 'none', md: 'flex' }}
-					borderRadius="sm"
-					bg="white"
-					border="2px solid"
-					borderColor="transparent"
-					color={theme.text.black}
-					px="12"
-					py="3"
-					fontSize="md"
-					fontWeight="normal"
-				>
-					Launch App
-				</Button>
-			</NextLink>
+			{/* <NextLink href={navigationPaths.dashboard.home}> */}
+			<Button
+				_hover={{ bg: 'white' }}
+				_focus={{
+					border: '2px solid white',
+					color: 'white',
+					bgColor: 'transparent',
+				}}
+				_active={{ color: 'black' }}
+				display={{ base: 'none', md: 'flex' }}
+				borderRadius="sm"
+				bg="white"
+				border="2px solid"
+				borderColor="transparent"
+				color={theme.text.black}
+				px="12"
+				py="3"
+				fontSize="md"
+				fontWeight="normal"
+			>
+				Launch App
+			</Button>
+			{/* </NextLink> */}
 		</Flex>
 	);
 };

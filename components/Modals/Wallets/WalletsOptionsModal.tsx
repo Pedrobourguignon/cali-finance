@@ -66,7 +66,13 @@ export const WalletsOptionsModal: React.FC<IWalletOptionsModal> = ({
 				h="min-content"
 				borderRadius="base"
 			>
-				<OffsetShadow width="full" height="410px" top="2" left="2">
+				<OffsetShadow
+					width="full"
+					height="410px"
+					buttonText="Connect to a Wallet"
+					top="2"
+					left="2"
+				>
 					<Flex
 						direction="column"
 						bg={theme.bg.modal}

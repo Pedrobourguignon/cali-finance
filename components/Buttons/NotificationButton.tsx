@@ -1,9 +1,9 @@
 import { Button, Icon } from '@chakra-ui/react';
-import { usePicasso } from 'hooks/usePicasso';
 import { VscBell } from 'react-icons/vsc';
+import FC from 'react';
 
 export const NotificationButton: React.FC = () => (
-	<Button borderRadius="30" bg="transparent" mt="4">
+	<Button bg="transparent">
 		<Icon as={VscBell} boxSize="6" color="gray.500" />
 	</Button>
 );

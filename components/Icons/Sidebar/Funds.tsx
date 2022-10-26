@@ -14,25 +14,25 @@ const FundsIcon = (props: IconProps) => (
 				y="5.10889"
 				width="18.5"
 				height="14.06"
-				stroke="white"
+				stroke="currentColor"
 				strokeWidth="1.5"
 				strokeLinecap="square"
 			/>
 			<path
 				d="M3 9.92182H21.5"
-				stroke="white"
+				stroke="currentColor"
 				strokeWidth="1.5"
 				strokeLinecap="square"
 			/>
 			<path
 				d="M15.1016 15.481H18.5768"
-				stroke="white"
+				stroke="currentColor"
 				strokeWidth="1.5"
 				strokeLinecap="square"
 			/>
 			<path
 				d="M10.876 15.481H11.6238"
-				stroke="white"
+				stroke="currentColor"
 				strokeWidth="1.5"
 				strokeLinecap="square"
 			/>
