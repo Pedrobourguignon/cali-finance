@@ -1,38 +1,41 @@
-import { Button, Flex } from '@chakra-ui/react';
+import { Button, Icon } from '@chakra-ui/react';
+import { OffsetShadow } from 'components/OffsetShadow';
 import React from 'react';
+import { AiOutlinePlus } from 'react-icons/ai';
 
 export const NewCoinButton = () => (
-	<Flex my="6">
-		<Flex
-			p="4"
-			w="28"
-			position="absolute"
-			display=" block"
-			border=" 1px solid white"
-			borderRadius="base"
-		/>
+	<OffsetShadow
+		borderColor="white"
+		position="absolute"
+		buttonText="New Coin"
+		px="5"
+	>
 		<Button
-			w="28"
-			h="8"
+			position="relative"
+			w="full"
+			h="full"
+			px="2"
+			py="1"
 			fontSize="sm"
 			color="black"
 			borderRadius="base"
-			display=" block"
-			borderWidth="0 2.5"
-			m="-5px 0px -10px -5px"
 			bg="white"
 			_hover={{ background: 'white' }}
 			_focus={{ background: 'white' }}
 			_active={{
 				background: 'white',
-				transform: 'translateY(6px) translateX(5px)',
+				transform: 'translateY(0.25rem) translateX(0.25rem)',
 			}}
-			fontWeight="500"
+			bottom="0.25rem"
+			right="0.25rem"
+			fontWeight="medium"
 			lineHeight="5"
+			gap="2"
 		>
-			+ New Coin
+			<Icon as={AiOutlinePlus} />
+			New Coin
 		</Button>
-	</Flex>
+	</OffsetShadow>
 );
 
 export default NewCoinButton;

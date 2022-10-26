@@ -15,19 +15,19 @@ export const TeamCard: React.FC<ITeamCard> = ({ teamName, funds, members }) => {
 			<Flex direction="column" px="1">
 				<Flex align="center" gap="2.5" px="4" py="2.5">
 					<Img src="/icons/organizations.svg" boxSize="6" />
-					<Text fontSize="md" fontWeight="bold">
+					<Text fontSize="md" fontWeight="bold" color="black">
 						{teamName}
 					</Text>
 				</Flex>
 				<Flex gap="12" px="4">
-					<Flex direction="column">
+					<Flex direction="column" color="black">
 						<Text fontSize="sm" color="gray.500">
 							{' '}
 							Funds
 						</Text>
 						{funds}
 					</Flex>
-					<Flex direction="column">
+					<Flex direction="column" color="black">
 						<Text fontSize="sm" color="gray.500">
 							Members
 						</Text>
