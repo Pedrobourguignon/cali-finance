@@ -54,10 +54,12 @@ export const MyAssets = () => (
 			>
 				<Flex justify="space-between" px="4" py="2">
 					<Flex direction="column">
-						<Text fontSize="md" fontWeight="medium">
+						<Text fontSize="md" fontWeight="medium" color="black">
 							My Assets
 						</Text>
-						<Text fontSize="sm">$92,234.11</Text>
+						<Text fontSize="sm" color="black">
+							$92,234.11
+						</Text>
 					</Flex>
 					<Link href="/">
 						<Text fontSize="sm" cursor="pointer" color="gray.500">

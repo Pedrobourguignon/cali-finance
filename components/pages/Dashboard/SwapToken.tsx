@@ -156,7 +156,6 @@ export const SwapToken = () => {
 			</Flex>
 			<Link href="/app/dashboard">
 				<Flex justify="center">
-
 					<OffsetShadow
 						borderColor="white"
 						position="absolute"
@@ -164,25 +163,6 @@ export const SwapToken = () => {
 						top="1.5"
 						left="1.5"
 						px="32"
-
-					<Button
-					position="relative"
-							disabled={!isConnected}
-							w="full"
-							h="full"
-							py="2"
-							fontSize="sm"
-							color="black"
-							borderRadius="base"
-							bg="white"
-							_hover={{ background: 'white' }}
-							_focus={{ background: 'white' }}
-							_active={{
-								background: 'white',
-								transform: 'translateY(6px) translateX(5px)',
-							}}
-							onClick={onOpen}
-
 					>
 						<Button
 							position="relative"
