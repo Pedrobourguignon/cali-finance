@@ -1,6 +1,6 @@
 import { Flex, Text } from '@chakra-ui/react';
 import NextLink from 'next/link';
-import { ActivitiesData } from '../ActivitiesData';
+import { ActivitiesData } from 'components';
 
 interface IActivities {
 	name: string;

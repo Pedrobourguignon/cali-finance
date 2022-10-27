@@ -1,4 +1,4 @@
-import { Box, Button, Flex, Icon, Img, Link } from '@chakra-ui/react';
+import { Box, Button, calc, Flex, Icon, Img, Link } from '@chakra-ui/react';
 import React from 'react';
 import { FaDiscord, FaTwitter } from 'react-icons/fa';
 import { usePath, usePicasso } from 'hooks';
@@ -64,7 +64,7 @@ export const Sidebar: React.FC = () => {
 	const { isSamePath } = usePath();
 	return (
 		<Flex
-			minH="100vh"
+			flex="1"
 			flexDirection="column"
 			display={{ base: 'none', md: 'flex' }}
 			bg={theme.bg.primary}

@@ -1,5 +1,5 @@
 import { Button, Flex, Text } from '@chakra-ui/react';
-import { CircularProgressBar } from 'components/ProgressBar/CircularProgressBar';
+import { CircularProgressBar } from 'components';
 import { usePicasso } from 'hooks';
 
 const withdrawnPercentage = 50;

@@ -1,2 +1,2 @@
 export * from './NewOrganizationLinks';
-export * from './UploadImage';
+export * from './ImageUploader';

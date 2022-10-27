@@ -18,10 +18,11 @@ import React from 'react';
 import { BsArrowDownUp } from 'react-icons/bs';
 import { BiChevronDown } from 'react-icons/bi';
 import useTranslation from 'next-translate/useTranslation';
+import { OffsetShadow, WaitingForConfirmation } from 'components';
 
 export const SwapToken = () => {
 	const theme = usePicasso();
-	const isLogged = true;
+	const isConnected = true;
 	const { t: translate } = useTranslation('swap-token');
 	const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -30,12 +31,13 @@ export const SwapToken = () => {
 			w="full"
 			h="max-content"
 			py="6"
-			bg="black"
+			bg={theme.bg.primary}
 			borderRadius="base"
 			direction="column"
 			align="center"
 			gap="4"
 		>
+			<WaitingForConfirmation isOpen={isOpen} onClose={onClose} />
 			<Flex gap="3" align="center" w="full" px="6">
 				<Icon as={BsArrowDownUp} color="white" boxSize="5" />
 				<Text
@@ -61,7 +63,7 @@ export const SwapToken = () => {
 					>
 						<Input
 							placeholder="0"
-							disabled={!isLogged}
+							disabled={!isConnected}
 							_hover={{ focus: 'none' }}
 						/>
 						<Flex>
@@ -95,7 +97,7 @@ export const SwapToken = () => {
 					>
 						<Input
 							placeholder="0"
-							disabled={!isLogged}
+							disabled={!isConnected}
 							_hover={{ focus: 'none' }}
 						/>
 						<Flex>
@@ -154,25 +156,35 @@ export const SwapToken = () => {
 			</Flex>
 			<Link href="/app/dashboard">
 				<Flex justify="center">
-					<Button
-						disabled
-						w="max-content"
-						h="max-content"
-						py="2"
+					<OffsetShadow
+						borderColor="white"
+						position="absolute"
+						buttonText="Swap"
+						top="0.375rem"
+						left="0.375rem"
 						px="32"
-						fontSize="sm"
-						color="black"
-						borderRadius="base"
-						bg="white"
-						_hover={{ background: 'white' }}
-						_focus={{ background: 'white' }}
-						_active={{
-							background: 'white',
-							transform: 'translateY(6px) translateX(5px)',
-						}}
 					>
-						{translate('swap')}
-					</Button>
+						<Button
+							position="relative"
+							disabled={!isConnected}
+							w="full"
+							h="full"
+							py="2"
+							fontSize="md"
+							color="black"
+							borderRadius="base"
+							bg="white"
+							_hover={{ background: 'white' }}
+							_focus={{ background: 'white' }}
+							_active={{
+								background: 'white',
+								transform: 'translateY(0.375rem) translateX(0.375rem)',
+							}}
+							onClick={onOpen}
+						>
+							{translate('swap')}
+						</Button>
+					</OffsetShadow>
 				</Flex>
 			</Link>
 		</Flex>

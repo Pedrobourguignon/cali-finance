@@ -1,4 +1,3 @@
-/* eslint-disable react/no-children-prop */
 import {
 	Flex,
 	FormControl,
@@ -8,19 +7,16 @@ import {
 	InputLeftElement,
 } from '@chakra-ui/react';
 import { usePicasso } from 'hooks';
-import { ImageUploader } from './UploadImage';
+import { handleLogoImage } from 'utils';
+import { ImageUploader } from 'components';
 
 const organizations = {
 	name: 'Itatiaia',
-	logo: '',
+	logo: '/images/work.png',
 	site: 'website.io',
 	instagram: 'instagram/company',
 	twitter: 'twitter.com/company',
 	telegram: 't.me/company',
-};
-// eslint-disable-next-line consistent-return
-const handleLogoImage = () => {
-	if (!organizations.logo) return organizations.name.slice(0, 1);
 };
 
 export const NewOrganizationLinks = () => {
@@ -57,7 +53,7 @@ export const NewOrganizationLinks = () => {
 							justify="center"
 							fontSize="4xl"
 						>
-							{handleLogoImage()}
+							{handleLogoImage(organizations.logo, organizations.name)}
 						</Flex>
 					)}
 					<ImageUploader />

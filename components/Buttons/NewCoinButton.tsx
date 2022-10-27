@@ -1,10 +1,15 @@
-import { Button, Flex, Icon } from '@chakra-ui/react';
+import { Button, Icon } from '@chakra-ui/react';
 import { OffsetShadow } from 'components/OffsetShadow';
 import React from 'react';
 import { AiOutlinePlus } from 'react-icons/ai';
 
 export const NewCoinButton = () => (
-	<OffsetShadow borderColor="white" position="absolute" buttonText="New Coin">
+	<OffsetShadow
+		borderColor="white"
+		position="absolute"
+		buttonText="New Coin"
+		px="5"
+	>
 		<Button
 			position="relative"
 			w="full"

@@ -2,14 +2,13 @@ import { Flex } from '@chakra-ui/react';
 import {
 	DashboardHeader,
 	CreateOrganizationCard,
-	NewOrganizationsDashboard,
 	SwapTokenBar,
 	RecentActivities,
-	WithdrawalsBanner,
+	OrganizationsDashboard,
+	YourOrganizations,
 } from 'components';
-import { usePicasso } from 'hooks';
 import React from 'react';
-import { AppLayout } from './appLayout';
+import { AppLayout } from 'layouts';
 
 const organizations = [
 	{
@@ -19,22 +18,22 @@ const organizations = [
 		totalFunds: '67,986.09',
 		yourOrganizations: [
 			{
-				logo: '/',
-				name: 'kylie Cosmetics',
+				logo: '',
+				name: 'Kylie Cosmetics',
 				funds: '2,234.05',
-				members: '2',
+				members: 2,
 			},
 			{
-				logo: '/',
-				name: 'kylie Skin',
+				logo: '',
+				name: 'Kylie Skin',
 				funds: '92,234.11',
-				members: '170',
+				members: 170,
 			},
 			{
-				logo: '/',
-				name: 'kylie Baby',
+				logo: '',
+				name: 'Kylie Baby',
 				funds: '5,234.11',
-				members: '13',
+				members: 13,
 			},
 		],
 	},
@@ -65,23 +64,24 @@ const activities = [
 		status: 'Completed',
 	},
 ];
-export const OrganizationsConnected: React.FC = () => {
-	const theme = usePicasso();
-	return (
-		<AppLayout right={<SwapTokenBar />}>
-			<Flex p="6" direction="column" gap="4">
-				<DashboardHeader />
-				<NewOrganizationsDashboard />
-				{organizations[0].organizationsQuantity ? (
-					''
-				) : (
-					<CreateOrganizationCard />
-				)}
-				{activities ? <RecentActivities activities={activities} /> : ''}
-				<WithdrawalsBanner />
-			</Flex>
-		</AppLayout>
-	);
-};
+export const OrganizationsConnected: React.FC = () => (
+	<AppLayout right={<SwapTokenBar />}>
+		<Flex p="6" direction="column" gap="4">
+			<DashboardHeader />
+			<OrganizationsDashboard
+				members={organizations[0].organizationsMemberQuantity}
+				organizations={organizations[0].organizationsQuantity}
+				teams={organizations[0].teamsQuantity}
+				totalFunds={organizations[0].totalFunds}
+			/>
+			{organizations[0].organizationsQuantity ? (
+				<YourOrganizations organization={organizations[0].yourOrganizations} />
+			) : (
+				<CreateOrganizationCard />
+			)}
+			{activities ? <RecentActivities activities={activities} /> : ''}
+		</Flex>
+	</AppLayout>
+);
 
 export default OrganizationsConnected;

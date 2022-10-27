@@ -7,13 +7,12 @@ import {
 	Text,
 	Textarea,
 } from '@chakra-ui/react';
-import { NewOrganizationLinks } from 'components';
-import { BackToOrganizations } from 'components/Buttons/BacktoOrganizationsButton';
+import { NewOrganizationLinks, BackToOrganizations } from 'components';
 import { usePicasso } from 'hooks';
 import { AppLayout } from 'layouts';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { createOrganizationSchema } from 'utils/Validations';
+import { createOrganizationSchema } from 'utils';
 
 interface ICreateOrganization {
 	name: string;
@@ -73,17 +72,25 @@ export const CreateOrganizationContainer = () => {
 										<Flex direction="column">
 											<Text>Type *</Text>
 											<Select
-												placeholder="Please select"
 												borderColor={theme.bg.primary}
 												color="blackAlpha.500"
 												_hover={{}}
 												{...register('type')}
 											>
+												<option
+													selected
+													disabled
+													style={{
+														background: 'white',
+													}}
+												>
+													Please select an organization type
+												</option>
 												{organizationsType.map((item, index) => (
 													<option
 														key={index}
 														style={{
-															backgroundColor: 'white',
+															background: 'white',
 														}}
 													>
 														{item}

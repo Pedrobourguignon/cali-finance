@@ -1,12 +1,11 @@
 import { Button, Flex, Text, Icon } from '@chakra-ui/react';
-import { OrganizationIcon } from 'components/Icons';
+import { OrganizationIcon } from 'components';
 import { usePicasso } from 'hooks';
 import React from 'react';
 import { AiOutlinePlus } from 'react-icons/ai';
 
 export const CreateOrganizationCard = () => {
 	const theme = usePicasso();
-
 	return (
 		<Flex
 			w="max-content"
@@ -36,7 +35,7 @@ export const CreateOrganizationCard = () => {
 			</Flex>
 			<Button
 				color="white"
-				bg="black"
+				bg={theme.bg.primary}
 				fontSize="sm"
 				fontWeight="medium"
 				borderRadius="sm"

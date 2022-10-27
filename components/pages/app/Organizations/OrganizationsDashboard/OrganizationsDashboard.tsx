@@ -1,4 +1,6 @@
-import { Button, Flex, Text } from '@chakra-ui/react';
+import { Flex, Text } from '@chakra-ui/react';
+import { CreateOrganizationButton } from 'components';
+import { usePicasso } from 'hooks';
 
 interface IOrganizationsDashboard {
 	organizations: string;
@@ -7,19 +9,19 @@ interface IOrganizationsDashboard {
 	totalFunds: string;
 }
 
-export const OrganizationsDashboard = () => {
-	const data = {
-		organizations: '3',
-		teams: '18',
-		members: '185',
-		totalFunds: '67,986.09',
-	};
+export const OrganizationsDashboard: React.FC<IOrganizationsDashboard> = ({
+	members,
+	organizations,
+	teams,
+	totalFunds,
+}) => {
+	const theme = usePicasso();
 	return (
-		<Flex bg="red">
-			<Flex gap="10" bg="black" py="6" px="4" borderRadius="base">
+		<Flex>
+			<Flex gap="12" bg={theme.bg.primary} py="6" px="5" borderRadius="base">
 				<Flex direction="column">
 					<Text fontSize="xl" fontWeight="medium">
-						{data.organizations}
+						{organizations}
 					</Text>
 					<Text fontSize="sm" fontWeight="normal">
 						Organizations
@@ -27,7 +29,7 @@ export const OrganizationsDashboard = () => {
 				</Flex>
 				<Flex direction="column">
 					<Text fontSize="xl" fontWeight="medium">
-						{data.teams}
+						{teams}
 					</Text>
 					<Text fontSize="sm" fontWeight="normal">
 						Teams
@@ -35,31 +37,21 @@ export const OrganizationsDashboard = () => {
 				</Flex>
 				<Flex direction="column">
 					<Text fontSize="xl" fontWeight="medium">
-						{data.members}
+						{members}
 					</Text>
 					<Text fontSize="sm" fontWeight="normal">
 						Members
 					</Text>
 				</Flex>
 				<Flex direction="column">
-					<Text fontSize="xl" fontWeight="medium">
-						${data.totalFunds}
+					<Text fontSize="xl" fontWeight="medium" minW="24">
+						${totalFunds}
 					</Text>
 					<Text fontSize="sm" fontWeight="normal">
 						Total Funds
 					</Text>
 				</Flex>
-				<Button
-					px="3"
-					py="1.5"
-					bg="white"
-					fontSize="sm"
-					fontWeight="medium"
-					color="black"
-					borderRadius="base"
-				>
-					Create Organization
-				</Button>
+				<CreateOrganizationButton />
 			</Flex>
 		</Flex>
 	);

@@ -1,12 +1,14 @@
+/* eslint-disable consistent-return */
 import { Flex, Text } from '@chakra-ui/react';
 import { NotificationButton } from 'components';
-import { usePicasso } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
 import { useMemo } from 'react';
 
 export const DashboardHeader: React.FC = () => {
 	const { t: translate } = useTranslation('app-header');
-	const theme = usePicasso();
+	const isConnected = true;
+	const percentage = 1;
+	const name = 'Bradley';
 
 	const greetingMessage = useMemo(() => {
 		const hour = new Date().getHours();
@@ -16,28 +18,48 @@ export const DashboardHeader: React.FC = () => {
 		return translate('greetings.night');
 	}, [translate]);
 
+	const dynamicAssetInfo = () => {
+		if (percentage < 0)
+			return { status: translate('bearish'), color: 'red.500' };
+		if (percentage === 0)
+			return { status: translate('neutral'), color: 'gray.500' };
+		if (percentage > 0)
+			return { status: translate('bullish'), color: 'blue.500' };
+	};
+
 	return (
-		<Flex
-			w="max-content"
-			direction="row"
-			justify="space-between"
-			h="max-content"
-		>
-			<Flex direction="column">
-				<Text
-					color={theme.text.mono}
-					fontSize="2xl"
-					fontWeight="medium"
-					lineHeight="8"
-					fontStyle="normal"
-				>
-					{greetingMessage}
-				</Text>
-				<Text fontSize="sm" lineHeight="5" color={theme.text.mono}>
-					{translate('loginMessage')}
-				</Text>
+		<Flex direction="row" justify="space-between" h="max-content" pb="4">
+			<Flex flexDirection="column" gap="1.5">
+				<Flex>
+					<Text
+						color="black"
+						fontSize="2xl"
+						fontWeight="500"
+						lineHeight="8"
+						fontStyle="normal"
+					>
+						{greetingMessage} {isConnected ? name : ''}
+					</Text>
+				</Flex>
+				<Flex>
+					<Text fontSize="sm" color="black">
+						{translate('assetInfo')}
+						<Text as="span" fontSize="sm" color={dynamicAssetInfo()?.color}>
+							{'\u00A0'}
+							{dynamicAssetInfo()?.status}
+							{'\u00A0'}
+						</Text>
+					</Text>
+
+					<Text fontSize="sm" color="black">
+						{translate('increased')}
+						<Text as="span" fontSize="sm" color={dynamicAssetInfo()?.color}>
+							{'\u00A0'}
+							{translate('percentage', { percentage })}
+						</Text>
+					</Text>
+				</Flex>
 			</Flex>
-			<Flex px="20" />
 			<NotificationButton />
 		</Flex>
 	);

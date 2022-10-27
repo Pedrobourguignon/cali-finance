@@ -1,10 +1,8 @@
 import { Button } from '@chakra-ui/react';
-import { OffsetShadow } from 'components/OffsetShadow';
-import { usePicasso } from 'hooks';
+import { OffsetShadow } from 'components';
 import Router from 'next/router';
 
 export const CreateOrganizationButton = () => {
-	const theme = usePicasso();
 	const handleClick = () => {
 		Router.push('organizations/create');
 	};
