@@ -1,59 +1,65 @@
 /* eslint-disable no-param-reassign */
 import {
-	Button,
+	Popover,
+	PopoverTrigger,
+	PopoverContent,
+	PopoverBody,
 	Flex,
-	Img,
-	Modal,
-	ModalBody,
-	ModalContent,
-	ModalHeader,
+	Button,
+	Icon,
 	Text,
+	Img,
+	PopoverCloseButton,
 } from '@chakra-ui/react';
-import React from 'react';
-import { INotificationModal, INotificationList } from 'types';
 import { usePicasso } from 'hooks';
+import React from 'react';
+import { VscBellDot, VscBell } from 'react-icons/vsc';
+import { INotificationPopover } from 'types';
 
-export const NotificationModal: React.FC<INotificationModal> = ({
+export const NotificationPopover: React.FC<INotificationPopover> = ({
 	notificationsList,
 	notificationNumber,
-	isOpen,
+	setNotificationsList,
 	onClose,
+	isOpen,
+	onOpen,
 }) => {
 	const theme = usePicasso();
-	const clearAllNotifications = (list: INotificationList[]) => {
-		list.length = 0;
+	const clearAllNotifications = () => {
+		setNotificationsList([]);
 		onClose();
 	};
 	return (
-		<Modal isOpen={isOpen} onClose={onClose}>
-			<ModalContent
-				w="max-content"
-				border="1px solid"
-				borderColor="black"
-				top="24"
-				right="12"
-			>
-				<ModalHeader>
-					<Flex justify="space-between" align="center" fontSize="sm">
+		<Popover placement="bottom-end" onClose={onClose} isOpen={isOpen}>
+			<PopoverTrigger>
+				<Button bg="transparent" onClick={onOpen}>
+					<Icon
+						as={notificationsList.length > 0 ? VscBellDot : VscBell}
+						boxSize="6"
+						color="black"
+					/>
+				</Button>
+			</PopoverTrigger>
+			<PopoverContent>
+				<PopoverBody>
+					<Flex fontSize="sm" py="3">
 						<Text fontSize="md" fontWeight="medium" px="1">
 							{notificationNumber} pending notifications
 						</Text>
-						<Button
+
+						<PopoverCloseButton
 							disabled={notificationsList.length <= 0}
 							fontSize="sm"
 							color={theme.branding.blue}
 							_hover={{ color: 'theme.branding.blue', bg: 'none' }}
-							h="max-content"
+							_focus={{ color: 'theme.branding.blue', bg: 'none' }}
 							w="max-content"
-							px="1"
-							bg="none"
-							onClick={() => clearAllNotifications(notificationsList)}
+							py="7"
+							onClick={() => clearAllNotifications()}
 						>
 							Clear all
-						</Button>
+						</PopoverCloseButton>
 					</Flex>
-				</ModalHeader>
-				<ModalBody>
 					<Flex
 						h="56"
 						direction="column"
@@ -63,7 +69,7 @@ export const NotificationModal: React.FC<INotificationModal> = ({
 						sx={{
 							'&::-webkit-scrollbar': {
 								width: '2',
-								borderRadius: '8px',
+								borderRadius: '20px',
 								backgroundColor: 'blackAlpha.50',
 							},
 							'&::-webkit-scrollbar-thumb': {
@@ -74,7 +80,6 @@ export const NotificationModal: React.FC<INotificationModal> = ({
 					>
 						{notificationsList.map((notification, index) => (
 							<Flex
-								w="full"
 								key={+index}
 								justify="space-between"
 								bg="gray.50"
@@ -82,8 +87,9 @@ export const NotificationModal: React.FC<INotificationModal> = ({
 								borderRadius="base"
 								align="center"
 								cursor="pointer"
+								px="3"
 							>
-								<Flex gap="2" align="center" px="6" py="1">
+								<Flex gap="2" align="center" py="1" w="full">
 									<Img src={notification.icon} boxSize="4" />
 									<Flex direction="column" justify="center">
 										<Text color="black" fontSize="sm" fontWeight="normal">
@@ -97,10 +103,10 @@ export const NotificationModal: React.FC<INotificationModal> = ({
 							</Flex>
 						))}
 					</Flex>
-				</ModalBody>
-			</ModalContent>
-		</Modal>
+				</PopoverBody>
+			</PopoverContent>
+		</Popover>
 	);
 };
 
-export default NotificationModal;
+export default NotificationPopover;

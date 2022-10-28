@@ -1,10 +1,13 @@
 /* eslint-disable consistent-return */
-import { Flex, Text } from '@chakra-ui/react';
-import { NotificationButton } from 'components';
+import { Flex, Text, useDisclosure } from '@chakra-ui/react';
+import { NotificationPopover } from 'components';
+import { INotificationList } from 'types';
+import { useState, useMemo } from 'react';
+
 import useTranslation from 'next-translate/useTranslation';
-import { useMemo } from 'react';
 
 export const DashboardHeader: React.FC = () => {
+	const { onClose, isOpen, onOpen } = useDisclosure();
 	const { t: translate } = useTranslation('app-header');
 	const isConnected = true;
 	const percentage = 1;
@@ -26,6 +29,41 @@ export const DashboardHeader: React.FC = () => {
 		if (percentage > 0)
 			return { status: translate('bullish'), color: 'blue.500' };
 	};
+
+	const [notificationsList, setNotificationsList] = useState<
+		INotificationList[]
+	>([
+		{
+			type: 'You made a deposit of $23,456.02',
+			date: '08 Aug 22, 20:57',
+			icon: '/icons/deposit.svg',
+		},
+		{
+			type: 'You created Kylie Cosmetics',
+			date: '08 Aug 22, 20:57',
+			icon: '/icons/deposit.svg',
+		},
+		{
+			type: '0x6856...BF99 added to Kylie Baby',
+			date: '08 Aug 22, 20:57',
+			icon: '/icons/deposit.svg',
+		},
+		{
+			type: 'Marketing Team created Kylie Skin',
+			date: '08 Aug 22, 20:57',
+			icon: '/icons/deposit.svg',
+		},
+		{
+			type: 'Marketing Team created Kylie Skin',
+			date: '08 Aug 22, 20:57',
+			icon: '/icons/deposit.svg',
+		},
+		{
+			type: 'Marketing Team created Kylie Skin',
+			date: '08 Aug 22, 20:57',
+			icon: '/icons/deposit.svg',
+		},
+	]);
 
 	return (
 		<Flex direction="row" justify="space-between" h="max-content" pb="4">
@@ -60,7 +98,14 @@ export const DashboardHeader: React.FC = () => {
 					</Text>
 				</Flex>
 			</Flex>
-			<NotificationButton />
+			<NotificationPopover
+				setNotificationsList={setNotificationsList}
+				onClose={onClose}
+				isOpen={isOpen}
+				onOpen={onOpen}
+				notificationNumber={notificationsList.length}
+				notificationsList={notificationsList}
+			/>
 		</Flex>
 	);
 };
