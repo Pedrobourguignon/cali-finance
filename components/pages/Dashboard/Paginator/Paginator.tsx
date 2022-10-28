@@ -1,17 +1,20 @@
+/* eslint-disable react/no-unused-prop-types */
+/* eslint-disable react/require-default-props */
 import { Button, ButtonProps, Flex, Icon, Text } from '@chakra-ui/react';
 import { AiOutlineLeft, AiOutlineRight } from 'react-icons/ai';
 
 import { FC } from 'react';
 
 interface IPaginatorProps extends ButtonProps {
-	previous: () => void;
-	next: () => void;
-	actualPage: number;
-	maxPage: number;
+	onClick?: () => void;
+	previous?: () => void;
+	next?: () => void;
+	actualPage?: number;
+	maxPage?: number;
 }
 
-const PaginatorPreviousButton: FC<IPaginatorProps> = ({
-	previous,
+const PaginatorButton: FC<IPaginatorProps> = ({
+	onClick,
 	children,
 	...props
 }) => (
@@ -19,25 +22,7 @@ const PaginatorPreviousButton: FC<IPaginatorProps> = ({
 		boxSize="7"
 		border="1px solid"
 		bg="white"
-		aria-label="left-arrow"
-		onClick={previous}
-		{...props}
-	>
-		{children}
-	</Button>
-);
-
-const PaginatorNextButton: FC<IPaginatorProps> = ({
-	next,
-	children,
-	...props
-}) => (
-	<Button
-		boxSize="7"
-		border="1px solid"
-		bg="white"
-		aria-label="left-arrow"
-		onClick={next}
+		onClick={onClick}
 		{...props}
 	>
 		{children}
@@ -51,26 +36,14 @@ export const Paginator: FC<IPaginatorProps> = ({
 	next,
 }) => (
 	<Flex justifyContent="space-between" align="center" gap="2">
-		<PaginatorPreviousButton
-			disabled={actualPage === 1}
-			previous={previous}
-			next={next}
-			actualPage={actualPage}
-			maxPage={maxPage}
-		>
+		<PaginatorButton disabled={actualPage === 1} onClick={previous}>
 			<Icon as={AiOutlineLeft} />
-		</PaginatorPreviousButton>
+		</PaginatorButton>
 		<Text w="max-content" h="max-content" fontWeight="500">
 			{actualPage} of {maxPage}
 		</Text>
-		<PaginatorNextButton
-			disabled={actualPage === maxPage}
-			next={next}
-			previous={previous}
-			actualPage={actualPage}
-			maxPage={maxPage}
-		>
+		<PaginatorButton disabled={actualPage === maxPage} onClick={next}>
 			<Icon as={AiOutlineRight} />
-		</PaginatorNextButton>
+		</PaginatorButton>
 	</Flex>
 );

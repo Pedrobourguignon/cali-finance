@@ -1,7 +1,7 @@
 /* eslint-disable no-shadow */
 import { Box, Flex, Text } from '@chakra-ui/react';
 import Slider from 'react-slick';
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { Paginator, TeamCard } from 'components';
 import { ITeamsList } from 'types';
 
@@ -50,15 +50,15 @@ export const TeamsList = () => {
 	const [actualPage, setActualPage] = useState(1);
 	const [maxPage, setMaxPage] = useState(teamList.length - 2);
 
-	const previousPage = () => {
+	const previousPage = useCallback(() => {
 		setActualPage(actualPage - 1);
 		slider?.slickPrev();
-	};
+	}, [slider, actualPage]);
 
-	const nextPage = () => {
+	const nextPage = useCallback(() => {
 		setActualPage(actualPage + 1);
 		slider?.slickNext();
-	};
+	}, [slider, actualPage]);
 
 	return (
 		<Flex direction="column" gap="3">
@@ -69,24 +69,12 @@ export const TeamsList = () => {
 				<Paginator
 					actualPage={actualPage}
 					maxPage={maxPage}
-					previous={() => previousPage()}
-					next={() => nextPage()}
+					previous={previousPage}
+					next={nextPage}
 				/>
 			</Flex>
 			<Box position="relative">
-				<link
-					rel="stylesheet"
-					type="text/css"
-					charSet="UTF-8"
-					href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css"
-				/>
-				<link
-					rel="stylesheet"
-					type="text/css"
-					href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css"
-				/>
-
-				<Flex w="697px" display="block" bg="white">
+				<Flex w="43.4rem" display="block" bg="transparent">
 					<Slider
 						{...settings}
 						ref={slider => setSlider(slider)}
