@@ -7,7 +7,7 @@ import { useMemo } from 'react';
 export const DashboardHeader: React.FC = () => {
 	const { t: translate } = useTranslation('app-header');
 	const isConnected = true;
-	const percentage = 1;
+	const percentage = 0;
 	const name = 'Bradley';
 
 	const greetingMessage = useMemo(() => {
