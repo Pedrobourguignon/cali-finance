@@ -1,5 +1,5 @@
 import { Flex, Text } from '@chakra-ui/react';
-import { CreateOrganizationButton } from 'components';
+import { OffsetButton } from 'components';
 import { usePicasso } from 'hooks';
 
 // eslint-disable-next-line id-length
@@ -40,7 +40,7 @@ export const OrganizationsDashboardNoConnected = () => {
 						Total Funds
 					</Text>
 				</Flex>
-				<CreateOrganizationButton />
+				<OffsetButton name="Create Organization" route="organization/create" />
 			</Flex>
 		</Flex>
 	);

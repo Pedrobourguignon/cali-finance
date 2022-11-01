@@ -1,5 +1,5 @@
 import { Flex, Text } from '@chakra-ui/react';
-import { CreateOrganizationButton } from 'components';
+import { OffsetButton } from 'components';
 import { usePicasso } from 'hooks';
 
 interface IOrganizationsDashboard {
@@ -51,7 +51,7 @@ export const OrganizationsDashboard: React.FC<IOrganizationsDashboard> = ({
 						Total Funds
 					</Text>
 				</Flex>
-				<CreateOrganizationButton />
+				<OffsetButton name="Create Organization" route="organizations/create" />
 			</Flex>
 		</Flex>
 	);

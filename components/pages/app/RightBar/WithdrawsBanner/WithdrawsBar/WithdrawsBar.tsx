@@ -3,37 +3,38 @@ import { CircularProgressBar } from 'components';
 import { usePicasso } from 'hooks';
 
 const withdrawnPercentage = 50;
-export const WithdrawsBar = () => {
-	const theme = usePicasso();
-	return (
+export const WithdrawsBar = () => (
+	<Flex direction="column" position="relative">
 		<Flex
-			direction="column"
 			w="100%"
 			px="4"
 			py="2.5"
 			bg="white"
 			borderRadius="base"
-			position="relative"
+			h="100%"
+			direction="column"
+			gap="3"
 		>
 			<Text color="black" fontWeight="medium" fontSize="md">
 				Withdrawals
 			</Text>
 			<CircularProgressBar percentage={withdrawnPercentage} />
-			<Flex
-				color="black"
-				direction="column"
-				textAlign="center"
-				position="absolute"
-				left="38%"
-				top="45%"
-			>
-				<Text fontSize="xs">Withdrawn</Text>
-				<Text fontWeight="medium">{withdrawnPercentage}%</Text>
-			</Flex>
-			<Flex>
-				<Button color="black"> This Week</Button>
+			<Flex zIndex="docked">
+				<Button color="black">This Week</Button>
 				<Button color="black">This Month</Button>
 			</Flex>
 		</Flex>
-	);
-};
+		<Flex
+			h="100%"
+			w="100%"
+			justify="center"
+			color="black"
+			direction="column"
+			textAlign="center"
+			position="absolute"
+		>
+			<Text fontSize="xs">Withdrawn</Text>
+			<Text fontWeight="medium">{withdrawnPercentage}%</Text>
+		</Flex>
+	</Flex>
+);

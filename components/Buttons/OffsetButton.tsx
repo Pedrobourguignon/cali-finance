@@ -1,10 +1,22 @@
-import { Button } from '@chakra-ui/react';
+import { Button, Icon, IconProps } from '@chakra-ui/react';
 import { OffsetShadow } from 'components';
+import { usePicasso } from 'hooks';
 import Router from 'next/router';
 
-export const CreateOrganizationButton = () => {
+interface IOffsetButton {
+	route: string;
+	name: string;
+	icon?: (props: IconProps) => JSX.Element;
+}
+
+export const OffsetButton: React.FC<IOffsetButton> = ({
+	name,
+	route,
+	icon,
+}) => {
+	const theme = usePicasso();
 	const handleClick = () => {
-		Router.push('organizations/create');
+		Router.push(route);
 	};
 	return (
 		<OffsetShadow width="36" height="10" buttonText="" borderColor="white">
@@ -27,7 +39,9 @@ export const CreateOrganizationButton = () => {
 					transform: 'translateY(0.5rem) translateX(0.5rem)',
 				}}
 			>
-				Create Organization
+				{icon ? <Icon as={icon} color={theme.text.black} mr="2" /> : ''}
+
+				{name}
 			</Button>
 		</OffsetShadow>
 	);

@@ -1,11 +1,6 @@
-export interface IOrganization {
+export interface INewOrganization {
 	name: string;
-	type: string;
-	funds: number;
-	email: string;
-	members: string;
 	logo: string;
-	description?: string;
 	socialMedia: [
 		{
 			website?: string;
@@ -14,5 +9,4 @@ export interface IOrganization {
 			telegram?: string;
 		}
 	];
-	teams: [string];
 }

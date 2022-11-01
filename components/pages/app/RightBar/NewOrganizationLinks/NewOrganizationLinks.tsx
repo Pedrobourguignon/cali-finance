@@ -1,23 +1,50 @@
-import {
-	Flex,
-	FormControl,
-	Img,
-	Input,
-	InputGroup,
-	InputLeftElement,
-} from '@chakra-ui/react';
+/* eslint-disable no-nested-ternary */
+import { Flex, FormControl, Img } from '@chakra-ui/react';
 import { usePicasso } from 'hooks';
 import { handleLogoImage } from 'utils';
-import { ImageUploader } from 'components';
+import { ImageUploader, SocialMediaInput } from 'components';
+import { INewOrganization, ISocialMediaInput } from 'types';
 
-const organizations = {
+const organizations: INewOrganization = {
 	name: 'Itatiaia',
-	logo: '/images/work.png',
-	site: 'website.io',
-	instagram: 'instagram/company',
-	twitter: 'twitter.com/company',
-	telegram: 't.me/company',
+	logo: '',
+	socialMedia: [
+		{
+			website: 'itatiaia.com',
+			instagram: 'instagram/company',
+			twitter: 'twitter.com/company',
+			telegram: 't.me/company',
+		},
+	],
 };
+
+const socialLinks: ISocialMediaInput[] = [
+	{
+		imgSrc: '/icons/globe.svg',
+		placeHolder: 'website.io',
+		link: organizations.socialMedia[0].website,
+	},
+	{
+		imgSrc: '/icons/instagram.svg',
+		placeHolder: 'instagram.com/company',
+		link: organizations.socialMedia[0].instagram,
+	},
+	{
+		imgSrc: '/icons/twitter.svg',
+		placeHolder: 'twitter.com/company',
+		link: organizations.socialMedia[0].twitter,
+	},
+	{
+		imgSrc: '/icons/telegram.svg',
+		placeHolder: 't.me/company',
+		link: organizations.socialMedia[0].telegram,
+	},
+	{
+		imgSrc: '/icons/m-letter.svg',
+		placeHolder: 'Placeholder',
+		link: '',
+	},
+];
 
 export const NewOrganizationLinks = () => {
 	const theme = usePicasso();
@@ -43,7 +70,7 @@ export const NewOrganizationLinks = () => {
 				<Flex direction="column" align="center" gap="4">
 					{organizations.logo ? (
 						<Img src={organizations.logo} boxSize="20" borderRadius="base" />
-					) : (
+					) : organizations.name ? (
 						<Flex
 							boxSize="20"
 							color="black"
@@ -55,6 +82,8 @@ export const NewOrganizationLinks = () => {
 						>
 							{handleLogoImage(organizations.logo, organizations.name)}
 						</Flex>
+					) : (
+						<Img src="/images/work.png" boxSize="20" borderRadius="base" />
 					)}
 					<ImageUploader />
 				</Flex>
@@ -62,57 +91,14 @@ export const NewOrganizationLinks = () => {
 					<form>
 						<FormControl>
 							<Flex direction="column" gap="2" minW="72">
-								<InputGroup bg="whiteAlpha.200">
-									<InputLeftElement
-										pointerEvents="none"
-										borderRightColor="whiteAlpha.200"
-										borderRightWidth="0.1rem"
-									>
-										<Img src="/icons/globe.svg" />
-									</InputLeftElement>
-									<Input placeholder="website.io" />
-								</InputGroup>
-								<InputGroup bg="whiteAlpha.200">
-									<InputLeftElement
-										pointerEvents="none"
-										borderRightColor="whiteAlpha.200"
-										borderRightWidth="0.1rem"
-									>
-										<Img src="/icons/instagram.svg" />
-									</InputLeftElement>
-									<Input placeholder="instagram.com/company" />
-								</InputGroup>
-
-								<InputGroup bg="whiteAlpha.200">
-									<InputLeftElement
-										pointerEvents="none"
-										borderRightColor="whiteAlpha.200"
-										borderRightWidth="0.1rem"
-									>
-										<Img src="/icons/twitter.svg" />
-									</InputLeftElement>
-									<Input placeholder="twitter.com/company" />
-								</InputGroup>
-								<InputGroup bg="whiteAlpha.200">
-									<InputLeftElement
-										pointerEvents="none"
-										borderRightColor="whiteAlpha.200"
-										borderRightWidth="0.1rem"
-									>
-										<Img src="/icons/telegram.svg" />
-									</InputLeftElement>
-									<Input placeholder="t.me/company" />
-								</InputGroup>
-								<InputGroup bg="whiteAlpha.200">
-									<InputLeftElement
-										pointerEvents="none"
-										borderRightColor="whiteAlpha.200"
-										borderRightWidth="0.1rem"
-									>
-										<Img src="/icons/m-letter.svg" />
-									</InputLeftElement>
-									<Input placeholder="Placeholder" />
-								</InputGroup>
+								{socialLinks.map((item, index) => (
+									<SocialMediaInput
+										imgSrc={item.imgSrc}
+										link={item.link}
+										placeHolder={item.placeHolder}
+										key={index}
+									/>
+								))}
 							</Flex>
 						</FormControl>
 					</form>

@@ -7,7 +7,11 @@ import {
 	Text,
 	Textarea,
 } from '@chakra-ui/react';
-import { NewOrganizationLinks, BackToOrganizations } from 'components';
+import {
+	NewOrganizationLinks,
+	BackToOrganizations,
+	WithdrawalsBanner,
+} from 'components';
 import { usePicasso } from 'hooks';
 import { AppLayout } from 'layouts';
 import { useForm } from 'react-hook-form';
@@ -22,7 +26,7 @@ interface ICreateOrganization {
 }
 
 const organizationsType = ['DAO', 'financial', 'e-commerce'];
-export const CreateOrganizationContainer = () => {
+export const CreateOrganization = () => {
 	const theme = usePicasso();
 	const {
 		register,

@@ -19,7 +19,7 @@ export const InfosBanner: React.FC<IInfos> = ({ children }) => {
 				<Flex position="absolute" bottom="0">
 					<Img src="/images/illustration.png" />
 				</Flex>
-				<Img src="/images/Vector19.png" />
+				<Img src="/images/ondulate-background.png" />
 			</Flex>
 		</Flex>
 	);

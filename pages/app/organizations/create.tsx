@@ -1,4 +1,4 @@
-import { CreateOrganizationContainer } from 'containers';
+import { CreateOrganization } from 'containers';
 
-export const Create = () => <CreateOrganizationContainer />;
+export const Create = () => <CreateOrganization />;
 export default Create;

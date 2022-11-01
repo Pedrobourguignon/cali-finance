@@ -6,19 +6,17 @@ export const ImageUploader = () => {
 
 	return (
 		<Flex>
-			<form>
-				<Button
-					onClick={onOpen}
-					borderRadius="base"
-					bg="black"
-					fontSize="xs"
-					fontWeight="medium"
-					px="3"
-					h="6"
-				>
-					Edit logo image
-				</Button>
-			</form>
+			<Button
+				onClick={onOpen}
+				borderRadius="base"
+				bg="black"
+				fontSize="xs"
+				fontWeight="medium"
+				px="3"
+				h="6"
+			>
+				Edit logo image
+			</Button>
 			<ImageUploaderModal isOpen={isOpen} onClose={onClose} />
 		</Flex>
 	);
