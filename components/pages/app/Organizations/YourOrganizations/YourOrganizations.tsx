@@ -16,7 +16,7 @@ export const YourOrganizations = () => {
 						logo={item.logo}
 						name={item.name}
 						funds={item.funds}
-						members={item.members}
+						members={+item.members}
 					/>
 				))}
 			</Flex>

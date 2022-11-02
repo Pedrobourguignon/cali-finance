@@ -7,7 +7,7 @@ interface IOrganizationCard {
 	logo: string;
 	name: string;
 	funds: number;
-	members: string;
+	members: number;
 }
 export const OrganizationCard: React.FC<IOrganizationCard> = ({
 	logo,

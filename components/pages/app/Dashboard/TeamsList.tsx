@@ -31,7 +31,7 @@ export const OrganizationsList = () => (
 				logo={team.logo}
 				key={+index}
 				name={team.teamName}
-				funds={team.funds}
+				funds={+team.funds}
 				members={team.members}
 			/>
 		))}

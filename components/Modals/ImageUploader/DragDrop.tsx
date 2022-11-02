@@ -29,7 +29,7 @@ export const DragDrop = () => {
 			return;
 		}
 		setSizeIsValid(true);
-		newFile.readAsDataURL(file);
+		// newFile.readAsDataURL(file);
 		newFile.onload = event => {
 			const base64File = {
 				file: event.target?.result,
