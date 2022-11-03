@@ -1,0 +1,41 @@
+import { Icon, IconProps } from '@chakra-ui/react';
+
+const EthereumIcon = (props: IconProps) => (
+	<Icon {...props}>
+		<svg
+			width="16"
+			height="16"
+			viewBox="0 0 16 16"
+			fill="currentColor"
+			xmlns="http://www.w3.org/2000/svg"
+		>
+			<path
+				d="M8.24902 2V6.435L11.9975 8.11L8.24902 2Z"
+				fill="currentColor"
+				fillOpacity="0.602"
+			/>
+			<path d="M8.249 2L4.5 8.11L8.249 6.435V2Z" fill="currentColor" />
+			<path
+				d="M8.24902 10.984V13.9975L12 8.80798L8.24902 10.984Z"
+				fill="currentColor"
+				fillOpacity="0.602"
+			/>
+			<path
+				d="M8.249 13.9975V10.9835L4.5 8.80798L8.249 13.9975Z"
+				fill="currentColor"
+			/>
+			<path
+				d="M8.24902 10.2865L11.9975 8.11003L8.24902 6.43604V10.2865Z"
+				fill="currentColor"
+				fillOpacity="0.2"
+			/>
+			<path
+				d="M4.5 8.11003L8.249 10.2865V6.43604L4.5 8.11003Z"
+				fill="currentColor"
+				fillOpacity="0.602"
+			/>
+		</svg>
+	</Icon>
+);
+
+export { EthereumIcon };
