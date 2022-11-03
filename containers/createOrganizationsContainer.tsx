@@ -7,16 +7,13 @@ import {
 	Text,
 	Textarea,
 } from '@chakra-ui/react';
-import {
-	NewOrganizationLinks,
-	BackToOrganizations,
-	WithdrawalsBanner,
-} from 'components';
+import { NewOrganizationLinks, BackToOrganizations } from 'components';
 import { usePicasso } from 'hooks';
 import { AppLayout } from 'layouts';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { createOrganizationSchema } from 'utils';
+import { useCallback } from 'react';
 
 interface ICreateOrganization {
 	name: string;
@@ -35,9 +32,13 @@ export const CreateOrganization = () => {
 	} = useForm<ICreateOrganization>({
 		resolver: yupResolver(createOrganizationSchema),
 	});
-	const handleCreateOrganization = (organizationData: ICreateOrganization) => {
-		console.log(organizationData);
-	};
+
+	const handleCreateOrganization = useCallback(
+		(organizationData: ICreateOrganization) => {
+			console.log(organizationData);
+		},
+		[]
+	);
 	return (
 		<AppLayout right={<NewOrganizationLinks />}>
 			<Flex w="100%" bg="white" h="64" position="absolute" />

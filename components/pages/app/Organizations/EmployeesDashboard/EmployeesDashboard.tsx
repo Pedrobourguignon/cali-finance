@@ -1,14 +1,15 @@
 import { Button, Flex, LinkBox, LinkOverlay, Text } from '@chakra-ui/react';
 import { usePicasso } from 'hooks';
 import NextLink from 'next/link';
-import { EmployeeData } from './EmployeeData';
+import { EmployeeData } from 'components';
+import { IEmployee } from 'types';
 
-const employees = [
+const employees: IEmployee[] = [
 	{
 		name: 'Kim Kardashian',
 		wallet: '0x7E48CA2BD05EC61C2FA83CF34B066A8FF36B4CFE',
 		photo: '/images/avatar.png',
-		amount: '10.000',
+		amount: 10.0,
 		coin: 'USDT',
 		team: 'General',
 	},
@@ -16,7 +17,7 @@ const employees = [
 		name: 'Kylie Jenner',
 		wallet: '0x7E48CA2BD05EC61C2FA83CF34B066A8FF36Z9EXD',
 		photo: '/images/avatar.png',
-		amount: '100.000',
+		amount: 100.0,
 		coin: 'USDT',
 		team: 'Marketing',
 	},
@@ -24,7 +25,7 @@ const employees = [
 		name: 'Kloe Kardashian',
 		wallet: '0x7E48CA2BD05EC61C2FA83CF34B066A8FF36C3QER',
 		photo: '/images/avatar.png',
-		amount: '80.000',
+		amount: 80.0,
 		coin: 'USDT',
 		team: 'Finance',
 	},
@@ -32,7 +33,7 @@ const employees = [
 		name: 'Kloe Kardashian',
 		wallet: '0x7E48CA2BD05EC61C2FA83CF34B066A8FF36C3QER',
 		photo: '/images/avatar.png',
-		amount: '80.000',
+		amount: 80.0,
 		coin: 'USDT',
 		team: 'Finance',
 	},
@@ -40,7 +41,7 @@ const employees = [
 		name: 'Kloe Kardashian',
 		wallet: '0x7E48CA2BD05EC61C2FA83CF34B066A8FF36C3QER',
 		photo: '/images/avatar.png',
-		amount: '80.000',
+		amount: 80.0,
 		coin: 'USDT',
 		team: 'Finance',
 	},
@@ -83,16 +84,8 @@ export const EmployeesDashboard = () => {
 				<Text>Amount</Text>
 			</Flex>
 			<Flex direction="column" gap="2">
-				{employees.slice(0, 3).map((item, index) => (
-					<EmployeeData
-						key={index}
-						name={item.name}
-						wallet={item.wallet}
-						team={item.team}
-						photo={item.photo}
-						amount={item.amount}
-						coin={item.coin}
-					/>
+				{employees.slice(0, 3).map((employee, index) => (
+					<EmployeeData key={+index} employee={employee} />
 				))}
 			</Flex>
 		</Flex>

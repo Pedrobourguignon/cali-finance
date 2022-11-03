@@ -1,18 +1,13 @@
+import { ISocialMedia } from 'types';
+
 export interface IOrganization {
 	name: string;
 	type: string;
 	funds: number;
 	email: string;
-	members: string;
+	members: number;
 	logo: string;
 	description?: string;
-	socialMedia: [
-		{
-			website?: string;
-			instagram?: string;
-			twitter?: string;
-			telegram?: string;
-		}
-	];
+	socialMedia: ISocialMedia[];
 	teams: [string];
 }

@@ -5,13 +5,10 @@ import { FileUploader } from 'react-drag-drop-files';
 
 const fileTypes = ['JPG', 'PNG', 'SVG', 'JPEG'];
 
-interface IFile {
-	lastModified: number;
-	lastModifiedDate: object;
+interface IFile extends Blob {
 	name: string;
 	size: number;
 	type: string;
-	webkitRelativePath: string;
 }
 
 export const DragDrop = () => {
@@ -29,7 +26,8 @@ export const DragDrop = () => {
 			return;
 		}
 		setSizeIsValid(true);
-		// newFile.readAsDataURL(file);
+		newFile.readAsDataURL(file);
+
 		newFile.onload = event => {
 			const base64File = {
 				file: event.target?.result,

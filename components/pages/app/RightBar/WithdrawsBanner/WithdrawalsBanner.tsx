@@ -3,6 +3,7 @@ import { usePicasso } from 'hooks';
 import NextLink from 'next/link';
 import { FiInstagram, FiLinkedin, FiTwitter } from 'react-icons/fi';
 import { InfosBanner, WithdrawsBar } from 'components';
+import { socialMediaLinks } from 'utils';
 
 export const WithdrawalsBanner = () => {
 	const theme = usePicasso();
@@ -17,13 +18,13 @@ export const WithdrawalsBanner = () => {
 						and organizations payments
 					</Text>
 					<Flex gap="6">
-						<NextLink href="/">
+						<NextLink href={socialMediaLinks.instagram}>
 							<Icon boxSize="5" color={theme.branding.cyan} as={FiInstagram} />
 						</NextLink>
-						<NextLink href="/">
+						<NextLink href={socialMediaLinks.linkedin}>
 							<Icon boxSize="5" color={theme.branding.cyan} as={FiLinkedin} />
 						</NextLink>
-						<NextLink href="/">
+						<NextLink href={socialMediaLinks.twitter}>
 							<Icon boxSize="5" color={theme.branding.cyan} as={FiTwitter} />
 						</NextLink>
 					</Flex>

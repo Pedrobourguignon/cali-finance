@@ -4,6 +4,7 @@ import { useOrganizations } from 'hooks';
 
 export const YourOrganizations = () => {
 	const { organization } = useOrganizations();
+	console.log(organization);
 	return (
 		<Flex direction="column" gap="4">
 			<Text color="black" fontSize="md" fontWeight="medium">
@@ -12,11 +13,11 @@ export const YourOrganizations = () => {
 			<Flex gap="4">
 				{organization.map((item, index) => (
 					<OrganizationCard
-						key={index}
+						key={+index}
 						logo={item.logo}
 						name={item.name}
 						funds={item.funds}
-						members={+item.members}
+						members={item.members}
 					/>
 				))}
 			</Flex>

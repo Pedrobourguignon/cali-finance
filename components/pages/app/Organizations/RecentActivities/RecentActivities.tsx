@@ -24,20 +24,9 @@ export const RecentActivities = () => {
 					</NextLink>
 				</Flex>
 				<Flex gap="2" direction="column">
-					{
-						// eslint-disable-next-line react/destructuring-assignment
-						activities.map((item, index) => (
-							<ActivitiesData
-								key={index}
-								name={item.name}
-								type={item.type}
-								date={item.date}
-								coin={item.coin}
-								status={item.status}
-								value={item.value}
-							/>
-						))
-					}
+					{activities.map((activitie, index) => (
+						<ActivitiesData key={+index} activities={activitie} />
+					))}
 				</Flex>
 			</Flex>
 		</Flex>

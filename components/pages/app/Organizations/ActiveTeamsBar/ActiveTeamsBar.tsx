@@ -59,8 +59,8 @@ export const ActiveTeamsBar = () => {
 		// eslint-disable-next-line array-callback-return
 		teams.map(item => {
 			total += item.members;
-			setTotalMembers(total);
 		});
+		setTotalMembers(total);
 	}, [teams]);
 
 	useEffect(() => {

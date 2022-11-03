@@ -2,7 +2,7 @@ export interface IActivities {
 	name: string;
 	type: string;
 	date: string;
-	value: string;
+	value: number;
 	coin: string;
 	status: string;
 }

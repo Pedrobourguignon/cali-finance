@@ -1,25 +1,13 @@
 import { Button, Flex, Icon, Img, Select, Text } from '@chakra-ui/react';
 import { MdContentCopy } from 'react-icons/md';
+import { IEmployee } from 'types';
 import { truncateWallet } from 'utils';
 
-interface IEmployee {
-	name: string;
-	wallet: string;
-	photo: string;
-	amount: string;
-	coin: string;
-	team: string;
-}
-
 const teams = ['General', 'Marketing', 'Finance', 'Trozorba'];
-export const EmployeeData: React.FC<IEmployee> = ({
-	name,
-	wallet,
-	photo,
-	amount,
-	coin,
-	team,
-}) => (
+interface IEmployeeData {
+	employee: IEmployee;
+}
+export const EmployeeData: React.FC<IEmployeeData> = ({ employee }) => (
 	<Flex
 		w="100%"
 		justify="space-between"
@@ -31,19 +19,19 @@ export const EmployeeData: React.FC<IEmployee> = ({
 		borderRadius="base"
 	>
 		<Flex justify="center" align="center" gap="3" maxW="36">
-			<Img src={photo} boxSize="6" />
+			<Img src={employee.photo} boxSize="6" />
 			<Flex direction="column" justifyItems="center">
-				<Text fontSize="sm">{name}</Text>
+				<Text fontSize="sm">{employee.name}</Text>
 				<Flex align="center">
 					<Text fontSize="xs" color="gray.500">
-						{truncateWallet(wallet)}
+						{truncateWallet(employee.wallet)}
 					</Text>
 					<Button
 						w="3"
 						h="3"
 						bg="transparent"
 						onClick={() => {
-							navigator.clipboard.writeText(wallet);
+							navigator.clipboard.writeText(employee.wallet);
 						}}
 					>
 						<Icon as={MdContentCopy} boxSize="3" color="gray.500" />
@@ -59,7 +47,7 @@ export const EmployeeData: React.FC<IEmployee> = ({
 				fontSize="sm"
 			>
 				{teams.map((item, index) => (
-					<option selected={item === team} key={index} value={item}>
+					<option selected={item === employee.team} key={+index} value={item}>
 						{item}
 					</option>
 				))}
@@ -67,8 +55,8 @@ export const EmployeeData: React.FC<IEmployee> = ({
 		</Flex>
 		<Flex direction="column" align="end">
 			<Flex gap="1" fontSize="xs">
-				<Text>{amount}</Text>
-				<Text>{coin}</Text>
+				<Text>{employee.amount}</Text>
+				<Text>{employee.coin}</Text>
 			</Flex>
 			<Button color="gray.500" fontSize="xs" fontWeight="medium" h="100%">
 				Edit

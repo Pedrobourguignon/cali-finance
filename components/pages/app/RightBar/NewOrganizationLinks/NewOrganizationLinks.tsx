@@ -22,22 +22,22 @@ const socialLinks: ISocialMediaInput[] = [
 	{
 		imgSrc: '/icons/globe.svg',
 		placeHolder: 'website.io',
-		link: 'organizations.socialMedia[0].website',
+		link: organizations.socialMedia[0].website,
 	},
 	{
 		imgSrc: '/icons/instagram.svg',
 		placeHolder: 'instagram.com/company',
-		link: 'organizations.socialMedia[0].instagram',
+		link: organizations.socialMedia[0].instagram,
 	},
 	{
 		imgSrc: '/icons/twitter.svg',
 		placeHolder: 'twitter.com/company',
-		link: 'organizations.socialMedia[0].twitter',
+		link: organizations.socialMedia[0].twitter,
 	},
 	{
 		imgSrc: '/icons/telegram.svg',
 		placeHolder: 't.me/company',
-		link: 'organizations.socialMedia[0].telegram',
+		link: organizations.socialMedia[0].telegram,
 	},
 	{
 		imgSrc: '/icons/m-letter.svg',
