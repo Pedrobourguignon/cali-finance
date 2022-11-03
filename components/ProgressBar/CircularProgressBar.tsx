@@ -11,7 +11,7 @@ export const CircularProgressBar: React.FC<IPercentage> = ({ percentage }) => {
 		let percentPath: string | number = percentage;
 		percentPath = 240 - percentage * 2.4;
 		return percentPath.toString();
-	}, []);
+	}, [percentage]);
 	return (
 		<svg display="block" viewBox="25 -5 150 100">
 			<path

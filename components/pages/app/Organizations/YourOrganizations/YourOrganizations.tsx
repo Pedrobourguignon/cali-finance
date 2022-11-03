@@ -4,7 +4,6 @@ import { useOrganizations } from 'hooks';
 
 export const YourOrganizations = () => {
 	const { organization } = useOrganizations();
-	console.log(organization);
 	return (
 		<Flex direction="column" gap="4">
 			<Text color="black" fontSize="md" fontWeight="medium">

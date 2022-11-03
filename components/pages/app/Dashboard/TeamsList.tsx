@@ -5,7 +5,6 @@ import { useOrganizations } from 'hooks';
 
 export const OrganizationsList = () => {
 	const { organization } = useOrganizations();
-	console.log(organization);
 	return (
 		<Flex gap="4" align="center">
 			{organization.map((team, index) => (

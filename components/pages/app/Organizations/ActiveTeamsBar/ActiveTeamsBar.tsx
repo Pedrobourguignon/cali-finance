@@ -61,7 +61,7 @@ export const ActiveTeamsBar = () => {
 			total += item.members;
 		});
 		setTotalMembers(total);
-	}, [teams]);
+	}, []);
 
 	useEffect(() => {
 		const groupOfTeams: INewTeam[] = [];
@@ -107,7 +107,7 @@ export const ActiveTeamsBar = () => {
 			<Flex direction="column" gap="9">
 				<Flex>
 					{teams.slice(0, 4).map((item, index) => (
-						<Img src={item.icon} key={index} boxSize="6" />
+						<Img src={item.icon} key={+index} boxSize="6" />
 					))}
 					{teams.length > 4 ? <SurplusTeams quantity={teams.length - 4} /> : ''}
 				</Flex>
@@ -117,7 +117,7 @@ export const ActiveTeamsBar = () => {
 							<Flex
 								_first={{ borderLeftRadius: 'xl' }}
 								_last={{ borderRightRadius: 'xl' }}
-								key={index}
+								key={+index}
 								w={item.percent}
 								bg={item.color}
 								h="1.5"
@@ -127,7 +127,7 @@ export const ActiveTeamsBar = () => {
 					<Flex flexWrap="wrap" gap="7">
 						{newTeam.map((item, index) => (
 							<TeamsData
-								key={index}
+								key={+index}
 								color={item.color}
 								percentage={item.percent}
 								name={item.name}

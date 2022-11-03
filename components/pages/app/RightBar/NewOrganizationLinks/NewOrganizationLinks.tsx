@@ -96,7 +96,7 @@ export const NewOrganizationLinks = () => {
 										imgSrc={item.imgSrc}
 										link={item.link}
 										placeHolder={item.placeHolder}
-										key={index}
+										key={+index}
 									/>
 								))}
 							</Flex>
