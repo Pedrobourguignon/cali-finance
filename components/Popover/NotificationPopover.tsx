@@ -25,6 +25,7 @@ export const NotificationPopover: React.FC<INotificationPopover> = ({
 	onOpen,
 }) => {
 	const theme = usePicasso();
+
 	const clearAllNotifications = () => {
 		setNotificationsList([]);
 		onClose();
