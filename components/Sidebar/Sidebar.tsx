@@ -64,11 +64,11 @@ const networks: INetwork[] = [
 	},
 	{
 		name: 'Polygon',
-		icon: BnbChainIcon,
+		icon: FaEthereum,
 	},
 	{
 		name: 'BNB Chain',
-		icon: PolygonIcon,
+		icon: FaEthereum,
 	},
 ];
 

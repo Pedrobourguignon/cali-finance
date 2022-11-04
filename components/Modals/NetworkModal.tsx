@@ -70,11 +70,12 @@ export const NetworkModal: React.FC<INetworkModal> = ({
 								align="center"
 							>
 								<Button
-									h="max-content"
 									onClick={() =>
 										handleSetNetworkData(network.icon, network.name)
 									}
 									gap="2"
+									boxSize='full'
+									justifyContent='left'
 								>
 									<Icon as={network.icon} boxSize="4" color="black" />
 									<Text bg="transparent" fontSize="sm">
