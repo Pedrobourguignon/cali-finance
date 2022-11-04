@@ -1,19 +1,18 @@
 import { Img, Input, InputGroup, InputLeftElement } from '@chakra-ui/react';
 import { ISocialMediaInput } from 'types';
 
-export const SocialMediaInput: React.FC<ISocialMediaInput> = ({
-	imgSrc,
-	link,
-	placeHolder,
-}) => (
+interface ISocialLink {
+	socialLink: ISocialMediaInput;
+}
+export const SocialMediaInput: React.FC<ISocialLink> = ({ socialLink }) => (
 	<InputGroup bg="whiteAlpha.200">
 		<InputLeftElement
 			pointerEvents="none"
 			borderRightColor="whiteAlpha.200"
 			borderRightWidth="0.1rem"
 		>
-			<Img src={imgSrc} />
+			<Img src={socialLink.imgSrc} />
 		</InputLeftElement>
-		<Input placeholder={link || placeHolder} />
+		<Input placeholder={socialLink.link || socialLink.placeHolder} />
 	</InputGroup>
 );

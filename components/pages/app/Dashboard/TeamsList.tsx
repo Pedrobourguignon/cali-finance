@@ -8,13 +8,7 @@ export const OrganizationsList = () => {
 	return (
 		<Flex gap="4" align="center">
 			{organization.map((team, index) => (
-				<OrganizationCard
-					key={+index}
-					logo={team.logo}
-					name={team.name}
-					funds={team.funds}
-					members={team.members}
-				/>
+				<OrganizationCard key={+index} team={team} />
 			))}
 		</Flex>
 	);

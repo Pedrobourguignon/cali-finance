@@ -1,27 +1,21 @@
 import { Button, Flex, Img, Text } from '@chakra-ui/react';
 import { usePicasso } from 'hooks';
 import React from 'react';
+import { IOrganization } from 'types';
 import { handleLogoImage } from 'utils';
 
 interface IOrganizationCard {
-	logo: string;
-	name: string;
-	funds: number;
-	members: number;
+	team: IOrganization;
 }
-export const OrganizationCard: React.FC<IOrganizationCard> = ({
-	logo,
-	name,
-	funds,
-	members,
-}) => {
+
+export const OrganizationCard: React.FC<IOrganizationCard> = ({ team }) => {
 	const theme = usePicasso();
 	return (
 		<Flex boxShadow="lg" bg="white" borderRadius="base" direction="column">
 			<Flex direction="column" pt="2.5" pr="9" pl="4">
 				<Flex align="center" gap="2.5">
-					{logo ? (
-						<Img src={logo} boxSize="6" borderRadius="base" />
+					{team.logo ? (
+						<Img src={team.logo} boxSize="6" borderRadius="base" />
 					) : (
 						<Flex
 							boxSize="6"
@@ -33,11 +27,11 @@ export const OrganizationCard: React.FC<IOrganizationCard> = ({
 							fontWeight="bold"
 							bg={theme.bg.white2}
 						>
-							{handleLogoImage(logo, name)}
+							{handleLogoImage(team.logo, team.name)}
 						</Flex>
 					)}
 					<Text fontSize="md" fontWeight="bold" color="black">
-						{name}
+						{team.name}
 					</Text>
 				</Flex>
 				<Flex gap="12">
@@ -45,13 +39,13 @@ export const OrganizationCard: React.FC<IOrganizationCard> = ({
 						<Text fontSize="sm" color="gray.500">
 							Funds
 						</Text>
-						<Text fontSize="sm">{funds.toLocaleString('en-US')}</Text>
+						<Text fontSize="sm">{team.funds.toLocaleString('en-US')}</Text>
 					</Flex>
 					<Flex direction="column" color="black">
 						<Text fontSize="sm" color="gray.500">
 							Members
 						</Text>
-						<Text fontSize="sm">{members}</Text>
+						<Text fontSize="sm">{team.members}</Text>
 					</Flex>
 				</Flex>
 			</Flex>

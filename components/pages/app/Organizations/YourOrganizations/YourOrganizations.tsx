@@ -10,14 +10,8 @@ export const YourOrganizations = () => {
 				Your Organizations
 			</Text>
 			<Flex gap="4">
-				{organization.map((item, index) => (
-					<OrganizationCard
-						key={+index}
-						logo={item.logo}
-						name={item.name}
-						funds={item.funds}
-						members={item.members}
-					/>
+				{organization.map((team, index) => (
+					<OrganizationCard key={+index} team={team} />
 				))}
 			</Flex>
 		</Flex>

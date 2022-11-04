@@ -91,13 +91,8 @@ export const NewOrganizationLinks = () => {
 					<form>
 						<FormControl>
 							<Flex direction="column" gap="2" minW="72">
-								{socialLinks.map((item, index) => (
-									<SocialMediaInput
-										imgSrc={item.imgSrc}
-										link={item.link}
-										placeHolder={item.placeHolder}
-										key={+index}
-									/>
+								{socialLinks.map((socialLink, index) => (
+									<SocialMediaInput socialLink={socialLink} key={+index} />
 								))}
 							</Flex>
 						</FormControl>
