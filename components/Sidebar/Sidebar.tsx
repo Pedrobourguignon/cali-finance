@@ -22,8 +22,6 @@ import {
 	ConnectWalletButton,
 	ChangeNetworkButton,
 	NetworkModal,
-	BnbChainIcon,
-	PolygonIcon,
 } from 'components';
 import { navigationPaths, socialMediaLinks } from 'utils';
 import { INetwork } from 'types';
@@ -101,7 +99,7 @@ export const Sidebar: React.FC = () => {
 				setNetworkData={setNetworkData}
 			/>
 			<Flex
-				minH="100vh"
+				minH="13.75rem"
 				flexDirection="column"
 				display={{ base: 'none', md: 'flex' }}
 				bg={theme.bg.primary}

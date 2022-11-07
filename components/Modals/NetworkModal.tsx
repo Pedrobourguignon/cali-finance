@@ -22,6 +22,7 @@ export const NetworkModal: React.FC<INetworkModal> = ({
 	setNetworkData,
 }) => {
 	const theme = usePicasso();
+
 	const handleSetNetworkData = (icon: IconType | typeof Icon, name: string) => {
 		setNetworkData({ name, icon });
 		onClose();
@@ -53,7 +54,11 @@ export const NetworkModal: React.FC<INetworkModal> = ({
 						<Text color="black" fontSize="md" fontWeight="500">
 							Change Network
 						</Text>
-						<ModalCloseButton color="gray.400" p="5" />
+						<ModalCloseButton
+							color="gray.400"
+							p="5"
+							_hover={{ bg: 'transparent' }}
+						/>
 					</ModalHeader>
 					<ModalBody display="flex" flexDirection="column" gap="2">
 						{networks.map((network, index) => (
@@ -74,8 +79,9 @@ export const NetworkModal: React.FC<INetworkModal> = ({
 										handleSetNetworkData(network.icon, network.name)
 									}
 									gap="2"
-									boxSize='full'
-									justifyContent='left'
+									boxSize="full"
+									justifyContent="left"
+									bg="transparent"
 								>
 									<Icon as={network.icon} boxSize="4" color="black" />
 									<Text bg="transparent" fontSize="sm">
