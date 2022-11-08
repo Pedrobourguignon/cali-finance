@@ -1,5 +1,5 @@
 import { Button, Flex, Icon, Text } from '@chakra-ui/react';
-import { OrganizationCardIcon } from 'components/Icons';
+import { OrganizationCardIcon } from 'components';
 import { usePicasso } from 'hooks';
 import React from 'react';
 
@@ -16,12 +16,12 @@ export const TeamCard: React.FC<ITeamCard> = ({ teamName, funds, members }) => {
 			<Flex direction="column">
 				<Flex align="center" gap="2.5" py="2.5">
 					<Icon as={OrganizationCardIcon} boxSize="6" color="black" />
-					<Text fontSize="md" fontWeight="bold">
+					<Text fontSize="md" fontWeight="bold" color="#121212">
 						{teamName}
 					</Text>
 				</Flex>
 				<Flex gap="14" w="full">
-					<Flex direction="column">
+					<Flex direction="column" color="#121212">
 						<Text fontSize="sm" color="gray.500">
 							Funds
 						</Text>

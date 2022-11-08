@@ -62,7 +62,7 @@ export const TeamsList = () => {
 	return (
 		<Flex direction="column" gap="3">
 			<Flex justify="space-between" align="center" pt="4">
-				<Text fontSize="16" fontWeight="500">
+				<Text fontSize="16" fontWeight="500" color="#121212">
 					Your Organizations
 				</Text>
 				<Paginator
