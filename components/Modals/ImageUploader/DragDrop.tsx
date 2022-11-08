@@ -1,6 +1,6 @@
 import { Flex, Img, Text } from '@chakra-ui/react';
 import { usePicasso } from 'hooks';
-import React, { useCallback, useState } from 'react';
+import React, { useState } from 'react';
 import { FileUploader } from 'react-drag-drop-files';
 
 const fileTypes = ['JPG', 'PNG', 'SVG', 'JPEG'];
@@ -16,7 +16,7 @@ export const DragDrop = () => {
 	const [sizeIsValid, setSizeIsValid] = useState(true);
 	const [fileLink, setFileLink] = useState('/images/add-image.png');
 
-	const loadFile = useCallback((file: IFile) => {
+	const loadFile = (file: IFile) => {
 		const newFile = new FileReader();
 		const size = file?.size;
 		const fileData = file?.name.split('.');
@@ -38,7 +38,7 @@ export const DragDrop = () => {
 				? setFileLink(base64File.file.toString())
 				: setFileLink('/images/add-image.png');
 		};
-	}, []);
+	};
 
 	return (
 		<Flex direction="column" align="center" gap="4">

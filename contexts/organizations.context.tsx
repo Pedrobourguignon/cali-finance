@@ -125,6 +125,7 @@ export const OrganizationsProvider: React.FC<{ children: React.ReactNode }> = ({
 		);
 		setTotalMembers(members.toString());
 	}, [organization]);
+
 	const calculateTotalTeams = useCallback(() => {
 		const teams = organization.reduce(
 			// eslint-disable-next-line no-shadow
