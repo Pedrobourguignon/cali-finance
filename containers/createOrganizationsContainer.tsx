@@ -13,7 +13,6 @@ import { AppLayout } from 'layouts';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { createOrganizationSchema } from 'utils';
-import { useCallback } from 'react';
 
 interface ICreateOrganization {
 	name: string;
@@ -33,12 +32,9 @@ export const CreateOrganization = () => {
 		resolver: yupResolver(createOrganizationSchema),
 	});
 
-	const handleCreateOrganization = useCallback(
-		(organizationData: ICreateOrganization) => {
-			console.log(organizationData);
-		},
-		[]
-	);
+	const handleCreateOrganization = (organizationData: ICreateOrganization) => {
+		console.log(organizationData);
+	};
 	return (
 		<AppLayout right={<NewOrganizationLinks />}>
 			<Flex w="100%" bg="white" h="64" position="absolute" />

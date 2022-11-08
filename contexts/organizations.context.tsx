@@ -1,10 +1,4 @@
-import {
-	createContext,
-	useCallback,
-	useEffect,
-	useMemo,
-	useState,
-} from 'react';
+import { createContext, useEffect, useMemo, useState } from 'react';
 import { IOrganization, IActivities } from 'types';
 
 interface IOrganizationsContext {
@@ -106,7 +100,7 @@ export const OrganizationsProvider: React.FC<{ children: React.ReactNode }> = ({
 	const [totalTeams, setTotalTeams] = useState('');
 	const [totalMembers, setTotalMembers] = useState('');
 
-	const calculateTotalFunds = useCallback(() => {
+	const calculateTotalFunds = () => {
 		const funds = organization.reduce(
 			// eslint-disable-next-line no-shadow
 			(total: number, organization: IOrganization) =>
@@ -114,9 +108,9 @@ export const OrganizationsProvider: React.FC<{ children: React.ReactNode }> = ({
 			0
 		);
 		setTotalFunds(funds.toLocaleString('EN-us'));
-	}, [organization]);
+	};
 
-	const calculateTotalMembers = useCallback(() => {
+	const calculateTotalMembers = () => {
 		const members = organization.reduce(
 			// eslint-disable-next-line no-shadow
 			(total: number, organization: IOrganization) =>
@@ -124,9 +118,9 @@ export const OrganizationsProvider: React.FC<{ children: React.ReactNode }> = ({
 			0
 		);
 		setTotalMembers(members.toString());
-	}, [organization]);
+	};
 
-	const calculateTotalTeams = useCallback(() => {
+	const calculateTotalTeams = () => {
 		const teams = organization.reduce(
 			// eslint-disable-next-line no-shadow
 			(total: number, organization: IOrganization) =>
@@ -134,7 +128,7 @@ export const OrganizationsProvider: React.FC<{ children: React.ReactNode }> = ({
 			0
 		);
 		setTotalTeams(teams.toString());
-	}, [organization]);
+	};
 
 	useEffect(() => {
 		calculateTotalFunds();
