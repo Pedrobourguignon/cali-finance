@@ -18,6 +18,7 @@ import { usePicasso, useTokens } from 'hooks';
 import { IBasicModal } from 'types';
 import { TokenOptions } from 'components';
 import { IoIosSearch, IoMdArrowDown } from 'react-icons/io';
+import { useCallback } from 'react';
 
 export const TokenSelector: React.FC<IBasicModal> = ({ isOpen, onClose }) => {
 	const theme = usePicasso();
@@ -29,10 +30,10 @@ export const TokenSelector: React.FC<IBasicModal> = ({ isOpen, onClose }) => {
 		setChosenToken,
 	} = useTokens();
 
-	const handleOnClose = () => {
+	const handleOnClose = useCallback(() => {
 		setFilteredTokens(listOfTokens);
 		onClose();
-	};
+	}, [listOfTokens]);
 
 	const handleOnClick = (symbol: string) => {
 		setChosenToken(symbol);
