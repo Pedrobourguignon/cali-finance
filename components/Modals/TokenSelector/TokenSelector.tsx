@@ -35,11 +35,10 @@ export const TokenSelector: React.FC<IBasicModal> = ({ isOpen, onClose }) => {
 	};
 
 	const handleOnClick = (symbol: string) => {
-		console.log(symbol);
 		setChosenToken(symbol);
 		handleOnClose();
 	};
-	console.log(filteredTokens);
+
 	return (
 		<Modal isOpen={isOpen} onClose={onClose}>
 			<ModalOverlay />
@@ -74,7 +73,25 @@ export const TokenSelector: React.FC<IBasicModal> = ({ isOpen, onClose }) => {
 						<Text color={theme.bg.primary}>Token name</Text>
 						<Icon boxSize="5" color={theme.branding.blue} as={IoMdArrowDown} />
 					</Flex>
-					<Flex direction="column" h="xl" overflow="auto" gap="2">
+					<Flex
+						direction="column"
+						h="xl"
+						overflow="auto"
+						gap="2"
+						sx={{
+							'&::-webkit-scrollbar': {
+								width: '2',
+								borderRadius: 'md',
+								backgroundColor: 'blackAlpha.50',
+							},
+							'&::-webkit-scrollbar-thumb': {
+								backgroundColor: 'blackAlpha.200',
+								height: '20',
+								borderRadius: 'md',
+							},
+							px: '1',
+						}}
+					>
 						{filteredTokens.map((token, index) => (
 							<TokenOptions
 								key={+index}

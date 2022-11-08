@@ -6,9 +6,15 @@ interface ITokenOption {
 	token: IToken;
 	onClick: () => void;
 }
+
+const favoriteCoins = ['AAVE', 'ADS', 'ACYC'];
 export const TokenOptions: React.FC<ITokenOption> = ({ onClick, token }) => {
 	const theme = usePicasso();
 	const quantity = 1.356;
+
+	const handleColor = () =>
+		favoriteCoins.includes(token.symbol) ? 'gray.50' : 'white';
+
 	return (
 		<Flex>
 			<Button
@@ -16,7 +22,7 @@ export const TokenOptions: React.FC<ITokenOption> = ({ onClick, token }) => {
 				id={token.address}
 				value={token.symbol}
 				onClick={onClick}
-				bg="gray.50"
+				bg={handleColor()}
 				borderRadius="base"
 			>
 				<Flex align="center" w="100%" justify="space-between">
