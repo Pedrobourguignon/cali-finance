@@ -1,4 +1,3 @@
-/* eslint-disable no-shadow */
 import { Box, Flex, Text } from '@chakra-ui/react';
 import Slider from 'react-slick';
 import React, { useState } from 'react';
@@ -48,7 +47,7 @@ const teamList: ITeamsList[] = [
 export const TeamsList = () => {
 	const [slider, setSlider] = React.useState<Slider | null>(null);
 	const [actualPage, setActualPage] = useState(1);
-	const [maxPage, setMaxPage] = useState(teamList.length - 2);
+	const maxPage = teamList.length - 2;
 
 	const previousPage = () => {
 		setActualPage(actualPage - 1);
@@ -77,7 +76,7 @@ export const TeamsList = () => {
 				<Flex w="43.4rem" display="block" bg="transparent">
 					<Slider
 						{...settings}
-						ref={slider => setSlider(slider)}
+						ref={sliderRef => setSlider(sliderRef)}
 						arrows={false}
 						className="slider"
 					>
