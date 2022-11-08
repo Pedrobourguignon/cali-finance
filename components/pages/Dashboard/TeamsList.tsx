@@ -1,7 +1,7 @@
 /* eslint-disable no-shadow */
 import { Box, Flex, Text } from '@chakra-ui/react';
 import Slider from 'react-slick';
-import React, { useState, useCallback } from 'react';
+import React, { useState } from 'react';
 import { Paginator, TeamCard } from 'components';
 import { ITeamsList } from 'types';
 
@@ -50,15 +50,15 @@ export const TeamsList = () => {
 	const [actualPage, setActualPage] = useState(1);
 	const [maxPage, setMaxPage] = useState(teamList.length - 2);
 
-	const previousPage = useCallback(() => {
+	const previousPage = () => {
 		setActualPage(actualPage - 1);
 		slider?.slickPrev();
-	}, [slider, actualPage]);
+	};
 
-	const nextPage = useCallback(() => {
+	const nextPage = () => {
 		setActualPage(actualPage + 1);
 		slider?.slickNext();
-	}, [slider, actualPage]);
+	};
 
 	return (
 		<Flex direction="column" gap="3">
