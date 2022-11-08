@@ -6,10 +6,11 @@ const usePicasso = () => {
 		text: {
 			white: useColorModeValue('#FFFFFF', '#FFFFFF'),
 			mono: useColorModeValue('black', 'black'),
-			gray: useColorModeValue('#9B93AB', '#9B93AB'),
+			gray: useColorModeValue('#718096', '#718096'),
 			green: useColorModeValue('#9B93AB', '#2ECC71'),
 			red: useColorModeValue('#9B93AB', '#E17055'),
 			black: useColorModeValue('#010D0C', '#010D0C'),
+			black2: useColorModeValue('#1A202C', '#1A202C'),
 		},
 		branding: {
 			blue: '#1A94E1',

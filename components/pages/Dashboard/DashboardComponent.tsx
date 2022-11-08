@@ -4,11 +4,11 @@ import {
 	Coins,
 	CreateOrganizationCard,
 	SwapToken,
-	HaveProblemCard,
 	TeamsList,
 	MyAssets,
 	RecentActivities,
 	ErrorAlert,
+	WithdrawCard,
 } from 'components';
 import { usePicasso } from 'hooks';
 import React from 'react';
@@ -49,6 +49,7 @@ export const DashboardComponent: React.FC = () => {
 	const shouldNotDisplayDash = isConnected ? 'none' : 'flex';
 	const shouldDisplayDash = isConnected ? 'flex' : 'none';
 	const theme = usePicasso();
+
 	return (
 		<Flex
 			bg="white"
@@ -77,8 +78,8 @@ export const DashboardComponent: React.FC = () => {
 				</Flex>
 			</Flex>
 			<Flex direction="column" gap="2" display={shouldNotDisplayError} px="6">
+				<WithdrawCard />
 				<SwapToken />
-				<HaveProblemCard />
 			</Flex>
 			<Flex
 				align="center"

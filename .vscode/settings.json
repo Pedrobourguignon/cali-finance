@@ -1,0 +1,9 @@
+{
+    "exportall.config.relExclusion": [
+        "/services/CoingeckoService.ts",
+        "/services/OneInchService.ts"
+    ],
+    "exportall.config.folderListener": [
+        "/services"
+    ]
+}

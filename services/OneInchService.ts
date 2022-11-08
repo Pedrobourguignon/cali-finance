@@ -7,7 +7,7 @@ class OneInchService {
 	});
 
 	static async allTokensData() {
-		const url = `coins/list?include_platform=false`;
+		const url = `1/tokens`;
 		try {
 			const result = await this.api.get(url);
 			return result.data;
