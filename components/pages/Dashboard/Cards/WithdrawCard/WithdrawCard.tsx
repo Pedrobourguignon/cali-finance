@@ -1,5 +1,5 @@
 import { Flex, Text, useDisclosure } from '@chakra-ui/react';
-import { WithdrawButton, WithdrawContent, TokenSelector } from 'components';
+import { WithdrawButton, WithdrawContent } from 'components';
 import { usePicasso } from 'hooks';
 
 export const WithdrawCard = () => {
@@ -16,13 +16,12 @@ export const WithdrawCard = () => {
 			borderWidth="0.1rem"
 			borderColor={theme.bg.primary}
 		>
-			<TokenSelector isOpen={isOpen} onClose={onClose} />
 			<Flex w="100%" justify="space-between" align="center">
 				<Text color={theme.text.black} fontWeight="semibold" fontSize="xl">
 					$ Withdraw
 				</Text>
 			</Flex>
-			<WithdrawContent onOpen={onOpen} />
+			<WithdrawContent />
 			<WithdrawButton />
 		</Flex>
 	);

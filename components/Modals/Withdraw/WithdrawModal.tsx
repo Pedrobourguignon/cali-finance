@@ -30,7 +30,9 @@ export const WithdrawModal: React.FC<IBasicModal> = ({ isOpen, onClose }) => {
 					>
 						<ModalHeader color={theme.text.black2}>Withdraw</ModalHeader>
 						<ModalCloseButton color="gray.400" />
-						<ModalBody>{/* <WithdrawContent /> */}</ModalBody>
+						<ModalBody>
+							<WithdrawContent />
+						</ModalBody>
 
 						<ModalFooter>
 							<WithdrawButton />
