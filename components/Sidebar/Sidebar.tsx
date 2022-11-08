@@ -10,7 +10,7 @@ import {
 	useDisclosure,
 } from '@chakra-ui/react';
 import React, { useState } from 'react';
-import { FaDiscord, FaEthereum, FaTwitter } from 'react-icons/fa';
+import { FaDiscord, FaTwitter } from 'react-icons/fa';
 import { usePath, usePicasso } from 'hooks';
 import Router, { useRouter } from 'next/router';
 
@@ -58,15 +58,15 @@ const menuOptions: IMenuItem[] = [
 const networks: INetwork[] = [
 	{
 		name: 'Ethereum',
-		icon: FaEthereum,
+		icon: '/images/eth.png',
 	},
 	{
 		name: 'Polygon',
-		icon: FaEthereum,
+		icon: '/images/polygon.png',
 	},
 	{
 		name: 'BNB Chain',
-		icon: FaEthereum,
+		icon: '/images/bnbchain.png',
 	},
 ];
 
@@ -74,10 +74,10 @@ export const Sidebar: React.FC = () => {
 	const theme = usePicasso();
 	const { isSamePath } = usePath();
 	const [locale, setLocale] = useState<string | undefined>(useRouter().locale);
-	const [asPath, setAsPath] = useState<string | undefined>(useRouter().asPath);
+	const [asPath] = useState<string | undefined>(useRouter().asPath);
 	const [networkData, setNetworkData] = useState<INetwork>({
 		name: 'Ethereum',
-		icon: FaEthereum,
+		icon: '/images/bnbchain.png',
 	} as INetwork);
 	const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -105,7 +105,7 @@ export const Sidebar: React.FC = () => {
 				bg={theme.bg.primary}
 				align="center"
 				color="white"
-				w="220px"
+				w="13.75rem"
 			>
 				<Flex
 					justify="center"

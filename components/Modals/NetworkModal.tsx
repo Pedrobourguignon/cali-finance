@@ -8,12 +8,11 @@ import {
 	ModalBody,
 	ModalCloseButton,
 	Text,
-	Icon,
 	Button,
+	Img,
 } from '@chakra-ui/react';
 import { usePicasso } from 'hooks';
 import { INetworkModal } from 'types';
-import { IconType } from 'react-icons/lib';
 
 export const NetworkModal: React.FC<INetworkModal> = ({
 	isOpen,
@@ -23,7 +22,7 @@ export const NetworkModal: React.FC<INetworkModal> = ({
 }) => {
 	const theme = usePicasso();
 
-	const handleSetNetworkData = (icon: IconType | typeof Icon, name: string) => {
+	const handleSetNetworkData = (icon: string, name: string) => {
 		setNetworkData({ name, icon });
 		onClose();
 	};
@@ -83,7 +82,7 @@ export const NetworkModal: React.FC<INetworkModal> = ({
 									justifyContent="left"
 									bg="transparent"
 								>
-									<Icon as={network.icon} boxSize="4" color="black" />
+									<Img src={network.icon} boxSize="4" color="black" />
 									<Text bg="transparent" fontSize="sm">
 										{network.name}
 									</Text>

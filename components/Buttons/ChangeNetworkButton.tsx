@@ -1,10 +1,9 @@
-import { Button, Icon } from '@chakra-ui/react';
+import { Button, Img } from '@chakra-ui/react';
 import React from 'react';
-import { IconType } from 'react-icons/lib';
 
 interface IChangeNetworkButton {
 	networkName: string;
-	networkIcon: IconType | typeof Icon;
+	networkIcon: string;
 	onClick: () => void;
 }
 
@@ -27,7 +26,7 @@ export const ChangeNetworkButton: React.FC<IChangeNetworkButton> = ({
 		_focus={{ bg: 'transparent' }}
 		gap="2"
 	>
-		<Icon as={networkIcon} color="white" bg="transparent" />
+		<Img src={networkIcon} bg="transparent" boxSize="6" />
 		{networkName}
 	</Button>
 );
