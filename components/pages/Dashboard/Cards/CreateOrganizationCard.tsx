@@ -1,4 +1,4 @@
-import { Button, Flex, Img, Text, Icon } from '@chakra-ui/react';
+import { Button, Flex, Text, Icon } from '@chakra-ui/react';
 import { OrganizationIcon } from 'components/Icons';
 import { usePicasso } from 'hooks';
 import React from 'react';
