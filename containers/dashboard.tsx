@@ -7,7 +7,7 @@ import React from 'react';
 export const DashboardContainer = () => {
 	const theme = usePicasso();
 	return (
-		<Flex bg={theme.bg.primary}>
+		<Flex bg={theme.bg.primary} h="100vh">
 			<Sidebar />
 			<DashboardComponent />
 		</Flex>

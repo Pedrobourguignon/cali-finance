@@ -6,7 +6,7 @@ import useTranslation from 'next-translate/useTranslation';
 export const HaveProblemCard = () => {
 	const { t: translate } = useTranslation('have-a-problem');
 	return (
-		<Link href="/app/dashboard">
+		<Link href="/dashboard">
 			<Flex
 				w="full"
 				px="12"

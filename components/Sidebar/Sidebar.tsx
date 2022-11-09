@@ -39,17 +39,17 @@ const menuOptions: IMenuItem[] = [
 	},
 	{
 		icon: OrganizationIcon,
-		route: '/app/organizations',
+		route: '/dashboard/organizations',
 		option: 'Organizations',
 	},
 	{
 		icon: EditProfileIcon,
-		route: '/app/edit-profile',
+		route: '/dashboard/edit-profile',
 		option: 'Edit Profile',
 	},
 	{
 		icon: HistoryIcon,
-		route: '/app/history',
+		route: '/dashboard/history',
 		option: 'History',
 	},
 ];
@@ -100,6 +100,7 @@ export const Sidebar: React.FC = () => {
 				align="center"
 				color="white"
 				w="13.75rem"
+				h="full"
 			>
 				<Flex
 					justify="center"
@@ -146,7 +147,8 @@ export const Sidebar: React.FC = () => {
 										<Box
 											bgColor={theme.branding.blue}
 											h="full"
-											w="1.5"
+											w="2"
+											borderLeftRadius="none"
 											borderRightRadius="sm"
 										/>
 									)}
