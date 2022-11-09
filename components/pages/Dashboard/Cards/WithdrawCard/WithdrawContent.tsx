@@ -10,11 +10,7 @@ import {
 import { usePicasso } from 'hooks';
 import { IoIosArrowDown } from 'react-icons/io';
 
-interface ISelectorButton {
-	onOpen: () => void;
-}
-
-export const WithdrawContent: React.FC<ISelectorButton> = ({ onOpen }) => {
+export const WithdrawContent = () => {
 	const theme = usePicasso();
 	return (
 		<Flex direction="column" gap="2">
@@ -35,7 +31,6 @@ export const WithdrawContent: React.FC<ISelectorButton> = ({ onOpen }) => {
 					borderLeftRadius="none"
 					bg={theme.bg.primary}
 					_hover={{ opacity: '80%' }}
-					onClick={onOpen}
 					_active={{}}
 					_focus={{}}
 				>
