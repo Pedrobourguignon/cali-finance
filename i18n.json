@@ -1,6 +1,6 @@
 {
-	"locales": ["en", "pt-BR"],
-	"defaultLocale": "en",
+	"locales": ["en-US", "pt-BR"],
+	"defaultLocale": "en-US",
 	"pages": {
 		"*": ["teams-page", "app-header", "swap-token", "have-a-problem"],
 		"/": ["home", "example"],

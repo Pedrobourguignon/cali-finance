@@ -1,4 +1,3 @@
-// eslint-disable no-useless-concat
 import {
 	Box,
 	Button,
@@ -69,27 +68,23 @@ const networks: INetwork[] = [
 		icon: '/images/bnbchain.png',
 	},
 ];
+type ILanguage = 'pt-BR' | 'en-US';
 
 export const Sidebar: React.FC = () => {
 	const theme = usePicasso();
 	const { isSamePath } = usePath();
-	const [locale, setLocale] = useState<string | undefined>(useRouter().locale);
-	const [asPath] = useState<string | undefined>(useRouter().asPath);
+	const { locale, pathname } = useRouter();
+	const languages: ILanguage[] = ['en-US', 'pt-BR'];
+	const { isOpen, onOpen, onClose } = useDisclosure();
 	const [networkData, setNetworkData] = useState<INetwork>({
 		name: 'Ethereum',
 		icon: '/images/bnbchain.png',
 	} as INetwork);
-	const { isOpen, onOpen, onClose } = useDisclosure();
 
-	const changeApplicationLanguage = () => {
-		if (locale === 'en') {
-			Router.push(`/pt-BR/${asPath}`);
-			setLocale('pt-BR');
-		} else {
-			Router.push(`/en/${asPath}`);
-			setLocale('en');
-		}
+	const changeLanguage = (lang: ILanguage) => {
+		Router.push(`/${pathname}`, `/${pathname}`, { locale: lang });
 	};
+
 	return (
 		<>
 			<NetworkModal
@@ -190,26 +185,21 @@ export const Sidebar: React.FC = () => {
 					w="full"
 				>
 					<Flex gap="4">
-						<Text
-							cursor="pointer"
-							boxSize="max-content"
-							onClick={changeApplicationLanguage}
-							fontSize="sm"
-							fontWeight="semibold"
-							color={locale === 'en' ? theme.branding.blue : 'white'}
-						>
-							{locale === 'en' ? '[En]' : 'En'}
-						</Text>
-						<Text
-							cursor="pointer"
-							boxSize="max-content"
-							onClick={changeApplicationLanguage}
-							fontSize="sm"
-							fontWeight="semibold"
-							color={locale === 'pt-BR' ? theme.branding.blue : 'white'}
-						>
-							{locale === 'pt-BR' ? '[Pt]' : 'Pt'}
-						</Text>
+						{languages.map((lang, index) => (
+							<Text
+								key={+index}
+								cursor="pointer"
+								boxSize="max-content"
+								onClick={() => changeLanguage(lang)}
+								fontSize="sm"
+								fontWeight="semibold"
+								color={locale === lang ? theme.branding.blue : 'white'}
+							>
+								{locale === lang
+									? `[${lang.toUpperCase()}]`
+									: lang.toUpperCase()}
+							</Text>
+						))}
 					</Flex>
 					<Link
 						href={navigationPaths.help}
