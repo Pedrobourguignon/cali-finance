@@ -6,7 +6,7 @@ interface ILanding {
 }
 
 export const LandingPage: React.FC<ILanding> = ({ children }) => {
-	const theme = usePicasso();
+	// const theme = usePicasso();
 	return (
 		<Flex minH="100vh" direction="column" maxW="100%" position="relative">
 			{children}
