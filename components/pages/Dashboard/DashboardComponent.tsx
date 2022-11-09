@@ -12,7 +12,7 @@ import {
 } from 'components';
 import { usePicasso } from 'hooks';
 import React from 'react';
-import { IRecentActivitiesList, INotificationList } from 'types';
+import { IRecentActivitiesList } from 'types';
 
 const recentActivitiesList: IRecentActivitiesList[] = [
 	{
