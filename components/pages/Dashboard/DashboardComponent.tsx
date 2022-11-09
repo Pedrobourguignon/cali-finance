@@ -54,7 +54,7 @@ export const DashboardComponent: React.FC = () => {
 
 	return (
 		<Flex
-			bg="white"
+			bg={theme.bg.dashboard}
 			w="full"
 			h="95vh"
 			m="auto"
