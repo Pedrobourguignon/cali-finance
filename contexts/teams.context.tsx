@@ -178,9 +178,18 @@ export const TeamsContext = createContext({} as ITeamsContext);
 export const TeamsProvider: React.FC<{ children: React.ReactNode }> = ({
 	children,
 }) => {
-	const [teams, setTeams] = useState<ITeamsData[]>([
-		{ id: 1, name: 'Cali Team', balance: 123432, employees: employeeData },
-	]);
+	const [teams, setTeams] = useState<ITeamsData[]>([]);
+
+	useMemo(() => {
+		setTeams([
+			{
+				id: 1,
+				name: 'Cali Team',
+				balance: 123432,
+				employees: employeeData,
+			},
+		]);
+	}, []);
 
 	const contextStates = useMemo(
 		() => ({

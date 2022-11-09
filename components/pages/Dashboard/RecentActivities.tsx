@@ -6,7 +6,14 @@ import { IRecentActivitiesComponent } from 'types';
 export const RecentActivities: React.FC<IRecentActivitiesComponent> = ({
 	recentActivitiesList,
 }) => (
-	<Flex direction="column" borderRadius="base" gap="2" boxShadow="xl" px="3">
+	<Flex
+		direction="column"
+		borderRadius="base"
+		gap="2"
+		boxShadow="xl"
+		px="3"
+		bg="white"
+	>
 		<Flex justify="space-between" py="2">
 			<Flex>
 				<Text fontSize="md" fontWeight="medium" color="black">
