@@ -1,4 +1,5 @@
-import { Button, Flex, Img, Text } from '@chakra-ui/react';
+import { Button, Flex, Icon, Text } from '@chakra-ui/react';
+import { OrganizationCardIcon } from 'components';
 import { usePicasso } from 'hooks';
 import React from 'react';
 
@@ -11,18 +12,17 @@ interface ITeamCard {
 export const TeamCard: React.FC<ITeamCard> = ({ teamName, funds, members }) => {
 	const theme = usePicasso();
 	return (
-		<Flex boxShadow="lg">
-			<Flex direction="column" px="1">
-				<Flex align="center" gap="2.5" px="4" py="2.5">
-					<Img src="/icons/organizations.svg" boxSize="6" />
-					<Text fontSize="md" fontWeight="bold" color="black">
+		<Flex boxShadow="lg" justify="center" bg="white" mr="2">
+			<Flex direction="column">
+				<Flex align="center" gap="2.5" py="2.5">
+					<Icon as={OrganizationCardIcon} boxSize="6" color="black" />
+					<Text fontSize="md" fontWeight="bold" color="#121212">
 						{teamName}
 					</Text>
 				</Flex>
-				<Flex gap="12" px="4">
-					<Flex direction="column" color="black">
+				<Flex gap="14" w="full">
+					<Flex direction="column" color="#121212">
 						<Text fontSize="sm" color="gray.500">
-							{' '}
 							Funds
 						</Text>
 						{funds}
@@ -34,8 +34,7 @@ export const TeamCard: React.FC<ITeamCard> = ({ teamName, funds, members }) => {
 						{members}
 					</Flex>
 				</Flex>
-
-				<Button color={theme.branding.blue} bg="none" fontSize="xs">
+				<Button color={theme.branding.blue} bg="transparent" fontSize="xs">
 					Manage
 				</Button>
 			</Flex>
