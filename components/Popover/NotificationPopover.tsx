@@ -1,4 +1,3 @@
-/* eslint-disable no-param-reassign */
 import {
 	Popover,
 	PopoverTrigger,
@@ -30,6 +29,7 @@ export const NotificationPopover: React.FC<INotificationPopover> = ({
 		setNotificationsList([]);
 		onClose();
 	};
+
 	return (
 		<Popover placement="bottom-end" onClose={onClose} isOpen={isOpen}>
 			<PopoverTrigger>

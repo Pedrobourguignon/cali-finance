@@ -1,9 +1,7 @@
-/* eslint-disable consistent-return */
 import { Flex, Text, useDisclosure } from '@chakra-ui/react';
 import { NotificationPopover } from 'components';
 import { INotificationList } from 'types';
 import { useState, useMemo } from 'react';
-
 import useTranslation from 'next-translate/useTranslation';
 
 export const DashboardHeader: React.FC = () => {
@@ -15,7 +13,6 @@ export const DashboardHeader: React.FC = () => {
 
 	const greetingMessage = useMemo(() => {
 		const hour = new Date().getHours();
-		if (hour < 6) return translate('greetings.night');
 		if (hour >= 6 && hour < 12) return translate('greetings.morning');
 		if (hour >= 12 && hour < 18) return translate('greetings.afternoon');
 		return translate('greetings.night');
@@ -26,8 +23,7 @@ export const DashboardHeader: React.FC = () => {
 			return { status: translate('bearish'), color: 'red.500' };
 		if (percentage === 0)
 			return { status: translate('neutral'), color: 'gray.500' };
-		if (percentage > 0)
-			return { status: translate('bullish'), color: 'blue.500' };
+		return { status: translate('bullish'), color: 'blue.500' };
 	};
 
 	const [notificationsList, setNotificationsList] = useState<
