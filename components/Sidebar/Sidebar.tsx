@@ -34,7 +34,7 @@ interface IMenuItem {
 const menuOptions: IMenuItem[] = [
 	{
 		icon: DashboardIcon,
-		route: '/app/dashboard',
+		route: '/dashboard',
 		option: 'Dashboard',
 	},
 	{
@@ -94,7 +94,6 @@ export const Sidebar: React.FC = () => {
 				setNetworkData={setNetworkData}
 			/>
 			<Flex
-				minH="13.75rem"
 				flexDirection="column"
 				display={{ base: 'none', md: 'flex' }}
 				bg={theme.bg.primary}
@@ -157,11 +156,7 @@ export const Sidebar: React.FC = () => {
 										gap="3"
 										fontWeight="normal"
 									>
-										<Icon
-											as={item.icon}
-											boxSize="6"
-											ml={comparedPath ? '6' : '6'}
-										/>
+										<Icon as={item.icon} boxSize="6" ml="6" />
 										{item.option}
 									</Flex>
 									<Flex
