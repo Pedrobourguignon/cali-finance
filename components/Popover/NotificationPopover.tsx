@@ -25,6 +25,7 @@ export const NotificationPopover: React.FC<INotificationPopover> = ({
 	onOpen,
 }) => {
 	const theme = usePicasso();
+
 	const clearAllNotifications = () => {
 		setNotificationsList([]);
 		onClose();
@@ -41,9 +42,9 @@ export const NotificationPopover: React.FC<INotificationPopover> = ({
 				</Button>
 			</PopoverTrigger>
 			<PopoverContent>
-				<PopoverBody>
-					<Flex fontSize="sm" py="3">
-						<Text fontSize="md" fontWeight="medium" px="1">
+				<PopoverBody bg="white">
+					<Flex fontSize="sm" py="3" bg="white">
+						<Text fontSize="md" fontWeight="medium" px="1" color="black">
 							{notificationNumber} pending notifications
 						</Text>
 
