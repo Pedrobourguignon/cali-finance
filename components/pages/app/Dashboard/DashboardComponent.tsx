@@ -51,7 +51,7 @@ export const DashboardComponent: React.FC = () => {
 	const theme = usePicasso();
 	return (
 		<Flex
-			bg="white"
+			bg={theme.bg.dashboard}
 			w="full"
 			h="95vh"
 			m="auto"

@@ -38,6 +38,7 @@ const usePicasso = () => {
 			gradient:
 				'linear-gradient(178.33deg, #FFFFFF 19.26%, rgba(255, 255, 255, 0) 142.45%);',
 			select: '#191919',
+			dashboard: '#EDF2F7',
 		},
 	};
 

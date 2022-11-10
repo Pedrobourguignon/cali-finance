@@ -1,5 +1,5 @@
 export interface ITeamsList {
-	logo: string;
+	logo?: string;
 	teamName: string;
 	funds: string;
 	members: number;
