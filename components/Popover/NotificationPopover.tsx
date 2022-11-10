@@ -41,8 +41,8 @@ export const NotificationPopover: React.FC<INotificationPopover> = ({
 					/>
 				</Button>
 			</PopoverTrigger>
-			<PopoverContent>
-				<PopoverBody bg="white">
+			<PopoverContent borderRadius="base">
+				<PopoverBody bg="white" borderRadius="base">
 					<Flex fontSize="sm" py="3" bg="white">
 						<Text fontSize="md" fontWeight="medium" px="1" color="black">
 							{notificationNumber} pending notifications
@@ -75,6 +75,7 @@ export const NotificationPopover: React.FC<INotificationPopover> = ({
 							},
 							'&::-webkit-scrollbar-thumb': {
 								backgroundColor: 'blackAlpha.200',
+								borderRadius: '20px',
 							},
 							px: '1',
 						}}
