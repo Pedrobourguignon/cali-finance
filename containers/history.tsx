@@ -5,6 +5,7 @@ import React from 'react';
 
 export const HistoryContainer = () => {
 	const theme = usePicasso();
+
 	return (
 		<Flex bg={theme.bg.primary}>
 			<Sidebar />

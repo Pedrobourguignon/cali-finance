@@ -8,10 +8,12 @@ export const ErrorAlert = () => (
 			<Img src="/icons/error.svg" boxSize="96" />
 		</Flex>
 		<Flex direction="column" gap="7">
-			<Text fontSize="6xl" fontWeight="bold">
+			<Text fontSize="6xl" fontWeight="bold" color="#121212">
 				Ops...
 			</Text>
-			<Text fontSize="4xl">Something went wrong</Text>
+			<Text fontSize="4xl" color="#121212">
+				Something went wrong
+			</Text>
 			<Link href="/">
 				<Button color="white" bg="black" fontSize="md" w="max-content" px="20">
 					Back to dashboard

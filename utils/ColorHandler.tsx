@@ -26,6 +26,7 @@ const ColorHandler = ({
 };
 
 // also export a reusable function getServerSideProps
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function getServerSideProps({ req }: any) {
 	return {
 		props: {

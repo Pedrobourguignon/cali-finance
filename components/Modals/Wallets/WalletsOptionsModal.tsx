@@ -15,7 +15,6 @@ import { IWalletOptionsModal } from 'types';
 import Link from 'next/link';
 import { OffsetShadow } from 'components';
 import { usePicasso } from 'hooks';
-import { MoreIcon } from 'components/Icons';
 import { navigationPaths } from 'utils';
 
 const walletsOptions = [

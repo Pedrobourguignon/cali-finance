@@ -1,4 +1,3 @@
-/* eslint-disable import/no-named-as-default */
 import {
 	Flex,
 	Text,
@@ -13,15 +12,89 @@ import {
 	Icon,
 } from '@chakra-ui/react';
 import { usePicasso } from 'hooks';
-import React from 'react';
+import React, { useState } from 'react';
 import { BiChevronDown } from 'react-icons/bi';
 import { IHistoryPage } from 'types';
+import { Paginator } from '../Dashboard';
 
 export const HistoryComponent: React.FC<IHistoryPage> = ({ history }) => {
 	const theme = usePicasso();
 	const isConnected = true;
 	const shouldDisplay = isConnected ? 'flex' : 'none';
 	const shouldntDisplay = isConnected ? 'none' : 'flex';
+
+	const [pageNumber, setPageNumber] = useState(0);
+	const [actualPage, setActualPage] = useState(1);
+	const notificationPerPage = 9;
+	const maxPage = Math.ceil(history.length / notificationPerPage);
+	const pagesVisited = pageNumber * notificationPerPage;
+
+	const previous = () => {
+		setPageNumber(pageNumber - 1);
+		setActualPage(actualPage - 1);
+	};
+	const next = () => {
+		setPageNumber(pageNumber + 1);
+		setActualPage(actualPage + 1);
+	};
+
+	const displayNotifications = history
+		.slice(pagesVisited, pagesVisited + notificationPerPage)
+		.map((notification, index) => (
+			<Flex
+				key={+index}
+				bg="white"
+				px="3"
+				py="2"
+				gap="16"
+				borderRadius="base"
+				align="center"
+			>
+				<Flex align="center" gap="3">
+					<Icon as={notification.companyIcon} boxSize="6" />
+					<Text fontSize="sm" fontWeight="600" color="#121212">
+						{notification.company}
+					</Text>
+				</Flex>
+				<Flex align="center" gap="3">
+					<Icon as={notification.userIcon} boxSize="6" />
+					<Flex direction="column">
+						<Text fontSize="sm" fontWeight="400" color="#121212">
+							{notification.userWalletAddress}
+						</Text>
+						<Text fontSize="xs" fontWeight="400" color="gray.500">
+							{notification.userTeam}
+						</Text>
+					</Flex>
+				</Flex>
+				<Flex align="center" gap="3">
+					<Icon as={notification.typeIcon} boxSize="4" />
+					<Flex direction="column">
+						<Text fontSize="sm" fontWeight="400" color="#121212">
+							{notification.type}
+						</Text>
+						<Text fontSize="xs" fontWeight="400" color="gray.500">
+							{notification.date}
+						</Text>
+					</Flex>
+				</Flex>
+				<Flex direction="column" align="end" h="max-content">
+					<Text color="#121212" fontWeight="400" fontSize="xs">
+						{notification.value}
+					</Text>
+					<Text
+						color={
+							notification.status === 'Completed' ? 'green.400' : 'yellow.600'
+						}
+						fontWeight="400"
+						fontSize="xs"
+					>
+						{notification.status}
+					</Text>
+				</Flex>
+			</Flex>
+		));
+
 	return (
 		<Flex
 			bg="#EDF2F7"
@@ -38,15 +111,21 @@ export const HistoryComponent: React.FC<IHistoryPage> = ({ history }) => {
 			<Flex direction="column" gap="2">
 				<Flex justify="space-between">
 					<Flex direction="column" gap="4">
-						<Text fontSize="md" fontStyle="medium" fontWeight="500">
+						<Text
+							fontSize="md"
+							fontStyle="medium"
+							fontWeight="500"
+							color="#121212"
+						>
 							History
 						</Text>
-						<Text fontSize="sm" display={shouldntDisplay}>
+						<Text fontSize="sm" display={shouldntDisplay} color="#121212">
 							Please connect your wallet to be able to view your history.
 						</Text>
 					</Flex>
 					<Menu>
 						<MenuButton
+							color="#121212"
 							h="max-content"
 							as={Button}
 							rightIcon={<BiChevronDown />}
@@ -94,68 +173,19 @@ export const HistoryComponent: React.FC<IHistoryPage> = ({ history }) => {
 						</Stack>
 					</Flex>
 				</Flex>
-				<Flex direction="column" gap="2" display={shouldDisplay}>
-					{history.map((notification, index) => (
-						<Flex
-							key={+index}
-							bg="white"
-							px="3"
-							py="2"
-							gap="16"
-							borderRadius="base"
-							align="center"
-						>
-							<Flex align="center" gap="3">
-								<Icon as={notification.companyIcon} boxSize="6" />
-								<Text fontSize="sm" fontWeight="600" color="#121212">
-									{notification.company}
-								</Text>
-							</Flex>
-							<Flex align="center" gap="3">
-								<Icon as={notification.userIcon} boxSize="6" />
-								<Flex direction="column">
-									<Text fontSize="sm" fontWeight="400" color="#121212">
-										{notification.userWalletAddress}
-									</Text>
-									<Text fontSize="xs" fontWeight="400" color="gray.500">
-										{notification.userTeam}
-									</Text>
-								</Flex>
-							</Flex>
-							<Flex align="center" gap="3">
-								<Icon as={notification.typeIcon} boxSize="4" />
-								<Flex direction="column">
-									<Text fontSize="sm" fontWeight="400" color="#121212">
-										{notification.type}
-									</Text>
-									<Text fontSize="xs" fontWeight="400" color="gray.500">
-										{notification.date}
-									</Text>
-								</Flex>
-							</Flex>
-							<Flex direction="column" align="end" h="max-content">
-								<Text color="#121212" fontWeight="400" fontSize="xs">
-									{notification.value}
-								</Text>
-								<Text
-									color={
-										notification.status === 'Completed'
-											? 'green.400'
-											: 'yellow.600'
-									}
-									fontWeight="400"
-									fontSize="xs"
-								>
-									{notification.status}
-								</Text>
-							</Flex>
-						</Flex>
-					))}
+				<Flex direction="column" gap="2" display={shouldDisplay} color="black">
+					{displayNotifications}
+				</Flex>
+				<Flex justify="center" bottom="0">
+					<Paginator
+						actualPage={actualPage}
+						maxPage={maxPage}
+						previous={previous}
+						next={next}
+					/>
 				</Flex>
 			</Flex>
-			<Flex w="296px" h="629px" bg="#121212">
-				a
-			</Flex>
+			<Flex w="296px" h="629px" bg="#121212" />
 		</Flex>
 	);
 };
