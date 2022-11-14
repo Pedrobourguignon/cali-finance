@@ -70,12 +70,12 @@ export const NotificationPopover: React.FC<INotificationPopover> = ({
 						sx={{
 							'&::-webkit-scrollbar': {
 								width: '2',
-								borderRadius: '20px',
+								borderRadius: 'base',
 								backgroundColor: 'blackAlpha.50',
 							},
 							'&::-webkit-scrollbar-thumb': {
 								backgroundColor: 'blackAlpha.200',
-								borderRadius: '20px',
+								borderRadius: 'base',
 							},
 							px: '1',
 						}}
