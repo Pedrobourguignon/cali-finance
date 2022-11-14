@@ -20,7 +20,7 @@ export const RecentActivities: React.FC<IRecentActivitiesComponent> = ({
 					Recent Activities
 				</Text>
 			</Flex>
-			<Link href="/">
+			<Link href="/app/history">
 				<Text fontSize="sm" cursor="pointer" color="gray.500">
 					See all
 				</Text>
