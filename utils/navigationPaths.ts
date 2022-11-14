@@ -5,5 +5,5 @@ export const navigationPaths = {
 	about: '/about',
 	help: '/help',
 	termsAndConditions: '/termsandconditions',
-	dashboard: { home: '/app/dashboard' },
+	dashboard: { home: '/dashboard' },
 };

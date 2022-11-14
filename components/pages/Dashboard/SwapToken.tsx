@@ -154,7 +154,7 @@ export const SwapToken = () => {
 					<Text>-</Text>
 				</Flex>
 			</Flex>
-			<Link href="/app/dashboard">
+			<Link href="/dashboard">
 				<Flex justify="center">
 					<OffsetShadow
 						borderColor="white"
