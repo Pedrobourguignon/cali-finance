@@ -11,25 +11,27 @@ import { AppLayout } from 'layouts';
 import { useOrganizations } from 'hooks';
 
 export const OrganizationsConnected: React.FC = () => {
-	const { organization, activities, totalFunds, totalMembers, totalTeams } =
+	const { organizations, activities, totalFunds, totalMembers, totalTeams } =
 		useOrganizations();
 
 	return (
 		<AppLayout right={<SwapTokenBar />}>
-			<Flex p="6" direction="column" gap="4">
+			<Flex p="6" direction="column" gap="4" w="min-content">
 				<DashboardHeader />
 				<OrganizationsDashboard
 					members={totalMembers}
-					organizations={organization.length.toString()}
+					organizationsCount={organizations.length}
 					teams={totalTeams}
 					totalFunds={totalFunds}
 				/>
-				{organization.length > 0 ? (
-					<YourOrganizations />
-				) : (
-					<CreateOrganizationCard />
-				)}
-				{activities ? <RecentActivities /> : ''}
+				<Flex w="full" flexDir="column" gap="8">
+					{organizations.length ? (
+						<YourOrganizations />
+					) : (
+						<CreateOrganizationCard />
+					)}
+					{activities ? <RecentActivities /> : ''}
+				</Flex>
 			</Flex>
 		</AppLayout>
 	);

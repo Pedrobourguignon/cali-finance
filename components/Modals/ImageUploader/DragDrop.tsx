@@ -19,43 +19,40 @@ export const DragDrop = () => {
 	const loadFile = (file: IFile) => {
 		const newFile = new FileReader();
 		const size = file?.size;
-		const fileData = file?.name.split('.');
-		const ext = fileData?.[fileData.length - 1];
 		if (!size || size > 5000000) {
 			setSizeIsValid(false);
 			return;
 		}
+		const fileData = file?.name.split('.');
+		const ext = fileData?.[fileData.length - 1];
 		setSizeIsValid(true);
 		newFile.readAsDataURL(file);
 
 		newFile.onload = event => {
 			const base64File = {
 				file: event.target?.result,
-				extensao: ext,
+				ext,
 			};
-			// eslint-disable-next-line no-unused-expressions
-			base64File.file
-				? setFileLink(base64File.file.toString())
-				: setFileLink('/images/add-image.png');
+			if (base64File.file) {
+				setFileLink(base64File.file.toString());
+			} else {
+				setFileLink('/images/add-image.png');
+			}
 		};
 	};
 
 	return (
 		<Flex direction="column" align="center" gap="4">
-			<FileUploader
-				// eslint-disable-next-line react/no-children-prop
-				children={<Img boxSize="40" src={fileLink} />}
-				handleChange={loadFile}
-				name="file"
-				types={fileTypes}
-			/>
+			<FileUploader handleChange={loadFile} name="file" types={fileTypes}>
+				<Img boxSize="40" objectFit="contain" src={fileLink} />
+			</FileUploader>
 			{sizeIsValid ? (
 				''
 			) : (
 				<Flex bg="red.100" w="100%" py="2" pl="2.5" borderRadius="base">
 					<Text color={theme.text.primary} fontWeight="semibold" fontSize="sm">
 						The file is too large.
-						<Text as="span" fontWeight="normal">
+						<Text as="span" fontWeight="normal" ml="2">
 							Please upload another image up to 5mb.
 						</Text>
 					</Text>

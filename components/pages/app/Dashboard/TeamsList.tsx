@@ -4,10 +4,10 @@ import { OrganizationCard } from 'components';
 import { useOrganizations } from 'hooks';
 
 export const OrganizationsList = () => {
-	const { organization } = useOrganizations();
+	const { organizations } = useOrganizations();
 	return (
 		<Flex gap="4" align="center">
-			{organization.map((team, index) => (
+			{organizations.map((team, index) => (
 				<OrganizationCard key={+index} team={team} />
 			))}
 		</Flex>

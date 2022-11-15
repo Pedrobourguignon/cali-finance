@@ -1,8 +1,8 @@
-import { createContext, useEffect, useMemo, useState } from 'react';
+import { createContext, useMemo, useState } from 'react';
 import { IOrganization, IActivities } from 'types';
 
 interface IOrganizationsContext {
-	organization: IOrganization[];
+	organizations: IOrganization[];
 	activities: IActivities[];
 	totalFunds: string;
 	totalTeams: string;
@@ -14,7 +14,7 @@ export const OrganizationsContext = createContext({} as IOrganizationsContext);
 export const OrganizationsProvider: React.FC<{ children: React.ReactNode }> = ({
 	children,
 }) => {
-	const [organization, setOrganization] = useState<IOrganization[]>([
+	const [organizations, setOrganizations] = useState<IOrganization[]>([
 		{
 			name: 'Kylie Cosmetics',
 			type: 'DAO',
@@ -101,50 +101,50 @@ export const OrganizationsProvider: React.FC<{ children: React.ReactNode }> = ({
 	const [totalMembers, setTotalMembers] = useState('');
 
 	const calculateTotalFunds = () => {
-		const funds = organization.reduce(
+		const funds = organizations.reduce(
 			// eslint-disable-next-line no-shadow
-			(total: number, organization: IOrganization) =>
-				total + organization.funds,
+			(total: number, organizations: IOrganization) =>
+				total + organizations.funds,
 			0
 		);
 		setTotalFunds(funds.toLocaleString('EN-us'));
 	};
 
 	const calculateTotalMembers = () => {
-		const members = organization.reduce(
+		const members = organizations.reduce(
 			// eslint-disable-next-line no-shadow
-			(total: number, organization: IOrganization) =>
-				total + +organization.members,
+			(total: number, organizations: IOrganization) =>
+				total + +organizations.members,
 			0
 		);
 		setTotalMembers(members.toString());
 	};
 
 	const calculateTotalTeams = () => {
-		const teams = organization.reduce(
+		const teams = organizations.reduce(
 			// eslint-disable-next-line no-shadow
-			(total: number, organization: IOrganization) =>
-				total + organization.teams.length,
+			(total: number, organizations: IOrganization) =>
+				total + organizations.teams.length,
 			0
 		);
 		setTotalTeams(teams.toString());
 	};
 
-	useEffect(() => {
+	useMemo(() => {
 		calculateTotalFunds();
 		calculateTotalMembers();
 		calculateTotalTeams();
-	}, [organization]);
+	}, [organizations]);
 
 	const contextStates = useMemo(
 		() => ({
-			organization,
+			organizations,
 			activities,
 			totalFunds,
 			totalTeams,
 			totalMembers,
 		}),
-		[organization, activities, totalFunds, totalTeams, totalMembers]
+		[organizations, activities, totalFunds, totalTeams, totalMembers]
 	);
 	return (
 		<OrganizationsContext.Provider value={contextStates}>

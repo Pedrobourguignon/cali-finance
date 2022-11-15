@@ -6,13 +6,14 @@ import {
 	Select,
 	Text,
 	Textarea,
+	TextProps,
 } from '@chakra-ui/react';
-import { NewOrganizationLinks, BackToOrganizations } from 'components';
+import { NewOrganizationLinks, NavigationBack } from 'components';
 import { usePicasso } from 'hooks';
 import { AppLayout } from 'layouts';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { createOrganizationSchema } from 'utils';
+import { createOrganizationSchema, navigationPaths } from 'utils';
 
 interface ICreateOrganization {
 	name: string;
@@ -22,6 +23,13 @@ interface ICreateOrganization {
 }
 
 const organizationsType = ['DAO', 'financial', 'e-commerce'];
+
+const labelStyle: TextProps = {
+	color: 'black',
+	fontSize: 'sm',
+	fontWeight: 'medium',
+};
+
 export const CreateOrganization = () => {
 	const theme = usePicasso();
 	const {
@@ -35,6 +43,7 @@ export const CreateOrganization = () => {
 	const handleCreateOrganization = (organizationData: ICreateOrganization) => {
 		console.log(organizationData);
 	};
+
 	return (
 		<AppLayout right={<NewOrganizationLinks />}>
 			<Flex w="100%" bg="white" h="64" position="absolute" />
@@ -45,7 +54,9 @@ export const CreateOrganization = () => {
 				zIndex="docked"
 				pt="6"
 			>
-				<BackToOrganizations />
+				<NavigationBack href={navigationPaths.dashboard.organizations.home}>
+					Back to Organizations
+				</NavigationBack>
 				<Flex w="100%" direction="column" px="6">
 					<form onSubmit={handleSubmit(handleCreateOrganization)}>
 						<FormControl>
@@ -59,7 +70,9 @@ export const CreateOrganization = () => {
 									borderBottomWidth="0,125rem"
 									borderBottomColor="black"
 									borderRadius="none"
-									_placeholder={{ color: 'blackAlpha.500', fontSize: 'xl' }}
+									px="1"
+									fontSize="2xl"
+									_placeholder={{ color: 'blackAlpha.500', fontSize: '2xl' }}
 									_hover={{}}
 									{...register('name')}
 								/>
@@ -71,10 +84,11 @@ export const CreateOrganization = () => {
 								<Flex direction="column" gap="8" minW="80">
 									<Flex direction="column" color="black" gap="6">
 										<Flex direction="column">
-											<Text>Type *</Text>
+											<Text {...labelStyle}>Type *</Text>
 											<Select
 												borderColor={theme.bg.primary}
 												color="blackAlpha.500"
+												bgColor="white"
 												_hover={{}}
 												{...register('type')}
 											>
@@ -89,9 +103,10 @@ export const CreateOrganization = () => {
 												</option>
 												{organizationsType.map((item, index) => (
 													<option
-														key={index}
+														key={+index}
 														style={{
 															background: 'white',
+															color: 'black',
 														}}
 													>
 														{item}
@@ -103,10 +118,11 @@ export const CreateOrganization = () => {
 											</Text>
 										</Flex>
 										<Flex direction="column" position="relative">
-											<Text>Corporative e-mail *</Text>
+											<Text {...labelStyle}>Corporative e-mail *</Text>
 											<Input
 												placeholder="example@organization.io"
 												_placeholder={{ color: 'blackAlpha.500' }}
+												bgColor="white"
 												_hover={{}}
 												borderColor={theme.bg.primary}
 												{...register('email')}
@@ -121,12 +137,14 @@ export const CreateOrganization = () => {
 											</Text>
 										</Flex>
 										<Flex direction="column">
-											<Text>Description</Text>
+											<Text {...labelStyle}>Description</Text>
 											<Textarea
 												borderColor={theme.bg.primary}
 												_placeholder={{ color: 'blackAlpha.500' }}
 												_hover={{}}
-												placeholder="Hello"
+												bgColor="white"
+												placeholder="Hello Org is an organization that..."
+												minH="110"
 												{...register('description')}
 											/>
 										</Flex>
@@ -137,8 +155,13 @@ export const CreateOrganization = () => {
 										color="white"
 										borderRadius="sm"
 										_hover={{}}
+										gap="2.5"
+										fontWeight="medium"
+										fontSize="md"
+										lineHeight="6"
 									>
-										+ Create Organization
+										<Text>+</Text>
+										<Text>Create Organization</Text>
 									</Button>
 								</Flex>
 							</Flex>

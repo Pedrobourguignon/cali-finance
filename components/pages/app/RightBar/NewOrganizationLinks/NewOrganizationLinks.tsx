@@ -6,11 +6,11 @@ import { ImageUploader, SocialMediaInput } from 'components';
 import { INewOrganization, ISocialMediaInput } from 'types';
 
 const organizations: INewOrganization = {
-	name: 'Itatiaia',
+	name: 'O',
 	logo: '',
 	socialMedia: [
 		{
-			website: 'itatiaia.com',
+			website: 'website.io',
 			instagram: 'instagram/company',
 			twitter: 'twitter.com/company',
 			telegram: 't.me/company',

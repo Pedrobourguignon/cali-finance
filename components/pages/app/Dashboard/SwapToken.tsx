@@ -130,31 +130,31 @@ export const SwapToken = () => {
 			>
 				<Flex align="center" justify="space-between">
 					<Text fontStyle="normal" fontSize="xs" color="whiteAlpha.600">
-						Rate
+						{translate('rate')}
 					</Text>
 					<Text>-</Text>
 				</Flex>
 				<Flex align="center" justify="space-between">
 					<Text fontStyle="normal" fontSize="xs" color="whiteAlpha.600">
-						Slippage tolerance
+						{translate('slippageTolerance')}
 					</Text>
 
 					<Text>-</Text>
 				</Flex>
 				<Flex align="center" justify="space-between">
 					<Text fontStyle="normal" fontSize="xs" color="whiteAlpha.600">
-						Estimated fees
+						{translate('estimatedFees')}
 					</Text>
 					<Text>-</Text>
 				</Flex>
 				<Flex align="center" justify="space-between">
 					<Text fontStyle="normal" fontSize="xs" color="whiteAlpha.600">
-						Price impact
+						{translate('priceImpact')}
 					</Text>
 					<Text>-</Text>
 				</Flex>
 			</Flex>
-			<Link href="/app/dashboard">
+			<Link href="/dashboard">
 				<Flex justify="center">
 					<OffsetShadow
 						borderColor="white"

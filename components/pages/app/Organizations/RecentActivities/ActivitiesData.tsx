@@ -6,7 +6,15 @@ interface IActivitiesData {
 }
 
 export const ActivitiesData: React.FC<IActivitiesData> = ({ activities }) => (
-	<Flex align="center" px="5" py="3" bg="gray.50" borderRadius="base" gap="32">
+	<Flex
+		align="center"
+		px="5"
+		py="3"
+		bg="gray.50"
+		borderRadius="base"
+		gap="32"
+		justify="space-between"
+	>
 		<Text fontSize="sm" fontWeight="normal" w="36">
 			{activities.name}
 		</Text>
@@ -21,11 +29,11 @@ export const ActivitiesData: React.FC<IActivitiesData> = ({ activities }) => (
 				</Text>
 			</Flex>
 		</Flex>
-		<Flex direction="column">
-			<Text fontSize="sm" fontWeight="normal">
-				{activities.value}
-				{activities.coin}
-			</Text>
+		<Flex direction="column" align="end">
+			<Flex flexDir="row" fontSize="sm" fontWeight="normal" gap="1">
+				<Text>{activities.value}</Text>
+				<Text>{activities.coin}</Text>
+			</Flex>
 			<Text
 				fontSize="xs"
 				color={
