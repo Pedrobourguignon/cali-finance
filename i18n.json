@@ -1,6 +1,6 @@
 {
-	"locales": ["en", "pt-BR"],
-	"defaultLocale": "en",
+	"locales": ["en-US", "pt-BR"],
+	"defaultLocale": "en-US",
 	"pages": {
 		"*": [
 			"teams-page",
@@ -11,7 +11,7 @@
 			"dashboard"
 		],
 		"/": ["home", "example"],
-		"/app": [
+		"/dashboard": [
 			"teams-page",
 			"swap-token",
 			"have-a-problem",

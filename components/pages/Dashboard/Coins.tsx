@@ -4,13 +4,6 @@ import React from 'react';
 import { ICoinCard } from 'types';
 import useTranslation from 'next-translate/useTranslation';
 
-// const cardInfo: ICoinCard = {
-// 	icon: '/icons/tether.svg',
-// 	name: 'USDT',
-// 	value: '$1,00',
-// 	variation: '+ 0,6%',
-// };
-
 const coinCard: ICoinCard[] = [
 	{
 		icon: '/icons/tether.svg',
@@ -42,6 +35,7 @@ export const Coins = () => {
 			p="3"
 			borderRadius="base"
 			justify="space-between"
+			align="center"
 		>
 			<Flex direction="column">
 				<Text fontSize="md" fontWeight="500" lineHeight="6">
@@ -51,7 +45,7 @@ export const Coins = () => {
 					{translate('stayConnected')}
 				</Text>
 				<Text fontSize="sm" fontWeight="500" lineHeight="5">
-					{translate('principalCoin')}
+					{translate('principalCoins')}
 				</Text>
 			</Flex>
 			{coinCard.map((card, index) => (
@@ -63,7 +57,6 @@ export const Coins = () => {
 					variation={card.variation}
 				/>
 			))}
-
 			<NewCoinButton />
 		</Flex>
 	);

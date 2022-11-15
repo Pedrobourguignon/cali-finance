@@ -6,5 +6,8 @@
 	"slippageTolerance": "Slippage tolerance",
 	"estimatedFees": "Estimated Fees",
 	"priceImpact": "Price Impact",
-	"swap": "Swap"
+	"swap": "Swap",
+	"select": "Selecione",
+	"waitingForConfirmation": "Waiting for confirmation...",
+	"pleaseConfirmTransaction": "Please confirm this transaction in your wallet"
 }

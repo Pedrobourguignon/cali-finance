@@ -15,7 +15,7 @@ import { IWalletOptionsModal } from 'types';
 import Link from 'next/link';
 import { OffsetShadow } from 'components';
 import { usePicasso } from 'hooks';
-import { MoreIcon } from 'components/Icons';
+import { navigationPaths } from 'utils';
 import useTranslation from 'next-translate/useTranslation';
 
 const walletsOptions = [
@@ -67,7 +67,13 @@ export const WalletsOptionsModal: React.FC<IWalletOptionsModal> = ({
 				h="min-content"
 				borderRadius="base"
 			>
-				<OffsetShadow width="full" height="410px" top="2" left="2">
+				<OffsetShadow
+					width="full"
+					height="410px"
+					buttonText="Connect to a Wallet"
+					top="2"
+					left="2"
+				>
 					<Flex
 						direction="column"
 						bg={theme.bg.modal}
@@ -127,7 +133,7 @@ export const WalletsOptionsModal: React.FC<IWalletOptionsModal> = ({
 							>
 								<Text>{translate('accept')}</Text>
 
-								<Link href="/app/dashboard">
+								<Link href={navigationPaths.termsAndConditions}>
 									<Text fontWeight="bold" cursor="pointer">
 										<Text as="span" textDecor="underline">
 											{translate('terms')}

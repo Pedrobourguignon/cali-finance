@@ -9,10 +9,17 @@ export const RecentActivities: React.FC<IRecentActivitiesComponent> = ({
 }) => {
 	const { t: translate } = useTranslation('dashboard');
 	return (
-		<Flex direction="column" borderRadius="base" gap="2" boxShadow="xl" px="3">
-			<Flex justify="space-between" w="full" py="2">
+		<Flex
+			direction="column"
+			borderRadius="base"
+			gap="2"
+			boxShadow="xl"
+			px="3"
+			bg="white"
+		>
+			<Flex justify="space-between" py="2">
 				<Flex>
-					<Text fontSize="md" fontWeight="medium">
+					<Text fontSize="md" fontWeight="medium" color="black">
 						{translate('recentActivities')}
 					</Text>
 				</Flex>
@@ -22,7 +29,7 @@ export const RecentActivities: React.FC<IRecentActivitiesComponent> = ({
 					</Text>
 				</Link>
 			</Flex>
-			<Flex direction="column" gap="2" py="4">
+			<Flex direction="column" gap="2" py="2">
 				{recentActivitiesList.map((activity, index) => (
 					<Flex
 						key={+index}

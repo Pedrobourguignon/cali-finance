@@ -1,8 +1,8 @@
 {
 	"greetings": {
-		"morning": "Bom dia",
-		"afternoon": "Boa tarde",
-		"night": "Boa noite"
+		"morning": "Bom dia,",
+		"afternoon": "Boa tarde,",
+		"night": "Boa noite,"
 	},
 	"loginMessage": "Conecte sua carteira para poder automatizar seus pagamentos.",
 	"assetInfo": "Parece que o mercado está",

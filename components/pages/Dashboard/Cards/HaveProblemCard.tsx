@@ -6,18 +6,18 @@ import useTranslation from 'next-translate/useTranslation';
 export const HaveProblemCard = () => {
 	const { t: translate } = useTranslation('have-a-problem');
 	return (
-		<Link href="/app/dashboard">
+		<Link href="/dashboard">
 			<Flex
-				w="72"
-				h="95px"
-				ml="4"
+				w="full"
+				px="12"
+				py="6"
 				borderRadius="base"
 				bgImage="url(/images/haveproblem.png)"
 				backgroundSize="cover"
 				backgroundRepeat="no-repeat"
 				cursor="pointer"
 			>
-				<Flex direction="column" my="auto" mx="7">
+				<Flex direction="column">
 					<Text fontStyle="Medium" fontSize="xl" lineHeight="7" color="white">
 						{translate('haveAProblem')}
 					</Text>

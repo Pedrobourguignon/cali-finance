@@ -9,26 +9,30 @@ export const CoinCard: React.FC<ICoinCard> = ({
 	variation,
 }) => {
 	const theme = usePicasso();
+
 	return (
 		<Flex
-			w="28"
-			h={theme.cardHeight.height}
 			borderRadius="base"
-			border="2px solid"
+			border="1px solid"
 			direction="column"
+			justify="center"
 		>
-			<Flex direction="row" align="center" gap="2" ml="3">
+			<Flex direction="row" align="center" gap="2" pl="3" pr="9">
 				<Img src={icon} boxSize="6" />
-				<Flex direction="column" mt="2">
-					<Text fontSize="xs">{name}</Text>
-					<Text fontSize="xs" color={theme.text.green}>
+				<Flex direction="column" py="2">
+					<Text fontSize="xs" color={theme.text.white}>
+						{name}
+					</Text>
+					<Text fontSize="xs" color={theme.text.white}>
 						{value}
 					</Text>
 				</Flex>
 			</Flex>
-			<Text fontSize="xs" ml="3" color="green.400">
-				{variation}
-			</Text>
+			<Flex px="3">
+				<Text fontSize="xs" color="green.400">
+					{variation}
+				</Text>
+			</Flex>
 		</Flex>
 	);
 };

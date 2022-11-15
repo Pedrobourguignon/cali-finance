@@ -39,16 +39,15 @@ export const MyAssets = () => {
 			borderColor="black"
 			top="3"
 			left="3"
+			buttonText=""
 		>
 			<Flex
 				position="relative"
 				zIndex="0"
-				h="max-content"
-				w="max-content"
 				direction="column"
 				borderRadius="base"
-				borderColor="black"
 				border="1px solid"
+				borderColor="black"
 			>
 				<Flex
 					direction="column"
@@ -59,10 +58,12 @@ export const MyAssets = () => {
 				>
 					<Flex justify="space-between" px="4" py="2">
 						<Flex direction="column">
-							<Text fontSize="md" fontWeight="medium">
+							<Text fontSize="md" fontWeight="medium" color="black">
 								{translate('myAssets')}
 							</Text>
-							<Text fontSize="sm">$92,234.11</Text>
+							<Text fontSize="sm" color="black">
+								$92,234.11
+							</Text>
 						</Flex>
 						<Link href="/">
 							<Text fontSize="sm" cursor="pointer" color="gray.500">

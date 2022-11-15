@@ -12,5 +12,6 @@
 	"connectWalletModal": "Connect to a Wallet",
 	"accept": "By connecting your wallet you accept the",
 	"terms": "Terms and Conditions",
-	"initializing": "Initializing..."
+	"initializing": "Initializing...",
+	"changeNetwork": "Change Network"
 }

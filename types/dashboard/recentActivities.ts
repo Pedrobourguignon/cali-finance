@@ -1,8 +1,8 @@
 export interface IRecentActivitiesList {
-	type: () => void;
+	type: string;
 	date: string;
 	value: string;
-	status: () => void;
+	status: string;
 }
 
 export interface IRecentActivitiesComponent {

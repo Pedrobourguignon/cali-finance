@@ -1,14 +1,11 @@
-// e.g. src/Chakra.js
-// a) import `ChakraProvider` component as well as the storageManagers
 import React, { ReactNode } from 'react';
 import {
 	ChakraProvider,
-	cookieStorageManager,
+	cookieStorageManagerSSR,
 	localStorageManager,
 } from '@chakra-ui/react';
 import { theme } from 'styles';
 
-// TODO Documentation
 const ColorHandler = ({
 	cookies,
 	children,
@@ -18,7 +15,7 @@ const ColorHandler = ({
 }) => {
 	const colorModeManager =
 		typeof cookies === 'string'
-			? cookieStorageManager(cookies)
+			? cookieStorageManagerSSR(cookies)
 			: localStorageManager;
 
 	return (
@@ -27,5 +24,15 @@ const ColorHandler = ({
 		</ChakraProvider>
 	);
 };
+
+// also export a reusable function getServerSideProps
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function getServerSideProps({ req }: any) {
+	return {
+		props: {
+			cookies: req.headers.cookie ?? '',
+		},
+	};
+}
 
 export { ColorHandler };
