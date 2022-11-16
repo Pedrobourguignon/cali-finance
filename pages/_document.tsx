@@ -34,6 +34,7 @@ class MyDocument extends Document {
 					<link
 						rel="stylesheet"
 						type="text/css"
+						// eslint-disable-next-line react/no-unknown-property
 						charSet="UTF-8"
 						href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css"
 					/>
