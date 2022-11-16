@@ -1,2 +1,3 @@
-export * from './landing';
 export * from './dashboard';
+export * from './editProfile';
+export * from './landing';

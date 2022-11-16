@@ -44,7 +44,7 @@ const menuOptions: IMenuItem[] = [
 	},
 	{
 		icon: EditProfileIcon,
-		route: '/dashboard/edit-profile',
+		route: '/app/edit-profile',
 		option: 'Edit Profile',
 	},
 	{
@@ -100,7 +100,7 @@ export const Sidebar: React.FC = () => {
 				align="center"
 				color="white"
 				w="13.75rem"
-				h="full"
+				h="100vh"
 			>
 				<Flex
 					justify="center"
