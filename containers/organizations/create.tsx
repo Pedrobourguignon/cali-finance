@@ -2,7 +2,12 @@ import {
 	Button,
 	Flex,
 	FormControl,
+	Img,
 	Input,
+	Menu,
+	MenuButton,
+	MenuItem,
+	MenuList,
 	Select,
 	Text,
 	Textarea,
@@ -14,15 +19,24 @@ import { AppLayout } from 'layouts';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { createOrganizationSchema, navigationPaths } from 'utils';
+import { INetwork } from 'types';
+import { IoIosArrowDown } from 'react-icons/io';
+import { useState } from 'react';
 
 interface ICreateOrganization {
 	name: string;
 	type: string;
 	email: string;
+	network: string;
 	description?: string;
 }
 
 const organizationsType = ['DAO', 'financial', 'e-commerce'];
+const networksType: INetwork[] = [
+	{ name: 'Ethereum', icon: '/images/eth.png' },
+	{ name: 'Polygon', icon: '/images/polygon.png' },
+	{ name: 'BNB Chain', icon: '/images/bnbchain.png' },
+];
 
 const labelStyle: TextProps = {
 	color: 'black',
@@ -32,6 +46,7 @@ const labelStyle: TextProps = {
 
 export const CreateOrganization = () => {
 	const theme = usePicasso();
+	const [choiceNetwork, setChoiceNetwork] = useState('Select an network');
 	const {
 		register,
 		handleSubmit,
@@ -80,7 +95,12 @@ export const CreateOrganization = () => {
 									{errors.name?.message}
 								</Text>
 							</Flex>
-							<Flex py="6" w="100%">
+							<Flex
+								py="6"
+								w="100%"
+								justify="space-between
+							"
+							>
 								<Flex direction="column" gap="8" minW="80">
 									<Flex direction="column" color="black" gap="6">
 										<Flex direction="column">
@@ -163,6 +183,49 @@ export const CreateOrganization = () => {
 										<Text>+</Text>
 										<Text>Create Organization</Text>
 									</Button>
+								</Flex>
+								<Flex direction="column" minW="44" color="black">
+									<Text {...labelStyle}>Network *</Text>
+									<Menu
+										{...register('network', {
+											value: choiceNetwork,
+										})}
+									>
+										<MenuButton
+											as={Button}
+											borderRadius="md"
+											borderWidth="0.1rem"
+											borderColor={theme.bg.primary}
+											bg="white"
+											textAlign="start"
+											rightIcon={<IoIosArrowDown />}
+											color="blackAlpha.500"
+										>
+											{choiceNetwork}
+										</MenuButton>
+										<MenuList
+											bg="white"
+											borderWidth="0.1rem"
+											borderColor={theme.bg.primary}
+										>
+											{networksType.map((network, index) => (
+												<MenuItem
+													key={+index}
+													gap="2"
+													value={network.name}
+													onClick={event =>
+														setChoiceNetwork(event.currentTarget.value)
+													}
+												>
+													<Img boxSize="5" src={network.icon} />
+													{network.name}
+												</MenuItem>
+											))}
+										</MenuList>
+									</Menu>
+									<Text fontSize="xs" color="red">
+										{errors.type?.message}
+									</Text>
 								</Flex>
 							</Flex>
 						</FormControl>

@@ -6,7 +6,7 @@ import { ImageUploader, SocialMediaInput } from 'components';
 import { INewOrganization, ISocialMediaInput } from 'types';
 
 const organizations: INewOrganization = {
-	name: 'O',
+	name: '',
 	logo: '',
 	socialMedia: [
 		{
@@ -49,14 +49,7 @@ const socialLinks: ISocialMediaInput[] = [
 export const NewOrganizationLinks = () => {
 	const theme = usePicasso();
 	return (
-		<Flex
-			direction="column"
-			gap="4"
-			w="max-content"
-			py="6"
-			px="6"
-			zIndex="docked"
-		>
+		<Flex direction="column" w="max-content" py="6" px="6" zIndex="docked">
 			<Flex
 				bg={theme.bg.black}
 				direction="column"
@@ -90,7 +83,7 @@ export const NewOrganizationLinks = () => {
 				<Flex>
 					<form>
 						<FormControl>
-							<Flex direction="column" gap="2" minW="72">
+							<Flex direction="column" gap="4" minW="72">
 								{socialLinks.map((socialLink, index) => (
 									<SocialMediaInput socialLink={socialLink} key={+index} />
 								))}

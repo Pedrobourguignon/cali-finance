@@ -1,15 +1,17 @@
 import { Button, Flex, useDisclosure } from '@chakra-ui/react';
 import { ImageUploaderModal } from 'components';
+import { usePicasso } from 'hooks';
 
 export const ImageUploader = () => {
 	const { isOpen, onOpen, onClose } = useDisclosure();
+	const theme = usePicasso();
 
 	return (
 		<Flex>
 			<Button
 				onClick={onOpen}
 				borderRadius="base"
-				bg="black"
+				bg={theme.bg.primary}
 				fontSize="xs"
 				fontWeight="medium"
 				px="3"

@@ -11,15 +11,20 @@ interface IOrganizationCard {
 export const OrganizationCard: React.FC<IOrganizationCard> = ({ team }) => {
 	const theme = usePicasso();
 	return (
-		<Flex boxShadow="lg" bg="white" borderRadius="base" direction="column">
-			<Flex direction="column" pt="2.5" pr="9" pl="4">
+		<Flex
+			boxShadow="lg"
+			bg="white"
+			borderRadius="base"
+			direction="column"
+			w="56"
+		>
+			<Flex direction="column" pt="2.5" pl="4" color={theme.text.primary}>
 				<Flex align="center" gap="2.5">
 					{team.logo ? (
 						<Img src={team.logo} boxSize="6" borderRadius="base" />
 					) : (
 						<Flex
 							boxSize="6"
-							color="black"
 							borderRadius="base"
 							align="center"
 							justify="center"
@@ -30,18 +35,18 @@ export const OrganizationCard: React.FC<IOrganizationCard> = ({ team }) => {
 							{handleLogoImage(team.logo, team.name)}
 						</Flex>
 					)}
-					<Text fontSize="md" fontWeight="bold" color="black">
+					<Text fontSize="md" fontWeight="bold">
 						{team.name}
 					</Text>
 				</Flex>
-				<Flex gap="12">
-					<Flex direction="column" color="black">
+				<Flex gap="12" pt="3">
+					<Flex direction="column">
 						<Text fontSize="sm" color="gray.500">
 							Funds
 						</Text>
 						<Text fontSize="sm">{team.funds.toLocaleString('en-US')}</Text>
 					</Flex>
-					<Flex direction="column" color="black">
+					<Flex direction="column">
 						<Text fontSize="sm" color="gray.500">
 							Members
 						</Text>
@@ -49,8 +54,13 @@ export const OrganizationCard: React.FC<IOrganizationCard> = ({ team }) => {
 					</Flex>
 				</Flex>
 			</Flex>
-			<Flex w="100%" align="center" justify="center">
-				<Button color={theme.branding.blue} bg="none" fontSize="xs" py="4">
+			<Flex w="100%" align="center" justify="center" py="1">
+				<Button
+					color={theme.branding.blue}
+					bg="none"
+					fontSize="xs"
+					fontWeight="medium"
+				>
 					Manage
 				</Button>
 			</Flex>

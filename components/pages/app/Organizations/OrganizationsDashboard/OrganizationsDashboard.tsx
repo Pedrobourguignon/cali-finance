@@ -17,9 +17,16 @@ export const OrganizationsDashboard: React.FC<IOrganizationsDashboard> = ({
 }) => {
 	const theme = usePicasso();
 	return (
-		<Flex gap="12" bg={theme.bg.primary} py="6" px="5" borderRadius="base">
+		<Flex
+			gap="12"
+			bg={theme.bg.primary}
+			py="6"
+			px="5"
+			borderRadius="base"
+			align="center"
+		>
 			<Flex direction="column">
-				<Text fontSize="xl" fontWeight="medium">
+				<Text fontSize="2xl" fontWeight="medium">
 					{organizationsCount}
 				</Text>
 				<Text fontSize="sm" fontWeight="normal">
@@ -27,7 +34,7 @@ export const OrganizationsDashboard: React.FC<IOrganizationsDashboard> = ({
 				</Text>
 			</Flex>
 			<Flex direction="column">
-				<Text fontSize="xl" fontWeight="medium">
+				<Text fontSize="2xl" fontWeight="medium">
 					{teams}
 				</Text>
 				<Text fontSize="sm" fontWeight="normal">
@@ -35,7 +42,7 @@ export const OrganizationsDashboard: React.FC<IOrganizationsDashboard> = ({
 				</Text>
 			</Flex>
 			<Flex direction="column">
-				<Text fontSize="xl" fontWeight="medium">
+				<Text fontSize="2xl" fontWeight="medium">
 					{members}
 				</Text>
 				<Text fontSize="sm" fontWeight="normal">
@@ -43,7 +50,7 @@ export const OrganizationsDashboard: React.FC<IOrganizationsDashboard> = ({
 				</Text>
 			</Flex>
 			<Flex direction="column">
-				<Text fontSize="xl" fontWeight="medium" minW="24">
+				<Text fontSize="2xl" fontWeight="medium" minW="24">
 					${totalFunds}
 				</Text>
 				<Text fontSize="sm" fontWeight="normal">
