@@ -201,7 +201,17 @@ export const CreateOrganization = () => {
 											rightIcon={<IoIosArrowDown />}
 											color="blackAlpha.500"
 										>
-											{choiceNetwork}
+											<Flex flexDir="row" gap="2">
+												<Img
+													boxSize="5"
+													src={
+														networksType.find(
+															item => item.name === choiceNetwork
+														)?.icon
+													}
+												/>
+												{choiceNetwork}
+											</Flex>
 										</MenuButton>
 										<MenuList
 											bg="white"
