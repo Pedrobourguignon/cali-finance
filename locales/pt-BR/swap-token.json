@@ -6,7 +6,7 @@
 	"slippageTolerance": "Tolerância de Slippage",
 	"estimatedFees": "Taxas Estimadas",
 	"priceImpact": "Impacto de Preço",
-	"swap": "Trocar",
+	"swap": "Converter",
 	"select": "Selecione",
 	"waitingForConfirmation": "Aguardando confirmação...",
 	"pleaseConfirmTransaction": "Favor confirmar essa transação em sua carteira"

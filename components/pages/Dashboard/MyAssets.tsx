@@ -39,7 +39,6 @@ export const MyAssets = () => {
 			borderColor="black"
 			top="3"
 			left="3"
-			buttonText=""
 		>
 			<Flex
 				position="relative"

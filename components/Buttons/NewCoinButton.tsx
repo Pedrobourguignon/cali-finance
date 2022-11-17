@@ -12,7 +12,7 @@ export const NewCoinButton = () => {
 		<OffsetShadow
 			borderColor="white"
 			position="absolute"
-			buttonText="New Coin"
+			buttonText={translate('newCoin')}
 			px="5"
 		>
 			<Button
