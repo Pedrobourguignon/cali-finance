@@ -91,7 +91,7 @@ export const MobileHeader = () => {
 			/>
 			<Flex>
 				<NextLink href="">
-					<Img src="images/cali-logo-mobile.png" h="6" />
+					<Img src="/images/cali-logo-mobile.png" h="6" />
 				</NextLink>
 			</Flex>
 			<ConnectWalletButton />
