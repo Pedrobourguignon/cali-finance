@@ -11,11 +11,11 @@ export const DashboardContainer = () => {
 		<Flex
 			bg={theme.bg.primary}
 			h="100vh"
-			direction={{ xs: 'column', sm: 'row' }}
+			direction={{ base: 'column', sm: 'row' }}
 		>
 			<MobileHeader />
-			{/* <Sidebar /> */}
-			{/* <DashboardComponent /> */}
+			{/* <Sidebar />
+			<DashboardComponent /> */}
 		</Flex>
 	);
 };

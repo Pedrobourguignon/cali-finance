@@ -61,6 +61,7 @@ export const DashboardComponent: React.FC = () => {
 			gap="4"
 			justify="space-between"
 			py="6"
+			display={{ base: 'none', sm: 'flex' }}
 		>
 			<Flex direction="column" px="8" gap="4" display={shouldNotDisplayError}>
 				<DashboardHeader />

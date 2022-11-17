@@ -28,6 +28,12 @@ const networks: INetwork[] = [
 export const MobileHeader = () => {
 	const theme = usePicasso();
 	const { onClose, isOpen, onOpen } = useDisclosure();
+	const {
+		onClose: onCloseNetwork,
+		isOpen: isOpenNetwork,
+		onOpen: onOpenNetwork,
+	} = useDisclosure();
+
 	const [notificationsList, setNotificationsList] = useState<
 		INotificationList[]
 	>([
@@ -69,6 +75,7 @@ export const MobileHeader = () => {
 
 	return (
 		<Flex
+			display={{ base: 'flex', sm: 'none' }}
 			direction="row"
 			h="20"
 			w="100%"
@@ -78,18 +85,18 @@ export const MobileHeader = () => {
 		>
 			<NetworkModal
 				networks={networks}
-				isOpen={isOpen}
-				onClose={onClose}
+				isOpen={isOpenNetwork}
+				onClose={onCloseNetwork}
 				setNetworkData={setNetworkData}
 			/>
 			<Flex>
 				<NextLink href="">
-					<Img src="images/cali-logo.svg" h="6" />
+					<Img src="images/cali-logo-mobile.png" h="6" />
 				</NextLink>
 			</Flex>
 			<ConnectWalletButton />
 			<ChangeNetworkButton
-				onClick={onOpen}
+				onClick={onOpenNetwork}
 				networkIcon={networkData.icon}
 				networkName={networkData.name}
 			/>
