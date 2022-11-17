@@ -2,12 +2,7 @@ import {
 	Button,
 	Flex,
 	FormControl,
-	Img,
 	Input,
-	Menu,
-	MenuButton,
-	MenuItem,
-	MenuList,
 	Select,
 	Text,
 	Textarea,
@@ -20,8 +15,6 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { createOrganizationSchema, navigationPaths } from 'utils';
 import { INetwork } from 'types';
-import { IoIosArrowDown } from 'react-icons/io';
-import { useState } from 'react';
 
 interface ICreateOrganization {
 	name: string;
@@ -46,7 +39,6 @@ const labelStyle: TextProps = {
 
 export const CreateOrganization = () => {
 	const theme = usePicasso();
-	const [choiceNetwork, setChoiceNetwork] = useState('Select an network');
 	const {
 		register,
 		handleSubmit,
@@ -186,43 +178,34 @@ export const CreateOrganization = () => {
 								</Flex>
 								<Flex direction="column" minW="44" color="black">
 									<Text {...labelStyle}>Network *</Text>
-									<Menu
-										{...register('network', {
-											value: choiceNetwork,
-										})}
+									<Select
+										borderColor={theme.bg.primary}
+										color="blackAlpha.500"
+										bgColor="white"
+										_hover={{}}
+										{...register('network')}
 									>
-										<MenuButton
-											as={Button}
-											borderRadius="md"
-											borderWidth="0.1rem"
-											borderColor={theme.bg.primary}
-											bg="white"
-											textAlign="start"
-											rightIcon={<IoIosArrowDown />}
-											color="blackAlpha.500"
+										<option
+											selected
+											disabled
+											style={{
+												background: 'white',
+											}}
 										>
-											{choiceNetwork}
-										</MenuButton>
-										<MenuList
-											bg="white"
-											borderWidth="0.1rem"
-											borderColor={theme.bg.primary}
-										>
-											{networksType.map((network, index) => (
-												<MenuItem
-													key={+index}
-													gap="2"
-													value={network.name}
-													onClick={event =>
-														setChoiceNetwork(event.currentTarget.value)
-													}
-												>
-													<Img boxSize="5" src={network.icon} />
-													{network.name}
-												</MenuItem>
-											))}
-										</MenuList>
-									</Menu>
+											Please select an network
+										</option>
+										{networksType.map((item, index) => (
+											<option
+												key={+index}
+												style={{
+													background: 'white',
+													color: 'black',
+												}}
+											>
+												{item.name}
+											</option>
+										))}
+									</Select>
 									<Text fontSize="xs" color="red">
 										{errors.type?.message}
 									</Text>

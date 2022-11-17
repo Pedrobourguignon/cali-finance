@@ -13,6 +13,6 @@ export const createOrganizationSchema = yup.object().shape({
 		.required('Required')
 		.email('Invalid email format')
 		.matches(limitSpecialCharacterRegex, `Your email may contain _ - @ .`),
-	// type: yup.string().required('Required'),
-	// network: yup.string().required('Required'),
+	type: yup.string().required('Required'),
+	network: yup.string().required('Required'),
 });
