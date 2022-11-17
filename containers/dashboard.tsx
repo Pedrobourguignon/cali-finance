@@ -14,8 +14,8 @@ export const DashboardContainer = () => {
 			direction={{ base: 'column', sm: 'row' }}
 		>
 			<MobileHeader />
-			{/* <Sidebar />
-			<DashboardComponent /> */}
+			<Sidebar />
+			<DashboardComponent />
 		</Flex>
 	);
 };
