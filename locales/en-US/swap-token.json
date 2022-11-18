@@ -7,7 +7,7 @@
 	"estimatedFees": "Estimated Fees",
 	"priceImpact": "Price Impact",
 	"swap": "Swap",
-	"select": "Selecione",
+	"select": "Select",
 	"waitingForConfirmation": "Waiting for confirmation...",
 	"pleaseConfirmTransaction": "Please confirm this transaction in your wallet"
 }
