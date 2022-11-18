@@ -13,35 +13,38 @@ import {
 import { usePicasso } from 'hooks';
 import React from 'react';
 import { IRecentActivitiesList } from 'types';
-
-const recentActivitiesList: IRecentActivitiesList[] = [
-	{
-		type: 'Deposit',
-		date: '08 Aug 22, 20:57',
-		value: '10,000 USDT',
-		status: 'Completed',
-	},
-	{
-		type: 'Deposit',
-		date: '08 Aug 22, 20:57',
-		value: '10,000 USDT',
-		status: 'Completed',
-	},
-	{
-		type: 'Deposit',
-		date: '08 Aug 22, 20:57',
-		value: '10,000 USDT',
-		status: 'Completed',
-	},
-	{
-		type: 'Deposit',
-		date: '08 Aug 22, 20:57',
-		value: '10,000 USDT',
-		status: 'Completed',
-	},
-];
+import useTranslation from 'next-translate/useTranslation';
 
 export const DashboardComponent: React.FC = () => {
+	const { t: translate } = useTranslation('dashboard');
+
+	const recentActivitiesList: IRecentActivitiesList[] = [
+		{
+			type: translate('deposit'),
+			date: '08 Aug 22, 20:57',
+			value: '10,000 USDT',
+			status: translate('completed'),
+		},
+		{
+			type: translate('deposit'),
+			date: '08 Aug 22, 20:57',
+			value: '10,000 USDT',
+			status: translate('completed'),
+		},
+		{
+			type: translate('deposit'),
+			date: '08 Aug 22, 20:57',
+			value: '10,000 USDT',
+			status: translate('completed'),
+		},
+		{
+			type: translate('deposit'),
+			date: '08 Aug 22, 20:57',
+			value: '10,000 USDT',
+			status: translate('completed'),
+		},
+	];
+
 	const isConnected = true;
 	const error = false;
 	const shouldNotDisplayError = error ? 'none' : 'flex';

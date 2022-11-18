@@ -3,8 +3,11 @@
 	"youPay": "Você paga",
 	"youReceive": "Você recebe",
 	"rate": "Avaliação",
-	"slippageTolerance": "Tolerância de Slippage",
-	"estimatedFees": "Taxas Estimadas",
-	"priceImpact": "Impacto de Preço",
-	"swap": "Trocar"
+	"slippageTolerance": "Tolerância de slippage",
+	"estimatedFees": "Taxas estimadas",
+	"priceImpact": "Impacto no preço",
+	"swap": "Converter",
+	"select": "Selecione",
+	"waitingForConfirmation": "Aguardando confirmação...",
+	"pleaseConfirmTransaction": "Favor confirmar essa transação em sua carteira"
 }

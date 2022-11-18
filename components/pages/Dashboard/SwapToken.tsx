@@ -18,7 +18,7 @@ import React from 'react';
 import { BsArrowDownUp } from 'react-icons/bs';
 import { BiChevronDown } from 'react-icons/bi';
 import useTranslation from 'next-translate/useTranslation';
-import { OffsetShadow, WaitingForConfirmation } from 'components';
+import { OffsetShadow, WaitingConfirmation } from 'components';
 
 export const SwapToken = () => {
 	const theme = usePicasso();
@@ -37,7 +37,7 @@ export const SwapToken = () => {
 			align="center"
 			gap="4"
 		>
-			<WaitingForConfirmation isOpen={isOpen} onClose={onClose} />
+			<WaitingConfirmation isOpen={isOpen} onClose={onClose} />
 			<Flex gap="3" align="center" w="full" px="6">
 				<Icon as={BsArrowDownUp} color="white" boxSize="5" />
 				<Text
@@ -76,7 +76,7 @@ export const SwapToken = () => {
 									_hover={{ bg: 'none' }}
 									w="full"
 								>
-									Select
+									{translate('select')}
 								</MenuButton>
 								<MenuList>
 									<MenuItem>Bitícu</MenuItem>
@@ -110,7 +110,7 @@ export const SwapToken = () => {
 									_hover={{ bg: 'none' }}
 									w="full"
 								>
-									Select
+									{translate('select')}
 								</MenuButton>
 								<MenuList>
 									<MenuItem>Bitícu</MenuItem>
