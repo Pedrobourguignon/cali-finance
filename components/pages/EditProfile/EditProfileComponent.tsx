@@ -12,6 +12,7 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { editProfileSchema } from 'utils';
+import useTranslation from 'next-translate/useTranslation';
 
 interface IEditProfile {
 	name: string;
@@ -22,6 +23,7 @@ interface IEditProfile {
 
 export const EditProfileComponent = () => {
 	const theme = usePicasso();
+	const { t: translate } = useTranslation('edit-profile');
 
 	const labelStyle: TextProps = {
 		color: 'black',
@@ -62,7 +64,7 @@ export const EditProfileComponent = () => {
 					pl="7"
 					pt="6"
 				>
-					Edit Profile
+					{translate('editProfile')}
 				</Text>
 			</Flex>
 			<Flex justify="center" pt="7" direction="column" align="center" gap="5">
@@ -77,7 +79,7 @@ export const EditProfileComponent = () => {
 					_hover={{}}
 					_focus={{ bg: '#121212' }}
 				>
-					Edit profile image
+					{translate('editProfileImage')}
 				</Button>
 			</Flex>
 			<Flex
@@ -93,9 +95,9 @@ export const EditProfileComponent = () => {
 					<FormControl>
 						<Flex direction="column" gap="8" pt="7">
 							<Flex direction="column" gap="2">
-								<Text {...labelStyle}>Name</Text>
+								<Text {...labelStyle}>{translate('name')}</Text>
 								<Input
-									placeholder="Insert here"
+									placeholder={translate('insertHere')}
 									_placeholder={{ color: 'blackAlpha.500' }}
 									bgColor="white"
 									_hover={{}}
@@ -109,9 +111,9 @@ export const EditProfileComponent = () => {
 								</Text>
 							</Flex>
 							<Flex direction="column" gap="2">
-								<Text {...labelStyle}>Your best e-mail</Text>
+								<Text {...labelStyle}>{translate('yourBestEmail')}</Text>
 								<Input
-									placeholder="example@example.io"
+									placeholder={translate('exampleEmail')}
 									_placeholder={{ color: 'blackAlpha.500' }}
 									bgColor="white"
 									_hover={{}}
@@ -134,7 +136,7 @@ export const EditProfileComponent = () => {
 								fontSize="md"
 								borderRadius="sm"
 							>
-								Save Changes
+								{translate('saveChanges')}
 							</Button>
 						</Flex>
 					</FormControl>
