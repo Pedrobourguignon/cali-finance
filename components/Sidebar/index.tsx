@@ -52,23 +52,23 @@ export const Sidebar: React.FC = () => {
 	const menuOptions: IMenuItem[] = [
 		{
 			icon: DashboardIcon,
-			route: '/dashboard',
+			route: navigationPaths.dashboard.home,
 			option: translate('dashboard'),
 		},
 		{
 			icon: OrganizationIcon,
-			route: '/organizations',
+			route: navigationPaths.dashboard.organizations.home,
 			option: translate('organizations'),
 		},
 
 		{
 			icon: EditProfileIcon,
-			route: '/edit-profile',
+			route: navigationPaths.dashboard.editProfile,
 			option: translate('editProfile'),
 		},
 		{
 			icon: HistoryIcon,
-			route: '/history',
+			route: navigationPaths.dashboard.history,
 			option: translate('history'),
 		},
 	];
@@ -237,5 +237,3 @@ export const Sidebar: React.FC = () => {
 		</>
 	);
 };
-
-export default Sidebar;

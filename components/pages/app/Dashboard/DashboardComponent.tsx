@@ -5,10 +5,10 @@ import {
 	CreateOrganizationCard,
 	SwapToken,
 	HaveProblemCard,
-	TeamsList,
+	RecentActivitiesDashboard,
 	MyAssets,
-	RecentActivities,
 	ErrorAlert,
+	OrganizationsList,
 } from 'components';
 import { usePicasso } from 'hooks';
 import React from 'react';
@@ -72,11 +72,13 @@ export const DashboardComponent: React.FC = () => {
 					<CreateOrganizationCard />
 				</Flex>
 				<Flex display={shouldDisplayDash}>
-					<TeamsList />
+					<OrganizationsList />
 				</Flex>
 				<Flex display={shouldDisplayDash} gap="6">
 					<MyAssets />
-					<RecentActivities recentActivitiesList={recentActivitiesList} />
+					<RecentActivitiesDashboard
+						recentActivitiesList={recentActivitiesList}
+					/>
 				</Flex>
 			</Flex>
 			<Flex direction="column" gap="2" display={shouldNotDisplayError} px="6">

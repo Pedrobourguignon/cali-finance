@@ -1,8 +1,8 @@
 import { Box, Flex, Text } from '@chakra-ui/react';
 import Slider from 'react-slick';
 import React, { useState } from 'react';
-import { Paginator, TeamCard } from 'components';
 import { ITeamsList } from 'types';
+import { Paginator, TeamCard } from 'components';
 import useTranslation from 'next-translate/useTranslation';
 
 const settings = {

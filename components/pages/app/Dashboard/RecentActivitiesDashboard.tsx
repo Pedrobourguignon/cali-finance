@@ -4,9 +4,9 @@ import React from 'react';
 import { IRecentActivitiesComponent } from 'types';
 import useTranslation from 'next-translate/useTranslation';
 
-export const RecentActivities: React.FC<IRecentActivitiesComponent> = ({
-	recentActivitiesList,
-}) => {
+export const RecentActivitiesDashboard: React.FC<
+	IRecentActivitiesComponent
+> = ({ recentActivitiesList }) => {
 	const { t: translate } = useTranslation('dashboard');
 	return (
 		<Flex
@@ -52,15 +52,15 @@ export const RecentActivities: React.FC<IRecentActivitiesComponent> = ({
 									{activity.date}
 								</Text>
 							</Flex>
-						</Flex>
-						<Flex px="6" />
-						<Flex direction="column" align="flex-end" fontSize="sm" p="0.5">
-							<Text fontSize="xs" color="black">
-								{activity.value}
-							</Text>
-							<Text fontSize="xs" color="green.400">
-								{activity.status}
-							</Text>
+							<Flex px="6" />
+							<Flex direction="column" align="flex-end" fontSize="sm" p="0.5">
+								<Text fontSize="xs" color="black">
+									{activity.value}
+								</Text>
+								<Text fontSize="xs" color="green.400">
+									{activity.status}
+								</Text>
+							</Flex>
 						</Flex>
 					</Flex>
 				))}
@@ -69,4 +69,4 @@ export const RecentActivities: React.FC<IRecentActivitiesComponent> = ({
 	);
 };
 
-export default RecentActivities;
+export default RecentActivitiesDashboard;

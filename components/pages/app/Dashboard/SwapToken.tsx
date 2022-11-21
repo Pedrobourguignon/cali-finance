@@ -31,7 +31,7 @@ export const SwapToken = () => {
 			w="full"
 			h="max-content"
 			py="6"
-			bg="black"
+			bg={theme.bg.primary}
 			borderRadius="base"
 			direction="column"
 			align="center"
