@@ -90,7 +90,7 @@ export const MobileHeader = () => {
 				setNetworkData={setNetworkData}
 			/>
 			<Flex>
-				<NextLink href="">
+				<NextLink href="/dashboard">
 					<Img src="/images/cali-logo-mobile.png" h="6" />
 				</NextLink>
 			</Flex>
