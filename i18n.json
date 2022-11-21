@@ -2,8 +2,8 @@
 	"locales": ["en-US", "pt-BR"],
 	"defaultLocale": "en-US",
 	"pages": {
-		"*": ["teams-page", "app-header", "swap-token", "have-a-problem"],
+		"*": ["app-header", "swap-token", "have-a-problem", "sidebar", "dashboard"],
 		"/": ["home", "example"],
-		"/dashboard": ["teams-page", "swap-token", "have-a-problem"]
+		"/dashboard": ["swap-token", "have-a-problem", "sidebar", "dashboard"]
 	}
 }

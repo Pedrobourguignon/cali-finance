@@ -12,7 +12,6 @@ import React, { useState } from 'react';
 import { FaDiscord, FaTwitter } from 'react-icons/fa';
 import { usePath, usePicasso } from 'hooks';
 import Router, { useRouter } from 'next/router';
-
 import {
 	DashboardIcon,
 	OrganizationIcon,
@@ -24,35 +23,13 @@ import {
 } from 'components';
 import { navigationPaths, socialMediaLinks } from 'utils';
 import { INetwork } from 'types';
+import useTranslation from 'next-translate/useTranslation';
 
 interface IMenuItem {
 	icon: typeof Icon;
 	route: string;
-	option: string;
+	option: () => void;
 }
-
-const menuOptions: IMenuItem[] = [
-	{
-		icon: DashboardIcon,
-		route: navigationPaths.dashboard.home,
-		option: 'Dashboard',
-	},
-	{
-		icon: OrganizationIcon,
-		route: navigationPaths.dashboard.organizations.home,
-		option: 'Organizations',
-	},
-	{
-		icon: EditProfileIcon,
-		route: navigationPaths.dashboard.editProfile,
-		option: 'Edit Profile',
-	},
-	{
-		icon: HistoryIcon,
-		route: navigationPaths.dashboard.history,
-		option: 'History',
-	},
-];
 
 const networks: INetwork[] = [
 	{
@@ -71,6 +48,30 @@ const networks: INetwork[] = [
 type ILanguage = 'pt-BR' | 'en-US';
 
 export const Sidebar: React.FC = () => {
+	const { t: translate } = useTranslation('sidebar');
+	const menuOptions: IMenuItem[] = [
+		{
+			icon: DashboardIcon,
+			route: '/dashboard',
+			option: translate('dashboard'),
+		},
+		{
+			icon: OrganizationIcon,
+			route: '/organizations',
+			option: translate('organizations'),
+		},
+
+		{
+			icon: EditProfileIcon,
+			route: '/edit-profile',
+			option: translate('editProfile'),
+		},
+		{
+			icon: HistoryIcon,
+			route: '/history',
+			option: translate('history'),
+		},
+	];
 	const theme = usePicasso();
 	const { isSamePath } = usePath();
 	const { locale, pathname } = useRouter();
@@ -158,8 +159,10 @@ export const Sidebar: React.FC = () => {
 										gap="3"
 										fontWeight="normal"
 									>
-										<Icon as={item.icon} boxSize="6" ml="6" />
-										{item.option}
+										<>
+											<Icon as={item.icon} boxSize="6" ml="6" />
+											{item.option}
+										</>
 									</Flex>
 									<Flex
 										display={comparedPath ? 'flex' : 'none'}
@@ -205,7 +208,7 @@ export const Sidebar: React.FC = () => {
 							opacity: 0.8,
 						}}
 					>
-						Help
+						{translate('help')}
 					</Link>
 					<Link
 						href={navigationPaths.docs}
@@ -214,7 +217,7 @@ export const Sidebar: React.FC = () => {
 							opacity: 0.8,
 						}}
 					>
-						Docs
+						{translate('docs')}
 					</Link>
 				</Flex>
 

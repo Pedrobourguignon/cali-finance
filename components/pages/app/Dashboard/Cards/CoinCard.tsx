@@ -9,6 +9,7 @@ export const CoinCard: React.FC<ICoinCard> = ({
 	variation,
 }) => {
 	const theme = usePicasso();
+
 	return (
 		<Flex
 			borderRadius="base"

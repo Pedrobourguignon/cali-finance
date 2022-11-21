@@ -2,6 +2,7 @@ import { Button, ButtonProps, Flex, Icon, Text } from '@chakra-ui/react';
 import { AiOutlineLeft, AiOutlineRight } from 'react-icons/ai';
 
 import { FC } from 'react';
+import useTranslation from 'next-translate/useTranslation';
 
 interface IPaginatorProps extends ButtonProps {
 	previous: () => void;
@@ -21,30 +22,33 @@ export const Paginator: FC<IPaginatorProps> = ({
 	maxPage,
 	previous,
 	next,
-}) => (
-	<Flex justifyContent="space-between" align="center" gap="2">
-		<PaginatorButton
-			disabled={actualPage === 1}
-			onClick={previous}
-			previous={previous}
-			next={next}
-			actualPage={actualPage}
-			maxPage={maxPage}
-		>
-			<Icon as={AiOutlineLeft} />
-		</PaginatorButton>
-		<Text w="max-content" h="max-content" fontWeight="500" color="#121212">
-			{`${actualPage} of ${maxPage}`}
-		</Text>
-		<PaginatorButton
-			disabled={actualPage === maxPage}
-			onClick={next}
-			previous={previous}
-			next={next}
-			actualPage={actualPage}
-			maxPage={maxPage}
-		>
-			<Icon as={AiOutlineRight} />
-		</PaginatorButton>
-	</Flex>
-);
+}) => {
+	const { t: translate } = useTranslation('dashboard');
+	return (
+		<Flex justifyContent="space-between" align="center" gap="2">
+			<PaginatorButton
+				disabled={actualPage === 1}
+				onClick={previous}
+				previous={previous}
+				next={next}
+				actualPage={actualPage}
+				maxPage={maxPage}
+			>
+				<Icon as={AiOutlineLeft} />
+			</PaginatorButton>
+			<Text w="max-content" h="max-content" fontWeight="500" color="#121212">
+				{`${actualPage} ${translate('of')} ${maxPage}`}
+			</Text>
+			<PaginatorButton
+				disabled={actualPage === maxPage}
+				onClick={next}
+				previous={previous}
+				next={next}
+				actualPage={actualPage}
+				maxPage={maxPage}
+			>
+				<Icon as={AiOutlineRight} />
+			</PaginatorButton>
+		</Flex>
+	);
+};

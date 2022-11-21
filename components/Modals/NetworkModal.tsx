@@ -13,6 +13,7 @@ import {
 } from '@chakra-ui/react';
 import { usePicasso } from 'hooks';
 import { INetworkModal } from 'types';
+import useTranslation from 'next-translate/useTranslation';
 
 export const NetworkModal: React.FC<INetworkModal> = ({
 	isOpen,
@@ -21,6 +22,7 @@ export const NetworkModal: React.FC<INetworkModal> = ({
 	setNetworkData,
 }) => {
 	const theme = usePicasso();
+	const { t: translate } = useTranslation('sidebar');
 
 	const handleSetNetworkData = (icon: string, name: string) => {
 		setNetworkData({ name, icon });
@@ -51,7 +53,7 @@ export const NetworkModal: React.FC<INetworkModal> = ({
 						alignItems="center"
 					>
 						<Text color="black" fontSize="md" fontWeight="500">
-							Change Network
+							{translate('changeNetwork')}
 						</Text>
 						<ModalCloseButton
 							color="gray.400"

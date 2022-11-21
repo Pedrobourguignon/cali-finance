@@ -3,6 +3,7 @@ import Slider from 'react-slick';
 import React, { useState } from 'react';
 import { ITeamsList } from 'types';
 import { Paginator, TeamCard } from 'components';
+import useTranslation from 'next-translate/useTranslation';
 
 const settings = {
 	infinite: false,
@@ -45,6 +46,7 @@ const teamList: ITeamsList[] = [
 ];
 
 export const TeamsList = () => {
+	const { t: translate } = useTranslation('dashboard');
 	const [slider, setSlider] = React.useState<Slider | null>(null);
 	const [actualPage, setActualPage] = useState(1);
 	const maxPage = teamList.length - 2;
@@ -63,7 +65,7 @@ export const TeamsList = () => {
 		<Flex direction="column" gap="3">
 			<Flex justify="space-between" align="center" pt="4">
 				<Text fontSize="16" fontWeight="500" color="#121212">
-					Your Organizations
+					{translate('yourOrganizations')}
 				</Text>
 				<Paginator
 					actualPage={actualPage}
