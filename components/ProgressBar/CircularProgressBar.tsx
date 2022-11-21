@@ -1,5 +1,4 @@
 import { usePicasso } from 'hooks';
-import { useMemo } from 'react';
 
 interface IPercentage {
 	percentage: number;
