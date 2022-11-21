@@ -96,45 +96,19 @@ export const OrganizationsProvider: React.FC<{ children: React.ReactNode }> = ({
 			value: 10.0,
 		},
 	]);
-	const [totalFunds, setTotalFunds] = useState('');
-	const [totalTeams, setTotalTeams] = useState('');
-	const [totalMembers, setTotalMembers] = useState('');
+	const totalFunds = organizations
+		.reduce((total: number, org: IOrganization) => total + org.funds, 0)
+		.toLocaleString('en-US');
 
-	const calculateTotalFunds = () => {
-		const funds = organizations.reduce(
-			// eslint-disable-next-line no-shadow
-			(total: number, organizations: IOrganization) =>
-				total + organizations.funds,
+	const totalTeams = organizations
+		.reduce(
+			(total: number, org: IOrganization) => total + Number(org.members),
 			0
-		);
-		setTotalFunds(funds.toLocaleString('EN-us'));
-	};
-
-	const calculateTotalMembers = () => {
-		const members = organizations.reduce(
-			// eslint-disable-next-line no-shadow
-			(total: number, organizations: IOrganization) =>
-				total + +organizations.members,
-			0
-		);
-		setTotalMembers(members.toString());
-	};
-
-	const calculateTotalTeams = () => {
-		const teams = organizations.reduce(
-			// eslint-disable-next-line no-shadow
-			(total: number, organizations: IOrganization) =>
-				total + organizations.teams.length,
-			0
-		);
-		setTotalTeams(teams.toString());
-	};
-
-	useMemo(() => {
-		calculateTotalFunds();
-		calculateTotalMembers();
-		calculateTotalTeams();
-	}, [organizations]);
+		)
+		.toString();
+	const totalMembers = organizations
+		.reduce((total: number, org: IOrganization) => total + org.teams.length, 0)
+		.toString();
 
 	const contextStates = useMemo(
 		() => ({

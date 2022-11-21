@@ -46,6 +46,29 @@ const socialLinks: ISocialMediaInput[] = [
 	},
 ];
 
+const OrganizationLogo: React.FC<{ org: INewOrganization }> = ({ org }) => {
+	const { logo, name } = org;
+	const theme = usePicasso();
+	if (logo) {
+		return <Img src={logo} boxSize="20" borderRadius="base" />;
+	}
+	if (name)
+		return (
+			<Flex
+				boxSize="20"
+				color="black"
+				bg={theme.bg.white2}
+				borderRadius="base"
+				align="center"
+				justify="center"
+				fontSize="4xl"
+			>
+				{handleLogoImage(name)}
+			</Flex>
+		);
+	return <Img src="/images/work.png" boxSize="20" borderRadius="base" />;
+};
+
 export const NewOrganizationLinks = () => {
 	const theme = usePicasso();
 	return (
@@ -61,23 +84,7 @@ export const NewOrganizationLinks = () => {
 				borderRadius="base"
 			>
 				<Flex direction="column" align="center" gap="4">
-					{organizations.logo ? (
-						<Img src={organizations.logo} boxSize="20" borderRadius="base" />
-					) : organizations.name ? (
-						<Flex
-							boxSize="20"
-							color="black"
-							bg={theme.bg.white2}
-							borderRadius="base"
-							align="center"
-							justify="center"
-							fontSize="4xl"
-						>
-							{handleLogoImage(organizations.logo, organizations.name)}
-						</Flex>
-					) : (
-						<Img src="/images/work.png" boxSize="20" borderRadius="base" />
-					)}
+					<OrganizationLogo org={organizations} />
 					<ImageUploader />
 				</Flex>
 				<Flex>

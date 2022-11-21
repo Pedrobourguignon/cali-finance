@@ -1,5 +1,5 @@
 import { Flex, Img, LinkBox, LinkOverlay, Text } from '@chakra-ui/react';
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { usePicasso } from 'hooks';
 import NextLink from 'next/link';
 import { LinearProgressBar } from 'components/ProgressBar';
@@ -51,32 +51,15 @@ const teams = [
 ];
 export const ActiveTeamsBar = () => {
 	const theme = usePicasso();
-	const [totalMembers, setTotalMembers] = useState(0);
-	const [newTeam, setNewTeam] = useState<INewTeam[]>([]);
-
-	useEffect(() => {
-		let total = 0;
-		// eslint-disable-next-line array-callback-return
-		teams.map(item => {
-			total += item.members;
-		});
-		setTotalMembers(total);
-	}, []);
-
-	useEffect(() => {
-		const groupOfTeams: INewTeam[] = [];
-		// eslint-disable-next-line array-callback-return
-		teams.map(item => {
-			const percentage = (item.members * 100) / totalMembers;
-			const team: INewTeam = {
+	const totalMembers = teams.reduce((acc, team) => acc + team.members, 0);
+	const newTeam = teams.map(
+		item =>
+			({
 				name: item.name,
-				percent: `${percentage.toFixed(0)}%`,
+				percent: `${((item.members * 100) / totalMembers).toFixed(0)}%`,
 				color: item.color,
-			};
-			groupOfTeams.push(team);
-		});
-		setNewTeam(groupOfTeams);
-	}, [totalMembers]);
+			} as INewTeam)
+	);
 
 	return (
 		<Flex

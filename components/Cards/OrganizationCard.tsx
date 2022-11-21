@@ -32,7 +32,7 @@ export const OrganizationCard: React.FC<IOrganizationCard> = ({ team }) => {
 							fontWeight="bold"
 							bg={theme.bg.white2}
 						>
-							{handleLogoImage(team.logo, team.name)}
+							{handleLogoImage(team.name)}
 						</Flex>
 					)}
 					<Text fontSize="md" fontWeight="bold">
