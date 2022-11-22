@@ -1,6 +1,5 @@
 import { Button, Icon } from '@chakra-ui/react';
 import { VscBell } from 'react-icons/vsc';
-import FC from 'react';
 
 export const NotificationButton: React.FC = () => (
 	<Button bg="transparent">

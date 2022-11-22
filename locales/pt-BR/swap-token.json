@@ -2,9 +2,12 @@
 	"title": "Trocar tokens",
 	"youPay": "Você paga",
 	"youReceive": "Você recebe",
-	"rate": "Rate",
-	"slippageTolerance": "Slippage tolerance",
-	"estimatedFees": "Estimated Fees",
-	"priceImpact": "Price Impact",
-	"swap": "Trocar"
+	"rate": "Avaliação",
+	"slippageTolerance": "Tolerância de slippage",
+	"estimatedFees": "Taxas estimadas",
+	"priceImpact": "Impacto no preço",
+	"swap": "Converter",
+	"select": "Selecione",
+	"waitingForConfirmation": "Aguardando confirmação...",
+	"pleaseConfirmTransaction": "Favor confirmar essa transação em sua carteira"
 }

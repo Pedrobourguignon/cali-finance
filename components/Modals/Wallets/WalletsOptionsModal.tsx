@@ -15,8 +15,8 @@ import { IWalletOptionsModal } from 'types';
 import Link from 'next/link';
 import { OffsetShadow } from 'components';
 import { usePicasso } from 'hooks';
-import { MoreIcon } from 'components/Icons';
 import { navigationPaths } from 'utils';
+import useTranslation from 'next-translate/useTranslation';
 
 const walletsOptions = [
 	{
@@ -47,6 +47,7 @@ export const WalletsOptionsModal: React.FC<IWalletOptionsModal> = ({
 	openLoadingWalletModal,
 	setWalletData,
 }) => {
+	const { t: translate } = useTranslation('sidebar');
 	const theme = usePicasso();
 	const onTriggerLoadingModal = (icon: string, name: string) => {
 		setWalletData({
@@ -87,7 +88,7 @@ export const WalletsOptionsModal: React.FC<IWalletOptionsModal> = ({
 							w="full"
 						>
 							<Text fontSize="lg" fontStyle="semi-bold" color={theme.text.mono}>
-								Connect to a Wallet
+								{translate('connectWalletModal')}
 							</Text>
 							<ModalCloseButton color="gray.400" py="7" />
 						</ModalHeader>
@@ -130,12 +131,12 @@ export const WalletsOptionsModal: React.FC<IWalletOptionsModal> = ({
 								color={theme.text.mono}
 								py="6"
 							>
-								<Text>By connecting your wallet you accept the</Text>
+								<Text>{translate('accept')}</Text>
 
 								<Link href={navigationPaths.termsAndConditions}>
 									<Text fontWeight="bold" cursor="pointer">
 										<Text as="span" textDecor="underline">
-											Terms and Conditions
+											{translate('terms')}
 										</Text>
 										<Text as="span" textDecor="none">
 											.

@@ -11,14 +11,16 @@ import {
 } from '@chakra-ui/react';
 import { OffsetShadow } from 'components';
 import { usePicasso } from 'hooks';
+import useTranslation from 'next-translate/useTranslation';
 import React from 'react';
 import { IBasicModal } from 'types';
 
-export const WaitingForConfirmation: React.FC<IBasicModal> = ({
+export const WaitingConfirmation: React.FC<IBasicModal> = ({
 	isOpen,
 	onClose,
 }) => {
 	const theme = usePicasso();
+	const { t: translate } = useTranslation('swap-token');
 	return (
 		<Modal isOpen={isOpen} onClose={onClose} size="sm">
 			<ModalOverlay />
@@ -53,10 +55,10 @@ export const WaitingForConfirmation: React.FC<IBasicModal> = ({
 								fontSize="lg"
 								color={theme.text.mono}
 							>
-								Waiting for confirmation...
+								{translate('waitingForConfirmation')}
 							</Text>
 							<Text fontSize="sm" color="black">
-								Please confirm this transaction in your wallet
+								{translate('pleaseConfirmTransaction')}
 							</Text>
 						</ModalBody>
 					</Flex>
@@ -66,4 +68,4 @@ export const WaitingForConfirmation: React.FC<IBasicModal> = ({
 	);
 };
 
-export default WaitingForConfirmation;
+export default WaitingConfirmation;

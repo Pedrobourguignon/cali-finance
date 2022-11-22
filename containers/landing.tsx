@@ -118,7 +118,7 @@ export const LandingContainer: React.FC = () => {
 					maxW={{ base: '2xs', md: 'sm', lg: 'sm', xl: 'xl' }}
 				>
 					<Img
-						src="/images/dashboard.svg"
+						src="/images/dashboard.png"
 						position="relative"
 						right="5"
 						bottom="5"

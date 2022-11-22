@@ -1,5 +1,6 @@
 import { Button, Flex, Img, Text, useDisclosure } from '@chakra-ui/react';
 import React, { useState } from 'react';
+import useTranslation from 'next-translate/useTranslation';
 import {
 	LoadingWalletConnectModal,
 	WalletsOptionsModal,
@@ -15,6 +16,7 @@ export const ConnectWalletButton = () => {
 	const profilePicture =
 		'http://t0.gstatic.com/licensed-image?q=tbn:ANd9GcRIJYVo526c4XTP0V4CyE2XbTLsdYcxSilLYaSDYC4XDtXArbTNxmX63MnX3gP6d2cI';
 	const walletAddress = '0x6856...BF99';
+	const { t: translate } = useTranslation('sidebar');
 	const isConnected = false;
 	const shouldDisplay = isConnected ? 'none' : 'flex';
 	const shouldntDisplay = isConnected ? 'flex' : 'none';
@@ -45,7 +47,7 @@ export const ConnectWalletButton = () => {
 			<OffsetShadow
 				px=""
 				buttonText=""
-				width="36"
+				width="40"
 				height="8"
 				borderColor="white"
 				top="0.5rem"
@@ -69,7 +71,7 @@ export const ConnectWalletButton = () => {
 					display={shouldDisplay}
 				>
 					<Text px="8" display={shouldDisplay}>
-						Connect Wallet
+						{translate('connectWallet')}
 					</Text>
 				</Button>
 				<Flex
