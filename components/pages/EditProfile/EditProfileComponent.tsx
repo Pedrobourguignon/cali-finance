@@ -6,6 +6,7 @@ import {
 	Input,
 	Text,
 	TextProps,
+	useDisclosure,
 } from '@chakra-ui/react';
 import { usePicasso } from 'hooks';
 import React from 'react';
@@ -13,6 +14,7 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { editProfileSchema } from 'utils';
 import useTranslation from 'next-translate/useTranslation';
+import { ImageUploaderModal } from 'components';
 
 interface IEditProfile {
 	name: string;
@@ -24,6 +26,7 @@ interface IEditProfile {
 export const EditProfileComponent = () => {
 	const theme = usePicasso();
 	const { t: translate } = useTranslation('edit-profile');
+	const { isOpen, onOpen, onClose } = useDisclosure();
 
 	const labelStyle: TextProps = {
 		color: 'black',
@@ -55,6 +58,7 @@ export const EditProfileComponent = () => {
 			gap="4"
 			direction="column"
 		>
+			<ImageUploaderModal isOpen={isOpen} onClose={onClose} />
 			<Flex>
 				<Text
 					fontSize="xl"
@@ -78,6 +82,7 @@ export const EditProfileComponent = () => {
 					py="1"
 					_hover={{}}
 					_focus={{ bg: '#121212' }}
+					onClick={onOpen}
 				>
 					{translate('editProfileImage')}
 				</Button>

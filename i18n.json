@@ -7,9 +7,16 @@
 			"app-header",
 			"swap-token",
 			"have-a-problem",
-			"edit-profile"
+			"edit-profile",
+			"sidebar"
 		],
 		"/": ["home", "example"],
-		"/dashboard": ["teams-page", "swap-token", "have-a-problem", "edit-profile"]
+		"/dashboard": [
+			"swap-token",
+			"have-a-problem",
+			"sidebar",
+			"dashboard",
+			"edit-profile"
+		]
 	}
 }
