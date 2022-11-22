@@ -23,7 +23,7 @@ export const HistoryComponent: React.FC<IHistoryPage> = ({ history }) => {
 	const theme = usePicasso();
 	const { t: translate } = useTranslation('history-page');
 
-	const isConnected = true;
+	const isConnected = false;
 	const shouldDisplay = isConnected ? 'flex' : 'none';
 	const shouldntDisplay = isConnected ? 'none' : 'flex';
 
@@ -239,7 +239,7 @@ export const HistoryComponent: React.FC<IHistoryPage> = ({ history }) => {
 						{displayNotifications}
 					</Flex>
 				</Flex>
-				<Flex justify="center" bottom="0">
+				<Flex justify="center" bottom="0" display={shouldDisplay}>
 					<Paginator
 						actualPage={actualPage}
 						maxPage={maxPage}
