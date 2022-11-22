@@ -1,9 +1,15 @@
 {
-	"locales": ["en", "pt-BR"],
-	"defaultLocale": "en",
+	"locales": ["en-US", "pt-BR"],
+	"defaultLocale": "en-US",
 	"pages": {
-		"*": ["teams-page", "app-header", "swap-token", "have-a-problem"],
+		"*": [
+			"teams-page",
+			"app-header",
+			"swap-token",
+			"have-a-problem",
+			"history-page"
+		],
 		"/": ["home", "example"],
-		"/app": ["teams-page", "swap-token", "have-a-problem"]
+		"/dashboard": ["teams-page", "swap-token", "have-a-problem", "history-page"]
 	}
 }
