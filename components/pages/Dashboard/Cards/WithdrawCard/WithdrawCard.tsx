@@ -1,10 +1,21 @@
 import { Flex, Text, useDisclosure } from '@chakra-ui/react';
 import { WithdrawButton, WithdrawContent } from 'components';
 import { usePicasso } from 'hooks';
+import useTranslation from 'next-translate/useTranslation';
+
+export interface ISelectedCoin {
+	logo: string;
+	symbol: string;
+}
+
+const selectedCoin: ISelectedCoin = {
+	logo: 'https://assets.coingecko.com/coins/images/1/thumb/bitcoin.png?1547033579',
+	symbol: 'BTC',
+};
 
 export const WithdrawCard = () => {
 	const theme = usePicasso();
-	const { isOpen, onOpen, onClose } = useDisclosure();
+	const { t: translate } = useTranslation('dashboard');
 
 	return (
 		<Flex
@@ -18,10 +29,10 @@ export const WithdrawCard = () => {
 		>
 			<Flex w="100%" justify="space-between" align="center">
 				<Text color={theme.text.black} fontWeight="semibold" fontSize="xl">
-					$ Withdraw
+					$ {translate('withdraw')}
 				</Text>
 			</Flex>
-			<WithdrawContent />
+			<WithdrawContent coin={selectedCoin} />
 			<WithdrawButton />
 		</Flex>
 	);

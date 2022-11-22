@@ -8,12 +8,24 @@ import {
 	ModalHeader,
 	ModalOverlay,
 } from '@chakra-ui/react';
-import { WithdrawButton, WithdrawContent, OffsetShadow } from 'components';
+import {
+	WithdrawButton,
+	WithdrawContent,
+	OffsetShadow,
+	ISelectedCoin,
+} from 'components';
 import { usePicasso } from 'hooks';
+import useTranslation from 'next-translate/useTranslation';
 import { IBasicModal } from 'types';
+
+const selectedCoin: ISelectedCoin = {
+	logo: 'https://assets.coingecko.com/coins/images/1/thumb/bitcoin.png?1547033579',
+	symbol: 'BTC',
+};
 
 export const WithdrawModal: React.FC<IBasicModal> = ({ isOpen, onClose }) => {
 	const theme = usePicasso();
+	const { t: translate } = useTranslation('dashboard');
 	return (
 		<Modal isOpen={isOpen} onClose={onClose}>
 			<ModalOverlay />
@@ -28,10 +40,12 @@ export const WithdrawModal: React.FC<IBasicModal> = ({ isOpen, onClose }) => {
 						h="100%"
 						w="100%"
 					>
-						<ModalHeader color={theme.text.black2}>Withdraw</ModalHeader>
+						<ModalHeader color={theme.text.black2}>
+							{translate('withdraw')}
+						</ModalHeader>
 						<ModalCloseButton color="gray.400" />
 						<ModalBody>
-							<WithdrawContent />
+							<WithdrawContent coin={selectedCoin} />
 						</ModalBody>
 
 						<ModalFooter>

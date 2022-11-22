@@ -8,14 +8,21 @@ import {
 	Text,
 } from '@chakra-ui/react';
 import { usePicasso } from 'hooks';
+import useTranslation from 'next-translate/useTranslation';
 import { IoIosArrowDown } from 'react-icons/io';
 
-export const WithdrawContent = () => {
+interface ISelectedCoin {
+	coin: { logo: string; symbol: string };
+}
+
+export const WithdrawContent: React.FC<ISelectedCoin> = ({ coin }) => {
 	const theme = usePicasso();
+	const { t: translate } = useTranslation('dashboard');
+
 	return (
 		<Flex direction="column" gap="2">
 			<Text color="black" fontSize="sm">
-				Amount
+				{translate('amount')}
 			</Text>
 			<InputGroup>
 				<Input
@@ -35,12 +42,9 @@ export const WithdrawContent = () => {
 					_focus={{}}
 				>
 					<Flex gap="2" align="center">
-						<Img
-							boxSize="4"
-							src="https://assets.coingecko.com/coins/images/1/thumb/bitcoin.png?1547033579"
-						/>
+						<Img boxSize="4" src={coin.logo} />
 						<Text fontSize="sm" width="8" lineHeight="5">
-							BTC
+							{coin.symbol}
 						</Text>
 						<Icon boxSize="4" as={IoIosArrowDown} />
 					</Flex>
