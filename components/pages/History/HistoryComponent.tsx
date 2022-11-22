@@ -11,6 +11,7 @@ import {
 	Stack,
 	Icon,
 } from '@chakra-ui/react';
+import { LifeIsEasierBannner, CreateAccountBanner } from 'components';
 import { usePicasso } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
 import React, { useState } from 'react';
@@ -137,7 +138,7 @@ export const HistoryComponent: React.FC<IHistoryPage> = ({ history }) => {
 			py="8"
 			px="7"
 		>
-			<Flex direction="column" gap="2">
+			<Flex direction="column" gap="5">
 				<Flex direction="column" gap="2" w="46rem">
 					<Flex justify="space-between" align="center">
 						<Flex direction="column" gap="4">
@@ -247,8 +248,12 @@ export const HistoryComponent: React.FC<IHistoryPage> = ({ history }) => {
 					/>
 				</Flex>
 			</Flex>
-
-			<Flex w="296px" h="629px" bg="#121212" />
+			<Flex display={shouldDisplay}>
+				<LifeIsEasierBannner />
+			</Flex>
+			<Flex display={shouldntDisplay}>
+				<CreateAccountBanner />
+			</Flex>
 		</Flex>
 	);
 };

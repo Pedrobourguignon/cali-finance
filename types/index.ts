@@ -5,3 +5,4 @@ export * from './history';
 export * from './INetwork';
 export * from './modals';
 export * from './popover';
+export * from './organizations';

@@ -10,6 +10,12 @@
 			"history-page"
 		],
 		"/": ["home", "example"],
-		"/dashboard": ["teams-page", "swap-token", "have-a-problem", "history-page"]
+		"/dashboard": [
+			"swap-token",
+			"have-a-problem",
+			"sidebar",
+			"dashboard",
+			"history-page"
+		]
 	}
 }

@@ -10,6 +10,7 @@ const usePicasso = () => {
 			green: useColorModeValue('#9B93AB', '#2ECC71'),
 			red: useColorModeValue('#9B93AB', '#E17055'),
 			black: useColorModeValue('#010D0C', '#010D0C'),
+			primary: '#121212',
 		},
 		branding: {
 			blue: '#1A94E1',
@@ -26,10 +27,13 @@ const usePicasso = () => {
 			red: '0px 0px 10px rgba(232, 49, 81, 0.5)',
 		},
 		bg: {
+			white2: '#F7FAFC',
 			primary: '#121212',
 			secondary: useColorModeValue('gray.200', '#100F12'),
 			card: useColorModeValue('gray.100', '#333333'),
 			gray: '#6C657A',
+			gray2: '#EDF2F7',
+			black: '#191919',
 			modal: useColorModeValue('white', 'white'),
 			gradient:
 				'linear-gradient(178.33deg, #FFFFFF 19.26%, rgba(255, 255, 255, 0) 142.45%);',

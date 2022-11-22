@@ -2,6 +2,7 @@ import { Button, Flex, Icon, Text } from '@chakra-ui/react';
 import { OrganizationCardIcon } from 'components';
 import { usePicasso } from 'hooks';
 import React from 'react';
+import useTranslation from 'next-translate/useTranslation';
 
 interface ITeamCard {
 	teamName: string;
@@ -10,6 +11,7 @@ interface ITeamCard {
 }
 
 export const TeamCard: React.FC<ITeamCard> = ({ teamName, funds, members }) => {
+	const { t: translate } = useTranslation('dashboard');
 	const theme = usePicasso();
 	return (
 		<Flex boxShadow="lg" justify="center" bg="white" mr="2">
@@ -23,19 +25,20 @@ export const TeamCard: React.FC<ITeamCard> = ({ teamName, funds, members }) => {
 				<Flex gap="14" w="full">
 					<Flex direction="column" color="#121212">
 						<Text fontSize="sm" color="gray.500">
-							Funds
+							{translate('funds')}
 						</Text>
 						{funds}
 					</Flex>
 					<Flex direction="column" color="black">
 						<Text fontSize="sm" color="gray.500">
-							Members
+							{translate('members')}
 						</Text>
 						{members}
 					</Flex>
 				</Flex>
-				<Button color={theme.branding.blue} bg="transparent" fontSize="xs">
-					Manage
+
+				<Button color={theme.branding.blue} bg="none" fontSize="xs">
+					{translate('manage')}
 				</Button>
 			</Flex>
 		</Flex>
