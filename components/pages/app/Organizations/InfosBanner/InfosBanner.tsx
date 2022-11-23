@@ -8,12 +8,13 @@ interface IInfos {
 export const InfosBanner: React.FC<IInfos> = ({ children }) => {
 	const theme = usePicasso();
 	return (
-		<Flex>
+		<Flex p="6">
 			<Flex
 				bg={theme.bg.black}
 				direction="column"
 				position="relative"
 				borderRadius="base"
+				h="max-content"
 			>
 				{children}
 				<Flex position="absolute" bottom="0">

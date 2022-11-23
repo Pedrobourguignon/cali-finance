@@ -16,7 +16,7 @@ export const OrganizationsConnected: React.FC = () => {
 
 	return (
 		<AppLayout right={<SwapTokenBar />}>
-			<Flex p="6" direction="column" gap="4" w="min-content">
+			<Flex direction="column" gap="4" w="min-content">
 				<DashboardHeader />
 				<OrganizationsDashboard
 					members={totalMembers}
