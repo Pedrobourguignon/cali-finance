@@ -12,7 +12,6 @@ class CoingeckoService {
 			const result = await this.api.get(url);
 			return result.data;
 		} catch (error) {
-			console.error(error);
 			return '';
 		}
 	}
@@ -23,7 +22,6 @@ class CoingeckoService {
 			const result = await this.api.get(url);
 			return result.data;
 		} catch (error) {
-			console.error(error);
 			return '';
 		}
 	}

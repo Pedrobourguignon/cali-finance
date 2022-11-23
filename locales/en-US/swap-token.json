@@ -1,0 +1,13 @@
+{
+	"title": "Swap tokens",
+	"youPay": "You pay",
+	"youReceive": "You receive",
+	"rate": "Rate",
+	"slippageTolerance": "Slippage tolerance",
+	"estimatedFees": "Estimated Fees",
+	"priceImpact": "Price Impact",
+	"swap": "Swap",
+	"select": "Select",
+	"waitingForConfirmation": "Waiting for confirmation...",
+	"pleaseConfirmTransaction": "Please confirm this transaction in your wallet"
+}

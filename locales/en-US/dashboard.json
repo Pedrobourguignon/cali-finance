@@ -1,0 +1,23 @@
+{
+	"coins": "Coins",
+	"stayConnected": "Stay always tuned on",
+	"principalCoins": "principal coin prices",
+	"newCoin": "New Coin",
+	"funds": "Funds",
+	"members": "Members",
+	"manage": "Manage",
+	"myAssets": "My Assets",
+	"seeAll": "See all",
+	"recentActivities": "Recent Activities",
+	"deposit": "Deposit",
+	"completed": "Completed",
+	"dontHaveOrganization": "You don’t have a Organization yet",
+	"createOrganization": "Create a Organization",
+	"somethingWentWrong": "Something went wrong",
+	"backDashboard": "Back to dashboard",
+	"ops": "Ops...",
+	"yourOrganizations": "Your Organizations",
+	"of": "of",
+	"amount": "Amount",
+	"withdraw": "Withdraw"
+}

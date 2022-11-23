@@ -1,0 +1,23 @@
+{
+	"coins": "Moedas",
+	"stayConnected": "Fique sempre ligado",
+	"principalCoins": "nas principais moedas",
+	"newCoin": "Nova Moeda",
+	"funds": "Fundos",
+	"members": "Membros",
+	"manage": "Administrar",
+	"myAssets": "Meus ativos",
+	"seeAll": "Ver tudo",
+	"recentActivities": "Atividades Recentes",
+	"deposit": "Depósito",
+	"completed": "Completo",
+	"dontHaveOrganization": "Você não possui uma organização ainda",
+	"createOrganization": "Criar organização",
+	"somethingWentWrong": "Algo deu errado",
+	"backDashboard": "Voltar ao painel",
+	"ops": "Ops...",
+	"yourOrganizations": "Suas organizações",
+	"of": "de",
+	"amount": "Quantia",
+	"withdraw": "Retirar"
+}

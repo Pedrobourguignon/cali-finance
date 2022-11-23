@@ -42,7 +42,7 @@ export const LandingHeader: React.FC = () => {
 				{menuOptions.map((item, index) => {
 					const comparedPath = isSamePath(item.route);
 					return (
-						<NextLink key={index} href={item.route}>
+						<NextLink key={+index} href={item.route}>
 							<Text
 								borderBottomColor={comparedPath ? 'white' : 'none'}
 								borderBottomWidth={comparedPath ? '0.125rem' : 'none'}
