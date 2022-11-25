@@ -8,7 +8,7 @@ interface IInfos {
 export const InfosBanner: React.FC<IInfos> = ({ children }) => {
 	const theme = usePicasso();
 	return (
-		<Flex p="6">
+		<Flex>
 			<Flex
 				bg={theme.bg.black}
 				direction="column"
