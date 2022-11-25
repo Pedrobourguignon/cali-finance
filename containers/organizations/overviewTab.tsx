@@ -1,7 +1,6 @@
 import { Flex, Text, useDisclosure } from '@chakra-ui/react';
 import {
 	NavigationBack,
-	NotificationButton,
 	NotificationPopover,
 	OrganizationsHeader,
 	RecentActivities,
