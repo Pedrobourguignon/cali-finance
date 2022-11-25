@@ -1,4 +1,4 @@
-import { Flex } from '@chakra-ui/react';
+import { Button, Flex, useDisclosure } from '@chakra-ui/react';
 import {
 	DashboardHeader,
 	Coins,
@@ -9,6 +9,7 @@ import {
 	MyAssets,
 	ErrorAlert,
 	OrganizationsList,
+	EditEmployee,
 } from 'components';
 import { usePicasso } from 'hooks';
 import React from 'react';
@@ -17,6 +18,7 @@ import useTranslation from 'next-translate/useTranslation';
 
 export const DashboardComponent: React.FC = () => {
 	const { t: translate } = useTranslation('dashboard');
+	const { isOpen, onOpen, onClose } = useDisclosure();
 
 	const recentActivitiesList: IRecentActivitiesList[] = [
 		{
@@ -45,6 +47,7 @@ export const DashboardComponent: React.FC = () => {
 		},
 	];
 
+	const company = 'Kylie Cosmetics';
 	const isConnected = true;
 	const error = false;
 	const shouldNotDisplayError = error ? 'none' : 'flex';
@@ -65,6 +68,7 @@ export const DashboardComponent: React.FC = () => {
 			justify="space-between"
 			py="6"
 		>
+			<EditEmployee isOpen={isOpen} onClose={onClose} company={company} />
 			<Flex direction="column" px="8" gap="4" display={shouldNotDisplayError}>
 				<DashboardHeader />
 				<Coins />
@@ -84,6 +88,15 @@ export const DashboardComponent: React.FC = () => {
 			<Flex direction="column" gap="2" display={shouldNotDisplayError} px="6">
 				<SwapToken />
 				<HaveProblemCard />
+				<Button
+					bg="black"
+					_active={{}}
+					_hover={{}}
+					_focus={{}}
+					onClick={onOpen}
+				>
+					asd
+				</Button>
 			</Flex>
 			<Flex
 				align="center"
