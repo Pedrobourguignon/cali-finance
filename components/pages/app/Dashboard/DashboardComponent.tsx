@@ -9,7 +9,7 @@ import {
 	MyAssets,
 	ErrorAlert,
 	OrganizationsList,
-	EditEmployee,
+	AddEmployee,
 } from 'components';
 import { usePicasso } from 'hooks';
 import React from 'react';
@@ -68,7 +68,7 @@ export const DashboardComponent: React.FC = () => {
 			justify="space-between"
 			py="6"
 		>
-			<EditEmployee isOpen={isOpen} onClose={onClose} company={company} />
+			<AddEmployee isOpen={isOpen} onClose={onClose} company={company} />
 			<Flex direction="column" px="8" gap="4" display={shouldNotDisplayError}>
 				<DashboardHeader />
 				<Coins />

@@ -27,12 +27,15 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { addEmployeeSchema } from 'utils';
 import { IoIosArrowDown } from 'react-icons/io';
 
-export const EditEmployee: React.FC<IAddEmployee> = ({
+export const AddEmployee: React.FC<IAddEmployee> = ({
 	isOpen,
 	onClose,
 	company,
 }) => {
 	const [selectedTab, setSelectedTab] = useState('Add individually');
+	const [amountInDollar, setAmountInDollar] = useState<number>(0);
+	const [bitcoinPrice] = useState(87.586);
+
 	const theme = usePicasso();
 	const { t: translate } = useTranslation('swap-token');
 
@@ -41,7 +44,6 @@ export const EditEmployee: React.FC<IAddEmployee> = ({
 		symbol: 'BTC',
 	};
 
-	const [amountInDollar, setAmountInDollar] = useState<string>('');
 	const [individuallyOrList, setIndividuallyOrList] = useState(true);
 	const shouldDisplay = individuallyOrList ? 'flex' : 'none';
 	const shouldntDisplay = individuallyOrList ? 'none' : 'flex';
@@ -63,6 +65,10 @@ export const EditEmployee: React.FC<IAddEmployee> = ({
 		if (individuallyOrList === false) {
 			setIndividuallyOrList(true);
 		}
+	};
+
+	const converterToDollar = (amount: number) => {
+		setAmountInDollar(amount * bitcoinPrice);
 	};
 
 	const {
@@ -187,9 +193,14 @@ export const EditEmployee: React.FC<IAddEmployee> = ({
 											_hover={{}}
 											_focusVisible={{}}
 											color="#121212"
-											onChange={amount =>
-												setAmountInDollar(amount.currentTarget.value)
-											}
+											onChange={amount => {
+												converterToDollar(
+													parseInt(amount.currentTarget.value, 10)
+												);
+												return amount.currentTarget.value === ''
+													? setAmountInDollar(0)
+													: '';
+											}}
 										/>
 
 										<Button
@@ -268,4 +279,4 @@ export const EditEmployee: React.FC<IAddEmployee> = ({
 	);
 };
 
-export default EditEmployee;
+export default AddEmployee;
