@@ -62,7 +62,7 @@ export const EditProfileComponent = () => {
 			<Flex>
 				<Text
 					fontSize="xl"
-					color="#121212"
+					color={theme.text.primary}
 					lineHeight="tall"
 					fontWeight="500"
 					pl="7"
@@ -75,20 +75,20 @@ export const EditProfileComponent = () => {
 				<Avatar src="https://bit.ly/broken-link" boxSize="24" />
 				<Button
 					fontSize="xs"
-					bg="#121212"
+					bg={theme.text.primary}
 					borderRadius="sm"
 					px="2"
 					h="max-content"
 					py="1"
 					_hover={{}}
-					_focus={{ bg: '#121212' }}
+					_focus={{ bg: theme.text.primary }}
 					onClick={onOpen}
 				>
 					{translate('editProfileImage')}
 				</Button>
 			</Flex>
 			<Flex
-				bg="#EDF2F7"
+				bg={theme.bg.dashboard}
 				h="full"
 				direction="column"
 				align="center"
@@ -111,7 +111,7 @@ export const EditProfileComponent = () => {
 									{...register('name')}
 									color="black"
 								/>
-								<Text fontSize="xs" color="red" position="absolute" top="100%">
+								<Text fontSize="xs" color="red">
 									{errors.name?.message}
 								</Text>
 							</Flex>
@@ -126,14 +126,14 @@ export const EditProfileComponent = () => {
 									borderColor={theme.bg.primary}
 									{...register('email')}
 								/>
-								<Text fontSize="xs" color="red" position="absolute" top="100%">
+								<Text fontSize="xs" color="red">
 									{errors.email?.message}
 								</Text>
 							</Flex>
 							<Button
 								type="submit"
 								px="28"
-								bg="#121212"
+								bg={theme.text.primary}
 								opacity="50%"
 								_hover={{}}
 								_focus={{ bg: '#121212' }}
