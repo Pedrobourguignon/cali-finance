@@ -1,4 +1,5 @@
 import { Flex, Img, Text } from '@chakra-ui/react';
+import { useMemo } from 'react';
 import { IActivities } from 'types';
 
 interface IActivitiesData {
@@ -20,9 +21,8 @@ export const ActivitiesData: React.FC<IActivitiesData> = ({ activities }) => {
 		return icon;
 	};
 
-	// eslint-disable-next-line consistent-return
-	const renderStatus = (activitieType: string) => {
-		if (activitieType === 'Withdrawal' || activitieType === 'Deposit') {
+	const renderStatus = useMemo(() => {
+		if (activities.type === 'Withdrawal' || activities.type === 'Deposit') {
 			return (
 				<Flex direction="column" align="end" w="20">
 					<Flex flexDir="row" fontSize="sm" fontWeight="normal" gap="1">
@@ -46,7 +46,7 @@ export const ActivitiesData: React.FC<IActivitiesData> = ({ activities }) => {
 			);
 		}
 		return <Flex w="20" />;
-	};
+	}, [activities]);
 
 	return (
 		<Flex
@@ -72,7 +72,7 @@ export const ActivitiesData: React.FC<IActivitiesData> = ({ activities }) => {
 					</Text>
 				</Flex>
 			</Flex>
-			{renderStatus(activities.type)}
+			{renderStatus}
 		</Flex>
 	);
 };
