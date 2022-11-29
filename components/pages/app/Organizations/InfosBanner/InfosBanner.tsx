@@ -3,15 +3,9 @@ import { usePicasso } from 'hooks';
 
 interface IInfos extends FlexProps {
 	children: React.ReactNode;
-	height?: string;
-	justify?: string;
 }
 
-export const InfosBanner: React.FC<IInfos> = ({
-	children,
-	height,
-	justify,
-}) => {
+export const InfosBanner: React.FC<IInfos> = ({ children, ...props }) => {
 	const theme = usePicasso();
 	return (
 		<Flex>
@@ -20,8 +14,7 @@ export const InfosBanner: React.FC<IInfos> = ({
 				direction="column"
 				position="relative"
 				borderRadius="base"
-				height={height}
-				justify={justify}
+				{...props}
 			>
 				{children}
 				<Flex position="absolute" bottom="0">

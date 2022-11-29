@@ -10,7 +10,7 @@ export const LifeIsEasierBannner = () => {
 	return (
 		<InfosBanner height="39.313rem" justify="center">
 			<Flex direction="column" p="4" justify="center">
-				<Flex direction="column" maxW="60" gap="2">
+				<Flex direction="column" w="60" gap="2">
 					<Text fontWeight="medium">Life is easier with Cali</Text>
 					<Text fontSize="sm" fontWeight="normal">
 						You’ve unlocked our all-in-one suit for surfacing unlimited teams

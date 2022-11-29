@@ -7,7 +7,7 @@ export const HistoryContainer = () => {
 	const theme = usePicasso();
 
 	return (
-		<Flex bg={theme.bg.primary}>
+		<Flex bg={theme.bg.primary} py="6">
 			<Sidebar />
 			<HistoryComponent history={historyNotifications} />
 		</Flex>
