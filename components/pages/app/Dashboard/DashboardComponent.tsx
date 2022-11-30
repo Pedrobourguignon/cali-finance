@@ -1,4 +1,4 @@
-import { Flex } from '@chakra-ui/react';
+import { Button, Flex, useDisclosure } from '@chakra-ui/react';
 import {
 	DashboardHeader,
 	Coins,
@@ -9,6 +9,7 @@ import {
 	MyAssets,
 	ErrorAlert,
 	OrganizationsList,
+	ModalTest,
 } from 'components';
 import { usePicasso } from 'hooks';
 import React from 'react';
@@ -17,6 +18,7 @@ import useTranslation from 'next-translate/useTranslation';
 
 export const DashboardComponent: React.FC = () => {
 	const { t: translate } = useTranslation('dashboard');
+	const { isOpen, onOpen, onClose } = useDisclosure();
 
 	const recentActivitiesList: IRecentActivitiesList[] = [
 		{
@@ -56,8 +58,7 @@ export const DashboardComponent: React.FC = () => {
 		<Flex
 			bg={theme.bg.dashboard}
 			w="full"
-			h="95vh"
-			m="auto"
+			h="100%"
 			borderLeft="0.25rem solid"
 			borderColor={theme.branding.blue}
 			borderLeftRadius="sm"
@@ -65,33 +66,46 @@ export const DashboardComponent: React.FC = () => {
 			justify="space-between"
 			py="6"
 		>
-			<Flex direction="column" px="8" gap="4" display={shouldNotDisplayError}>
-				<DashboardHeader />
-				<Coins />
-				<Flex display={shouldNotDisplayDash}>
-					<CreateOrganizationCard />
-				</Flex>
-				<Flex display={shouldDisplayDash}>
-					<OrganizationsList />
-				</Flex>
-				<Flex display={shouldDisplayDash} gap="6">
-					<MyAssets />
-					<RecentActivitiesDashboard
-						recentActivitiesList={recentActivitiesList}
-					/>
-				</Flex>
-			</Flex>
-			<Flex direction="column" gap="2" display={shouldNotDisplayError} px="6">
-				<SwapToken />
-				<HaveProblemCard />
-			</Flex>
-			<Flex
-				align="center"
-				w="full"
-				justify="center"
-				display={shouldDisplayError}
+			<ModalTest isOpen={isOpen} onClose={onClose} />
+			<Button
+				color="white"
+				bg="black"
+				_hover={{}}
+				_active={{}}
+				_focus={{}}
+				onClick={onOpen}
 			>
-				<ErrorAlert />
+				asdad
+			</Button>
+			<Flex display={{ base: 'none', md: 'flex' }}>
+				<Flex direction="column" px="8" gap="4" display={shouldNotDisplayError}>
+					<DashboardHeader />
+					<Coins />
+					<Flex display={shouldNotDisplayDash}>
+						<CreateOrganizationCard />
+					</Flex>
+					<Flex display={shouldDisplayDash}>
+						<OrganizationsList />
+					</Flex>
+					<Flex display={shouldDisplayDash} gap="6">
+						<MyAssets />
+						<RecentActivitiesDashboard
+							recentActivitiesList={recentActivitiesList}
+						/>
+					</Flex>
+				</Flex>
+				<Flex direction="column" gap="2" display={shouldNotDisplayError} px="6">
+					<SwapToken />
+					<HaveProblemCard />
+				</Flex>
+				<Flex
+					align="center"
+					w="full"
+					justify="center"
+					display={shouldDisplayError}
+				>
+					<ErrorAlert />
+				</Flex>
 			</Flex>
 		</Flex>
 	);

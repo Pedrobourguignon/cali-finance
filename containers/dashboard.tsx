@@ -9,7 +9,7 @@ export const DashboardContainer = () => {
 	const theme = usePicasso();
 	return (
 		<OrganizationsProvider>
-			<Flex bg={theme.bg.primary} h="100vh">
+			<Flex bg={theme.bg.primary} h="100vh" py={{ md: '6' }}>
 				<Sidebar />
 				<DashboardComponent />
 			</Flex>
