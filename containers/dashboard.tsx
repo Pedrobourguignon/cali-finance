@@ -10,7 +10,7 @@ export const DashboardContainer = () => {
 	return (
 		<OrganizationsProvider>
 			<Flex bg={theme.bg.primary} h="100vh">
-				<Sidebar />
+				{/* <Sidebar /> */}
 				<DashboardComponent />
 			</Flex>
 		</OrganizationsProvider>
