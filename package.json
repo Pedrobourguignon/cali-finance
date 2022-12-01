@@ -12,11 +12,12 @@
 		"prepare": "husky install"
 	},
 	"dependencies": {
+		"@chakra-ui/icons": "^2.0.13",
 		"@chakra-ui/react": "^2.2.6",
 		"@emotion/react": "11",
 		"@emotion/styled": "11",
-		"@types/lodash.debounce": "^4.0.7",
 		"@hookform/resolvers": "^2.9.9",
+		"@types/lodash.debounce": "^4.0.7",
 		"axios": "^0.27.2",
 		"chakra-react-select": "^4.4.0",
 		"framer-motion": "7",
