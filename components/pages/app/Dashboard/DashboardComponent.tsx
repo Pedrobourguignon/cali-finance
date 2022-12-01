@@ -1,4 +1,4 @@
-import { Flex } from '@chakra-ui/react';
+import { Flex, useDisclosure } from '@chakra-ui/react';
 import {
 	DashboardHeader,
 	Coins,
@@ -6,9 +6,12 @@ import {
 	SwapToken,
 	HaveProblemCard,
 	RecentActivitiesDashboard,
+	TeamsList,
 	MyAssets,
 	ErrorAlert,
 	OrganizationsList,
+	WithdrawCard,
+	WithdrawModal,
 } from 'components';
 import { usePicasso } from 'hooks';
 import React from 'react';
@@ -52,6 +55,8 @@ export const DashboardComponent: React.FC = () => {
 	const shouldNotDisplayDash = isConnected ? 'none' : 'flex';
 	const shouldDisplayDash = isConnected ? 'flex' : 'none';
 	const theme = usePicasso();
+	const { isOpen, onOpen, onClose } = useDisclosure();
+
 	return (
 		<Flex
 			bg={theme.bg.dashboard}
@@ -83,8 +88,8 @@ export const DashboardComponent: React.FC = () => {
 				</Flex>
 			</Flex>
 			<Flex direction="column" gap="2" display={shouldNotDisplayError} px="6">
+				<WithdrawCard />
 				<SwapToken />
-				<HaveProblemCard />
 			</Flex>
 			<Flex
 				align="center"
@@ -94,6 +99,7 @@ export const DashboardComponent: React.FC = () => {
 			>
 				<ErrorAlert />
 			</Flex>
+			<WithdrawModal isOpen={isOpen} onClose={onClose} />
 		</Flex>
 	);
 };
