@@ -1,7 +1,6 @@
 import { Flex } from '@chakra-ui/react';
-import { Sidebar, DashboardComponent } from 'components';
+import { Sidebar, DashboardComponent, MobileHeader } from 'components';
 import { OrganizationsProvider } from 'contexts';
-import { MobileHeader } from 'components/Header/MobileHeader';
 import { usePicasso } from 'hooks';
 
 import React from 'react';

@@ -101,7 +101,7 @@ export const Sidebar: React.FC = () => {
 				align="center"
 				color="white"
 				w="13.75rem"
-				h="full"
+				h="100%"
 			>
 				<Flex
 					justify="center"
