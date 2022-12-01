@@ -1,7 +1,8 @@
 import { Flex, Text } from '@chakra-ui/react';
-import { WithdrawButton, WithdrawContent } from 'components';
+import { WithdrawButton } from 'components';
 import { usePicasso } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
+import { WithdrawContent } from './WithdrawContent';
 
 export interface ISelectedCoin {
 	logo: string;
