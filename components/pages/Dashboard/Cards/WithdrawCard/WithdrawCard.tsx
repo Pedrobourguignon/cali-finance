@@ -1,4 +1,4 @@
-import { Flex, Text, useDisclosure } from '@chakra-ui/react';
+import { Flex, Text } from '@chakra-ui/react';
 import { WithdrawButton, WithdrawContent } from 'components';
 import { usePicasso } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
