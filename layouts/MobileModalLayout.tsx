@@ -32,6 +32,7 @@ export const MobileModalLayout: React.FC<IMobileModalLayout> = ({
 				borderBottomRadius="none"
 				position="fixed"
 				bottom="0"
+				mb="0"
 			>
 				<ModalHeader borderTopRadius="2xl" alignItems="center">
 					<Text color={theme.text.primary} fontSize="lg" fontWeight="500">
