@@ -14,7 +14,6 @@ import { AppLayout } from 'layouts';
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { createOrganizationSchema, navigationPaths } from 'utils';
-import { INetwork } from 'types';
 import { Select } from 'chakra-react-select';
 
 interface ICreateOrganization {

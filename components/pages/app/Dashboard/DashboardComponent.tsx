@@ -4,9 +4,7 @@ import {
 	Coins,
 	CreateOrganizationCard,
 	SwapToken,
-	HaveProblemCard,
 	RecentActivitiesDashboard,
-	TeamsList,
 	MyAssets,
 	ErrorAlert,
 	OrganizationsList,
@@ -50,12 +48,16 @@ export const DashboardComponent: React.FC = () => {
 
 	const isConnected = true;
 	const error = false;
-	const shouldNotDisplayError = error ? 'none' : 'flex';
-	const shouldDisplayError = error ? 'flex' : 'none';
-	const shouldNotDisplayDash = isConnected ? 'none' : 'flex';
-	const shouldDisplayDash = isConnected ? 'flex' : 'none';
+
 	const theme = usePicasso();
 	const { isOpen, onOpen, onClose } = useDisclosure();
+
+	if (error)
+		return (
+			<Flex align="center" w="full" justify="center">
+				<ErrorAlert />
+			</Flex>
+		);
 
 	return (
 		<Flex
@@ -69,35 +71,28 @@ export const DashboardComponent: React.FC = () => {
 			gap="4"
 			justify="space-between"
 			py="6"
-			display={{ base: 'none', sm: 'flex' }}
 		>
-			<Flex direction="column" px="8" gap="4" display={shouldNotDisplayError}>
+			<Flex direction="column" px="8" gap="4">
 				<DashboardHeader />
 				<Coins />
-				<Flex display={shouldNotDisplayDash}>
-					<CreateOrganizationCard />
-				</Flex>
-				<Flex display={shouldDisplayDash}>
-					<OrganizationsList />
-				</Flex>
-				<Flex display={shouldDisplayDash} gap="6">
-					<MyAssets />
-					<RecentActivitiesDashboard
-						recentActivitiesList={recentActivitiesList}
-					/>
-				</Flex>
-			</Flex>
-			<Flex direction="column" gap="2" display={shouldNotDisplayError} px="6">
-				<WithdrawCard />
-				<SwapToken />
+				{isConnected ? <OrganizationsList /> : <CreateOrganizationCard />}
+				{isConnected && (
+					<Flex gap="6" flexWrap="wrap">
+						<MyAssets />
+						<RecentActivitiesDashboard
+							recentActivitiesList={recentActivitiesList}
+						/>
+					</Flex>
+				)}
 			</Flex>
 			<Flex
-				align="center"
-				w="full"
-				justify="center"
-				display={shouldDisplayError}
+				direction="column"
+				gap="2"
+				px="6"
+				display={{ base: 'none', md: 'flex' }}
 			>
-				<ErrorAlert />
+				<WithdrawCard />
+				<SwapToken />
 			</Flex>
 			<WithdrawModal isOpen={isOpen} onClose={onClose} />
 		</Flex>
