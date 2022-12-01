@@ -96,7 +96,7 @@ export const Sidebar: React.FC = () => {
 			/>
 			<Flex
 				flexDirection="column"
-				display={{ base: 'none', md: 'flex' }}
+				display={{ base: 'none', sm: 'flex' }}
 				bg={theme.bg.primary}
 				align="center"
 				color="white"

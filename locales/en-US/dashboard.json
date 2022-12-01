@@ -17,5 +17,8 @@
 	"backDashboard": "Back to dashboard",
 	"ops": "Ops...",
 	"yourOrganizations": "Your Organizations",
-	"of": "of"
+	"of": "of",
+	"amount": "Amount",
+	"organizations": "Organizations",
+	"withdraw": "Withdraw"
 }
