@@ -4,7 +4,7 @@ import { usePicasso } from 'hooks';
 
 interface ILanding {
 	children: React.ReactNode;
-	right: React.ReactNode;
+	right?: React.ReactNode;
 }
 
 export const AppLayout: React.FC<ILanding> = ({ children, right }) => {
