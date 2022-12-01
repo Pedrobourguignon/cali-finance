@@ -1,6 +1,7 @@
 import {
 	Button,
 	Flex,
+	Icon,
 	Img,
 	Input,
 	Text,
@@ -11,6 +12,7 @@ import { usePicasso } from 'hooks';
 import { Control, FieldErrorsImpl, Controller } from 'react-hook-form';
 import { ICreateOrganization } from 'types';
 import { Select } from 'chakra-react-select';
+import { BsQuestionCircle } from 'react-icons/bs';
 
 interface ICreateOrganizationComponent {
 	control: Control<ICreateOrganization>;
@@ -114,7 +116,9 @@ export const CreateOrganizationComponent: React.FC<
 				<Flex direction="column" gap="8" minW="80">
 					<Flex direction="column" color="black" gap="6">
 						<Flex direction="column">
-							<Text {...labelStyle}>Type *</Text>
+							<Text {...labelStyle} mb="2">
+								Type *
+							</Text>
 							<Controller
 								name="type"
 								control={control}
@@ -156,7 +160,9 @@ export const CreateOrganizationComponent: React.FC<
 							</Text>
 						</Flex>
 						<Flex direction="column" position="relative">
-							<Text {...labelStyle}>Corporative e-mail *</Text>
+							<Text {...labelStyle} mb="2">
+								Corporative e-mail *
+							</Text>
 							<Controller
 								render={({ field }) => (
 									<Input
@@ -179,7 +185,9 @@ export const CreateOrganizationComponent: React.FC<
 							</Text>
 						</Flex>
 						<Flex direction="column">
-							<Text {...labelStyle}>Description</Text>
+							<Text {...labelStyle} mb="2">
+								Description
+							</Text>
 							<Controller
 								render={({ field }) => (
 									<Textarea
@@ -216,7 +224,10 @@ export const CreateOrganizationComponent: React.FC<
 					</Button>
 				</Flex>
 				<Flex direction="column" minW="44" color={theme.text.primary}>
-					<Text {...labelStyle}>Network *</Text>
+					<Flex gap="2" mb="2">
+						<Text {...labelStyle}>Network *</Text>
+						<Icon as={BsQuestionCircle} color="gray.400" />
+					</Flex>
 					<Controller
 						name="network"
 						control={control}
