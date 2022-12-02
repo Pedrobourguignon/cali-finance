@@ -1,3 +1,4 @@
+export * from './chainList';
 export * from './ColorHandler';
 export * from './logoHandler';
 export * from './navigationPaths';
