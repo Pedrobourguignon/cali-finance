@@ -93,7 +93,7 @@ export const DashboardComponent: React.FC = () => {
 				<SwapToken />
 				<HaveProblemCard />
 				<Button
-					bg="#121212"
+					bg={theme.text.primary}
 					_hover={{}}
 					_active={{}}
 					_focus={{}}

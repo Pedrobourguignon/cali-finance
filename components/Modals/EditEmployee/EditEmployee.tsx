@@ -93,7 +93,7 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 							<Icon as={EditProfileIcon} color="black" boxSize="6" />
 							<Flex direction="column">
 								<Text
-									color="#121212"
+									color={theme.text.primary}
 									fontWeight="600"
 									fontSize="lg"
 									_hover={{}}
@@ -102,7 +102,7 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 								>
 									Edit Employee
 								</Text>
-								<Text color="#121212" fontWeight="400" fontSize="sm">
+								<Text color={theme.text.primary} fontWeight="400" fontSize="sm">
 									{employeeName} - {employeeWalletAddress}
 								</Text>
 							</Flex>
@@ -130,7 +130,7 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 											borderRightRadius="none"
 											_hover={{}}
 											_focusVisible={{}}
-											color="#121212"
+											color={theme.text.primary}
 											onChange={amount => {
 												converterToDollar(
 													parseInt(amount.currentTarget.value, 10)
@@ -161,15 +161,24 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 										{errors.amount?.message}
 									</Text>
 									<Flex bg="blue.50" py="2" justify="center">
-										<Text fontSize="sm" color="#121212">
+										<Text fontSize="sm" color={theme.text.primary}>
 											This change will cause
 										</Text>
-										<Text fontSize="sm" color="#121212" fontWeight="700">
+										<Text
+											fontSize="sm"
+											color={theme.text.primary}
+											fontWeight="700"
+										>
 											&nbsp;
 											{expenseCalculation}
 										</Text>
 									</Flex>
-									<Text fontWeight="400" fontSize="xs" color="#121212" pb="6">
+									<Text
+										fontWeight="normal"
+										fontSize="xs"
+										color={theme.text.primary}
+										pb="6"
+									>
 										Please note that you will have to deposit more 0.0002 BTC in
 										the organizations’ funds.
 									</Text>
@@ -179,10 +188,10 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 									<Select
 										{...register('team')}
 										placeholder="Select or Insert name to Create Team"
-										borderColor="#121212"
+										borderColor={theme.text.primary}
 										_placeholder={{ ...placeholderStyle }}
 										_focusVisible={{}}
-										color="#121212"
+										color={theme.text.primary}
 										_hover={{}}
 										isReadOnly={false}
 									>
@@ -197,7 +206,7 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 										w="full"
 										type="submit"
 										color="white"
-										bg="#121212"
+										bg={theme.text.primary}
 										borderRadius="sm"
 										fontWeight="500"
 										size="md"
