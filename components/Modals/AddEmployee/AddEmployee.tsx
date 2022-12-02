@@ -62,7 +62,7 @@ export const AddEmployee: React.FC<IAddEmployee> = ({
 	const changeTab = (tab: string) => {
 		setSelectedTab(tab);
 		setIndividuallyOrList(false);
-		if (individuallyOrList === false) {
+		if (selectedTab === 'Upload list') {
 			setIndividuallyOrList(true);
 		}
 	};
@@ -105,7 +105,7 @@ export const AddEmployee: React.FC<IAddEmployee> = ({
 							<Icon as={IoPersonAddOutline} color="black" boxSize="6" />
 							<Flex direction="column">
 								<Text
-									color="#121212"
+									color={theme.text.primary}
 									fontWeight="600"
 									fontSize="lg"
 									_hover={{}}
@@ -114,7 +114,7 @@ export const AddEmployee: React.FC<IAddEmployee> = ({
 								>
 									Add Employee
 								</Text>
-								<Text color="gray.500" fontWeight="400" fontSize="sm">
+								<Text color="gray.500" fontWeight="normal" fontSize="sm">
 									to: {company}
 								</Text>
 							</Flex>
@@ -122,17 +122,23 @@ export const AddEmployee: React.FC<IAddEmployee> = ({
 						</Flex>
 						<Flex>
 							<Button
+								disabled={selectedTab === 'Add individually'}
+								_disabled={{ color: theme.text.primary }}
 								value="Add individually"
 								borderRadius="none"
 								fontSize="sm"
-								fontWeight={selectedTab === 'Add individually' ? '600' : '400'}
-								onClick={tab => changeTab(tab.currentTarget.value)}
+								fontWeight={
+									selectedTab === 'Add individually' ? 'semibold' : 'normal'
+								}
 								borderBottom={
 									selectedTab === 'Add individually' ? '3px solid' : 'none'
 								}
 								color={
-									selectedTab === 'Add individually' ? '#121212' : 'gray.500'
+									selectedTab === 'Add individually'
+										? theme.text.primary
+										: 'gray.500'
 								}
+								onClick={tab => changeTab(tab.currentTarget.value)}
 								_active={{}}
 								_focus={{}}
 								_hover={{}}
@@ -140,15 +146,23 @@ export const AddEmployee: React.FC<IAddEmployee> = ({
 								Add individually
 							</Button>
 							<Button
+								disabled={selectedTab === 'Upload list'}
+								_disabled={{ color: theme.text.primary }}
 								value="Upload list"
 								borderRadius="none"
 								fontSize="sm"
-								fontWeight={selectedTab === 'Upload list' ? '600' : '400'}
+								fontWeight={
+									selectedTab === 'Upload list' ? 'semibold' : 'normal'
+								}
 								onClick={tab => changeTab(tab.currentTarget.value)}
 								borderBottom={
 									selectedTab === 'Upload list' ? '3px solid' : 'none'
 								}
-								color={selectedTab === 'Upload list' ? '#121212' : 'gray.500'}
+								color={
+									selectedTab === 'Upload list'
+										? theme.text.primary
+										: 'gray.500'
+								}
 								_active={{}}
 								_focus={{}}
 								_hover={{}}
@@ -164,11 +178,11 @@ export const AddEmployee: React.FC<IAddEmployee> = ({
 									<Text {...labelStyle}>Employee&apos;s Wallet Address*</Text>
 									<Input
 										placeholder="0x6856...BF99"
-										borderColor="#121212"
+										borderColor={theme.text.primary}
 										_placeholder={{ ...placeholderStyle }}
 										_focusVisible={{}}
 										_hover={{}}
-										color="#121212"
+										color={theme.text.primary}
 										{...register('walletAddress')}
 									/>
 									<Text fontSize="xs" color="red">
@@ -178,7 +192,7 @@ export const AddEmployee: React.FC<IAddEmployee> = ({
 								<Flex direction="column" gap="2">
 									<Flex align="center" justify="space-between">
 										<Text {...labelStyle}>Amount (per month)*</Text>
-										<Text fontWeight="400" fontSize="xs" color="gray.500">
+										<Text fontWeight="normal" fontSize="xs" color="gray.500">
 											US${amountInDollar}
 										</Text>
 									</Flex>
@@ -192,7 +206,7 @@ export const AddEmployee: React.FC<IAddEmployee> = ({
 											borderRightRadius="none"
 											_hover={{}}
 											_focusVisible={{}}
-											color="#121212"
+											color={theme.text.primary}
 											onChange={amount => {
 												converterToDollar(
 													parseInt(amount.currentTarget.value, 10)
@@ -228,10 +242,10 @@ export const AddEmployee: React.FC<IAddEmployee> = ({
 									<Select
 										{...register('team')}
 										placeholder="Select or Insert name to Create Team"
-										borderColor="#121212"
+										borderColor={theme.text.primary}
 										_placeholder={{ ...placeholderStyle }}
 										_focusVisible={{}}
-										color="#121212"
+										color={theme.text.primary}
 										_hover={{}}
 										isReadOnly={false}
 									>
@@ -244,9 +258,9 @@ export const AddEmployee: React.FC<IAddEmployee> = ({
 								<Button
 									type="submit"
 									color="white"
-									bg="#121212"
+									bg={theme.text.primary}
 									borderRadius="sm"
-									fontWeight="500"
+									fontWeight="normal"
 									size="md"
 									gap="3"
 									_hover={{}}
