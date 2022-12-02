@@ -24,7 +24,12 @@ export const MobileModalLayout: React.FC<IMobileModalLayout> = ({
 }) => {
 	const theme = usePicasso();
 	return (
-		<Modal isOpen={isOpen} onClose={onClose} size="sm">
+		<Modal
+			isOpen={isOpen}
+			onClose={onClose}
+			size="sm"
+			motionPreset="slideInBottom"
+		>
 			<ModalOverlay />
 			<ModalContent
 				borderTopRadius="2xl"
