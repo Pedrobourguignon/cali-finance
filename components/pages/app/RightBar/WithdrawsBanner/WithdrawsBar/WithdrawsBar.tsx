@@ -19,7 +19,9 @@ export const WithdrawsBar = () => (
 			</Text>
 			<CircularProgressBar percentage={withdrawnPercentage} />
 			<Flex zIndex="docked">
-				<Button color="black">This Week</Button>
+				<Button color="black" bgColor="gray.100" borderRadius="full">
+					This Week
+				</Button>
 				<Button color="black">This Month</Button>
 			</Flex>
 		</Flex>

@@ -27,13 +27,13 @@ export const RecentActivities = () => {
 						cursor="pointer"
 						fontWeight="medium"
 					>
-						See All
+						See all
 					</Text>
 				</NextLink>
 			</Flex>
 			<Flex gap="2" direction="column">
-				{activities.map((activitie, index) => (
-					<ActivitiesData key={+index} activities={activitie} />
+				{activities.map((activity, index) => (
+					<ActivitiesData key={+index} activities={activity} />
 				))}
 			</Flex>
 		</Flex>

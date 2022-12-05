@@ -7,18 +7,18 @@ interface IActivitiesData {
 }
 
 export const ActivitiesData: React.FC<IActivitiesData> = ({ activities }) => {
-	const handleIcon = (activitieType: string) => {
-		let icon = '';
-		if (activitieType === 'Withdrawal') {
-			icon = '/icons/withdrawal.svg';
-		} else if (activitieType === 'Deposit') {
-			icon = '/icons/deposit.svg';
-		} else if (activitieType === 'Added to Sales Team') {
-			icon = '/icons/add-user.svg';
-		} else {
-			icon = '/icons/team-created.svg';
-		}
-		return icon;
+	const handleIcon = () => {
+		if (activities.type === 'Withdrawal') return '/icons/withdrawal.svg';
+		if (activities.type === 'Deposit') return '/icons/deposit.svg';
+		if (activities.type === 'Added to Sales Team') return '/icons/add-user.svg';
+
+		return '/icons/team-created.svg';
+	};
+
+	const getStatusColor = () => {
+		if (activities.status === 'Completed') return 'green.400';
+		if (activities.status === 'Processing') return 'gray.400';
+		return 'red.400';
 	};
 
 	const renderStatus = useMemo(() => {
@@ -29,17 +29,7 @@ export const ActivitiesData: React.FC<IActivitiesData> = ({ activities }) => {
 						<Text>{activities.value.toLocaleString('en-US')}</Text>
 						<Text>{activities.coin}</Text>
 					</Flex>
-					<Text
-						fontSize="xs"
-						color={
-							// eslint-disable-next-line no-nested-ternary
-							activities.status === 'Completed'
-								? 'green.400'
-								: activities.status === 'Processing'
-								? 'gray.400'
-								: 'red.400'
-						}
-					>
+					<Text fontSize="xs" color={getStatusColor()}>
 						{activities.status}
 					</Text>
 				</Flex>
@@ -62,7 +52,7 @@ export const ActivitiesData: React.FC<IActivitiesData> = ({ activities }) => {
 				{activities.name}
 			</Text>
 			<Flex align="center" gap="2">
-				<Img src={handleIcon(activities.type)} boxSize="4" />
+				<Img src={handleIcon()} boxSize="4" />
 				<Flex direction="column">
 					<Text fontSize="sm" fontWeight="normal">
 						{activities.type}

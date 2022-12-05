@@ -75,7 +75,7 @@ export const OrganizationsHeader = () => {
 					borderRadius="3xl"
 					px="3"
 					align="center"
-					gap="4"
+					gap="2"
 					h="6"
 				>
 					<Img src={organizationData.network.logo} boxSize="4" />

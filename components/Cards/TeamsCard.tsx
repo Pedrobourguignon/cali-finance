@@ -1,9 +1,8 @@
 import { Button, Flex, Img, Text } from '@chakra-ui/react';
 import { usePicasso } from 'hooks';
-import Router from 'next/router';
 import React from 'react';
 import { ITeamsList } from 'types';
-import { handleLogoImage, navigationPaths } from 'utils';
+import { handleLogoImage } from 'utils';
 
 interface ITeamsCard {
 	team: ITeamsList;
@@ -18,11 +17,17 @@ export const TeamsCard: React.FC<ITeamsCard> = ({ team }) => {
 			borderRadius="base"
 			direction="column"
 			w="56"
+			bgColor="gray.50"
 		>
-			<Flex direction="column" pt="2.5" pl="4" color={theme.text.primary}>
+			<Flex direction="column" pt="2.5" px="4" color={theme.text.primary}>
 				<Flex align="center" gap="2.5">
 					{team.logo ? (
-						<Img src={team.logo} boxSize="6" borderRadius="base" />
+						<Img
+							alt={`${team.name} logo`}
+							src={team.logo}
+							boxSize="6"
+							borderRadius="base"
+						/>
 					) : (
 						<Flex
 							boxSize="6"
@@ -33,11 +38,11 @@ export const TeamsCard: React.FC<ITeamsCard> = ({ team }) => {
 							fontWeight="bold"
 							bg={theme.bg.white2}
 						>
-							{handleLogoImage(team.teamName)}
+							{handleLogoImage(team.name)}
 						</Flex>
 					)}
 					<Text fontSize="md" fontWeight="bold">
-						{team.teamName}
+						{team.name}
 					</Text>
 				</Flex>
 				<Flex gap="12" pt="3" color={theme.text.primary}>
@@ -45,13 +50,17 @@ export const TeamsCard: React.FC<ITeamsCard> = ({ team }) => {
 						<Text fontSize="xs" color="gray.500">
 							Funds
 						</Text>
-						<Text fontSize="sm">{team.funds}</Text>
+						<Text fontSize="sm" color={theme.text.primary}>
+							${team.funds}
+						</Text>
 					</Flex>
 					<Flex direction="column">
 						<Text fontSize="xs" color="gray.500">
 							Members
 						</Text>
-						<Text fontSize="sm">{team.members}</Text>
+						<Text fontSize="sm" color={theme.text.primary}>
+							{team.members}
+						</Text>
 					</Flex>
 				</Flex>
 			</Flex>
