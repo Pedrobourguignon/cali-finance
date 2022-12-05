@@ -1,0 +1,16 @@
+{
+	"editProfile": "Editar perfil",
+	"editProfileImage": "Editar imagem do perfil",
+	"name": "Nome",
+	"yourBestEmail": "Seu melhor e-mail",
+	"insertHere": "Insira aqui",
+	"exampleEmail": "exemplo@exemplo.io",
+	"saveChanges": "Salvar alterações",
+	"form": {
+		"required": "Obrigatório",
+		"invalidEmailFormat": "Formato de e-mail inválido",
+		"emailContains": "Seu e-mail pode conter _ - @ .",
+		"nameMin": "Seu nome deve ter no mínimo 3 letras",
+		"nameNumber": "Seu nome não pode ter números"
+	}
+}

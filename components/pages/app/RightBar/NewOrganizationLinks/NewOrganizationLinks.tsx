@@ -72,7 +72,7 @@ const OrganizationLogo: React.FC<{ org: INewOrganization }> = ({ org }) => {
 export const NewOrganizationLinks = () => {
 	const theme = usePicasso();
 	return (
-		<Flex direction="column" w="max-content" py="6" px="6" zIndex="docked">
+		<Flex direction="column" w="max-content" zIndex="docked">
 			<Flex
 				bg={theme.bg.black}
 				direction="column"

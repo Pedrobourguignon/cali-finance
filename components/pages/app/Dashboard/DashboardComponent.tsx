@@ -1,15 +1,17 @@
 import { Button, Flex, useDisclosure } from '@chakra-ui/react';
+import { Flex, useDisclosure } from '@chakra-ui/react';
 import {
 	DashboardHeader,
 	Coins,
 	CreateOrganizationCard,
 	SwapToken,
-	HaveProblemCard,
 	RecentActivitiesDashboard,
 	MyAssets,
 	ErrorAlert,
 	OrganizationsList,
 	EditEmployee,
+	WithdrawCard,
+	WithdrawModal,
 } from 'components';
 import { usePicasso } from 'hooks';
 import React from 'react';
@@ -49,11 +51,17 @@ export const DashboardComponent: React.FC = () => {
 
 	const isConnected = true;
 	const error = false;
-	const shouldNotDisplayError = error ? 'none' : 'flex';
-	const shouldDisplayError = error ? 'flex' : 'none';
-	const shouldNotDisplayDash = isConnected ? 'none' : 'flex';
-	const shouldDisplayDash = isConnected ? 'flex' : 'none';
+
 	const theme = usePicasso();
+	const { isOpen, onOpen, onClose } = useDisclosure();
+
+	if (error)
+		return (
+			<Flex align="center" w="full" justify="center">
+				<ErrorAlert />
+			</Flex>
+		);
+
 	return (
 		<Flex
 			bg={theme.bg.dashboard}
@@ -101,15 +109,29 @@ export const DashboardComponent: React.FC = () => {
 				>
 					asdasd
 				</Button>
+			<Flex direction="column" px="8" gap="4">
+				<DashboardHeader />
+				<Coins />
+				{isConnected ? <OrganizationsList /> : <CreateOrganizationCard />}
+				{isConnected && (
+					<Flex gap="6" flexWrap="wrap">
+						<MyAssets />
+						<RecentActivitiesDashboard
+							recentActivitiesList={recentActivitiesList}
+						/>
+					</Flex>
+				)}
 			</Flex>
 			<Flex
-				align="center"
-				w="full"
-				justify="center"
-				display={shouldDisplayError}
+				direction="column"
+				gap="2"
+				px="6"
+				display={{ base: 'none', md: 'flex' }}
 			>
-				<ErrorAlert />
+				<WithdrawCard />
+				<SwapToken />
 			</Flex>
+			<WithdrawModal isOpen={isOpen} onClose={onClose} />
 		</Flex>
 	);
 };
