@@ -15,13 +15,20 @@ export const InfosBanner: React.FC<IInfos> = ({ children, ...props }) => {
 				position="relative"
 				borderRadius="base"
 				{...props}
-				h="max-content"
 			>
 				{children}
+				<Flex position="absolute" top="0">
+					<Img src="/images/ondulated.png" />
+				</Flex>
+				<Flex position="absolute" top="0">
+					<Img src="/images/sparkles.png" />
+				</Flex>
 				<Flex position="absolute" bottom="0">
 					<Img src="/images/illustration.png" />
 				</Flex>
-				<Img src="/images/ondulate-background.png" />
+				<Flex position="absolute" bottom="0">
+					<Img src="/images/ondulate-background.png" />
+				</Flex>
 			</Flex>
 		</Flex>
 	);

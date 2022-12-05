@@ -14,6 +14,7 @@ import {
 	DisplayedNotifications,
 } from 'components';
 import { usePicasso } from 'hooks';
+import { AppLayout } from 'layouts';
 import useTranslation from 'next-translate/useTranslation';
 import React, { useMemo, useState } from 'react';
 import { BiChevronDown } from 'react-icons/bi';
@@ -66,17 +67,10 @@ export const HistoryComponent: React.FC<IHistoryPage> = ({ history }) => {
 	};
 
 	return (
-		<Flex
-			bg={theme.bg.dashboard}
-			w="full"
-			borderLeft="0.25rem solid"
-			borderColor={theme.branding.blue}
-			borderLeftRadius="sm"
-			gap="4"
-			py="8"
-			px="7"
+		<AppLayout
+			right={isConnected ? <LifeIsEasierBannner /> : <CreateAccountBanner />}
 		>
-			<Flex direction="column" gap="5">
+			<Flex direction="column" gap="5" p="6">
 				<Flex direction="column" gap="2" w="46rem">
 					<Flex justify="space-between" align="center">
 						<Flex direction="column" gap="4">
@@ -156,23 +150,17 @@ export const HistoryComponent: React.FC<IHistoryPage> = ({ history }) => {
 							filteredNotifications={filteredNotifications}
 						/>
 					</Flex>
+					<Flex display={shouldDisplay} justify="center">
+						<Paginator
+							actualPage={pageNumber + 1}
+							maxPage={maxPage}
+							previous={previous}
+							next={next}
+						/>
+					</Flex>
 				</Flex>
-				<Flex justify="center" bottom="0" display={shouldDisplay}>
-					<Paginator
-						actualPage={pageNumber + 1}
-						maxPage={maxPage}
-						previous={previous}
-						next={next}
-					/>
-				</Flex>
 			</Flex>
-			<Flex display={shouldDisplay}>
-				<LifeIsEasierBannner />
-			</Flex>
-			<Flex display={shouldntDisplay}>
-				<CreateAccountBanner />
-			</Flex>
-		</Flex>
+		</AppLayout>
 	);
 };
 
