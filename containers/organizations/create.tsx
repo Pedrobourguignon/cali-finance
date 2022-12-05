@@ -69,7 +69,13 @@ export const CreateOrganization = () => {
 
 	return (
 		<AppLayout right={<NewOrganizationLinks />}>
-			<Flex w="100%" bg="white" h="64" position="absolute" />
+			<Flex
+				w="100%"
+				bg="white"
+				h="64"
+				position="absolute"
+				borderRadius="base"
+			/>
 			<Flex
 				direction="column"
 				align="flex-start"
