@@ -1,5 +1,4 @@
 export * from './DashboardHeader';
 export * from './Landing';
-export * from './OrganizationsHeader;
 export * from './MobileHeader';
-
+export * from './OrganizationsHeader';
