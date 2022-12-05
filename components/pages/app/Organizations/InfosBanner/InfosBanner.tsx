@@ -15,6 +15,7 @@ export const InfosBanner: React.FC<IInfos> = ({ children, ...props }) => {
 				position="relative"
 				borderRadius="base"
 				{...props}
+				h="max-content"
 			>
 				{children}
 				<Flex position="absolute" bottom="0">
