@@ -1,0 +1,102 @@
+import debounce from 'lodash.debounce';
+import React, { createContext, useEffect, useMemo, useState } from 'react';
+import CoingeckoService from 'services/CoingeckoService';
+import OneInchService from 'services/OneInchService';
+import { IToken } from 'types';
+
+interface ITokensContext {
+	setFilteredTokens: (tokens: IToken[]) => void;
+	filteredTokens: IToken[];
+	handleSearchToken: (event: string, listOfTokens: IToken[]) => void;
+	listOfTokens: IToken[];
+	setChosenToken: (token: string) => void;
+	chosenToken: string;
+}
+export const TokensContext = createContext({} as ITokensContext);
+
+export const TokensProvider: React.FC<{ children: React.ReactNode }> = ({
+	children,
+}) => {
+	const [listOfTokens, setListOfTokens] = useState<IToken[]>([]);
+	const [filteredTokens, setFilteredTokens] = useState<IToken[]>([]);
+	const [chosenToken, setChosenToken] = useState('');
+
+	const getOneInchTokens = async () => {
+		try {
+			const allTokens = await OneInchService.allTokensData();
+			const oneInchResult: IToken[] = Object.keys(allTokens.tokens).map(
+				item => ({
+					...allTokens.tokens[item],
+				})
+			);
+			oneInchResult.sort((coinA, coinB) =>
+				coinA.symbol >= coinB.symbol ? 1 : -1
+			);
+			setListOfTokens(oneInchResult);
+			setFilteredTokens(oneInchResult);
+		} catch (error) {
+			console.error(error);
+		}
+	};
+
+	useEffect(() => {
+		getOneInchTokens();
+	}, []);
+
+	const getTokenDataById = async () => {
+		try {
+			const tokenData = await CoingeckoService.tokenInfoByTokenId(chosenToken);
+		} catch (error) {
+			console.error(error);
+		}
+	};
+
+	useEffect(() => {
+		getTokenDataById();
+	}, [chosenToken]);
+
+	const handleSearchToken = debounce(
+		(searchValue: string, tokens: IToken[]) => {
+			if (!searchValue) {
+				setFilteredTokens(tokens);
+				return;
+			}
+			const newFilter = tokens.filter(token => {
+				const rgx = new RegExp(searchValue, 'gi');
+
+				return (
+					rgx.test(token.symbol) ||
+					rgx.test(token.name) ||
+					rgx.test(token.address)
+				);
+			});
+			setFilteredTokens(newFilter);
+		},
+		250
+	);
+
+	const contextStates = useMemo(
+		() => ({
+			setFilteredTokens,
+			filteredTokens,
+			handleSearchToken,
+			listOfTokens,
+			setChosenToken,
+			chosenToken,
+		}),
+		[
+			setFilteredTokens,
+			filteredTokens,
+			handleSearchToken,
+			listOfTokens,
+			setChosenToken,
+			chosenToken,
+		]
+	);
+
+	return (
+		<TokensContext.Provider value={contextStates}>
+			{children}
+		</TokensContext.Provider>
+	);
+};

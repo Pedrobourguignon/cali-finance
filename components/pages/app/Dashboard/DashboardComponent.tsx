@@ -4,11 +4,12 @@ import {
 	Coins,
 	CreateOrganizationCard,
 	SwapToken,
-	HaveProblemCard,
 	RecentActivitiesDashboard,
 	MyAssets,
 	ErrorAlert,
 	OrganizationsList,
+	WithdrawCard,
+	WithdrawModal,
 	EditEmployee,
 } from 'components';
 import { usePicasso } from 'hooks';
@@ -18,7 +19,6 @@ import useTranslation from 'next-translate/useTranslation';
 
 export const DashboardComponent: React.FC = () => {
 	const { t: translate } = useTranslation('dashboard');
-	const { isOpen, onOpen, onClose } = useDisclosure();
 
 	const recentActivitiesList: IRecentActivitiesList[] = [
 		{
@@ -49,11 +49,22 @@ export const DashboardComponent: React.FC = () => {
 
 	const isConnected = true;
 	const error = false;
-	const shouldNotDisplayError = error ? 'none' : 'flex';
-	const shouldDisplayError = error ? 'flex' : 'none';
-	const shouldNotDisplayDash = isConnected ? 'none' : 'flex';
-	const shouldDisplayDash = isConnected ? 'flex' : 'none';
+
 	const theme = usePicasso();
+	const { isOpen, onOpen, onClose } = useDisclosure();
+	const {
+		isOpen: isOpenEdit,
+		onOpen: onOpenEdit,
+		onClose: onCloseEdit,
+	} = useDisclosure();
+
+	if (error)
+		return (
+			<Flex align="center" w="full" justify="center">
+				<ErrorAlert />
+			</Flex>
+		);
+
 	return (
 		<Flex
 			bg={theme.bg.dashboard}
@@ -70,46 +81,33 @@ export const DashboardComponent: React.FC = () => {
 			<EditEmployee
 				employeeName="Kim Kardashian"
 				employeeWalletAddress="0x6856...BF99"
-				isOpen={isOpen}
-				onClose={onClose}
+				isOpen={isOpenEdit}
+				onClose={onCloseEdit}
 			/>
-			<Flex direction="column" px="8" gap="4" display={shouldNotDisplayError}>
+			<Flex direction="column" px="8" gap="4">
 				<DashboardHeader />
 				<Coins />
-				<Flex display={shouldNotDisplayDash}>
-					<CreateOrganizationCard />
-				</Flex>
-				<Flex display={shouldDisplayDash}>
-					<OrganizationsList />
-				</Flex>
-				<Flex display={shouldDisplayDash} gap="6">
-					<MyAssets />
-					<RecentActivitiesDashboard
-						recentActivitiesList={recentActivitiesList}
-					/>
-				</Flex>
-			</Flex>
-			<Flex direction="column" gap="2" display={shouldNotDisplayError} px="6">
-				<SwapToken />
-				<HaveProblemCard />
-				<Button
-					bg={theme.text.primary}
-					_hover={{}}
-					_active={{}}
-					_focus={{}}
-					onClick={onOpen}
-				>
-					asdasd
-				</Button>
+				{isConnected ? <OrganizationsList /> : <CreateOrganizationCard />}
+				{isConnected && (
+					<Flex gap="6" flexWrap="wrap">
+						<MyAssets />
+						<RecentActivitiesDashboard
+							recentActivitiesList={recentActivitiesList}
+						/>
+					</Flex>
+				)}
 			</Flex>
 			<Flex
-				align="center"
-				w="full"
-				justify="center"
-				display={shouldDisplayError}
+				direction="column"
+				gap="2"
+				px="6"
+				display={{ base: 'none', md: 'flex' }}
 			>
-				<ErrorAlert />
+				<WithdrawCard />
+				<SwapToken />
 			</Flex>
+			<Button onClick={onOpenEdit}>adsds</Button>
+			<WithdrawModal isOpen={isOpen} onClose={onClose} />
 		</Flex>
 	);
 };
