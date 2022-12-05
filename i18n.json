@@ -3,6 +3,7 @@
 	"defaultLocale": "en-US",
 	"pages": {
 		"*": [
+			"dashboard",
 			"teams-page",
 			"app-header",
 			"swap-token",
