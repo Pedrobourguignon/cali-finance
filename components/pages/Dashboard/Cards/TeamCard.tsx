@@ -5,12 +5,12 @@ import React from 'react';
 import useTranslation from 'next-translate/useTranslation';
 
 interface ITeamCard {
-	teamName: string;
+	name: string;
 	funds: string;
 	members: number;
 }
 
-export const TeamCard: React.FC<ITeamCard> = ({ teamName, funds, members }) => {
+export const TeamCard: React.FC<ITeamCard> = ({ name, funds, members }) => {
 	const { t: translate } = useTranslation('dashboard');
 	const theme = usePicasso();
 	return (
@@ -19,7 +19,7 @@ export const TeamCard: React.FC<ITeamCard> = ({ teamName, funds, members }) => {
 				<Flex align="center" gap="2.5" py="2.5">
 					<Icon as={OrganizationCardIcon} boxSize="6" color="black" />
 					<Text fontSize="md" fontWeight="bold" color="#121212">
-						{teamName}
+						{name}
 					</Text>
 				</Flex>
 				<Flex gap="14" w="full">
