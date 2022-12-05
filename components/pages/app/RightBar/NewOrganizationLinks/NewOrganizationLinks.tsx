@@ -83,7 +83,7 @@ export const NewOrganizationLinks: React.FC<{
 }> = ({ control }) => {
 	const theme = usePicasso();
 	return (
-		<Flex direction="column" w="max-content" py="6" px="6" zIndex="docked">
+		<Flex direction="column" w="max-content" zIndex="docked">
 			<Flex
 				bg={theme.bg.black}
 				direction="column"
