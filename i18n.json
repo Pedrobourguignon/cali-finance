@@ -8,7 +8,8 @@
 			"swap-token",
 			"have-a-problem",
 			"edit-profile",
-			"sidebar"
+			"sidebar",
+			"dashboard"
 		],
 		"/": ["home", "example"],
 		"/dashboard": [
