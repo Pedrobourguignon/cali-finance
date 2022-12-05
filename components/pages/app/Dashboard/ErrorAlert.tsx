@@ -13,6 +13,7 @@ export const ErrorAlert = () => {
 			align="center"
 			h="max-content"
 			direction={{ base: 'column', sm: 'row' }}
+			bgColor="white"
 		>
 			<Flex>
 				<Img src="/icons/error.svg" boxSize={{ base: '80', sm: '96' }} />
@@ -21,17 +22,15 @@ export const ErrorAlert = () => {
 				<Text
 					fontSize={{ base: '5xl', sm: '6xl' }}
 					fontWeight="bold"
-					color={theme.text.black2}
+					color={theme.text.black3}
 				>
-					{translate('ops')}
+					{translate('oops')}
 				</Text>
-				<Text fontSize={{ base: 'xl', sm: '4xl' }} color={theme.text.black2}>
+				<Text fontSize={{ base: 'xl', sm: '4xl' }} color={theme.text.black3}>
 					{translate('somethingWentWrong')}
 				</Text>
 				<Link href="/">
 					<OffsetShadow
-						px=""
-						buttonText=""
 						width="64"
 						height="9"
 						borderColor="black"

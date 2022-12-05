@@ -49,13 +49,6 @@ export const DashboardComponent: React.FC = () => {
 	const isConnected = true;
 
 	const error = true;
-	const shouldNotDisplayError = error ? 'none' : 'flex';
-	const shouldDisplayError = error ? 'flex' : 'none';
-	const shouldNotDisplayDash = isConnected ? 'none' : 'flex';
-	const shouldDisplayDash = isConnected ? 'flex' : 'none';
-
-	const error = false;
-
 
 	const theme = usePicasso();
 	const { isOpen, onOpen, onClose } = useDisclosure();
