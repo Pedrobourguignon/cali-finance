@@ -52,11 +52,6 @@ export const DashboardComponent: React.FC = () => {
 
 	const theme = usePicasso();
 	const { isOpen, onOpen, onClose } = useDisclosure();
-	const {
-		isOpen: isOpenEdit,
-		onOpen: onOpenEdit,
-		onClose: onCloseEdit,
-	} = useDisclosure();
 
 	if (error)
 		return (
@@ -78,12 +73,6 @@ export const DashboardComponent: React.FC = () => {
 			justify="space-between"
 			py="6"
 		>
-			<EditEmployee
-				employeeName="Kim Kardashian"
-				employeeWalletAddress="0x6856...BF99"
-				isOpen={isOpenEdit}
-				onClose={onCloseEdit}
-			/>
 			<Flex direction="column" px="8" gap="4">
 				<DashboardHeader />
 				<Coins />
@@ -106,7 +95,6 @@ export const DashboardComponent: React.FC = () => {
 				<WithdrawCard />
 				<SwapToken />
 			</Flex>
-			<Button onClick={onOpenEdit}>adsds</Button>
 			<WithdrawModal isOpen={isOpen} onClose={onClose} />
 		</Flex>
 	);
