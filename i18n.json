@@ -8,7 +8,7 @@
 			"app-header",
 			"swap-token",
 			"have-a-problem",
-			"history-page"
+			"history-page",
 			"edit-profile",
 			"sidebar"
 		],
@@ -18,7 +18,7 @@
 			"have-a-problem",
 			"sidebar",
 			"dashboard",
-			"history-page"
+			"history-page",
 			"edit-profile"
 		]
 	}
