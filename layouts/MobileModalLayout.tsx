@@ -40,7 +40,7 @@ export const MobileModalLayout: React.FC<IMobileModalLayout> = ({
 				mb="0"
 			>
 				<ModalHeader borderTopRadius="2xl" alignItems="center">
-					<Text color={theme.text.primary} fontSize="lg" fontWeight="500">
+					<Text color={theme.text.primary} fontSize="lg" fontWeight="medium">
 						{modalName}
 					</Text>
 					<ModalCloseButton color="gray.400" pt="2" />
