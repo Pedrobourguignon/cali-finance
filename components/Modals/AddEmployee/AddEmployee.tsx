@@ -27,6 +27,8 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { addEmployeeSchema } from 'utils';
 import { IoIosArrowDown } from 'react-icons/io';
 
+const teams = ['Marketing', 'Dev', 'Business'];
+
 export const AddEmployee: React.FC<IAddEmployee> = ({
 	isOpen,
 	onClose,
@@ -241,7 +243,6 @@ export const AddEmployee: React.FC<IAddEmployee> = ({
 									<Text {...labelStyle}>Team*</Text>
 									<Select
 										{...register('team')}
-										placeholder="Select or Insert name to Create Team"
 										borderColor={theme.text.primary}
 										_placeholder={{ ...placeholderStyle }}
 										_focusVisible={{}}
@@ -249,7 +250,25 @@ export const AddEmployee: React.FC<IAddEmployee> = ({
 										_hover={{}}
 										isReadOnly={false}
 									>
-										<option value="option1">Option 1</option>
+										<>
+											<option
+												value="option1"
+												style={{ background: 'white' }}
+												disabled
+												selected
+											>
+												Select or Insert name to Create Team
+											</option>
+											{teams.map((team, index) => (
+												<option
+													value="option1"
+													style={{ background: 'white' }}
+													key={+index}
+												>
+													{team}
+												</option>
+											))}
+										</>
 									</Select>
 									<Text fontSize="xs" color="red">
 										{errors.team?.message}

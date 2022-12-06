@@ -3,21 +3,27 @@ import { usePicasso } from 'hooks';
 import React, { useState } from 'react';
 import { FileUploader } from 'react-drag-drop-files';
 import { GrDocumentUpload } from 'react-icons/gr';
+import { IUploadedFile } from 'types';
 
 const fileTypes = ['CSV'];
 
-interface IFile extends Blob {
+interface IFileDrag extends Blob {
 	name: string;
 	size: number;
 	type: string;
 }
 
-export const DragAndDrop = () => {
+interface IDragAndDrop {
+	setUploadedFileData: React.Dispatch<React.SetStateAction<IUploadedFile>>;
+}
+
+export const DragAndDrop: React.FC<IDragAndDrop> = ({
+	setUploadedFileData,
+}) => {
 	const theme = usePicasso();
 	const [sizeIsValid, setSizeIsValid] = useState(true);
-	const [uploadedFileData, setUploadedFileData] = useState<string[]>();
 
-	const loadFile = (file: IFile) => {
+	const loadFile = (file: IFileDrag) => {
 		const newFile = new FileReader();
 		const size = file?.size;
 		if (!size || size > 5000000) {
@@ -28,8 +34,14 @@ export const DragAndDrop = () => {
 		const ext = fileData?.[fileData.length - 1];
 		setSizeIsValid(true);
 		newFile.readAsDataURL(file);
-		setUploadedFileData(fileData);
-		console.log(newFile);
+
+		newFile.onload = event => {
+			const base64File = {
+				file: event.target?.result,
+				ext,
+			};
+			setUploadedFileData(base64File);
+		};
 	};
 
 	return (
@@ -46,7 +58,6 @@ export const DragAndDrop = () => {
 					<Icon as={GrDocumentUpload} boxSize="10" />
 				</Flex>
 			</FileUploader>
-			<Text color="#121212">{uploadedFileData}</Text>
 			{sizeIsValid ? (
 				''
 			) : (
