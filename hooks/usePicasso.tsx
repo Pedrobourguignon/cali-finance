@@ -41,6 +41,9 @@ const usePicasso = () => {
 			select: '#191919',
 			dashboard: '#EDF2F7',
 		},
+		sizes: {
+			menuItem: '11.875rem',
+		},
 	};
 
 	return theme;
