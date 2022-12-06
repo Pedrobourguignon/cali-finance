@@ -1,4 +1,4 @@
-import { Flex, useDisclosure } from '@chakra-ui/react';
+import { Button, Flex, useDisclosure } from '@chakra-ui/react';
 import {
 	DashboardHeader,
 	Coins,
@@ -10,6 +10,7 @@ import {
 	OrganizationsList,
 	WithdrawCard,
 	WithdrawModal,
+	EditEmployee,
 } from 'components';
 import { usePicasso } from 'hooks';
 import React from 'react';

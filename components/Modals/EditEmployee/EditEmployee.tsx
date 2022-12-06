@@ -24,7 +24,7 @@ import { IEditEmployee, IEditEmployeeForm } from 'types';
 import { EditProfileIcon } from 'components';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { editEmployeeSchema } from 'utils';
+import { editEmployeeSchema, truncateWallet } from 'utils';
 
 export const EditEmployee: React.FC<IEditEmployee> = ({
 	isOpen,
@@ -45,15 +45,14 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 	const labelStyle: TextProps = {
 		color: 'black',
 		fontSize: 'sm',
-		fontWeight: '500',
+		fontWeight: 'medium',
 	};
 	const placeholderStyle: TextProps = {
 		fontSize: 'sm',
 		color: 'blackAlpha.500',
-		fontWeight: '400',
 	};
 
-	const expenseCalculation = useMemo(() => '30% more expenses.', []);
+	const expenseCalculation = () => '30% more expenses.';
 
 	const converterToDollar = (amount: number) => {
 		setAmountInDollar(amount * bitcoinPrice);
@@ -89,12 +88,12 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 					borderRadius="base"
 				>
 					<ModalHeader display="flex" p="6" flexDir="column" gap="5">
-						<Flex alignItems="center" gap="3">
-							<Icon as={EditProfileIcon} color="black" boxSize="6" />
+						<Flex gap="3">
+							<Icon as={EditProfileIcon} color="black" boxSize="6" pt="1" />
 							<Flex direction="column">
 								<Text
 									color={theme.text.primary}
-									fontWeight="600"
+									fontWeight="semibold"
 									fontSize="lg"
 									_hover={{}}
 									_active={{}}
@@ -102,8 +101,8 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 								>
 									Edit Employee
 								</Text>
-								<Text color={theme.text.primary} fontWeight="400" fontSize="sm">
-									{employeeName} - {employeeWalletAddress}
+								<Text color={theme.text.primary} fontSize="sm">
+									{employeeName} - {truncateWallet(employeeWalletAddress)}
 								</Text>
 							</Flex>
 							<ModalCloseButton color="gray.400" py="6" />
@@ -115,7 +114,7 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 								<Flex direction="column" gap="2">
 									<Flex align="center" justify="space-between">
 										<Text {...labelStyle}>Amount (per month)*</Text>
-										<Text fontWeight="400" fontSize="xs" color="gray.500">
+										<Text fontSize="xs" color="gray.500">
 											US$&nbsp;{amountInDollar}
 										</Text>
 									</Flex>
@@ -160,25 +159,25 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 									<Text fontSize="xs" color="red">
 										{errors.amount?.message}
 									</Text>
-									<Flex bg="blue.50" py="2" justify="center">
+									<Flex
+										bg="blue.50"
+										py="2"
+										justify="center"
+										borderRadius="base"
+									>
 										<Text fontSize="sm" color={theme.text.primary}>
 											This change will cause
 										</Text>
 										<Text
 											fontSize="sm"
 											color={theme.text.primary}
-											fontWeight="700"
+											fontWeight="bold"
 										>
 											&nbsp;
-											{expenseCalculation}
+											{expenseCalculation()}
 										</Text>
 									</Flex>
-									<Text
-										fontWeight="normal"
-										fontSize="xs"
-										color={theme.text.primary}
-										pb="6"
-									>
+									<Text fontSize="xs" color={theme.text.primary} pb="6">
 										Please note that you will have to deposit more 0.0002 BTC in
 										the organizations’ funds.
 									</Text>
@@ -187,15 +186,24 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 									<Text {...labelStyle}>Team*</Text>
 									<Select
 										{...register('team')}
-										placeholder="Select or Insert name to Create Team"
 										borderColor={theme.text.primary}
-										_placeholder={{ ...placeholderStyle }}
 										_focusVisible={{}}
 										color={theme.text.primary}
 										_hover={{}}
 										isReadOnly={false}
+										_placeholderShown={{ bg: 'white' }}
 									>
-										<option value="option1">Option 1</option>
+										<option
+											style={{ background: 'white' }}
+											value="option1"
+											disabled
+											selected
+										>
+											Select or Insert name to Create Team
+										</option>
+										<option style={{ background: 'white' }} value="option1">
+											Option 1
+										</option>
 									</Select>
 									<Text fontSize="xs" color="red">
 										{errors.team?.message}
@@ -208,7 +216,7 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 										color="white"
 										bg={theme.text.primary}
 										borderRadius="sm"
-										fontWeight="500"
+										fontWeight="medium"
 										size="md"
 										gap="3"
 										_hover={{}}
