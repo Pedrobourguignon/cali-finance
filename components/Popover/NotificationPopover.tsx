@@ -37,7 +37,7 @@ export const NotificationPopover: React.FC<INotificationPopover> = ({
 					<Icon
 						as={notificationsList.length > 0 ? VscBellDot : VscBell}
 						boxSize="6"
-						color={{ xs: 'white', sm: 'black' }}
+						color="black"
 					/>
 				</Button>
 			</PopoverTrigger>
