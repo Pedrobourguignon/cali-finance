@@ -6,7 +6,7 @@ export const CreateAccountBanner = () => {
 	const theme = usePicasso();
 	return (
 		<InfosBanner height="39.313rem">
-			<Flex direction="column" p="4" pt="32">
+			<Flex direction="column" px="4" pt="32">
 				<Flex direction="column" w="60" gap="2">
 					<Text fontWeight="medium" fontSize="md">
 						Create Account
