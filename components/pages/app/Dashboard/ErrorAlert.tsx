@@ -17,7 +17,7 @@ export const ErrorAlert = () => {
 			direction={{ base: 'column', sm: 'row' }}
 			bgColor="white"
 		>
-			<Flex>
+			<Flex align="center">
 				<Img src="/icons/error.svg" boxSize={{ base: '80', sm: '96' }} />
 			</Flex>
 			<Flex direction="column" gap="7">
@@ -36,7 +36,7 @@ export const ErrorAlert = () => {
 						width="64"
 						height="9"
 						borderColor="black"
-						top="2"
+						top="0.5rem"
 						left="0.375rem"
 					>
 						<Button
