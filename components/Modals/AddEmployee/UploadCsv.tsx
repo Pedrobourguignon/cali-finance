@@ -3,8 +3,10 @@ import React, { useState } from 'react';
 import { BsArrowUp } from 'react-icons/bs';
 import { DragAndDrop } from 'components';
 import { IUploadedFile } from 'types';
+import { usePicasso } from 'hooks';
 
 export const UploadCsv = () => {
+	const theme = usePicasso();
 	const [fileData] = useState();
 	const [uploadedFileData, setUploadedFileData] = useState<IUploadedFile>(
 		{} as IUploadedFile
@@ -12,7 +14,7 @@ export const UploadCsv = () => {
 
 	return (
 		<Flex direction="column" align="center" w="full">
-			<Text color="#121212" fontSize="sm" pb="5">
+			<Text color={theme.text.primary} fontSize="sm" pb="5">
 				Drag &apos;n&apos; drop your .csv or Select and upload your .csv file.
 			</Text>
 			<DragAndDrop setUploadedFileData={setUploadedFileData} />
@@ -22,11 +24,11 @@ export const UploadCsv = () => {
 					type="submit"
 					w="full"
 					gap="2.5"
-					bg="#121212"
+					bg={theme.text.primary}
 					color="white"
 					borderRadius="sm"
 					fontSize="md"
-					fontWeight="500"
+					fontWeight="medium"
 					_hover={{}}
 					_active={{}}
 					_focus={{}}
@@ -36,7 +38,7 @@ export const UploadCsv = () => {
 					<Icon as={BsArrowUp} />
 					Load CSV list
 				</Button>
-				<Text fontSize="sm" color="#121212">
+				<Text fontSize="sm" color={theme.text.primary}>
 					{fileData}
 				</Text>
 				<Text color="gray.500" fontSize="xs" textAlign="center">

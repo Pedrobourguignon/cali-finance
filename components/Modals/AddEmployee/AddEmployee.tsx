@@ -53,12 +53,11 @@ export const AddEmployee: React.FC<IAddEmployee> = ({
 	const labelStyle: TextProps = {
 		color: 'black',
 		fontSize: 'sm',
-		fontWeight: '500',
+		fontWeight: 'medium',
 	};
 	const placeholderStyle: TextProps = {
 		fontSize: 'sm',
 		color: 'blackAlpha.500',
-		fontWeight: '400',
 	};
 
 	const changeTab = (tab: string) => {
@@ -108,7 +107,7 @@ export const AddEmployee: React.FC<IAddEmployee> = ({
 							<Flex direction="column">
 								<Text
 									color={theme.text.primary}
-									fontWeight="600"
+									fontWeight="semibold"
 									fontSize="lg"
 									_hover={{}}
 									_active={{}}

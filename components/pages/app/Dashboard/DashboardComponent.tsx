@@ -1,4 +1,4 @@
-import { Button, Flex, useDisclosure } from '@chakra-ui/react';
+import { Flex, useDisclosure } from '@chakra-ui/react';
 import {
 	DashboardHeader,
 	Coins,
@@ -10,7 +10,6 @@ import {
 	OrganizationsList,
 	WithdrawCard,
 	WithdrawModal,
-	AddEmployee,
 } from 'components';
 import { usePicasso } from 'hooks';
 import React from 'react';
@@ -20,11 +19,6 @@ import useTranslation from 'next-translate/useTranslation';
 export const DashboardComponent: React.FC = () => {
 	const { t: translate } = useTranslation('dashboard');
 	const { isOpen, onOpen, onClose } = useDisclosure();
-	const {
-		isOpen: isOpenAdd,
-		onOpen: onOpenAdd,
-		onClose: onCloseAdd,
-	} = useDisclosure();
 
 	const recentActivitiesList: IRecentActivitiesList[] = [
 		{
@@ -53,7 +47,6 @@ export const DashboardComponent: React.FC = () => {
 		},
 	];
 
-	const company = 'Kylie Cosmetics';
 	const isConnected = true;
 	const error = false;
 
@@ -102,8 +95,6 @@ export const DashboardComponent: React.FC = () => {
 				<SwapToken />
 			</Flex>
 			<WithdrawModal isOpen={isOpen} onClose={onClose} />
-			<AddEmployee isOpen={isOpenAdd} onClose={onCloseAdd} company="Adc" />
-			<Button onClick={onOpenAdd}>asdasd</Button>
 		</Flex>
 	);
 };
