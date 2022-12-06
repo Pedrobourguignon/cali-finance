@@ -1,4 +1,4 @@
-import { Flex, Icon, Img, Text } from '@chakra-ui/react';
+import { Flex, Icon, Text } from '@chakra-ui/react';
 import { usePicasso } from 'hooks';
 import React, { useState } from 'react';
 import { FileUploader } from 'react-drag-drop-files';
@@ -29,18 +29,7 @@ export const DragAndDrop = () => {
 		setSizeIsValid(true);
 		newFile.readAsDataURL(file);
 		setUploadedFileData(fileData);
-
-		// newFile.onload = event => {
-		// 	const base64File = {
-		// 		file: event.target?.result,
-		// 		ext,
-		// 	};
-		// 	if (base64File.file) {
-		// 		setFileLink(base64File.file.toString());
-		// 	} else {
-		// 		setFileLink('/images/add-image.png');
-		// 	}
-		// };
+		console.log(newFile);
 	};
 
 	return (

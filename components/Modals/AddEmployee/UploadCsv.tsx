@@ -1,6 +1,5 @@
-import { Button, Flex, FormControl, Icon, Input, Text } from '@chakra-ui/react';
-import { GrDocumentUpload } from 'react-icons/gr';
-import React, { useRef, useState } from 'react';
+import { Button, Flex, FormControl, Icon, Text } from '@chakra-ui/react';
+import React, { useState } from 'react';
 import { BsArrowUp } from 'react-icons/bs';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -8,13 +7,8 @@ import { uploadCsvSchema } from 'utils';
 import { DragAndDrop } from 'components';
 
 export const UploadCsv = () => {
-	// const inputRef = useRef<HTMLInputElement | null>(null);
 	const [fileData, setFileData] = useState();
 	const [fileType, setFileType] = useState('text/csv');
-
-	// const handleClick = () => {
-	// 	inputRef.current.click();
-	// };
 
 	const {
 		register,
@@ -36,21 +30,6 @@ export const UploadCsv = () => {
 						Drag &apos;n&apos; drop your .csv or Select and upload your .csv
 						file.
 					</Text>
-					{/* <Button
-						_hover={{}}
-						_active={{}}
-						_focus={{}}
-						borderRadius="base"
-						px="14"
-						py="20"
-						border="1px solid"
-						borderColor="blackAlpha.200"
-						bg="gray.50"
-						// onClick={handleClick}
-					>
-						<Icon as={GrDocumentUpload} boxSize="10" />
-						<Input type="file" display="none" ref={inputRef} />
-					</Button> */}
 					<DragAndDrop />
 					<Flex py="6" direction="column" align="center" gap="4" px="6">
 						<Button
@@ -75,8 +54,10 @@ export const UploadCsv = () => {
 							{fileData}
 						</Text>
 						<Text color="gray.500" fontSize="xs" textAlign="center">
-							By adding this wallet address to your organization you accept the
-							Terms and Conditions.
+							By adding this wallet address to your organization you accept the{' '}
+							<Text as="u" fontWeight="semibold">
+								Terms and Conditions.
+							</Text>
 						</Text>
 					</Flex>
 				</Flex>

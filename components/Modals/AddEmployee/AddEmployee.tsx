@@ -101,8 +101,8 @@ export const AddEmployee: React.FC<IAddEmployee> = ({
 					borderRadius="base"
 				>
 					<ModalHeader display="flex" p="6" flexDir="column" gap="5">
-						<Flex alignItems="center" gap="3">
-							<Icon as={IoPersonAddOutline} color="black" boxSize="6" />
+						<Flex gap="3">
+							<Icon as={IoPersonAddOutline} color="black" boxSize="6" mt="1" />
 							<Flex direction="column">
 								<Text
 									color="#121212"
@@ -264,7 +264,10 @@ export const AddEmployee: React.FC<IAddEmployee> = ({
 									textAlign="center"
 								>
 									By adding this wallet address to your organization you accept
-									the Terms and Conditions.
+									the{' '}
+									<Text as="u" fontWeight="semibold">
+										Terms and Conditions.
+									</Text>
 								</Text>
 							</ModalBody>
 						</FormControl>
