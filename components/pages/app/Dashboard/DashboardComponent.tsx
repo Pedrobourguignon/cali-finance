@@ -48,7 +48,8 @@ export const DashboardComponent: React.FC = () => {
 	];
 
 	const isConnected = true;
-	const error = false;
+
+	const error = true;
 
 	const theme = usePicasso();
 
