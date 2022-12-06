@@ -10,6 +10,7 @@ import {
 	OrganizationsList,
 	WithdrawCard,
 	WithdrawModal,
+	DeleteTeamModal,
 } from 'components';
 import { usePicasso } from 'hooks';
 import React from 'react';
@@ -51,6 +52,11 @@ export const DashboardComponent: React.FC = () => {
 
 	const theme = usePicasso();
 	const { isOpen, onOpen, onClose } = useDisclosure();
+	const {
+		isOpen: isOpenDelete,
+		onOpen: onOpenDelete,
+		onClose: onCloseDelete,
+	} = useDisclosure();
 
 	if (error)
 		return (
@@ -95,6 +101,11 @@ export const DashboardComponent: React.FC = () => {
 				<SwapToken />
 			</Flex>
 			<WithdrawModal isOpen={isOpen} onClose={onClose} />
+			<DeleteTeamModal
+				isOpen={isOpenDelete}
+				onClose={onCloseDelete}
+				teamName="Marketing Team"
+			/>
 		</Flex>
 	);
 };
