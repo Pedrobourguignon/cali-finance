@@ -1,4 +1,4 @@
-import { Flex, Icon, Text } from '@chakra-ui/react';
+import { Flex, Icon, Img, Text } from '@chakra-ui/react';
 import { usePicasso } from 'hooks';
 import NextLink from 'next/link';
 import { FiInstagram, FiLinkedin, FiTwitter } from 'react-icons/fi';
@@ -9,7 +9,13 @@ export const LifeIsEasierBannner = () => {
 	const theme = usePicasso();
 	return (
 		<InfosBanner height="39.313rem">
-			<Flex direction="column" px="4" pt="32">
+			<Flex>
+				<Img src="/images/ondulated.png" />
+			</Flex>
+			<Flex position="absolute" top="0">
+				<Img src="/images/sparkles.png" />
+			</Flex>
+			<Flex direction="column" px="4" pt="10">
 				<Flex direction="column" w="60" gap="2">
 					<Text fontWeight="medium">Life is easier with Cali</Text>
 					<Text fontSize="sm" fontWeight="normal" w="56">

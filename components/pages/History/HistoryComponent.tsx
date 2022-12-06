@@ -19,6 +19,7 @@ import useTranslation from 'next-translate/useTranslation';
 import React, { useMemo, useState } from 'react';
 import { BiChevronDown } from 'react-icons/bi';
 import { IHistoryNotification, IHistoryPage } from 'types';
+import { layoutLimit } from 'utils';
 import { Paginator } from '../Dashboard';
 
 export const HistoryComponent: React.FC<IHistoryPage> = ({ history }) => {
@@ -71,7 +72,7 @@ export const HistoryComponent: React.FC<IHistoryPage> = ({ history }) => {
 			right={isConnected ? <LifeIsEasierBannner /> : <CreateAccountBanner />}
 		>
 			<Flex direction="column" gap="5" p="6">
-				<Flex direction="column" gap="2" w="46rem">
+				<Flex direction="column" gap="2" w={layoutLimit}>
 					<Flex justify="space-between" align="center">
 						<Flex direction="column" gap="4">
 							<Text

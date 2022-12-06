@@ -7,12 +7,11 @@ interface ISkeleton {
 
 export const Skeletons: React.FC<ISkeleton> = ({ display }) => (
 	<Flex
-		gap="20"
 		bg="white"
 		p="3"
 		display={display}
 		align="center"
-		justify="center"
+		justify="space-between"
 	>
 		<Flex gap="3" align="center">
 			<SkeletonCircle size="6" />
