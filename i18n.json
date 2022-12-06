@@ -10,7 +10,8 @@
 			"have-a-problem",
 			"history-page",
 			"edit-profile",
-			"sidebar"
+			"sidebar",
+			"dashboard"
 		],
 		"/": ["home", "example"],
 		"/dashboard": [

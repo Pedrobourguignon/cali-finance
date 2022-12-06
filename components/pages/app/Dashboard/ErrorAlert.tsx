@@ -3,7 +3,7 @@ import Link from 'next/link';
 import React from 'react';
 import useTranslation from 'next-translate/useTranslation';
 import { usePicasso } from 'hooks';
-import { OffsetShadow } from 'components/OffsetShadow';
+import { OffsetShadow } from 'components';
 
 export const ErrorAlert = () => {
 	const { t: translate } = useTranslation('dashboard');
@@ -11,7 +11,9 @@ export const ErrorAlert = () => {
 	return (
 		<Flex
 			align="center"
-			h="max-content"
+			justify="center"
+			w="100%"
+			h="100vh"
 			direction={{ base: 'column', sm: 'row' }}
 			bgColor="white"
 		>
