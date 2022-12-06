@@ -36,6 +36,8 @@ export const Coins = () => {
 			borderRadius="base"
 			justify="space-between"
 			align="center"
+			w="full"
+			flexWrap="wrap"
 		>
 			<Flex direction="column">
 				<Text fontSize="md" fontWeight="500" lineHeight="6">

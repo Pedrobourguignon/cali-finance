@@ -44,7 +44,7 @@ export const OrganizationCard: React.FC<IOrganizationCard> = ({ team }) => {
 						<Text fontSize="sm" color="gray.500">
 							Funds
 						</Text>
-						<Text fontSize="sm">{team.funds.toLocaleString('en-US')}</Text>
+						<Text fontSize="sm">${team.funds.toLocaleString('en-US')}</Text>
 					</Flex>
 					<Flex direction="column">
 						<Text fontSize="sm" color="gray.500">

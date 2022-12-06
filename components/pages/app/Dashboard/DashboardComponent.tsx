@@ -1,15 +1,15 @@
-import { Button, Flex, useDisclosure } from '@chakra-ui/react';
+import { Flex, useDisclosure } from '@chakra-ui/react';
 import {
 	DashboardHeader,
 	Coins,
 	CreateOrganizationCard,
 	SwapToken,
-	HaveProblemCard,
 	RecentActivitiesDashboard,
 	MyAssets,
 	ErrorAlert,
 	OrganizationsList,
-	AddEmployee,
+	WithdrawCard,
+	WithdrawModal,
 } from 'components';
 import { usePicasso } from 'hooks';
 import React from 'react';
@@ -50,11 +50,16 @@ export const DashboardComponent: React.FC = () => {
 	const company = 'Kylie Cosmetics';
 	const isConnected = true;
 	const error = false;
-	const shouldNotDisplayError = error ? 'none' : 'flex';
-	const shouldDisplayError = error ? 'flex' : 'none';
-	const shouldNotDisplayDash = isConnected ? 'none' : 'flex';
-	const shouldDisplayDash = isConnected ? 'flex' : 'none';
+
 	const theme = usePicasso();
+
+	if (error)
+		return (
+			<Flex align="center" w="full" justify="center">
+				<ErrorAlert />
+			</Flex>
+		);
+
 	return (
 		<Flex
 			bg={theme.bg.dashboard}
@@ -68,44 +73,29 @@ export const DashboardComponent: React.FC = () => {
 			justify="space-between"
 			py="6"
 		>
-			<AddEmployee isOpen={isOpen} onClose={onClose} company={company} />
-			<Flex direction="column" px="8" gap="4" display={shouldNotDisplayError}>
+			<Flex direction="column" px="8" gap="4">
 				<DashboardHeader />
 				<Coins />
-				<Flex display={shouldNotDisplayDash}>
-					<CreateOrganizationCard />
-				</Flex>
-				<Flex display={shouldDisplayDash}>
-					<OrganizationsList />
-				</Flex>
-				<Flex display={shouldDisplayDash} gap="6">
-					<MyAssets />
-					<RecentActivitiesDashboard
-						recentActivitiesList={recentActivitiesList}
-					/>
-				</Flex>
-			</Flex>
-			<Flex direction="column" gap="2" display={shouldNotDisplayError} px="6">
-				<SwapToken />
-				<HaveProblemCard />
-				<Button
-					bg="black"
-					_active={{}}
-					_hover={{}}
-					_focus={{}}
-					onClick={onOpen}
-				>
-					asd
-				</Button>
+				{isConnected ? <OrganizationsList /> : <CreateOrganizationCard />}
+				{isConnected && (
+					<Flex gap="6" flexWrap="wrap">
+						<MyAssets />
+						<RecentActivitiesDashboard
+							recentActivitiesList={recentActivitiesList}
+						/>
+					</Flex>
+				)}
 			</Flex>
 			<Flex
-				align="center"
-				w="full"
-				justify="center"
-				display={shouldDisplayError}
+				direction="column"
+				gap="2"
+				px="6"
+				display={{ base: 'none', md: 'flex' }}
 			>
-				<ErrorAlert />
+				<WithdrawCard />
+				<SwapToken />
 			</Flex>
+			<WithdrawModal isOpen={isOpen} onClose={onClose} />
 		</Flex>
 	);
 };

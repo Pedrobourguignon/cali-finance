@@ -94,14 +94,16 @@ export const DashboardHeader: React.FC = () => {
 					</Text>
 				</Flex>
 			</Flex>
-			<NotificationPopover
-				setNotificationsList={setNotificationsList}
-				onClose={onClose}
-				isOpen={isOpen}
-				onOpen={onOpen}
-				notificationNumber={notificationsList.length}
-				notificationsList={notificationsList}
-			/>
+			<Flex display={{ base: 'none', md: 'flex' }}>
+				<NotificationPopover
+					setNotificationsList={setNotificationsList}
+					onClose={onClose}
+					isOpen={isOpen}
+					onOpen={onOpen}
+					notificationNumber={notificationsList.length}
+					notificationsList={notificationsList}
+				/>
+			</Flex>
 		</Flex>
 	);
 };
