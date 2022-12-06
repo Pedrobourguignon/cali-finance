@@ -11,7 +11,8 @@ export const DashboardContainer = () => {
 		<OrganizationsProvider>
 			<Flex
 				bg={theme.bg.primary}
-				h="100vh"
+				minH="100vh"
+				h="full"
 				direction={{ base: 'column', sm: 'row' }}
 			>
 				<MobileHeader />
