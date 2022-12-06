@@ -8,15 +8,10 @@ import {
 	ModalHeader,
 	ModalOverlay,
 } from '@chakra-ui/react';
-import {
-	WithdrawButton,
-	WithdrawContent,
-	OffsetShadow,
-	ISelectedCoin,
-} from 'components';
+import { WithdrawButton, WithdrawContent, OffsetShadow } from 'components';
 import { usePicasso } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
-import { IBasicModal } from 'types';
+import { IBasicModal, ISelectedCoin } from 'types';
 
 const selectedCoin: ISelectedCoin = {
 	logo: 'https://assets.coingecko.com/coins/images/1/thumb/bitcoin.png?1547033579',
