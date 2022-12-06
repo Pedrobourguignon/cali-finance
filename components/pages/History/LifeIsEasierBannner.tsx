@@ -8,11 +8,11 @@ import { socialMediaLinks } from 'utils';
 export const LifeIsEasierBannner = () => {
 	const theme = usePicasso();
 	return (
-		<InfosBanner height="39.313rem" justify="center">
-			<Flex direction="column" p="4" justify="center">
+		<InfosBanner height="39.313rem">
+			<Flex direction="column" p="4" pt="32">
 				<Flex direction="column" w="60" gap="2">
 					<Text fontWeight="medium">Life is easier with Cali</Text>
-					<Text fontSize="sm" fontWeight="normal">
+					<Text fontSize="sm" fontWeight="normal" w="56">
 						You’ve unlocked our all-in-one suit for surfacing unlimited teams
 						and organizations payments
 					</Text>
