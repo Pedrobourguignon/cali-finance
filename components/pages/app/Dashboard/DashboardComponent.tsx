@@ -1,4 +1,4 @@
-import { Button, Flex, useDisclosure } from '@chakra-ui/react';
+import { Flex, useDisclosure } from '@chakra-ui/react';
 import {
 	DashboardHeader,
 	Coins,
@@ -10,7 +10,6 @@ import {
 	OrganizationsList,
 	WithdrawCard,
 	WithdrawModal,
-	ModalTest,
 } from 'components';
 import { usePicasso } from 'hooks';
 import React from 'react';
@@ -20,11 +19,6 @@ import useTranslation from 'next-translate/useTranslation';
 export const DashboardComponent: React.FC = () => {
 	const { t: translate } = useTranslation('dashboard');
 	const { isOpen, onOpen, onClose } = useDisclosure();
-	const {
-		isOpen: isOpenModal,
-		onOpen: onOpenModal,
-		onClose: onCloseModal,
-	} = useDisclosure();
 
 	const recentActivitiesList: IRecentActivitiesList[] = [
 		{
@@ -78,33 +72,29 @@ export const DashboardComponent: React.FC = () => {
 			justify="space-between"
 			py="6"
 		>
-			<Flex display={{ base: 'none', md: 'flex' }}>
-				<Flex direction="column" px="8" gap="4">
-					<DashboardHeader />
-					<Coins />
-					{isConnected ? <OrganizationsList /> : <CreateOrganizationCard />}
-					{isConnected && (
-						<Flex gap="6" flexWrap="wrap">
-							<MyAssets />
-							<RecentActivitiesDashboard
-								recentActivitiesList={recentActivitiesList}
-							/>
-						</Flex>
-					)}
-				</Flex>
-				<Flex
-					direction="column"
-					gap="2"
-					px="6"
-					display={{ base: 'none', md: 'flex' }}
-				>
-					<WithdrawCard />
-					<SwapToken />
-				</Flex>
-				<WithdrawModal isOpen={isOpen} onClose={onClose} />
+			<Flex direction="column" px="8" gap="4">
+				<DashboardHeader />
+				<Coins />
+				{isConnected ? <OrganizationsList /> : <CreateOrganizationCard />}
+				{isConnected && (
+					<Flex gap="6" flexWrap="wrap">
+						<MyAssets />
+						<RecentActivitiesDashboard
+							recentActivitiesList={recentActivitiesList}
+						/>
+					</Flex>
+				)}
 			</Flex>
-			<ModalTest isOpen={isOpenModal} onClose={onCloseModal} />
-			<Button onClick={onOpenModal}>abre porra</Button>
+			<Flex
+				direction="column"
+				gap="2"
+				px="6"
+				display={{ base: 'none', md: 'flex' }}
+			>
+				<WithdrawCard />
+				<SwapToken />
+			</Flex>
+			<WithdrawModal isOpen={isOpen} onClose={onClose} />
 		</Flex>
 	);
 };
