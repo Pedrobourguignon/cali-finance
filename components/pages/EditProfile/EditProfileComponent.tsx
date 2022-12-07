@@ -12,24 +12,14 @@ export const EditProfileComponent = () => {
 	const { isOpen, onOpen, onClose } = useDisclosure();
 
 	return (
-		<Flex
-			bg="white"
-			w="full"
-			h="95vh"
-			m="auto"
-			borderLeft="0.25rem solid"
-			borderColor={theme.branding.blue}
-			borderLeftRadius="sm"
-			gap="4"
-			direction="column"
-		>
+		<>
 			<ImageUploaderModal isOpen={isOpen} onClose={onClose} />
 			<Flex>
 				<Text
 					fontSize="xl"
 					color={theme.text.primary}
 					lineHeight="tall"
-					fontWeight="500"
+					fontWeight="medium"
 					pl="7"
 					pt="6"
 				>
@@ -52,18 +42,10 @@ export const EditProfileComponent = () => {
 					{translate('editProfileImage')}
 				</Button>
 			</Flex>
-			<Flex
-				bg={theme.bg.dashboard}
-				h="full"
-				direction="column"
-				align="center"
-				bgImage="/images/calipattern.png"
-				bgRepeat="no-repeat"
-				bgPosition="right bottom"
-			>
+			<Flex h="full" direction="column" align="center">
 				<EditProfileForm />
 			</Flex>
-		</Flex>
+		</>
 	);
 };
 
