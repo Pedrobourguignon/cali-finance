@@ -8,7 +8,7 @@ import { socialMediaLinks } from 'utils';
 export const LifeIsEasierBannner = () => {
 	const theme = usePicasso();
 	return (
-		<InfosBanner height="39.313rem">
+		<InfosBanner height="39.313rem" position="absolute">
 			<Flex>
 				<Img src="/images/ondulated.png" />
 			</Flex>

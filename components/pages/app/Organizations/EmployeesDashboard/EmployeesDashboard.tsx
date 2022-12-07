@@ -78,6 +78,9 @@ export const EmployeesDashboard = () => {
 						h="6"
 						px="3"
 						borderRadius="base"
+						_hover={{ opacity: '80%' }}
+						_active={{}}
+						_focus={{}}
 					>
 						<Text>+</Text>
 						<Text>Add Employee</Text>
