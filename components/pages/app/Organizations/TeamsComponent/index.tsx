@@ -1,23 +1,18 @@
+import { Flex, Grid, GridItem, Text, useDisclosure } from '@chakra-ui/react';
 import {
-	Flex,
-	Grid,
-	GridItem,
-	Link,
-	Text,
-	useDisclosure,
-} from '@chakra-ui/react';
-import {
-	NavigationBack,
-	NotificationPopover,
 	OrganizationsHeader,
-	RecentActivities,
+	NotificationPopover,
+	ActiveTeamsBar,
 	TeamsCard,
-	WithdrawalsBanner,
+	EmployeesDashboard,
+	NavigationBack,
 } from 'components';
 import { useOrganizations, usePicasso } from 'hooks';
 import { AppLayout } from 'layouts';
 import { navigationPaths } from 'utils';
+import NextLink from 'next/link';
 
+const layoutLimit = 800;
 const teams = [
 	{
 		name: 'Marketing',
@@ -39,15 +34,12 @@ const teams = [
 	},
 ];
 
-const layoutLimit = 800;
-
-export const OverviewTab = () => {
-	const { onClose, isOpen, onOpen } = useDisclosure();
+export const TeamsComponent = () => {
 	const theme = usePicasso();
-	const { notificationsList, setNotificationsList } = useOrganizations();
-
+	const { onClose, isOpen, onOpen } = useDisclosure();
+	const { setNotificationsList, notificationsList } = useOrganizations();
 	return (
-		<AppLayout right={<WithdrawalsBanner />}>
+		<AppLayout right={<ActiveTeamsBar />}>
 			<Flex
 				w="100%"
 				bg="white"
@@ -78,21 +70,33 @@ export const OverviewTab = () => {
 				</Flex>
 				<OrganizationsHeader />
 			</Flex>
-			<Flex p="6" direction="column" gap="4" maxW={layoutLimit} w="100%">
-				<Flex flexDir="column" w="full">
+			<Flex
+				color={theme.text.primary}
+				p="6"
+				maxW={layoutLimit}
+				direction="column"
+				gap="10"
+			>
+				<Flex direction="column" gap="4">
 					<Flex justify="space-between">
-						<Text color={theme.text.primary} fontWeight="medium">
-							Teams
-						</Text>
-						<Link
-							href={navigationPaths.dashboard.organizations.teams}
-							color="gray.500"
-							fontWeight="medium"
-							fontSize="xs"
-							cursor="pointer"
-						>
-							See all
-						</Link>
+						<Flex fontWeight="medium" gap="1">
+							<Text>{teams.length}</Text>
+							<Text>Teams</Text>
+						</Flex>
+						<NextLink href="">
+							<Text
+								bg={theme.bg.primary}
+								px="6"
+								py="1"
+								cursor="pointer"
+								color="white"
+								borderRadius="base"
+								fontWeight="medium"
+								fontSize="xs"
+							>
+								Create Team
+							</Text>
+						</NextLink>
 					</Flex>
 					<Grid gap="4" w="full" templateColumns="repeat(3, 1fr)">
 						{teams.map((team, index) => (
@@ -102,7 +106,8 @@ export const OverviewTab = () => {
 						))}
 					</Grid>
 				</Flex>
-				<RecentActivities />
+
+				<EmployeesDashboard />
 			</Flex>
 		</AppLayout>
 	);

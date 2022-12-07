@@ -49,7 +49,7 @@ const teams = [
 		color: 'black',
 	},
 ];
-export const ActiveTeamsBar = () => {
+export const ActiveTeamsCard = () => {
 	const theme = usePicasso();
 	const totalMembers = teams.reduce((acc, team) => acc + team.members, 0);
 	const newTeam = teams.map(
@@ -64,9 +64,10 @@ export const ActiveTeamsBar = () => {
 	return (
 		<Flex
 			direction="column"
-			w="100%"
 			px="4"
 			py="2.5"
+			w="64"
+			h="max-content"
 			bg="white"
 			borderRadius="base"
 			gap="3"

@@ -1,11 +1,15 @@
-import { Flex, Img, FlexProps } from '@chakra-ui/react';
+import { Flex, FlexProps, Img } from '@chakra-ui/react';
 import { usePicasso } from 'hooks';
 
 interface IInfos extends FlexProps {
 	children: React.ReactNode;
 }
 
-export const InfosBanner: React.FC<IInfos> = ({ children, ...props }) => {
+export const InfosBanner: React.FC<IInfos> = ({
+	children,
+	position,
+	...props
+}) => {
 	const theme = usePicasso();
 	return (
 		<Flex>
@@ -22,7 +26,7 @@ export const InfosBanner: React.FC<IInfos> = ({ children, ...props }) => {
 				<Flex position="absolute" bottom="0">
 					<Img src="/images/illustration.png" />
 				</Flex>
-				<Flex position="absolute" bottom="0">
+				<Flex bottom="0" position={position}>
 					<Img src="/images/ondulate-background.png" />
 				</Flex>
 			</Flex>

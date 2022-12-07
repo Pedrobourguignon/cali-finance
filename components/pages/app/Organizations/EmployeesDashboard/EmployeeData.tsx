@@ -41,13 +41,19 @@ export const EmployeeData: React.FC<IEmployeeData> = ({ employee }) => (
 		</Flex>
 		<Flex>
 			<Select
-				size="sm"
 				borderColor="gray.200"
 				borderRadius="base"
 				fontSize="sm"
+				w="40"
+				h="6"
 			>
 				{teams.map((item, index) => (
-					<option selected={item === employee.team} key={+index} value={item}>
+					<option
+						style={{ background: 'white' }}
+						selected={item === employee.team}
+						key={+index}
+						value={item}
+					>
 						{item}
 					</option>
 				))}
@@ -58,8 +64,16 @@ export const EmployeeData: React.FC<IEmployeeData> = ({ employee }) => (
 				<Text>{employee.amount}</Text>
 				<Text>{employee.coin}</Text>
 			</Flex>
-			<Button color="gray.500" fontSize="xs" fontWeight="medium" h="100%">
-				Edit
+			<Button
+				color="gray.500"
+				fontSize="xs"
+				fontWeight="medium"
+				h="max-content"
+				px="0"
+			>
+				<Text w="100%" align="end">
+					Edit
+				</Text>
 			</Button>
 		</Flex>
 	</Flex>

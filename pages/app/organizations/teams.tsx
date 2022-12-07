@@ -1,5 +1,5 @@
-import { OverviewTab } from 'containers';
+import { TeamsContainer } from 'containers';
 
-export const Funds = () => <OverviewTab />;
+export const Teams = () => <TeamsContainer />;
 
-export default Funds;
+export default Teams;
