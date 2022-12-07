@@ -1,11 +1,11 @@
 import { Flex, Grid, GridItem, Text, useDisclosure } from '@chakra-ui/react';
-import { NavigationBack } from 'components/Buttons';
 import {
 	OrganizationsHeader,
 	NotificationPopover,
 	ActiveTeamsBar,
 	TeamsCard,
 	EmployeesDashboard,
+	NavigationBack,
 } from 'components';
 import { useOrganizations, usePicasso } from 'hooks';
 import { AppLayout } from 'layouts';
