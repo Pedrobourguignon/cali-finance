@@ -82,7 +82,7 @@ export const ActiveTeamsBar = () => {
 							color={theme.branding.blue}
 							fontWeight="medium"
 						>
-							See All
+							See all
 						</LinkOverlay>
 					</NextLink>
 				</LinkBox>

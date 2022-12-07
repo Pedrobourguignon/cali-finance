@@ -14,32 +14,32 @@ const settings = {
 
 const teamList: ITeamsList[] = [
 	{
-		teamName: 'Kylie Cosmetics',
+		name: 'Kylie Cosmetics',
 		funds: '$2,234.05',
 		members: 2,
 	},
 	{
-		teamName: 'Kylie Skin',
+		name: 'Kylie Skin',
 		funds: '$92,234,11',
 		members: 170,
 	},
 	{
-		teamName: 'Kylie Baby',
+		name: 'Kylie Baby',
 		funds: '$5,234.1',
 		members: 13,
 	},
 	{
-		teamName: 'Sapo Cugugu',
+		name: 'Sapo Cugugu',
 		funds: '$5,234.1',
 		members: 13,
 	},
 	{
-		teamName: '5',
+		name: '5',
 		funds: '$2,234.05',
 		members: 2,
 	},
 	{
-		teamName: '6',
+		name: '6',
 		funds: '$2,234.05',
 		members: 2,
 	},
@@ -85,7 +85,7 @@ export const TeamsList = () => {
 						{teamList.map((team, index) => (
 							<TeamCard
 								key={+index}
-								teamName={team.teamName}
+								name={team.name}
 								funds={team.funds}
 								members={team.members}
 							/>
