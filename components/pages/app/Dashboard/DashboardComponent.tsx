@@ -49,7 +49,7 @@ export const DashboardComponent: React.FC = () => {
 
 	const isConnected = true;
 
-	const error = true;
+	const error = false;
 
 	const theme = usePicasso();
 
@@ -64,8 +64,7 @@ export const DashboardComponent: React.FC = () => {
 		<Flex
 			bg={theme.bg.dashboard}
 			w="full"
-			h="95vh"
-			m="auto"
+			h="100%"
 			borderLeft="0.25rem solid"
 			borderColor={theme.branding.blue}
 			borderLeftRadius="sm"
