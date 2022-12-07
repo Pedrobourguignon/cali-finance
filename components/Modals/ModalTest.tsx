@@ -1,4 +1,9 @@
-import { ModalBody, Text } from '@chakra-ui/react';
+import {
+	ModalBody,
+	ModalCloseButton,
+	ModalHeader,
+	Text,
+} from '@chakra-ui/react';
 import { usePicasso } from 'hooks';
 import { MobileModalLayout } from 'layouts';
 import useTranslation from 'next-translate/useTranslation';
@@ -9,7 +14,13 @@ export const ModalTest: React.FC<IBasicModal> = ({ isOpen, onClose }) => {
 	const theme = usePicasso();
 	const { t: translate } = useTranslation('swap-token');
 	return (
-		<MobileModalLayout isOpen={isOpen} onClose={onClose} modalName="Teste">
+		<MobileModalLayout isOpen={isOpen} onClose={onClose}>
+			<ModalHeader borderTopRadius="2xl" alignItems="center">
+				<Text color={theme.text.primary} fontSize="lg" fontWeight="medium">
+					teste
+				</Text>
+				<ModalCloseButton color="gray.400" pt="2" />
+			</ModalHeader>
 			<ModalBody
 				display="flex"
 				flexDirection="column"
