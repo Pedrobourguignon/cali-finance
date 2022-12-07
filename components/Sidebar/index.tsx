@@ -79,7 +79,7 @@ export const Sidebar: React.FC = () => {
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const [networkData, setNetworkData] = useState<INetwork>({
 		name: 'Ethereum',
-		icon: '/images/bnbchain.png',
+		icon: '/images/eth.png',
 	} as INetwork);
 
 	const changeLanguage = (lang: ILanguage) => {

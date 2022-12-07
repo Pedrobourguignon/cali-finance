@@ -1,0 +1,4 @@
+[submodule "types/interfaces"]
+	path = types/interfaces
+	url = https://github.com/Cali-Finance/common-types
+	branch = main
