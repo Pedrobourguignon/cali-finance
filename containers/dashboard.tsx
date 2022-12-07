@@ -14,6 +14,7 @@ export const DashboardContainer = () => {
 				minH="100vh"
 				h="full"
 				direction={{ base: 'column', sm: 'row' }}
+				py="6"
 			>
 				<MobileHeader />
 				<Sidebar />
