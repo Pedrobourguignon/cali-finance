@@ -27,15 +27,8 @@ export const DeleteTeamModal: React.FC<IDeleteTeamModal> = ({
 }) => {
 	const theme = usePicasso();
 	const { t: translate } = useTranslation('dashboard');
-	const [confirmDelete, setConfirmDelete] = useState(false);
+	const [insertedTeam, setInsertedTeam] = useState('');
 
-	const confirmTeamName = (team: string) => {
-		if (team === teamName) {
-			setConfirmDelete(true);
-		} else {
-			setConfirmDelete(false);
-		}
-	};
 	return (
 		<Modal isOpen={isOpen} onClose={onClose}>
 			<ModalOverlay />
@@ -77,13 +70,13 @@ export const DeleteTeamModal: React.FC<IDeleteTeamModal> = ({
 								borderColor={theme.text.primary}
 								_hover={{}}
 								color={theme.text.primary}
-								onChange={team => confirmTeamName(team.currentTarget.value)}
+								onChange={team => setInsertedTeam(team.target.value)}
 							/>
 						</Flex>
 					</ModalBody>
 					<Flex p="6">
 						<Button
-							disabled={!confirmDelete}
+							disabled={insertedTeam !== teamName}
 							color="white"
 							bg="black"
 							fontSize="md"
