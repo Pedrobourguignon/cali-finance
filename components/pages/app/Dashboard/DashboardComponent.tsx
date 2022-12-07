@@ -18,6 +18,7 @@ import useTranslation from 'next-translate/useTranslation';
 
 export const DashboardComponent: React.FC = () => {
 	const { t: translate } = useTranslation('dashboard');
+	const { isOpen, onOpen, onClose } = useDisclosure();
 
 	const recentActivitiesList: IRecentActivitiesList[] = [
 		{
@@ -47,10 +48,10 @@ export const DashboardComponent: React.FC = () => {
 	];
 
 	const isConnected = true;
-	const error = false;
+
+	const error = true;
 
 	const theme = usePicasso();
-	const { isOpen, onOpen, onClose } = useDisclosure();
 
 	if (error)
 		return (
