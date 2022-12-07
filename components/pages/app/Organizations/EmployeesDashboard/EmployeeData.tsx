@@ -52,7 +52,6 @@ export const EmployeeData: React.FC<IEmployeeData> = ({ employee }) => (
 						style={{ background: 'white' }}
 						selected={item === employee.team}
 						key={+index}
-						value={item}
 					>
 						{item}
 					</option>

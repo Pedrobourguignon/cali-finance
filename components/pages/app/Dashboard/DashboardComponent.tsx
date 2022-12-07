@@ -15,6 +15,7 @@ import { usePicasso } from 'hooks';
 import React from 'react';
 import { IRecentActivitiesList } from 'types';
 import useTranslation from 'next-translate/useTranslation';
+import { AppLayout } from 'layouts';
 
 export const DashboardComponent: React.FC = () => {
 	const { t: translate } = useTranslation('dashboard');
@@ -61,17 +62,7 @@ export const DashboardComponent: React.FC = () => {
 		);
 
 	return (
-		<Flex
-			bg={theme.bg.dashboard}
-			w="full"
-			h="100%"
-			borderLeft="0.25rem solid"
-			borderColor={theme.branding.blue}
-			borderLeftRadius="sm"
-			gap="4"
-			justify="space-between"
-			py="6"
-		>
+		<Flex>
 			<Flex direction="column" px="8" gap="4">
 				<DashboardHeader />
 				<Coins />
@@ -84,15 +75,6 @@ export const DashboardComponent: React.FC = () => {
 						/>
 					</Flex>
 				)}
-			</Flex>
-			<Flex
-				direction="column"
-				gap="2"
-				px="6"
-				display={{ base: 'none', md: 'flex' }}
-			>
-				<WithdrawCard />
-				<SwapToken />
 			</Flex>
 			<WithdrawModal isOpen={isOpen} onClose={onClose} />
 		</Flex>
