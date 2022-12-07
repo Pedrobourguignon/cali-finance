@@ -1,4 +1,6 @@
 export * from './ActiveTeamsCard';
+export * from './ActiveTeamsBar';
+export * from './CreateOrganizationsComponent';
 export * from './EmployeesDashboard';
 export * from './InfosBanner';
 export * from './LifeIsEasierComponent';
