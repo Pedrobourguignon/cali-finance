@@ -1,4 +1,4 @@
-import { Button, Flex, useDisclosure } from '@chakra-ui/react';
+import { Flex, useDisclosure } from '@chakra-ui/react';
 import {
 	DashboardHeader,
 	Coins,

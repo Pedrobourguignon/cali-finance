@@ -49,10 +49,10 @@ export const DeleteTeamModal: React.FC<IDeleteTeamModal> = ({
 					</ModalHeader>
 					<ModalCloseButton color="gray.400" />
 					<ModalBody>
-						<Text color="#E53E3E" pb="6">
+						<Text color="red.500" pb="6" fontSize="sm">
 							Are you sure you want to
-							<Text color="#E53E3E" fontWeight="bold" as="span">
-								&nbsp;delete the {teamName}?
+							<Text color="red.500" fontWeight="bold" as="span">
+								&nbsp;delete the {teamName} team?
 							</Text>
 							<Text>Please note that this action cannot be undone.</Text>
 						</Text>
@@ -81,6 +81,7 @@ export const DeleteTeamModal: React.FC<IDeleteTeamModal> = ({
 							bg="black"
 							fontSize="md"
 							borderRadius="sm"
+							fontWeight="medium"
 							w="full"
 							_hover={{}}
 							_active={{}}
