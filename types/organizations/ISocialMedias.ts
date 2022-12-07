@@ -3,4 +3,5 @@ export interface ISocialMedia {
 	instagram?: string;
 	twitter?: string;
 	telegram?: string;
+	medium?: string;
 }
