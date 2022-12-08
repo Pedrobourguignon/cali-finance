@@ -14,7 +14,7 @@ export const EditProfileComponent = () => {
 	return (
 		<>
 			<ImageUploaderModal isOpen={isOpen} onClose={onClose} />
-			<Flex>
+			<Flex bg="white">
 				<Text
 					fontSize="xl"
 					color={theme.text.primary}
@@ -26,7 +26,15 @@ export const EditProfileComponent = () => {
 					{translate('editProfile')}
 				</Text>
 			</Flex>
-			<Flex justify="center" pt="7" direction="column" align="center" gap="5">
+			<Flex
+				justify="center"
+				pt="7"
+				direction="column"
+				align="center"
+				gap="5"
+				bg="white"
+				pb="3"
+			>
 				<Avatar src="https://bit.ly/broken-link" boxSize="24" />
 				<Button
 					fontSize="sm"
