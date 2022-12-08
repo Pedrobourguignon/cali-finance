@@ -5,9 +5,10 @@ import { usePicasso } from 'hooks';
 interface ILanding {
 	children: React.ReactNode;
 	right?: React.ReactNode;
+	padding?: string;
 }
 
-export const AppLayout: React.FC<ILanding> = ({ children, right }) => {
+export const AppLayout: React.FC<ILanding> = ({ children, right, padding }) => {
 	const theme = usePicasso();
 	return (
 		<Flex bg={theme.bg.primary} py="6" minH="100vh" h="full" w="100%">
@@ -33,7 +34,7 @@ export const AppLayout: React.FC<ILanding> = ({ children, right }) => {
 					<Flex direction="column" w="100%">
 						{children}
 					</Flex>
-					<Flex p="6">{right}</Flex>
+					<Flex padding={padding}>{right}</Flex>
 				</Flex>
 			</Flex>
 		</Flex>
