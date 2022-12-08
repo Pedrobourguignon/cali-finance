@@ -5,22 +5,19 @@ import {
 	Img,
 	Input,
 	InputGroup,
-	Menu,
-	MenuButton,
-	MenuItem,
-	MenuList,
+	Select,
 	Text,
 } from '@chakra-ui/react';
 import { usePicasso } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
 import { IoIosArrowDown } from 'react-icons/io';
-import { ChevronDownIcon } from '@chakra-ui/icons';
 
 interface ISelectedCoin {
 	coin: { logo: string; symbol: string };
+	onOpen: () => void;
 }
 
-export const WithdrawContent: React.FC<ISelectedCoin> = ({ coin }) => {
+export const WithdrawContent: React.FC<ISelectedCoin> = ({ coin, onOpen }) => {
 	const theme = usePicasso();
 	const { t: translate } = useTranslation('dashboard');
 
@@ -32,34 +29,22 @@ export const WithdrawContent: React.FC<ISelectedCoin> = ({ coin }) => {
 				<Text color="black" fontSize="sm">
 					{translate('organizations')}
 				</Text>
-				<Menu>
-					<MenuButton
-						as={Button}
-						rightIcon={<ChevronDownIcon boxSize="6" color="black" />}
-						bgColor="transparent"
-						color="blackAlpha.500"
-						fontWeight="normal"
-						textAlign="start"
-						borderWidth="1px"
-						borderStyle="solid"
-						borderColor={theme.bg.primary}
-						px="3"
-					>
+				<Select
+					borderWidth="1px"
+					borderStyle="solid"
+					borderColor={theme.bg.primary}
+					color="blackAlpha.500"
+					_hover={{}}
+				>
+					<option disabled selected style={{ background: 'white' }}>
 						Please select a org
-					</MenuButton>
-					<MenuList
-						bgColor="white"
-						borderWidth="1px"
-						borderStyle="solid"
-						borderColor={theme.bg.primary}
-					>
-						{orgs.map((org, index) => (
-							<MenuItem key={+index} color="black">
-								{org}
-							</MenuItem>
-						))}
-					</MenuList>
-				</Menu>
+					</option>
+					{orgs.map((org, index) => (
+						<option style={{ background: 'white' }} key={+index} color="black">
+							{org}
+						</option>
+					))}
+				</Select>
 			</Flex>
 			<Flex direction="column" gap="2">
 				<Text color="black" fontSize="sm">
@@ -69,7 +54,7 @@ export const WithdrawContent: React.FC<ISelectedCoin> = ({ coin }) => {
 					<Input
 						_placeholder={{ color: 'blackAlpha.500' }}
 						placeholder="0.00"
-						borderColor="black"
+						borderColor={theme.bg.primary}
 						flex="3"
 						borderRightRadius="none"
 						_hover={{}}
@@ -82,6 +67,7 @@ export const WithdrawContent: React.FC<ISelectedCoin> = ({ coin }) => {
 						_hover={{ opacity: '80%' }}
 						_active={{}}
 						_focus={{}}
+						onClick={onOpen}
 					>
 						<Flex gap="2" align="center">
 							<Img boxSize="4" src={coin.logo} />

@@ -7,8 +7,14 @@ import {
 	ModalFooter,
 	ModalHeader,
 	ModalOverlay,
+	useDisclosure,
 } from '@chakra-ui/react';
-import { WithdrawButton, WithdrawContent, OffsetShadow } from 'components';
+import {
+	WithdrawButton,
+	WithdrawContent,
+	OffsetShadow,
+	TokenSelector,
+} from 'components';
 import { usePicasso } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
 import { IBasicModal, ISelectedCoin } from 'types';
@@ -21,6 +27,12 @@ const selectedCoin: ISelectedCoin = {
 export const WithdrawModal: React.FC<IBasicModal> = ({ isOpen, onClose }) => {
 	const theme = usePicasso();
 	const { t: translate } = useTranslation('dashboard');
+	const {
+		isOpen: isOpenSelector,
+		onOpen: onOpenSelector,
+		onClose: onCloseSelector,
+	} = useDisclosure();
+
 	return (
 		<Modal isOpen={isOpen} onClose={onClose}>
 			<ModalOverlay />
@@ -35,12 +47,13 @@ export const WithdrawModal: React.FC<IBasicModal> = ({ isOpen, onClose }) => {
 						h="100%"
 						w="100%"
 					>
+						<TokenSelector isOpen={isOpenSelector} onClose={onCloseSelector} />
 						<ModalHeader color={theme.text.black2}>
 							{translate('withdraw')}
 						</ModalHeader>
 						<ModalCloseButton color="gray.400" />
 						<ModalBody>
-							<WithdrawContent coin={selectedCoin} />
+							<WithdrawContent coin={selectedCoin} onOpen={onOpenSelector} />
 						</ModalBody>
 
 						<ModalFooter>

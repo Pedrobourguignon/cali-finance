@@ -4,7 +4,7 @@ import {
 	DashboardRightBar,
 	MobileHeader,
 } from 'components';
-import { OrganizationsProvider } from 'contexts';
+import { OrganizationsProvider, TokensProvider } from 'contexts';
 import { usePicasso } from 'hooks';
 import { AppLayout } from 'layouts';
 
@@ -14,12 +14,14 @@ export const DashboardContainer = () => {
 	const theme = usePicasso();
 	return (
 		<OrganizationsProvider>
-			<AppLayout right={<DashboardRightBar />}>
-				<Flex h="full" direction={{ base: 'column', sm: 'row' }} py="6">
-					<MobileHeader />
-					<DashboardComponent />
-				</Flex>
-			</AppLayout>
+			<TokensProvider>
+				<AppLayout right={<DashboardRightBar />}>
+					<Flex h="full" direction={{ base: 'column', sm: 'row' }} py="6">
+						<MobileHeader />
+						<DashboardComponent />
+					</Flex>
+				</AppLayout>
+			</TokensProvider>
 		</OrganizationsProvider>
 	);
 };
