@@ -3,12 +3,15 @@
 	"defaultLocale": "en-US",
 	"pages": {
 		"*": [
+			"dashboard",
 			"teams-page",
 			"app-header",
 			"swap-token",
 			"have-a-problem",
+			"history-page",
 			"edit-profile",
-			"sidebar"
+			"sidebar",
+			"dashboard"
 		],
 		"/": ["home", "example"],
 		"/dashboard": [
@@ -16,6 +19,7 @@
 			"have-a-problem",
 			"sidebar",
 			"dashboard",
+			"history-page",
 			"edit-profile"
 		]
 	}

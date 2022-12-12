@@ -1,6 +1,6 @@
 import axios, { AxiosInstance } from 'axios';
 
-class CoingeckoService {
+export class CoingeckoService {
 	static api: AxiosInstance = axios.create({
 		baseURL: 'https://api.coingecko.com/api/v3/',
 		withCredentials: false,

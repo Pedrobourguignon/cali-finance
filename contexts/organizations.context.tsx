@@ -1,5 +1,11 @@
-import { createContext, useMemo, useState } from 'react';
-import { IOrganization, IActivities } from 'types';
+import {
+	createContext,
+	Dispatch,
+	SetStateAction,
+	useMemo,
+	useState,
+} from 'react';
+import { IOrganization, IActivities, INotificationList } from 'types';
 
 interface IOrganizationsContext {
 	organizations: IOrganization[];
@@ -7,6 +13,8 @@ interface IOrganizationsContext {
 	totalFunds: string;
 	totalTeams: string;
 	totalMembers: string;
+	notificationsList: INotificationList[];
+	setNotificationsList: Dispatch<SetStateAction<INotificationList[]>>;
 }
 
 export const OrganizationsContext = createContext({} as IOrganizationsContext);
@@ -21,7 +29,8 @@ export const OrganizationsProvider: React.FC<{ children: React.ReactNode }> = ({
 			email: 'kyliecosmetics@gmail.com',
 			members: 2,
 			teams: ['marketing'],
-			description: 'sahudahsadsa',
+			description: 'Hello',
+			selectedNetwork: 'Ethereum',
 			logo: '',
 			socialMedia: [
 				{
@@ -40,7 +49,8 @@ export const OrganizationsProvider: React.FC<{ children: React.ReactNode }> = ({
 			funds: 92234.11,
 			members: 170,
 			teams: ['marketing'],
-			description: 'sahudahsadsa',
+			description: 'Hello',
+			selectedNetwork: 'Ethereum',
 			logo: '',
 			socialMedia: [
 				{
@@ -58,7 +68,8 @@ export const OrganizationsProvider: React.FC<{ children: React.ReactNode }> = ({
 			funds: 5234.11,
 			members: 13,
 			teams: ['marketing'],
-			description: 'sahudahsadsa',
+			description: 'Hello',
+			selectedNetwork: 'Ethereum',
 			logo: '',
 			socialMedia: [
 				{
@@ -70,6 +81,40 @@ export const OrganizationsProvider: React.FC<{ children: React.ReactNode }> = ({
 			],
 		},
 	]);
+	const [notificationsList, setNotificationsList] = useState<
+		INotificationList[]
+	>([
+		{
+			type: 'You made a deposit of $23,456.02',
+			date: '08 Aug 22, 20:57',
+			icon: '/icons/deposit.svg',
+		},
+		{
+			type: 'You created Kylie Cosmetics',
+			date: '08 Aug 22, 20:57',
+			icon: '/icons/deposit.svg',
+		},
+		{
+			type: '0x6856...BF99 added to Kylie Baby',
+			date: '08 Aug 22, 20:57',
+			icon: '/icons/deposit.svg',
+		},
+		{
+			type: 'Marketing Team created Kylie Skin',
+			date: '08 Aug 22, 20:57',
+			icon: '/icons/deposit.svg',
+		},
+		{
+			type: 'Marketing Team created Kylie Skin',
+			date: '08 Aug 22, 20:57',
+			icon: '/icons/deposit.svg',
+		},
+		{
+			type: 'Marketing Team created Kylie Skin',
+			date: '08 Aug 22, 20:57',
+			icon: '/icons/deposit.svg',
+		},
+	]);
 	const [activities, setActivities] = useState<IActivities[]>([
 		{
 			name: 'Kylie Cosmetics',
@@ -77,19 +122,19 @@ export const OrganizationsProvider: React.FC<{ children: React.ReactNode }> = ({
 			coin: 'USDT',
 			date: '08 Aug 22, 20:57',
 			status: 'Completed',
-			value: 10.0,
+			value: 100063.0,
 		},
 		{
 			name: 'Kylie Skin',
-			type: 'Deposit',
+			type: 'Withdrawal',
 			coin: 'USDT',
 			date: '08 Aug 22, 20:57',
 			status: 'Completed',
-			value: 10.0,
+			value: 19.636,
 		},
 		{
 			name: 'Kylie Baby',
-			type: 'Deposit',
+			type: 'Team Created',
 			coin: 'USDT',
 			date: '08 Aug 22, 20:57',
 			status: 'Completed',
@@ -117,8 +162,18 @@ export const OrganizationsProvider: React.FC<{ children: React.ReactNode }> = ({
 			totalFunds,
 			totalTeams,
 			totalMembers,
+			notificationsList,
+			setNotificationsList,
 		}),
-		[organizations, activities, totalFunds, totalTeams, totalMembers]
+		[
+			organizations,
+			activities,
+			totalFunds,
+			totalTeams,
+			totalMembers,
+			notificationsList,
+			setNotificationsList,
+		]
 	);
 	return (
 		<OrganizationsContext.Provider value={contextStates}>

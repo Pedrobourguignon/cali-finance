@@ -12,6 +12,10 @@ export const navigationPaths = {
 		organizations: {
 			home: '/app/organizations',
 			createOrg: '/app/organizations/create',
+			overview: '/app/organizations/overview',
+			teams: '/app/organizations/teams',
+			funds: '/app/organizations/funds',
+			editOrg: '/app/organizations/edit',
 		},
 	},
 };

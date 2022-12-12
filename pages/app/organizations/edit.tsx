@@ -1,12 +1,13 @@
 import { EditOrganization } from 'containers';
+import { OrganizationsProvider } from 'contexts';
+import { usePicasso } from 'hooks';
 
-export const Edit = () => (
-	<EditOrganization
-		name="Kylie Cosmetics "
-		type={{ label: 'DAO', value: 'DAO' }}
-		email="hello@kyliecosmetics.com"
-		network={{ label: 'Ethereum', value: 'Ethereum', icon: '/images/eth.png' }}
-		description="Hello"
-	/>
-);
+export const Edit = () => {
+	const theme = usePicasso();
+	return (
+		<OrganizationsProvider>
+			<EditOrganization />
+		</OrganizationsProvider>
+	);
+};
 export default Edit;

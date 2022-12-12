@@ -1,16 +1,15 @@
 import debounce from 'lodash.debounce';
 import React, { createContext, useEffect, useMemo, useState } from 'react';
-import CoingeckoService from 'services/CoingeckoService';
-import OneInchService from 'services/OneInchService';
-import { IToken } from 'types';
+import { OneInchService, CoingeckoService } from 'services';
+import { ISelectedCoin, IToken } from 'types';
 
 interface ITokensContext {
 	setFilteredTokens: (tokens: IToken[]) => void;
 	filteredTokens: IToken[];
 	handleSearchToken: (event: string, listOfTokens: IToken[]) => void;
 	listOfTokens: IToken[];
-	setChosenToken: (token: string) => void;
-	chosenToken: string;
+	setChosenToken: React.Dispatch<React.SetStateAction<ISelectedCoin>>;
+	chosenToken: ISelectedCoin;
 }
 export const TokensContext = createContext({} as ITokensContext);
 
@@ -19,7 +18,10 @@ export const TokensProvider: React.FC<{ children: React.ReactNode }> = ({
 }) => {
 	const [listOfTokens, setListOfTokens] = useState<IToken[]>([]);
 	const [filteredTokens, setFilteredTokens] = useState<IToken[]>([]);
-	const [chosenToken, setChosenToken] = useState('');
+	const [chosenToken, setChosenToken] = useState<ISelectedCoin>({
+		logo: 'https://assets.coingecko.com/coins/images/1/thumb/bitcoin.png?1547033579',
+		symbol: 'BTC',
+	} as ISelectedCoin);
 
 	const getOneInchTokens = async () => {
 		try {
@@ -45,7 +47,9 @@ export const TokensProvider: React.FC<{ children: React.ReactNode }> = ({
 
 	const getTokenDataById = async () => {
 		try {
-			const tokenData = await CoingeckoService.tokenInfoByTokenId(chosenToken);
+			const tokenData = await CoingeckoService.tokenInfoByTokenId(
+				chosenToken.symbol
+			);
 		} catch (error) {
 			console.error(error);
 		}
