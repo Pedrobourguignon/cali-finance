@@ -5,10 +5,9 @@ import { usePicasso } from 'hooks';
 interface ILanding {
 	children: React.ReactNode;
 	right?: React.ReactNode;
-	padding?: string;
 }
 
-export const AppLayout: React.FC<ILanding> = ({ children, right, padding }) => {
+export const AppLayout: React.FC<ILanding> = ({ children, right }) => {
 	const theme = usePicasso();
 	return (
 		<Flex bg={theme.bg.primary} py="6" minH="100vh" h="full" w="100%">
