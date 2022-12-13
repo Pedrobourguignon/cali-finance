@@ -56,7 +56,10 @@ export const TeamsComponent = () => {
 				maxW={layoutLimit}
 			>
 				<Flex w="100%" justify="space-between" pr="2">
-					<NavigationBack href={navigationPaths.dashboard.organizations.home}>
+					<NavigationBack
+						href={navigationPaths.dashboard.organizations.home}
+						fontSize="md"
+					>
 						Back to Organizations
 					</NavigationBack>
 					<NotificationPopover
