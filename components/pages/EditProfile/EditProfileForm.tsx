@@ -96,10 +96,9 @@ export const EditProfileForm: FC = () => {
 						type="submit"
 						px="28"
 						bg={theme.text.primary}
-						opacity="50%"
-						_hover={{}}
-						_focus={{ bg: '#121212' }}
-						fontWeight="500"
+						_hover={{ opacity: '80%' }}
+						_focus={{ bg: theme.text.primary }}
+						fontWeight="medium"
 						fontSize="md"
 						borderRadius="sm"
 					>

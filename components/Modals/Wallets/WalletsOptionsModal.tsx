@@ -37,7 +37,7 @@ const walletsOptions = [
 	},
 	{
 		name: 'More',
-		icon: '/icons/3dots.svg',
+		icon: '/icons/treedots.svg',
 	},
 ];
 
