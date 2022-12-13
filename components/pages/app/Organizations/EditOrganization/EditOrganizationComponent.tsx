@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import {
 	Button,
 	Flex,
@@ -164,7 +163,6 @@ export const EditOrganizationComponent: React.FC<
 												},
 											}))
 										}
-										// onChange={editedType => console.log(editedType?.value)}
 										chakraStyles={{
 											placeholder: base => ({
 												...base,

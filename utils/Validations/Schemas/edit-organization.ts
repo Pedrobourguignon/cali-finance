@@ -1,5 +1,5 @@
 import * as yup from 'yup';
-import { limitSpecialCharacterRegex, nameRegex } from '../regex';
+import { limitSpecialCharacterRegex, nameRegex } from 'utils';
 
 export const editOrganizationSchema = yup.object().shape({
 	name: yup
