@@ -98,7 +98,7 @@ export const EditProfileForm: FC = () => {
 						bg={theme.text.primary}
 						_hover={{ opacity: '80%' }}
 						_focus={{ bg: theme.text.primary }}
-						fontWeight="500"
+						fontWeight="medium"
 						fontSize="md"
 						borderRadius="sm"
 					>

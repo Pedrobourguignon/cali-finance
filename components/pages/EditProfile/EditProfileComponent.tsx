@@ -28,14 +28,7 @@ export const EditProfileComponent = () => {
 				</Text>
 				<Flex w="100%" bg="white" h="64" position="absolute" />
 			</Flex>
-			<Flex
-				justify="center"
-				pt="7"
-				direction="column"
-				align="center"
-				gap="5"
-				bg="white"
-			>
+			<Flex justify="center" pt="7" direction="column" align="center" gap="5">
 				<Avatar src="https://bit.ly/broken-link" boxSize="24" />
 				<Button
 					fontSize="sm"
