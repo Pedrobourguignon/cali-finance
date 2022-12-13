@@ -53,17 +53,6 @@ export const WithdrawsBar = () => {
 							{item}
 						</Button>
 					))}
-					{/* <Button
-						color={theme.text.primary}
-						bgColor="gray.100"
-						borderRadius="full"
-						w="20"
-						fontSize="xs"
-						fontWeight="bold"
-						h="6"
-					>
-						This Month
-					</Button> */}
 				</Flex>
 			</Flex>
 			<Flex
