@@ -5,10 +5,12 @@ import { Controller, Control } from 'react-hook-form';
 interface ISocialLink {
 	socialLink: ISocialMediaInput;
 	control: Control<ICreateOrganization>;
+	defaultValue?: string;
 }
 export const SocialMediaInput: React.FC<ISocialLink> = ({
 	socialLink,
 	control,
+	defaultValue,
 }) => (
 	<Controller
 		render={({ field }) => (
@@ -31,6 +33,7 @@ export const SocialMediaInput: React.FC<ISocialLink> = ({
 					paddingInline="12"
 					_hover={{}}
 					borderColor="rgba(255, 255, 255, 0.08)"
+					defaultValue={defaultValue}
 				/>
 			</InputGroup>
 		)}

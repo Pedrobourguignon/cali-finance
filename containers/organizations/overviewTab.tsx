@@ -63,24 +63,11 @@ export const OverviewTab = () => {
 				align="start"
 				maxW={layoutLimit}
 			>
-				<Flex w="100%" justify="space-between" pr="2">
-					<NavigationBack href={navigationPaths.dashboard.organizations.home}>
-						Back to Organizations
-					</NavigationBack>
-					<NotificationPopover
-						setNotificationsList={setNotificationsList}
-						onClose={onClose}
-						isOpen={isOpen}
-						onOpen={onOpen}
-						notificationNumber={notificationsList.length}
-						notificationsList={notificationsList}
-					/>
-				</Flex>
 				<OrganizationsHeader />
 			</Flex>
 			<Flex p="6" direction="column" gap="4" maxW={layoutLimit} w="100%">
 				<Flex flexDir="column" w="full">
-					<Flex justify="space-between">
+					<Flex justify="space-between" pt="6" pb="4">
 						<Text color={theme.text.primary} fontWeight="medium">
 							Teams
 						</Text>

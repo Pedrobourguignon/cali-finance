@@ -1,5 +1,5 @@
 import { Flex, Img } from '@chakra-ui/react';
-import { useOrganizations, usePicasso } from 'hooks';
+import { usePicasso } from 'hooks';
 import { handleLogoImage } from 'utils';
 import { ImageUploader, SocialMediaInput } from 'components';
 import {
@@ -28,24 +28,28 @@ const socialLinks: ISocialMediaInput[] = [
 		imgSrc: '/icons/globe.svg',
 		placeHolder: 'website.io',
 		link: organizations.socialMedia[0].website,
+		defaultValue: organizations.socialMedia[0].website,
 	},
 	{
 		name: 'socialMedia.instagram',
 		imgSrc: '/icons/instagram.svg',
 		placeHolder: 'instagram.com/company',
 		link: organizations.socialMedia[0].instagram,
+		defaultValue: organizations.socialMedia[0].instagram,
 	},
 	{
 		name: 'socialMedia.twitter',
 		imgSrc: '/icons/twitter.svg',
 		placeHolder: 'twitter.com/company',
 		link: organizations.socialMedia[0].twitter,
+		defaultValue: organizations.socialMedia[0].twitter,
 	},
 	{
 		name: 'socialMedia.telegram',
 		imgSrc: '/icons/telegram.svg',
 		placeHolder: 't.me/company',
 		link: organizations.socialMedia[0].telegram,
+		defaultValue: organizations.socialMedia[0].telegram,
 	},
 	{
 		name: 'socialMedia.medium',
@@ -78,7 +82,7 @@ const OrganizationLogo: React.FC<{ org: INewOrganization }> = ({ org }) => {
 	return <Img src="/images/work.png" boxSize="20" borderRadius="base" />;
 };
 
-export const NewOrganizationLinks: React.FC<{
+export const EditOrganizationLink: React.FC<{
 	control: Control<ICreateOrganization>;
 }> = ({ control }) => {
 	const theme = usePicasso();
@@ -106,6 +110,7 @@ export const NewOrganizationLinks: React.FC<{
 								socialLink={socialLink}
 								key={+index}
 								control={control}
+								defaultValue={socialLink.defaultValue}
 							/>
 						))}
 					</Flex>
