@@ -2,8 +2,7 @@ import { Flex, Img, Text, useDisclosure } from '@chakra-ui/react';
 import { useOrganizations, usePath, usePicasso } from 'hooks';
 import { navigationPaths } from 'utils';
 import NextLink from 'next/link';
-import { NavigationBack } from 'components/Buttons';
-import { NotificationPopover } from 'components/Popover';
+import { NavigationBack, NotificationPopover } from 'components';
 
 const menuOptions = [
 	{ name: 'Overview', route: navigationPaths.dashboard.organizations.overview },

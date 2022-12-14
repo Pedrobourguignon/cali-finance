@@ -8,7 +8,7 @@ import {
 	Text,
 	useDisclosure,
 } from '@chakra-ui/react';
-import { TokenSelector } from 'components/Modals';
+import { TokenSelector } from 'components';
 import { usePicasso } from 'hooks';
 import { useState } from 'react';
 import { IoIosArrowDown } from 'react-icons/io';

@@ -2,7 +2,6 @@ import { Flex, Grid, GridItem, Text } from '@chakra-ui/react';
 import { usePicasso } from 'hooks';
 import { AppLayout } from 'layouts';
 import {
-	ActiveTeamsBar,
 	CoinCard,
 	DepositOrWithdrawBanner,
 	HistoryDashboard,

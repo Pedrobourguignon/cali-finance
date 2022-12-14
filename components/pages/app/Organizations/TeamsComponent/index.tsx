@@ -55,19 +55,6 @@ export const TeamsComponent = () => {
 				align="start"
 				maxW={layoutLimit}
 			>
-				<Flex w="100%" justify="space-between" pr="2">
-					<NavigationBack href={navigationPaths.dashboard.organizations.home}>
-						Back to Organizations
-					</NavigationBack>
-					<NotificationPopover
-						setNotificationsList={setNotificationsList}
-						onClose={onClose}
-						isOpen={isOpen}
-						onOpen={onOpen}
-						notificationNumber={notificationsList.length}
-						notificationsList={notificationsList}
-					/>
-				</Flex>
 				<OrganizationsHeader />
 			</Flex>
 			<Flex
@@ -77,7 +64,7 @@ export const TeamsComponent = () => {
 				direction="column"
 				gap="10"
 			>
-				<Flex direction="column" gap="4">
+				<Flex direction="column" gap="4" pt="6" pb="4">
 					<Flex justify="space-between">
 						<Flex fontWeight="medium" gap="1">
 							<Text>{teams.length}</Text>
