@@ -1,7 +1,8 @@
-import { Button, Flex, Img, Text } from '@chakra-ui/react';
-import { usePath, usePicasso } from 'hooks';
+import { Flex, Img, Text, useDisclosure } from '@chakra-ui/react';
+import { useOrganizations, usePath, usePicasso } from 'hooks';
 import { navigationPaths } from 'utils';
 import NextLink from 'next/link';
+import { NavigationBack, NotificationPopover } from 'components';
 
 const menuOptions = [
 	{ name: 'Overview', route: navigationPaths.dashboard.organizations.overview },
@@ -18,9 +19,24 @@ const organizationData = {
 export const OrganizationsHeader = () => {
 	const theme = usePicasso();
 	const { isSamePath } = usePath();
+	const { setNotificationsList, notificationsList } = useOrganizations();
+	const { onClose, isOpen, onOpen } = useDisclosure();
 
 	return (
-		<Flex direction="column" color={theme.text.primary} p="6" w="100%" gap="7">
+		<Flex direction="column" color={theme.text.primary} px="6" w="100%" gap="7">
+			<Flex w="100%" justify="space-between">
+				<NavigationBack href={navigationPaths.dashboard.organizations.home}>
+					Back to Organizations
+				</NavigationBack>
+				<NotificationPopover
+					setNotificationsList={setNotificationsList}
+					onClose={onClose}
+					isOpen={isOpen}
+					onOpen={onOpen}
+					notificationNumber={notificationsList.length}
+					notificationsList={notificationsList}
+				/>
+			</Flex>
 			<Flex w="100%" justify="space-between" align="center">
 				<Flex gap="3" align="center" w="72">
 					<Img src={organizationData.logo} boxSize="20" />

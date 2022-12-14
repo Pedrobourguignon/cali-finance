@@ -1,5 +1,5 @@
-import { TeamsContainer } from 'containers';
+import { FundsContainer } from 'containers';
 
-export const Funds = () => <TeamsContainer />;
+export const Funds = () => <FundsContainer />;
 
 export default Funds;
