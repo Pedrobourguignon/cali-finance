@@ -36,12 +36,14 @@ export const CreateOrganization = () => {
 						pt="6"
 						w="100%"
 					>
-						<NavigationBack
-							href={navigationPaths.dashboard.organizations.home}
-							fontSize="md"
-						>
-							Back to Organizations
-						</NavigationBack>
+						<Flex px="5">
+							<NavigationBack
+								href={navigationPaths.dashboard.organizations.home}
+								fontSize="md"
+							>
+								Back to Organizations
+							</NavigationBack>
+						</Flex>
 						<CreateOrganizationComponent errors={errors} control={control} />
 					</Flex>
 				</AppLayout>

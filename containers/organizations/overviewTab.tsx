@@ -1,20 +1,11 @@
+import { Flex, Grid, GridItem, Link, Text } from '@chakra-ui/react';
 import {
-	Flex,
-	Grid,
-	GridItem,
-	Link,
-	Text,
-	useDisclosure,
-} from '@chakra-ui/react';
-import {
-	NavigationBack,
-	NotificationPopover,
 	OrganizationsHeader,
 	RecentActivities,
 	TeamsCard,
 	WithdrawalsBanner,
 } from 'components';
-import { useOrganizations, usePicasso } from 'hooks';
+import { usePicasso } from 'hooks';
 import { AppLayout } from 'layouts';
 import { navigationPaths } from 'utils';
 
@@ -42,9 +33,7 @@ const teams = [
 const layoutLimit = 800;
 
 export const OverviewTab = () => {
-	const { onClose, isOpen, onOpen } = useDisclosure();
 	const theme = usePicasso();
-	const { notificationsList, setNotificationsList } = useOrganizations();
 
 	return (
 		<AppLayout right={<WithdrawalsBanner />}>
@@ -63,22 +52,6 @@ export const OverviewTab = () => {
 				align="start"
 				maxW={layoutLimit}
 			>
-				<Flex w="100%" justify="space-between" pr="2">
-					<NavigationBack
-						href={navigationPaths.dashboard.organizations.home}
-						fontSize="md"
-					>
-						Back to Organizations
-					</NavigationBack>
-					<NotificationPopover
-						setNotificationsList={setNotificationsList}
-						onClose={onClose}
-						isOpen={isOpen}
-						onOpen={onOpen}
-						notificationNumber={notificationsList.length}
-						notificationsList={notificationsList}
-					/>
-				</Flex>
 				<OrganizationsHeader />
 			</Flex>
 			<Flex p="6" direction="column" gap="4" maxW={layoutLimit} w="100%">

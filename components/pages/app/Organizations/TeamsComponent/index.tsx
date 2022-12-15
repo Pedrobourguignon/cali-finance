@@ -5,11 +5,9 @@ import {
 	ActiveTeamsBar,
 	TeamsCard,
 	EmployeesDashboard,
-	NavigationBack,
 } from 'components';
 import { useOrganizations, usePicasso } from 'hooks';
 import { AppLayout } from 'layouts';
-import { navigationPaths } from 'utils';
 import NextLink from 'next/link';
 
 const layoutLimit = 800;
@@ -55,22 +53,6 @@ export const TeamsComponent = () => {
 				align="start"
 				maxW={layoutLimit}
 			>
-				<Flex w="100%" justify="space-between" pr="2">
-					<NavigationBack
-						href={navigationPaths.dashboard.organizations.home}
-						fontSize="md"
-					>
-						Back to Organizations
-					</NavigationBack>
-					<NotificationPopover
-						setNotificationsList={setNotificationsList}
-						onClose={onClose}
-						isOpen={isOpen}
-						onOpen={onOpen}
-						notificationNumber={notificationsList.length}
-						notificationsList={notificationsList}
-					/>
-				</Flex>
 				<OrganizationsHeader />
 			</Flex>
 			<Flex

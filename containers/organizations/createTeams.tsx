@@ -38,12 +38,6 @@ export const CreateTeamsContainer = () => {
 							w="100%"
 						>
 							<Flex direction="column" w="full" align="start" pt="4">
-								<NavigationBack
-									href={navigationPaths.dashboard.organizations.home}
-									fontSize="md"
-								>
-									Back to Organizations
-								</NavigationBack>
 								<OrganizationsHeader />
 							</Flex>
 
