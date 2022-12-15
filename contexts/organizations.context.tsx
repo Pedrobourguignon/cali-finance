@@ -29,7 +29,8 @@ export const OrganizationsProvider: React.FC<{ children: React.ReactNode }> = ({
 			email: 'kyliecosmetics@gmail.com',
 			members: 2,
 			teams: ['marketing'],
-			description: 'sahudahsadsa',
+			description: 'Hello',
+			selectedNetwork: 'Ethereum',
 			logo: '',
 			socialMedia: [
 				{
@@ -48,7 +49,8 @@ export const OrganizationsProvider: React.FC<{ children: React.ReactNode }> = ({
 			funds: 92234.11,
 			members: 170,
 			teams: ['marketing'],
-			description: 'sahudahsadsa',
+			description: 'Hello',
+			selectedNetwork: 'Ethereum',
 			logo: '',
 			socialMedia: [
 				{
@@ -66,7 +68,8 @@ export const OrganizationsProvider: React.FC<{ children: React.ReactNode }> = ({
 			funds: 5234.11,
 			members: 13,
 			teams: ['marketing'],
-			description: 'sahudahsadsa',
+			description: 'Hello',
+			selectedNetwork: 'Ethereum',
 			logo: '',
 			socialMedia: [
 				{

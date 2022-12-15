@@ -80,7 +80,7 @@ export const TeamsComponent = () => {
 				direction="column"
 				gap="10"
 			>
-				<Flex direction="column" gap="4">
+				<Flex direction="column" gap="4" pt="6" pb="4">
 					<Flex justify="space-between">
 						<Flex fontWeight="medium" gap="1">
 							<Text>{teams.length}</Text>

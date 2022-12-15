@@ -83,7 +83,7 @@ export const OverviewTab = () => {
 			</Flex>
 			<Flex p="6" direction="column" gap="4" maxW={layoutLimit} w="100%">
 				<Flex flexDir="column" w="full">
-					<Flex justify="space-between">
+					<Flex justify="space-between" pt="6" pb="4">
 						<Text color={theme.text.primary} fontWeight="medium">
 							Teams
 						</Text>

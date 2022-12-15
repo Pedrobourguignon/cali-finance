@@ -22,6 +22,7 @@ export const NavigationBack: FC<INavigationBack> = ({
 	};
 	return (
 		<Button
+			px="0"
 			color="gray.500"
 			leftIcon={<IoIosArrowBack />}
 			onClick={handleClick}

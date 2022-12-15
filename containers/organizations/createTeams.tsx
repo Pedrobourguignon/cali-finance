@@ -10,6 +10,7 @@ import { createOrganizationSchema, navigationPaths } from 'utils';
 import { ICreateOrganization } from 'types';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { OrganizationsProvider } from 'contexts';
 
 export const CreateTeamsContainer = () => {
 	const {
@@ -24,33 +25,35 @@ export const CreateTeamsContainer = () => {
 	};
 
 	return (
-		<form onSubmit={handleSubmit(handleCreateOrganization)}>
-			<FormControl>
-				<AppLayout right={<ActiveTeamsBar />}>
-					<Flex w="100%" bg="white" h="64" position="absolute" />
-					<Flex
-						direction="column"
-						align="flex-start"
-						gap="10"
-						zIndex="docked"
-						w="100%"
-					>
-						<Flex direction="column" w="full" align="start" pt="4">
-							<NavigationBack
-								href={navigationPaths.dashboard.organizations.home}
-								fontSize="md"
-							>
-								Back to Organizations
-							</NavigationBack>
-							<OrganizationsHeader />
-						</Flex>
+		<OrganizationsProvider>
+			<form onSubmit={handleSubmit(handleCreateOrganization)}>
+				<FormControl>
+					<AppLayout right={<ActiveTeamsBar />}>
+						<Flex w="100%" bg="white" h="64" position="absolute" />
+						<Flex
+							direction="column"
+							align="flex-start"
+							gap="10"
+							zIndex="docked"
+							w="100%"
+						>
+							<Flex direction="column" w="full" align="start" pt="4">
+								<NavigationBack
+									href={navigationPaths.dashboard.organizations.home}
+									fontSize="md"
+								>
+									Back to Organizations
+								</NavigationBack>
+								<OrganizationsHeader />
+							</Flex>
 
-						<Flex direction="column" w="full" pl="6">
-							<CreateTeamComponent />
+							<Flex direction="column" w="full" pl="6">
+								<CreateTeamComponent />
+							</Flex>
 						</Flex>
-					</Flex>
-				</AppLayout>
-			</FormControl>
-		</form>
+					</AppLayout>
+				</FormControl>
+			</form>
+		</OrganizationsProvider>
 	);
 };

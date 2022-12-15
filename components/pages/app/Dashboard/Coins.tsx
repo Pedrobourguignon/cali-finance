@@ -1,27 +1,27 @@
 import { Flex, Text } from '@chakra-ui/react';
 import { NewCoinButton, CoinCard } from 'components';
 import React from 'react';
-import { ICoinCard } from 'types';
+import { ICoin } from 'types';
 import useTranslation from 'next-translate/useTranslation';
 
-const coinCard: ICoinCard[] = [
+const coinCard: ICoin[] = [
 	{
 		icon: '/icons/tether.svg',
 		name: 'USDT',
 		value: '$1,00',
-		variation: '+ 0,6%',
+		variation: -0.6,
 	},
 	{
 		icon: '/icons/tether.svg',
 		name: 'USDT',
 		value: '$1,00',
-		variation: '+ 0,6%',
+		variation: 0,
 	},
 	{
 		icon: '/icons/tether.svg',
 		name: 'USDT',
 		value: '$1,00',
-		variation: '+ 0,6%',
+		variation: 0.6,
 	},
 ];
 
@@ -53,10 +53,9 @@ export const Coins = () => {
 			{coinCard.map((card, index) => (
 				<CoinCard
 					key={+index}
-					icon={card.icon}
-					name={card.name}
-					value={card.value}
-					variation={card.variation}
+					coin={card}
+					borderColor="gray.50"
+					color="white"
 				/>
 			))}
 			<NewCoinButton />
