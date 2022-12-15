@@ -4,7 +4,7 @@ import {
 	EditOrganizationComponent,
 	EditOrganizationLink,
 } from 'components';
-import { AppLayout } from 'layouts';
+import { AppLayout, OrganizationWhiteBackground } from 'layouts';
 import { editOrganizationSchema, navigationPaths } from 'utils';
 import { IEditOrganization } from 'types';
 import { useForm } from 'react-hook-form';
@@ -31,7 +31,7 @@ export const EditOrganization = () => {
 		<form onSubmit={handleSubmit(handleEditOrganization)}>
 			<FormControl>
 				<AppLayout right={<EditOrganizationLink control={control} />}>
-					<Flex w="100%" bg="white" h="64" position="absolute" />
+					<OrganizationWhiteBackground />
 					<Flex
 						direction="column"
 						align="flex-start"

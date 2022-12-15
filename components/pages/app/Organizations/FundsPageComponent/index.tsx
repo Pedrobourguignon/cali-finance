@@ -1,6 +1,6 @@
 import { Flex, Grid, GridItem, Text } from '@chakra-ui/react';
 import { usePicasso } from 'hooks';
-import { AppLayout } from 'layouts';
+import { AppLayout, OrganizationWhiteBackground } from 'layouts';
 import {
 	CoinCard,
 	DepositOrWithdrawBanner,
@@ -60,13 +60,7 @@ export const FundsPageComponent = () => {
 
 	return (
 		<AppLayout right={<DepositOrWithdrawBanner />}>
-			<Flex
-				w="100%"
-				bg="white"
-				h="64"
-				position="absolute"
-				borderRadius="base"
-			/>
+			<OrganizationWhiteBackground />
 			<Flex
 				color="black"
 				pt="6"

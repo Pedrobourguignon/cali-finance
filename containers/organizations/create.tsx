@@ -4,7 +4,7 @@ import {
 	NavigationBack,
 	CreateOrganizationComponent,
 } from 'components';
-import { AppLayout } from 'layouts';
+import { AppLayout, OrganizationWhiteBackground } from 'layouts';
 import { createOrganizationSchema, navigationPaths } from 'utils';
 import { ICreateOrganization } from 'types';
 import { useForm } from 'react-hook-form';
@@ -27,7 +27,7 @@ export const CreateOrganization = () => {
 		<form onSubmit={handleSubmit(handleCreateOrganization)}>
 			<FormControl>
 				<AppLayout right={<NewOrganizationLinks control={control} />}>
-					<Flex w="100%" bg="white" h="64" position="absolute" />
+					<OrganizationWhiteBackground />
 					<Flex
 						direction="column"
 						align="flex-start"

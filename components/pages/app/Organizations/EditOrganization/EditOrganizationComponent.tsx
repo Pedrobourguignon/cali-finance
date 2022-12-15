@@ -350,3 +350,5 @@ export const EditOrganizationComponent: React.FC<
 		</Flex>
 	);
 };
+
+export default EditOrganizationComponent;
