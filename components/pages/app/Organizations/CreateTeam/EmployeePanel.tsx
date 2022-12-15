@@ -21,7 +21,6 @@ export const EmployeePanel: React.FC<IEmployeePanel> = ({ teamName }) => {
 				company={teamName}
 				setEmployees={setEmployees}
 			/>
-			;
 			<Flex justify="space-between" w="full" align="center">
 				<Flex fontWeight="medium" gap="1">
 					<Text color={theme.text.primary}>{employees.length}</Text>

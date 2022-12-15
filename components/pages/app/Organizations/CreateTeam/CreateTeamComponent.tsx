@@ -18,7 +18,7 @@ export const CreateTeamComponent: React.FC<ICreateTeamComponent> = ({
 	const [teamName, setTeamName] = useState('');
 	const theme = usePicasso();
 	return (
-		<Flex direction="column" align="start" display={display} w={layoutLimit}>
+		<Flex direction="column" align="start" display={display} w="100%">
 			<Button
 				px="0"
 				color="gray.500"
@@ -32,7 +32,7 @@ export const CreateTeamComponent: React.FC<ICreateTeamComponent> = ({
 				Back to All Teams
 			</Button>
 			<Flex
-				borderRadius="sm"
+				borderRadius="base"
 				borderColor="black"
 				border="1px solid black"
 				py="3"
@@ -68,19 +68,25 @@ export const CreateTeamComponent: React.FC<ICreateTeamComponent> = ({
 					<Text color="gray.500" fontSize="xs">
 						Funds
 					</Text>
-					<Text color={theme.text.primary}>$0</Text>
+					<Text color={theme.text.primary} fontSize="sm">
+						$0
+					</Text>
 				</Flex>
 				<Flex direction="column">
 					<Text color="gray.500" fontSize="xs">
 						Members
 					</Text>
-					<Text color={theme.text.primary}>0</Text>
+					<Text color={theme.text.primary} fontSize="sm">
+						0
+					</Text>
 				</Flex>
 				<Flex direction="column" pr="8">
 					<Text color="gray.500" fontSize="xs">
 						Withdrawals this month
 					</Text>
-					<Text color={theme.text.primary}>$0</Text>
+					<Text color={theme.text.primary} fontSize="sm">
+						$0
+					</Text>
 				</Flex>
 			</Flex>
 			<Flex pt="4" w="full">

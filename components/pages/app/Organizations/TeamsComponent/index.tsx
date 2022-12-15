@@ -1,18 +1,11 @@
-import {
-	Button,
-	Flex,
-	Grid,
-	GridItem,
-	Text,
-	useDisclosure,
-} from '@chakra-ui/react';
+import { Button, Flex, Grid, GridItem, Text } from '@chakra-ui/react';
 import {
 	OrganizationsHeader,
 	ActiveTeamsBar,
 	TeamsCard,
 	EmployeesDashboard,
 } from 'components';
-import { useOrganizations, usePicasso } from 'hooks';
+import { usePicasso } from 'hooks';
 import { AppLayout } from 'layouts';
 import NextLink from 'next/link';
 
@@ -50,8 +43,6 @@ export const TeamsComponent: React.FC<ITeamsComponent> = ({
 	children,
 }) => {
 	const theme = usePicasso();
-	const { onClose, isOpen, onOpen } = useDisclosure();
-	const { setNotificationsList, notificationsList } = useOrganizations();
 	return (
 		<AppLayout right={<ActiveTeamsBar />}>
 			<Flex
@@ -116,7 +107,7 @@ export const TeamsComponent: React.FC<ITeamsComponent> = ({
 
 				<EmployeesDashboard />
 			</Flex>
-			<Flex w={layoutLimit} pl="6" pt="8">
+			<Flex w={layoutLimit} px="6" pt="10">
 				{children}
 			</Flex>
 		</AppLayout>
