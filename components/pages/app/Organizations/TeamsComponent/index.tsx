@@ -8,8 +8,8 @@ import {
 import { usePicasso } from 'hooks';
 import { AppLayout } from 'layouts';
 import NextLink from 'next/link';
+import { layoutLimit } from 'utils';
 
-const layoutLimit = 800;
 const teams = [
 	{
 		name: 'Marketing',

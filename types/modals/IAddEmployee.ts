@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction } from 'react';
-import { IEmployee } from 'types/organizations';
+import { IEmployee } from 'types';
 
 export interface IAddEmployee {
 	isOpen: boolean;

@@ -7,7 +7,7 @@ import {
 } from 'components';
 import { usePicasso } from 'hooks';
 import { AppLayout } from 'layouts';
-import { navigationPaths } from 'utils';
+import { layoutLimit, navigationPaths } from 'utils';
 
 const teams = [
 	{
@@ -29,8 +29,6 @@ const teams = [
 		members: 13,
 	},
 ];
-
-const layoutLimit = 800;
 
 export const OverviewTab = () => {
 	const theme = usePicasso();
