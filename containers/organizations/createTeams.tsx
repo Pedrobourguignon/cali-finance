@@ -41,9 +41,9 @@ export const CreateTeamsContainer = () => {
 								<OrganizationsHeader />
 							</Flex>
 
-							<Flex direction="column" w="full" pl="6">
+							{/* <Flex direction="column" w="full" pl="6">
 								<CreateTeamComponent />
-							</Flex>
+							</Flex> */}
 						</Flex>
 					</AppLayout>
 				</FormControl>

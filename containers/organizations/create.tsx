@@ -39,7 +39,6 @@ export const CreateOrganization = () => {
 						<Flex px="5">
 							<NavigationBack
 								href={navigationPaths.dashboard.organizations.home}
-								fontSize="md"
 							>
 								Back to Organizations
 							</NavigationBack>

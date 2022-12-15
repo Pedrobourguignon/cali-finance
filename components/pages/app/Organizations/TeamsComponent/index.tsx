@@ -1,7 +1,13 @@
-import { Flex, Grid, GridItem, Text, useDisclosure } from '@chakra-ui/react';
+import {
+	Button,
+	Flex,
+	Grid,
+	GridItem,
+	Text,
+	useDisclosure,
+} from '@chakra-ui/react';
 import {
 	OrganizationsHeader,
-	NotificationPopover,
 	ActiveTeamsBar,
 	TeamsCard,
 	EmployeesDashboard,
@@ -32,7 +38,17 @@ const teams = [
 	},
 ];
 
-export const TeamsComponent = () => {
+interface ITeamsComponent {
+	display: string;
+	changeToCreateTeamTab: () => void;
+	children: React.ReactNode;
+}
+
+export const TeamsComponent: React.FC<ITeamsComponent> = ({
+	display,
+	changeToCreateTeamTab,
+	children,
+}) => {
 	const theme = usePicasso();
 	const { onClose, isOpen, onOpen } = useDisclosure();
 	const { setNotificationsList, notificationsList } = useOrganizations();
@@ -61,6 +77,7 @@ export const TeamsComponent = () => {
 				maxW={layoutLimit}
 				direction="column"
 				gap="10"
+				display={display}
 			>
 				<Flex direction="column" gap="4" pt="6" pb="4">
 					<Flex justify="space-between">
@@ -69,18 +86,23 @@ export const TeamsComponent = () => {
 							<Text>Teams</Text>
 						</Flex>
 						<NextLink href="">
-							<Text
+							<Button
 								bg={theme.bg.primary}
 								px="6"
 								py="1"
+								h="max-content"
 								cursor="pointer"
 								color="white"
 								borderRadius="base"
 								fontWeight="medium"
 								fontSize="xs"
+								_hover={{ opacity: '80%' }}
+								_focus={{}}
+								_active={{}}
+								onClick={changeToCreateTeamTab}
 							>
 								Create Team
-							</Text>
+							</Button>
 						</NextLink>
 					</Flex>
 					<Grid gap="4" w="full" templateColumns="repeat(3, 1fr)">
@@ -93,6 +115,9 @@ export const TeamsComponent = () => {
 				</Flex>
 
 				<EmployeesDashboard />
+			</Flex>
+			<Flex w={layoutLimit} pl="6" pt="8">
+				{children}
 			</Flex>
 		</AppLayout>
 	);

@@ -25,10 +25,7 @@ export const OrganizationsHeader = () => {
 	return (
 		<Flex direction="column" color={theme.text.primary} px="6" w="100%" gap="7">
 			<Flex w="100%" justify="space-between">
-				<NavigationBack
-					href={navigationPaths.dashboard.organizations.home}
-					fontSize="md"
-				>
+				<NavigationBack href={navigationPaths.dashboard.organizations.home}>
 					Back to Organizations
 				</NavigationBack>
 				<NotificationPopover

@@ -1,22 +1,36 @@
 import { Button, Flex, Icon, Input, Text } from '@chakra-ui/react';
 import { usePicasso } from 'hooks';
 import React, { useState } from 'react';
-import { NavigationBack, EmployeePanel } from 'components';
-import { navigationPaths } from 'utils';
+import { EmployeePanel } from 'components';
+import { layoutLimit } from 'utils';
 import { BsCardImage } from 'react-icons/bs';
+import { IoIosArrowBack } from 'react-icons/io';
 
-export const CreateTeamComponent = () => {
+interface ICreateTeamComponent {
+	display: string;
+	changeToCreateTeamTab: () => void;
+}
+
+export const CreateTeamComponent: React.FC<ICreateTeamComponent> = ({
+	display,
+	changeToCreateTeamTab,
+}) => {
 	const [teamName, setTeamName] = useState('');
 	const theme = usePicasso();
 	return (
-		<Flex direction="column" align="start">
-			<NavigationBack
-				href={navigationPaths.dashboard.organizations.home}
+		<Flex direction="column" align="start" display={display} w={layoutLimit}>
+			<Button
+				px="0"
+				color="gray.500"
+				leftIcon={<IoIosArrowBack />}
+				onClick={changeToCreateTeamTab}
 				fontSize="sm"
-				padding="0"
+				lineHeight="6"
+				fontWeight="medium"
+				p="0"
 			>
 				Back to All Teams
-			</NavigationBack>
+			</Button>
 			<Flex
 				borderRadius="sm"
 				borderColor="black"
