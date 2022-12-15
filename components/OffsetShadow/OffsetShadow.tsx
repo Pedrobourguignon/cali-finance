@@ -10,6 +10,7 @@ export const OffsetShadow: React.FC<IOffsetShadow> = ({
 	borderColor = 'black',
 	width = 'max-content',
 	height = 'max-content',
+	bg = 'none',
 	children,
 	top,
 	left,
@@ -28,6 +29,7 @@ export const OffsetShadow: React.FC<IOffsetShadow> = ({
 			{buttonText}
 		</Flex>
 		<Flex
+			bg={bg}
 			boxSize="full"
 			top={top}
 			left={left}
