@@ -5,7 +5,7 @@ interface ISkeleton {
 	display: 'flex' | 'none';
 }
 
-export const NoMembersSkeleton: React.FC<ISkeleton> = ({ display }) => (
+export const NoEmployeeSkeleton: React.FC<ISkeleton> = ({ display }) => (
 	<Flex
 		bg="white"
 		p="3"
@@ -28,4 +28,4 @@ export const NoMembersSkeleton: React.FC<ISkeleton> = ({ display }) => (
 	</Flex>
 );
 
-export default NoMembersSkeleton;
+export default NoEmployeeSkeleton;

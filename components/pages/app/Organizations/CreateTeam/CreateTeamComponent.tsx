@@ -1,24 +1,15 @@
-import {
-	Button,
-	Flex,
-	Icon,
-	Input,
-	Text,
-	useDisclosure,
-} from '@chakra-ui/react';
+import { Button, Flex, Icon, Input, Text } from '@chakra-ui/react';
 import { usePicasso } from 'hooks';
 import React, { useState } from 'react';
-import { NoMembersSkeleton, NavigationBack, AddEmployee } from 'components';
+import { NavigationBack, EmployeePanel } from 'components';
 import { navigationPaths } from 'utils';
 import { BsCardImage } from 'react-icons/bs';
 
 export const CreateTeamComponent = () => {
 	const [teamName, setTeamName] = useState('');
 	const theme = usePicasso();
-	const { isOpen, onOpen, onClose } = useDisclosure();
 	return (
 		<Flex direction="column" align="start">
-			<AddEmployee isOpen={isOpen} onClose={onClose} company={teamName} />
 			<NavigationBack
 				href={navigationPaths.dashboard.organizations.home}
 				fontSize="sm"
@@ -33,27 +24,50 @@ export const CreateTeamComponent = () => {
 				py="3"
 				pl="3"
 				w="full"
+				justify="space-between"
 			>
-				<Button
-					bgImage="/images/addImageBg.png"
-					bgSize="cover"
-					bgRepeat="no-repeat"
-					_hover={{ opacity: '80%' }}
-					_active={{}}
-					_focus={{}}
-					borderRadius="full"
-					boxSize="10"
-				>
-					<Icon as={BsCardImage} />
-				</Button>
-				<Input
-					_focusVisible={{}}
-					placeholder="Insert Team Name Here *"
-					_placeholder={{ fontSize: 'md', color: 'gray.500' }}
-					border="none"
-					color={theme.text.primary}
-					onChange={name => setTeamName(name.currentTarget.value)}
-				/>
+				<Flex>
+					<Button
+						bgImage="/images/addImageBg.png"
+						bgSize="cover"
+						bgRepeat="no-repeat"
+						_hover={{ opacity: '80%' }}
+						_active={{}}
+						_focus={{}}
+						borderRadius="full"
+						boxSize="10"
+					>
+						<Icon as={BsCardImage} />
+					</Button>
+					<Input
+						_focusVisible={{}}
+						placeholder="Insert Team Name Here *"
+						_placeholder={{ fontSize: 'md', color: 'gray.500' }}
+						border="none"
+						color={theme.text.primary}
+						onChange={name => setTeamName(name.currentTarget.value)}
+						w="max-content"
+					/>
+				</Flex>
+
+				<Flex direction="column">
+					<Text color="gray.500" fontSize="xs">
+						Funds
+					</Text>
+					<Text color={theme.text.primary}>$0</Text>
+				</Flex>
+				<Flex direction="column">
+					<Text color="gray.500" fontSize="xs">
+						Members
+					</Text>
+					<Text color={theme.text.primary}>0</Text>
+				</Flex>
+				<Flex direction="column" pr="8">
+					<Text color="gray.500" fontSize="xs">
+						Withdrawals this month
+					</Text>
+					<Text color={theme.text.primary}>$0</Text>
+				</Flex>
 			</Flex>
 			<Flex pt="4" w="full">
 				<Input
@@ -65,36 +79,7 @@ export const CreateTeamComponent = () => {
 					p="0"
 				/>
 			</Flex>
-			<Flex justify="space-between" w="full" align="center">
-				<Text fontWeight="medium" color={theme.text.primary}>
-					0 members
-				</Text>
-				<Button
-					fontWeight="medium"
-					color="white"
-					bg={theme.bg.black}
-					borderRadius="base"
-					_hover={{ opacity: '80%' }}
-					_active={{}}
-					_focus={{}}
-					gap="2.5"
-					onClick={onOpen}
-				>
-					<Text>+</Text>
-					Add Employee
-				</Button>
-			</Flex>
-			<Flex w="full" pt="4" direction="column" pb="12" gap="2">
-				<Flex justify="space-between">
-					<Text fontSize="sm" color={theme.text.primary}>
-						Name/Address
-					</Text>
-					<Text fontSize="sm" color={theme.text.primary}>
-						Amount
-					</Text>
-				</Flex>
-				<NoMembersSkeleton display="flex" />
-			</Flex>
+			<EmployeePanel teamName={teamName} />
 			<Button
 				fontWeight="medium"
 				color="white"
@@ -104,6 +89,9 @@ export const CreateTeamComponent = () => {
 				_hover={{ opacity: '80%' }}
 				_active={{}}
 				_focus={{}}
+				h="max-content"
+				py="1.5"
+				disabled={teamName === ''}
 			>
 				Create Team
 			</Button>

@@ -6,8 +6,12 @@ import { truncateWallet } from 'utils';
 const teams = ['General', 'Marketing', 'Finance', 'Trozorba'];
 interface IEmployeeData {
 	employee: IEmployee;
+	display?: string;
 }
-export const EmployeeData: React.FC<IEmployeeData> = ({ employee }) => (
+export const EmployeeData: React.FC<IEmployeeData> = ({
+	employee,
+	display,
+}) => (
 	<Flex
 		w="100%"
 		justify="space-between"
@@ -46,6 +50,7 @@ export const EmployeeData: React.FC<IEmployeeData> = ({ employee }) => (
 				fontSize="sm"
 				w="40"
 				h="6"
+				display={display}
 			>
 				{teams.map((item, index) => (
 					<option
