@@ -33,6 +33,7 @@ export const AddEmployee: React.FC<IAddEmployee> = ({
 	isOpen,
 	onClose,
 	company,
+	setEmployees,
 }) => {
 	const [selectedTab, setSelectedTab] = useState('Add individually');
 	const [amountInDollar, setAmountInDollar] = useState<number>(0);
@@ -81,7 +82,18 @@ export const AddEmployee: React.FC<IAddEmployee> = ({
 	});
 
 	const handleAddEmployee = (newEmployeeData: IAddEmployeeForm) => {
-		console.log(newEmployeeData);
+		setEmployees(prevState =>
+			prevState.concat([
+				{
+					name: 'Azeitona',
+					wallet: newEmployeeData.walletAddress,
+					photo: '/images/avatar.png',
+					amount: newEmployeeData.amount,
+					coin: 'USDT',
+					team: 'General',
+				},
+			])
+		);
 	};
 
 	return (
@@ -284,6 +296,7 @@ export const AddEmployee: React.FC<IAddEmployee> = ({
 									_hover={{}}
 									_active={{}}
 									_focus={{}}
+									onClick={onClose}
 								>
 									<Text>+</Text>
 									Add Employee

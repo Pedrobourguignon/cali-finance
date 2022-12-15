@@ -15,8 +15,12 @@ import { CopyAddressToast } from 'components';
 const teams = ['General', 'Marketing', 'Finance', 'Trozorba'];
 interface IEmployeeData {
 	employee: IEmployee;
+	display?: string;
 }
-export const EmployeeData: React.FC<IEmployeeData> = ({ employee }) => {
+export const EmployeeData: React.FC<IEmployeeData> = ({
+	employee,
+	display,
+}) => {
 	const toast = useToast();
 
 	const handleCopyButton = () => {
@@ -65,6 +69,7 @@ export const EmployeeData: React.FC<IEmployeeData> = ({ employee }) => {
 					fontSize="sm"
 					w="40"
 					h="6"
+					display={display}
 				>
 					{teams.map((item, index) => (
 						<option

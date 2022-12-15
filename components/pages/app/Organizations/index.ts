@@ -1,6 +1,7 @@
 export * from './ActiveTeamsCard';
 export * from './CreateOrganizationsComponent';
 export * from './EditOrganization';
+export * from './CreateTeam';
 export * from './EmployeesDashboard';
 export * from './FundsPageComponent';
 export * from './HistoryDashboard';
