@@ -1,18 +1,15 @@
-import { Flex, Grid, GridItem, Text, useDisclosure } from '@chakra-ui/react';
+import { Button, Flex, Grid, GridItem, Text } from '@chakra-ui/react';
 import {
 	OrganizationsHeader,
-	NotificationPopover,
 	ActiveTeamsBar,
 	TeamsCard,
 	EmployeesDashboard,
-	NavigationBack,
 } from 'components';
-import { useOrganizations, usePicasso } from 'hooks';
+import { usePicasso } from 'hooks';
 import { AppLayout } from 'layouts';
-import { navigationPaths } from 'utils';
 import NextLink from 'next/link';
+import { layoutLimit } from 'utils';
 
-const layoutLimit = 800;
 const teams = [
 	{
 		name: 'Marketing',
@@ -34,10 +31,18 @@ const teams = [
 	},
 ];
 
-export const TeamsComponent = () => {
+interface ITeamsComponent {
+	display: string;
+	changeToCreateTeamTab: () => void;
+	children: React.ReactNode;
+}
+
+export const TeamsComponent: React.FC<ITeamsComponent> = ({
+	display,
+	changeToCreateTeamTab,
+	children,
+}) => {
 	const theme = usePicasso();
-	const { onClose, isOpen, onOpen } = useDisclosure();
-	const { setNotificationsList, notificationsList } = useOrganizations();
 	return (
 		<AppLayout right={<ActiveTeamsBar />}>
 			<Flex
@@ -63,6 +68,7 @@ export const TeamsComponent = () => {
 				maxW={layoutLimit}
 				direction="column"
 				gap="10"
+				display={display}
 			>
 				<Flex direction="column" gap="4" pt="6" pb="4">
 					<Flex justify="space-between">
@@ -71,18 +77,23 @@ export const TeamsComponent = () => {
 							<Text>Teams</Text>
 						</Flex>
 						<NextLink href="">
-							<Text
+							<Button
 								bg={theme.bg.primary}
 								px="6"
 								py="1"
+								h="max-content"
 								cursor="pointer"
 								color="white"
 								borderRadius="base"
 								fontWeight="medium"
 								fontSize="xs"
+								_hover={{ opacity: '80%' }}
+								_focus={{}}
+								_active={{}}
+								onClick={changeToCreateTeamTab}
 							>
 								Create Team
-							</Text>
+							</Button>
 						</NextLink>
 					</Flex>
 					<Grid gap="4" w="full" templateColumns="repeat(3, 1fr)">
@@ -95,6 +106,9 @@ export const TeamsComponent = () => {
 				</Flex>
 
 				<EmployeesDashboard />
+			</Flex>
+			<Flex w={layoutLimit} px="6" pt="10">
+				{children}
 			</Flex>
 		</AppLayout>
 	);

@@ -22,7 +22,6 @@ export const NavigationBack: FC<INavigationBack> = ({
 			color="gray.500"
 			leftIcon={<IoIosArrowBack />}
 			onClick={handleClick}
-			fontSize="md"
 			lineHeight="6"
 			fontWeight="medium"
 			{...rest}
