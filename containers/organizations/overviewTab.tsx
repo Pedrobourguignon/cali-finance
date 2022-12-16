@@ -7,7 +7,7 @@ import {
 } from 'components';
 import { usePicasso } from 'hooks';
 import { AppLayout, OrganizationWhiteBackground } from 'layouts';
-import { navigationPaths,layoutLimit } from 'utils';
+import { navigationPaths, layoutLimit } from 'utils';
 
 const teams = [
 	{

@@ -12,7 +12,7 @@ export const navigationPaths = {
 		organizations: {
 			home: '/app/organizations',
 			createOrg: '/app/organizations/create',
-			overview: '/app/organizations/[overview]',
+			overview: (id: string) => `/app/organizations/${id}`,
 			teams: '/app/organizations/teams',
 			funds: '/app/organizations/funds',
 			editOrg: '/app/organizations/edit',

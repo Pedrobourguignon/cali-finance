@@ -4,18 +4,22 @@ import { navigationPaths } from 'utils';
 import NextLink from 'next/link';
 import { NavigationBack, NotificationPopover } from 'components';
 
-const menuOptions = [
-	{ name: 'Overview', route: navigationPaths.dashboard.organizations.overview },
-	{ name: 'Teams', route: navigationPaths.dashboard.organizations.teams },
-	{ name: 'Funds', route: navigationPaths.dashboard.organizations.funds },
-];
-
 const organizationData = {
 	name: 'Kylie Cosmetics Super Extra',
 	logo: '/images/kylie-cosmetics-logo.png',
 	totalFunds: '67,986.09',
 	network: { name: 'Ethereum', logo: '/images/eth.png' },
 };
+
+const menuOptions = [
+	{
+		name: 'Overview',
+		route: navigationPaths.dashboard.organizations.overview('1'),
+	},
+	{ name: 'Teams', route: navigationPaths.dashboard.organizations.teams },
+	{ name: 'Funds', route: navigationPaths.dashboard.organizations.funds },
+];
+
 export const OrganizationsHeader = () => {
 	const theme = usePicasso();
 	const { isSamePath } = usePath();
