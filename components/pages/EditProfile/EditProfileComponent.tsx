@@ -4,6 +4,7 @@ import React from 'react';
 
 import useTranslation from 'next-translate/useTranslation';
 import { ImageUploaderModal } from 'components';
+import { OrganizationWhiteBackground } from 'layouts';
 import { EditProfileForm } from './EditProfileForm';
 
 export const EditProfileComponent = () => {
@@ -26,7 +27,7 @@ export const EditProfileComponent = () => {
 				>
 					{translate('editProfile')}
 				</Text>
-				<Flex w="100%" bg="white" h="64" position="absolute" />
+				<OrganizationWhiteBackground />
 			</Flex>
 			<Flex justify="center" pt="7" direction="column" align="center" gap="5">
 				<Avatar src="https://bit.ly/broken-link" boxSize="24" />

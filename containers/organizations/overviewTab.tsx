@@ -6,8 +6,8 @@ import {
 	WithdrawalsBanner,
 } from 'components';
 import { usePicasso } from 'hooks';
-import { AppLayout } from 'layouts';
-import { layoutLimit, navigationPaths } from 'utils';
+import { AppLayout, OrganizationWhiteBackground } from 'layouts';
+import { navigationPaths,layoutLimit } from 'utils';
 
 const teams = [
 	{
@@ -35,13 +35,7 @@ export const OverviewTab = () => {
 
 	return (
 		<AppLayout right={<WithdrawalsBanner />}>
-			<Flex
-				w="100%"
-				bg="white"
-				h="64"
-				position="absolute"
-				borderRadius="base"
-			/>
+			<OrganizationWhiteBackground />
 			<Flex
 				color="black"
 				pt="6"
