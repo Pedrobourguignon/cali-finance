@@ -13,9 +13,9 @@ export const navigationPaths = {
 			home: '/app/organizations',
 			createOrg: '/app/organizations/create',
 			overview: (id: string) => `/app/organizations/${id}`,
-			teams: '/app/organizations/teams',
-			funds: '/app/organizations/funds',
-			editOrg: '/app/organizations/edit',
+			teams: (id: string) => `/app/organizations/${id}/teams`,
+			funds: (id: string) => `/app/organizations/${id}/funds`,
+			editOrg: (id: string) => `/app/organizations/${id}/edit`,
 		},
 	},
 };

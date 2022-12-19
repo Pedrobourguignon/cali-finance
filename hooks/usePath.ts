@@ -1,11 +1,11 @@
 import { useRouter } from 'next/router';
 
 export const usePath = () => {
-	const { pathname } = useRouter();
+	const { asPath } = useRouter();
 
-	const isSamePath = (path: string) => pathname === path;
+	const isSamePath = (path: string) => asPath === path;
 	return {
-		pathname,
+		asPath,
 		isSamePath,
 	};
 };

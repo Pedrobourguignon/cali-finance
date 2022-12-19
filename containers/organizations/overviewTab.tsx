@@ -53,7 +53,7 @@ export const OverviewTab = () => {
 							Teams
 						</Text>
 						<Link
-							href={navigationPaths.dashboard.organizations.teams}
+							href={navigationPaths.dashboard.organizations.teams('1')}
 							color="gray.500"
 							fontWeight="medium"
 							fontSize="xs"

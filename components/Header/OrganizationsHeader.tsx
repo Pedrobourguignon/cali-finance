@@ -16,8 +16,8 @@ const menuOptions = [
 		name: 'Overview',
 		route: navigationPaths.dashboard.organizations.overview('1'),
 	},
-	{ name: 'Teams', route: navigationPaths.dashboard.organizations.teams },
-	{ name: 'Funds', route: navigationPaths.dashboard.organizations.funds },
+	{ name: 'Teams', route: navigationPaths.dashboard.organizations.teams('1') },
+	{ name: 'Funds', route: navigationPaths.dashboard.organizations.funds('1') },
 ];
 
 export const OrganizationsHeader = () => {
@@ -50,7 +50,7 @@ export const OrganizationsHeader = () => {
 					<Text fontSize="xl">${organizationData.totalFunds}</Text>
 					<Text fontSize="sm">Total Funds</Text>
 				</Flex>
-				<NextLink href={navigationPaths.dashboard.organizations.editOrg}>
+				<NextLink href={navigationPaths.dashboard.organizations.editOrg('1')}>
 					<Text
 						borderRadius="base"
 						px="5"
@@ -78,7 +78,7 @@ export const OrganizationsHeader = () => {
 									fontSize="sm"
 									fontWeight={comparedPath ? 'semibold' : 'normal'}
 									borderRadius="none"
-									borderBottomWidth={comparedPath ? '0.125rem' : '0rem'}
+									borderBottomWidth="0.125rem"
 									borderBottomColor={
 										comparedPath ? theme.bg.primary : 'transparent'
 									}
