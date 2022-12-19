@@ -1,6 +1,5 @@
-import { Button, Flex, Img, Text } from '@chakra-ui/react';
+import { Button, Flex, Img, Text, Link } from '@chakra-ui/react';
 import { usePicasso } from 'hooks';
-import Link from 'next/link';
 import React from 'react';
 
 export const ErrorAlert = () => {

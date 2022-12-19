@@ -1,9 +1,8 @@
-import { Button, Flex, Img, Text } from '@chakra-ui/react';
-import Link from 'next/link';
-import React from 'react';
-import useTranslation from 'next-translate/useTranslation';
-import { usePicasso } from 'hooks';
+import { Button, Flex, Img, Link, Text } from '@chakra-ui/react';
 import { OffsetShadow } from 'components';
+import { usePicasso } from 'hooks';
+import useTranslation from 'next-translate/useTranslation';
+import React from 'react';
 
 export const ErrorAlert = () => {
 	const { t: translate } = useTranslation('dashboard');

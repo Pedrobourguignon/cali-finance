@@ -1,6 +1,5 @@
-import { Flex, Icon, Img, Text } from '@chakra-ui/react';
+import { Flex, Icon, Img, Text, Link } from '@chakra-ui/react';
 import { usePicasso } from 'hooks';
-import NextLink from 'next/link';
 import { FiInstagram, FiLinkedin, FiTwitter } from 'react-icons/fi';
 import { InfosBanner } from 'components';
 import { socialMediaLinks } from 'utils';
@@ -23,30 +22,30 @@ export const LifeIsEasierBannner = () => {
 						and organizations payments
 					</Text>
 					<Flex gap="6">
-						<NextLink href={socialMediaLinks.instagram}>
+						<Link href={socialMediaLinks.instagram}>
 							<Icon
 								boxSize="5"
 								color={theme.branding.cyan}
 								as={FiInstagram}
 								cursor="pointer"
 							/>
-						</NextLink>
-						<NextLink href={socialMediaLinks.linkedin}>
+						</Link>
+						<Link href={socialMediaLinks.linkedin}>
 							<Icon
 								boxSize="5"
 								color={theme.branding.cyan}
 								as={FiLinkedin}
 								cursor="pointer"
 							/>
-						</NextLink>
-						<NextLink href={socialMediaLinks.twitter}>
+						</Link>
+						<Link href={socialMediaLinks.twitter}>
 							<Icon
 								boxSize="5"
 								color={theme.branding.cyan}
 								as={FiTwitter}
 								cursor="pointer"
 							/>
-						</NextLink>
+						</Link>
 					</Flex>
 				</Flex>
 			</Flex>

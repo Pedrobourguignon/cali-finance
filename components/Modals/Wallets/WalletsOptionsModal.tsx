@@ -1,22 +1,21 @@
 import {
+	Button,
 	Flex,
+	Img,
+	Link,
 	Modal,
-	ModalOverlay,
-	ModalContent,
-	ModalHeader,
 	ModalBody,
 	ModalCloseButton,
-	Button,
-	Img,
+	ModalContent,
+	ModalHeader,
+	ModalOverlay,
 	Text,
 } from '@chakra-ui/react';
-
-import { IWalletOptionsModal } from 'types';
-import Link from 'next/link';
 import { OffsetShadow } from 'components';
 import { usePicasso } from 'hooks';
-import { navigationPaths } from 'utils';
 import useTranslation from 'next-translate/useTranslation';
+import { IWalletOptionsModal } from 'types';
+import { navigationPaths } from 'utils';
 
 const walletsOptions = [
 	{

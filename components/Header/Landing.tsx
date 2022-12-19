@@ -1,6 +1,5 @@
-import { Button, Flex, Img, Text } from '@chakra-ui/react';
+import { Button, Flex, Img, Link, Text } from '@chakra-ui/react';
 import { usePath, usePicasso } from 'hooks';
-import NextLink from 'next/link';
 import { navigationPaths } from 'utils';
 
 interface IMenu {
@@ -35,14 +34,14 @@ export const LandingHeader: React.FC = () => {
 			px="6"
 			position="absolute"
 		>
-			<NextLink href={navigationPaths.landing}>
+			<Link href={navigationPaths.landing}>
 				<Img minH="10" src="/images/cali-logo-with-text.svg" />
-			</NextLink>
+			</Link>
 			<Flex display={{ base: 'none', lg: 'flex' }} gap="6">
 				{menuOptions.map((item, index) => {
 					const comparedPath = isSamePath(item.route);
 					return (
-						<NextLink key={+index} href={item.route}>
+						<Link key={+index} href={item.route}>
 							<Text
 								borderBottomColor={comparedPath ? 'white' : 'none'}
 								borderBottomWidth={comparedPath ? '0.125rem' : 'none'}
@@ -50,11 +49,11 @@ export const LandingHeader: React.FC = () => {
 							>
 								{item.name}
 							</Text>
-						</NextLink>
+						</Link>
 					);
 				})}
 			</Flex>
-			{/* <NextLink href={navigationPaths.dashboard.home}> */}
+			{/* <Link href={navigationPaths.dashboard.home}> */}
 			<Button
 				_hover={{ bg: 'white' }}
 				_focus={{
@@ -76,7 +75,7 @@ export const LandingHeader: React.FC = () => {
 			>
 				Launch App
 			</Button>
-			{/* </NextLink> */}
+			{/* </Link> */}
 		</Flex>
 	);
 };

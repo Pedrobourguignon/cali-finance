@@ -1,9 +1,8 @@
-import { Flex, Img, LinkBox, LinkOverlay, Text } from '@chakra-ui/react';
+import { Flex, Img, Link, LinkBox, LinkOverlay, Text } from '@chakra-ui/react';
 import React from 'react';
 import { usePicasso } from 'hooks';
-import NextLink from 'next/link';
 import { LinearProgressBar } from 'components/ProgressBar';
-import { SurplusTeams } from '../SurplusTeamsIcon';
+import { SurplusTeams } from '../SurplusTeams';
 import { TeamsData } from './TeamsData';
 
 interface INewTeam {
@@ -77,7 +76,7 @@ export const ActiveTeamsCard = () => {
 					Active Teams
 				</Text>
 				<LinkBox>
-					<NextLink href="/">
+					<Link href="/">
 						<LinkOverlay
 							fontSize="xs"
 							color={theme.branding.blue}
@@ -85,7 +84,7 @@ export const ActiveTeamsCard = () => {
 						>
 							See all
 						</LinkOverlay>
-					</NextLink>
+					</Link>
 				</LinkBox>
 			</Flex>
 			<Flex direction="column" gap="9">

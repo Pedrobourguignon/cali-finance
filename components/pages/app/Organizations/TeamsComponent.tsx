@@ -1,4 +1,4 @@
-import { Button, Flex, Grid, GridItem, Text } from '@chakra-ui/react';
+import { Button, Flex, Grid, GridItem, Link, Text } from '@chakra-ui/react';
 import {
 	OrganizationsHeader,
 	ActiveTeamsBar,
@@ -7,7 +7,6 @@ import {
 } from 'components';
 import { usePicasso } from 'hooks';
 import { AppLayout } from 'layouts';
-import NextLink from 'next/link';
 import { layoutLimit } from 'utils';
 
 const teams = [
@@ -76,7 +75,7 @@ export const TeamsComponent: React.FC<ITeamsComponent> = ({
 							<Text>{teams.length}</Text>
 							<Text>Teams</Text>
 						</Flex>
-						<NextLink href="">
+						<Link href="/">
 							<Button
 								bg={theme.bg.primary}
 								px="6"
@@ -94,7 +93,7 @@ export const TeamsComponent: React.FC<ITeamsComponent> = ({
 							>
 								Create Team
 							</Button>
-						</NextLink>
+						</Link>
 					</Flex>
 					<Grid gap="4" w="full" templateColumns="repeat(3, 1fr)">
 						{teams.map((team, index) => (

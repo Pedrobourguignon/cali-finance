@@ -1,7 +1,7 @@
 export * from './ActiveTeamsCard';
-export * from './CreateOrganizationsComponent';
-export * from './EditOrganization';
+export * from './CreateOrganizationComponent';
 export * from './CreateTeam';
+export * from './EditOrganizationComponent';
 export * from './EmployeesDashboard';
 export * from './FundsPageComponent';
 export * from './HistoryDashboard';
@@ -10,6 +10,6 @@ export * from './LifeIsEasierComponent';
 export * from './OrganizationsDashboard';
 export * from './PremiumAlert';
 export * from './RecentActivities';
-export * from './SurplusTeamsIcon';
+export * from './SurplusTeams';
 export * from './TeamsComponent';
 export * from './YourOrganizations';
