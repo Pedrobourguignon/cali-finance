@@ -4,7 +4,7 @@ import React from 'react';
 
 const Dashboard = () => (
 	<TokensProvider>
-		<DashboardContainer />;
+		<DashboardContainer />
 	</TokensProvider>
 );
 

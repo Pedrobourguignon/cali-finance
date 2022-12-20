@@ -28,6 +28,8 @@ import { swapTokensSchema } from 'utils';
 interface ISwapTokens {
 	youPay: string;
 	youReceive: string;
+	paidToken: string;
+	receivedToken: string;
 }
 
 export const SwapToken = () => {
@@ -35,6 +37,8 @@ export const SwapToken = () => {
 	const [swapTokensData, setSwapTokensData] = useState<ISwapTokens>({
 		youPay: '',
 		youReceive: '',
+		paidToken: swapTokenSelector.paidToken,
+		receivedToken: swapTokenSelector.receivedToken,
 	} as ISwapTokens);
 	const theme = usePicasso();
 	const isConnected = true;
@@ -60,7 +64,13 @@ export const SwapToken = () => {
 	});
 
 	const handleSwapTokens = (swapTransaction: ISwapTokens) => {
-		console.log(swapTransaction);
+		setSwapTokensData({
+			youPay: swapTransaction.youPay,
+			youReceive: swapTransaction.youReceive,
+			paidToken: swapTokenSelector.paidToken,
+			receivedToken: swapTokenSelector.receivedToken,
+		});
+		console.log(swapTokensData);
 	};
 
 	return (
@@ -115,15 +125,16 @@ export const SwapToken = () => {
 								borderRadius="base"
 							>
 								<Input
-									{...register('youPay')}
 									placeholder="0"
 									type="number"
 									disabled={!isConnected}
 									_hover={{ focus: 'none' }}
+									{...register('youPay')}
 									onChange={youPay =>
 										setSwapTokensData(prevState => ({
 											...prevState,
 											youPay: youPay.target.value,
+											youReceive: youPay.target.value,
 										}))
 									}
 								/>
@@ -168,12 +179,12 @@ export const SwapToken = () => {
 									disabled={!isConnected}
 									_hover={{ focus: 'none' }}
 									type="number"
-									onChange={paidToken =>
-										setSwapTokensData(prevState => ({
-											...prevState,
-											paidToken: paidToken.target.value,
-										}))
-									}
+									// onChange={youReceive =>
+									// 	setSwapTokensData(prevState => ({
+									// 		...prevState,
+									// 		youReceive: youReceive.target.value,
+									// 	}))
+									// }
 								/>
 								<Flex>
 									<Input

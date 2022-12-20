@@ -28,7 +28,6 @@ export const TokenSelector: React.FC<IBasicModal> = ({ isOpen, onClose }) => {
 		handleSearchToken,
 		listOfTokens,
 		setChosenToken,
-		setSwapTokenSelector,
 	} = useTokens();
 
 	const handleOnClose = useCallback(() => {
@@ -43,14 +42,6 @@ export const TokenSelector: React.FC<IBasicModal> = ({ isOpen, onClose }) => {
 		};
 		setChosenToken(chosedToken);
 		handleOnClose();
-		setSwapTokenSelector({
-			paidToken: name,
-			receivedToken: name,
-			paidTokenIcon: logoURI,
-			receivedTokenIcon: logoURI,
-			paidAmount: '',
-			receivedAmount: '',
-		});
 	};
 
 	return (
