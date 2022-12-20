@@ -1,9 +1,14 @@
-import { Flex, Img, Link, Text } from '@chakra-ui/react';
+import { Button, Flex, Img, Text } from '@chakra-ui/react';
 import { OffsetShadow } from 'components';
 import useTranslation from 'next-translate/useTranslation';
-import React from 'react';
-
+import React, { useState } from 'react';
 import { IAssetsOptions } from 'types';
+
+interface IMyAssetsFullList {
+	listLength: number;
+	buttonText: string;
+	offSetShadowHeight: string;
+}
 
 const assetsOptions: IAssetsOptions[] = [
 	{
@@ -27,14 +32,57 @@ const assetsOptions: IAssetsOptions[] = [
 		value: '$1,032.11',
 		icon: '/icons/eth.svg',
 	},
+	{
+		name: 'Ethereum',
+		initials: 'ETH',
+		units: '0.7',
+		value: '$1,032.11',
+		icon: '/icons/eth.svg',
+	},
+	{
+		name: 'Ethereum',
+		initials: 'ETH',
+		units: '0.7',
+		value: '$1,032.11',
+		icon: '/icons/eth.svg',
+	},
+	{
+		name: 'Ethereum',
+		initials: 'ETH',
+		units: '0.7',
+		value: '$1,032.11',
+		icon: '/icons/eth.svg',
+	},
 ];
 
 export const MyAssets = () => {
+	const [myAssetsFullList, setMyAssetsFullList] = useState<IMyAssetsFullList>({
+		listLength: 3,
+		buttonText: 'See all',
+		offSetShadowHeight: '15rem',
+	});
 	const { t: translate } = useTranslation('dashboard');
+
+	const fullList = () => {
+		if (myAssetsFullList.listLength === 3) {
+			setMyAssetsFullList({
+				listLength: assetsOptions.length,
+				buttonText: 'See less',
+				offSetShadowHeight: '28.5rem',
+			});
+		} else {
+			setMyAssetsFullList({
+				listLength: 3,
+				buttonText: 'See more',
+				offSetShadowHeight: '15rem',
+			});
+		}
+	};
+
 	return (
 		<OffsetShadow
 			width="23.5rem"
-			height="15rem"
+			height={myAssetsFullList.offSetShadowHeight}
 			borderColor="black"
 			top="3"
 			left="3"
@@ -46,6 +94,7 @@ export const MyAssets = () => {
 				borderRadius="base"
 				border="1px solid"
 				borderColor="black"
+				h="max-content"
 			>
 				<Flex
 					direction="column"
@@ -63,35 +112,44 @@ export const MyAssets = () => {
 								$92,234.11
 							</Text>
 						</Flex>
-						<Text fontSize="sm" cursor="pointer" color="gray.500">
-							{translate('seeAll')}
-						</Text>
+						<Button
+							fontWeight="normal"
+							fontSize="sm"
+							cursor="pointer"
+							color="gray.500"
+							p="0"
+							onClick={() => fullList()}
+						>
+							{myAssetsFullList.buttonText}
+						</Button>
 					</Flex>
 					<Flex direction="column" px="4" gap="2" py="3">
-						{assetsOptions.map((asset, index) => (
-							<Flex
-								key={+index}
-								justify="space-between"
-								bg="black"
-								color="white"
-								px="4"
-								mx="auto"
-								w="21.5rem"
-								borderRadius="base"
-							>
-								<Flex gap="2" align="center" p="0.5">
-									<Img src="/icons/usdc.svg" boxSize="6" />
-									<Flex direction="column" justify="center" fontSize="sm">
-										<Text>{asset.name}</Text>
-										<Text>{asset.initials}</Text>
+						{assetsOptions
+							.slice(0, myAssetsFullList.listLength)
+							.map((asset, index) => (
+								<Flex
+									key={+index}
+									justify="space-between"
+									bg="black"
+									color="white"
+									px="4"
+									mx="auto"
+									w="21.5rem"
+									borderRadius="base"
+								>
+									<Flex gap="2" align="center" p="0.5">
+										<Img src="/icons/usdc.svg" boxSize="6" />
+										<Flex direction="column" justify="center" fontSize="sm">
+											<Text>{asset.name}</Text>
+											<Text>{asset.initials}</Text>
+										</Flex>
+									</Flex>
+									<Flex direction="column" align="flex-end" p="0.5">
+										<Text fontSize="sm">{asset.units}</Text>
+										<Text fontSize="xs">{asset.value}</Text>
 									</Flex>
 								</Flex>
-								<Flex direction="column" align="flex-end" p="0.5">
-									<Text fontSize="sm">{asset.units}</Text>
-									<Text fontSize="xs">{asset.value}</Text>
-								</Flex>
-							</Flex>
-						))}
+							))}
 					</Flex>
 				</Flex>
 			</Flex>
