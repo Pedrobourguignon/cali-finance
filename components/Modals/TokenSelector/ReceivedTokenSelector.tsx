@@ -20,7 +20,10 @@ import { TokenOptions } from 'components';
 import { IoIosSearch, IoMdArrowDown } from 'react-icons/io';
 import { useCallback } from 'react';
 
-export const TokenSelector: React.FC<IBasicModal> = ({ isOpen, onClose }) => {
+export const ReceivedTokenSelector: React.FC<IBasicModal> = ({
+	isOpen,
+	onClose,
+}) => {
 	const theme = usePicasso();
 	const {
 		setFilteredTokens,
@@ -37,20 +40,12 @@ export const TokenSelector: React.FC<IBasicModal> = ({ isOpen, onClose }) => {
 	}, [listOfTokens]);
 
 	const handleOnClick = (name: string, logoURI: string) => {
-		const chosedToken = {
-			symbol: name,
-			logo: logoURI,
-		};
-		setChosenToken(chosedToken);
 		handleOnClose();
-		setSwapTokenSelector({
-			paidToken: name,
+		setSwapTokenSelector(prevState => ({
+			...prevState,
 			receivedToken: name,
-			paidTokenIcon: logoURI,
 			receivedTokenIcon: logoURI,
-			paidAmount: '',
-			receivedAmount: '',
-		});
+		}));
 	};
 
 	return (

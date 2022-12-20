@@ -3,12 +3,10 @@ import {
 	DashboardHeader,
 	Coins,
 	CreateOrganizationCard,
-	SwapToken,
 	RecentActivitiesDashboard,
 	MyAssets,
 	ErrorAlert,
 	OrganizationsList,
-	WithdrawCard,
 	WithdrawModal,
 } from 'components';
 import { usePicasso } from 'hooks';

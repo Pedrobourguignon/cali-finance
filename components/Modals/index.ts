@@ -1,5 +1,5 @@
-export * from './DeleteTeamModal';
 export * from './AddEmployee';
+export * from './DeleteTeamModal';
 export * from './EditEmployee';
 export * from './ImageUploader';
 export * from './ModalTest';
