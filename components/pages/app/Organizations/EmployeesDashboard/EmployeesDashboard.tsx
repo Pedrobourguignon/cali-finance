@@ -1,6 +1,12 @@
-import { Button, Flex, LinkBox, LinkOverlay, Text } from '@chakra-ui/react';
+import {
+	Button,
+	Flex,
+	Link,
+	LinkBox,
+	LinkOverlay,
+	Text,
+} from '@chakra-ui/react';
 import { usePicasso } from 'hooks';
-import NextLink from 'next/link';
 import { EmployeeData } from 'components';
 import { IEmployee } from 'types';
 
@@ -58,7 +64,7 @@ export const EmployeesDashboard = () => {
 				</Flex>
 				<Flex gap="8" align="center">
 					<LinkBox>
-						<NextLink href="/">
+						<Link href="/">
 							<LinkOverlay
 								cursor="pointer"
 								fontSize="xs"
@@ -67,7 +73,7 @@ export const EmployeesDashboard = () => {
 							>
 								See all
 							</LinkOverlay>
-						</NextLink>
+						</Link>
 					</LinkBox>
 					<Button
 						bg={theme.bg.primary}

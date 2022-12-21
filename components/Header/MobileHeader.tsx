@@ -1,4 +1,4 @@
-import { Flex, Img, useDisclosure } from '@chakra-ui/react';
+import { Flex, Img, useDisclosure, Link } from '@chakra-ui/react';
 import {
 	ConnectWalletButton,
 	NotificationPopover,
@@ -6,7 +6,6 @@ import {
 	ChangeNetworkButton,
 } from 'components';
 import { usePicasso } from 'hooks';
-import NextLink from 'next/link';
 import { useState } from 'react';
 import { INetwork, INotificationList } from 'types';
 
@@ -90,9 +89,9 @@ export const MobileHeader = () => {
 				setNetworkData={setNetworkData}
 			/>
 			<Flex>
-				<NextLink href="/dashboard">
+				<Link href="/dashboard">
 					<Img src="/images/cali-logo-mobile.png" h="6" />
-				</NextLink>
+				</Link>
 			</Flex>
 			<ConnectWalletButton />
 			<ChangeNetworkButton
@@ -106,7 +105,6 @@ export const MobileHeader = () => {
 				onClose={onClose}
 				isOpen={isOpen}
 				onOpen={onOpen}
-				notificationNumber={notificationsList.length}
 				notificationsList={notificationsList}
 			/>
 		</Flex>

@@ -93,11 +93,17 @@ export const DepositOrWithdrawCard = () => {
 			<Button
 				bg={theme.bg.primary}
 				color="white"
-				w="56"
+				w="full"
 				py="1.5"
 				px="6"
 				fontSize="sm"
-				_hover={{}}
+				_hover={{
+					opacity: 0.8,
+				}}
+				_focus={{}}
+				_active={{
+					opacity: 0.8,
+				}}
 			>
 				{selectedOption === 'Deposit'
 					? 'Add Funds to Organization'

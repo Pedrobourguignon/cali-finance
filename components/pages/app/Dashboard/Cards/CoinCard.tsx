@@ -26,10 +26,16 @@ export const CoinCard: React.FC<ICoinCard> = ({
 			justify="center"
 			borderColor={borderColor}
 			_hover={{ boxShadow: 'xl' }}
+			gap="1"
+			pl="3"
+			py="2"
+			pr="9"
+			alignItems="flex-start"
+			transition="all 0.1s ease-in-out"
 		>
-			<Flex direction="row" align="center" gap="2" pl="3" pr="9">
+			<Flex direction="row" align="center" gap="2">
 				<Img src={coin.icon} boxSize="6" />
-				<Flex direction="column" py="2">
+				<Flex direction="column">
 					<Text fontSize="xs" color={color}>
 						{coin.name}
 					</Text>
@@ -38,12 +44,10 @@ export const CoinCard: React.FC<ICoinCard> = ({
 					</Text>
 				</Flex>
 			</Flex>
-			<Flex px="3">
-				<Text fontSize="xs" color={varianceColor()}>
-					{coin.variation > 0 && '+'}
-					{coin.variation}%
-				</Text>
-			</Flex>
+			<Text fontSize="xs" color={varianceColor()}>
+				{coin.variation > 0 && '+'}
+				{coin.variation}%
+			</Text>
 		</Flex>
 	);
 };
