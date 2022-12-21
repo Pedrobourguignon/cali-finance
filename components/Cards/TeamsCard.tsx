@@ -1,8 +1,8 @@
-import { Button, Flex, Img, Text } from '@chakra-ui/react';
+import { Flex, Img, Link, Text } from '@chakra-ui/react';
 import { usePicasso } from 'hooks';
 import React from 'react';
 import { ITeamsData } from 'types';
-import { handleLogoImage } from 'utils';
+import { handleLogoImage, navigationPaths } from 'utils';
 
 interface ITeamsCard {
 	team: ITeamsData;
@@ -65,16 +65,19 @@ export const TeamsCard: React.FC<ITeamsCard> = ({ team }) => {
 				</Flex>
 			</Flex>
 			<Flex w="100%" align="center" justify="center" py="1" pb="3">
-				<Button
-					color={theme.text.black}
-					bg="white"
-					fontSize="xs"
-					fontWeight="medium"
-					px="16"
-					h="6"
-				>
-					Manage
-				</Button>
+				<Link href={navigationPaths.dashboard.organizations.team('1', '1')}>
+					<Flex
+						color={theme.text.black}
+						bg="white"
+						fontSize="xs"
+						fontWeight="medium"
+						px="16"
+						h="6"
+						align="center"
+					>
+						<Text>Manage</Text>
+					</Flex>
+				</Link>
 			</Flex>
 		</Flex>
 	);

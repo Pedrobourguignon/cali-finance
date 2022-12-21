@@ -20,7 +20,7 @@ import {
 	OrganizationsHeader,
 } from 'components';
 import Router from 'next/router';
-import { layoutLimit } from 'utils';
+import { layoutLimit, navigationPaths } from 'utils';
 import { BsCardImage, BsCheck } from 'react-icons/bs';
 import { AiOutlineEdit } from 'react-icons/ai';
 import { useCallback, useEffect, useState, useRef } from 'react';
@@ -103,7 +103,13 @@ export const TeamComponent = () => {
 						>
 							<Flex direction="column" w="100%" align="start" gap="4">
 								<Flex justify="space-between" w="100%">
-									<BackToTeams onClick={() => Router.back()} />
+									<BackToTeams
+										onClick={() =>
+											Router.push(
+												navigationPaths.dashboard.organizations.teams('1')
+											)
+										}
+									/>
 									{showSaving && (
 										<Flex align="center" color={theme.branding.blue} gap="1.5">
 											<CircularProgress
