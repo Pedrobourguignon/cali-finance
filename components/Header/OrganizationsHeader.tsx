@@ -1,7 +1,6 @@
-import { Flex, Img, Text, useDisclosure } from '@chakra-ui/react';
+import { Flex, Img, Text, useDisclosure, Link } from '@chakra-ui/react';
 import { useOrganizations, usePath, usePicasso } from 'hooks';
 import { navigationPaths } from 'utils';
-import NextLink from 'next/link';
 import { NavigationBack, NotificationPopover } from 'components';
 
 const organizationData = {
@@ -37,7 +36,6 @@ export const OrganizationsHeader = () => {
 					onClose={onClose}
 					isOpen={isOpen}
 					onOpen={onOpen}
-					notificationNumber={notificationsList.length}
 					notificationsList={notificationsList}
 				/>
 			</Flex>
@@ -50,7 +48,7 @@ export const OrganizationsHeader = () => {
 					<Text fontSize="xl">${organizationData.totalFunds}</Text>
 					<Text fontSize="sm">Total Funds</Text>
 				</Flex>
-				<NextLink href={navigationPaths.dashboard.organizations.editOrg('1')}>
+				<Link href={navigationPaths.dashboard.organizations.editOrg('1')}>
 					<Text
 						borderRadius="base"
 						px="5"
@@ -62,14 +60,20 @@ export const OrganizationsHeader = () => {
 					>
 						Edit Informations
 					</Text>
-				</NextLink>
+				</Link>
 			</Flex>
 			<Flex align="center" justify="space-between">
 				<Flex>
 					{menuOptions.map((menuOption, index) => {
 						const comparedPath = isSamePath(menuOption.route);
 						return (
-							<NextLink key={+index} href={menuOption.route}>
+							<Link
+								key={+index}
+								href={menuOption.route}
+								_hover={{
+									textDecoration: 'none',
+								}}
+							>
 								<Text
 									color={theme.text.primary}
 									cursor="pointer"
@@ -85,7 +89,7 @@ export const OrganizationsHeader = () => {
 								>
 									{menuOption.name}
 								</Text>
-							</NextLink>
+							</Link>
 						);
 					})}
 				</Flex>

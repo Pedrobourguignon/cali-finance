@@ -8,7 +8,6 @@ export interface INotificationList {
 
 export interface INotificationPopover {
 	notificationsList: INotificationList[];
-	notificationNumber: number;
 	onClose: () => void;
 	onOpen: () => void;
 	isOpen: boolean;

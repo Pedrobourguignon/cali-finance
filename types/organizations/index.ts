@@ -5,3 +5,4 @@ export * from './IEmployee';
 export * from './INewOrganization';
 export * from './ISocialMediaInput';
 export * from './ISocialMedias';
+export * from './ITeam';

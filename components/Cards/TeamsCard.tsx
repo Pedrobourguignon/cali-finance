@@ -1,11 +1,11 @@
 import { Button, Flex, Img, Text } from '@chakra-ui/react';
 import { usePicasso } from 'hooks';
 import React from 'react';
-import { ITeamsList } from 'types';
+import { ITeamsData } from 'types';
 import { handleLogoImage } from 'utils';
 
 interface ITeamsCard {
-	team: ITeamsList;
+	team: ITeamsData;
 }
 
 export const TeamsCard: React.FC<ITeamsCard> = ({ team }) => {
@@ -51,7 +51,7 @@ export const TeamsCard: React.FC<ITeamsCard> = ({ team }) => {
 							Funds
 						</Text>
 						<Text fontSize="sm" color={theme.text.primary}>
-							${team.funds}
+							${team.balance.toLocaleString('en-US')}
 						</Text>
 					</Flex>
 					<Flex direction="column">

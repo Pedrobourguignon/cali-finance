@@ -16,10 +16,12 @@ const teams = ['General', 'Marketing', 'Finance', 'Trozorba'];
 interface IEmployeeData {
 	employee: IEmployee;
 	display?: string;
+	isGeneral?: boolean;
 }
 export const EmployeeData: React.FC<IEmployeeData> = ({
 	employee,
 	display,
+	isGeneral,
 }) => {
 	const toast = useToast();
 
@@ -63,24 +65,26 @@ export const EmployeeData: React.FC<IEmployeeData> = ({
 				</Flex>
 			</Flex>
 			<Flex>
-				<Select
-					borderColor="gray.200"
-					borderRadius="base"
-					fontSize="sm"
-					w="40"
-					h="6"
-					display={display}
-				>
-					{teams.map((item, index) => (
-						<option
-							style={{ background: 'white' }}
-							selected={item === employee.team}
-							key={+index}
-						>
-							{item}
-						</option>
-					))}
-				</Select>
+				{isGeneral && (
+					<Select
+						borderColor="gray.200"
+						borderRadius="base"
+						fontSize="sm"
+						w="40"
+						h="6"
+						display={display}
+					>
+						{teams.map((item, index) => (
+							<option
+								style={{ background: 'white' }}
+								selected={item === employee.team}
+								key={+index}
+							>
+								{item}
+							</option>
+						))}
+					</Select>
+				)}
 			</Flex>
 			<Flex direction="column" align="end">
 				<Flex gap="1" fontSize="xs">
