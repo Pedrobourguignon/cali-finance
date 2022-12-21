@@ -100,7 +100,6 @@ export const DashboardHeader: React.FC = () => {
 					onClose={onClose}
 					isOpen={isOpen}
 					onOpen={onOpen}
-					notificationNumber={notificationsList.length}
 					notificationsList={notificationsList}
 				/>
 			</Flex>

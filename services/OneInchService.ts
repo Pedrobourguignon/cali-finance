@@ -1,6 +1,6 @@
 import axios, { AxiosInstance } from 'axios';
 
-class OneInchService {
+export class OneInchService {
 	static api: AxiosInstance = axios.create({
 		baseURL: 'https://api.1inch.io/v4.0/',
 		withCredentials: false,

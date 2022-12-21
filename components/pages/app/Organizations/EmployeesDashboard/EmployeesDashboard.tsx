@@ -1,6 +1,12 @@
-import { Button, Flex, LinkBox, LinkOverlay, Text } from '@chakra-ui/react';
+import {
+	Button,
+	Flex,
+	Link,
+	LinkBox,
+	LinkOverlay,
+	Text,
+} from '@chakra-ui/react';
 import { usePicasso } from 'hooks';
-import NextLink from 'next/link';
 import { EmployeeData } from 'components';
 import { IEmployee } from 'types';
 
@@ -50,43 +56,54 @@ const employees: IEmployee[] = [
 export const EmployeesDashboard = () => {
 	const theme = usePicasso();
 	return (
-		<Flex w="100%" direction="column">
+		<Flex w="100%" direction="column" gap="4">
 			<Flex justify="space-between" w="100%" align="center">
-				<Text>Employees</Text>
+				<Flex fontWeight="medium" gap="1">
+					<Text>{employees.length}</Text>
+					<Text>Employees</Text>
+				</Flex>
 				<Flex gap="8" align="center">
 					<LinkBox>
-						<NextLink href="/">
+						<Link href="/">
 							<LinkOverlay
+								cursor="pointer"
 								fontSize="xs"
-								color={theme.branding.blue}
+								color="gray.500"
 								fontWeight="medium"
 							>
 								See all
 							</LinkOverlay>
-						</NextLink>
+						</Link>
 					</LinkBox>
 					<Button
-						bg="black"
+						bg={theme.bg.primary}
 						fontSize="xs"
 						fontWeight="medium"
 						gap="2.5"
+						color="white"
+						h="6"
 						px="3"
-						py="1"
+						borderRadius="base"
+						_hover={{ opacity: '80%' }}
+						_active={{}}
+						_focus={{}}
 					>
 						<Text>+</Text>
 						<Text>Add Employee</Text>
 					</Button>
 				</Flex>
 			</Flex>
-			<Flex justify="space-between">
-				<Text>Name/Adress</Text>
-				<Text>Team</Text>
-				<Text>Amount</Text>
-			</Flex>
-			<Flex direction="column" gap="2">
-				{employees.slice(0, 3).map((employee, index) => (
-					<EmployeeData key={+index} employee={employee} />
-				))}
+			<Flex w="100%" direction="column" gap="2">
+				<Flex justify="space-between">
+					<Text>Name/Adress</Text>
+					<Text>Team</Text>
+					<Text w="24">Amount</Text>
+				</Flex>
+				<Flex direction="column" gap="2">
+					{employees.slice(0, 3).map((employee, index) => (
+						<EmployeeData key={+index} employee={employee} />
+					))}
+				</Flex>
 			</Flex>
 		</Flex>
 	);

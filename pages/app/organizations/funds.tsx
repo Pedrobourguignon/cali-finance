@@ -1,5 +1,5 @@
-import { OverviewTab } from 'containers';
+import { FundsContainer } from 'containers';
 
-export const Overview = () => <OverviewTab />;
+export const Funds = () => <FundsContainer />;
 
-export default Overview;
+export default Funds;

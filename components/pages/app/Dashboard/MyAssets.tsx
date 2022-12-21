@@ -1,8 +1,7 @@
-import { Flex, Img, Text } from '@chakra-ui/react';
+import { Flex, Img, Link, Text } from '@chakra-ui/react';
 import { OffsetShadow } from 'components';
-import Link from 'next/link';
-import React from 'react';
 import useTranslation from 'next-translate/useTranslation';
+import React from 'react';
 
 import { IAssetsOptions } from 'types';
 
@@ -64,11 +63,9 @@ export const MyAssets = () => {
 								$92,234.11
 							</Text>
 						</Flex>
-						<Link href="/">
-							<Text fontSize="sm" cursor="pointer" color="gray.500">
-								{translate('seeAll')}
-							</Text>
-						</Link>
+						<Text fontSize="sm" cursor="pointer" color="gray.500">
+							{translate('seeAll')}
+						</Text>
 					</Flex>
 					<Flex direction="column" px="4" gap="2" py="3">
 						{assetsOptions.map((asset, index) => (

@@ -1,5 +1,4 @@
-import { Flex, Text } from '@chakra-ui/react';
-import NextLink from 'next/link';
+import { Flex, Text, Link } from '@chakra-ui/react';
 import { ActivitiesData } from 'components';
 import { useOrganizations, usePicasso } from 'hooks';
 import { navigationPaths } from 'utils';
@@ -20,7 +19,7 @@ export const RecentActivities = () => {
 		>
 			<Flex justify="space-between" align="center">
 				<Text fontWeight="medium">Recent Activities</Text>
-				<NextLink href={navigationPaths.dashboard.organizations.funds}>
+				<Link href={navigationPaths.dashboard.organizations.funds}>
 					<Text
 						color="gray.500"
 						fontSize="xs"
@@ -29,7 +28,7 @@ export const RecentActivities = () => {
 					>
 						See all
 					</Text>
-				</NextLink>
+				</Link>
 			</Flex>
 			<Flex gap="2" direction="column">
 				{activities.map((activity, index) => (
