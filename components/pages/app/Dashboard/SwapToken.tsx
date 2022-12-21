@@ -8,7 +8,6 @@ import {
 	InputGroup,
 	Text,
 	useDisclosure,
-	Link,
 } from '@chakra-ui/react';
 import { usePicasso, useTokens } from 'hooks';
 import React, { useState } from 'react';
@@ -152,10 +151,12 @@ export const SwapToken = () => {
 										onClick={onOpenPaidTokenSelector}
 										gap="2"
 									>
-										<Img src={swapTokenSelector.paidTokenIcon} boxSize="5" />
-										{swapTokenSelector.paidToken === 'Select'
-											? swapTokenSelector.paidToken
-											: swapTokenSelector.paidToken.toUpperCase()}
+										{swapTokenSelector.paidTokenIcon && (
+											<Img src={swapTokenSelector.paidTokenIcon} boxSize="5" />
+										)}
+										{!swapTokenSelector.paidToken
+											? 'Select'
+											: swapTokenSelector.paidToken}
 									</Input>
 								</Flex>
 							</InputGroup>
@@ -180,12 +181,6 @@ export const SwapToken = () => {
 									disabled={!isConnected}
 									_hover={{ focus: 'none' }}
 									type="number"
-									// onChange={youReceive =>
-									// 	setSwapTokensData(prevState => ({
-									// 		...prevState,
-									// 		youReceive: youReceive.target.value,
-									// 	}))
-									// }
 								/>
 								<Flex>
 									<Input
@@ -200,13 +195,15 @@ export const SwapToken = () => {
 										onClick={onOpenReceivedTokenSelector}
 										gap="2"
 									>
-										<Img
-											src={swapTokenSelector.receivedTokenIcon}
-											boxSize="5"
-										/>
-										{swapTokenSelector.receivedToken === 'Select'
-											? swapTokenSelector.receivedToken
-											: swapTokenSelector.receivedToken.toUpperCase()}
+										{swapTokenSelector.receivedTokenIcon && (
+											<Img
+												src={swapTokenSelector.receivedTokenIcon}
+												boxSize="5"
+											/>
+										)}
+										{!swapTokenSelector.receivedToken
+											? 'Select'
+											: swapTokenSelector.receivedToken}
 									</Input>
 								</Flex>
 							</InputGroup>
