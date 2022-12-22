@@ -15,15 +15,11 @@ import React, { useState } from 'react';
 import { BsArrowDownUp } from 'react-icons/bs';
 import { BiChevronDown } from 'react-icons/bi';
 import useTranslation from 'next-translate/useTranslation';
-import {
-	OffsetShadow,
-	WaitingConfirmation,
-	PaidTokenSelector,
-	ReceivedTokenSelector,
-} from 'components';
+import { OffsetShadow, WaitingConfirmation, TokenSelector } from 'components';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { swapTokensSchema } from 'utils';
+import { ISelectedCoin } from 'types';
 
 interface ISwapTokens {
 	youPay: string;
@@ -33,13 +29,12 @@ interface ISwapTokens {
 }
 
 export const SwapToken = () => {
-	const { swapTokenSelector } = useTokens();
-	const [swapTokensData, setSwapTokensData] = useState<ISwapTokens>({
-		youPay: '',
-		youReceive: '',
-		paidToken: swapTokenSelector.paidToken,
-		receivedToken: swapTokenSelector.receivedToken,
-	} as ISwapTokens);
+	const { setSwapTokenSelector, swapTokenSelector } = useTokens();
+
+	const [receivedData, setReceivedData] = useState<ISelectedCoin>(
+		{} as ISelectedCoin
+	);
+	const [paidData, setPaidData] = useState<ISelectedCoin>({} as ISelectedCoin);
 	const theme = usePicasso();
 	const isConnected = true;
 	const { t: translate } = useTranslation('swap-token');
@@ -58,19 +53,18 @@ export const SwapToken = () => {
 	const {
 		register,
 		handleSubmit,
-		formState: { errors },
+		formState: { errors, isDirty },
 	} = useForm<ISwapTokens>({
 		resolver: yupResolver(swapTokensSchema),
 	});
 
 	const handleSwapTokens = (swapTransaction: ISwapTokens) => {
-		setSwapTokensData({
-			youPay: swapTransaction.youPay,
-			youReceive: swapTransaction.youReceive,
-			paidToken: swapTokenSelector.paidToken,
-			receivedToken: swapTokenSelector.receivedToken,
+		setSwapTokenSelector({
+			paidAmount: swapTransaction.youPay,
+			receivedAmount: swapTransaction.youReceive,
+			paidToken: paidData.symbol,
+			receivedToken: receivedData.symbol,
 		});
-		console.log(swapTokensData);
 	};
 
 	return (
@@ -87,13 +81,16 @@ export const SwapToken = () => {
 					gap="4"
 				>
 					<WaitingConfirmation isOpen={isOpen} onClose={onClose} />
-					<PaidTokenSelector
-						isOpen={isOpenPaidTokenSelector}
+
+					<TokenSelector
 						onClose={onClosePaidTokenSelector}
+						isOpen={isOpenPaidTokenSelector}
+						setToken={setPaidData}
 					/>
-					<ReceivedTokenSelector
-						isOpen={isOpenReceivedTokenSelector}
+					<TokenSelector
 						onClose={onCloseReceivedTokenSelector}
+						isOpen={isOpenReceivedTokenSelector}
+						setToken={setReceivedData}
 					/>
 					<Flex gap="3" align="center" w="full" px="6">
 						<Icon as={BsArrowDownUp} color="white" boxSize="5" />
@@ -130,13 +127,6 @@ export const SwapToken = () => {
 									disabled={!isConnected}
 									_hover={{ focus: 'none' }}
 									{...register('youPay')}
-									onChange={youPay =>
-										setSwapTokensData(prevState => ({
-											...prevState,
-											youPay: youPay.target.value,
-											youReceive: youPay.target.value,
-										}))
-									}
 								/>
 								<Flex>
 									<Input
@@ -151,12 +141,8 @@ export const SwapToken = () => {
 										onClick={onOpenPaidTokenSelector}
 										gap="2"
 									>
-										{swapTokenSelector.paidTokenIcon && (
-											<Img src={swapTokenSelector.paidTokenIcon} boxSize="5" />
-										)}
-										{!swapTokenSelector.paidToken
-											? 'Select'
-											: swapTokenSelector.paidToken}
+										{paidData.logo && <Img src={paidData.logo} boxSize="5" />}
+										{!paidData.symbol ? 'Select' : paidData.symbol}
 									</Input>
 								</Flex>
 							</InputGroup>
@@ -176,7 +162,6 @@ export const SwapToken = () => {
 							>
 								<Input
 									{...register('youReceive')}
-									value={swapTokensData.youPay}
 									placeholder="0"
 									disabled={!isConnected}
 									_hover={{ focus: 'none' }}
@@ -195,15 +180,10 @@ export const SwapToken = () => {
 										onClick={onOpenReceivedTokenSelector}
 										gap="2"
 									>
-										{swapTokenSelector.receivedTokenIcon && (
-											<Img
-												src={swapTokenSelector.receivedTokenIcon}
-												boxSize="5"
-											/>
+										{receivedData.logo && (
+											<Img src={receivedData.logo} boxSize="5" />
 										)}
-										{!swapTokenSelector.receivedToken
-											? 'Select'
-											: swapTokenSelector.receivedToken}
+										{!receivedData.symbol ? 'Select' : receivedData.symbol}
 									</Input>
 								</Flex>
 							</InputGroup>
@@ -255,11 +235,7 @@ export const SwapToken = () => {
 							<Button
 								position="relative"
 								type="submit"
-								disabled={
-									swapTokensData.youPay === '' ||
-									swapTokenSelector.paidToken === 'Select' ||
-									swapTokenSelector.receivedToken === 'Select'
-								}
+								disabled={!isDirty || !paidData.symbol || !receivedData.symbol}
 								_disabled={{
 									color: 'black',
 									bg: '#EDF2F7',

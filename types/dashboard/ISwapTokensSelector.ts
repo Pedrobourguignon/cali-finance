@@ -3,6 +3,4 @@ export interface ISwapTokenSelector {
 	receivedAmount: string;
 	paidToken: string;
 	receivedToken: string;
-	paidTokenIcon: string;
-	receivedTokenIcon: string;
 }

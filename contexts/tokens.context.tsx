@@ -29,11 +29,9 @@ export const TokensProvider: React.FC<{ children: React.ReactNode }> = ({
 	const [swapTokenSelector, setSwapTokenSelector] =
 		useState<ISwapTokenSelector>({
 			paidAmount: '',
+			paidToken: '',
 			receivedAmount: '',
-			paidToken: 'Select',
-			receivedToken: 'Select',
-			paidTokenIcon: '',
-			receivedTokenIcon: '',
+			receivedToken: '',
 		} as ISwapTokenSelector);
 
 	const getOneInchTokens = async () => {
