@@ -1,13 +1,9 @@
 import { Flex, Text, useDisclosure } from '@chakra-ui/react';
 import { WithdrawButton, TokenSelector, WithdrawContent } from 'components';
-import { usePicasso, useTokens } from 'hooks';
+import { usePicasso } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
 import { useState } from 'react';
-
-export interface ISelectedCoin {
-	logo: string;
-	symbol: string;
-}
+import { ISelectedCoin } from 'types';
 
 export const WithdrawCard = () => {
 	const theme = usePicasso();
