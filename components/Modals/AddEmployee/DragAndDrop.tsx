@@ -1,22 +1,29 @@
-import { Flex, Img, Text } from '@chakra-ui/react';
+import { Flex, Icon, Text } from '@chakra-ui/react';
 import { usePicasso } from 'hooks';
 import React, { useState } from 'react';
 import { FileUploader } from 'react-drag-drop-files';
+import { GrDocumentUpload } from 'react-icons/gr';
+import { IUploadedFile } from 'types';
 
-const fileTypes = ['JPG', 'PNG', 'SVG', 'JPEG'];
+const fileTypes = ['CSV'];
 
-interface IFile extends Blob {
+interface IFileDrag extends Blob {
 	name: string;
 	size: number;
 	type: string;
 }
 
-export const DragDrop = () => {
+interface IDragAndDrop {
+	setUploadedFileData: React.Dispatch<React.SetStateAction<IUploadedFile>>;
+}
+
+export const DragAndDrop: React.FC<IDragAndDrop> = ({
+	setUploadedFileData,
+}) => {
 	const theme = usePicasso();
 	const [sizeIsValid, setSizeIsValid] = useState(true);
-	const [fileLink, setFileLink] = useState('/images/add-image.png');
 
-	const loadFile = (file: IFile) => {
+	const loadFile = (file: IFileDrag) => {
 		const newFile = new FileReader();
 		const size = file?.size;
 		if (!size || size > 5000000) {
@@ -33,18 +40,23 @@ export const DragDrop = () => {
 				file: event.target?.result,
 				ext,
 			};
-			if (base64File.file) {
-				setFileLink(base64File.file.toString());
-			} else {
-				setFileLink('/images/add-image.png');
-			}
+			setUploadedFileData(base64File);
 		};
 	};
 
 	return (
 		<Flex direction="column" align="center" gap="4">
 			<FileUploader handleChange={loadFile} name="file" types={fileTypes}>
-				<Img boxSize="40" objectFit="contain" src={fileLink} />
+				<Flex
+					cursor="pointer"
+					borderRadius="base"
+					p="14"
+					border="1px solid"
+					borderColor="blackAlpha.200"
+					bg="gray.50"
+				>
+					<Icon as={GrDocumentUpload} boxSize="10" />
+				</Flex>
 			</FileUploader>
 			{!sizeIsValid && (
 				<Flex bg="red.100" w="100%" py="2" pl="2.5" borderRadius="base">

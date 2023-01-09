@@ -19,6 +19,7 @@ import { BsArrowDownUp } from 'react-icons/bs';
 import { BiChevronDown } from 'react-icons/bi';
 import useTranslation from 'next-translate/useTranslation';
 import { OffsetShadow, WaitingConfirmation } from 'components';
+import { navigationPaths } from 'utils';
 
 export const SwapToken = () => {
 	const theme = usePicasso();
@@ -154,7 +155,7 @@ export const SwapToken = () => {
 					<Text>-</Text>
 				</Flex>
 			</Flex>
-			<Link href="/dashboard">
+			<Link href={navigationPaths.dashboard.home}>
 				<Flex justify="center">
 					<OffsetShadow
 						borderColor="white"

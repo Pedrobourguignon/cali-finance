@@ -23,7 +23,7 @@ export const OrganizationsProvider: React.FC<{ children: React.ReactNode }> = ({
 			teams: ['marketing'],
 			description: 'sahudahsadsa',
 			logo: '',
-			socialMedia: [
+			socialMedias: [
 				{
 					instagram: '@kyliecosmetics',
 					telegram: 't/kyliecosmetics',
@@ -42,7 +42,7 @@ export const OrganizationsProvider: React.FC<{ children: React.ReactNode }> = ({
 			teams: ['marketing'],
 			description: 'sahudahsadsa',
 			logo: '',
-			socialMedia: [
+			socialMedias: [
 				{
 					instagram: '@kylieskin',
 					telegram: 't/kylieskin',
@@ -60,7 +60,7 @@ export const OrganizationsProvider: React.FC<{ children: React.ReactNode }> = ({
 			teams: ['marketing'],
 			description: 'sahudahsadsa',
 			logo: '',
-			socialMedia: [
+			socialMedias: [
 				{
 					instagram: '@kyliebaby',
 					telegram: 't/kyliebaby',
@@ -77,7 +77,7 @@ export const OrganizationsProvider: React.FC<{ children: React.ReactNode }> = ({
 			coin: 'USDT',
 			date: '08 Aug 22, 20:57',
 			status: 'Completed',
-			value: 100063.0,
+			value: 100063,
 		},
 		{
 			name: 'Kylie Skin',
@@ -85,7 +85,7 @@ export const OrganizationsProvider: React.FC<{ children: React.ReactNode }> = ({
 			coin: 'USDT',
 			date: '08 Aug 22, 20:57',
 			status: 'Completed',
-			value: 19.636,
+			value: 19636,
 		},
 		{
 			name: 'Kylie Baby',
@@ -93,7 +93,7 @@ export const OrganizationsProvider: React.FC<{ children: React.ReactNode }> = ({
 			coin: 'USDT',
 			date: '08 Aug 22, 20:57',
 			status: 'Completed',
-			value: 10.0,
+			value: 10,
 		},
 	]);
 	const totalFunds = organizations

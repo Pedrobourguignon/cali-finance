@@ -8,6 +8,6 @@ export interface IOrganization {
 	members: number;
 	logo: string;
 	description?: string;
-	socialMedia: ISocialMedia[];
+	socialMedias: ISocialMedia[];
 	teams: [string];
 }
