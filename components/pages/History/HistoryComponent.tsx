@@ -8,7 +8,7 @@ import {
 	Button,
 } from '@chakra-ui/react';
 import {
-	LifeIsEasierBannner,
+	LifeIsEasierBanner,
 	CreateAccountBanner,
 	HistorySkeletons,
 	DisplayedNotifications,
@@ -69,7 +69,7 @@ export const HistoryComponent: React.FC<IHistoryPage> = ({ history }) => {
 
 	return (
 		<AppLayout
-			right={isConnected ? <LifeIsEasierBannner /> : <CreateAccountBanner />}
+			right={isConnected ? <LifeIsEasierBanner /> : <CreateAccountBanner />}
 		>
 			<Flex direction="column" gap="5" p="6">
 				<Flex direction="column" gap="2" w={layoutLimit}>
