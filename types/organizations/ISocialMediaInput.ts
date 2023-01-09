@@ -6,7 +6,7 @@ export interface ISocialMediaInput {
 		| 'email'
 		| 'network'
 		| 'logo'
-		| 'socialMedia'
+		| 'socialMedias'
 		| 'type.label'
 		| 'type.value'
 		| 'network.label'

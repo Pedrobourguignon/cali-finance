@@ -24,31 +24,31 @@ const organizations: INewOrganization = {
 
 const socialLinks: ISocialMediaInput[] = [
 	{
-		name: 'socialMedia.website',
+		name: 'socialMedias.website',
 		imgSrc: '/icons/globe.svg',
 		placeHolder: 'website.io',
 		link: organizations.socialMedias[0].website,
 	},
 	{
-		name: 'socialMedia.instagram',
+		name: 'socialMedias.instagram',
 		imgSrc: '/icons/instagram.svg',
 		placeHolder: 'instagram.com/company',
 		link: organizations.socialMedias[0].instagram,
 	},
 	{
-		name: 'socialMedia.twitter',
+		name: 'socialMedias.twitter',
 		imgSrc: '/icons/twitter.svg',
 		placeHolder: 'twitter.com/company',
 		link: organizations.socialMedias[0].twitter,
 	},
 	{
-		name: 'socialMedia.telegram',
+		name: 'socialMedias.telegram',
 		imgSrc: '/icons/telegram.svg',
 		placeHolder: 't.me/company',
 		link: organizations.socialMedias[0].telegram,
 	},
 	{
-		name: 'socialMedia.medium',
+		name: 'socialMedias.medium',
 		imgSrc: '/icons/m-letter.svg',
 		placeHolder: 'Medium',
 		link: '',
