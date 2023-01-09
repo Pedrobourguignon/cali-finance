@@ -1,4 +1,3 @@
-/* eslint-disable react/no-children-prop */
 import {
 	Button,
 	Flex,
@@ -11,9 +10,9 @@ import {
 	MenuList,
 	Text,
 	useDisclosure,
+	Link,
 } from '@chakra-ui/react';
 import { usePicasso } from 'hooks';
-import Link from 'next/link';
 import React from 'react';
 import { BsArrowDownUp } from 'react-icons/bs';
 import { BiChevronDown } from 'react-icons/bi';

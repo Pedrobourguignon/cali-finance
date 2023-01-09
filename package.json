@@ -9,7 +9,7 @@
 		"lint": "next lint",
 		"lint:fix": "eslint --fix --ext .ts,.tsx .",
 		"format": "prettier --write \"**/*.{ts,tsx,.json,.scss,.css}\"",
-		"prepare": "husky install"
+		"prepare": "git submodule init && git submodule update --remote && yarn husky install"
 	},
 	"dependencies": {
 		"@chakra-ui/icons": "^2.0.13",
@@ -20,6 +20,7 @@
 		"@types/lodash.debounce": "^4.0.7",
 		"axios": "^0.27.2",
 		"chakra-react-select": "^4.4.0",
+		"fastify": "^4.10.2",
 		"framer-motion": "7",
 		"lodash.debounce": "^4.0.8",
 		"next": "12.2.4",

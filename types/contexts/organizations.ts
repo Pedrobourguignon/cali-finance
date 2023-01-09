@@ -10,4 +10,5 @@ export interface IOrganization {
 	description?: string;
 	socialMedias: ISocialMedia[];
 	teams: [string];
+	selectedNetwork?: string;
 }

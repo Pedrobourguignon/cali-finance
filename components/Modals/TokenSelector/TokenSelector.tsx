@@ -34,8 +34,9 @@ export const TokenSelector: React.FC<IBasicModal> = ({ isOpen, onClose }) => {
 		onClose();
 	};
 
-	const handleOnClick = (symbol: string) => {
-		setChosenToken(symbol);
+	const handleOnClick = (name: string, logoURI: string) => {
+		const chosedToken = { symbol: name, logo: logoURI };
+		setChosenToken(chosedToken);
 		handleOnClose();
 	};
 
@@ -96,7 +97,9 @@ export const TokenSelector: React.FC<IBasicModal> = ({ isOpen, onClose }) => {
 							<TokenOptions
 								key={+index}
 								token={token}
-								onClick={() => handleOnClick(token.name.toLowerCase())}
+								onClick={() =>
+									handleOnClick(token.symbol.toLowerCase(), token.logoURI)
+								}
 							/>
 						))}
 					</Flex>

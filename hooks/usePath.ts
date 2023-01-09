@@ -4,7 +4,6 @@ export const usePath = () => {
 	const { pathname } = useRouter();
 
 	const isSamePath = (path: string) => pathname === path;
-
 	return {
 		pathname,
 		isSamePath,

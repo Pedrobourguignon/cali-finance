@@ -1,7 +1,7 @@
-import { Button, Flex, Img, Text } from '@chakra-ui/react';
-import { usePath, usePicasso } from 'hooks';
+import { Flex, Img, Text, useDisclosure, Link } from '@chakra-ui/react';
+import { useOrganizations, usePath, usePicasso } from 'hooks';
 import { navigationPaths } from 'utils';
-import NextLink from 'next/link';
+import { NavigationBack, NotificationPopover } from 'components';
 
 const menuOptions = [
 	{ name: 'Overview', route: navigationPaths.dashboard.organizations.overview },
@@ -18,9 +18,23 @@ const organizationData = {
 export const OrganizationsHeader = () => {
 	const theme = usePicasso();
 	const { isSamePath } = usePath();
+	const { setNotificationsList, notificationsList } = useOrganizations();
+	const { onClose, isOpen, onOpen } = useDisclosure();
 
 	return (
-		<Flex direction="column" color={theme.text.primary} p="6" w="100%" gap="7">
+		<Flex direction="column" color={theme.text.primary} px="6" w="100%" gap="7">
+			<Flex w="100%" justify="space-between">
+				<NavigationBack href={navigationPaths.dashboard.organizations.home}>
+					Back to Organizations
+				</NavigationBack>
+				<NotificationPopover
+					setNotificationsList={setNotificationsList}
+					onClose={onClose}
+					isOpen={isOpen}
+					onOpen={onOpen}
+					notificationsList={notificationsList}
+				/>
+			</Flex>
 			<Flex w="100%" justify="space-between" align="center">
 				<Flex gap="3" align="center" w="72">
 					<Img src={organizationData.logo} boxSize="20" />
@@ -30,7 +44,7 @@ export const OrganizationsHeader = () => {
 					<Text fontSize="xl">${organizationData.totalFunds}</Text>
 					<Text fontSize="sm">Total Funds</Text>
 				</Flex>
-				<NextLink href={navigationPaths.dashboard.organizations.editOrg}>
+				<Link href={navigationPaths.dashboard.organizations.editOrg}>
 					<Text
 						borderRadius="base"
 						px="5"
@@ -42,14 +56,20 @@ export const OrganizationsHeader = () => {
 					>
 						Edit Informations
 					</Text>
-				</NextLink>
+				</Link>
 			</Flex>
 			<Flex align="center" justify="space-between">
 				<Flex>
 					{menuOptions.map((menuOption, index) => {
 						const comparedPath = isSamePath(menuOption.route);
 						return (
-							<NextLink key={+index} href={menuOption.route}>
+							<Link
+								key={+index}
+								href={menuOption.route}
+								_hover={{
+									textDecoration: 'none',
+								}}
+							>
 								<Text
 									color={theme.text.primary}
 									cursor="pointer"
@@ -65,7 +85,7 @@ export const OrganizationsHeader = () => {
 								>
 									{menuOption.name}
 								</Text>
-							</NextLink>
+							</Link>
 						);
 					})}
 				</Flex>

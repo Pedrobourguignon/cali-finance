@@ -17,7 +17,6 @@ import { INotificationPopover } from 'types';
 
 export const NotificationPopover: React.FC<INotificationPopover> = ({
 	notificationsList,
-	notificationNumber,
 	setNotificationsList,
 	onClose,
 	isOpen,
@@ -37,7 +36,7 @@ export const NotificationPopover: React.FC<INotificationPopover> = ({
 					<Icon
 						as={notificationsList.length > 0 ? VscBellDot : VscBell}
 						boxSize="6"
-						color={{ xs: 'white', sm: 'black' }}
+						color="black"
 					/>
 				</Button>
 			</PopoverTrigger>
@@ -45,7 +44,7 @@ export const NotificationPopover: React.FC<INotificationPopover> = ({
 				<PopoverBody bg="white" borderRadius="base">
 					<Flex fontSize="sm" py="3" bg="white">
 						<Text fontSize="md" fontWeight="medium" px="1" color="black">
-							{notificationNumber} pending notifications
+							{notificationsList.length} pending notifications
 						</Text>
 
 						<PopoverCloseButton
@@ -88,7 +87,6 @@ export const NotificationPopover: React.FC<INotificationPopover> = ({
 								color="white"
 								borderRadius="base"
 								align="center"
-								cursor="pointer"
 								px="3"
 							>
 								<Flex gap="2" align="center" py="1" w="full">

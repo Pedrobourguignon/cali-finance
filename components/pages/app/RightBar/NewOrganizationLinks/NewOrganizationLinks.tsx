@@ -1,9 +1,13 @@
-/* eslint-disable no-nested-ternary */
-import { Flex, FormControl, Img } from '@chakra-ui/react';
-import { usePicasso } from 'hooks';
+import { Flex, Img } from '@chakra-ui/react';
+import { useOrganizations, usePicasso } from 'hooks';
 import { handleLogoImage } from 'utils';
 import { ImageUploader, SocialMediaInput } from 'components';
-import { INewOrganization, ISocialMediaInput } from 'types';
+import {
+	INewOrganization,
+	ISocialMediaInput,
+	ICreateOrganization,
+} from 'types';
+import { Control } from 'react-hook-form';
 
 const organizations: INewOrganization = {
 	name: '',
@@ -20,28 +24,33 @@ const organizations: INewOrganization = {
 
 const socialLinks: ISocialMediaInput[] = [
 	{
+		name: 'socialMedia.website',
 		imgSrc: '/icons/globe.svg',
 		placeHolder: 'website.io',
 		link: organizations.socialMedias[0].website,
 	},
 	{
+		name: 'socialMedia.instagram',
 		imgSrc: '/icons/instagram.svg',
 		placeHolder: 'instagram.com/company',
 		link: organizations.socialMedias[0].instagram,
 	},
 	{
+		name: 'socialMedia.twitter',
 		imgSrc: '/icons/twitter.svg',
 		placeHolder: 'twitter.com/company',
 		link: organizations.socialMedias[0].twitter,
 	},
 	{
+		name: 'socialMedia.telegram',
 		imgSrc: '/icons/telegram.svg',
 		placeHolder: 't.me/company',
 		link: organizations.socialMedias[0].telegram,
 	},
 	{
+		name: 'socialMedia.medium',
 		imgSrc: '/icons/m-letter.svg',
-		placeHolder: 'Placeholder',
+		placeHolder: 'Medium',
 		link: '',
 	},
 ];
@@ -69,8 +78,11 @@ const OrganizationLogo: React.FC<{ org: INewOrganization }> = ({ org }) => {
 	return <Img src="/images/work.png" boxSize="20" borderRadius="base" />;
 };
 
-export const NewOrganizationLinks = () => {
+export const NewOrganizationLinks: React.FC<{
+	control: Control<ICreateOrganization>;
+}> = ({ control }) => {
 	const theme = usePicasso();
+
 	return (
 		<Flex direction="column" w="max-content" zIndex="docked">
 			<Flex
@@ -88,15 +100,15 @@ export const NewOrganizationLinks = () => {
 					<ImageUploader />
 				</Flex>
 				<Flex>
-					<form>
-						<FormControl>
-							<Flex direction="column" gap="4" minW="72">
-								{socialLinks.map((socialLink, index) => (
-									<SocialMediaInput socialLink={socialLink} key={+index} />
-								))}
-							</Flex>
-						</FormControl>
-					</form>
+					<Flex direction="column" gap="4" minW="72">
+						{socialLinks.map((socialLink, index) => (
+							<SocialMediaInput
+								socialLink={socialLink}
+								key={+index}
+								control={control}
+							/>
+						))}
+					</Flex>
 				</Flex>
 			</Flex>
 		</Flex>

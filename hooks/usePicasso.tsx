@@ -10,6 +10,7 @@ const usePicasso = () => {
 			green: useColorModeValue('#9B93AB', '#2ECC71'),
 			red: useColorModeValue('#9B93AB', '#E17055'),
 			black: useColorModeValue('#010D0C', '#010D0C'),
+			black3: '#0F0F0F',
 			primary: '#121212',
 			black2: useColorModeValue('#1A202C', '#1A202C'),
 		},
@@ -40,6 +41,9 @@ const usePicasso = () => {
 				'linear-gradient(178.33deg, #FFFFFF 19.26%, rgba(255, 255, 255, 0) 142.45%);',
 			select: '#191919',
 			dashboard: '#EDF2F7',
+		},
+		sizes: {
+			menuItem: '11.875rem',
 		},
 	};
 
