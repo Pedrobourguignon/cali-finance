@@ -4,7 +4,7 @@ import { FiInstagram, FiLinkedin, FiTwitter } from 'react-icons/fi';
 import { InfosBanner } from 'components';
 import { socialMediaLinks } from 'utils';
 
-export const LifeIsEasierBannner = () => {
+export const LifeIsEasierBanner = () => {
 	const theme = usePicasso();
 	return (
 		<InfosBanner height="39.313rem" position="absolute">

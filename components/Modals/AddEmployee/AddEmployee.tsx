@@ -37,7 +37,7 @@ export const AddEmployee: React.FC<IAddEmployee> = ({
 }) => {
 	const [selectedTab, setSelectedTab] = useState('Add individually');
 	const [amountInDollar, setAmountInDollar] = useState<number>(0);
-	const [bitcoinPrice] = useState(87.586);
+	const bitcoinPrice = 87.586;
 
 	const theme = usePicasso();
 	const { t: translate } = useTranslation('swap-token');

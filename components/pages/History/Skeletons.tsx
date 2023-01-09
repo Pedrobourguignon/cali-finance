@@ -5,7 +5,7 @@ interface ISkeleton {
 	display: 'flex' | 'none';
 }
 
-export const Skeletons: React.FC<ISkeleton> = ({ display }) => (
+export const HistorySkeletons: React.FC<ISkeleton> = ({ display }) => (
 	<Flex
 		bg="white"
 		p="3"
@@ -37,4 +37,4 @@ export const Skeletons: React.FC<ISkeleton> = ({ display }) => (
 	</Flex>
 );
 
-export default Skeletons;
+export default HistorySkeletons;
