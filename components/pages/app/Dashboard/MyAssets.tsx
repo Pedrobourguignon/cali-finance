@@ -1,13 +1,13 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { Button, Flex, Img, Text } from '@chakra-ui/react';
 import { OffsetShadow } from 'components';
 import useTranslation from 'next-translate/useTranslation';
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { IAssetsOptions } from 'types';
 
 interface IMyAssetsFullList {
 	listLength: number;
 	buttonText: string;
-	offSetShadowHeight: string;
 }
 
 const assetsOptions: IAssetsOptions[] = [
@@ -59,30 +59,35 @@ export const MyAssets = () => {
 	const [myAssetsFullList, setMyAssetsFullList] = useState<IMyAssetsFullList>({
 		listLength: 3,
 		buttonText: 'See all',
-		offSetShadowHeight: '15rem',
 	});
 	const { t: translate } = useTranslation('dashboard');
+
+	const ref = useRef<HTMLDivElement>(null);
+	const [flexHeight, setFlexHeight] = useState(239);
+
+	useEffect(() => {
+		setFlexHeight(ref.current!.clientHeight);
+	}, [myAssetsFullList.listLength]);
 
 	const fullList = () => {
 		if (myAssetsFullList.listLength === 3) {
 			setMyAssetsFullList({
 				listLength: assetsOptions.length,
 				buttonText: 'See less',
-				offSetShadowHeight: '28.5rem',
 			});
 		} else {
 			setMyAssetsFullList({
 				listLength: 3,
-				buttonText: 'See more',
-				offSetShadowHeight: '15rem',
+				buttonText: 'See all',
 			});
+			setFlexHeight(ref.current!.clientHeight);
 		}
 	};
 
 	return (
 		<OffsetShadow
 			width="23.5rem"
-			height={myAssetsFullList.offSetShadowHeight}
+			height={flexHeight}
 			borderColor="black"
 			top="3"
 			left="3"
@@ -95,6 +100,7 @@ export const MyAssets = () => {
 				border="1px solid"
 				borderColor="black"
 				h="max-content"
+				ref={ref}
 			>
 				<Flex
 					direction="column"
@@ -118,6 +124,7 @@ export const MyAssets = () => {
 							cursor="pointer"
 							color="gray.500"
 							p="0"
+							pb="4"
 							onClick={() => fullList()}
 						>
 							{myAssetsFullList.buttonText}
