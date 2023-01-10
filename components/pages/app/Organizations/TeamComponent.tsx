@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 import {
 	Button,
 	CircularProgress,
@@ -54,7 +55,7 @@ export const TeamComponent = () => {
 
 	useEffect(() => {
 		setTeamPicture(teamData.photo);
-	}, []);
+	}, [setTeamPicture, teamData.photo]);
 
 	const handleEditTeam = useCallback(
 		(team: ITeamEdit) => {
@@ -65,7 +66,7 @@ export const TeamComponent = () => {
 				description: team.description,
 				picture: teamPicture,
 			});
-			setInterval(() => {
+			setTimeout(() => {
 				setShowSaving(false);
 				setShowSaved(true);
 			}, 15000);
@@ -184,7 +185,7 @@ export const TeamComponent = () => {
 											Funds
 										</Text>
 										<Text color={theme.text.primary} fontSize="sm">
-											${teamData.funds.toLocaleString('en-US')}
+											${teamData.funds?.toLocaleString('en-US')}
 										</Text>
 									</Flex>
 									<Flex direction="column">
@@ -200,13 +201,31 @@ export const TeamComponent = () => {
 											Withdrawals this month
 										</Text>
 										<Text color={theme.text.primary} fontSize="sm">
-											${teamData.withdrawals.toLocaleString('en-US')}
+											${teamData.withdrawals?.toLocaleString('en-US')}
 										</Text>
 									</Flex>
 								</Flex>
 							</Flex>
 							<Flex w="full">
-								{editable ? (
+								{teamData.description ? (
+									editable ? (
+										<Input
+											_focusVisible={{}}
+											placeholder="You can insert team’s description here if you want to."
+											defaultValue={
+												teamData.description && teamData.description
+											}
+											_placeholder={{ fontSize: 'md', color: 'gray.500' }}
+											border="none"
+											color={theme.text.primary}
+											p="0"
+											{...register('description')}
+											onBlur={handleFinishEdit}
+										/>
+									) : (
+										<Text fontSize="sm">{teamData.description}</Text>
+									)
+								) : (
 									<Input
 										_focusVisible={{}}
 										placeholder="You can insert team’s description here if you want to."
@@ -218,14 +237,12 @@ export const TeamComponent = () => {
 										{...register('description')}
 										onBlur={handleFinishEdit}
 									/>
-								) : (
-									<Text fontSize="sm">{teamData.description}</Text>
 								)}
 							</Flex>
 						</Flex>
 						<Flex direction="column" gap="12">
 							<EmployeesDashboard
-								employees={teamData.employees}
+								employees={teamData?.employees}
 								isGeneral={false}
 							/>
 

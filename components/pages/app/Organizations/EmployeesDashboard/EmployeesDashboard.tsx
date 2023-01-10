@@ -26,7 +26,7 @@ export const EmployeesDashboard: React.FC<IEmployeeDashboard> = ({
 			/>
 			<Flex justify="space-between" w="100%" align="center">
 				<Flex fontWeight="medium" gap="1">
-					<Text>{employees.length}</Text>
+					<Text>{employees?.length}</Text>
 					<Text>Employees</Text>
 				</Flex>
 				<Flex gap="8" align="center">
@@ -63,7 +63,7 @@ export const EmployeesDashboard: React.FC<IEmployeeDashboard> = ({
 					<Text w="24">Amount</Text>
 				</Flex>
 				<Flex direction="column" gap="2">
-					{employees.slice(0, 3).map((employee, index) => (
+					{employees?.slice(0, 3).map((employee, index) => (
 						<EmployeeData
 							key={+index}
 							employee={employee}

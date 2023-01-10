@@ -2,6 +2,7 @@ import {
 	createContext,
 	Dispatch,
 	SetStateAction,
+	useEffect,
 	useMemo,
 	useState,
 } from 'react';
@@ -87,7 +88,7 @@ export const TeamsProvider: React.FC<{ children: React.ReactNode }> = ({
 	]);
 	const [teamData, setTeamData] = useState<ITeam>({} as ITeam);
 
-	useMemo(() => {
+	useEffect(() => {
 		setTeams([
 			{
 				id: 1,
@@ -116,7 +117,7 @@ export const TeamsProvider: React.FC<{ children: React.ReactNode }> = ({
 		]);
 	}, []);
 
-	useMemo(() => {
+	useEffect(() => {
 		setTeamData({
 			name: 'Marketing',
 			funds: 2234.05,
