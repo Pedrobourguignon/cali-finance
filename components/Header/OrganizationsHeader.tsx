@@ -3,18 +3,22 @@ import { useOrganizations, usePath, usePicasso } from 'hooks';
 import { navigationPaths } from 'utils';
 import { NavigationBack, NotificationPopover } from 'components';
 
-const menuOptions = [
-	{ name: 'Overview', route: navigationPaths.dashboard.organizations.overview },
-	{ name: 'Teams', route: navigationPaths.dashboard.organizations.teams },
-	{ name: 'Funds', route: navigationPaths.dashboard.organizations.funds },
-];
-
 const organizationData = {
 	name: 'Kylie Cosmetics Super Extra',
 	logo: '/images/kylie-cosmetics-logo.png',
 	totalFunds: '67,986.09',
 	network: { name: 'Ethereum', logo: '/images/eth.png' },
 };
+
+const menuOptions = [
+	{
+		name: 'Overview',
+		route: navigationPaths.dashboard.organizations.overview('1'),
+	},
+	{ name: 'Teams', route: navigationPaths.dashboard.organizations.teams('1') },
+	{ name: 'Funds', route: navigationPaths.dashboard.organizations.funds('1') },
+];
+
 export const OrganizationsHeader = () => {
 	const theme = usePicasso();
 	const { isSamePath } = usePath();
@@ -44,7 +48,7 @@ export const OrganizationsHeader = () => {
 					<Text fontSize="xl">${organizationData.totalFunds}</Text>
 					<Text fontSize="sm">Total Funds</Text>
 				</Flex>
-				<Link href={navigationPaths.dashboard.organizations.editOrg}>
+				<Link href={navigationPaths.dashboard.organizations.editOrg('1')}>
 					<Text
 						borderRadius="base"
 						px="5"
@@ -78,7 +82,7 @@ export const OrganizationsHeader = () => {
 									fontSize="sm"
 									fontWeight={comparedPath ? 'semibold' : 'normal'}
 									borderRadius="none"
-									borderBottomWidth={comparedPath ? '0.125rem' : '0rem'}
+									borderBottomWidth="0.125rem"
 									borderBottomColor={
 										comparedPath ? theme.bg.primary : 'transparent'
 									}

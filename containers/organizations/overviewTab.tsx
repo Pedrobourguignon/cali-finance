@@ -11,21 +11,24 @@ import { navigationPaths, layoutLimit } from 'utils';
 
 const teams = [
 	{
+		id: 1,
 		name: 'Marketing',
 		logo: '/images/team1.png',
-		funds: '2,234.05',
+		balance: 2234.05,
 		members: 27,
 	},
 	{
+		id: 2,
 		name: 'Sales',
 		logo: '/images/team2.png',
-		funds: '92,234.11',
+		balance: 92234.11,
 		members: 170,
 	},
 	{
+		id: 3,
 		name: 'Finance',
 		logo: '/images/team3.png',
-		funds: '5,234.11',
+		balance: 5234.11,
 		members: 13,
 	},
 ];
@@ -53,7 +56,7 @@ export const OverviewTab = () => {
 							Teams
 						</Text>
 						<Link
-							href={navigationPaths.dashboard.organizations.teams}
+							href={navigationPaths.dashboard.organizations.teams('1')}
 							color="gray.500"
 							fontWeight="medium"
 							fontSize="xs"

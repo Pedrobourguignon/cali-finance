@@ -4,5 +4,5 @@ export interface IEmployee {
 	photo: string;
 	amount: number;
 	coin: string;
-	team: string;
+	team?: string;
 }
