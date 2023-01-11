@@ -119,8 +119,8 @@ export const MyAssets = () => {
 							</Text>
 						</Flex>
 						<Button
-							fontWeight="normal"
-							fontSize="sm"
+							fontWeight="medium"
+							fontSize="xs"
 							cursor="pointer"
 							color="gray.500"
 							p="0"
