@@ -55,7 +55,7 @@ export const EditOrganization = () => {
 							email={organizations[0].email}
 							selectedNetwork={organizations[0].selectedNetwork}
 							description={organizations[0].description}
-							socialMedia={organizations[0].socialMedia[0]}
+							socialMedias={organizations[0].socialMedias[0]}
 						/>
 					</Flex>
 				</AppLayout>

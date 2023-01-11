@@ -8,9 +8,9 @@ import {
 	Button,
 } from '@chakra-ui/react';
 import {
-	LifeIsEasierBannner,
+	LifeIsEasierBanner,
 	CreateAccountBanner,
-	Skeletons,
+	HistorySkeletons,
 	DisplayedNotifications,
 } from 'components';
 import { usePicasso } from 'hooks';
@@ -69,7 +69,7 @@ export const HistoryComponent: React.FC<IHistoryPage> = ({ history }) => {
 
 	return (
 		<AppLayout
-			right={isConnected ? <LifeIsEasierBannner /> : <CreateAccountBanner />}
+			right={isConnected ? <LifeIsEasierBanner /> : <CreateAccountBanner />}
 		>
 			<Flex direction="column" gap="5" p="6">
 				<Flex direction="column" gap="2" w={layoutLimit}>
@@ -138,7 +138,7 @@ export const HistoryComponent: React.FC<IHistoryPage> = ({ history }) => {
 							</MenuList>
 						</Menu>
 					</Flex>
-					<Skeletons display={shouldntDisplay} />
+					<HistorySkeletons display={shouldntDisplay} />
 					<Flex
 						direction="column"
 						gap="2"

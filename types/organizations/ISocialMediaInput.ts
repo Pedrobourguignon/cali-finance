@@ -6,17 +6,17 @@ export interface ISocialMediaInput {
 		| 'email'
 		| 'network'
 		| 'logo'
-		| 'socialMedia'
+		| 'socialMedias'
 		| 'type.label'
 		| 'type.value'
 		| 'network.label'
 		| 'network.value'
 		| 'network.icon'
-		| 'socialMedia.website'
-		| 'socialMedia.instagram'
-		| 'socialMedia.twitter'
-		| 'socialMedia.telegram'
-		| 'socialMedia.medium';
+		| 'socialMedias.website'
+		| 'socialMedias.instagram'
+		| 'socialMedias.twitter'
+		| 'socialMedias.telegram'
+		| 'socialMedias.medium';
 	imgSrc: string;
 	placeHolder: string;
 	link?: string;

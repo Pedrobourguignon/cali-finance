@@ -7,5 +7,5 @@ export interface ICreateOrganization {
 	network: { label: string; value: string; icon: string };
 	description?: string;
 	logo: string;
-	socialMedia: ISocialMedia;
+	socialMedias: ISocialMedia;
 }

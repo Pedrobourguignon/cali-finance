@@ -46,9 +46,7 @@ export const DragDrop = () => {
 			<FileUploader handleChange={loadFile} name="file" types={fileTypes}>
 				<Img boxSize="40" objectFit="contain" src={fileLink} />
 			</FileUploader>
-			{sizeIsValid ? (
-				''
-			) : (
+			{!sizeIsValid && (
 				<Flex bg="red.100" w="100%" py="2" pl="2.5" borderRadius="base">
 					<Text color={theme.text.primary} fontWeight="semibold" fontSize="sm">
 						The file is too large.

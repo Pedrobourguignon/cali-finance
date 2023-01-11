@@ -58,9 +58,7 @@ export const DragAndDrop: React.FC<IDragAndDrop> = ({
 					<Icon as={GrDocumentUpload} boxSize="10" />
 				</Flex>
 			</FileUploader>
-			{sizeIsValid ? (
-				''
-			) : (
+			{!sizeIsValid && (
 				<Flex bg="red.100" w="100%" py="2" pl="2.5" borderRadius="base">
 					<Text color={theme.text.primary} fontWeight="semibold" fontSize="sm">
 						The file is too large.

@@ -18,7 +18,6 @@ import { usePicasso, useTokens } from 'hooks';
 import { IBasicModal, ISelectedCoin } from 'types';
 import { TokenOptions } from 'components';
 import { IoIosSearch, IoMdArrowDown } from 'react-icons/io';
-import { useCallback } from 'react';
 
 interface ITokenSelector extends IBasicModal {
 	setToken: React.Dispatch<React.SetStateAction<ISelectedCoin>>;
@@ -33,10 +32,10 @@ export const TokenSelector: React.FC<ITokenSelector> = ({
 	const { setFilteredTokens, filteredTokens, handleSearchToken, listOfTokens } =
 		useTokens();
 
-	const handleOnClose = useCallback(() => {
+	const handleOnClose = () => {
 		setFilteredTokens(listOfTokens);
 		onClose();
-	}, [listOfTokens]);
+	};
 
 	const handleOnClick = (name: string, logoURI: string) => {
 		const chosedToken = {
