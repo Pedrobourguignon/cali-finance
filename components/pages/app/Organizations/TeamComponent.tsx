@@ -207,25 +207,7 @@ export const TeamComponent = () => {
 								</Flex>
 							</Flex>
 							<Flex w="full">
-								{teamData.description ? (
-									editable ? (
-										<Input
-											_focusVisible={{}}
-											placeholder="You can insert team’s description here if you want to."
-											defaultValue={
-												teamData.description && teamData.description
-											}
-											_placeholder={{ fontSize: 'md', color: 'gray.500' }}
-											border="none"
-											color={theme.text.primary}
-											p="0"
-											{...register('description')}
-											onBlur={handleFinishEdit}
-										/>
-									) : (
-										<Text fontSize="sm">{teamData.description}</Text>
-									)
-								) : (
+								{editable ? (
 									<Input
 										_focusVisible={{}}
 										placeholder="You can insert team’s description here if you want to."
@@ -237,6 +219,12 @@ export const TeamComponent = () => {
 										{...register('description')}
 										onBlur={handleFinishEdit}
 									/>
+								) : teamData.description ? (
+									<Text fontSize="sm">{teamData.description}</Text>
+								) : (
+									<Text fontSize="md" color="gray.500">
+										You can insert team’s description here if you want to.
+									</Text>
 								)}
 							</Flex>
 						</Flex>
