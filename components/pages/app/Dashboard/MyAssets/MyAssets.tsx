@@ -119,8 +119,8 @@ export const MyAssets = () => {
 							</Text>
 						</Flex>
 						<Button
-							fontWeight="medium"
-							fontSize="xs"
+							fontWeight="normal"
+							fontSize="sm"
 							cursor="pointer"
 							color="gray.500"
 							p="0"
@@ -130,10 +130,17 @@ export const MyAssets = () => {
 							{myAssetsFullList.buttonText}
 						</Button>
 					</Flex>
-					<Asset
-						assetsOptions={assetsOptions}
-						myAssetsFullList={myAssetsFullList}
-					/>
+					<Flex direction="column" px="4" gap="2" py="3">
+						{assetsOptions
+							.slice(0, myAssetsFullList.listLength)
+							.map((asset, index) => (
+								<Asset
+									assetsOptions={assetsOptions}
+									key={+index}
+									index={index}
+								/>
+							))}
+					</Flex>
 				</Flex>
 			</Flex>
 		</OffsetShadow>
