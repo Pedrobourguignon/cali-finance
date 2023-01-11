@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { Button, Flex, Img, Text } from '@chakra-ui/react';
 import { OffsetShadow } from 'components';
 import useTranslation from 'next-translate/useTranslation';
@@ -119,8 +118,8 @@ export const MyAssets = () => {
 							</Text>
 						</Flex>
 						<Button
-							fontWeight="normal"
-							fontSize="sm"
+							fontWeight="medium"
+							fontSize="xs"
 							cursor="pointer"
 							color="gray.500"
 							p="0"
