@@ -11,6 +11,7 @@ import { MdContentCopy } from 'react-icons/md';
 import { IEmployee } from 'types';
 import { truncateWallet } from 'utils';
 import { CopyAddressToast } from 'components';
+import useTranslation from 'next-translate/useTranslation';
 
 const teams = ['General', 'Marketing', 'Finance', 'Trozorba'];
 interface IEmployeeData {
@@ -22,6 +23,7 @@ export const EmployeeData: React.FC<IEmployeeData> = ({
 	display,
 }) => {
 	const toast = useToast();
+	const { t: translate } = useTranslation('create-team');
 
 	const handleCopyButton = () => {
 		navigator.clipboard.writeText(employee.wallet);
@@ -95,7 +97,7 @@ export const EmployeeData: React.FC<IEmployeeData> = ({
 					px="0"
 				>
 					<Text w="100%" align="end">
-						Edit
+						{translate('edit')}
 					</Text>
 				</Button>
 			</Flex>

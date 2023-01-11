@@ -2,12 +2,7 @@ import { Flex, Img, Text, useDisclosure, Link } from '@chakra-ui/react';
 import { useOrganizations, usePath, usePicasso } from 'hooks';
 import { navigationPaths } from 'utils';
 import { NavigationBack, NotificationPopover } from 'components';
-
-const menuOptions = [
-	{ name: 'Overview', route: navigationPaths.dashboard.organizations.overview },
-	{ name: 'Teams', route: navigationPaths.dashboard.organizations.teams },
-	{ name: 'Funds', route: navigationPaths.dashboard.organizations.funds },
-];
+import useTranslation from 'next-translate/useTranslation';
 
 const organizationData = {
 	name: 'Kylie Cosmetics Super Extra',
@@ -20,12 +15,28 @@ export const OrganizationsHeader = () => {
 	const { isSamePath } = usePath();
 	const { setNotificationsList, notificationsList } = useOrganizations();
 	const { onClose, isOpen, onOpen } = useDisclosure();
+	const { t: translate } = useTranslation('organization-overall');
+
+	const menuOptions = [
+		{
+			name: translate('overview'),
+			route: navigationPaths.dashboard.organizations.overview,
+		},
+		{
+			name: translate('teams'),
+			route: navigationPaths.dashboard.organizations.teams,
+		},
+		{
+			name: translate('funds'),
+			route: navigationPaths.dashboard.organizations.funds,
+		},
+	];
 
 	return (
 		<Flex direction="column" color={theme.text.primary} px="6" w="100%" gap="7">
 			<Flex w="100%" justify="space-between">
 				<NavigationBack href={navigationPaths.dashboard.organizations.home}>
-					Back to Organizations
+					{translate('backToOrganizations')}
 				</NavigationBack>
 				<NotificationPopover
 					setNotificationsList={setNotificationsList}
@@ -42,7 +53,7 @@ export const OrganizationsHeader = () => {
 				</Flex>
 				<Flex direction="column" w="28">
 					<Text fontSize="xl">${organizationData.totalFunds}</Text>
-					<Text fontSize="sm">Total Funds</Text>
+					<Text fontSize="sm">{translate('totalFunds')}</Text>
 				</Flex>
 				<Link href={navigationPaths.dashboard.organizations.editOrg}>
 					<Text
@@ -54,7 +65,7 @@ export const OrganizationsHeader = () => {
 						fontWeight="medium"
 						cursor="pointer"
 					>
-						Edit Informations
+						{translate('editInformations')}
 					</Text>
 				</Link>
 			</Flex>

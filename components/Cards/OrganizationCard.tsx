@@ -1,5 +1,6 @@
 import { Button, Flex, Img, Text } from '@chakra-ui/react';
 import { usePicasso } from 'hooks';
+import useTranslation from 'next-translate/useTranslation';
 import React from 'react';
 import { IOrganization } from 'types';
 import { handleLogoImage } from 'utils';
@@ -10,6 +11,8 @@ interface IOrganizationCard {
 
 export const OrganizationCard: React.FC<IOrganizationCard> = ({ team }) => {
 	const theme = usePicasso();
+	const { t: translate } = useTranslation('organizations');
+
 	return (
 		<Flex
 			boxShadow="lg"
@@ -42,13 +45,13 @@ export const OrganizationCard: React.FC<IOrganizationCard> = ({ team }) => {
 				<Flex gap="12" pt="3">
 					<Flex direction="column">
 						<Text fontSize="sm" color="gray.500">
-							Funds
+							{translate('funds')}
 						</Text>
 						<Text fontSize="sm">${team.funds.toLocaleString('en-US')}</Text>
 					</Flex>
 					<Flex direction="column">
 						<Text fontSize="sm" color="gray.500">
-							Members
+							{translate('members')}
 						</Text>
 						<Text fontSize="sm">{team.members}</Text>
 					</Flex>
@@ -61,7 +64,7 @@ export const OrganizationCard: React.FC<IOrganizationCard> = ({ team }) => {
 					fontSize="xs"
 					fontWeight="medium"
 				>
-					Manage
+					{translate('manage')}
 				</Button>
 			</Flex>
 		</Flex>

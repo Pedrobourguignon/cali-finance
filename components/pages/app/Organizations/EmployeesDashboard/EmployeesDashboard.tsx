@@ -1,14 +1,8 @@
-import {
-	Button,
-	Flex,
-	Link,
-	LinkBox,
-	LinkOverlay,
-	Text,
-} from '@chakra-ui/react';
+import { Button, Flex, Text } from '@chakra-ui/react';
 import { usePicasso } from 'hooks';
 import { EmployeeData } from 'components';
 import { IEmployee } from 'types';
+import useTranslation from 'next-translate/useTranslation';
 
 const employees: IEmployee[] = [
 	{
@@ -55,26 +49,24 @@ const employees: IEmployee[] = [
 
 export const EmployeesDashboard = () => {
 	const theme = usePicasso();
+	const { t: translate } = useTranslation('organization-overall');
+
 	return (
 		<Flex w="100%" direction="column" gap="4">
 			<Flex justify="space-between" w="100%" align="center">
 				<Flex fontWeight="medium" gap="1">
 					<Text>{employees.length}</Text>
-					<Text>Employees</Text>
+					<Text>{translate('employees')}</Text>
 				</Flex>
 				<Flex gap="8" align="center">
-					<LinkBox>
-						<Link href="/">
-							<LinkOverlay
-								cursor="pointer"
-								fontSize="xs"
-								color="gray.500"
-								fontWeight="medium"
-							>
-								See all
-							</LinkOverlay>
-						</Link>
-					</LinkBox>
+					<Text
+						cursor="pointer"
+						fontSize="xs"
+						color="gray.500"
+						fontWeight="medium"
+					>
+						{translate('seeAll')}
+					</Text>
 					<Button
 						bg={theme.bg.primary}
 						fontSize="xs"
@@ -89,15 +81,15 @@ export const EmployeesDashboard = () => {
 						_focus={{}}
 					>
 						<Text>+</Text>
-						<Text>Add Employee</Text>
+						<Text>{translate('addEmployee')}</Text>
 					</Button>
 				</Flex>
 			</Flex>
 			<Flex w="100%" direction="column" gap="2">
 				<Flex justify="space-between">
-					<Text>Name/Adress</Text>
-					<Text>Team</Text>
-					<Text w="24">Amount</Text>
+					<Text>{translate('nameAddress')}</Text>
+					<Text>{translate('team')}</Text>
+					<Text w="24">{translate('amount')}</Text>
 				</Flex>
 				<Flex direction="column" gap="2">
 					{employees.slice(0, 3).map((employee, index) => (

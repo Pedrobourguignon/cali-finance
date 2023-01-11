@@ -7,6 +7,7 @@ import {
 } from 'components';
 import { usePicasso } from 'hooks';
 import { AppLayout, OrganizationWhiteBackground } from 'layouts';
+import useTranslation from 'next-translate/useTranslation';
 import { navigationPaths, layoutLimit } from 'utils';
 
 const teams = [
@@ -32,6 +33,7 @@ const teams = [
 
 export const OverviewTab = () => {
 	const theme = usePicasso();
+	const { t: translate } = useTranslation('organization-overall');
 
 	return (
 		<AppLayout right={<WithdrawalsBanner />}>
@@ -50,7 +52,7 @@ export const OverviewTab = () => {
 				<Flex flexDir="column" w="full">
 					<Flex justify="space-between" pt="6" pb="4">
 						<Text color={theme.text.primary} fontWeight="medium">
-							Teams
+							{translate('teams')}
 						</Text>
 						<Link
 							href={navigationPaths.dashboard.organizations.teams}
@@ -59,7 +61,7 @@ export const OverviewTab = () => {
 							fontSize="xs"
 							cursor="pointer"
 						>
-							See all
+							{translate('seeAll')}
 						</Link>
 					</Flex>
 					<Grid gap="4" w="full" templateColumns="repeat(3, 1fr)">

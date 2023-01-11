@@ -23,13 +23,15 @@ import { layoutLimit } from 'utils';
 import { Paginator } from '../Dashboard';
 
 export const HistoryComponent: React.FC<IHistoryPage> = ({ history }) => {
-	const [selectedFilterOption, setSelectedFilterOption] = useState('All');
+	const { t: translate } = useTranslation('history-page');
+	const [selectedFilterOption, setSelectedFilterOption] = useState<string>(
+		translate('all')
+	);
 	const [pageNumber, setPageNumber] = useState(0);
 	const [filteredNotifications, setFilteredNotifications] =
 		useState<IHistoryNotification[]>(history);
 
 	const theme = usePicasso();
-	const { t: translate } = useTranslation('history-page');
 
 	const isConnected = true;
 	const shouldDisplay = isConnected ? 'flex' : 'none';
@@ -50,18 +52,18 @@ export const HistoryComponent: React.FC<IHistoryPage> = ({ history }) => {
 	};
 
 	const historyFilterOptions = [
-		'All',
-		'Deposit',
-		'Withdrawal',
-		'Added to team',
-		'Team Created',
+		translate('all'),
+		translate('deposit'),
+		translate('withdrawal'),
+		translate('addedToTeam'),
+		translate('teamCreated'),
 	];
 
 	const filterHistoryNotifications = (filter: string) => {
 		setFilteredNotifications(
 			history.filter(notification => notification.type === filter)
 		);
-		if (filter === 'All') {
+		if (filter === translate('all')) {
 			setFilteredNotifications(history);
 		}
 		setSelectedFilterOption(filter);
@@ -109,7 +111,7 @@ export const HistoryComponent: React.FC<IHistoryPage> = ({ history }) => {
 								_focus={{}}
 								borderBottomRadius="none"
 							>
-								{!isConnected ? 'All' : selectedFilterOption}
+								{!isConnected ? translate('all') : selectedFilterOption}
 							</MenuButton>
 							<MenuList
 								p="0"
@@ -127,7 +129,7 @@ export const HistoryComponent: React.FC<IHistoryPage> = ({ history }) => {
 										borderBottom="1px solid"
 										borderBottomColor="gray.200"
 										borderBottomRadius={
-											option === 'Team Created' ? 'base' : 'none'
+											option === translate('teamCreated') ? 'base' : 'none'
 										}
 										onClick={() => filterHistoryNotifications(option)}
 										_active={{}}

@@ -1,11 +1,14 @@
 import { Flex, Text, Link } from '@chakra-ui/react';
 import { ActivitiesData } from 'components';
 import { useOrganizations, usePicasso } from 'hooks';
+import useTranslation from 'next-translate/useTranslation';
 import { navigationPaths } from 'utils';
 
 export const RecentActivities = () => {
 	const { activities } = useOrganizations();
 	const theme = usePicasso();
+	const { t: translate } = useTranslation('organizations');
+
 	return (
 		<Flex
 			direction="column"
@@ -18,7 +21,7 @@ export const RecentActivities = () => {
 			w="full"
 		>
 			<Flex justify="space-between" align="center">
-				<Text fontWeight="medium">Recent Activities</Text>
+				<Text fontWeight="medium">{translate('recentActivities')}</Text>
 				<Link href={navigationPaths.dashboard.organizations.funds}>
 					<Text
 						color="gray.500"
@@ -26,7 +29,7 @@ export const RecentActivities = () => {
 						cursor="pointer"
 						fontWeight="medium"
 					>
-						See all
+						{translate('seeAll')}
 					</Text>
 				</Link>
 			</Flex>

@@ -14,6 +14,7 @@ import { ICreateOrganization, IEditOrganization, ISocialMedia } from 'types';
 import { Select } from 'chakra-react-select';
 import { BsQuestionCircle } from 'react-icons/bs';
 import { useState } from 'react';
+import useTranslation from 'next-translate/useTranslation';
 
 interface IEditOrganizationComponent {
 	control: Control<ICreateOrganization>;
@@ -60,12 +61,6 @@ interface IBasicSelect {
 	label: string;
 }
 
-const organizationsType: IBasicSelect[] = [
-	{ value: 'DAO', label: 'DAO' },
-	{ value: 'financial', label: 'financial' },
-	{ value: 'e-commerce', label: 'e-commerce' },
-];
-
 const networksType: INetworkSelect[] = [
 	{ value: 'Ethereum', label: 'Ethereum', icon: '/images/eth.png' },
 	{ value: 'Polygon', label: 'Polygon', icon: '/images/polygon.png' },
@@ -82,6 +77,7 @@ export const EditOrganizationComponent: React.FC<
 	IEditOrganizationComponent
 > = ({ errors, control, name, email, type, description, selectedNetwork }) => {
 	const theme = usePicasso();
+	const { t: translate } = useTranslation('create-organization');
 	const [editedInfo, setEditedInfo] = useState<IEditOrganization>({
 		name,
 		email,
@@ -95,6 +91,13 @@ export const EditOrganizationComponent: React.FC<
 			value: selectedNetwork,
 		},
 	} as IEditOrganization);
+
+	const organizationsType: IBasicSelect[] = [
+		{ value: 'DAO', label: 'DAO' },
+		{ value: translate('financial'), label: translate('financial') },
+		{ value: 'e-commerce', label: 'e-commerce' },
+	];
+
 	const indexOfOrganizationType = organizationsType.findIndex(
 		index => index.value === type
 	);
@@ -106,7 +109,7 @@ export const EditOrganizationComponent: React.FC<
 		<Flex w="100%" direction="column" px="6">
 			<Flex direction="column" gap="6" mb="14" position="relative">
 				<Text color="black" fontSize="xl" fontWeight="medium">
-					Edit Organization
+					{translate('editOrganization')}
 				</Text>
 				<Controller
 					render={({ field }) => (
@@ -145,7 +148,7 @@ export const EditOrganizationComponent: React.FC<
 					<Flex direction="column" color="black" gap="6">
 						<Flex direction="column">
 							<Text {...labelStyle} mb="2">
-								Type *
+								{translate('type')}
 							</Text>
 							<Controller
 								name="type"
@@ -153,7 +156,7 @@ export const EditOrganizationComponent: React.FC<
 								render={({ field }) => (
 									<Select
 										{...field}
-										placeholder="Please select"
+										placeholder={translate('pleaseSelect')}
 										onChange={editedType =>
 											setEditedInfo(prevState => ({
 												...prevState,
@@ -199,13 +202,13 @@ export const EditOrganizationComponent: React.FC<
 						</Flex>
 						<Flex direction="column" position="relative">
 							<Text {...labelStyle} mb="2">
-								Corporative e-mail *
+								{translate('corporativeEmail')}
 							</Text>
 							<Controller
 								render={({ field }) => (
 									<Input
 										{...field}
-										placeholder="example@organization.io"
+										placeholder={translate('exampleEmail')}
 										_placeholder={{
 											color: 'blackAlpha.500',
 											fontSize: 'sm',
@@ -231,7 +234,7 @@ export const EditOrganizationComponent: React.FC<
 						</Flex>
 						<Flex direction="column">
 							<Text {...labelStyle} mb="2">
-								Description
+								{translate('description')}
 							</Text>
 							<Controller
 								render={({ field }) => (
@@ -245,7 +248,7 @@ export const EditOrganizationComponent: React.FC<
 										defaultValue={description}
 										_hover={{}}
 										bgColor="white"
-										placeholder="Hello Org is an organization that..."
+										placeholder={translate('exampleDescription')}
 										minH="110"
 										onChange={editedDescription =>
 											setEditedInfo(prevState => ({
@@ -280,12 +283,12 @@ export const EditOrganizationComponent: React.FC<
 							editedInfo.network.value === selectedNetwork
 						}
 					>
-						<Text>Save Changes</Text>
+						<Text>{translate('saveChanges')}</Text>
 					</Button>
 				</Flex>
 				<Flex direction="column" minW="44" color={theme.text.primary}>
 					<Flex gap="2" mb="2">
-						<Text {...labelStyle}>Network *</Text>
+						<Text {...labelStyle}>{translate('network')}</Text>
 						<Icon as={BsQuestionCircle} color="gray.400" />
 					</Flex>
 					<Controller
@@ -294,7 +297,7 @@ export const EditOrganizationComponent: React.FC<
 						render={({ field }) => (
 							<Select
 								{...field}
-								placeholder="Please select"
+								placeholder={translate('pleaseSelect')}
 								onChange={editedNetwork =>
 									setEditedInfo(prevState => ({
 										...prevState,

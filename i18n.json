@@ -11,7 +11,12 @@
 			"history-page",
 			"edit-profile",
 			"sidebar",
-			"dashboard"
+			"dashboard",
+			"banners",
+			"organizations",
+			"create-organization",
+			"organization-overall",
+			"create-team"
 		],
 		"/": ["home", "example"],
 		"/dashboard": [
@@ -20,7 +25,12 @@
 			"sidebar",
 			"dashboard",
 			"history-page",
-			"edit-profile"
+			"edit-profile",
+			"banners",
+			"organizations",
+			"create-organization",
+			"organization-overall",
+			"create-team"
 		]
 	}
 }

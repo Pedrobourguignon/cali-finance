@@ -3,6 +3,7 @@ import { usePicasso } from 'hooks';
 import { EmployeeData, NoEmployeeSkeleton, AddEmployee } from 'components';
 import { IEmployee } from 'types';
 import { useState } from 'react';
+import useTranslation from 'next-translate/useTranslation';
 
 interface IEmployeePanel {
 	teamName: string;
@@ -10,6 +11,7 @@ interface IEmployeePanel {
 
 export const EmployeePanel: React.FC<IEmployeePanel> = ({ teamName }) => {
 	const theme = usePicasso();
+	const { t: translate } = useTranslation('create-team');
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const [employees, setEmployees] = useState<IEmployee[]>([]);
 
@@ -24,7 +26,7 @@ export const EmployeePanel: React.FC<IEmployeePanel> = ({ teamName }) => {
 			<Flex justify="space-between" w="full" align="center">
 				<Flex fontWeight="medium" gap="1">
 					<Text color={theme.text.primary}>{employees.length}</Text>
-					<Text color={theme.text.primary}>Employees</Text>
+					<Text color={theme.text.primary}>{translate('employees')}</Text>
 				</Flex>
 				<Flex gap="8" align="center">
 					<Button
@@ -42,15 +44,15 @@ export const EmployeePanel: React.FC<IEmployeePanel> = ({ teamName }) => {
 						onClick={onOpen}
 					>
 						<Text>+</Text>
-						<Text>Add Employee</Text>
+						<Text>{translate('addEmployee')}</Text>
 					</Button>
 				</Flex>
 			</Flex>
 			<Flex w="100%" direction="column" gap="2">
 				<Flex justify="space-between">
-					<Text color={theme.text.primary}>Name/Adress</Text>
+					<Text color={theme.text.primary}>{translate('nameAddress')}</Text>
 					<Text w="24" color={theme.text.primary}>
-						Amount
+						{translate('amount')}
 					</Text>
 				</Flex>
 				<NoEmployeeSkeleton display={employees.length > 0 ? 'none' : 'flex'} />

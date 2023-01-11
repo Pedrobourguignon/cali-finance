@@ -10,6 +10,7 @@ import {
 } from '@chakra-ui/react';
 import { TokenSelector } from 'components';
 import { usePicasso } from 'hooks';
+import useTranslation from 'next-translate/useTranslation';
 import { useState } from 'react';
 import { IoIosArrowDown } from 'react-icons/io';
 import { ISelectedCoin } from 'types';
@@ -19,14 +20,14 @@ const selectedCoin: ISelectedCoin = {
 	symbol: 'BTC',
 };
 
-const buttonOptions = ['Deposit', 'Withdraw'];
-
 export const DepositOrWithdrawCard = () => {
+	const { t: translate } = useTranslation('organization-overall');
 	const theme = usePicasso();
 	const { onClose, isOpen, onOpen } = useDisclosure();
 	const [selectedOption, setSelectedOption] = useState<string | undefined>(
-		'Deposit'
+		translate('deposit')
 	);
+	const buttonOptions = [translate('deposit'), translate('withdrawal')];
 
 	const handleSelectedButton = (btnName: string) => {
 		const selectedButton = buttonOptions.find(item => item === btnName);
@@ -60,7 +61,7 @@ export const DepositOrWithdrawCard = () => {
 				))}
 			</Flex>
 			<Flex direction="column" gap="1">
-				<Text>Amount</Text>
+				<Text>{translate('amount')}</Text>
 				<InputGroup>
 					<Input
 						_placeholder={{ color: 'blackAlpha.500' }}
@@ -105,9 +106,9 @@ export const DepositOrWithdrawCard = () => {
 					opacity: 0.8,
 				}}
 			>
-				{selectedOption === 'Deposit'
-					? 'Add Funds to Organization'
-					: 'Withdraw Funds to Organization'}
+				{selectedOption === translate('deposit')
+					? translate('addFunds')
+					: translate('withdrawFunds')}
 			</Button>
 		</Flex>
 	);
