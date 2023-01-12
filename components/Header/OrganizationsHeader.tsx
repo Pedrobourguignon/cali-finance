@@ -10,6 +10,7 @@ const organizationData = {
 	totalFunds: '67,986.09',
 	network: { name: 'Ethereum', logo: '/images/eth.png' },
 };
+
 export const OrganizationsHeader = () => {
 	const theme = usePicasso();
 	const { isSamePath } = usePath();
@@ -20,15 +21,15 @@ export const OrganizationsHeader = () => {
 	const menuOptions = [
 		{
 			name: translate('overview'),
-			route: navigationPaths.dashboard.organizations.overview,
+			route: navigationPaths.dashboard.organizations.overview('1'),
 		},
 		{
 			name: translate('teams'),
-			route: navigationPaths.dashboard.organizations.teams,
+			route: navigationPaths.dashboard.organizations.teams('1'),
 		},
 		{
 			name: translate('funds'),
-			route: navigationPaths.dashboard.organizations.funds,
+			route: navigationPaths.dashboard.organizations.funds('1'),
 		},
 	];
 
@@ -55,7 +56,7 @@ export const OrganizationsHeader = () => {
 					<Text fontSize="xl">${organizationData.totalFunds}</Text>
 					<Text fontSize="sm">{translate('totalFunds')}</Text>
 				</Flex>
-				<Link href={navigationPaths.dashboard.organizations.editOrg}>
+				<Link href={navigationPaths.dashboard.organizations.editOrg('1')}>
 					<Text
 						borderRadius="base"
 						px="5"
@@ -89,7 +90,7 @@ export const OrganizationsHeader = () => {
 									fontSize="sm"
 									fontWeight={comparedPath ? 'semibold' : 'normal'}
 									borderRadius="none"
-									borderBottomWidth={comparedPath ? '0.125rem' : '0rem'}
+									borderBottomWidth="0.125rem"
 									borderBottomColor={
 										comparedPath ? theme.bg.primary : 'transparent'
 									}

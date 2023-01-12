@@ -1,8 +1,8 @@
-import { CreateTeamComponent, TeamsComponent } from 'components';
-import { OrganizationsProvider } from 'contexts';
+import { CreateTeamComponent, AllTeamsComponent } from 'components';
+import { OrganizationsProvider, TeamsProvider } from 'contexts';
 import { useState } from 'react';
 
-export const TeamsContainer = () => {
+export const AllTeamsContainer = () => {
 	const [displayTeams, setDisplayTeams] = useState('flex');
 	const [displayCreateTeams, setDisplayCreateTeams] = useState('none');
 
@@ -18,15 +18,17 @@ export const TeamsContainer = () => {
 
 	return (
 		<OrganizationsProvider>
-			<TeamsComponent
-				display={displayTeams}
-				changeToCreateTeamTab={changeToCreateTeamTab}
-			>
-				<CreateTeamComponent
-					display={displayCreateTeams}
+			<TeamsProvider>
+				<AllTeamsComponent
+					display={displayTeams}
 					changeToCreateTeamTab={changeToCreateTeamTab}
-				/>
-			</TeamsComponent>
+				>
+					<CreateTeamComponent
+						display={displayCreateTeams}
+						changeToCreateTeamTab={changeToCreateTeamTab}
+					/>
+				</AllTeamsComponent>
+			</TeamsProvider>
 		</OrganizationsProvider>
 	);
 };

@@ -1,6 +1,6 @@
 import { Flex, Img, Text } from '@chakra-ui/react';
 import { usePicasso } from 'hooks';
-import React, { useState } from 'react';
+import React, { Dispatch, SetStateAction, useState } from 'react';
 import { FileUploader } from 'react-drag-drop-files';
 
 const fileTypes = ['JPG', 'PNG', 'SVG', 'JPEG'];
@@ -11,7 +11,11 @@ interface IFile extends Blob {
 	type: string;
 }
 
-export const DragDrop = () => {
+interface IDragDrop {
+	setTeamPicture: Dispatch<SetStateAction<string>>;
+}
+
+export const DragDrop: React.FC<IDragDrop> = ({ setTeamPicture }) => {
 	const theme = usePicasso();
 	const [sizeIsValid, setSizeIsValid] = useState(true);
 	const [fileLink, setFileLink] = useState('/images/add-image.png');
@@ -35,6 +39,7 @@ export const DragDrop = () => {
 			};
 			if (base64File.file) {
 				setFileLink(base64File.file.toString());
+				setTeamPicture(base64File.file.toString());
 			} else {
 				setFileLink('/images/add-image.png');
 			}

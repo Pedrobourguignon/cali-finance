@@ -22,7 +22,7 @@ export const RecentActivities = () => {
 		>
 			<Flex justify="space-between" align="center">
 				<Text fontWeight="medium">{translate('recentActivities')}</Text>
-				<Link href={navigationPaths.dashboard.organizations.funds}>
+				<Link href={navigationPaths.dashboard.organizations.funds('1')}>
 					<Text
 						color="gray.500"
 						fontSize="xs"

@@ -15,10 +15,7 @@ import { useState } from 'react';
 import { IoIosArrowDown } from 'react-icons/io';
 import { ISelectedCoin } from 'types';
 
-const selectedCoin: ISelectedCoin = {
-	logo: 'https://assets.coingecko.com/coins/images/1/thumb/bitcoin.png?1547033579',
-	symbol: 'BTC',
-};
+const buttonOptions = ['Deposit', 'Withdraw'];
 
 export const DepositOrWithdrawCard = () => {
 	const { t: translate } = useTranslation('organization-overall');
@@ -27,7 +24,10 @@ export const DepositOrWithdrawCard = () => {
 	const [selectedOption, setSelectedOption] = useState<string | undefined>(
 		translate('deposit')
 	);
-	const buttonOptions = [translate('deposit'), translate('withdrawal')];
+	const [token, setToken] = useState<ISelectedCoin>({
+		logo: 'https://assets.coingecko.com/coins/images/1/thumb/bitcoin.png?1547033579',
+		symbol: 'BTC',
+	} as ISelectedCoin);
 
 	const handleSelectedButton = (btnName: string) => {
 		const selectedButton = buttonOptions.find(item => item === btnName);
@@ -44,7 +44,7 @@ export const DepositOrWithdrawCard = () => {
 			gap="6"
 			w="100%"
 		>
-			<TokenSelector isOpen={isOpen} onClose={onClose} />
+			<TokenSelector isOpen={isOpen} onClose={onClose} setToken={setToken} />
 			<Flex w="100%" justify="center">
 				{buttonOptions.map((item, index) => (
 					<Button
@@ -82,9 +82,9 @@ export const DepositOrWithdrawCard = () => {
 						onClick={onOpen}
 					>
 						<Flex gap="2" align="center" color="white">
-							<Img boxSize="4" src={selectedCoin.logo} />
+							<Img boxSize="4" src={token.logo} />
 							<Text fontSize="sm" width="8" lineHeight="5">
-								{selectedCoin.symbol}
+								{token.symbol}
 							</Text>
 							<Icon boxSize="4" as={IoIosArrowDown} />
 						</Flex>

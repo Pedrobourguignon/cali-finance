@@ -1,175 +1,63 @@
-import { createContext, useMemo, useState } from 'react';
-import { IEmployeeData, ITeamsData } from 'types';
+import {
+	createContext,
+	Dispatch,
+	SetStateAction,
+	useEffect,
+	useMemo,
+	useState,
+} from 'react';
+import { IEmployee, ITeam, ITeamsData } from 'types';
 
 interface ITeamsContext {
 	teams: ITeamsData[];
+	setTeamPicture: Dispatch<SetStateAction<string>>;
+	teamPicture: string;
+	setMarketingEmployee: Dispatch<SetStateAction<IEmployee[]>>;
+	marketingEmployee: IEmployee[];
+	teamData: ITeam;
+	setTeamData: Dispatch<SetStateAction<ITeam>>;
 }
 
-const employeeData: IEmployeeData[] = [
+const CompanyEmployees: IEmployee[] = [
 	{
-		name: 'Bradley Cooper',
-		address: '0x969Cf86eeb3f9354D89f357c8dFe43DE8e645148',
-		group: {
-			name: 'Marketing',
-			color: 'yellow.600',
-		},
-		amount: 15000,
-		withdrawable: 192312,
+		name: 'Kim Kardashian',
+		wallet: '0x7E48CA2BD05EC61C2FA83CF34B066A8FF36B4CFE',
+		photo: '/images/avatar.png',
+		amount: 10.0,
 		coin: 'USDT',
+		team: 'General',
 	},
 	{
-		name: 'Denzel Washington',
-		address: '0x969Cf86eeb3f9354D89f357c8dFe43DE8e645148',
-		group: {
-			name: 'Dev',
-			color: 'green.600',
-		},
-		amount: 230789,
-		withdrawable: 320,
+		name: 'Kylie Jenner',
+		wallet: '0x7E48CA2BD05EC61C2FA83CF34B066A8FF36Z9EXD',
+		photo: '/images/avatar.png',
+		amount: 100.0,
 		coin: 'USDT',
+		team: 'Marketing',
 	},
 	{
-		name: 'Jackie Chan',
-		address: '0x969Cf86eeb3f9354D89f357c8dFe43DE8e645148',
-		group: {
-			name: 'Business',
-			color: 'blue.600',
-		},
-		amount: 1563,
-		withdrawable: 1240,
+		name: 'Kloe Kardashian',
+		wallet: '0x7E48CA2BD05EC61C2FA83CF34B066A8FF36C3QER',
+		photo: '/images/avatar.png',
+		amount: 80.0,
 		coin: 'USDT',
+		team: 'Finance',
 	},
 	{
-		name: 'Bradley Cooper',
-		address: '0x969Cf86eeb3f9354D89f357c8dFe43DE8e645148',
-		group: {
-			name: 'Marketing',
-			color: 'yellow.600',
-		},
-		amount: 15000,
-		withdrawable: 192312,
+		name: 'Kloe Kardashian',
+		wallet: '0x7E48CA2BD05EC61C2FA83CF34B066A8FF36C3QER',
+		photo: '/images/avatar.png',
+		amount: 80.0,
 		coin: 'USDT',
+		team: 'Finance',
 	},
 	{
-		name: 'Denzel Washington',
-		address: '0x969Cf86eeb3f9354D89f357c8dFe43DE8e645148',
-		group: {
-			name: 'Dev',
-			color: 'green.600',
-		},
-		amount: 230789,
-		withdrawable: 320,
+		name: 'Kloe Kardashian',
+		wallet: '0x7E48CA2BD05EC61C2FA83CF34B066A8FF36C3QER',
+		photo: '/images/avatar.png',
+		amount: 80.0,
 		coin: 'USDT',
-	},
-	{
-		name: 'Jackie Chan',
-		address: '0x969Cf86eeb3f9354D89f357c8dFe43DE8e645148',
-		group: {
-			name: 'Business',
-			color: 'blue.600',
-		},
-		amount: 1563,
-		withdrawable: 1240,
-		coin: 'USDT',
-	},
-	{
-		name: 'Bradley Cooper',
-		address: '0x969Cf86eeb3f9354D89f357c8dFe43DE8e645148',
-		group: {
-			name: 'Marketing',
-			color: 'yellow.600',
-		},
-		amount: 15000,
-		withdrawable: 192312,
-		coin: 'USDT',
-	},
-	{
-		name: 'Denzel Washington',
-		address: '0x969Cf86eeb3f9354D89f357c8dFe43DE8e645148',
-		group: {
-			name: 'Dev',
-			color: 'green.600',
-		},
-		amount: 230789,
-		withdrawable: 320,
-		coin: 'USDT',
-	},
-	{
-		name: 'Jackie Chan',
-		address: '0x969Cf86eeb3f9354D89f357c8dFe43DE8e645148',
-		group: {
-			name: 'Business',
-			color: 'blue.600',
-		},
-		amount: 1563,
-		withdrawable: 1240,
-		coin: 'USDT',
-	},
-	{
-		name: 'Bradley Cooper',
-		address: '0x969Cf86eeb3f9354D89f357c8dFe43DE8e645148',
-		group: {
-			name: 'Marketing',
-			color: 'yellow.600',
-		},
-		amount: 15000,
-		withdrawable: 192312,
-		coin: 'USDT',
-	},
-	{
-		name: 'Denzel Washington',
-		address: '0x969Cf86eeb3f9354D89f357c8dFe43DE8e645148',
-		group: {
-			name: 'Dev',
-			color: 'green.600',
-		},
-		amount: 230789,
-		withdrawable: 320,
-		coin: 'USDT',
-	},
-	{
-		name: 'Jackie Chan',
-		address: '0x969Cf86eeb3f9354D89f357c8dFe43DE8e645148',
-		group: {
-			name: 'Business',
-			color: 'blue.600',
-		},
-		amount: 1563,
-		withdrawable: 1240,
-		coin: 'USDT',
-	},
-	{
-		name: 'Bradley Cooper',
-		address: '0x969Cf86eeb3f9354D89f357c8dFe43DE8e645148',
-		group: {
-			name: 'Marketing',
-			color: 'yellow.600',
-		},
-		amount: 15000,
-		withdrawable: 192312,
-		coin: 'USDT',
-	},
-	{
-		name: 'Denzel Washington',
-		address: '0x969Cf86eeb3f9354D89f357c8dFe43DE8e645148',
-		group: {
-			name: 'Dev',
-			color: 'green.600',
-		},
-		amount: 230789,
-		withdrawable: 320,
-		coin: 'USDT',
-	},
-	{
-		name: 'Jackie Chan',
-		address: '0x969Cf86eeb3f9354D89f357c8dFe43DE8e645148',
-		group: {
-			name: 'Business',
-			color: 'blue.600',
-		},
-		amount: 1563,
-		withdrawable: 1240,
-		coin: 'USDT',
+		team: 'Finance',
 	},
 ];
 
@@ -179,23 +67,87 @@ export const TeamsProvider: React.FC<{ children: React.ReactNode }> = ({
 	children,
 }) => {
 	const [teams, setTeams] = useState<ITeamsData[]>([]);
+	const [teamPicture, setTeamPicture] = useState('');
+	const [marketingEmployee, setMarketingEmployee] = useState<IEmployee[]>([
+		{
+			name: 'Kim Kardashian',
+			wallet: '0x7E48CA2BD05EC61C2FA83CF34B066A8FF36B4CFE',
+			photo: '/images/avatar.png',
+			amount: 10.0,
+			coin: 'USDT',
+			team: 'Marketing',
+		},
+		{
+			name: 'Kylie Jenner',
+			wallet: '0x7E48CA2BD05EC61C2FA83CF34B066A8FF36Z9EXD',
+			photo: '/images/avatar.png',
+			amount: 100.0,
+			coin: 'USDT',
+			team: 'Marketing',
+		},
+	]);
+	const [teamData, setTeamData] = useState<ITeam>({} as ITeam);
 
-	useMemo(() => {
+	useEffect(() => {
 		setTeams([
 			{
 				id: 1,
-				name: 'Cali Team',
-				balance: 123432,
-				employees: employeeData,
+				name: 'Marketing',
+				logo: '/images/team1.png',
+				balance: 12342.55,
+				members: 27,
+				employees: CompanyEmployees,
+			},
+			{
+				id: 2,
+				name: 'Sales',
+				logo: '/images/team2.png',
+				balance: 48365.05,
+				members: 3,
+				employees: CompanyEmployees,
+			},
+			{
+				id: 3,
+				name: 'Finance',
+				logo: '/images/team3.png',
+				balance: 123432.32,
+				members: 120,
+				employees: CompanyEmployees,
 			},
 		]);
 	}, []);
 
+	useEffect(() => {
+		setTeamData({
+			name: 'Marketing',
+			funds: 2234.05,
+			photo: '/images/team3.png',
+			withdrawals: 87765.23,
+			members: 356,
+			description: 'marketing team of cali',
+			employees: marketingEmployee,
+		});
+	}, [marketingEmployee]);
+
 	const contextStates = useMemo(
 		() => ({
 			teams,
+			setTeamPicture,
+			teamPicture,
+			setMarketingEmployee,
+			marketingEmployee,
+			teamData,
+			setTeamData,
 		}),
-		[teams]
+		[
+			teams,
+			setTeamPicture,
+			teamPicture,
+			setMarketingEmployee,
+			marketingEmployee,
+			teamData,
+			setTeamData,
+		]
 	);
 	return (
 		<TeamsContext.Provider value={contextStates}>

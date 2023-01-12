@@ -1,18 +1,10 @@
-export interface IEmployeeData {
-	name: string;
-	address: string;
-	group: {
-		name: string;
-		color: string;
-	};
-	amount: number;
-	withdrawable: number;
-	coin: string;
-}
+import { IEmployee } from 'types';
 
 export interface ITeamsData {
-	id: number;
+	id?: number;
 	name: string;
+	logo: string;
+	members: number;
 	balance: number;
-	employees: IEmployeeData[];
+	employees?: IEmployee[];
 }

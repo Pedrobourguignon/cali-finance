@@ -1,9 +1,8 @@
 import { Button, Flex, Icon, Input, Text } from '@chakra-ui/react';
 import { usePicasso } from 'hooks';
 import React, { useState } from 'react';
-import { EmployeePanel } from 'components';
+import { BackToTeams, EmployeePanel } from 'components';
 import { BsCardImage } from 'react-icons/bs';
-import { IoIosArrowBack } from 'react-icons/io';
 import useTranslation from 'next-translate/useTranslation';
 
 interface ICreateTeamComponent {
@@ -20,18 +19,7 @@ export const CreateTeamComponent: React.FC<ICreateTeamComponent> = ({
 	const { t: translate } = useTranslation('create-team');
 	return (
 		<Flex direction="column" align="start" display={display} w="100%">
-			<Button
-				px="0"
-				color="gray.500"
-				leftIcon={<IoIosArrowBack />}
-				onClick={changeToCreateTeamTab}
-				fontSize="sm"
-				lineHeight="6"
-				fontWeight="medium"
-				p="0"
-			>
-				{translate('backToAllTeams')}
-			</Button>
+			<BackToTeams onClick={changeToCreateTeamTab} />
 			<Flex
 				borderRadius="base"
 				borderColor="black"
