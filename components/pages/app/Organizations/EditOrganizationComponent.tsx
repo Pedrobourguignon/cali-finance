@@ -32,7 +32,7 @@ interface IEditOrganizationComponent {
 			};
 			description: string;
 			logo: string;
-			socialMedia: {
+			socialMedias: {
 				website: string;
 				instagram: string;
 				twitter: string;
@@ -45,7 +45,7 @@ interface IEditOrganizationComponent {
 	type: string;
 	email: string;
 	description: string | undefined;
-	socialMedia: ISocialMedia;
+	socialMedias: ISocialMedia;
 	selectedNetwork: string | undefined;
 }
 

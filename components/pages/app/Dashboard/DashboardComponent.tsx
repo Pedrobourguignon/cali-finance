@@ -3,23 +3,20 @@ import {
 	DashboardHeader,
 	Coins,
 	CreateOrganizationCard,
-	SwapToken,
 	RecentActivitiesDashboard,
 	MyAssets,
 	ErrorAlert,
 	OrganizationsList,
-	WithdrawCard,
 	WithdrawModal,
 } from 'components';
 import { usePicasso } from 'hooks';
 import React from 'react';
 import { IRecentActivitiesList } from 'types';
 import useTranslation from 'next-translate/useTranslation';
-import { AppLayout } from 'layouts';
 
 export const DashboardComponent: React.FC = () => {
 	const { t: translate } = useTranslation('dashboard');
-	const { isOpen, onOpen, onClose } = useDisclosure();
+	const { isOpen, onClose } = useDisclosure();
 
 	const recentActivitiesList: IRecentActivitiesList[] = [
 		{

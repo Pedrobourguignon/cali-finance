@@ -1,7 +1,7 @@
 import debounce from 'lodash.debounce';
 import React, { createContext, useEffect, useMemo, useState } from 'react';
 import { OneInchService, CoingeckoService } from 'services';
-import { ISelectedCoin, IToken } from 'types';
+import { ISelectedCoin, ISwapTokenSelector, IToken } from 'types';
 
 interface ITokensContext {
 	setFilteredTokens: (tokens: IToken[]) => void;
@@ -10,6 +10,10 @@ interface ITokensContext {
 	listOfTokens: IToken[];
 	setChosenToken: React.Dispatch<React.SetStateAction<ISelectedCoin>>;
 	chosenToken: ISelectedCoin;
+	swapTokenSelector: ISwapTokenSelector;
+	setSwapTokenSelector: React.Dispatch<
+		React.SetStateAction<ISwapTokenSelector>
+	>;
 }
 export const TokensContext = createContext({} as ITokensContext);
 
@@ -22,6 +26,13 @@ export const TokensProvider: React.FC<{ children: React.ReactNode }> = ({
 		logo: 'https://assets.coingecko.com/coins/images/1/thumb/bitcoin.png?1547033579',
 		symbol: 'BTC',
 	} as ISelectedCoin);
+	const [swapTokenSelector, setSwapTokenSelector] =
+		useState<ISwapTokenSelector>({
+			paidAmount: '',
+			paidToken: '',
+			receivedAmount: '',
+			receivedToken: '',
+		} as ISwapTokenSelector);
 
 	const getOneInchTokens = async () => {
 		try {
@@ -87,6 +98,8 @@ export const TokensProvider: React.FC<{ children: React.ReactNode }> = ({
 			listOfTokens,
 			setChosenToken,
 			chosenToken,
+			swapTokenSelector,
+			setSwapTokenSelector,
 		}),
 		[
 			setFilteredTokens,
@@ -95,6 +108,8 @@ export const TokensProvider: React.FC<{ children: React.ReactNode }> = ({
 			listOfTokens,
 			setChosenToken,
 			chosenToken,
+			swapTokenSelector,
+			setSwapTokenSelector,
 		]
 	);
 

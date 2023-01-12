@@ -35,7 +35,7 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 	const theme = usePicasso();
 	const { t: translate } = useTranslation('swap-token');
 	const [amountInDollar, setAmountInDollar] = useState<number>(0);
-	const [bitcoinPrice] = useState(87.586);
+	const bitcoinPrice = 87586;
 
 	const selectedCoin = {
 		logo: 'https://assets.coingecko.com/coins/images/1/thumb/bitcoin.png?1547033579',

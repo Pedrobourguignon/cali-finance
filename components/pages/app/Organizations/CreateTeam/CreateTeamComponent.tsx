@@ -1,10 +1,8 @@
 import { Button, Flex, Icon, Input, Text } from '@chakra-ui/react';
 import { usePicasso } from 'hooks';
 import React, { useState } from 'react';
-import { EmployeePanel } from 'components';
-import { layoutLimit } from 'utils';
+import { BackToTeams, EmployeePanel } from 'components';
 import { BsCardImage } from 'react-icons/bs';
-import { IoIosArrowBack } from 'react-icons/io';
 
 interface ICreateTeamComponent {
 	display: string;
@@ -19,18 +17,7 @@ export const CreateTeamComponent: React.FC<ICreateTeamComponent> = ({
 	const theme = usePicasso();
 	return (
 		<Flex direction="column" align="start" display={display} w="100%">
-			<Button
-				px="0"
-				color="gray.500"
-				leftIcon={<IoIosArrowBack />}
-				onClick={changeToCreateTeamTab}
-				fontSize="sm"
-				lineHeight="6"
-				fontWeight="medium"
-				p="0"
-			>
-				Back to All Teams
-			</Button>
+			<BackToTeams onClick={changeToCreateTeamTab} />
 			<Flex
 				borderRadius="base"
 				borderColor="black"
