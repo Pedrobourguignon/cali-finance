@@ -10,7 +10,7 @@ import {
 } from '@chakra-ui/react';
 import React, { useState } from 'react';
 import { FaDiscord, FaTwitter } from 'react-icons/fa';
-import { usePath, usePicasso } from 'hooks';
+import { usePath, usePicasso, useProfile } from 'hooks';
 import Router, { useRouter } from 'next/router';
 import {
 	DashboardIcon,
@@ -74,7 +74,10 @@ export const Sidebar: React.FC = () => {
 	];
 	const theme = usePicasso();
 	const { isSamePath } = usePath();
+	const walletAddress = '0x6856...BF99';
+	const { picture } = useProfile();
 	const { locale, pathname } = useRouter();
+	const { isConnected } = useProfile();
 	const languages: ILanguage[] = ['en-US', 'pt-BR'];
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const [networkData, setNetworkData] = useState<INetwork>({
@@ -114,12 +117,40 @@ export const Sidebar: React.FC = () => {
 					<Link href={navigationPaths.dashboard.home}>
 						<Img src="/images/cali-logo.svg" h="8" w="20" cursor="pointer" />
 					</Link>
-					<ConnectWalletButton />
-					<ChangeNetworkButton
-						onClick={onOpen}
-						networkIcon={networkData.icon}
-						networkName={networkData.name}
-					/>
+					{isConnected === true ? '' : <ConnectWalletButton />}
+					<Flex
+						h="max-content"
+						py="2"
+						fontSize="sm"
+						color="black"
+						borderRadius="base"
+						bg="white"
+						_hover={{ background: 'white' }}
+						_focus={{ background: 'white' }}
+						display={isConnected === true ? 'flex' : 'none'}
+					>
+						<Flex align="center" gap="2" px="4">
+							<Img
+								src={picture}
+								borderRadius="full"
+								boxSize="6"
+								objectFit="cover"
+							/>
+							<Text fontWeight="500" fontSize="sm">
+								{walletAddress}
+							</Text>
+						</Flex>
+					</Flex>
+
+					{isConnected === true ? (
+						<ChangeNetworkButton
+							onClick={onOpen}
+							networkIcon={networkData.icon}
+							networkName={networkData.name}
+						/>
+					) : (
+						''
+					)}
 				</Flex>
 				<Flex direction="column" gap="7" w="full" pb="36">
 					{menuOptions.map((item, index) => {

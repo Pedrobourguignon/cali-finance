@@ -5,6 +5,8 @@ interface IProfileContext {
 	picture: string;
 	lastName: string;
 	isLoading: boolean;
+	isConnected: boolean;
+	setIsConnected: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const ProfileContext = createContext({} as IProfileContext);
@@ -12,6 +14,7 @@ export const ProfileContext = createContext({} as IProfileContext);
 export const ProfileProvider: React.FC<{ children: React.ReactNode }> = ({
 	children,
 }) => {
+	const [isConnected, setIsConnected] = useState(false);
 	const [name, setName] = useState('');
 	const [lastName, setLastName] = useState('');
 	const [picture, setPicture] = useState('');
@@ -44,8 +47,10 @@ export const ProfileProvider: React.FC<{ children: React.ReactNode }> = ({
 			picture,
 			lastName,
 			isLoading,
+			isConnected,
+			setIsConnected,
 		}),
-		[name, lastName, picture, isLoading]
+		[name, lastName, picture, isLoading, isConnected, setIsConnected]
 	);
 
 	return (
