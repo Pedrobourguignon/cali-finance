@@ -13,9 +13,13 @@ interface IFile extends Blob {
 
 interface IDragDrop {
 	setTeamPicture: Dispatch<SetStateAction<string>>;
+	setProfilePicture: Dispatch<SetStateAction<string>>;
 }
 
-export const DragDrop: React.FC<IDragDrop> = ({ setTeamPicture }) => {
+export const DragDrop: React.FC<IDragDrop> = ({
+	setTeamPicture,
+	setProfilePicture,
+}) => {
 	const theme = usePicasso();
 	const [sizeIsValid, setSizeIsValid] = useState(true);
 	const [fileLink, setFileLink] = useState('/images/add-image.png');
@@ -40,6 +44,7 @@ export const DragDrop: React.FC<IDragDrop> = ({ setTeamPicture }) => {
 			if (base64File.file) {
 				setFileLink(base64File.file.toString());
 				setTeamPicture(base64File.file.toString());
+				setProfilePicture(base64File.file.toString());
 			} else {
 				setFileLink('/images/add-image.png');
 			}

@@ -10,7 +10,7 @@ import {
 	ModalOverlay,
 	Text,
 } from '@chakra-ui/react';
-import { usePicasso, useTeams } from 'hooks';
+import { usePicasso, useProfile, useTeams } from 'hooks';
 import { IBasicModal } from 'types';
 import { DragDrop } from 'components';
 
@@ -20,9 +20,11 @@ export const ImageUploaderModal: React.FC<IBasicModal> = ({
 }) => {
 	const theme = usePicasso();
 	const { setTeamPicture } = useTeams();
+	const { setProfilePicture } = useProfile();
 
 	const sendPicture = (photo: string) => {
 		setTeamPicture(photo);
+		setProfilePicture(photo);
 	};
 
 	return (
@@ -60,7 +62,10 @@ export const ImageUploaderModal: React.FC<IBasicModal> = ({
 							</Text>
 						</Flex>
 						<Flex w="100%" justify="center">
-							<DragDrop setTeamPicture={setTeamPicture} />
+							<DragDrop
+								setTeamPicture={setTeamPicture}
+								setProfilePicture={setProfilePicture}
+							/>
 						</Flex>
 					</ModalBody>
 				</Flex>

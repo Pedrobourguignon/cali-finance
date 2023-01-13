@@ -1,11 +1,14 @@
 import { EditProfileComponent } from 'components';
+import { ProfileProvider } from 'contexts';
 import { AppLayout } from 'layouts';
 import React from 'react';
 
 export const EditProfileContainer = () => (
-	<AppLayout>
-		<EditProfileComponent />
-	</AppLayout>
+	<ProfileProvider>
+		<AppLayout>
+			<EditProfileComponent />
+		</AppLayout>
+	</ProfileProvider>
 );
 
 export default EditProfileContainer;
