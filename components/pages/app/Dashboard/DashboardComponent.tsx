@@ -9,7 +9,6 @@ import {
 	TeamList,
 	WithdrawModal,
 } from 'components';
-import { usePicasso } from 'hooks';
 import React from 'react';
 import { IRecentActivitiesList } from 'types';
 import useTranslation from 'next-translate/useTranslation';
@@ -58,7 +57,7 @@ export const DashboardComponent: React.FC = () => {
 
 	return (
 		<Flex>
-			<Flex direction="column" px="8" gap="4">
+			<Flex direction="column" pl="6" gap="4">
 				<DashboardHeader />
 				<Coins />
 				{isConnected ? <TeamList /> : <CreateOrganizationCard />}
