@@ -6,7 +6,7 @@ import {
 	RecentActivitiesDashboard,
 	MyAssets,
 	ErrorAlert,
-	OrganizationsList,
+	TeamList,
 	WithdrawModal,
 } from 'components';
 import { usePicasso } from 'hooks';
@@ -49,8 +49,6 @@ export const DashboardComponent: React.FC = () => {
 
 	const error = false;
 
-	const theme = usePicasso();
-
 	if (error)
 		return (
 			<Flex align="center" w="full" justify="center">
@@ -63,9 +61,9 @@ export const DashboardComponent: React.FC = () => {
 			<Flex direction="column" px="8" gap="4">
 				<DashboardHeader />
 				<Coins />
-				{isConnected ? <OrganizationsList /> : <CreateOrganizationCard />}
+				{isConnected ? <TeamList /> : <CreateOrganizationCard />}
 				{isConnected && (
-					<Flex gap="6" flexWrap="wrap">
+					<Flex gap="6">
 						<MyAssets />
 						<RecentActivitiesDashboard
 							recentActivitiesList={recentActivitiesList}

@@ -6,7 +6,6 @@ import {
 } from 'components';
 import { OrganizationsProvider, TokensProvider } from 'contexts';
 import { AppLayout } from 'layouts';
-
 import React from 'react';
 
 export const DashboardContainer = () => (

@@ -80,6 +80,44 @@ export const OrganizationsProvider: React.FC<{ children: React.ReactNode }> = ({
 				},
 			],
 		},
+		{
+			name: 'Kylie Houses',
+			type: 'DAO',
+			email: 'kyliebaby@gmail.com',
+			funds: 5234.11,
+			members: 13,
+			teams: ['marketing'],
+			description: 'Hello',
+			selectedNetwork: 'Ethereum',
+			logo: '',
+			socialMedias: [
+				{
+					instagram: '@kyliebaby',
+					telegram: 't/kyliebaby',
+					twitter: 'twitter.com/kyliebaby',
+					website: 'kyliebaby.net',
+				},
+			],
+		},
+		{
+			name: 'Kylie Cars',
+			type: 'DAO',
+			email: 'kyliebaby@gmail.com',
+			funds: 5234.11,
+			members: 13,
+			teams: ['marketing'],
+			description: 'Hello',
+			selectedNetwork: 'Ethereum',
+			logo: '',
+			socialMedias: [
+				{
+					instagram: '@kyliebaby',
+					telegram: 't/kyliebaby',
+					twitter: 'twitter.com/kyliebaby',
+					website: 'kyliebaby.net',
+				},
+			],
+		},
 	]);
 	const [notificationsList, setNotificationsList] = useState<
 		INotificationList[]
