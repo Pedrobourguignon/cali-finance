@@ -1,4 +1,5 @@
 export * from './AddEmployee';
+export * from './ContactOptionsModal';
 export * from './DeleteTeamModal';
 export * from './EditEmployee';
 export * from './ImageUploader';
