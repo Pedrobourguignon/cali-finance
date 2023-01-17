@@ -10,9 +10,9 @@ import {
 } from '@chakra-ui/react';
 import { usePicasso } from 'hooks';
 import { Control, FieldErrorsImpl, Controller } from 'react-hook-form';
-import { ICreateOrganization } from 'types';
 import { Select } from 'chakra-react-select';
 import { BsQuestionCircle } from 'react-icons/bs';
+import { ICreateOrganization } from 'types';
 
 interface ICreateOrganizationComponent {
 	control: Control<ICreateOrganization>;
@@ -31,7 +31,7 @@ interface ICreateOrganizationComponent {
 			};
 			description: string;
 			logo: string;
-			socialMedia: {
+			socialMedias: {
 				website: string;
 				instagram: string;
 				twitter: string;

@@ -75,17 +75,17 @@ export const ActiveTeamsCard = () => {
 				<Text color="black" fontSize="md" fontWeight="medium">
 					Active Teams
 				</Text>
-				<LinkBox>
-					<Link href="/">
-						<LinkOverlay
-							fontSize="xs"
-							color={theme.branding.blue}
-							fontWeight="medium"
-						>
-							See all
-						</LinkOverlay>
-					</Link>
-				</LinkBox>
+
+				<Link href="/">
+					<Text
+						fontSize="xs"
+						color={theme.branding.blue}
+						fontWeight="medium"
+						textDecor="none"
+					>
+						See all
+					</Text>
+				</Link>
 			</Flex>
 			<Flex direction="column" gap="9">
 				<Flex>

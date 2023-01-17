@@ -17,15 +17,15 @@ import {
 } from 'components';
 import { usePicasso } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
-import { IBasicModal, ISelectedCoin } from 'types';
-
-const selectedCoin: ISelectedCoin = {
-	logo: 'https://assets.coingecko.com/coins/images/1/thumb/bitcoin.png?1547033579',
-	symbol: 'BTC',
-};
+import { IBasicModal, ISelectedCoin, IToken } from 'types';
+import { useState } from 'react';
 
 export const WithdrawModal: React.FC<IBasicModal> = ({ isOpen, onClose }) => {
 	const theme = usePicasso();
+	const [token, setToken] = useState<ISelectedCoin>({
+		logo: 'https://assets.coingecko.com/coins/images/1/thumb/bitcoin.png?1547033579',
+		symbol: 'BTC',
+	} as ISelectedCoin);
 	const { t: translate } = useTranslation('dashboard');
 	const {
 		isOpen: isOpenSelector,
@@ -47,13 +47,17 @@ export const WithdrawModal: React.FC<IBasicModal> = ({ isOpen, onClose }) => {
 						h="100%"
 						w="100%"
 					>
-						<TokenSelector isOpen={isOpenSelector} onClose={onCloseSelector} />
+						<TokenSelector
+							isOpen={isOpenSelector}
+							onClose={onCloseSelector}
+							setToken={setToken}
+						/>
 						<ModalHeader color={theme.text.black2}>
 							{translate('withdraw')}
 						</ModalHeader>
 						<ModalCloseButton color="gray.400" />
 						<ModalBody>
-							<WithdrawContent coin={selectedCoin} onOpen={onOpenSelector} />
+							<WithdrawContent coin={token} onOpen={onOpenSelector} />
 						</ModalBody>
 
 						<ModalFooter>

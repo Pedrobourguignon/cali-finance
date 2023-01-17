@@ -1,4 +1,5 @@
 export * from './ActiveTeamsCard';
+export * from './AllTeamsComponent';
 export * from './CreateOrganizationComponent';
 export * from './CreateTeam';
 export * from './EditOrganizationComponent';
@@ -11,5 +12,5 @@ export * from './OrganizationsDashboard';
 export * from './PremiumAlert';
 export * from './RecentActivities';
 export * from './SurplusTeams';
-export * from './TeamsComponent';
+export * from './TeamComponent';
 export * from './YourOrganizations';
