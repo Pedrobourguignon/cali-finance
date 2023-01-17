@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { OrganizationCard, Paginator } from 'components';
 import { ITeamsList } from 'types';
 import { useOrganizations } from 'hooks';
+import styles from '../../../../styles/organizationsList.module.css';
 
 const settings = {
 	infinite: false,
@@ -75,12 +76,12 @@ export const TeamList = () => {
 				/>
 			</Flex>
 			<Box position="relative">
-				<Flex w="43.4rem" display="block" bg="transparent">
+				<Flex w="46rem" display="block" bg="transparent">
 					<Slider
 						{...settings}
 						ref={sliderRef => setSlider(sliderRef)}
 						arrows={false}
-						className="slider"
+						className={styles.slider}
 					>
 						{organizations.map((team, index) => (
 							<OrganizationCard key={+index} team={team} />
