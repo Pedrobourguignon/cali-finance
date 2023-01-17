@@ -71,29 +71,6 @@ export const ConnectWalletButton = () => {
 						{translate('connectWallet')}
 					</Text>
 				</Button>
-				{/* <Flex
-					h="max-content"
-					py="2"
-					fontSize="sm"
-					color="black"
-					borderRadius="base"
-					bg="white"
-					_hover={{ background: 'white' }}
-					_focus={{ background: 'white' }}
-					display={shouldntDisplay}
-				>
-					<Flex align="center" gap="2" px="4">
-						<Img
-							src={profilePicture}
-							borderRadius="full"
-							boxSize="6"
-							objectFit="cover"
-						/>
-						<Text fontWeight="500" fontSize="sm">
-							{walletAddress}
-						</Text>
-					</Flex>
-				</Flex> */}
 			</OffsetShadow>
 		</Flex>
 	);

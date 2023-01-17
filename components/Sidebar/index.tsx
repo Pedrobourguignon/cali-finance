@@ -75,9 +75,8 @@ export const Sidebar: React.FC = () => {
 	const theme = usePicasso();
 	const { isSamePath } = usePath();
 	const walletAddress = '0x6856...BF99';
-	const { picture } = useProfile();
+	const { userProfile, isConnected } = useProfile();
 	const { locale, pathname } = useRouter();
-	const { isConnected } = useProfile();
 	const languages: ILanguage[] = ['en-US', 'pt-BR'];
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const [networkData, setNetworkData] = useState<INetwork>({
@@ -131,7 +130,7 @@ export const Sidebar: React.FC = () => {
 					>
 						<Flex align="center" gap="2" px="4">
 							<Img
-								src={picture}
+								src={userProfile?.picture}
 								borderRadius="full"
 								boxSize="6"
 								objectFit="cover"
