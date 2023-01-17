@@ -1,7 +1,7 @@
 import { Flex, Text, useDisclosure } from '@chakra-ui/react';
 import React from 'react';
 import useTranslation from 'next-translate/useTranslation';
-import { ContactOptionsModal } from 'components/Modals';
+import { ContactOptionsModal } from 'components';
 
 export const HaveProblemCard = () => {
 	const { t: translate } = useTranslation('have-a-problem');

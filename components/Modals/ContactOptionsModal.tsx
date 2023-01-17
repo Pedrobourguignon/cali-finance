@@ -26,7 +26,7 @@ export const ContactOptionsModal: React.FC<IBasicModal> = ({
 	return (
 		<Modal isOpen={isOpen} onClose={onClose} size="sm">
 			<ModalOverlay />
-			<ModalContent bg="white" flexDirection="column">
+			<ModalContent>
 				<OffsetShadow
 					width="full"
 					height="19rem"
@@ -39,17 +39,28 @@ export const ContactOptionsModal: React.FC<IBasicModal> = ({
 						bg={theme.bg.modal}
 						borderRadius="base"
 						w="full"
+						borderWidth="1px"
+						borderColor={theme.bg.primary}
 					>
 						<ModalHeader
 							bgImage="/images/Rectangle-40475.png"
 							bgRepeat="no-repeat"
 							bgSize="cover"
 							p="5"
+							position="relative"
 						>
-							<Text fontSize="xl" fontWeight="500">
+							<Img
+								src="/images/cali-background-texture.png"
+								position="absolute"
+								top="0"
+								left="0"
+								w="100%"
+								h="100%"
+							/>
+							<Text fontSize="xl" fontWeight="medium" position="relative">
 								{translate('chooseTheBetter')}
 							</Text>
-							<Text fontSize="xl" fontWeight="500">
+							<Text fontSize="xl" fontWeight="medium" position="relative">
 								{translate('wayTo')}
 							</Text>
 						</ModalHeader>
@@ -63,7 +74,7 @@ export const ContactOptionsModal: React.FC<IBasicModal> = ({
 							>
 								<Flex align="center" gap="4" pl="4">
 									<Icon as={FaDiscord} color="#5A69EA" boxSize="6" />
-									<Text fontSize="sm" fontWeight="500" color="black" py="4">
+									<Text fontSize="sm" fontWeight="medium" color="black" py="4">
 										{translate('openAService')}
 									</Text>
 								</Flex>
@@ -76,7 +87,7 @@ export const ContactOptionsModal: React.FC<IBasicModal> = ({
 							>
 								<Flex align="center" gap="4" pl="4">
 									<Img src="/images/schedule.png" boxSize="6" />
-									<Text fontSize="sm" fontWeight="500" color="black" py="4">
+									<Text fontSize="sm" fontWeight="medium" color="black" py="4">
 										{translate('scheduleAMeeting')}
 									</Text>
 								</Flex>
@@ -88,7 +99,7 @@ export const ContactOptionsModal: React.FC<IBasicModal> = ({
 								{translate('orYouCan')}
 								&nbsp;
 							</Text>
-							<Text color="black" as="u" fontSize="sm">
+							<Text color="black" as="u" fontSize="sm" fontWeight="semibold">
 								{translate('sendUsAEmail')}
 							</Text>
 						</Flex>
