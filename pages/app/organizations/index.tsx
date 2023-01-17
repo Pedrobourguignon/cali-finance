@@ -5,7 +5,7 @@ import type { NextPage } from 'next';
 
 const index: NextPage = () => (
 	<TokensProvider>
-		<OrganizationsContainer />;
+		<OrganizationsContainer />
 	</TokensProvider>
 );
 
