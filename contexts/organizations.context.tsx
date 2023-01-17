@@ -15,6 +15,7 @@ interface IOrganizationsContext {
 	totalMembers: string;
 	notificationsList: INotificationList[];
 	setNotificationsList: Dispatch<SetStateAction<INotificationList[]>>;
+	selectedOrganization: IOrganization;
 }
 
 export const OrganizationsContext = createContext({} as IOrganizationsContext);
@@ -100,6 +101,28 @@ export const OrganizationsProvider: React.FC<{ children: React.ReactNode }> = ({
 			],
 		},
 	]);
+
+	const [selectedOrganization, setSelectedOrganization] =
+		useState<IOrganization>({
+			name: 'Kylie Cosmetics Super Extra',
+			type: 'DAO',
+			email: 'kylieskin@gmail.com',
+			funds: 67986.09,
+			members: 170,
+			teams: ['marketing'],
+			description: 'Hello',
+			selectedNetwork: 'Ethereum',
+			logo: '',
+			socialMedias: [
+				{
+					instagram: '@kylieskin',
+					telegram: 't/kylieskin',
+					twitter: 'twitter.com/kylieskin',
+					website: 'kylieskin.net',
+				},
+			],
+		});
+
 	const [notificationsList, setNotificationsList] = useState<
 		INotificationList[]
 	>([
@@ -183,8 +206,10 @@ export const OrganizationsProvider: React.FC<{ children: React.ReactNode }> = ({
 			totalMembers,
 			notificationsList,
 			setNotificationsList,
+			selectedOrganization,
 		}),
 		[
+			selectedOrganization,
 			organizations,
 			activities,
 			totalFunds,

@@ -29,8 +29,7 @@ import { editEmployeeSchema, truncateWallet } from 'utils';
 export const EditEmployee: React.FC<IEditEmployee> = ({
 	isOpen,
 	onClose,
-	employeeName,
-	employeeWalletAddress,
+	employee,
 }) => {
 	const theme = usePicasso();
 	const { t: translate } = useTranslation('swap-token');
@@ -102,7 +101,7 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 									Edit Employee
 								</Text>
 								<Text color={theme.text.primary} fontSize="sm">
-									{employeeName} - {truncateWallet(employeeWalletAddress)}
+									{employee.name} - {truncateWallet(employee.wallet)}
 								</Text>
 							</Flex>
 							<ModalCloseButton color="gray.400" py="6" />

@@ -4,19 +4,25 @@ import {
 	MobileHeader,
 	DashboardRightBar,
 } from 'components';
-import { OrganizationsProvider, TokensProvider } from 'contexts';
+import {
+	OrganizationsProvider,
+	ProfileProvider,
+	TokensProvider,
+} from 'contexts';
 import { AppLayout } from 'layouts';
 import React from 'react';
 
 export const DashboardContainer = () => (
 	<OrganizationsProvider>
 		<TokensProvider>
-			<AppLayout right={<DashboardRightBar />}>
-				<Flex h="full" direction={{ base: 'column', sm: 'row' }} py="6">
-					<MobileHeader />
-					<DashboardComponent />
-				</Flex>
-			</AppLayout>
+			<ProfileProvider>
+				<AppLayout right={<DashboardRightBar />}>
+					<Flex h="full" direction={{ base: 'column', sm: 'row' }} py="6">
+						<MobileHeader />
+						<DashboardComponent />
+					</Flex>
+				</AppLayout>
+			</ProfileProvider>
 		</TokensProvider>
 	</OrganizationsProvider>
 );
