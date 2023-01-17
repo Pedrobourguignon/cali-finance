@@ -6,7 +6,7 @@ import {
 	RecentActivitiesDashboard,
 	MyAssets,
 	ErrorAlert,
-	TeamList,
+	OrganizationsList,
 	WithdrawModal,
 } from 'components';
 import React from 'react';
@@ -62,7 +62,7 @@ export const DashboardComponent: React.FC = () => {
 				<DashboardHeader />
 				<Coins />
 				<Flex direction="column" gap="9">
-					{isConnected ? <TeamList /> : <CreateOrganizationCard />}
+					{isConnected ? <OrganizationsList /> : <CreateOrganizationCard />}
 					{isConnected && (
 						<Flex justify="space-between">
 							<MyAssets />

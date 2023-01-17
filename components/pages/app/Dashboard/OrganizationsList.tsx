@@ -4,7 +4,6 @@ import React, { useState } from 'react';
 import { OrganizationCard, Paginator } from 'components';
 import { ITeamsList } from 'types';
 import { useOrganizations } from 'hooks';
-import styles from '../../../../styles/organizationsList.module.css';
 
 const settings = {
 	infinite: false,
@@ -46,7 +45,7 @@ const teamList: ITeamsList[] = [
 	},
 ];
 
-export const TeamList = () => {
+export const OrganizationsList = () => {
 	const [slider, setSlider] = React.useState<Slider | null>(null);
 	const { organizations } = useOrganizations();
 	const [actualPage, setActualPage] = useState(1);
@@ -65,7 +64,7 @@ export const TeamList = () => {
 	return (
 		<Flex direction="column" gap="3">
 			<Flex justify="space-between" align="center" pt="4">
-				<Text fontSize="16" fontWeight="500" color="#121212">
+				<Text fontSize="16" fontWeight="medium" color="#121212">
 					Your Organizations
 				</Text>
 				<Paginator
@@ -81,7 +80,7 @@ export const TeamList = () => {
 						{...settings}
 						ref={sliderRef => setSlider(sliderRef)}
 						arrows={false}
-						className={styles.slider}
+						className="slider"
 					>
 						{organizations.map((team, index) => (
 							<OrganizationCard key={+index} team={team} />
@@ -93,4 +92,4 @@ export const TeamList = () => {
 	);
 };
 
-export default TeamList;
+export default OrganizationsList;

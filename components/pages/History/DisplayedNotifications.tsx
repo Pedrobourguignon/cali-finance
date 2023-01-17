@@ -1,9 +1,8 @@
-import { Flex, Icon, layout, Text } from '@chakra-ui/react';
+import { Flex, Icon, Text } from '@chakra-ui/react';
 import { usePicasso } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
 import React from 'react';
 import { IHistoryNotification } from 'types';
-import { layoutLimit } from 'utils';
 
 interface IDisplayedNotifications {
 	filteredNotifications: IHistoryNotification[];
