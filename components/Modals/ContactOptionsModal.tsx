@@ -46,7 +46,8 @@ export const ContactOptionsModal: React.FC<IBasicModal> = ({
 							bgImage="/images/Rectangle-40475.png"
 							bgRepeat="no-repeat"
 							bgSize="cover"
-							p="5"
+							py="5"
+							px="6"
 							position="relative"
 						>
 							<Img
@@ -74,7 +75,12 @@ export const ContactOptionsModal: React.FC<IBasicModal> = ({
 							>
 								<Flex align="center" gap="4" pl="4">
 									<Icon as={FaDiscord} color="#5A69EA" boxSize="6" />
-									<Text fontSize="sm" fontWeight="medium" color="black" py="4">
+									<Text
+										fontSize="sm"
+										fontWeight="medium"
+										color={theme.text.black2}
+										py="4"
+									>
 										{translate('openAService')}
 									</Text>
 								</Flex>
@@ -87,7 +93,12 @@ export const ContactOptionsModal: React.FC<IBasicModal> = ({
 							>
 								<Flex align="center" gap="4" pl="4">
 									<Img src="/images/schedule.png" boxSize="6" />
-									<Text fontSize="sm" fontWeight="medium" color="black" py="4">
+									<Text
+										fontSize="sm"
+										fontWeight="medium"
+										color={theme.text.black2}
+										py="4"
+									>
 										{translate('scheduleAMeeting')}
 									</Text>
 								</Flex>
@@ -95,11 +106,16 @@ export const ContactOptionsModal: React.FC<IBasicModal> = ({
 						</ModalBody>
 
 						<Flex justifyContent="center" pb="6">
-							<Text color="black" fontSize="sm">
+							<Text color={theme.text.black2} fontSize="sm">
 								{translate('orYouCan')}
 								&nbsp;
 							</Text>
-							<Text color="black" as="u" fontSize="sm" fontWeight="semibold">
+							<Text
+								color={theme.text.black2}
+								as="u"
+								fontSize="sm"
+								fontWeight="semibold"
+							>
 								{translate('sendUsAEmail')}
 							</Text>
 						</Flex>
