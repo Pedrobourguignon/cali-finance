@@ -6,7 +6,6 @@ import {
 } from 'components';
 import {
 	OrganizationsProvider,
-	ProfileContext,
 	ProfileProvider,
 	TokensProvider,
 } from 'contexts';

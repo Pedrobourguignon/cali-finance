@@ -116,7 +116,7 @@ export const Sidebar: React.FC = () => {
 					<Link href={navigationPaths.dashboard.home}>
 						<Img src="/images/cali-logo.svg" h="8" w="20" cursor="pointer" />
 					</Link>
-					{isConnected === true ? '' : <ConnectWalletButton />}
+					{isConnected === false && <ConnectWalletButton />}
 					<Flex
 						h="max-content"
 						py="2"
@@ -135,20 +135,18 @@ export const Sidebar: React.FC = () => {
 								boxSize="6"
 								objectFit="cover"
 							/>
-							<Text fontWeight="500" fontSize="sm">
+							<Text fontWeight="medium" fontSize="sm">
 								{walletAddress}
 							</Text>
 						</Flex>
 					</Flex>
 
-					{isConnected === true ? (
+					{isConnected === true && (
 						<ChangeNetworkButton
 							onClick={onOpen}
 							networkIcon={networkData.icon}
 							networkName={networkData.name}
 						/>
-					) : (
-						''
 					)}
 				</Flex>
 				<Flex direction="column" gap="7" w="full" pb="36">
