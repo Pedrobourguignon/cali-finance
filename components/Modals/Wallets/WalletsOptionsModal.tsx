@@ -12,7 +12,7 @@ import {
 	Text,
 } from '@chakra-ui/react';
 import { OffsetShadow } from 'components';
-import { usePicasso } from 'hooks';
+import { usePicasso, useProfile } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
 import { IWalletOptionsModal } from 'types';
 import { navigationPaths } from 'utils';
@@ -47,12 +47,14 @@ export const WalletsOptionsModal: React.FC<IWalletOptionsModal> = ({
 	setWalletData,
 }) => {
 	const { t: translate } = useTranslation('sidebar');
+	const { setIsConnected } = useProfile();
 	const theme = usePicasso();
 	const onTriggerLoadingModal = (icon: string, name: string) => {
 		setWalletData({
 			icon,
 			name,
 		});
+		setIsConnected(true);
 		openLoadingWalletModal();
 		onClose();
 	};
