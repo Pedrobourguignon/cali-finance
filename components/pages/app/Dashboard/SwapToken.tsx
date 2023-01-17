@@ -120,6 +120,7 @@ export const SwapToken = () => {
 								border="none"
 								borderColor="transparent"
 								borderRadius="base"
+								w="60"
 							>
 								<Input
 									placeholder="0"
@@ -137,7 +138,6 @@ export const SwapToken = () => {
 										bg="none"
 										color="white"
 										_hover={{ bg: 'none' }}
-										w="full"
 										onClick={onOpenPaidTokenSelector}
 										gap="2"
 									>
@@ -159,6 +159,7 @@ export const SwapToken = () => {
 								border="none"
 								borderColor="transparent"
 								borderRadius="base"
+								w="60"
 							>
 								<Input
 									{...register('youReceive')}
@@ -230,7 +231,7 @@ export const SwapToken = () => {
 							buttonText={translate('swap')}
 							top="0.375rem"
 							left="0.375rem"
-							px="32"
+							px="20"
 						>
 							<Button
 								position="relative"
@@ -244,7 +245,6 @@ export const SwapToken = () => {
 								}}
 								w="full"
 								h="full"
-								py="2"
 								fontSize="md"
 								color="black"
 								borderRadius="base"

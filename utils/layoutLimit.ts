@@ -1,1 +1,1 @@
-export const layoutLimit = 800;
+export const layoutLimit = 740;
