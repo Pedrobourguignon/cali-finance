@@ -47,7 +47,7 @@ export const DashboardComponent: React.FC = () => {
 
 	const isConnected = true;
 
-	const error = true;
+	const error = false;
 
 	if (error)
 		return (
