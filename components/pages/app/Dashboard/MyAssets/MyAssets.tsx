@@ -3,7 +3,7 @@
 import { Button, Flex, Text } from '@chakra-ui/react';
 import { Asset, OffsetShadow } from 'components';
 import useTranslation from 'next-translate/useTranslation';
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useMemo } from 'react';
 import { IAssetsOptions, IMyAssetsFullList } from 'types';
 
 const assetsOptions: IAssetsOptions[] = [
@@ -61,9 +61,13 @@ export const MyAssets = () => {
 	const ref = useRef<HTMLDivElement>(null);
 	const [flexHeight, setFlexHeight] = useState(239);
 
-	const totalAssetsValue = assetsOptions.reduce((totalValue, asset) => {
-		return totalValue + asset.value;
-	}, 0);
+	const totalAssetsValue = useMemo(
+		() =>
+			assetsOptions.reduce((totalValue, asset) => {
+				return totalValue + asset.value;
+			}, 0),
+		[]
+	);
 
 	useEffect(() => {
 		setFlexHeight(ref.current!.clientHeight);

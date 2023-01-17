@@ -4,13 +4,11 @@ import { IAssetsOptions } from 'types';
 
 interface IAsset {
 	assetsOptions: IAssetsOptions[];
-	key: number;
 	index: number;
 }
 
-export const Asset: React.FC<IAsset> = ({ assetsOptions, key, index }) => (
+export const Asset: React.FC<IAsset> = ({ assetsOptions, index }) => (
 	<Flex
-		key={key}
 		justify="space-between"
 		bg="black"
 		color="white"
