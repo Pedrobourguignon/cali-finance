@@ -1,11 +1,14 @@
-import { Flex, Text, Link } from '@chakra-ui/react';
+import { Flex, Text, useDisclosure } from '@chakra-ui/react';
 import React from 'react';
 import useTranslation from 'next-translate/useTranslation';
+import { ContactOptionsModal } from 'components';
 
 export const HaveProblemCard = () => {
 	const { t: translate } = useTranslation('have-a-problem');
+	const { isOpen, onOpen, onClose } = useDisclosure();
 	return (
-		<Link href="/dashboard">
+		<>
+			<ContactOptionsModal isOpen={isOpen} onClose={onClose} />
 			<Flex
 				w="full"
 				px="12"
@@ -15,6 +18,7 @@ export const HaveProblemCard = () => {
 				backgroundSize="cover"
 				backgroundRepeat="no-repeat"
 				cursor="pointer"
+				onClick={onOpen}
 			>
 				<Flex direction="column">
 					<Text fontStyle="Medium" fontSize="xl" lineHeight="7" color="white">
@@ -25,7 +29,7 @@ export const HaveProblemCard = () => {
 					</Text>
 				</Flex>
 			</Flex>
-		</Link>
+		</>
 	);
 };
 
