@@ -4,6 +4,7 @@ export * from './history';
 export * from './IChainDictionary';
 export * from './ICoin';
 export * from './INetwork';
+export * from './IProfile';
 export * from './modals';
 export * from './organizations';
 export * from './popover';
