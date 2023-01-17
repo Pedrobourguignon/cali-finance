@@ -74,7 +74,6 @@ export const Sidebar: React.FC = () => {
 	];
 	const theme = usePicasso();
 	const { isSamePath } = usePath();
-	const walletAddress = '0x6856...BF99';
 	const { userProfile, isConnected } = useProfile();
 	const { locale, pathname } = useRouter();
 	const languages: ILanguage[] = ['en-US', 'pt-BR'];
@@ -136,7 +135,7 @@ export const Sidebar: React.FC = () => {
 								objectFit="cover"
 							/>
 							<Text fontWeight="medium" fontSize="sm">
-								{walletAddress}
+								{userProfile?.wallet}
 							</Text>
 						</Flex>
 					</Flex>
