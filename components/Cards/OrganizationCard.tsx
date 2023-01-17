@@ -1,8 +1,9 @@
-import { Button, Flex, Img, Text } from '@chakra-ui/react';
+import { Flex, Img, Text } from '@chakra-ui/react';
 import { usePicasso } from 'hooks';
+import Link from 'next/link';
 import React from 'react';
 import { IOrganization } from 'types';
-import { handleLogoImage } from 'utils';
+import { handleLogoImage, navigationPaths } from 'utils';
 
 interface IOrganizationCard {
 	team: IOrganization;
@@ -17,6 +18,7 @@ export const OrganizationCard: React.FC<IOrganizationCard> = ({ team }) => {
 			borderRadius="base"
 			direction="column"
 			w="56"
+			gap="4"
 		>
 			<Flex direction="column" pt="2.5" pl="4" color={theme.text.primary}>
 				<Flex align="center" gap="2.5">
@@ -54,15 +56,18 @@ export const OrganizationCard: React.FC<IOrganizationCard> = ({ team }) => {
 					</Flex>
 				</Flex>
 			</Flex>
-			<Flex w="100%" align="center" justify="center" py="1">
-				<Button
-					color={theme.branding.blue}
-					bg="none"
-					fontSize="xs"
-					fontWeight="medium"
-				>
-					Manage
-				</Button>
+			<Flex w="100%" align="center" justify="center" pb="4">
+				<Link href={navigationPaths.dashboard.organizations.overview('1')}>
+					<Text
+						color={theme.branding.blue}
+						bg="none"
+						fontSize="xs"
+						fontWeight="medium"
+						cursor="pointer"
+					>
+						Manage
+					</Text>
+				</Link>
 			</Flex>
 		</Flex>
 	);
