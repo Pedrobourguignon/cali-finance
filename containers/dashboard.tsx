@@ -10,7 +10,6 @@ import {
 	TokensProvider,
 } from 'contexts';
 import { AppLayout } from 'layouts';
-
 import React from 'react';
 
 export const DashboardContainer = () => (
