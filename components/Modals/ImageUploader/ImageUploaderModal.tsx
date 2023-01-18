@@ -20,11 +20,14 @@ export const ImageUploaderModal: React.FC<IBasicModal> = ({
 }) => {
 	const theme = usePicasso();
 	const { setTeamPicture } = useTeams();
-	const { setProfilePicture } = useProfile();
+	const { setUserProfile } = useProfile();
 
 	const sendPicture = (photo: string) => {
 		setTeamPicture(photo);
-		setProfilePicture(photo);
+		setUserProfile(prevState => ({
+			...prevState,
+			picture: photo,
+		}));
 	};
 
 	return (
@@ -64,7 +67,7 @@ export const ImageUploaderModal: React.FC<IBasicModal> = ({
 						<Flex w="100%" justify="center">
 							<DragDrop
 								setTeamPicture={setTeamPicture}
-								setProfilePicture={setProfilePicture}
+								setUserProfile={setUserProfile}
 							/>
 						</Flex>
 					</ModalBody>

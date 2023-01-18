@@ -10,7 +10,7 @@ interface ILanding {
 export const AppLayout: React.FC<ILanding> = ({ children, right }) => {
 	const theme = usePicasso();
 	return (
-		<Flex bg={theme.bg.primary} py="6" minH="100vh" h="full" w="100%">
+		<Flex bg={theme.bg.primary} py="6" minH="100vh" w="full">
 			<Sidebar />
 			<Flex
 				bg="white"
@@ -18,8 +18,6 @@ export const AppLayout: React.FC<ILanding> = ({ children, right }) => {
 				borderLeft="0.25rem solid"
 				borderColor={theme.branding.blue}
 				borderLeftRadius="sm"
-				gap="4"
-				justify="space-between"
 				position="relative"
 			>
 				<Flex
@@ -33,7 +31,9 @@ export const AppLayout: React.FC<ILanding> = ({ children, right }) => {
 					<Flex direction="column" w="100%">
 						{children}
 					</Flex>
-					<Flex p="6">{right}</Flex>
+					<Flex py="6" pr="4">
+						{right}
+					</Flex>
 				</Flex>
 			</Flex>
 		</Flex>

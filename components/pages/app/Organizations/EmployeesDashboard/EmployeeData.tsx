@@ -5,12 +5,13 @@ import {
 	Img,
 	Select,
 	Text,
+	useDisclosure,
 	useToast,
 } from '@chakra-ui/react';
 import { MdContentCopy } from 'react-icons/md';
 import { IEmployee } from 'types';
 import { truncateWallet } from 'utils';
-import { CopyAddressToast } from 'components';
+import { CopyAddressToast, EditEmployee } from 'components';
 
 const teams = ['General', 'Marketing', 'Finance', 'Trozorba'];
 interface IEmployeeData {
@@ -24,6 +25,7 @@ export const EmployeeData: React.FC<IEmployeeData> = ({
 	isGeneral,
 }) => {
 	const toast = useToast();
+	const { isOpen, onOpen, onClose } = useDisclosure();
 
 	const handleCopyButton = () => {
 		navigator.clipboard.writeText(employee.wallet);
@@ -43,6 +45,7 @@ export const EmployeeData: React.FC<IEmployeeData> = ({
 			py="2"
 			borderRadius="base"
 		>
+			<EditEmployee isOpen={isOpen} onClose={onClose} employee={employee} />
 			<Flex justify="center" align="center" gap="3" maxW="36">
 				<Img src={employee.photo} boxSize="6" />
 				<Flex direction="column" justifyItems="center">
@@ -97,6 +100,7 @@ export const EmployeeData: React.FC<IEmployeeData> = ({
 					fontWeight="medium"
 					h="max-content"
 					px="0"
+					onClick={onOpen}
 				>
 					<Text w="100%" align="end">
 						Edit

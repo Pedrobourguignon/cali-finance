@@ -19,7 +19,7 @@ export const RecentActivities = () => {
 		>
 			<Flex justify="space-between" align="center">
 				<Text fontWeight="medium">Recent Activities</Text>
-				<Link href={navigationPaths.dashboard.organizations.funds('1')}>
+				<Link href={navigationPaths.dashboard.history}>
 					<Text
 						color="gray.500"
 						fontSize="xs"

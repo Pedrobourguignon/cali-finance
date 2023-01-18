@@ -8,8 +8,8 @@ import {
 	TextProps,
 	useDisclosure,
 } from '@chakra-ui/react';
-import { usePicasso, useProfile, useTeams } from 'hooks';
-import React, { useEffect, useState } from 'react';
+import { usePicasso, useProfile } from 'hooks';
+import React from 'react';
 import useTranslation from 'next-translate/useTranslation';
 import { ImageUploaderModal } from 'components';
 import { OrganizationWhiteBackground } from 'layouts';
@@ -29,11 +29,7 @@ export const EditProfileComponent = () => {
 	const theme = usePicasso();
 	const { t: translate } = useTranslation('edit-profile');
 	const { isOpen, onOpen, onClose } = useDisclosure();
-	const { profilePicture, setProfilePicture, profileData } = useProfile();
-
-	useEffect(() => {
-		setProfilePicture(profileData.photo);
-	}, [setProfilePicture, profileData.photo]);
+	const { userProfile } = useProfile();
 
 	const editProfileSchema = yup.object().shape({
 		name: yup
@@ -86,7 +82,7 @@ export const EditProfileComponent = () => {
 			</Flex>
 			<Flex justify="center" pt="7" direction="column" align="center" gap="5">
 				<Button
-					bgImage={profilePicture}
+					bgImage={userProfile.picture}
 					bgSize="cover"
 					bgRepeat="no-repeat"
 					_hover={{ opacity: '80%' }}
@@ -97,7 +93,7 @@ export const EditProfileComponent = () => {
 					pb="10"
 					boxSize="24"
 				>
-					{profilePicture === '' ? (
+					{userProfile.picture === '' ? (
 						<Img src="/images/editImage.png" boxSize="24" />
 					) : (
 						''
@@ -118,7 +114,6 @@ export const EditProfileComponent = () => {
 				</Button>
 			</Flex>
 			<Flex h="full" direction="column" align="center" pt="24">
-				{/* <EditProfileForm /> */}
 				<form onSubmit={handleSubmit(handleEditProfile)}>
 					<FormControl>
 						<Flex direction="column" gap="8">

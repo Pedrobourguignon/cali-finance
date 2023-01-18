@@ -14,7 +14,11 @@ export const ErrorAlert = () => {
 			w="100%"
 			h="100vh"
 			direction={{ base: 'column', sm: 'row' }}
-			bgColor="white"
+			bg={theme.bg.white2}
+			bgImage="/images/404-pattern.png"
+			bgRepeat="no-repeat"
+			bgPosition="left top"
+			position="relative"
 		>
 			<Flex align="center">
 				<Img src="/icons/error.svg" boxSize={{ base: '80', sm: '96' }} />
