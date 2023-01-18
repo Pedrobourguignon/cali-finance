@@ -8,8 +8,8 @@ import {
 	TextProps,
 	useDisclosure,
 } from '@chakra-ui/react';
-import { usePicasso, useProfile } from 'hooks';
-import React from 'react';
+import { usePicasso } from 'hooks';
+import React, { useState } from 'react';
 import useTranslation from 'next-translate/useTranslation';
 import { ImageUploaderModal } from 'components';
 import { OrganizationWhiteBackground } from 'layouts';
@@ -29,7 +29,6 @@ export const EditProfileComponent = () => {
 	const theme = usePicasso();
 	const { t: translate } = useTranslation('edit-profile');
 	const { isOpen, onOpen, onClose } = useDisclosure();
-	const { userProfile } = useProfile();
 
 	const editProfileSchema = yup.object().shape({
 		name: yup
@@ -58,6 +57,7 @@ export const EditProfileComponent = () => {
 	} = useForm<IEditProfile>({
 		resolver: yupResolver(editProfileSchema),
 	});
+	const [editProfilePicture, setEditProfilePicture] = useState('');
 
 	const handleEditProfile = (newDataOfProfile: IEditProfile) => {
 		console.log(newDataOfProfile);
@@ -65,7 +65,11 @@ export const EditProfileComponent = () => {
 
 	return (
 		<>
-			<ImageUploaderModal isOpen={isOpen} onClose={onClose} />
+			<ImageUploaderModal
+				isOpen={isOpen}
+				onClose={onClose}
+				sendImage={setEditProfilePicture}
+			/>
 			<Flex>
 				<Text
 					fontSize="xl"
@@ -82,7 +86,7 @@ export const EditProfileComponent = () => {
 			</Flex>
 			<Flex justify="center" pt="7" direction="column" align="center" gap="5">
 				<Button
-					bgImage={userProfile.picture}
+					bgImage={editProfilePicture}
 					bgSize="cover"
 					bgRepeat="no-repeat"
 					_hover={{ opacity: '80%' }}
@@ -93,10 +97,8 @@ export const EditProfileComponent = () => {
 					pb="10"
 					boxSize="24"
 				>
-					{userProfile.picture === '' ? (
+					{editProfilePicture === '' && (
 						<Img src="/images/editImage.png" boxSize="24" />
-					) : (
-						''
 					)}
 				</Button>
 				<Button

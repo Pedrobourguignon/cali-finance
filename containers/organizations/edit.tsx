@@ -10,6 +10,7 @@ import { IEditOrganization } from 'types';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useOrganizations } from 'hooks';
+import { OrganizationsProvider } from 'contexts';
 
 export const EditOrganization = () => {
 	const {
@@ -25,41 +26,38 @@ export const EditOrganization = () => {
 	) => {
 		console.log(editedOrganizationData);
 	};
-	const { organizations } = useOrganizations();
+	const { selectedOrganization } = useOrganizations();
 
 	return (
-		<form onSubmit={handleSubmit(handleEditOrganization)}>
-			<FormControl>
-				<AppLayout right={<EditOrganizationLink control={control} />}>
-					<OrganizationWhiteBackground />
-					<Flex
-						direction="column"
-						align="flex-start"
-						gap="10"
-						zIndex="docked"
-						pt="6"
-						w="100%"
-					>
-						<Flex px="5">
-							<NavigationBack
-								href={navigationPaths.dashboard.organizations.home}
-							>
-								Back to Organizations
-							</NavigationBack>
+		<OrganizationsProvider>
+			<form onSubmit={handleSubmit(handleEditOrganization)}>
+				<FormControl>
+					<AppLayout right={<EditOrganizationLink control={control} />}>
+						<OrganizationWhiteBackground />
+						<Flex
+							direction="column"
+							align="flex-start"
+							gap="10"
+							zIndex="docked"
+							pt="6"
+							w="100%"
+						>
+							<Flex px="5">
+								<NavigationBack
+									href={navigationPaths.dashboard.organizations.home}
+								>
+									Back to Organizations
+								</NavigationBack>
+							</Flex>
+							<EditOrganizationComponent
+								errors={errors}
+								control={control}
+								organization={selectedOrganization}
+							/>
 						</Flex>
-						<EditOrganizationComponent
-							errors={errors}
-							control={control}
-							name={organizations[0].name}
-							type={organizations[0].type}
-							email={organizations[0].email}
-							selectedNetwork={organizations[0].selectedNetwork}
-							description={organizations[0].description}
-							socialMedias={organizations[0].socialMedias[0]}
-						/>
-					</Flex>
-				</AppLayout>
-			</FormControl>
-		</form>
+					</AppLayout>
+				</FormControl>
+			</form>
+		</OrganizationsProvider>
 	);
 };

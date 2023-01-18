@@ -1,10 +1,11 @@
 import { Button, Flex, useDisclosure } from '@chakra-ui/react';
 import { ImageUploaderModal } from 'components';
-import { usePicasso } from 'hooks';
+import { useOrganizations, usePicasso } from 'hooks';
 
 export const ImageUploader = () => {
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const theme = usePicasso();
+	const { setSelectedOrganizationLogo } = useOrganizations();
 
 	return (
 		<Flex>
@@ -19,7 +20,11 @@ export const ImageUploader = () => {
 			>
 				Edit logo image
 			</Button>
-			<ImageUploaderModal isOpen={isOpen} onClose={onClose} />
+			<ImageUploaderModal
+				isOpen={isOpen}
+				onClose={onClose}
+				sendImage={setSelectedOrganizationLogo}
+			/>
 		</Flex>
 	);
 };

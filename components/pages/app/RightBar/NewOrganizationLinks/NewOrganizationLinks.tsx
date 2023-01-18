@@ -1,5 +1,5 @@
 import { Flex, Img } from '@chakra-ui/react';
-import { useOrganizations, usePicasso } from 'hooks';
+import { usePicasso } from 'hooks';
 import { handleLogoImage } from 'utils';
 import { ImageUploader, SocialMediaInput } from 'components';
 import {

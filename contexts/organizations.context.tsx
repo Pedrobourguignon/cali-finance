@@ -2,6 +2,7 @@ import {
 	createContext,
 	Dispatch,
 	SetStateAction,
+	useEffect,
 	useMemo,
 	useState,
 } from 'react';
@@ -16,6 +17,8 @@ interface IOrganizationsContext {
 	notificationsList: INotificationList[];
 	setNotificationsList: Dispatch<SetStateAction<INotificationList[]>>;
 	selectedOrganization: IOrganization;
+	setSelectedOrganizationLogo: Dispatch<SetStateAction<string>>;
+	selectedOrganizationLogo: string;
 }
 
 export const OrganizationsContext = createContext({} as IOrganizationsContext);
@@ -83,9 +86,11 @@ export const OrganizationsProvider: React.FC<{ children: React.ReactNode }> = ({
 		},
 	]);
 
+	const [selectedOrganizationLogo, setSelectedOrganizationLogo] = useState('');
+
 	const [selectedOrganization, setSelectedOrganization] =
 		useState<IOrganization>({
-			name: 'Kylie Cosmetics Super Extra',
+			name: 'kylie skin',
 			type: 'DAO',
 			email: 'kylieskin@gmail.com',
 			funds: 67986.09,
@@ -93,7 +98,7 @@ export const OrganizationsProvider: React.FC<{ children: React.ReactNode }> = ({
 			teams: ['marketing'],
 			description: 'Hello',
 			selectedNetwork: 'Ethereum',
-			logo: '',
+			logo: selectedOrganizationLogo,
 			socialMedias: [
 				{
 					instagram: '@kylieskin',
@@ -164,6 +169,14 @@ export const OrganizationsProvider: React.FC<{ children: React.ReactNode }> = ({
 			value: 10,
 		},
 	]);
+
+	useEffect(() => {
+		setSelectedOrganization(prevState => ({
+			...prevState,
+			logo: selectedOrganizationLogo,
+		}));
+	}, [selectedOrganizationLogo]);
+
 	const totalFunds = organizations
 		.reduce((total: number, org: IOrganization) => total + org.funds, 0)
 		.toLocaleString('en-US');
@@ -188,6 +201,8 @@ export const OrganizationsProvider: React.FC<{ children: React.ReactNode }> = ({
 			notificationsList,
 			setNotificationsList,
 			selectedOrganization,
+			setSelectedOrganizationLogo,
+			selectedOrganizationLogo,
 		}),
 		[
 			selectedOrganization,
@@ -198,6 +213,8 @@ export const OrganizationsProvider: React.FC<{ children: React.ReactNode }> = ({
 			totalMembers,
 			notificationsList,
 			setNotificationsList,
+			setSelectedOrganizationLogo,
+			selectedOrganizationLogo,
 		]
 	);
 	return (

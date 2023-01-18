@@ -6,7 +6,7 @@ import {
 	useMemo,
 	useState,
 } from 'react';
-import { IEmployee, ITeam, ITeamsData } from 'types';
+import { IEmployee, INewTeam, ITeam, ITeamsData } from 'types';
 
 interface ITeamsContext {
 	teams: ITeamsData[];
@@ -16,6 +16,8 @@ interface ITeamsContext {
 	marketingEmployee: IEmployee[];
 	teamData: ITeam;
 	setTeamData: Dispatch<SetStateAction<ITeam>>;
+	setNewTeam: Dispatch<SetStateAction<INewTeam>>;
+	newTeam: INewTeam;
 }
 
 const CompanyEmployees: IEmployee[] = [
@@ -67,7 +69,13 @@ export const TeamsProvider: React.FC<{ children: React.ReactNode }> = ({
 	children,
 }) => {
 	const [teams, setTeams] = useState<ITeamsData[]>([]);
-	const [teamPicture, setTeamPicture] = useState('');
+	const [newTeam, setNewTeam] = useState<INewTeam>({
+		name: '',
+		description: '',
+		picture: '',
+	});
+
+	const [teamPicture, setTeamPicture] = useState('/images/team1.png');
 	const [marketingEmployee, setMarketingEmployee] = useState<IEmployee[]>([
 		{
 			name: 'Kim Kardashian',
@@ -138,6 +146,8 @@ export const TeamsProvider: React.FC<{ children: React.ReactNode }> = ({
 			marketingEmployee,
 			teamData,
 			setTeamData,
+			setNewTeam,
+			newTeam,
 		}),
 		[
 			teams,
@@ -147,6 +157,8 @@ export const TeamsProvider: React.FC<{ children: React.ReactNode }> = ({
 			marketingEmployee,
 			teamData,
 			setTeamData,
+			setNewTeam,
+			newTeam,
 		]
 	);
 	return (

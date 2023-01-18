@@ -10,24 +10,26 @@ import {
 	ModalOverlay,
 	Text,
 } from '@chakra-ui/react';
-import { usePicasso, useProfile, useTeams } from 'hooks';
+import { usePicasso } from 'hooks';
 import { IBasicModal } from 'types';
 import { DragDrop } from 'components';
+import { useState } from 'react';
 
-export const ImageUploaderModal: React.FC<IBasicModal> = ({
+interface IImageUploader extends IBasicModal {
+	sendImage: React.Dispatch<React.SetStateAction<string>>;
+}
+
+export const ImageUploaderModal: React.FC<IImageUploader> = ({
 	isOpen,
 	onClose,
+	sendImage,
 }) => {
 	const theme = usePicasso();
-	const { setTeamPicture } = useTeams();
-	const { setUserProfile } = useProfile();
+	const [picture, setPicture] = useState('');
 
-	const sendPicture = (photo: string) => {
-		setTeamPicture(photo);
-		setUserProfile(prevState => ({
-			...prevState,
-			picture: photo,
-		}));
+	const handleUploadFile = () => {
+		sendImage(picture);
+		onClose();
 	};
 
 	return (
@@ -65,10 +67,7 @@ export const ImageUploaderModal: React.FC<IBasicModal> = ({
 							</Text>
 						</Flex>
 						<Flex w="100%" justify="center">
-							<DragDrop
-								setTeamPicture={setTeamPicture}
-								setUserProfile={setUserProfile}
-							/>
+							<DragDrop setPicture={setPicture} />
 						</Flex>
 					</ModalBody>
 				</Flex>
@@ -89,7 +88,7 @@ export const ImageUploaderModal: React.FC<IBasicModal> = ({
 						px="8"
 						borderRadius="base"
 						_hover={{ opacity: '0.75' }}
-						onClick={onClose}
+						onClick={handleUploadFile}
 					>
 						Upload File
 					</Button>
