@@ -1,7 +1,6 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
-/* eslint-disable arrow-body-style */
 import { Button, Flex, Text } from '@chakra-ui/react';
 import { Asset, OffsetShadow } from 'components';
+import { usePicasso } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
 import React, { useState, useRef, useEffect, useMemo } from 'react';
 import { IAssetsOptions, IMyAssetsFullList } from 'types';
@@ -11,21 +10,21 @@ const assetsOptions: IAssetsOptions[] = [
 		name: 'USD Coin',
 		initials: 'USDC',
 		units: '84,238.11',
-		value: 1,
+		value: 84238.11,
 		icon: '/icons/usdc.svg',
 	},
 	{
 		name: 'Bitcoin',
 		initials: 'BTC',
 		units: '0.001234',
-		value: 2,
+		value: 5666.99,
 		icon: '/icons/bitcoin.svg',
 	},
 	{
 		name: 'Ethereum',
 		initials: 'ETH',
 		units: '0.7',
-		value: 3,
+		value: 2032.11,
 		icon: '/icons/eth.svg',
 	},
 	{
@@ -57,16 +56,15 @@ export const MyAssets = () => {
 		buttonText: 'See all',
 	});
 	const { t: translate } = useTranslation('dashboard');
+	const theme = usePicasso();
 
 	const ref = useRef<HTMLDivElement>(null);
 	const [flexHeight, setFlexHeight] = useState(239);
 
 	const totalAssetsValue = useMemo(
 		() =>
-			assetsOptions.reduce((totalValue, asset) => {
-				return totalValue + asset.value;
-			}, 0),
-		[]
+			assetsOptions.reduce((totalValue, asset) => totalValue + asset.value, 0),
+		[assetsOptions]
 	);
 
 	useEffect(() => {
@@ -92,33 +90,30 @@ export const MyAssets = () => {
 		<OffsetShadow
 			width="23.5rem"
 			height={flexHeight}
-			borderColor="black"
+			borderColor={theme.bg.primary}
 			top="3"
 			left="3"
 		>
 			<Flex
 				position="relative"
-				zIndex="0"
 				direction="column"
 				borderRadius="base"
 				border="1px solid"
-				borderColor="black"
+				borderColor={theme.bg.primary}
 				h="max-content"
 				ref={ref}
 			>
-				<Flex
-					direction="column"
-					zIndex="1"
-					bg="white"
-					boxSize="full"
-					borderRadius="base"
-				>
-					<Flex justify="space-between" px="4" py="2">
+				<Flex direction="column" bg="white" boxSize="full" borderRadius="base">
+					<Flex justify="space-between" px="4" py="2" align="start">
 						<Flex direction="column">
-							<Text fontSize="md" fontWeight="medium" color="black">
+							<Text
+								fontSize="md"
+								fontWeight="medium"
+								color={theme.text.primary}
+							>
 								{translate('myAssets')}
 							</Text>
-							<Text fontSize="sm" color="black">
+							<Text fontSize="sm" color={theme.text.primary}>
 								${totalAssetsValue.toLocaleString()}
 							</Text>
 						</Flex>
@@ -127,8 +122,8 @@ export const MyAssets = () => {
 							fontSize="sm"
 							cursor="pointer"
 							color="gray.500"
-							p="0"
-							pb="4"
+							h="0"
+							py="3"
 							onClick={() => fullList()}
 						>
 							{myAssetsFullList.buttonText}
@@ -138,11 +133,7 @@ export const MyAssets = () => {
 						{assetsOptions
 							.slice(0, myAssetsFullList.listLength)
 							.map((asset, index) => (
-								<Asset
-									assetsOptions={assetsOptions}
-									key={+index}
-									index={index}
-								/>
+								<Asset assetsOptions={asset} key={+index} />
 							))}
 					</Flex>
 				</Flex>
