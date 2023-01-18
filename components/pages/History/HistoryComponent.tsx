@@ -74,7 +74,7 @@ export const HistoryComponent: React.FC<IHistoryPage> = ({ history }) => {
 			right={isConnected ? <LifeIsEasierBanner /> : <CreateAccountBanner />}
 		>
 			<Flex direction="column" gap="5" p="6">
-				<Flex direction="column" gap="2" w={layoutLimit}>
+				<Flex direction="column" gap="2" maxW={layoutLimit}>
 					<Flex justify="space-between" align="center">
 						<Flex direction="column" gap="4">
 							<Text

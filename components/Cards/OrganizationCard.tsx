@@ -20,6 +20,7 @@ export const OrganizationCard: React.FC<IOrganizationCard> = ({ team }) => {
 			borderRadius="base"
 			direction="column"
 			w="56"
+			gap="4"
 		>
 			<Flex direction="column" pt="2.5" pl="4" color={theme.text.primary}>
 				<Flex align="center" gap="2.5">

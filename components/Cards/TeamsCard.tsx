@@ -18,10 +18,16 @@ export const TeamsCard: React.FC<ITeamsCard> = ({ team }) => {
 			borderWidth="0.1rem"
 			borderRadius="base"
 			direction="column"
-			w="60"
 			bgColor="gray.50"
+			w="100%"
 		>
-			<Flex direction="column" pt="2.5" px="4" color={theme.text.primary}>
+			<Flex
+				direction="column"
+				pt="2.5"
+				pl="4"
+				color={theme.text.primary}
+				pr="12"
+			>
 				<Flex align="center" gap="2.5">
 					{team.logo ? (
 						<Img

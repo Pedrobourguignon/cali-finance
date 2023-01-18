@@ -9,10 +9,10 @@ import {
 	OrganizationsList,
 	WithdrawModal,
 } from 'components';
-import { usePicasso } from 'hooks';
 import React from 'react';
 import { IRecentActivitiesList } from 'types';
 import useTranslation from 'next-translate/useTranslation';
+import { layoutLimit } from 'utils';
 
 export const DashboardComponent: React.FC = () => {
 	const { t: translate } = useTranslation('dashboard');
@@ -49,8 +49,6 @@ export const DashboardComponent: React.FC = () => {
 
 	const error = false;
 
-	const theme = usePicasso();
-
 	if (error)
 		return (
 			<Flex align="center" w="full" justify="center">
@@ -60,18 +58,20 @@ export const DashboardComponent: React.FC = () => {
 
 	return (
 		<Flex>
-			<Flex direction="column" px="8" gap="4">
+			<Flex direction="column" pl="6" gap="4" maxW={layoutLimit}>
 				<DashboardHeader />
 				<Coins />
-				{isConnected ? <OrganizationsList /> : <CreateOrganizationCard />}
-				{isConnected && (
-					<Flex gap="6" flexWrap="wrap">
-						<MyAssets />
-						<RecentActivitiesDashboard
-							recentActivitiesList={recentActivitiesList}
-						/>
-					</Flex>
-				)}
+				<Flex direction="column" gap="9">
+					{isConnected ? <OrganizationsList /> : <CreateOrganizationCard />}
+					{isConnected && (
+						<Flex justify="space-between">
+							<MyAssets />
+							<RecentActivitiesDashboard
+								recentActivitiesList={recentActivitiesList}
+							/>
+						</Flex>
+					)}
+				</Flex>
 			</Flex>
 			<WithdrawModal isOpen={isOpen} onClose={onClose} />
 		</Flex>

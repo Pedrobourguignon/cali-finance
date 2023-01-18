@@ -13,14 +13,14 @@ export const NewCoinButton = () => {
 			borderColor="white"
 			position="absolute"
 			buttonText={translate('newCoin')}
-			px="5"
+			px="6"
 		>
 			<Button
 				position="relative"
 				w="full"
 				h="full"
 				px="2"
-				py="1"
+				py="3"
 				fontSize={locale === 'pt-BR' ? 'xs' : 'sm'}
 				color="black"
 				borderRadius="base"

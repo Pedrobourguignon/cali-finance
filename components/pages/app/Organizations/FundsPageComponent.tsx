@@ -86,7 +86,7 @@ export const FundsPageComponent = () => {
 						<Text>{translate('coins')}</Text>
 					</Flex>
 
-					<Grid gap="4" w="full" templateColumns="repeat(6, 1fr)">
+					<Grid gap="4" w="full" templateColumns="repeat(5, 1fr)">
 						{coinCard.map((coin, index) => (
 							<GridItem key={+index} w="max-content">
 								<CoinCard
