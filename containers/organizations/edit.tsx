@@ -27,37 +27,34 @@ export const EditOrganization = () => {
 		console.log(editedOrganizationData);
 	};
 	const { selectedOrganization } = useOrganizations();
-
 	return (
-		<OrganizationsProvider>
-			<form onSubmit={handleSubmit(handleEditOrganization)}>
-				<FormControl>
-					<AppLayout right={<EditOrganizationLink control={control} />}>
-						<OrganizationWhiteBackground />
-						<Flex
-							direction="column"
-							align="flex-start"
-							gap="10"
-							zIndex="docked"
-							pt="6"
-							w="100%"
-						>
-							<Flex px="5">
-								<NavigationBack
-									href={navigationPaths.dashboard.organizations.home}
-								>
-									Back to Organizations
-								</NavigationBack>
-							</Flex>
-							<EditOrganizationComponent
-								errors={errors}
-								control={control}
-								organization={selectedOrganization}
-							/>
+		<form onSubmit={handleSubmit(handleEditOrganization)}>
+			<FormControl>
+				<AppLayout right={<EditOrganizationLink control={control} />}>
+					<OrganizationWhiteBackground />
+					<Flex
+						direction="column"
+						align="flex-start"
+						gap="10"
+						zIndex="docked"
+						pt="6"
+						w="100%"
+					>
+						<Flex px="5">
+							<NavigationBack
+								href={navigationPaths.dashboard.organizations.home}
+							>
+								Back to Organizations
+							</NavigationBack>
 						</Flex>
-					</AppLayout>
-				</FormControl>
-			</form>
-		</OrganizationsProvider>
+						<EditOrganizationComponent
+							errors={errors}
+							control={control}
+							organization={selectedOrganization}
+						/>
+					</Flex>
+				</AppLayout>
+			</FormControl>
+		</form>
 	);
 };
