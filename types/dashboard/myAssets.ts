@@ -2,6 +2,6 @@ export interface IAssetsOptions {
 	name: string;
 	initials: string;
 	units: string;
-	value: string;
+	value: number;
 	icon: string;
 }

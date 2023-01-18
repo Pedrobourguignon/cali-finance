@@ -16,6 +16,7 @@ export const RecentActivitiesDashboard: React.FC<
 			boxShadow="xl"
 			px="3"
 			bg="white"
+			h="max-content"
 		>
 			<Flex justify="space-between" py="2">
 				<Flex>
