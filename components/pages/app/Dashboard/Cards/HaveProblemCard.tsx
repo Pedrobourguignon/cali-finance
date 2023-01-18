@@ -21,10 +21,22 @@ export const HaveProblemCard = () => {
 				onClick={onOpen}
 			>
 				<Flex direction="column">
-					<Text fontStyle="Medium" fontSize="xl" lineHeight="7" color="white">
+					<Text
+						fontStyle="Medium"
+						fontSize="xl"
+						lineHeight="7"
+						color="white"
+						whiteSpace="nowrap"
+					>
 						{translate('haveAProblem')}
 					</Text>
-					<Text fontStyle="Medium" fontSize="md" lineHeight="6" color="white">
+					<Text
+						fontStyle="Medium"
+						fontSize="md"
+						lineHeight="6"
+						color="white"
+						whiteSpace="nowrap"
+					>
 						{translate('getInTouch')}
 					</Text>
 				</Flex>
