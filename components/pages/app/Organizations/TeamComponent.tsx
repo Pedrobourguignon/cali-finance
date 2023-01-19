@@ -53,10 +53,6 @@ export const TeamComponent = () => {
 		onClose: onCloseDeleteTeam,
 	} = useDisclosure();
 
-	// useEffect(() => {
-	// 	setTeamPicture(teamData.photo);
-	// }, [setTeamPicture, teamData.photo]);
-
 	const handleEditTeam = useCallback(
 		(team: ITeamEdit) => {
 			setShowSaved(false);
