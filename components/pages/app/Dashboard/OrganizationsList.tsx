@@ -62,9 +62,13 @@ export const OrganizationsList = () => {
 	};
 
 	return (
-		<Flex direction="column" gap="3">
-			<Flex justify="space-between" align="center" pt="4">
-				<Text fontSize="16" fontWeight="medium" color="#121212">
+		<Flex direction="column" gap={{ lg: '2', xl: '3' }}>
+			<Flex justify="space-between" align="center" pt={{ xl: '4' }}>
+				<Text
+					fontSize={{ lg: 'sm', xl: 'md' }}
+					fontWeight="medium"
+					color="#121212"
+				>
 					Your Organizations
 				</Text>
 				<Paginator
@@ -75,7 +79,7 @@ export const OrganizationsList = () => {
 				/>
 			</Flex>
 			<Box position="relative">
-				<Flex w="46rem" display="block" bg="transparent">
+				<Flex w={{ lg: '45.4rem' }} display="block" bg="transparent">
 					<Slider
 						{...settings}
 						ref={sliderRef => setSlider(sliderRef)}

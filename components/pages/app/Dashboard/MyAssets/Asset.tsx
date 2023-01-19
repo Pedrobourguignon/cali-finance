@@ -15,11 +15,10 @@ export const Asset: React.FC<IAsset> = ({ assetsOptions }) => {
 			bg={theme.bg.primary}
 			color="white"
 			px="4"
-			w="21.5rem"
 			borderRadius="base"
 		>
 			<Flex gap="2" align="center" p="0.5">
-				<Img src="/icons/usdc.svg" boxSize="6" />
+				<Img src="/icons/usdc.svg" boxSize={{ lg: '5', xl: '6' }} />
 				<Flex direction="column" justify="center" fontSize="sm">
 					<Text fontSize="sm">{assetsOptions.name}</Text>
 					<Text fontSize="xs" color="gray.400">

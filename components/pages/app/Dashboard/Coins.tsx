@@ -32,7 +32,7 @@ export const Coins = () => {
 			bg="black"
 			color="white"
 			h="max-content"
-			p="3"
+			p={{ lg: '3', xl: '3' }}
 			borderRadius="base"
 			justify="space-between"
 			align="center"
@@ -40,13 +40,13 @@ export const Coins = () => {
 			flexWrap="wrap"
 		>
 			<Flex direction="column">
-				<Text fontSize="md" fontWeight="500" lineHeight="6">
+				<Text fontSize={{ lg: 'sm', xl: 'md' }} fontWeight="500" lineHeight="6">
 					{translate('coins')}
 				</Text>
-				<Text fontSize="sm" fontWeight="500" lineHeight="5">
+				<Text fontSize={{ lg: 'xs', xl: 'sm' }} fontWeight="500" lineHeight="5">
 					{translate('stayConnected')}
 				</Text>
-				<Text fontSize="sm" fontWeight="500" lineHeight="5">
+				<Text fontSize={{ lg: 'xs', xl: 'sm' }} fontWeight="500" lineHeight="5">
 					{translate('principalCoins')}
 				</Text>
 			</Flex>
@@ -58,7 +58,9 @@ export const Coins = () => {
 					color="white"
 				/>
 			))}
-			<NewCoinButton />
+			<Flex pr={{ lg: '2', xl: '0' }}>
+				<NewCoinButton />
+			</Flex>
 		</Flex>
 	);
 };

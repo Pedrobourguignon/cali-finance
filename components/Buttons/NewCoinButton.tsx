@@ -13,15 +13,18 @@ export const NewCoinButton = () => {
 			borderColor="white"
 			position="absolute"
 			buttonText={translate('newCoin')}
-			px="6"
+			px={{ lg: '4', xl: '6' }}
 		>
 			<Button
 				position="relative"
 				w="full"
 				h="full"
-				px="2"
-				py="3"
-				fontSize={locale === 'pt-BR' ? 'xs' : 'sm'}
+				px={{ lg: '1', xl: '2' }}
+				py={{ lg: '2', xl: '3' }}
+				fontSize={{
+					md: locale === 'pt-BR' ? '1xs' : 'sm',
+					xl: locale === 'pt-BR' ? 'xs' : 'sm',
+				}}
 				color="black"
 				borderRadius="base"
 				bg="white"
@@ -35,7 +38,7 @@ export const NewCoinButton = () => {
 				right="0.25rem"
 				fontWeight="medium"
 				lineHeight="5"
-				gap="2"
+				gap={{ lg: '1', xl: '2' }}
 			>
 				<Icon as={AiOutlinePlus} />
 				{translate('newCoin')}

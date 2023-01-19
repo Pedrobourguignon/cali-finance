@@ -17,6 +17,7 @@ export const RecentActivitiesDashboard: React.FC<
 			px="3"
 			bg="white"
 			h="max-content"
+			w={{ xl: '18.563rem' }}
 		>
 			<Flex justify="space-between" py="2">
 				<Flex>
@@ -37,14 +38,12 @@ export const RecentActivitiesDashboard: React.FC<
 						justify="space-between"
 						bg="gray.50"
 						color="white"
-						px="4"
-						w="max-content"
-						h="max-content"
+						w="full"
 						borderRadius="base"
 						align="center"
 					>
 						<Flex gap="2" align="center" p="0.5">
-							<Img src="/icons/deposit.svg" boxSize="4" />
+							<Img src="/icons/deposit.svg" boxSize="7" pl="3" />
 							<Flex direction="column" justify="center">
 								<Text color="black" fontSize="sm" fontWeight="normal">
 									{activity.type}

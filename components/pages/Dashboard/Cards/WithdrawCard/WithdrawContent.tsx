@@ -68,13 +68,18 @@ export const WithdrawContent: React.FC<ISelectedCoin> = ({ coin, onOpen }) => {
 						_active={{}}
 						_focus={{}}
 						onClick={onOpen}
+						w={{ lg: '50%', xl: '40%' }}
 					>
 						<Flex gap="2" align="center">
-							<Img boxSize="4" src={coin.logo} />
-							<Text fontSize="sm" width="8" lineHeight="5">
+							<Img boxSize={{ lg: '4' }} src={coin.logo} />
+							<Text
+								fontSize={{ lg: 'xs', xl: 'sm' }}
+								width={{ lg: '6', xl: '8' }}
+								lineHeight="5"
+							>
 								{coin.symbol}
 							</Text>
-							<Icon boxSize="4" as={IoIosArrowDown} />
+							<Icon boxSize={{ lg: '2', xl: '4' }} as={IoIosArrowDown} />
 						</Flex>
 					</Button>
 				</InputGroup>

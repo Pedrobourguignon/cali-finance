@@ -62,12 +62,18 @@ export const DashboardHeader: React.FC = () => {
 	]);
 
 	return (
-		<Flex direction="row" justify="space-between" h="max-content" pb="4">
-			<Flex flexDirection="column" gap="1.5">
+		<Flex
+			direction="row"
+			justify="space-between"
+			h="max-content"
+			pb={{ xl: '4' }}
+			w="full"
+		>
+			<Flex flexDirection="column" gap={{ xl: '1.5' }}>
 				<Flex>
 					<Text
 						color="black"
-						fontSize="2xl"
+						fontSize={{ lg: 'xl', xl: '2xl' }}
 						fontWeight="500"
 						lineHeight="8"
 						fontStyle="normal"
@@ -76,25 +82,33 @@ export const DashboardHeader: React.FC = () => {
 					</Text>
 				</Flex>
 				<Flex>
-					<Text fontSize="sm" color="black">
+					<Text fontSize={{ lg: 'sm' }} color="black">
 						{translate('assetInfo')}
-						<Text as="span" fontSize="sm" color={dynamicAssetInfo()?.color}>
+						<Text
+							as="span"
+							fontSize={{ lg: 'sm' }}
+							color={dynamicAssetInfo()?.color}
+						>
 							{'\u00A0'}
 							{dynamicAssetInfo()?.status}
 							{'\u00A0'}
 						</Text>
 					</Text>
 
-					<Text fontSize="sm" color="black">
+					<Text fontSize={{ lg: 'sm' }} color="black">
 						{translate('increased')}
-						<Text as="span" fontSize="sm" color={dynamicAssetInfo()?.color}>
+						<Text
+							as="span"
+							fontSize={{ lg: 'sm' }}
+							color={dynamicAssetInfo()?.color}
+						>
 							{'\u00A0'}
 							{translate('percentage', { percentage })}
 						</Text>
 					</Text>
 				</Flex>
 			</Flex>
-			<Flex display={{ base: 'none', md: 'flex' }}>
+			<Flex display={{ base: 'none', lg: 'flex' }}>
 				<NotificationPopover
 					setNotificationsList={setNotificationsList}
 					onClose={onClose}

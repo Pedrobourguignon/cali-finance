@@ -102,12 +102,13 @@ export const MyAssets = () => {
 				borderColor={theme.bg.primary}
 				h="max-content"
 				ref={ref}
+				w="full"
 			>
 				<Flex direction="column" bg="white" boxSize="full" borderRadius="base">
 					<Flex justify="space-between" px="4" py="2" align="start">
 						<Flex direction="column">
 							<Text
-								fontSize="md"
+								fontSize={{ lg: 'sm', xl: 'md' }}
 								fontWeight="medium"
 								color={theme.text.primary}
 							>
@@ -119,11 +120,12 @@ export const MyAssets = () => {
 						</Flex>
 						<Button
 							fontWeight="normal"
-							fontSize="sm"
+							fontSize="xs"
 							cursor="pointer"
 							color="gray.500"
 							h="0"
 							py="3"
+							pr="0"
 							onClick={() => fullList()}
 						>
 							{myAssetsFullList.buttonText}
