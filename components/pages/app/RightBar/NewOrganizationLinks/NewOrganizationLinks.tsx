@@ -1,5 +1,5 @@
 import { Flex, Img } from '@chakra-ui/react';
-import { usePicasso } from 'hooks';
+import { useOrganizations, usePicasso } from 'hooks';
 import { handleLogoImage } from 'utils';
 import { ImageUploader, SocialMediaInput } from 'components';
 import {
@@ -9,49 +9,31 @@ import {
 } from 'types';
 import { Control } from 'react-hook-form';
 
-const organizations: INewOrganization = {
-	name: '',
-	logo: '',
-	socialMedias: [
-		{
-			website: 'website.io',
-			instagram: 'instagram/company',
-			twitter: 'twitter.com/company',
-			telegram: 't.me/company',
-		},
-	],
-};
-
 const socialLinks: ISocialMediaInput[] = [
 	{
 		name: 'socialMedias.website',
 		imgSrc: '/icons/globe.svg',
 		placeHolder: 'website.io',
-		link: organizations.socialMedias[0].website,
 	},
 	{
 		name: 'socialMedias.instagram',
 		imgSrc: '/icons/instagram.svg',
 		placeHolder: 'instagram.com/company',
-		link: organizations.socialMedias[0].instagram,
 	},
 	{
 		name: 'socialMedias.twitter',
 		imgSrc: '/icons/twitter.svg',
 		placeHolder: 'twitter.com/company',
-		link: organizations.socialMedias[0].twitter,
 	},
 	{
 		name: 'socialMedias.telegram',
 		imgSrc: '/icons/telegram.svg',
 		placeHolder: 't.me/company',
-		link: organizations.socialMedias[0].telegram,
 	},
 	{
 		name: 'socialMedias.medium',
 		imgSrc: '/icons/m-letter.svg',
 		placeHolder: 'Medium',
-		link: '',
 	},
 ];
 
@@ -82,6 +64,7 @@ export const NewOrganizationLinks: React.FC<{
 	control: Control<ICreateOrganization>;
 }> = ({ control }) => {
 	const theme = usePicasso();
+	const { selectedOrganization } = useOrganizations();
 
 	return (
 		<Flex direction="column" w="max-content" zIndex="docked">
@@ -96,7 +79,7 @@ export const NewOrganizationLinks: React.FC<{
 				borderRadius="base"
 			>
 				<Flex direction="column" align="center" gap="4">
-					<OrganizationLogo org={organizations} />
+					<OrganizationLogo org={selectedOrganization} />
 					<ImageUploader />
 				</Flex>
 				<Flex>
