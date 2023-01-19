@@ -10,9 +10,9 @@ export const HaveProblemCard = () => {
 		<>
 			<ContactOptionsModal isOpen={isOpen} onClose={onClose} />
 			<Flex
-				w="full"
-				px="12"
-				py="6"
+				w="100%"
+				px={{ md: '2', lg: '4', xl: '7' }}
+				py={{ md: '3', xl: '6' }}
 				borderRadius="base"
 				bgImage="url(/images/haveproblem.png)"
 				backgroundSize="cover"
@@ -23,7 +23,7 @@ export const HaveProblemCard = () => {
 				<Flex direction="column">
 					<Text
 						fontStyle="Medium"
-						fontSize="xl"
+						fontSize={{ md: 'sm', lg: 'lg', xl: 'xl', '2xl': '2xl' }}
 						lineHeight="7"
 						color="white"
 						whiteSpace="nowrap"
@@ -32,7 +32,7 @@ export const HaveProblemCard = () => {
 					</Text>
 					<Text
 						fontStyle="Medium"
-						fontSize="md"
+						fontSize={{ md: 'xs', lg: 'sm', xl: 'md', '2xl': 'xl' }}
 						lineHeight="6"
 						color="white"
 						whiteSpace="nowrap"

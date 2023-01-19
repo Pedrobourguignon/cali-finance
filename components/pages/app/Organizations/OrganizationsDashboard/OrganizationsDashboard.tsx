@@ -18,42 +18,67 @@ export const OrganizationsDashboard: React.FC<IOrganizationsDashboard> = ({
 	const theme = usePicasso();
 	return (
 		<Flex
-			gap="12"
+			justify="space-between"
 			bg={theme.bg.primary}
-			py="6"
-			px="5"
+			py={{ md: '2', lg: '4', xl: '6', '2xl': '8' }}
+			px={{ md: '1', lg: '3', xl: '5', '2xl': '7' }}
 			borderRadius="base"
 			align="center"
 		>
 			<Flex direction="column">
-				<Text fontSize="2xl" fontWeight="medium">
+				<Text
+					fontSize={{ md: 'sm', lg: 'xl', xl: '2xl', '2xl': '3xl' }}
+					fontWeight="medium"
+				>
 					{organizationsCount}
 				</Text>
-				<Text fontSize="sm" fontWeight="normal">
+				<Text
+					fontSize={{ md: 'xs', lg: 'xs', xl: 'sm', '2xl': 'md' }}
+					fontWeight="normal"
+				>
 					Organizations
 				</Text>
 			</Flex>
 			<Flex direction="column">
-				<Text fontSize="2xl" fontWeight="medium">
+				<Text
+					fontSize={{ md: 'sm', lg: 'xl', xl: '2xl', '2xl': '3xl' }}
+					fontWeight="medium"
+				>
 					{teams}
 				</Text>
-				<Text fontSize="sm" fontWeight="normal">
+				<Text
+					fontSize={{ md: 'xs', lg: 'xs', xl: 'sm', '2xl': 'md' }}
+					fontWeight="normal"
+				>
 					Teams
 				</Text>
 			</Flex>
 			<Flex direction="column">
-				<Text fontSize="2xl" fontWeight="medium">
+				<Text
+					fontSize={{ md: 'sm', lg: 'xl', xl: '2xl', '2xl': '3xl' }}
+					fontWeight="medium"
+				>
 					{members}
 				</Text>
-				<Text fontSize="sm" fontWeight="normal">
+				<Text
+					fontSize={{ md: 'xs', lg: 'xs', xl: 'sm', '2xl': 'md' }}
+					fontWeight="normal"
+				>
 					Members
 				</Text>
 			</Flex>
 			<Flex direction="column">
-				<Text fontSize="2xl" fontWeight="medium" minW="24">
+				<Text
+					fontSize={{ md: 'sm', lg: 'xl', xl: '2xl', '2xl': '3xl' }}
+					fontWeight="medium"
+					minW={{ md: '20', lg: '24', xl: '24' }}
+				>
 					${totalFunds}
 				</Text>
-				<Text fontSize="sm" fontWeight="normal">
+				<Text
+					fontSize={{ md: 'xs', lg: 'xs', xl: 'sm', '2xl': 'md' }}
+					fontWeight="normal"
+				>
 					Total Funds
 				</Text>
 			</Flex>

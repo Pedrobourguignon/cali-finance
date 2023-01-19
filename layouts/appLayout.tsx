@@ -31,7 +31,7 @@ export const AppLayout: React.FC<ILanding> = ({ children, right }) => {
 					<Flex direction="column" w="100%">
 						{children}
 					</Flex>
-					<Flex py="6" pr="4">
+					<Flex py="6" pr="6">
 						{right}
 					</Flex>
 				</Flex>

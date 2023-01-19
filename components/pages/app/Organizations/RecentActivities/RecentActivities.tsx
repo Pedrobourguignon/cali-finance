@@ -18,11 +18,16 @@ export const RecentActivities = () => {
 			w="full"
 		>
 			<Flex justify="space-between" align="center">
-				<Text fontWeight="medium">Recent Activities</Text>
+				<Text
+					fontWeight="medium"
+					fontSize={{ lg: 'sm', xl: 'md', '2xl': 'lg' }}
+				>
+					Recent Activities
+				</Text>
 				<Link href={navigationPaths.dashboard.history}>
 					<Text
 						color="gray.500"
-						fontSize="xs"
+						fontSize={{ md: 'xs', '2xl': 'sm' }}
 						cursor="pointer"
 						fontWeight="medium"
 					>
@@ -30,7 +35,7 @@ export const RecentActivities = () => {
 					</Text>
 				</Link>
 			</Flex>
-			<Flex gap="2" direction="column">
+			<Flex gap={{ md: '2', '2xl': '3' }} direction="column">
 				{activities.map((activity, index) => (
 					<ActivitiesData key={+index} activities={activity} />
 				))}
