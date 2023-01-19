@@ -1,11 +1,17 @@
 import React, { useEffect, createContext, useState, useMemo } from 'react';
 import { IProfile } from 'types';
 
+interface IProfileData {
+	name: string;
+	photo: string;
+	email: string;
+}
 interface IProfileContext {
 	isLoading: boolean;
 	isConnected: boolean;
 	setIsConnected: React.Dispatch<React.SetStateAction<boolean>>;
 	userProfile: IProfile;
+	setUserProfile: React.Dispatch<React.SetStateAction<IProfile>>;
 }
 
 export const ProfileContext = createContext({} as IProfileContext);
@@ -27,8 +33,9 @@ export const ProfileProvider: React.FC<{ children: React.ReactNode }> = ({
 			isConnected,
 			setIsConnected,
 			userProfile,
+			setUserProfile,
 		}),
-		[isLoading, isConnected, setIsConnected, userProfile]
+		[isLoading, isConnected, setIsConnected, userProfile, setUserProfile]
 	);
 
 	return (

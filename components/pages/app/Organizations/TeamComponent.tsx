@@ -53,10 +53,6 @@ export const TeamComponent = () => {
 		onClose: onCloseDeleteTeam,
 	} = useDisclosure();
 
-	useEffect(() => {
-		setTeamPicture(teamData.photo);
-	}, [setTeamPicture, teamData.photo]);
-
 	const handleEditTeam = useCallback(
 		(team: ITeamEdit) => {
 			setShowSaved(false);
@@ -128,7 +124,11 @@ export const TeamComponent = () => {
 										</Flex>
 									)}
 								</Flex>
-								<ImageUploaderModal isOpen={isOpen} onClose={onClose} />
+								<ImageUploaderModal
+									isOpen={isOpen}
+									onClose={onClose}
+									sendImage={setTeamPicture}
+								/>
 								<Flex
 									borderRadius="base"
 									borderColor="black"

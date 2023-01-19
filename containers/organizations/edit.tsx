@@ -10,6 +10,7 @@ import { IEditOrganization } from 'types';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useOrganizations } from 'hooks';
+import { OrganizationsProvider } from 'contexts';
 
 export const EditOrganization = () => {
 	const {
@@ -25,8 +26,7 @@ export const EditOrganization = () => {
 	) => {
 		console.log(editedOrganizationData);
 	};
-	const { organizations } = useOrganizations();
-
+	const { selectedOrganization } = useOrganizations();
 	return (
 		<form onSubmit={handleSubmit(handleEditOrganization)}>
 			<FormControl>
@@ -50,12 +50,7 @@ export const EditOrganization = () => {
 						<EditOrganizationComponent
 							errors={errors}
 							control={control}
-							name={organizations[0].name}
-							type={organizations[0].type}
-							email={organizations[0].email}
-							selectedNetwork={organizations[0].selectedNetwork}
-							description={organizations[0].description}
-							socialMedias={organizations[0].socialMedias[0]}
+							organization={selectedOrganization}
 						/>
 					</Flex>
 				</AppLayout>
