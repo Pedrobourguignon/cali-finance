@@ -13,16 +13,16 @@ export const NewCoinButton = () => {
 			borderColor="white"
 			position="absolute"
 			buttonText={translate('newCoin')}
-			px={{ lg: '4', xl: '6' }}
+			px={{ md: '2', lg: '4', xl: '6' }}
 		>
 			<Button
 				position="relative"
 				w="full"
 				h="full"
-				px={{ lg: '1', xl: '2' }}
-				py={{ lg: '2', xl: '3' }}
+				px={{ md: '1', xl: '2' }}
+				py={{ md: '2', xl: '3' }}
 				fontSize={{
-					md: locale === 'pt-BR' ? '1xs' : 'sm',
+					md: locale === 'pt-BR' ? 'xs' : 'sm',
 					xl: locale === 'pt-BR' ? 'xs' : 'sm',
 				}}
 				color="black"

@@ -32,7 +32,7 @@ export const Coins = () => {
 			bg="black"
 			color="white"
 			h="max-content"
-			p={{ lg: '3', xl: '3' }}
+			p={{ md: '2', lg: '3', xl: '3' }}
 			borderRadius="base"
 			justify="space-between"
 			align="center"
@@ -43,10 +43,10 @@ export const Coins = () => {
 				<Text fontSize={{ lg: 'sm', xl: 'md' }} fontWeight="500" lineHeight="6">
 					{translate('coins')}
 				</Text>
-				<Text fontSize={{ lg: 'xs', xl: 'sm' }} fontWeight="500" lineHeight="5">
+				<Text fontSize={{ md: 'xs', xl: 'sm' }} fontWeight="500" lineHeight="5">
 					{translate('stayConnected')}
 				</Text>
-				<Text fontSize={{ lg: 'xs', xl: 'sm' }} fontWeight="500" lineHeight="5">
+				<Text fontSize={{ md: 'xs', xl: 'sm' }} fontWeight="500" lineHeight="5">
 					{translate('principalCoins')}
 				</Text>
 			</Flex>

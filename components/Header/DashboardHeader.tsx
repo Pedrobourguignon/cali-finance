@@ -73,7 +73,7 @@ export const DashboardHeader: React.FC = () => {
 				<Flex>
 					<Text
 						color="black"
-						fontSize={{ lg: 'xl', xl: '2xl' }}
+						fontSize={{ md: 'lg', lg: 'xl', xl: '2xl' }}
 						fontWeight="500"
 						lineHeight="8"
 						fontStyle="normal"
@@ -82,11 +82,11 @@ export const DashboardHeader: React.FC = () => {
 					</Text>
 				</Flex>
 				<Flex>
-					<Text fontSize={{ lg: 'sm' }} color="black">
+					<Text fontSize={{ md: 'xs', lg: 'sm' }} color="black">
 						{translate('assetInfo')}
 						<Text
 							as="span"
-							fontSize={{ lg: 'sm' }}
+							fontSize={{ md: 'xs', lg: 'sm' }}
 							color={dynamicAssetInfo()?.color}
 						>
 							{'\u00A0'}
@@ -95,11 +95,11 @@ export const DashboardHeader: React.FC = () => {
 						</Text>
 					</Text>
 
-					<Text fontSize={{ lg: 'sm' }} color="black">
+					<Text fontSize={{ md: 'xs', lg: 'sm' }} color="black">
 						{translate('increased')}
 						<Text
 							as="span"
-							fontSize={{ lg: 'sm' }}
+							fontSize={{ md: 'xs', lg: 'sm' }}
 							color={dynamicAssetInfo()?.color}
 						>
 							{'\u00A0'}
@@ -108,7 +108,7 @@ export const DashboardHeader: React.FC = () => {
 					</Text>
 				</Flex>
 			</Flex>
-			<Flex display={{ base: 'none', lg: 'flex' }}>
+			<Flex display={{ base: 'none', md: 'flex', lg: 'flex' }}>
 				<NotificationPopover
 					setNotificationsList={setNotificationsList}
 					onClose={onClose}

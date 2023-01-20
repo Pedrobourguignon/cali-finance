@@ -62,10 +62,10 @@ export const OrganizationsList = () => {
 	};
 
 	return (
-		<Flex direction="column" gap={{ lg: '2', xl: '3' }}>
+		<Flex direction="column" gap={{ md: '2', xl: '3' }}>
 			<Flex justify="space-between" align="center" pt={{ xl: '4' }}>
 				<Text
-					fontSize={{ lg: 'sm', xl: 'md' }}
+					fontSize={{ md: 'sm', xl: 'md' }}
 					fontWeight="medium"
 					color="#121212"
 				>
@@ -79,7 +79,7 @@ export const OrganizationsList = () => {
 				/>
 			</Flex>
 			<Box position="relative">
-				<Flex w={{ lg: '45.4rem' }} display="block" bg="transparent">
+				<Flex w={{ lg: '44.2rem' }} display="block" bg="transparent">
 					<Slider
 						{...settings}
 						ref={sliderRef => setSlider(sliderRef)}

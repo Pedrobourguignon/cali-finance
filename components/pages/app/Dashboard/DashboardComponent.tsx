@@ -56,11 +56,16 @@ export const DashboardComponent: React.FC = () => {
 		);
 
 	return (
-		<Flex w="45.75rem">
-			<Flex direction="column" pl="6" gap={{ lg: '4' }} w="full">
+		<Flex w={{ md: '33.2rem', lg: '45rem' }}>
+			<Flex
+				direction="column"
+				pl={{ md: '4', lg: '6' }}
+				gap={{ md: '4' }}
+				w="full"
+			>
 				<DashboardHeader />
 				<Coins />
-				<Flex direction="column" gap={{ lg: '7', xl: '9' }}>
+				<Flex direction="column" gap={{ md: '6', lg: '7', xl: '9' }}>
 					{isConnected ? <OrganizationsList /> : <CreateOrganizationCard />}
 					{isConnected && (
 						<Flex justify="space-between" w="full">
