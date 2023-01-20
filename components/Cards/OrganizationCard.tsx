@@ -18,7 +18,7 @@ export const OrganizationCard: React.FC<IOrganizationCard> = ({ team }) => {
 			borderRadius="base"
 			direction="column"
 			gap={{ md: '1', lg: '2', xl: '4' }}
-			w={{ md: '32', lg: '44', xl: '13.813rem', '2xl': '16.4rem' }}
+			w={{ md: '32', lg: '44', xl: '13.8rem', '2xl': '16.4rem' }}
 		>
 			<Flex direction="column" pt="2.5" pl="4" color={theme.text.primary}>
 				<Flex align="center" gap={{ lg: '1', xl: '2.5' }}>

@@ -20,8 +20,8 @@ export const OrganizationsDashboard: React.FC<IOrganizationsDashboard> = ({
 		<Flex
 			justify="space-between"
 			bg={theme.bg.primary}
-			py={{ md: '2', lg: '4', xl: '6', '2xl': '8' }}
-			px={{ md: '1', lg: '3', xl: '5', '2xl': '7' }}
+			py={{ md: '4', xl: '6', '2xl': '8' }}
+			px={{ md: '3', xl: '5', '2xl': '7' }}
 			borderRadius="base"
 			align="center"
 		>
@@ -33,7 +33,7 @@ export const OrganizationsDashboard: React.FC<IOrganizationsDashboard> = ({
 					{organizationsCount}
 				</Text>
 				<Text
-					fontSize={{ md: 'xs', lg: 'xs', xl: 'sm', '2xl': 'md' }}
+					fontSize={{ md: 'xs', xl: 'sm', '2xl': 'md' }}
 					fontWeight="normal"
 				>
 					Organizations
@@ -47,7 +47,7 @@ export const OrganizationsDashboard: React.FC<IOrganizationsDashboard> = ({
 					{teams}
 				</Text>
 				<Text
-					fontSize={{ md: 'xs', lg: 'xs', xl: 'sm', '2xl': 'md' }}
+					fontSize={{ md: 'xs', xl: 'sm', '2xl': 'md' }}
 					fontWeight="normal"
 				>
 					Teams
@@ -61,7 +61,7 @@ export const OrganizationsDashboard: React.FC<IOrganizationsDashboard> = ({
 					{members}
 				</Text>
 				<Text
-					fontSize={{ md: 'xs', lg: 'xs', xl: 'sm', '2xl': 'md' }}
+					fontSize={{ md: 'xs', xl: 'sm', '2xl': 'md' }}
 					fontWeight="normal"
 				>
 					Members
@@ -71,12 +71,12 @@ export const OrganizationsDashboard: React.FC<IOrganizationsDashboard> = ({
 				<Text
 					fontSize={{ md: 'sm', lg: 'xl', xl: '2xl', '2xl': '3xl' }}
 					fontWeight="medium"
-					minW={{ md: '20', lg: '24', xl: '24' }}
+					minW={{ md: '20', lg: '24' }}
 				>
 					${totalFunds}
 				</Text>
 				<Text
-					fontSize={{ md: 'xs', lg: 'xs', xl: 'sm', '2xl': 'md' }}
+					fontSize={{ md: 'xs', xl: 'sm', '2xl': 'md' }}
 					fontWeight="normal"
 				>
 					Total Funds

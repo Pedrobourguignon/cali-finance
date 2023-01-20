@@ -23,7 +23,7 @@ export const OffsetButton: React.FC<IOffsetButton> = ({
 	return (
 		<OffsetShadow
 			width={{ md: 28, lg: 36, xl: 40, '2xl': 44 }}
-			height={{ md: 7, lg: 10, xl: 10, '2xl': 12 }}
+			height={{ md: 7, lg: 10, '2xl': 12 }}
 			borderColor="white"
 		>
 			<Button
@@ -33,7 +33,7 @@ export const OffsetButton: React.FC<IOffsetButton> = ({
 				bg="white"
 				bottom="0.5rem"
 				right="0.5rem"
-				h={{ md: '7', lg: '10', xl: '10', '2xl': '12' }}
+				h={{ md: '7', lg: '10', '2xl': '12' }}
 				fontSize={{ md: 'xs', lg: 'sm', xl: 'sm', '2xl': 'md' }}
 				fontWeight="medium"
 				_hover={{ background: 'white' }}

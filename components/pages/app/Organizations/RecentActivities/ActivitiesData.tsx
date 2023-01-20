@@ -27,7 +27,7 @@ export const ActivitiesData: React.FC<IActivitiesData> = ({ activities }) => {
 				<Flex direction="column" align="end" w="20">
 					<Flex
 						flexDir="row"
-						fontSize={{ md: 'xs', lg: 'xs', xl: 'sm', '2xl': 'md' }}
+						fontSize={{ md: 'xs', xl: 'sm', '2xl': 'md' }}
 						fontWeight="normal"
 						gap={{ md: '1', '2xl': '2' }}
 					>
@@ -46,16 +46,16 @@ export const ActivitiesData: React.FC<IActivitiesData> = ({ activities }) => {
 	return (
 		<Flex
 			align="center"
-			px={{ md: '2', lg: '5', xl: '5' }}
+			px={{ md: '2', lg: '5' }}
 			py={{ md: '1', lg: '2', xl: '3' }}
 			bg="gray.50"
 			borderRadius="base"
 			justify="space-between"
 		>
 			<Text
-				fontSize={{ md: 'xs', lg: 'xs', xl: 'sm', '2xl': 'md' }}
+				fontSize={{ md: 'xs', xl: 'sm', '2xl': 'md' }}
 				fontWeight="normal"
-				w={{ md: '24', lg: '36', xl: '36' }}
+				w={{ md: '24', lg: '36' }}
 			>
 				{activities.name}
 			</Text>
@@ -63,7 +63,7 @@ export const ActivitiesData: React.FC<IActivitiesData> = ({ activities }) => {
 				<Img src={handleIcon()} boxSize={{ md: '4', '2xl': '6' }} />
 				<Flex direction="column">
 					<Text
-						fontSize={{ md: 'xs', lg: 'xs', xl: 'sm', '2xl': 'md' }}
+						fontSize={{ md: 'xs', xl: 'sm', '2xl': 'md' }}
 						fontWeight="normal"
 					>
 						{activities.type}
