@@ -73,7 +73,7 @@ export const DashboardHeader: React.FC = () => {
 				<Flex>
 					<Text
 						color="black"
-						fontSize={{ md: 'lg', lg: 'xl', xl: '2xl' }}
+						fontSize={{ md: 'sm', lg: 'xl', xl: '2xl' }}
 						fontWeight="500"
 						lineHeight="8"
 						fontStyle="normal"
@@ -82,7 +82,7 @@ export const DashboardHeader: React.FC = () => {
 					</Text>
 				</Flex>
 				<Flex>
-					<Text fontSize={{ md: 'xs', lg: 'sm' }} color="black">
+					<Text fontSize={{ md: 'xs', lg: 'sm', '2xl': 'md' }} color="black">
 						{translate('assetInfo')}
 						<Text
 							as="span"

@@ -17,7 +17,7 @@ export const OrganizationCard: React.FC<IOrganizationCard> = ({ team }) => {
 			bg="white"
 			borderRadius="base"
 			direction="column"
-			w="56"
+			w={{ md: '10.5rem', xl: '13.81rem' }}
 			gap="4"
 		>
 			<Flex direction="column" pt="2.5" pl="4" color={theme.text.primary}>
@@ -37,22 +37,24 @@ export const OrganizationCard: React.FC<IOrganizationCard> = ({ team }) => {
 							{handleLogoImage(team.name)}
 						</Flex>
 					)}
-					<Text fontSize="md" fontWeight="bold">
+					<Text fontSize={{ md: 'sm', xl: 'md' }} fontWeight="bold">
 						{team.name}
 					</Text>
 				</Flex>
-				<Flex gap="12" pt="3">
+				<Flex gap={{ md: '8', xl: '12' }} pt="3">
 					<Flex direction="column">
-						<Text fontSize="sm" color="gray.500">
+						<Text fontSize={{ md: 'xs', xl: 'sm' }} color="gray.500">
 							Funds
 						</Text>
-						<Text fontSize="sm">${team.funds.toLocaleString('en-US')}</Text>
+						<Text fontSize={{ md: 'xs', xl: 'sm' }}>
+							${team.funds.toLocaleString('en-US')}
+						</Text>
 					</Flex>
 					<Flex direction="column">
-						<Text fontSize="sm" color="gray.500">
+						<Text fontSize={{ md: 'xs', xl: 'sm' }} color="gray.500">
 							Members
 						</Text>
-						<Text fontSize="sm">{team.members}</Text>
+						<Text fontSize={{ md: 'xs', xl: 'sm' }}>{team.members}</Text>
 					</Flex>
 				</Flex>
 			</Flex>

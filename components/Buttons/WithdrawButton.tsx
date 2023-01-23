@@ -7,7 +7,13 @@ export const WithdrawButton = () => {
 	const { t: translate } = useTranslation('dashboard');
 
 	return (
-		<Button w="100%" bg={theme.bg.primary} _hover={{}}>
+		<Button
+			w="100%"
+			bg={theme.bg.primary}
+			_hover={{}}
+			h="max-content"
+			py={{ lg: '1', xl: '1.5' }}
+		>
 			<Text fontSize="sm">{translate('withdraw')}</Text>
 		</Button>
 	);

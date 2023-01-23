@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { Button, Flex, Text } from '@chakra-ui/react';
 import { Asset, OffsetShadow } from 'components';
 import { usePicasso } from 'hooks';
@@ -64,7 +65,7 @@ export const MyAssets = () => {
 	const totalAssetsValue = useMemo(
 		() =>
 			assetsOptions.reduce((totalValue, asset) => totalValue + asset.value, 0),
-		[assetsOptions]
+		[]
 	);
 
 	useEffect(() => {
@@ -88,7 +89,7 @@ export const MyAssets = () => {
 
 	return (
 		<OffsetShadow
-			width={{ md: '16.5rem', lg: '23.5rem' }}
+			width="full"
 			height={flexHeight}
 			borderColor={theme.bg.primary}
 			top="3"

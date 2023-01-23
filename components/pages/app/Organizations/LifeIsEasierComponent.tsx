@@ -9,8 +9,8 @@ export const LifeIsEasier = () => {
 		<Flex direction="column" maxW="56" gap="2">
 			<Text fontWeight="medium">Life is easier with Cali</Text>
 			<Text fontSize="sm" fontWeight="normal">
-				You’ve unlocked our all-in-one suit for surfacing unlimited teams and
-				organizations payments
+				Efficiency, Security, and Transparency – All at your fingertips with our
+				crypto payroll solution
 			</Text>
 			<Flex gap="6">
 				<Link href={socialMediaLinks.instagram}>

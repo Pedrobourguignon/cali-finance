@@ -1,16 +1,9 @@
 import { Box, Flex, Text } from '@chakra-ui/react';
 import Slider from 'react-slick';
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { OrganizationCard, Paginator } from 'components';
 import { ITeamsList } from 'types';
 import { useOrganizations } from 'hooks';
-
-const settings = {
-	infinite: false,
-	speed: 500,
-	slidesToShow: 3,
-	slidesToScroll: 1,
-};
 
 const teamList: ITeamsList[] = [
 	{
@@ -46,6 +39,7 @@ const teamList: ITeamsList[] = [
 ];
 
 export const OrganizationsList = () => {
+	const ref = useRef<HTMLDivElement>(null);
 	const [slider, setSlider] = React.useState<Slider | null>(null);
 	const { organizations } = useOrganizations();
 	const [actualPage, setActualPage] = useState(1);
@@ -60,6 +54,26 @@ export const OrganizationsList = () => {
 		setActualPage(actualPage + 1);
 		slider?.slickNext();
 	};
+
+	const settings = {
+		// responsive: [
+		// 	{
+		// 		breakpoint: 1024,
+		// 		settings: {
+		// 			slidesToShow: 4,
+		// 			slidesToScroll: 3,
+		// 			infinite: true,
+		// 			dots: true,
+		// 		},
+		// 	},
+		// ],
+		infinite: false,
+		speed: 500,
+		slidesToShow: ref.current?.clientWidth === 1008 ? 4 : 3,
+		slidesToScroll: 1,
+	};
+
+	console.log(ref.current?.clientWidth);
 
 	return (
 		<Flex direction="column" gap={{ md: '2', xl: '3' }}>
@@ -79,7 +93,12 @@ export const OrganizationsList = () => {
 				/>
 			</Flex>
 			<Box position="relative">
-				<Flex w={{ lg: '44.2rem' }} display="block" bg="transparent">
+				<Flex
+					w={{ lg: '35.4rem', xl: '43.5rem', '2xl': '63rem' }}
+					display="block"
+					bg="transparent"
+					ref={ref}
+				>
 					<Slider
 						{...settings}
 						ref={sliderRef => setSlider(sliderRef)}

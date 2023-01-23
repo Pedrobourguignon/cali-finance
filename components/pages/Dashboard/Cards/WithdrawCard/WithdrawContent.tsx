@@ -35,6 +35,7 @@ export const WithdrawContent: React.FC<ISelectedCoin> = ({ coin, onOpen }) => {
 					borderColor={theme.bg.primary}
 					color="blackAlpha.500"
 					_hover={{}}
+					h="max-content"
 				>
 					<option disabled selected style={{ background: 'white' }}>
 						Please select a org
@@ -50,9 +51,12 @@ export const WithdrawContent: React.FC<ISelectedCoin> = ({ coin, onOpen }) => {
 				<Text color="black" fontSize="sm">
 					{translate('amount')}
 				</Text>
-				<InputGroup>
+				<InputGroup h="max-content">
 					<Input
-						_placeholder={{ color: 'blackAlpha.500' }}
+						_placeholder={{
+							color: 'blackAlpha.500',
+							fontSize: { lg: 'xs', xl: 'sm' },
+						}}
 						placeholder="0.00"
 						borderColor={theme.bg.primary}
 						flex="3"
@@ -60,8 +64,10 @@ export const WithdrawContent: React.FC<ISelectedCoin> = ({ coin, onOpen }) => {
 						_hover={{}}
 						color="blackAlpha.500"
 						type="number"
+						h="max-content"
 					/>
 					<Button
+						p="0"
 						borderLeftRadius="none"
 						bg={theme.bg.primary}
 						_hover={{ opacity: '80%' }}
@@ -69,6 +75,7 @@ export const WithdrawContent: React.FC<ISelectedCoin> = ({ coin, onOpen }) => {
 						_focus={{}}
 						onClick={onOpen}
 						w={{ lg: '50%', xl: '40%' }}
+						h="max-content"
 					>
 						<Flex gap="2" align="center">
 							<Img boxSize={{ lg: '4' }} src={coin.logo} />

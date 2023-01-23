@@ -12,12 +12,11 @@ export const RecentActivitiesDashboard: React.FC<
 		<Flex
 			direction="column"
 			borderRadius="base"
-			gap="2"
 			boxShadow="xl"
 			px="3"
 			bg="white"
 			h="max-content"
-			w={{ xl: '18.563rem' }}
+			w="max-content"
 		>
 			<Flex justify="space-between" py="2">
 				<Flex>
@@ -35,14 +34,15 @@ export const RecentActivitiesDashboard: React.FC<
 				{recentActivitiesList.map((activity, index) => (
 					<Flex
 						key={+index}
-						justify="space-between"
+						justify="space-around"
 						bg="gray.50"
 						color="white"
-						w="full"
+						w="max-content"
 						borderRadius="base"
 						align="center"
+						gap={{ xl: '14', '2xl': '32' }}
 					>
-						<Flex gap="2" align="center" p="0.5">
+						<Flex gap={{ md: '2.5', '2xl': '4' }} align="center" p="0.5">
 							<Img src="/icons/deposit.svg" boxSize="7" pl="3" />
 							<Flex direction="column" justify="center">
 								<Text color="black" fontSize="sm" fontWeight="normal">
@@ -52,15 +52,20 @@ export const RecentActivitiesDashboard: React.FC<
 									{activity.date}
 								</Text>
 							</Flex>
-							<Flex px="6" />
-							<Flex direction="column" align="flex-end" fontSize="sm" p="0.5">
-								<Text fontSize="xs" color="black">
-									{activity.value}
-								</Text>
-								<Text fontSize="xs" color="green.400">
-									{activity.status}
-								</Text>
-							</Flex>
+						</Flex>
+						<Flex
+							direction="column"
+							align="flex-end"
+							fontSize="sm"
+							p="0.5"
+							pr="2"
+						>
+							<Text fontSize="xs" color="black">
+								{activity.value}
+							</Text>
+							<Text fontSize="xs" color="green.400">
+								{activity.status}
+							</Text>
 						</Flex>
 					</Flex>
 				))}

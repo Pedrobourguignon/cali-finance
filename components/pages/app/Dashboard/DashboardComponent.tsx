@@ -56,7 +56,10 @@ export const DashboardComponent: React.FC = () => {
 		);
 
 	return (
-		<Flex w={{ md: '33.2rem', lg: '45rem' }}>
+		<Flex
+			// w={{ md: '33.2rem', lg: '35.7rem', xl: '44.5rem', '2xl': '57.375rem' }}
+			w="full"
+		>
 			<Flex
 				direction="column"
 				pl={{ md: '4', lg: '6' }}
@@ -68,7 +71,7 @@ export const DashboardComponent: React.FC = () => {
 				<Flex direction="column" gap={{ md: '6', lg: '7', xl: '9' }}>
 					{isConnected ? <OrganizationsList /> : <CreateOrganizationCard />}
 					{isConnected && (
-						<Flex justify="space-between" w="full">
+						<Flex justify="space-between" w="full" gap="8">
 							<MyAssets />
 							<RecentActivitiesDashboard
 								recentActivitiesList={recentActivitiesList}

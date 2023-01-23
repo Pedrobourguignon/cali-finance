@@ -19,7 +19,7 @@ export const WithdrawCard = () => {
 			bg="white"
 			direction="column"
 			p="6"
-			gap="6"
+			gap="4"
 			borderRadius="base"
 			borderWidth="0.1rem"
 			borderColor={theme.bg.primary}

@@ -11,8 +11,8 @@ export const HaveProblemCard = () => {
 			<ContactOptionsModal isOpen={isOpen} onClose={onClose} />
 			<Flex
 				w="full"
-				px="12"
-				py="6"
+				justify="center"
+				py="4"
 				borderRadius="base"
 				bgImage="url(/images/haveproblem.png)"
 				backgroundSize="cover"
@@ -21,10 +21,22 @@ export const HaveProblemCard = () => {
 				onClick={onOpen}
 			>
 				<Flex direction="column">
-					<Text fontStyle="Medium" fontSize="xl" lineHeight="7" color="white">
+					<Text
+						fontStyle="Medium"
+						fontSize={{ lg: 'lg', xl: 'xl' }}
+						lineHeight="7"
+						color="white"
+						whiteSpace="nowrap"
+					>
 						{translate('haveAProblem')}
 					</Text>
-					<Text fontStyle="Medium" fontSize="md" lineHeight="6" color="white">
+					<Text
+						fontStyle="Medium"
+						fontSize={{ lg: 'sm', xl: 'md' }}
+						lineHeight="6"
+						color="white"
+						whiteSpace="nowrap"
+					>
 						{translate('getInTouch')}
 					</Text>
 				</Flex>

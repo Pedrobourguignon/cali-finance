@@ -37,28 +37,34 @@ export const Coins = () => {
 			justify="space-between"
 			align="center"
 			w="full"
-			flexWrap="wrap"
 		>
 			<Flex direction="column">
 				<Text fontSize={{ lg: 'sm', xl: 'md' }} fontWeight="500" lineHeight="6">
 					{translate('coins')}
 				</Text>
-				<Text fontSize={{ md: 'xs', xl: 'sm' }} fontWeight="500" lineHeight="5">
+				<Text
+					fontSize={{ md: 'xs', xl: 'sm' }}
+					fontWeight="500"
+					lineHeight="5"
+					whiteSpace="nowrap"
+				>
 					{translate('stayConnected')}
 				</Text>
 				<Text fontSize={{ md: 'xs', xl: 'sm' }} fontWeight="500" lineHeight="5">
 					{translate('principalCoins')}
 				</Text>
 			</Flex>
-			{coinCard.map((card, index) => (
-				<CoinCard
-					key={+index}
-					coin={card}
-					borderColor="gray.50"
-					color="white"
-				/>
-			))}
-			<Flex pr={{ lg: '2', xl: '0' }}>
+			<Flex w="full" justify="space-between" px="4" gap={{ lg: '4' }}>
+				{coinCard.map((card, index) => (
+					<CoinCard
+						key={+index}
+						coin={card}
+						borderColor="gray.50"
+						color="white"
+					/>
+				))}
+			</Flex>
+			<Flex>
 				<NewCoinButton />
 			</Flex>
 		</Flex>

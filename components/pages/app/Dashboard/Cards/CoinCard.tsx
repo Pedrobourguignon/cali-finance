@@ -16,32 +16,31 @@ export const CoinCard: React.FC<ICoinCard> = ({ coin, borderColor, color }) => {
 		<Flex
 			borderRadius="base"
 			border="1px solid"
-			direction="column"
-			justify="center"
+			// direction="column"
+			// justify="center"
 			borderColor={borderColor}
 			_hover={{ boxShadow: 'xl' }}
-			gap={{ md: '1' }}
-			pl={{ md: '1', lg: '2', xl: '3' }}
-			py={{ md: '0', xl: '2' }}
-			pr={{ md: '2', lg: '10', xl: '8' }}
-			alignItems="flex-start"
+			// pl={{ md: '1', lg: '2', xl: '3', '2xl': '5' }}
+			// pr={{ md: '2', lg: '8', xl: '8', '2xl': '24' }}
 			transition="all 0.1s ease-in-out"
 		>
-			<Flex direction="row" align="center" gap={{ xl: '2' }}>
-				<Img src={coin.icon} boxSize={{ md: '5', xl: '6' }} />
-				<Flex direction="column">
-					<Text fontSize={{ md: 'xs' }} color={color} pt="1">
-						{coin.name}
-					</Text>
-					<Text fontSize={{ md: 'xs' }} color={color}>
-						{coin.value}
-					</Text>
+			<Flex direction="column" bg="red">
+				<Flex align="center" gap="2">
+					<Img src={coin.icon} boxSize={{ md: '5', xl: '6' }} />
+					<Flex direction="column">
+						<Text fontSize={{ md: 'xs' }} color={color} pt="1">
+							{coin.name}
+						</Text>
+						<Text fontSize={{ md: 'xs' }} color={color}>
+							{coin.value}
+						</Text>
+					</Flex>
 				</Flex>
+				<Text fontSize={{ md: 'xs' }} color={varianceColor()}>
+					{coin.variation > 0 && '+'}
+					{coin.variation}%
+				</Text>
 			</Flex>
-			<Text fontSize={{ md: 'xs' }} color={varianceColor()}>
-				{coin.variation > 0 && '+'}
-				{coin.variation}%
-			</Text>
 		</Flex>
 	);
 };
