@@ -36,7 +36,7 @@ export const OrganizationsDashboard: React.FC<IOrganizationsDashboard> = ({
 					fontSize={{ md: 'xs', xl: 'sm', '2xl': 'md' }}
 					fontWeight="normal"
 				>
-					Organizations
+					Companies
 				</Text>
 			</Flex>
 			<Flex direction="column">
@@ -82,7 +82,7 @@ export const OrganizationsDashboard: React.FC<IOrganizationsDashboard> = ({
 					Total Funds
 				</Text>
 			</Flex>
-			<OffsetButton name="Create Organization" route="organizations/create" />
+			<OffsetButton name="Create Company" route="organizations/create" />
 		</Flex>
 	);
 };

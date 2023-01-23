@@ -58,7 +58,7 @@ export const Sidebar: React.FC = () => {
 		{
 			icon: OrganizationIcon,
 			route: navigationPaths.dashboard.organizations.home,
-			option: translate('organizations'),
+			option: translate('companies'),
 		},
 
 		{
