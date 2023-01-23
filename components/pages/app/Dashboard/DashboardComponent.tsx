@@ -62,7 +62,7 @@ export const DashboardComponent: React.FC = () => {
 		>
 			<Flex
 				direction="column"
-				pl={{ md: '4', lg: '6' }}
+				pl={{ md: '4', xl: '6' }}
 				gap={{ md: '4' }}
 				w="full"
 			>
