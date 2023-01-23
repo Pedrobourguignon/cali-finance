@@ -58,7 +58,7 @@ export const Sidebar: React.FC = () => {
 		{
 			icon: OrganizationIcon,
 			route: navigationPaths.dashboard.organizations.home,
-			option: translate('organizations'),
+			option: translate('companies'),
 		},
 
 		{
@@ -101,7 +101,7 @@ export const Sidebar: React.FC = () => {
 				bg={theme.bg.primary}
 				align="center"
 				color="white"
-				minW={{ md: '32', lg: '44', xl: '13.75rem', '2xl': '16.3rem' }}
+				minW={{ md: '44', xl: '13.7rem', '2xl': '16.3rem' }}
 				h="100%"
 			>
 				<Flex
@@ -188,14 +188,14 @@ export const Sidebar: React.FC = () => {
 									<Flex
 										align="center"
 										justify="center"
-										gap={{ md: '1', lg: '3', xl: '3' }}
+										gap={{ md: '1', lg: '3' }}
 										fontWeight="normal"
-										fontSize={{ md: 'xs', lg: 'sm', xl: 'md', '2xl': 'xl' }}
+										fontSize={{ md: 'sm', xl: 'md', '2xl': 'xl' }}
 									>
 										<>
 											<Icon
 												as={item.icon}
-												boxSize={{ md: '4', lg: '4', xl: '6' }}
+												boxSize={{ md: '5', xl: '6' }}
 												ml={{ md: '2', lg: '4', xl: '6' }}
 											/>
 											{item.option}
@@ -228,7 +228,7 @@ export const Sidebar: React.FC = () => {
 								cursor="pointer"
 								boxSize="max-content"
 								onClick={() => changeLanguage(lang)}
-								fontSize={{ md: 'xs', lg: 'sm', xl: 'sm', '2xl': 'md' }}
+								fontSize={{ md: 'xs', lg: 'sm', '2xl': 'md' }}
 								fontWeight="semibold"
 								color={locale === lang ? theme.branding.blue : 'white'}
 							>
@@ -239,7 +239,7 @@ export const Sidebar: React.FC = () => {
 						))}
 					</Flex>
 					<Link
-						fontSize={{ md: 'sm', lg: 'md', xl: 'md', '2xl': 'xl' }}
+						fontSize={{ md: 'sm', lg: 'md', '2xl': 'xl' }}
 						href={navigationPaths.help}
 						_hover={{
 							textDecoration: 'none',
@@ -249,7 +249,7 @@ export const Sidebar: React.FC = () => {
 						{translate('help')}
 					</Link>
 					<Link
-						fontSize={{ md: 'sm', lg: 'md', xl: 'md', '2xl': 'xl' }}
+						fontSize={{ md: 'sm', lg: 'md', '2xl': 'xl' }}
 						href={navigationPaths.docs}
 						_hover={{
 							textDecoration: 'none',

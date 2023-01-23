@@ -9,12 +9,12 @@ export const YourOrganizations = () => {
 		<Flex direction="column" gap={{ md: '1', lg: '2', xl: '4' }} w="full">
 			<Text
 				color={theme.text.primary}
-				fontSize={{ md: 'sm', lg: 'sm', xl: 'md' }}
+				fontSize={{ md: 'sm', xl: 'md' }}
 				fontWeight="medium"
 			>
 				Your Organizations
 			</Text>
-			<Flex gap={{ md: '4', lg: '4', xl: '4', '2xl': '6' }} w="full">
+			<Flex gap={{ md: '4', '2xl': '6' }} w="full">
 				{organizations.map((team, index) => (
 					<OrganizationCard key={+index} team={team} />
 				))}

@@ -23,12 +23,12 @@ export const OffsetButton: React.FC<IOffsetButton> = ({
 	return (
 		<OffsetShadow
 			width={{ md: 28, lg: 36, xl: 40, '2xl': 44 }}
-			height={{ md: 7, lg: 10, xl: 10, '2xl': 12 }}
+			height={{ md: 7, lg: 10, '2xl': 12 }}
 			borderColor="white"
 		>
 			<Button
 				onClick={handleClick}
-				px={{ md: '1', lg: '2', xl: '5' }}
+				px={{ md: '3', lg: '5', xl: '7' }}
 				position="absolute"
 				bg="white"
 				bottom="0.5rem"
