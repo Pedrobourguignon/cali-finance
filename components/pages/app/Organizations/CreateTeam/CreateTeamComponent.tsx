@@ -43,7 +43,7 @@ export const CreateTeamComponent: React.FC<ICreateTeamComponent> = ({
 	} = useForm<INewTeam>({
 		resolver: yupResolver(createTeamSchema),
 	});
-	const { setNewTeam } = useTeams();
+	const { setNewTeam, newTeam } = useTeams();
 
 	const handleCreateTeam = (team: INewTeam) => {
 		setNewTeam({
@@ -51,6 +51,7 @@ export const CreateTeamComponent: React.FC<ICreateTeamComponent> = ({
 			picture: newTeamPicture,
 			description: team.description,
 		});
+		console.log(newTeam);
 	};
 	return (
 		<Flex direction="column" align="start" display={display} w="100%">

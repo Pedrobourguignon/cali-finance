@@ -27,11 +27,14 @@ export const AppLayout: React.FC<ILanding> = ({ children, right }) => {
 					bgRepeat="no-repeat"
 					bgPosition="right bottom"
 					position="relative"
+					px="6"
+					gap="4"
+					flexWrap={{ md: 'wrap', lg: 'nowrap' }}
 				>
 					<Flex direction="column" w="100%">
 						{children}
 					</Flex>
-					<Flex py="6" pr="4">
+					<Flex py="6" w="100%">
 						{right}
 					</Flex>
 				</Flex>

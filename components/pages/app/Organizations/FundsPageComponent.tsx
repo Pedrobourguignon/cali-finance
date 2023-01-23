@@ -7,7 +7,6 @@ import {
 	HistoryDashboard,
 	OrganizationsHeader,
 } from 'components';
-import { layoutLimit } from 'utils';
 import { ICoin } from 'types';
 
 const coinCard: ICoin[] = [
@@ -67,7 +66,6 @@ export const FundsPageComponent = () => {
 				zIndex="docked"
 				direction="column"
 				align="start"
-				maxW={layoutLimit}
 			>
 				<OrganizationsHeader />
 			</Flex>
@@ -75,7 +73,6 @@ export const FundsPageComponent = () => {
 				color={theme.text.primary}
 				px="6"
 				py="12"
-				maxW={layoutLimit}
 				direction="column"
 				gap="10"
 			>

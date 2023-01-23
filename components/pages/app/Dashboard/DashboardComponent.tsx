@@ -12,7 +12,6 @@ import {
 import React from 'react';
 import { IRecentActivitiesList } from 'types';
 import useTranslation from 'next-translate/useTranslation';
-import { layoutLimit } from 'utils';
 
 export const DashboardComponent: React.FC = () => {
 	const { t: translate } = useTranslation('dashboard');
@@ -58,7 +57,7 @@ export const DashboardComponent: React.FC = () => {
 
 	return (
 		<Flex>
-			<Flex direction="column" pl="6" gap="4" maxW={layoutLimit}>
+			<Flex direction="column" pl="6" gap="4">
 				<DashboardHeader />
 				<Coins />
 				<Flex direction="column" gap="9">

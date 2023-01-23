@@ -8,7 +8,6 @@ import {
 import { usePicasso, useTeams } from 'hooks';
 import { AppLayout, OrganizationWhiteBackground } from 'layouts';
 import { IEmployee } from 'types';
-import { layoutLimit } from 'utils';
 
 const Allemployees: IEmployee[] = [
 	{
@@ -69,19 +68,12 @@ export const AllTeamsComponent: React.FC<IAllTeamsComponent> = ({
 	return (
 		<AppLayout right={<ActiveTeamsBar />}>
 			<OrganizationWhiteBackground />
-			<Flex
-				pt="6"
-				zIndex="docked"
-				direction="column"
-				align="start"
-				maxW={layoutLimit}
-			>
+			<Flex pt="6" zIndex="docked" direction="column" align="start">
 				<OrganizationsHeader />
 			</Flex>
 			<Flex
 				color={theme.text.primary}
 				p="6"
-				maxW={layoutLimit}
 				direction="column"
 				gap="10"
 				display={display}
@@ -121,7 +113,7 @@ export const AllTeamsComponent: React.FC<IAllTeamsComponent> = ({
 
 				<EmployeesDashboard isGeneral employees={Allemployees} />
 			</Flex>
-			<Flex w={layoutLimit} px="6" pt="10">
+			<Flex px="6" pt="10">
 				{children}
 			</Flex>
 		</AppLayout>

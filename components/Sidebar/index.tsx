@@ -58,7 +58,7 @@ export const Sidebar: React.FC = () => {
 		{
 			icon: OrganizationIcon,
 			route: navigationPaths.dashboard.organizations.home,
-			option: translate('organizations'),
+			option: translate('companies'),
 		},
 
 		{
@@ -101,7 +101,7 @@ export const Sidebar: React.FC = () => {
 				bg={theme.bg.primary}
 				align="center"
 				color="white"
-				w="13.75rem"
+				minW={{ md: '44', xl: '13.7rem', '2xl': '16.3rem' }}
 				h="100%"
 			>
 				<Flex
@@ -113,7 +113,12 @@ export const Sidebar: React.FC = () => {
 					px="8"
 				>
 					<Link href={navigationPaths.dashboard.home}>
-						<Img src="/images/cali-logo.svg" h="8" w="20" cursor="pointer" />
+						<Img
+							src="/images/cali-logo.svg"
+							h={{ md: '8', '2xl': '10' }}
+							w={{ md: '20', '2xl': '24' }}
+							cursor="pointer"
+						/>
 					</Link>
 					{isConnected === false && <ConnectWalletButton />}
 					<Flex
@@ -183,11 +188,16 @@ export const Sidebar: React.FC = () => {
 									<Flex
 										align="center"
 										justify="center"
-										gap="3"
+										gap={{ md: '1', lg: '3' }}
 										fontWeight="normal"
+										fontSize={{ md: 'sm', xl: 'md', '2xl': 'xl' }}
 									>
 										<>
-											<Icon as={item.icon} boxSize="6" ml="6" />
+											<Icon
+												as={item.icon}
+												boxSize={{ md: '5', xl: '6' }}
+												ml={{ md: '2', lg: '4', xl: '6' }}
+											/>
 											{item.option}
 										</>
 									</Flex>
@@ -207,7 +217,7 @@ export const Sidebar: React.FC = () => {
 					direction="column"
 					align="flex-start"
 					gap="3"
-					px="7"
+					px={{ md: '2', lg: '4', xl: '6' }}
 					py="10"
 					w="full"
 				>
@@ -218,7 +228,7 @@ export const Sidebar: React.FC = () => {
 								cursor="pointer"
 								boxSize="max-content"
 								onClick={() => changeLanguage(lang)}
-								fontSize="sm"
+								fontSize={{ md: 'xs', lg: 'sm', '2xl': 'md' }}
 								fontWeight="semibold"
 								color={locale === lang ? theme.branding.blue : 'white'}
 							>
@@ -229,6 +239,7 @@ export const Sidebar: React.FC = () => {
 						))}
 					</Flex>
 					<Link
+						fontSize={{ md: 'sm', lg: 'md', '2xl': 'xl' }}
 						href={navigationPaths.help}
 						_hover={{
 							textDecoration: 'none',
@@ -238,6 +249,7 @@ export const Sidebar: React.FC = () => {
 						{translate('help')}
 					</Link>
 					<Link
+						fontSize={{ md: 'sm', lg: 'md', '2xl': 'xl' }}
 						href={navigationPaths.docs}
 						_hover={{
 							textDecoration: 'none',
@@ -251,12 +263,20 @@ export const Sidebar: React.FC = () => {
 				<Flex flexDirection="row" px="2" w="full" alignItems="flex-start">
 					<Link href={socialMediaLinks.discord} isExternal>
 						<Button bg="transparent" borderRadius="full">
-							<Icon as={FaDiscord} boxSize="6" color={theme.branding.blue} />
+							<Icon
+								as={FaDiscord}
+								boxSize={{ md: '6', '2xl': '8' }}
+								color={theme.branding.blue}
+							/>
 						</Button>
 					</Link>
 					<Link href={socialMediaLinks.twitter} isExternal>
 						<Button bg="transparent" borderRadius="full">
-							<Icon as={FaTwitter} boxSize="6" color={theme.branding.blue} />
+							<Icon
+								as={FaTwitter}
+								boxSize={{ md: '6', '2xl': '8' }}
+								color={theme.branding.blue}
+							/>
 						</Button>
 					</Link>
 				</Flex>
