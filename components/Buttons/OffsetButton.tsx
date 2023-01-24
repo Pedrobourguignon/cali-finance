@@ -28,7 +28,7 @@ export const OffsetButton: React.FC<IOffsetButton> = ({
 		>
 			<Button
 				onClick={handleClick}
-				px={{ md: '3', lg: '5', xl: '7' }}
+				px={{ md: '2', lg: '4', xl: '6' }}
 				position="absolute"
 				bg="white"
 				bottom="0.5rem"

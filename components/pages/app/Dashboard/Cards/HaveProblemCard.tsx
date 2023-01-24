@@ -22,7 +22,6 @@ export const HaveProblemCard = () => {
 			>
 				<Flex direction="column">
 					<Text
-						fontStyle="Medium"
 						fontSize={{ md: 'md', lg: 'lg', xl: 'xl', '2xl': '2xl' }}
 						lineHeight="7"
 						color="white"
@@ -31,11 +30,9 @@ export const HaveProblemCard = () => {
 						{translate('haveAProblem')}
 					</Text>
 					<Text
-						fontStyle="Medium"
 						fontSize={{ md: 'sm', xl: 'md', '2xl': 'xl' }}
 						lineHeight="6"
 						color="white"
-						whiteSpace="nowrap"
 					>
 						{translate('getInTouch')}
 					</Text>

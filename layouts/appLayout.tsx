@@ -31,10 +31,10 @@ export const AppLayout: React.FC<ILanding> = ({ children, right }) => {
 					gap="4"
 					flexWrap={{ md: 'wrap', lg: 'nowrap' }}
 				>
-					<Flex direction="column" w="100%">
+					<Flex direction="column" flex="4">
 						{children}
 					</Flex>
-					<Flex py="6" w="100%">
+					<Flex py="6" flex="2 ">
 						{right}
 					</Flex>
 				</Flex>
