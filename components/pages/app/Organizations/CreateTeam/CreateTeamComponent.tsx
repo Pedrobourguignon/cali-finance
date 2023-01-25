@@ -31,8 +31,8 @@ export const CreateTeamComponent: React.FC<ICreateTeamComponent> = ({
 	display,
 	changeToCreateTeamTab,
 }) => {
-	const [newTeam, setNewTeam] = useState<INewTeam>();
 	const [employees, setEmployees] = useState<IEmployee[]>([]);
+	const [newTeamPicture, setNewTeamPicture] = useState('');
 	const theme = usePicasso();
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const { selectedOrganization } = useOrganizations();
@@ -43,14 +43,15 @@ export const CreateTeamComponent: React.FC<ICreateTeamComponent> = ({
 	} = useForm<INewTeam>({
 		resolver: yupResolver(createTeamSchema),
 	});
-	const { teamPicture } = useTeams();
+	const { setNewTeam, newTeam } = useTeams();
 
 	const handleCreateTeam = (team: INewTeam) => {
 		setNewTeam({
 			name: team.name,
-			picture: teamPicture,
+			picture: newTeamPicture,
 			description: team.description,
 		});
+		console.log(newTeam);
 	};
 	return (
 		<Flex direction="column" align="start" display={display} w="100%">
@@ -68,10 +69,14 @@ export const CreateTeamComponent: React.FC<ICreateTeamComponent> = ({
 							gap="20"
 						>
 							<Flex>
-								<ImageUploaderModal onClose={onClose} isOpen={isOpen} />
+								<ImageUploaderModal
+									onClose={onClose}
+									isOpen={isOpen}
+									sendImage={setNewTeamPicture}
+								/>
 								<Button
 									bgImage={
-										!teamPicture ? '/images/addImageBg.png' : teamPicture
+										!newTeamPicture ? '/images/addImageBg.png' : newTeamPicture
 									}
 									bgSize="cover"
 									bgRepeat="no-repeat"
@@ -82,7 +87,7 @@ export const CreateTeamComponent: React.FC<ICreateTeamComponent> = ({
 									boxSize="10"
 									onClick={onOpen}
 								>
-									{!teamPicture && <Icon as={BsCardImage} />}
+									{!newTeamPicture && <Icon as={BsCardImage} />}
 								</Button>
 								<Input
 									_focusVisible={{}}

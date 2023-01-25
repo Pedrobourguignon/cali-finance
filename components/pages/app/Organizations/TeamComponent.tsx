@@ -21,7 +21,7 @@ import {
 	OrganizationsHeader,
 } from 'components';
 import Router from 'next/router';
-import { layoutLimit, navigationPaths } from 'utils';
+import { navigationPaths } from 'utils';
 import { BsCardImage, BsCheck } from 'react-icons/bs';
 import { AiOutlineEdit } from 'react-icons/ai';
 import { useCallback, useEffect, useState, useRef } from 'react';
@@ -53,10 +53,6 @@ export const TeamComponent = () => {
 		onClose: onCloseDeleteTeam,
 	} = useDisclosure();
 
-	useEffect(() => {
-		setTeamPicture(teamData.photo);
-	}, [setTeamPicture, teamData.photo]);
-
 	const handleEditTeam = useCallback(
 		(team: ITeamEdit) => {
 			setShowSaved(false);
@@ -82,23 +78,16 @@ export const TeamComponent = () => {
 	return (
 		<AppLayout right={<ActiveTeamsBar />}>
 			<OrganizationWhiteBackground />
-			<Flex
-				pt="6"
-				zIndex="docked"
-				direction="column"
-				align="start"
-				maxW={layoutLimit}
-			>
+			<Flex pt="6" zIndex="docked" direction="column" align="start">
 				<OrganizationsHeader />
 			</Flex>
 			<form onChange={handleSubmit(handleEditTeam)}>
 				<FormControl>
-					<Flex direction="column" maxW={layoutLimit} px="6" gap="2">
+					<Flex direction="column" px="6" gap="2">
 						<Flex
 							align="start"
 							color={theme.text.primary}
 							py="10"
-							maxW={layoutLimit}
 							direction="column"
 							gap="4"
 						>
@@ -128,7 +117,11 @@ export const TeamComponent = () => {
 										</Flex>
 									)}
 								</Flex>
-								<ImageUploaderModal isOpen={isOpen} onClose={onClose} />
+								<ImageUploaderModal
+									isOpen={isOpen}
+									onClose={onClose}
+									sendImage={setTeamPicture}
+								/>
 								<Flex
 									borderRadius="base"
 									borderColor="black"

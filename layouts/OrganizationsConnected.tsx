@@ -16,7 +16,7 @@ export const OrganizationsConnected: React.FC = () => {
 
 	return (
 		<AppLayout right={<SwapTokenBar />}>
-			<Flex direction="column" gap="4" w="min-content" p="6">
+			<Flex direction="column" gap="8" py="6" w="100%">
 				<DashboardHeader />
 				<OrganizationsDashboard
 					members={totalMembers}
@@ -24,13 +24,13 @@ export const OrganizationsConnected: React.FC = () => {
 					teams={totalTeams}
 					totalFunds={totalFunds}
 				/>
-				<Flex w="full" flexDir="column" gap="8">
+				<Flex w="full" flexDir="column" gap={{ md: '4', xl: '8' }}>
 					{organizations.length ? (
 						<YourOrganizations />
 					) : (
 						<CreateOrganizationCard />
 					)}
-					{activities ? <RecentActivities /> : ''}
+					{activities && <RecentActivities />}
 				</Flex>
 			</Flex>
 		</AppLayout>

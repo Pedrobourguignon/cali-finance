@@ -109,13 +109,16 @@ export const MyAssets = () => {
 					<Flex justify="space-between" px="4" py="2" align="start">
 						<Flex direction="column">
 							<Text
-								fontSize={{ lg: 'sm', xl: 'md' }}
+								fontSize={{ md: 'sm', xl: 'md' }}
 								fontWeight="medium"
 								color={theme.text.primary}
 							>
 								{translate('myAssets')}
 							</Text>
-							<Text fontSize="sm" color={theme.text.primary}>
+							<Text
+								fontSize={{ md: 'xs', lg: 'sm' }}
+								color={theme.text.primary}
+							>
 								${totalAssetsValue.toLocaleString()}
 							</Text>
 						</Flex>

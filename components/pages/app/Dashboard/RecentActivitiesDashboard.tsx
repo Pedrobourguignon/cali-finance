@@ -18,14 +18,22 @@ export const RecentActivitiesDashboard: React.FC<
 			h="max-content"
 			w="max-content"
 		>
-			<Flex justify="space-between" py="2">
+			<Flex justify="space-between" py="2" align="center">
 				<Flex>
-					<Text fontSize="md" fontWeight="medium" color="black">
+					<Text
+						fontSize={{ md: 'sm', lg: 'md' }}
+						fontWeight="medium"
+						color="black"
+					>
 						{translate('recentActivities')}
 					</Text>
 				</Flex>
 				<Link href={navigationPaths.dashboard.history}>
-					<Text fontSize="sm" cursor="pointer" color="gray.500">
+					<Text
+						fontSize={{ md: 'xs', lg: 'sm' }}
+						cursor="pointer"
+						color="gray.500"
+					>
 						{translate('seeAll')}
 					</Text>
 				</Link>
@@ -45,7 +53,11 @@ export const RecentActivitiesDashboard: React.FC<
 						<Flex gap={{ md: '2.5', '2xl': '4' }} align="center" p="0.5">
 							<Img src="/icons/deposit.svg" boxSize="7" pl="3" />
 							<Flex direction="column" justify="center">
-								<Text color="black" fontSize="sm" fontWeight="normal">
+								<Text
+									color="black"
+									fontSize={{ md: 'xs', lg: 'sm' }}
+									fontWeight="normal"
+								>
 									{activity.type}
 								</Text>
 								<Text color="gray.500" fontSize="xs">
@@ -56,7 +68,7 @@ export const RecentActivitiesDashboard: React.FC<
 						<Flex
 							direction="column"
 							align="flex-end"
-							fontSize="sm"
+							fontSize={{ md: 'xs', lg: 'sm' }}
 							p="0.5"
 							pr="2"
 						>

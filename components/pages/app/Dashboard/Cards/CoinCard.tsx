@@ -16,18 +16,19 @@ export const CoinCard: React.FC<ICoinCard> = ({ coin, borderColor, color }) => {
 		<Flex
 			borderRadius="base"
 			border="1px solid"
-			justify="center"
 			borderColor={borderColor}
 			_hover={{ boxShadow: 'xl' }}
 			pl={{ md: '1', lg: '2', xl: '3', '2xl': '5' }}
-			pr={{ md: '2', lg: '8', xl: '10', '2xl': '20' }}
+			pt={{ md: '2' }}
+			pb={{ md: '1.5' }}
+			minW={{ md: '5.2rem', lg: '5.65rem', xl: '7.1rem' }}
 			transition="all 0.1s ease-in-out"
 		>
 			<Flex direction="column">
 				<Flex align="center" gap="2">
 					<Img src={coin.icon} boxSize={{ md: '5', xl: '6' }} />
 					<Flex direction="column">
-						<Text fontSize={{ md: 'xs' }} color={color} pt="1">
+						<Text fontSize={{ md: 'xs' }} color={color}>
 							{coin.name}
 						</Text>
 						<Text fontSize={{ md: 'xs' }} color={color}>

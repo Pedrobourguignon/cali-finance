@@ -25,11 +25,16 @@ export const ActivitiesData: React.FC<IActivitiesData> = ({ activities }) => {
 		if (activities.type === 'Withdrawal' || activities.type === 'Deposit') {
 			return (
 				<Flex direction="column" align="end" w="20">
-					<Flex flexDir="row" fontSize="sm" fontWeight="normal" gap="1">
+					<Flex
+						flexDir="row"
+						fontSize={{ md: 'xs', xl: 'sm', '2xl': 'md' }}
+						fontWeight="normal"
+						gap={{ md: '1', '2xl': '2' }}
+					>
 						<Text>{activities.value.toLocaleString('en-US')}</Text>
 						<Text>{activities.coin}</Text>
 					</Flex>
-					<Text fontSize="xs" color={getStatusColor()}>
+					<Text fontSize={{ md: 'xs', '2xl': 'sm' }} color={getStatusColor()}>
 						{activities.status}
 					</Text>
 				</Flex>
@@ -41,23 +46,33 @@ export const ActivitiesData: React.FC<IActivitiesData> = ({ activities }) => {
 	return (
 		<Flex
 			align="center"
-			px="5"
-			py="3"
+			px={{ md: '2', lg: '5' }}
+			py={{ md: '1', lg: '2', xl: '3' }}
 			bg="gray.50"
 			borderRadius="base"
-			gap="32"
 			justify="space-between"
 		>
-			<Text fontSize="sm" fontWeight="normal" w="36">
+			<Text
+				fontSize={{ md: 'xs', xl: 'sm', '2xl': 'md' }}
+				fontWeight="normal"
+				w={{ md: '24', lg: '36' }}
+			>
 				{activities.name}
 			</Text>
 			<Flex align="center" gap="2">
-				<Img src={handleIcon()} boxSize="4" />
+				<Img src={handleIcon()} boxSize={{ md: '4', '2xl': '6' }} />
 				<Flex direction="column">
-					<Text fontSize="sm" fontWeight="normal">
+					<Text
+						fontSize={{ md: 'xs', xl: 'sm', '2xl': 'md' }}
+						fontWeight="normal"
+					>
 						{activities.type}
 					</Text>
-					<Text color="gray.500" fontSize="xs" w="24">
+					<Text
+						color="gray.500"
+						fontSize={{ md: 'xs', '2xl': 'sm' }}
+						w={{ md: '24', '2xl': '28' }}
+					>
 						{activities.date}
 					</Text>
 				</Flex>

@@ -6,7 +6,7 @@ import { FiInstagram, FiLinkedin, FiTwitter } from 'react-icons/fi';
 export const LifeIsEasier = () => {
 	const theme = usePicasso();
 	return (
-		<Flex direction="column" maxW="56" gap="2">
+		<Flex direction="column" gap="2">
 			<Text fontWeight="medium">Life is easier with Cali</Text>
 			<Text fontSize="sm" fontWeight="normal">
 				Efficiency, Security, and Transparency – All at your fingertips with our

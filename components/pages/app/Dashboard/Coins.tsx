@@ -3,6 +3,7 @@ import { NewCoinButton, CoinCard } from 'components';
 import React from 'react';
 import { ICoin } from 'types';
 import useTranslation from 'next-translate/useTranslation';
+import { usePicasso } from 'hooks';
 
 const coinCard: ICoin[] = [
 	{
@@ -27,40 +28,45 @@ const coinCard: ICoin[] = [
 
 export const Coins = () => {
 	const { t: translate } = useTranslation('dashboard');
+	const theme = usePicasso();
 	return (
 		<Flex
-			bg="black"
-			color="white"
-			h="max-content"
-			p={{ md: '2', lg: '3', xl: '3' }}
-			borderRadius="base"
 			justify="space-between"
+			bg={theme.bg.primary}
+			py={{ md: '2', xl: '3', '2xl': '8' }}
+			px={{ md: '3', xl: '4', '2xl': '7' }}
+			borderRadius="base"
 			align="center"
-			w="full"
+			minW={{ lg: '35.625rem', xl: '43.5rem' }}
+			minH={{ md: '5rem', lg: '6.44rem' }}
 		>
-			<Flex direction="column">
+			<Flex direction="column" gap={{ md: '1', xl: '1.5' }}>
 				<Text fontSize={{ lg: 'sm', xl: 'md' }} fontWeight="500" lineHeight="6">
 					{translate('coins')}
 				</Text>
 				<Text
 					fontSize={{ md: 'xs', xl: 'sm' }}
-					fontWeight="500"
+					fontWeight="medium"
 					lineHeight="5"
 					whiteSpace="nowrap"
 				>
 					{translate('stayConnected')}
 				</Text>
-				<Text fontSize={{ md: 'xs', xl: 'sm' }} fontWeight="500" lineHeight="5">
+				<Text
+					fontSize={{ md: 'xs', xl: 'sm' }}
+					fontWeight="normal"
+					lineHeight="5"
+				>
 					{translate('principalCoins')}
 				</Text>
 			</Flex>
-			<Flex w="full" justify="space-between" px="4" gap={{ lg: '4', xl: '0' }}>
+			<Flex w="full" justify="space-between" mx="4">
 				{coinCard.map((card, index) => (
 					<CoinCard
-						key={+index}
 						coin={card}
 						borderColor="gray.50"
 						color="white"
+						key={+index}
 					/>
 				))}
 			</Flex>

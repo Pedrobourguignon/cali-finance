@@ -56,17 +56,6 @@ export const OrganizationsList = () => {
 	};
 
 	const settings = {
-		// responsive: [
-		// 	{
-		// 		breakpoint: 1024,
-		// 		settings: {
-		// 			slidesToShow: 4,
-		// 			slidesToScroll: 3,
-		// 			infinite: true,
-		// 			dots: true,
-		// 		},
-		// 	},
-		// ],
 		infinite: false,
 		speed: 500,
 		slidesToShow: ref.current?.clientWidth === 1008 ? 4 : 3,
@@ -93,12 +82,7 @@ export const OrganizationsList = () => {
 				/>
 			</Flex>
 			<Box position="relative">
-				<Flex
-					w={{ lg: '35.4rem', xl: '43.5rem', '2xl': '63rem' }}
-					display="block"
-					bg="transparent"
-					ref={ref}
-				>
+				<Flex display="block" bg="transparent" ref={ref}>
 					<Slider
 						{...settings}
 						ref={sliderRef => setSlider(sliderRef)}
