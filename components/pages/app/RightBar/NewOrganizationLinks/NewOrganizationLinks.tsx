@@ -62,7 +62,8 @@ const OrganizationLogo: React.FC<{ org: INewOrganization }> = ({ org }) => {
 
 export const NewOrganizationLinks: React.FC<{
 	control: Control<ICreateOrganization>;
-}> = ({ control }) => {
+	display?: object;
+}> = ({ control, display }) => {
 	const theme = usePicasso();
 	const { selectedOrganization } = useOrganizations();
 
@@ -72,17 +73,19 @@ export const NewOrganizationLinks: React.FC<{
 			bg={theme.bg.black}
 			direction="column"
 			px="4"
-			pt="24"
+			py={{ md: '12', lg: '16', xl: '24' }}
 			gap="10"
 			borderRadius="base"
+			align="center"
 			w="100%"
+			display={display}
 		>
 			<Flex direction="column" align="center" gap="4" w="100%">
 				<OrganizationLogo org={selectedOrganization} />
 				<ImageUploader />
 			</Flex>
-			<Flex>
-				<Flex direction="column" gap="4" minW="16.5rem">
+			<Flex w="100%">
+				<Flex direction="column" gap="4" w="100%">
 					{socialLinks.map((socialLink, index) => (
 						<SocialMediaInput
 							socialLink={socialLink}

@@ -28,10 +28,23 @@ export const CreateOrganization = () => {
 		<OrganizationsProvider>
 			<form onSubmit={handleSubmit(handleCreateOrganization)}>
 				<FormControl>
-					<AppLayout right={<NewOrganizationLinks control={control} />}>
+					<AppLayout
+						right={
+							<NewOrganizationLinks
+								control={control}
+								display={{ md: 'none', lg: 'flex' }}
+							/>
+						}
+					>
 						<OrganizationWhiteBackground />
-						<Flex direction="column" gap="10" zIndex="docked" pt="6">
-							<Flex>
+						<Flex
+							direction="column"
+							gap={{ md: '4', lg: '10' }}
+							zIndex="docked"
+							pt="6"
+							w="100%"
+						>
+							<Flex w="100%">
 								<NavigationBack
 									href={navigationPaths.dashboard.organizations.home}
 								>
