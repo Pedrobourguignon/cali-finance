@@ -24,6 +24,7 @@ export const NavigationBack: FC<INavigationBack> = ({
 			onClick={handleClick}
 			lineHeight="6"
 			fontWeight="medium"
+			fontSize={{ md: 'sm', xl: 'md' }}
 			{...rest}
 		>
 			{children}

@@ -10,7 +10,6 @@ import { IEditOrganization } from 'types';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useOrganizations } from 'hooks';
-import { OrganizationsProvider } from 'contexts';
 
 export const EditOrganization = () => {
 	const {
@@ -30,21 +29,27 @@ export const EditOrganization = () => {
 	return (
 		<form onSubmit={handleSubmit(handleEditOrganization)}>
 			<FormControl>
-				<AppLayout right={<EditOrganizationLink control={control} />}>
+				<AppLayout
+					right={
+						<EditOrganizationLink
+							control={control}
+							display={{ md: 'none', lg: 'flex' }}
+						/>
+					}
+				>
 					<OrganizationWhiteBackground />
 					<Flex
 						direction="column"
-						align="flex-start"
-						gap="10"
+						gap={{ md: '4', lg: '10' }}
 						zIndex="docked"
 						pt="6"
 						w="100%"
 					>
-						<Flex px="5">
+						<Flex w="100%">
 							<NavigationBack
 								href={navigationPaths.dashboard.organizations.home}
 							>
-								Back to Organizations
+								Back to Companies
 							</NavigationBack>
 						</Flex>
 						<EditOrganizationComponent
