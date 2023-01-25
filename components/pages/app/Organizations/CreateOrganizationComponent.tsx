@@ -13,7 +13,7 @@ import { Control, FieldErrorsImpl, Controller } from 'react-hook-form';
 import { Select } from 'chakra-react-select';
 import { BsQuestionCircle } from 'react-icons/bs';
 import { ICreateOrganization } from 'types';
-import { NewOrganizationLinks } from '../RightBar';
+import { NewOrganizationLinks } from 'components';
 
 interface ICreateOrganizationComponent {
 	control: Control<ICreateOrganization>;
