@@ -30,19 +30,12 @@ export const CreateOrganization = () => {
 				<FormControl>
 					<AppLayout right={<NewOrganizationLinks control={control} />}>
 						<OrganizationWhiteBackground />
-						<Flex
-							direction="column"
-							align="flex-start"
-							gap="10"
-							zIndex="docked"
-							pt="6"
-							w="100%"
-						>
-							<Flex px="5">
+						<Flex direction="column" gap="10" zIndex="docked" pt="6">
+							<Flex>
 								<NavigationBack
 									href={navigationPaths.dashboard.organizations.home}
 								>
-									Back to Organizations
+									Back to Companies
 								</NavigationBack>
 							</Flex>
 							<CreateOrganizationComponent errors={errors} control={control} />

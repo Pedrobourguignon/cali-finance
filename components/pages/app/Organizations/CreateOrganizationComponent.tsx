@@ -77,17 +77,17 @@ export const CreateOrganizationComponent: React.FC<
 	const theme = usePicasso();
 
 	return (
-		<Flex w="100%" direction="column" px="6">
+		<Flex direction="column">
 			<Flex direction="column" gap="6" mb="14" position="relative">
 				<Text color="black" fontSize="xl" fontWeight="medium">
-					Create Organization
+					Create Company
 				</Text>
 				<Controller
 					render={({ field }) => (
 						<Input
 							{...field}
 							color="black"
-							placeholder="Organization Name *"
+							placeholder="Company Name *"
 							borderBottomWidth="0,125rem"
 							borderBottomColor="black"
 							borderRadius="none"
@@ -107,12 +107,7 @@ export const CreateOrganizationComponent: React.FC<
 					{errors.name?.message}
 				</Text>
 			</Flex>
-			<Flex
-				py="6"
-				w="100%"
-				justify="space-between
-            "
-			>
+			<Flex py="6" w="100%" justify="space-between">
 				<Flex direction="column" gap="8" minW="80">
 					<Flex direction="column" color="black" gap="6">
 						<Flex direction="column">
@@ -167,7 +162,7 @@ export const CreateOrganizationComponent: React.FC<
 								render={({ field }) => (
 									<Input
 										{...field}
-										placeholder="example@organization.io"
+										placeholder="example@company.io"
 										_placeholder={{
 											color: 'blackAlpha.500',
 											fontSize: 'sm',
@@ -199,7 +194,7 @@ export const CreateOrganizationComponent: React.FC<
 										}}
 										_hover={{}}
 										bgColor="white"
-										placeholder="Hello Org is an organization that..."
+										placeholder="Hello"
 										minH="110"
 									/>
 								)}
@@ -220,7 +215,7 @@ export const CreateOrganizationComponent: React.FC<
 						lineHeight="6"
 					>
 						<Text>+</Text>
-						<Text>Create Organization</Text>
+						<Text>Create Company</Text>
 					</Button>
 				</Flex>
 				<Flex direction="column" minW="44" color={theme.text.primary}>
