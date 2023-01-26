@@ -11,8 +11,8 @@ import {
 import { MdContentCopy } from 'react-icons/md';
 import { IEmployee } from 'types';
 import { truncateWallet } from 'utils';
-import { CopyAddressToast, EditEmployee } from 'components';
 import useTranslation from 'next-translate/useTranslation';
+import { CopyAddressToast, EditEmployee } from 'components';
 
 const teams = ['General', 'Marketing', 'Finance', 'Trozorba'];
 interface IEmployeeData {
