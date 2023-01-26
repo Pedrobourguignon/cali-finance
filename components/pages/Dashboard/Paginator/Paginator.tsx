@@ -3,6 +3,7 @@ import { AiOutlineLeft, AiOutlineRight } from 'react-icons/ai';
 
 import { FC } from 'react';
 import useTranslation from 'next-translate/useTranslation';
+import { usePicasso } from 'hooks';
 
 interface IPaginatorProps extends ButtonProps {
 	previous: () => void;
@@ -24,6 +25,7 @@ export const Paginator: FC<IPaginatorProps> = ({
 	next,
 }) => {
 	const { t: translate } = useTranslation('dashboard');
+	const theme = usePicasso();
 	return (
 		<Flex justifyContent="space-between" align="center" gap="2">
 			<PaginatorButton
@@ -36,7 +38,13 @@ export const Paginator: FC<IPaginatorProps> = ({
 			>
 				<Icon as={AiOutlineLeft} />
 			</PaginatorButton>
-			<Text w="max-content" h="max-content" fontWeight="500" color="#121212">
+			<Text
+				w="max-content"
+				h="max-content"
+				fontWeight="medium"
+				color={theme.text.primary}
+				fontSize={{ md: 'md', lg: 'lg' }}
+			>
 				{`${actualPage} ${translate('of')} ${maxPage}`}
 			</Text>
 			<PaginatorButton

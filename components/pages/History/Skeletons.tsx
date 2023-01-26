@@ -14,24 +14,42 @@ export const HistorySkeletons: React.FC<ISkeleton> = ({ display }) => (
 		justify="space-between"
 	>
 		<Flex gap="3" align="center">
-			<SkeletonCircle size="6" />
-			<Skeleton width="28" height="5" />
+			<SkeletonCircle size={{ md: '2', lg: '4', xl: '6' }} />
+			<Skeleton
+				width={{ md: '6', lg: '20', xl: '28' }}
+				height={{ md: '2', lg: '2', xl: '5' }}
+			/>
 		</Flex>
 		<Flex gap="3" align="center">
-			<SkeletonCircle size="6" />
-			<Skeleton width="28" height="5" />
+			<SkeletonCircle size={{ md: '2', lg: '4', xl: '6' }} />
+			<Skeleton
+				width={{ md: '6', lg: '20', xl: '28' }}
+				height={{ md: '2', lg: '2', xl: '5' }}
+			/>
 		</Flex>
 		<Flex gap="2" align="center">
 			<SkeletonCircle size="4" />
 			<Stack spacing="1">
-				<Skeleton width="16" height="4" />
-				<Skeleton width="10" height="3" />
+				<Skeleton
+					width={{ md: '6', lg: '14', xl: '16' }}
+					height={{ md: '2', lg: '2', xl: '3' }}
+				/>
+				<Skeleton
+					width={{ md: '6', lg: '8', xl: '10' }}
+					height={{ md: '2', lg: '2', xl: '3' }}
+				/>
 			</Stack>
 		</Flex>
-		<Flex gap="3" direction="column">
+		<Flex gap={{ md: '6', lg: '2', xl: '3' }} direction="column">
 			<Stack spacing="1" align="end">
-				<Skeleton width="16" height="3" />
-				<Skeleton width="10" height="3" />
+				<Skeleton
+					width={{ md: '6', lg: '14', xl: '16' }}
+					height={{ md: '2', lg: '2', xl: '3' }}
+				/>
+				<Skeleton
+					width={{ md: '2', lg: '8', xl: '10' }}
+					height={{ md: '2', lg: '2', xl: '3' }}
+				/>
 			</Stack>
 		</Flex>
 	</Flex>

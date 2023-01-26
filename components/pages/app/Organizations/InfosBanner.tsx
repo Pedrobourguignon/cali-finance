@@ -12,23 +12,22 @@ export const InfosBanner: React.FC<IInfos> = ({
 }) => {
 	const theme = usePicasso();
 	return (
-		<Flex>
-			<Flex
-				bg={theme.bg.black}
-				direction="column"
-				position="relative"
-				borderRadius="base"
-				h="max-content"
-				{...props}
-			>
-				{children}
+		<Flex
+			bg={theme.bg.black}
+			direction="column"
+			position="relative"
+			borderRadius="base"
+			h="max-content"
+			{...props}
+			w="100%"
+		>
+			{children}
 
-				<Flex position="absolute" bottom="0">
-					<Img src="/images/illustration.png" />
-				</Flex>
-				<Flex bottom="0" position={position}>
-					<Img src="/images/ondulate-background.png" />
-				</Flex>
+			<Flex position="absolute" bottom="0" w="full">
+				<Img src="/images/illustration.png" w="full" />
+			</Flex>
+			<Flex bottom="0" position={position} w="full">
+				<Img src="/images/ondulate-background.png" w="full" />
 			</Flex>
 		</Flex>
 	);
