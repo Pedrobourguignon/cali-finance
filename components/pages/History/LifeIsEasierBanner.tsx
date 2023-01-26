@@ -1,8 +1,6 @@
-import { Flex, Icon, Img, Text, Link } from '@chakra-ui/react';
+import { Flex, Img } from '@chakra-ui/react';
 import { usePicasso } from 'hooks';
-import { FiInstagram, FiLinkedin, FiTwitter } from 'react-icons/fi';
 import { InfosBanner, LifeIsEasier } from 'components';
-import { socialMediaLinks } from 'utils';
 
 export const LifeIsEasierBanner = () => {
 	const theme = usePicasso();

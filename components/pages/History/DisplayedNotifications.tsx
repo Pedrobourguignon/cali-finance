@@ -34,12 +34,12 @@ export const DisplayedNotifications: React.FC<IDisplayedNotifications> = ({
 					borderRadius="base"
 					align="center"
 					justify="space-between"
-					gap="7"
+					gap={{ md: '0', lg: '7' }}
 				>
 					<Flex align="center" gap="3">
 						<Icon as={notification.companyIcon} boxSize="6" />
 						<Text
-							fontSize={{ lg: 'xs', xl: 'sm' }}
+							fontSize={{ md: 'xs', xl: 'sm' }}
 							fontWeight="semibold"
 							color={theme.text.primary}
 							whiteSpace="nowrap"
@@ -51,7 +51,7 @@ export const DisplayedNotifications: React.FC<IDisplayedNotifications> = ({
 						<Icon as={notification.userIcon} boxSize="6" />
 						<Flex direction="column">
 							<Text
-								fontSize={{ lg: 'xs', xl: 'sm' }}
+								fontSize={{ md: 'xs', xl: 'sm' }}
 								color={theme.text.primary}
 							>
 								{notification.userWalletAddress}
@@ -65,7 +65,7 @@ export const DisplayedNotifications: React.FC<IDisplayedNotifications> = ({
 						<Icon as={notification.typeIcon} boxSize="4" />
 						<Flex direction="column">
 							<Text
-								fontSize={{ lg: 'xs', xl: 'sm' }}
+								fontSize={{ md: 'xs', xl: 'sm' }}
 								color={theme.text.primary}
 							>
 								{translate(notification.type.toLowerCase())}

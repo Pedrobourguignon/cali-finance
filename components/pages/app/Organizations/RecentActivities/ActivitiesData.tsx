@@ -1,4 +1,5 @@
 import { Flex, Img, Text } from '@chakra-ui/react';
+import useTranslation from 'next-translate/useTranslation';
 import { useMemo } from 'react';
 import { IActivities } from 'types';
 
@@ -7,6 +8,7 @@ interface IActivitiesData {
 }
 
 export const ActivitiesData: React.FC<IActivitiesData> = ({ activities }) => {
+	const { t: translate } = useTranslation('organizations');
 	const handleIcon = () => {
 		if (activities.type === 'Withdrawal') return '/icons/withdrawal.svg';
 		if (activities.type === 'Deposit') return '/icons/deposit.svg';
@@ -16,8 +18,8 @@ export const ActivitiesData: React.FC<IActivitiesData> = ({ activities }) => {
 	};
 
 	const getStatusColor = () => {
-		if (activities.status === 'Completed') return 'green.400';
-		if (activities.status === 'Processing') return 'gray.400';
+		if (activities.status === translate('completed')) return 'green.400';
+		if (activities.status === translate('processing')) return 'gray.400';
 		return 'red.400';
 	};
 
@@ -35,7 +37,7 @@ export const ActivitiesData: React.FC<IActivitiesData> = ({ activities }) => {
 						<Text>{activities.coin}</Text>
 					</Flex>
 					<Text fontSize={{ md: 'xs', '2xl': 'sm' }} color={getStatusColor()}>
-						{activities.status}
+						{translate(activities.status)}
 					</Text>
 				</Flex>
 			);
@@ -66,7 +68,9 @@ export const ActivitiesData: React.FC<IActivitiesData> = ({ activities }) => {
 						fontSize={{ md: 'xs', xl: 'sm', '2xl': 'md' }}
 						fontWeight="normal"
 					>
-						{activities.type}
+						{activities.type === 'Team Created'
+							? translate('teamCreated')
+							: translate(activities.type.toLowerCase())}
 					</Text>
 					<Text
 						color="gray.500"

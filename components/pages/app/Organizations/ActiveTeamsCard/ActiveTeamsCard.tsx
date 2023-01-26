@@ -2,6 +2,7 @@ import { Flex, Img, Link, LinkBox, LinkOverlay, Text } from '@chakra-ui/react';
 import React from 'react';
 import { usePicasso } from 'hooks';
 import { LinearProgressBar } from 'components/ProgressBar';
+import useTranslation from 'next-translate/useTranslation';
 import { SurplusTeams } from '../SurplusTeams';
 import { TeamsData } from './TeamsData';
 
@@ -50,6 +51,7 @@ const teams = [
 ];
 export const ActiveTeamsCard = () => {
 	const theme = usePicasso();
+	const { t: translate } = useTranslation('organization-overall');
 	const totalMembers = teams.reduce((acc, team) => acc + team.members, 0);
 	const newTeam = teams.map(
 		item =>
@@ -73,19 +75,11 @@ export const ActiveTeamsCard = () => {
 		>
 			<Flex justify="space-between">
 				<Text color="black" fontSize="md" fontWeight="medium">
-					Active Teams
+					{translate('activeTeams')}
 				</Text>
-
-				<Link href="/">
-					<Text
-						fontSize="xs"
-						color={theme.branding.blue}
-						fontWeight="medium"
-						textDecor="none"
-					>
-						See all
-					</Text>
-				</Link>
+				<Text fontSize="xs" color={theme.branding.blue} fontWeight="medium">
+					{translate('seeAll')}
+				</Text>
 			</Flex>
 			<Flex direction="column" gap="9">
 				<Flex>

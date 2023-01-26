@@ -10,6 +10,7 @@ import { ICreateOrganization } from 'types';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { OrganizationsProvider } from 'contexts';
+import useTranslation from 'next-translate/useTranslation';
 
 export const CreateOrganization = () => {
 	const {
@@ -19,6 +20,7 @@ export const CreateOrganization = () => {
 	} = useForm<ICreateOrganization>({
 		resolver: yupResolver(createOrganizationSchema),
 	});
+	const { t: translate } = useTranslation('create-organization');
 
 	const handleCreateOrganization = (organizationData: ICreateOrganization) => {
 		console.log(organizationData);
@@ -28,21 +30,27 @@ export const CreateOrganization = () => {
 		<OrganizationsProvider>
 			<form onSubmit={handleSubmit(handleCreateOrganization)}>
 				<FormControl>
-					<AppLayout right={<NewOrganizationLinks control={control} />}>
+					<AppLayout
+						right={
+							<NewOrganizationLinks
+								control={control}
+								display={{ md: 'none', lg: 'flex' }}
+							/>
+						}
+					>
 						<OrganizationWhiteBackground />
 						<Flex
 							direction="column"
-							align="flex-start"
-							gap="10"
+							gap={{ md: '4', lg: '10' }}
 							zIndex="docked"
 							pt="6"
 							w="100%"
 						>
-							<Flex px="5">
+							<Flex w="100%">
 								<NavigationBack
 									href={navigationPaths.dashboard.organizations.home}
 								>
-									Back to Organizations
+									{translate('backToOrganizations')}
 								</NavigationBack>
 							</Flex>
 							<CreateOrganizationComponent errors={errors} control={control} />

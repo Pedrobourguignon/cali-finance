@@ -11,6 +11,7 @@ import { useOrganizations, usePicasso, useTeams } from 'hooks';
 import React, { useState } from 'react';
 import { BackToTeams, EmployeePanel, ImageUploaderModal } from 'components';
 import { BsCardImage } from 'react-icons/bs';
+import useTranslation from 'next-translate/useTranslation';
 import { useForm } from 'react-hook-form';
 import { createTeamSchema } from 'utils';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -44,6 +45,7 @@ export const CreateTeamComponent: React.FC<ICreateTeamComponent> = ({
 		resolver: yupResolver(createTeamSchema),
 	});
 	const { setNewTeam, newTeam } = useTeams();
+	const { t: translate } = useTranslation('create-team');
 
 	const handleCreateTeam = (team: INewTeam) => {
 		setNewTeam({
@@ -91,7 +93,7 @@ export const CreateTeamComponent: React.FC<ICreateTeamComponent> = ({
 								</Button>
 								<Input
 									_focusVisible={{}}
-									placeholder="Insert Team Name Here *"
+									placeholder={translate('insertTeamName')}
 									_placeholder={{ fontSize: 'md', color: 'gray.500' }}
 									border="none"
 									color={theme.text.primary}
@@ -111,7 +113,7 @@ export const CreateTeamComponent: React.FC<ICreateTeamComponent> = ({
 
 							<Flex direction="column">
 								<Text color="gray.500" fontSize="xs">
-									Funds
+									{translate('funds')}
 								</Text>
 								<Text color={theme.text.primary} fontSize="sm">
 									$0
@@ -119,7 +121,7 @@ export const CreateTeamComponent: React.FC<ICreateTeamComponent> = ({
 							</Flex>
 							<Flex direction="column">
 								<Text color="gray.500" fontSize="xs">
-									Members
+									{translate('members')}
 								</Text>
 								<Text color={theme.text.primary} fontSize="sm">
 									0
@@ -127,7 +129,7 @@ export const CreateTeamComponent: React.FC<ICreateTeamComponent> = ({
 							</Flex>
 							<Flex direction="column" pr="8">
 								<Text color="gray.500" fontSize="xs">
-									Withdrawals this month
+									{translate('withdrawalsThisMonth')}
 								</Text>
 								<Text color={theme.text.primary} fontSize="sm">
 									$0
@@ -137,7 +139,7 @@ export const CreateTeamComponent: React.FC<ICreateTeamComponent> = ({
 						<Flex pt="4" w="full">
 							<Input
 								_focusVisible={{}}
-								placeholder="You can insert team’s description here if you want to."
+								placeholder={translate('descriptionPlaceholder')}
 								_placeholder={{ fontSize: 'md', color: 'gray.500' }}
 								border="none"
 								color={theme.text.primary}
@@ -164,7 +166,7 @@ export const CreateTeamComponent: React.FC<ICreateTeamComponent> = ({
 							disabled={!isValid}
 							type="submit"
 						>
-							Create Team
+							{translate('createTeam')}
 						</Button>
 					</Flex>
 				</FormControl>

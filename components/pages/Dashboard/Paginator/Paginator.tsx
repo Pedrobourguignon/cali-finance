@@ -36,7 +36,13 @@ export const Paginator: FC<IPaginatorProps> = ({
 			>
 				<Icon as={AiOutlineLeft} />
 			</PaginatorButton>
-			<Text w="max-content" h="max-content" fontWeight="500" color="#121212">
+			<Text
+				w="max-content"
+				h="max-content"
+				fontWeight="500"
+				color="#121212"
+				fontSize={{ md: 'md', lg: 'lg' }}
+			>
 				{`${actualPage} ${translate('of')} ${maxPage}`}
 			</Text>
 			<PaginatorButton
