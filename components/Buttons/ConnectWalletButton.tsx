@@ -42,9 +42,9 @@ export const ConnectWalletButton = () => {
 				onClose={onCloseLoading}
 			/>
 			<OffsetShadow
-				px=""
-				buttonText=""
-				width="40"
+				px={{ lg: '3', xl: '6' }}
+				buttonText="Connect Wallet"
+				width="max-content"
 				height="8"
 				borderColor="white"
 				top="0.5rem"
