@@ -70,38 +70,28 @@ export const HistoryComponent: React.FC<IHistoryPage> = ({ history }) => {
 		<AppLayout
 			right={isConnected ? <LifeIsEasierBanner /> : <CreateAccountBanner />}
 		>
-			<Flex direction="column" gap="5" p="6">
+			<Flex direction="column" gap="5" pt="6">
 				<Flex direction="column" gap="2">
-					<Flex justify="space-between" align="center">
-						<Flex direction="column" gap="4">
-							<Text
-								fontSize="md"
-								fontStyle="medium"
-								fontWeight="500"
-								color={theme.text.primary}
-							>
-								{translate('history')}
-							</Text>
-							<Text
-								fontSize="sm"
-								display={shouldntDisplay}
-								color={theme.text.primary}
-							>
-								Please connect your wallet to be able to view your history.
-							</Text>
-						</Flex>
+					<Flex align="center" justify="space-between">
+						<Text
+							fontSize={{ xl: 'md', '2xl': 'lg' }}
+							fontStyle="medium"
+							fontWeight="500"
+							color={theme.text.primary}
+						>
+							{translate('history')}
+						</Text>
 						<Menu gutter={0} autoSelect={false}>
 							<MenuButton
-								w={theme.sizes.menuItem}
-								color={theme.text.primary}
 								h="max-content"
+								py="2"
+								px="3"
+								gap={{ md: '22', lg: '28', xl: '32' }}
+								fontSize={{ lg: 'xs', xl: 'sm', '2xl': 'md' }}
+								color={theme.text.primary}
 								as={Button}
 								rightIcon={<BiChevronDown />}
 								bg="white"
-								fontSize="sm"
-								px="3"
-								py="2"
-								gap="24"
 								disabled={!isConnected}
 								_hover={{}}
 								_active={{}}
@@ -137,6 +127,13 @@ export const HistoryComponent: React.FC<IHistoryPage> = ({ history }) => {
 							</MenuList>
 						</Menu>
 					</Flex>
+					<Text
+						fontSize={{ lg: 'xs', xl: 'sm', '2xl': 'md' }}
+						display={shouldntDisplay}
+						color={theme.text.primary}
+					>
+						Please connect your wallet to be able to view your history.
+					</Text>
 					<HistorySkeletons display={shouldntDisplay} />
 					<Flex
 						direction="column"

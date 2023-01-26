@@ -8,7 +8,7 @@ export const LifeIsEasier = () => {
 	return (
 		<Flex direction="column" maxW="56" gap="2">
 			<Text fontWeight="medium">Life is easier with Cali</Text>
-			<Text fontSize="sm" fontWeight="normal">
+			<Text fontSize={{ lg: 'xs', xl: 'sm' }} fontWeight="normal">
 				You’ve unlocked our all-in-one suit for surfacing unlimited teams and
 				organizations payments
 			</Text>
