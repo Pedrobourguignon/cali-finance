@@ -269,7 +269,7 @@ export const CreateOrganizationComponent: React.FC<
 										_hover={{}}
 										bgColor="white"
 										placeholder="Hello"
-										minH="110"
+										minH="7.2rem"
 									/>
 								)}
 								name="description"
