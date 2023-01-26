@@ -3,6 +3,7 @@ export * from './ICreateOrganization';
 export * from './IEditOrganization';
 export * from './IEmployee';
 export * from './INewOrganization';
+export * from './INewTeam';
 export * from './ISocialMediaInput';
 export * from './ISocialMedias';
 export * from './ITeam';

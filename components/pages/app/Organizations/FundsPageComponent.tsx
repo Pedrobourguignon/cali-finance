@@ -7,7 +7,6 @@ import {
 	HistoryDashboard,
 	OrganizationsHeader,
 } from 'components';
-import { layoutLimit } from 'utils';
 import { ICoin } from 'types';
 import useTranslation from 'next-translate/useTranslation';
 
@@ -69,7 +68,6 @@ export const FundsPageComponent = () => {
 				zIndex="docked"
 				direction="column"
 				align="start"
-				maxW={layoutLimit}
 			>
 				<OrganizationsHeader />
 			</Flex>
@@ -77,7 +75,6 @@ export const FundsPageComponent = () => {
 				color={theme.text.primary}
 				px="6"
 				py="12"
-				maxW={layoutLimit}
 				direction="column"
 				gap="10"
 			>
@@ -86,7 +83,7 @@ export const FundsPageComponent = () => {
 						<Text>{translate('coins')}</Text>
 					</Flex>
 
-					<Grid gap="4" w="full" templateColumns="repeat(6, 1fr)">
+					<Grid gap="4" w="full" templateColumns="repeat(5, 1fr)">
 						{coinCard.map((coin, index) => (
 							<GridItem key={+index} w="max-content">
 								<CoinCard

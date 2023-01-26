@@ -1,2 +1,2 @@
 export * from './OrganizationsDashboard';
-export * from './OrganizationsDashboardNoConnected';
+export * from './CompaniesDashboardNoConnected';

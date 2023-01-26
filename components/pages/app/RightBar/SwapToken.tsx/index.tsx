@@ -1,9 +1,8 @@
 import { Flex } from '@chakra-ui/react';
-import { HaveProblemCard, SwapToken } from 'components';
+import { HaveProblemCard } from 'components';
 
 export const SwapTokenBar = () => (
-	<Flex direction="column" gap="4" w="74">
-		<SwapToken />
+	<Flex direction="column" w="100%">
 		<HaveProblemCard />
 	</Flex>
 );

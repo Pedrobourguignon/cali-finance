@@ -12,6 +12,7 @@ import {
 	CreateAccountBanner,
 	HistorySkeletons,
 	DisplayedNotifications,
+	Paginator,
 } from 'components';
 import { usePicasso } from 'hooks';
 import { AppLayout } from 'layouts';
@@ -19,8 +20,6 @@ import useTranslation from 'next-translate/useTranslation';
 import React, { useMemo, useState } from 'react';
 import { BiChevronDown } from 'react-icons/bi';
 import { IHistoryNotification, IHistoryPage } from 'types';
-import { layoutLimit } from 'utils';
-import { Paginator } from '../Dashboard';
 
 export const HistoryComponent: React.FC<IHistoryPage> = ({ history }) => {
 	const { t: translate } = useTranslation('history-page');
@@ -74,7 +73,7 @@ export const HistoryComponent: React.FC<IHistoryPage> = ({ history }) => {
 			right={isConnected ? <LifeIsEasierBanner /> : <CreateAccountBanner />}
 		>
 			<Flex direction="column" gap="5" p="6">
-				<Flex direction="column" gap="2" w={layoutLimit}>
+				<Flex direction="column" gap="2">
 					<Flex justify="space-between" align="center">
 						<Flex direction="column" gap="4">
 							<Text

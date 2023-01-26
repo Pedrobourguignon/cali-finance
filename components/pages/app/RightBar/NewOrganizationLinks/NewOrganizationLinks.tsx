@@ -10,6 +10,34 @@ import {
 import { Control } from 'react-hook-form';
 import useTranslation from 'next-translate/useTranslation';
 
+const socialLinks: ISocialMediaInput[] = [
+	{
+		name: 'socialMedias.website',
+		imgSrc: '/icons/globe.svg',
+		placeHolder: 'website.io',
+	},
+	{
+		name: 'socialMedias.instagram',
+		imgSrc: '/icons/instagram.svg',
+		placeHolder: 'instagram.com/company',
+	},
+	{
+		name: 'socialMedias.twitter',
+		imgSrc: '/icons/twitter.svg',
+		placeHolder: 'twitter.com/company',
+	},
+	{
+		name: 'socialMedias.telegram',
+		imgSrc: '/icons/telegram.svg',
+		placeHolder: 't.me/company',
+	},
+	{
+		name: 'socialMedias.medium',
+		imgSrc: '/icons/m-letter.svg',
+		placeHolder: 'Medium',
+	},
+];
+
 const OrganizationLogo: React.FC<{ org: INewOrganization }> = ({ org }) => {
 	const { logo, name } = org;
 	const theme = usePicasso();
@@ -38,53 +66,7 @@ export const NewOrganizationLinks: React.FC<{
 	control: Control<ICreateOrganization>;
 }> = ({ control }) => {
 	const theme = usePicasso();
-	const { t: translate } = useTranslation('create-organization');
-
-	const organizations: INewOrganization = {
-		name: '',
-		logo: '',
-		socialMedias: [
-			{
-				website: translate('website'),
-				instagram: `instagram/${translate('company')}`,
-				twitter: `twitter/${translate('company')}`,
-				telegram: `t.me/${translate('company')}`,
-			},
-		],
-	};
-
-	const socialLinks: ISocialMediaInput[] = [
-		{
-			name: 'socialMedias.website',
-			imgSrc: '/icons/globe.svg',
-			placeHolder: 'website.io',
-			link: organizations.socialMedias[0].website,
-		},
-		{
-			name: 'socialMedias.instagram',
-			imgSrc: '/icons/instagram.svg',
-			placeHolder: 'instagram.com/company',
-			link: organizations.socialMedias[0].instagram,
-		},
-		{
-			name: 'socialMedias.twitter',
-			imgSrc: '/icons/twitter.svg',
-			placeHolder: 'twitter.com/company',
-			link: organizations.socialMedias[0].twitter,
-		},
-		{
-			name: 'socialMedias.telegram',
-			imgSrc: '/icons/telegram.svg',
-			placeHolder: 't.me/company',
-			link: organizations.socialMedias[0].telegram,
-		},
-		{
-			name: 'socialMedias.medium',
-			imgSrc: '/icons/m-letter.svg',
-			placeHolder: 'Medium',
-			link: '',
-		},
-	];
+	const { selectedOrganization } = useOrganizations();
 
 	return (
 		<Flex direction="column" w="max-content" zIndex="docked">
@@ -99,7 +81,7 @@ export const NewOrganizationLinks: React.FC<{
 				borderRadius="base"
 			>
 				<Flex direction="column" align="center" gap="4">
-					<OrganizationLogo org={organizations} />
+					<OrganizationLogo org={selectedOrganization} />
 					<ImageUploader />
 				</Flex>
 				<Flex>

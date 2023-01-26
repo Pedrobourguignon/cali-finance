@@ -8,9 +8,9 @@ import {
 	Textarea,
 	TextProps,
 } from '@chakra-ui/react';
-import { usePicasso } from 'hooks';
+import { useOrganizations, usePicasso } from 'hooks';
 import { Control, FieldErrorsImpl, Controller } from 'react-hook-form';
-import { ICreateOrganization, IEditOrganization, ISocialMedia } from 'types';
+import { ICreateOrganization, IEditOrganization, IOrganization } from 'types';
 import { Select } from 'chakra-react-select';
 import { BsQuestionCircle } from 'react-icons/bs';
 import { useState } from 'react';
@@ -42,12 +42,7 @@ interface IEditOrganizationComponent {
 			};
 		}>
 	>;
-	name: string;
-	type: string;
-	email: string;
-	description: string | undefined;
-	socialMedias: ISocialMedia;
-	selectedNetwork: string | undefined;
+	organization: IOrganization;
 }
 
 interface INetworkSelect {
@@ -75,12 +70,16 @@ const labelStyle: TextProps = {
 
 export const EditOrganizationComponent: React.FC<
 	IEditOrganizationComponent
-> = ({ errors, control, name, email, type, description, selectedNetwork }) => {
+> = ({ errors, control, organization }) => {
+	const { name, email, description, type, selectedNetwork, logo } =
+		organization;
 	const theme = usePicasso();
 	const { t: translate } = useTranslation('create-organization');
+	const { selectedOrganizationLogo } = useOrganizations();
 	const [editedInfo, setEditedInfo] = useState<IEditOrganization>({
 		name,
 		email,
+		logo,
 		description,
 		type: {
 			label: type,
@@ -276,6 +275,7 @@ export const EditOrganizationComponent: React.FC<
 						fontSize="md"
 						lineHeight="6"
 						disabled={
+							editedInfo.logo === selectedOrganizationLogo &&
 							editedInfo.name === name &&
 							editedInfo.email === email &&
 							editedInfo.description === description &&

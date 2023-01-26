@@ -9,6 +9,7 @@ import { createOrganizationSchema, navigationPaths } from 'utils';
 import { ICreateOrganization } from 'types';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { OrganizationsProvider } from 'contexts';
 import useTranslation from 'next-translate/useTranslation';
 
 export const CreateOrganization = () => {
@@ -26,29 +27,31 @@ export const CreateOrganization = () => {
 	};
 
 	return (
-		<form onSubmit={handleSubmit(handleCreateOrganization)}>
-			<FormControl>
-				<AppLayout right={<NewOrganizationLinks control={control} />}>
-					<OrganizationWhiteBackground />
-					<Flex
-						direction="column"
-						align="flex-start"
-						gap="10"
-						zIndex="docked"
-						pt="6"
-						w="100%"
-					>
-						<Flex px="5">
-							<NavigationBack
-								href={navigationPaths.dashboard.organizations.home}
-							>
-								{translate('backToOrganizations')}
-							</NavigationBack>
+		<OrganizationsProvider>
+			<form onSubmit={handleSubmit(handleCreateOrganization)}>
+				<FormControl>
+					<AppLayout right={<NewOrganizationLinks control={control} />}>
+						<OrganizationWhiteBackground />
+						<Flex
+							direction="column"
+							align="flex-start"
+							gap="10"
+							zIndex="docked"
+							pt="6"
+							w="100%"
+						>
+							<Flex px="5">
+								<NavigationBack
+									href={navigationPaths.dashboard.organizations.home}
+								>
+									{translate('backToOrganizations')}
+								</NavigationBack>
+							</Flex>
+							<CreateOrganizationComponent errors={errors} control={control} />
 						</Flex>
-						<CreateOrganizationComponent errors={errors} control={control} />
-					</Flex>
-				</AppLayout>
-			</FormControl>
-		</form>
+					</AppLayout>
+				</FormControl>
+			</form>
+		</OrganizationsProvider>
 	);
 };

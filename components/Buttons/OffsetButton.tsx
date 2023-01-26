@@ -22,7 +22,11 @@ export const OffsetButton: React.FC<IOffsetButton> = ({
 	};
 
 	return (
-		<OffsetShadow width={36} height={10} borderColor="white">
+		<OffsetShadow
+			width={{ md: 28, lg: 36, xl: 40, '2xl': 44 }}
+			height={{ md: 7, lg: 10, '2xl': 12 }}
+			borderColor="white"
+		>
 			<Button
 				onClick={handleClick}
 				px={locale === 'pt-BR' ? 4 : 3}
@@ -31,18 +35,19 @@ export const OffsetButton: React.FC<IOffsetButton> = ({
 				bg="white"
 				bottom="0.5rem"
 				right="0.5rem"
-				fontSize="sm"
+				h={{ md: '7', lg: '10', xl: '10', '2xl': '12' }}
+				fontSize={{ md: 'xs', lg: 'sm', '2xl': 'md' }}
 				fontWeight="medium"
 				_hover={{ background: 'white' }}
 				_focus={{ background: 'white' }}
-				color="black"
+				color={theme.text.black}
 				borderRadius="base"
 				_active={{
 					background: 'white',
 					transform: 'translateY(0.5rem) translateX(0.5rem)',
 				}}
 			>
-				{icon ? <Icon as={icon} color={theme.text.black} mr="2" /> : ''}
+				{icon && <Icon as={icon} color={theme.text.black} mr="2" />}
 
 				{name}
 			</Button>

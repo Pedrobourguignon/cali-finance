@@ -7,8 +7,8 @@ import {
 } from 'components';
 import { usePicasso } from 'hooks';
 import { AppLayout, OrganizationWhiteBackground } from 'layouts';
+import { navigationPaths } from 'utils';
 import useTranslation from 'next-translate/useTranslation';
-import { navigationPaths, layoutLimit } from 'utils';
 
 const teams = [
 	{
@@ -47,11 +47,10 @@ export const OverviewTab = () => {
 				zIndex="docked"
 				direction="column"
 				align="start"
-				maxW={layoutLimit}
 			>
 				<OrganizationsHeader />
 			</Flex>
-			<Flex p="6" direction="column" gap="4" maxW={layoutLimit} w="100%">
+			<Flex p="6" direction="column" gap="4">
 				<Flex flexDir="column" w="full">
 					<Flex justify="space-between" pt="6" pb="4">
 						<Text color={theme.text.primary} fontWeight="medium">

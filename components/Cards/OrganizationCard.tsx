@@ -1,9 +1,10 @@
-import { Button, Flex, Img, Text } from '@chakra-ui/react';
+import { Flex, Img, Text } from '@chakra-ui/react';
 import { usePicasso } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
+import Link from 'next/link';
 import React from 'react';
 import { IOrganization } from 'types';
-import { handleLogoImage } from 'utils';
+import { handleLogoImage, navigationPaths } from 'utils';
 
 interface IOrganizationCard {
 	team: IOrganization;
@@ -19,10 +20,11 @@ export const OrganizationCard: React.FC<IOrganizationCard> = ({ team }) => {
 			bg="white"
 			borderRadius="base"
 			direction="column"
-			w="56"
+			gap={{ md: '1', lg: '2', xl: '4' }}
+			w={{ md: '32', lg: '44', xl: '13.8rem', '2xl': '16.4rem' }}
 		>
 			<Flex direction="column" pt="2.5" pl="4" color={theme.text.primary}>
-				<Flex align="center" gap="2.5">
+				<Flex align="center" gap={{ lg: '1', xl: '2.5' }}>
 					{team.logo ? (
 						<Img src={team.logo} boxSize="6" borderRadius="base" />
 					) : (
@@ -42,7 +44,7 @@ export const OrganizationCard: React.FC<IOrganizationCard> = ({ team }) => {
 						{team.name}
 					</Text>
 				</Flex>
-				<Flex gap="12" pt="3">
+				<Flex pt={{ lg: '1', xl: '3' }} justify="space-between">
 					<Flex direction="column">
 						<Text fontSize="sm" color="gray.500">
 							{translate('funds')}
@@ -57,15 +59,18 @@ export const OrganizationCard: React.FC<IOrganizationCard> = ({ team }) => {
 					</Flex>
 				</Flex>
 			</Flex>
-			<Flex w="100%" align="center" justify="center" py="1">
-				<Button
-					color={theme.branding.blue}
-					bg="none"
-					fontSize="xs"
-					fontWeight="medium"
-				>
-					{translate('manage')}
-				</Button>
+			<Flex w="100%" align="center" justify="center" pb={{ lg: '2', xl: '4' }}>
+				<Link href={navigationPaths.dashboard.organizations.overview('1')}>
+					<Text
+						color={theme.branding.blue}
+						bg="none"
+						fontSize="xs"
+						fontWeight="medium"
+						cursor="pointer"
+					>
+						{translate('manage')}
+					</Text>
+				</Link>
 			</Flex>
 		</Flex>
 	);

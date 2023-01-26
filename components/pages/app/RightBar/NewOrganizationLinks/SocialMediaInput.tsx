@@ -23,7 +23,7 @@ export const SocialMediaInput: React.FC<ISocialLink> = ({
 					<Img src={socialLink.imgSrc} />
 				</InputLeftElement>
 				<Input
-					placeholder={socialLink.link || socialLink.placeHolder}
+					placeholder={socialLink.placeHolder}
 					_placeholder={{
 						color: 'whiteAlpha.300	',
 						fontSize: 'sm',

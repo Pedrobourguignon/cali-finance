@@ -1,22 +1,21 @@
 import { Flex, Img } from '@chakra-ui/react';
 import { ImageUploader, SocialMediaInput } from 'components';
-import { usePicasso } from 'hooks';
+import { useOrganizations, usePicasso } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
 import { Control } from 'react-hook-form';
-import {
-	ICreateOrganization,
-	INewOrganization,
-	ISocialMediaInput,
-} from 'types';
+import { ICreateOrganization, ISocialMediaInput } from 'types';
 import { handleLogoImage } from 'utils';
 
-const OrganizationLogo: React.FC<{ org: INewOrganization }> = ({ org }) => {
-	const { logo, name } = org;
+const OrganizationLogo = () => {
+	const { selectedOrganization } = useOrganizations();
 	const theme = usePicasso();
-	if (logo) {
-		return <Img src={logo} boxSize="20" borderRadius="base" />;
+
+	if (selectedOrganization.logo) {
+		return (
+			<Img src={selectedOrganization.logo} boxSize="20" borderRadius="base" />
+		);
 	}
-	if (name)
+	if (selectedOrganization.name)
 		return (
 			<Flex
 				boxSize="20"
@@ -27,7 +26,7 @@ const OrganizationLogo: React.FC<{ org: INewOrganization }> = ({ org }) => {
 				justify="center"
 				fontSize="4xl"
 			>
-				{handleLogoImage(name)}
+				{handleLogoImage(selectedOrganization.name)}
 			</Flex>
 		);
 	return <Img src="/images/work.png" boxSize="20" borderRadius="base" />;
@@ -37,49 +36,36 @@ export const EditOrganizationLink: React.FC<{
 	control: Control<ICreateOrganization>;
 }> = ({ control }) => {
 	const theme = usePicasso();
-	const { t: translate } = useTranslation('create-organization');
-
-	const organizations: INewOrganization = {
-		name: '',
-		logo: '',
-		socialMedias: [
-			{
-				website: translate('website'),
-				instagram: `instagram/${translate('company')}`,
-				twitter: `twitter/${translate('company')}`,
-				telegram: `t.me/${translate('company')}`,
-			},
-		],
-	};
+	const { selectedOrganization } = useOrganizations();
 
 	const socialLinks: ISocialMediaInput[] = [
 		{
 			name: 'socialMedias.website',
 			imgSrc: '/icons/globe.svg',
 			placeHolder: 'website.io',
-			link: organizations.socialMedias[0].website,
-			defaultValue: organizations.socialMedias[0].website,
+			link: selectedOrganization.socialMedias[0].website,
+			defaultValue: selectedOrganization.socialMedias[0].website,
 		},
 		{
 			name: 'socialMedias.instagram',
 			imgSrc: '/icons/instagram.svg',
 			placeHolder: 'instagram.com/company',
-			link: organizations.socialMedias[0].instagram,
-			defaultValue: organizations.socialMedias[0].instagram,
+			link: selectedOrganization.socialMedias[0].instagram,
+			defaultValue: selectedOrganization.socialMedias[0].instagram,
 		},
 		{
 			name: 'socialMedias.twitter',
 			imgSrc: '/icons/twitter.svg',
 			placeHolder: 'twitter.com/company',
-			link: organizations.socialMedias[0].twitter,
-			defaultValue: organizations.socialMedias[0].twitter,
+			link: selectedOrganization.socialMedias[0].twitter,
+			defaultValue: selectedOrganization.socialMedias[0].twitter,
 		},
 		{
 			name: 'socialMedias.telegram',
 			imgSrc: '/icons/telegram.svg',
 			placeHolder: 't.me/company',
-			link: organizations.socialMedias[0].telegram,
-			defaultValue: organizations.socialMedias[0].telegram,
+			link: selectedOrganization.socialMedias[0].telegram,
+			defaultValue: selectedOrganization.socialMedias[0].telegram,
 		},
 		{
 			name: 'socialMedias.medium',
@@ -102,7 +88,7 @@ export const EditOrganizationLink: React.FC<{
 				borderRadius="base"
 			>
 				<Flex direction="column" align="center" gap="4">
-					<OrganizationLogo org={organizations} />
+					<OrganizationLogo />
 					<ImageUploader />
 				</Flex>
 				<Flex>

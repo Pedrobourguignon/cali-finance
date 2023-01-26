@@ -2,25 +2,30 @@ import { Button, Flex, Text, useDisclosure } from '@chakra-ui/react';
 import { usePicasso } from 'hooks';
 import { EmployeeData, NoEmployeeSkeleton, AddEmployee } from 'components';
 import { IEmployee } from 'types';
-import { useState } from 'react';
 import useTranslation from 'next-translate/useTranslation';
+import { Dispatch, SetStateAction } from 'react';
 
 interface IEmployeePanel {
-	teamName: string;
+	companyName?: string;
+	employees: IEmployee[];
+	setEmployees: Dispatch<SetStateAction<IEmployee[]>>;
 }
 
-export const EmployeePanel: React.FC<IEmployeePanel> = ({ teamName }) => {
+export const EmployeePanel: React.FC<IEmployeePanel> = ({
+	companyName,
+	employees,
+	setEmployees,
+}) => {
 	const theme = usePicasso();
 	const { t: translate } = useTranslation('create-team');
 	const { isOpen, onOpen, onClose } = useDisclosure();
-	const [employees, setEmployees] = useState<IEmployee[]>([]);
 
 	return (
 		<Flex w="full" direction="column" gap="4" py="4">
 			<AddEmployee
 				isOpen={isOpen}
 				onClose={onClose}
-				company={teamName}
+				company={companyName}
 				setEmployees={setEmployees}
 			/>
 			<Flex justify="space-between" w="full" align="center">
