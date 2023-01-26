@@ -82,7 +82,7 @@ export const EditProfileComponent = () => {
 				>
 					{translate('editProfile')}
 				</Text>
-				<OrganizationWhiteBackground />
+				<Flex w="100%" bg="white" position="absolute" h="64" left="0" />
 			</Flex>
 			<Flex
 				justify="center"
