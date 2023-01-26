@@ -87,8 +87,6 @@ export const Sidebar: React.FC = () => {
 		Router.push(`/${pathname}`, `/${pathname}`, { locale: lang });
 	};
 
-	console.log(isConnected);
-
 	return (
 		<>
 			<NetworkModal

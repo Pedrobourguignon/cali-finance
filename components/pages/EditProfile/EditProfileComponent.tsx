@@ -124,10 +124,11 @@ export const EditProfileComponent = () => {
 			<Flex direction="column" align="center" h="full" pt="6">
 				<form onSubmit={handleSubmit(handleEditProfile)}>
 					<FormControl>
-						<Flex direction="column" gap="8">
+						<Flex direction="column" gap="8" maxW="80">
 							<Flex direction="column" gap="2">
 								<Text {...labelStyle}>{translate('name')}</Text>
 								<Input
+									borderRadius="base"
 									placeholder={translate('insertHere')}
 									_placeholder={{
 										color: 'blackAlpha.500',
@@ -159,6 +160,7 @@ export const EditProfileComponent = () => {
 									borderColor={theme.bg.primary}
 									h="max-content"
 									py="1"
+									borderRadius="base"
 									{...register('email')}
 								/>
 								<Text fontSize="xs" color="red">
