@@ -24,7 +24,7 @@ import Router from 'next/router';
 import { navigationPaths } from 'utils';
 import { BsCardImage, BsCheck } from 'react-icons/bs';
 import { AiOutlineEdit } from 'react-icons/ai';
-import { useCallback, useState, useRef } from 'react';
+import { useCallback, useEffect, useState, useRef } from 'react';
 import { useForm } from 'react-hook-form';
 
 interface ITeamEdit {
@@ -52,6 +52,10 @@ export const TeamComponent = () => {
 		onOpen: onOpenDeleteTeam,
 		onClose: onCloseDeleteTeam,
 	} = useDisclosure();
+
+	useEffect(() => {
+		setTeamPicture(teamData.photo);
+	}, [setTeamPicture, teamData.photo]);
 
 	const handleEditTeam = useCallback(
 		(team: ITeamEdit) => {

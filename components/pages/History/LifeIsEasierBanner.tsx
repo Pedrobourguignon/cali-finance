@@ -1,8 +1,6 @@
-import { Flex, Icon, Img, Text, Link } from '@chakra-ui/react';
+import { Flex, Img } from '@chakra-ui/react';
 import { usePicasso } from 'hooks';
-import { FiInstagram, FiLinkedin, FiTwitter } from 'react-icons/fi';
-import { InfosBanner } from 'components';
-import { socialMediaLinks } from 'utils';
+import { InfosBanner, LifeIsEasier } from 'components';
 
 export const LifeIsEasierBanner = () => {
 	const theme = usePicasso();
@@ -15,39 +13,7 @@ export const LifeIsEasierBanner = () => {
 				<Img src="/images/sparkles.png" />
 			</Flex>
 			<Flex direction="column" px="4" pt="10">
-				<Flex direction="column" w="60" gap="2">
-					<Text fontWeight="medium">Life is easier with Cali</Text>
-					<Text fontSize="sm" fontWeight="normal" w="56">
-						You’ve unlocked our all-in-one suit for surfacing unlimited teams
-						and organizations payments
-					</Text>
-					<Flex gap="6">
-						<Link href={socialMediaLinks.instagram}>
-							<Icon
-								boxSize="5"
-								color={theme.branding.cyan}
-								as={FiInstagram}
-								cursor="pointer"
-							/>
-						</Link>
-						<Link href={socialMediaLinks.linkedin}>
-							<Icon
-								boxSize="5"
-								color={theme.branding.cyan}
-								as={FiLinkedin}
-								cursor="pointer"
-							/>
-						</Link>
-						<Link href={socialMediaLinks.twitter}>
-							<Icon
-								boxSize="5"
-								color={theme.branding.cyan}
-								as={FiTwitter}
-								cursor="pointer"
-							/>
-						</Link>
-					</Flex>
-				</Flex>
+				<LifeIsEasier />
 			</Flex>
 		</InfosBanner>
 	);

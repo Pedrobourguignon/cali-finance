@@ -1,9 +1,6 @@
 import { Flex } from '@chakra-ui/react';
 import { OrganizationsProvider } from 'contexts';
-import {
-	OrganizationsConnected,
-	OrganizationsLayoutNoConnected,
-} from 'layouts';
+import { CompaniesLayoutNoConnected, OrganizationsConnected } from 'layouts';
 
 export const OrganizationsContainer = () => {
 	const isConnected = true;
@@ -13,7 +10,7 @@ export const OrganizationsContainer = () => {
 				{isConnected ? (
 					<OrganizationsConnected />
 				) : (
-					<OrganizationsLayoutNoConnected />
+					<CompaniesLayoutNoConnected />
 				)}
 			</Flex>
 		</OrganizationsProvider>

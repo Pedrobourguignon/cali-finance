@@ -8,6 +8,7 @@ import {
 	OrganizationsHeader,
 } from 'components';
 import { ICoin } from 'types';
+import useTranslation from 'next-translate/useTranslation';
 
 const coinCard: ICoin[] = [
 	{
@@ -56,6 +57,7 @@ const coinCard: ICoin[] = [
 
 export const FundsPageComponent = () => {
 	const theme = usePicasso();
+	const { t: translate } = useTranslation('organization-overall');
 
 	return (
 		<AppLayout right={<DepositOrWithdrawBanner />}>
@@ -78,7 +80,7 @@ export const FundsPageComponent = () => {
 			>
 				<Flex direction="column" gap="4">
 					<Flex fontWeight="medium" gap="1">
-						<Text>Coins</Text>
+						<Text>{translate('coins')}</Text>
 					</Flex>
 
 					<Grid gap="4" w="full" templateColumns="repeat(5, 1fr)">

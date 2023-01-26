@@ -8,15 +8,13 @@ export const CreateOrganizationCard = () => {
 	const theme = usePicasso();
 	return (
 		<Flex
-			w="max-content"
-			h="max-content"
 			boxShadow="2xl"
 			direction="column"
 			justify="center"
 			align="center"
 			borderRadius="base"
-			maxW="56"
-			px="6"
+			maxW={{ md: '44', xl: '56', '2xl': '16.6rem' }}
+			px="4"
 			py="4"
 			gap="4"
 		>
@@ -26,25 +24,34 @@ export const CreateOrganizationCard = () => {
 				gap="5"
 				color={theme.text.mono}
 			>
-				<Icon as={OrganizationIcon} boxSize="9" color={theme.text.mono} />
+				<Icon
+					as={OrganizationIcon}
+					boxSize={{ md: '6', xl: '9' }}
+					color={theme.text.mono}
+				/>
 				<Flex direction="column">
-					<Text fontStyle="normal" fontWeight="medium" color={theme.text.mono}>
-						You don’t have a Organization yet
+					<Text
+						fontSize={{ md: 'xs', xl: 'md', '2xl': 'lg' }}
+						fontStyle="normal"
+						fontWeight="medium"
+						color={theme.text.mono}
+					>
+						You don’t have a Company yet
 					</Text>
 				</Flex>
 			</Flex>
 			<Button
 				color="white"
 				bg={theme.bg.primary}
-				fontSize="sm"
+				fontSize={{ md: 'xs', xl: 'sm' }}
 				fontWeight="medium"
 				borderRadius="sm"
 				_hover={{ bg: 'black' }}
 				gap="2"
-				w="min-content"
+				w="100%"
 			>
 				<Icon as={AiOutlinePlus} />
-				Create a Organization
+				Create a Company
 			</Button>
 		</Flex>
 	);

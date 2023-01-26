@@ -1,0 +1,17 @@
+{
+	"organizations": "Organizations",
+	"teams": "Teams",
+	"members": "Members",
+	"totalFunds": "Total Funds",
+	"yourOrganizations": "Your organizations",
+	"funds": "Funds",
+	"manage": "Manage",
+	"recentActivities": "Recent Activities",
+	"seeAll": "See All",
+	"deposit": "Deposit",
+	"completed": "Completed",
+	"processing": "Processing",
+	"createOrganization": "Create Organization",
+	"withdrawal": "Withdrawal",
+	"teamCreated": "Team created"
+}

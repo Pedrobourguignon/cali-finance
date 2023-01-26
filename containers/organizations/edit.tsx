@@ -10,8 +10,10 @@ import { IEditOrganization } from 'types';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useOrganizations } from 'hooks';
+import useTranslation from 'next-translate/useTranslation';
 
 export const EditOrganization = () => {
+	const { t: translate } = useTranslation('create-organization');
 	const {
 		handleSubmit,
 		control,
@@ -49,7 +51,7 @@ export const EditOrganization = () => {
 							<NavigationBack
 								href={navigationPaths.dashboard.organizations.home}
 							>
-								Back to Companies
+								{translate('backToOrganizations')}
 							</NavigationBack>
 						</Flex>
 						<EditOrganizationComponent
