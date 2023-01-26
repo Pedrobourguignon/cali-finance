@@ -2,6 +2,7 @@ import { Button, Flex, Link, Text, useDisclosure } from '@chakra-ui/react';
 import { usePicasso, useTeams } from 'hooks';
 import { AddEmployee, EmployeeData } from 'components';
 import { IEmployee } from 'types';
+import useTranslation from 'next-translate/useTranslation';
 
 interface IEmployeeDashboard {
 	employees: IEmployee[];
@@ -13,6 +14,8 @@ export const EmployeesDashboard: React.FC<IEmployeeDashboard> = ({
 	isGeneral,
 }) => {
 	const theme = usePicasso();
+	const { t: translate } = useTranslation('organization-overall');
+
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const { setMarketingEmployee } = useTeams();
 
@@ -27,13 +30,13 @@ export const EmployeesDashboard: React.FC<IEmployeeDashboard> = ({
 			<Flex justify="space-between" w="100%" align="center">
 				<Flex fontWeight="medium" gap="1">
 					<Text>{employees?.length}</Text>
-					<Text>Employees</Text>
+					<Text>{translate('employees')}</Text>
 				</Flex>
 				<Flex gap="8" align="center">
 					{isGeneral && (
 						<Link href="/">
 							<Text fontSize="xs" color="gray.500" fontWeight="medium">
-								See all
+								{translate('seeAll')}
 							</Text>
 						</Link>
 					)}
@@ -52,15 +55,15 @@ export const EmployeesDashboard: React.FC<IEmployeeDashboard> = ({
 						onClick={onOpen}
 					>
 						<Text>+</Text>
-						<Text>Add Employee</Text>
+						<Text>{translate('addEmployee')}</Text>
 					</Button>
 				</Flex>
 			</Flex>
 			<Flex w="100%" direction="column" gap="2">
 				<Flex justify="space-between">
-					<Text>Name/Adress</Text>
-					{isGeneral && <Text>Team</Text>}
-					<Text w="24">Amount</Text>
+					<Text>{translate('nameAddress')}</Text>
+					{isGeneral && <Text>{translate('team')}</Text>}
+					<Text w="24">{translate('amount')}</Text>
 				</Flex>
 				<Flex direction="column" gap="2">
 					{employees?.slice(0, 3).map((employee, index) => (

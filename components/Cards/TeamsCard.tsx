@@ -1,5 +1,6 @@
 import { Flex, Img, Link, Text } from '@chakra-ui/react';
 import { usePicasso } from 'hooks';
+import useTranslation from 'next-translate/useTranslation';
 import React from 'react';
 import { ITeamsData } from 'types';
 import { handleLogoImage, navigationPaths } from 'utils';
@@ -10,6 +11,7 @@ interface ITeamsCard {
 
 export const TeamsCard: React.FC<ITeamsCard> = ({ team }) => {
 	const theme = usePicasso();
+	const { t: translate } = useTranslation('organization-overall');
 	return (
 		<Flex
 			borderColor={theme.bg.primary}
@@ -54,7 +56,7 @@ export const TeamsCard: React.FC<ITeamsCard> = ({ team }) => {
 				<Flex gap="12" pt="3" color={theme.text.primary}>
 					<Flex direction="column">
 						<Text fontSize="xs" color="gray.500">
-							Funds
+							{translate('funds')}
 						</Text>
 						<Text fontSize="sm" color={theme.text.primary}>
 							${team.balance.toLocaleString('en-US')}
@@ -62,7 +64,7 @@ export const TeamsCard: React.FC<ITeamsCard> = ({ team }) => {
 					</Flex>
 					<Flex direction="column">
 						<Text fontSize="xs" color="gray.500">
-							Members
+							{translate('members')}
 						</Text>
 						<Text fontSize="sm" color={theme.text.primary}>
 							{team.members}

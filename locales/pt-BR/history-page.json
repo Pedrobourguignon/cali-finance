@@ -5,5 +5,7 @@
 	"withdrawal": "Retirada",
 	"deposit": "Depósito",
 	"completed": "Completo",
-	"pending": "Pendente"
+	"pending": "Pendente",
+	"addedToTeam": "Adicionado ao time",
+	"teamCreated": "Time criado"
 }
