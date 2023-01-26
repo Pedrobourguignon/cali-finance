@@ -10,12 +10,11 @@ import {
 } from '@chakra-ui/react';
 import { useOrganizations, usePicasso } from 'hooks';
 import { Control, FieldErrorsImpl, Controller } from 'react-hook-form';
-import { ICreateOrganization, IEditOrganization, IOrganization } from 'types';
+import { ICreateOrganization, IOrganization } from 'types';
 import { Select } from 'chakra-react-select';
 import { BsQuestionCircle } from 'react-icons/bs';
-import { useState } from 'react';
-import { EditOrganizationLink } from 'components';
 import useTranslation from 'next-translate/useTranslation';
+import { useEffect } from 'react';
 
 interface IEditOrganizationComponent {
 	control: Control<ICreateOrganization>;
@@ -72,25 +71,31 @@ const labelStyle: TextProps = {
 export const EditOrganizationComponent: React.FC<
 	IEditOrganizationComponent
 > = ({ errors, control, organization }) => {
-	const { name, email, description, type, selectedNetwork, logo } =
-		organization;
-	const theme = usePicasso();
-	const { t: translate } = useTranslation('create-organization');
-	const { selectedOrganizationLogo } = useOrganizations();
-	const [editedInfo, setEditedInfo] = useState<IEditOrganization>({
+	const {
 		name,
 		email,
-		logo,
 		description,
-		type: {
-			label: type,
-			value: type,
-		},
-		network: {
-			label: selectedNetwork,
-			value: selectedNetwork,
-		},
-	} as IEditOrganization);
+		type,
+		selectedNetwork,
+		logo,
+		socialMedias,
+	} = organization;
+	const theme = usePicasso();
+	const { t: translate } = useTranslation('create-organization');
+	const { selectedOrganizationLogo, setEditedInfo, editedInfo } =
+		useOrganizations();
+
+	useEffect(() => {
+		setEditedInfo({
+			name,
+			email,
+			logo,
+			description,
+			type,
+			selectedNetwork,
+			socialMedias,
+		});
+	}, []);
 
 	const organizationsType: IBasicSelect[] = [
 		{ value: 'DAO', label: 'DAO' },
@@ -175,10 +180,7 @@ export const EditOrganizationComponent: React.FC<
 											onChange={editedType =>
 												setEditedInfo(prevState => ({
 													...prevState,
-													type: {
-														label: editedType!.label,
-														value: editedType!.value,
-													},
+													type: editedType!.label,
 												}))
 											}
 											chakraStyles={{
@@ -235,11 +237,7 @@ export const EditOrganizationComponent: React.FC<
 											onChange={editedNetwork =>
 												setEditedInfo(prevState => ({
 													...prevState,
-													network: {
-														label: editedNetwork!.label,
-														value: editedNetwork!.value,
-														icon: editedNetwork!.icon,
-													},
+													network: editedNetwork!.value,
 												}))
 											}
 											chakraStyles={{
@@ -347,10 +345,7 @@ export const EditOrganizationComponent: React.FC<
 							/>
 						</Flex>
 					</Flex>
-					<EditOrganizationLink
-						control={control}
-						display={{ md: 'flex', lg: 'none' }}
-					/>
+
 					<Button
 						type="submit"
 						bg={theme.bg.primary}
@@ -368,9 +363,10 @@ export const EditOrganizationComponent: React.FC<
 							editedInfo.name === name &&
 							editedInfo.email === email &&
 							editedInfo.description === description &&
-							editedInfo.type.value === type &&
-							editedInfo.network.value === selectedNetwork
+							editedInfo.type === type &&
+							editedInfo.selectedNetwork === selectedNetwork
 						}
+						display={{ md: 'none', lg: 'flex' }}
 					>
 						<Text>{translate('saveChanges')}</Text>
 					</Button>

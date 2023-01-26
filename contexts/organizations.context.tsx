@@ -7,7 +7,12 @@ import {
 	useMemo,
 	useState,
 } from 'react';
-import { IOrganization, IActivities, INotificationList } from 'types';
+import {
+	IOrganization,
+	IActivities,
+	INotificationList,
+	IEditedOrganization,
+} from 'types';
 
 interface IOrganizationsContext {
 	organizations: IOrganization[];
@@ -20,6 +25,8 @@ interface IOrganizationsContext {
 	selectedOrganization: IOrganization;
 	setSelectedOrganizationLogo: Dispatch<SetStateAction<string>>;
 	selectedOrganizationLogo: string;
+	setEditedInfo: Dispatch<SetStateAction<IEditedOrganization>>;
+	editedInfo: IEditedOrganization;
 }
 
 export const OrganizationsContext = createContext({} as IOrganizationsContext);
@@ -39,14 +46,13 @@ export const OrganizationsProvider: React.FC<{ children: React.ReactNode }> = ({
 			description: 'Hello',
 			selectedNetwork: 'Ethereum',
 			logo: '',
-			socialMedias: [
-				{
-					instagram: '@kyliecosmetics',
-					telegram: 't/kyliecosmetics',
-					twitter: 'twitter.com/kyliecosmetics',
-					website: 'kyliecosmetics.net',
-				},
-			],
+			socialMedias: {
+				instagram: '@kyliecosmetics',
+				telegram: 't/kyliecosmetics',
+				twitter: 'twitter.com/kyliecosmetics',
+				website: 'kyliecosmetics.net',
+			},
+
 			funds: 2234.05,
 		},
 		{
@@ -59,14 +65,12 @@ export const OrganizationsProvider: React.FC<{ children: React.ReactNode }> = ({
 			description: 'Hello',
 			selectedNetwork: 'Ethereum',
 			logo: '',
-			socialMedias: [
-				{
-					instagram: '@kylieskin',
-					telegram: 't/kylieskin',
-					twitter: 'twitter.com/kylieskin',
-					website: 'kylieskin.net',
-				},
-			],
+			socialMedias: {
+				instagram: '@kylieskin',
+				telegram: 't/kylieskin',
+				twitter: 'twitter.com/kylieskin',
+				website: 'kylieskin.net',
+			},
 		},
 		{
 			name: 'Kylie Baby',
@@ -78,14 +82,12 @@ export const OrganizationsProvider: React.FC<{ children: React.ReactNode }> = ({
 			description: 'Hello',
 			selectedNetwork: 'Ethereum',
 			logo: '',
-			socialMedias: [
-				{
-					instagram: '@kyliebaby',
-					telegram: 't/kyliebaby',
-					twitter: 'twitter.com/kyliebaby',
-					website: 'kyliebaby.net',
-				},
-			],
+			socialMedias: {
+				instagram: '@kyliebaby',
+				telegram: 't/kyliebaby',
+				twitter: 'twitter.com/kyliebaby',
+				website: 'kyliebaby.net',
+			},
 		},
 	]);
 
@@ -102,14 +104,12 @@ export const OrganizationsProvider: React.FC<{ children: React.ReactNode }> = ({
 			description: 'Hello',
 			selectedNetwork: 'Ethereum',
 			logo: selectedOrganizationLogo,
-			socialMedias: [
-				{
-					instagram: '@kylieskin',
-					telegram: 't/kylieskin',
-					twitter: 'twitter.com/kylieskin',
-					website: 'kylieskin.net',
-				},
-			],
+			socialMedias: {
+				instagram: '@kylieskin',
+				telegram: 't/kylieskin',
+				twitter: 'twitter.com/kylieskin',
+				website: 'kylieskin.net',
+			},
 		});
 
 	const [notificationsList, setNotificationsList] = useState<
@@ -173,6 +173,10 @@ export const OrganizationsProvider: React.FC<{ children: React.ReactNode }> = ({
 		},
 	]);
 
+	const [editedInfo, setEditedInfo] = useState<IEditedOrganization>(
+		{} as IEditedOrganization
+	);
+
 	useEffect(() => {
 		setSelectedOrganization(prevState => ({
 			...prevState,
@@ -206,6 +210,8 @@ export const OrganizationsProvider: React.FC<{ children: React.ReactNode }> = ({
 			selectedOrganization,
 			setSelectedOrganizationLogo,
 			selectedOrganizationLogo,
+			setEditedInfo,
+			editedInfo,
 		}),
 		[
 			selectedOrganization,
@@ -218,6 +224,8 @@ export const OrganizationsProvider: React.FC<{ children: React.ReactNode }> = ({
 			setNotificationsList,
 			setSelectedOrganizationLogo,
 			selectedOrganizationLogo,
+			setEditedInfo,
+			editedInfo,
 		]
 	);
 	return (

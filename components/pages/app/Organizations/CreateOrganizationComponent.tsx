@@ -13,7 +13,6 @@ import { Control, FieldErrorsImpl, Controller } from 'react-hook-form';
 import { Select } from 'chakra-react-select';
 import { BsQuestionCircle } from 'react-icons/bs';
 import { ICreateOrganization } from 'types';
-import { NewOrganizationLinks } from 'components';
 import useTranslation from 'next-translate/useTranslation';
 
 interface ICreateOrganizationComponent {
@@ -279,10 +278,7 @@ export const CreateOrganizationComponent: React.FC<
 							/>
 						</Flex>
 					</Flex>
-					<NewOrganizationLinks
-						control={control}
-						display={{ md: 'flex', lg: 'none' }}
-					/>
+
 					<Button
 						type="submit"
 						bg={theme.bg.primary}
@@ -293,6 +289,7 @@ export const CreateOrganizationComponent: React.FC<
 						fontWeight="medium"
 						fontSize="md"
 						lineHeight="6"
+						display={{ md: 'none', lg: 'flex' }}
 					>
 						<Text>+</Text>
 						<Text>{translate('createOrganization')}</Text>

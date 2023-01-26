@@ -35,7 +35,7 @@ export const EditOrganization = () => {
 					right={
 						<EditOrganizationLink
 							control={control}
-							display={{ md: 'none', lg: 'flex' }}
+							organization={selectedOrganization}
 						/>
 					}
 				>

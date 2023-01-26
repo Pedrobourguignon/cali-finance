@@ -1,5 +1,6 @@
 export * from './IActivities';
 export * from './ICreateOrganization';
+export * from './IEditedOrganization';
 export * from './IEditOrganization';
 export * from './IEmployee';
 export * from './INewOrganization';

@@ -30,14 +30,7 @@ export const CreateOrganization = () => {
 		<OrganizationsProvider>
 			<form onSubmit={handleSubmit(handleCreateOrganization)}>
 				<FormControl>
-					<AppLayout
-						right={
-							<NewOrganizationLinks
-								control={control}
-								display={{ md: 'none', lg: 'flex' }}
-							/>
-						}
-					>
+					<AppLayout right={<NewOrganizationLinks control={control} />}>
 						<OrganizationWhiteBackground />
 						<Flex
 							direction="column"
