@@ -82,7 +82,7 @@ export const EditProfileComponent = () => {
 				>
 					{translate('editProfile')}
 				</Text>
-				<OrganizationWhiteBackground />
+				<Flex w="100%" bg="white" position="absolute" h="64" left="0" />
 			</Flex>
 			<Flex
 				justify="center"
@@ -90,7 +90,7 @@ export const EditProfileComponent = () => {
 				align="center"
 				gap="4"
 				pt="7"
-				pb="10"
+				pb="6"
 			>
 				<Flex
 					bgImage={editProfilePicture}
@@ -108,6 +108,7 @@ export const EditProfileComponent = () => {
 					)}
 				</Flex>
 				<Button
+					mt="4"
 					fontSize={{ md: 'xs', '2xl': 'sm' }}
 					bg={theme.text.primary}
 					borderRadius="sm"
