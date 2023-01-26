@@ -13,6 +13,7 @@ import { Control, FieldErrorsImpl, Controller } from 'react-hook-form';
 import { Select } from 'chakra-react-select';
 import { BsQuestionCircle } from 'react-icons/bs';
 import { ICreateOrganization } from 'types';
+import { NewOrganizationLinks } from 'components';
 import useTranslation from 'next-translate/useTranslation';
 
 interface ICreateOrganizationComponent {
@@ -79,9 +80,18 @@ export const CreateOrganizationComponent: React.FC<
 	];
 
 	return (
-		<Flex w="100%" direction="column" px="6">
-			<Flex direction="column" gap="6" mb="14" position="relative">
-				<Text color="black" fontSize="xl" fontWeight="medium">
+		<Flex direction="column" minW="24.2rem">
+			<Flex
+				direction="column"
+				gap={{ md: '2', lg: '6' }}
+				mb={{ md: '8', lg: '14' }}
+				position="relative"
+			>
+				<Text
+					color="black"
+					fontSize={{ md: 'md', lg: 'xl' }}
+					fontWeight="medium"
+				>
 					{translate('createOrganization')}
 				</Text>
 				<Controller
@@ -94,10 +104,10 @@ export const CreateOrganizationComponent: React.FC<
 							borderBottomColor="black"
 							borderRadius="none"
 							px="1"
-							fontSize="2xl"
+							fontSize={{ md: 'xl', xl: '2xl' }}
 							_placeholder={{
 								color: 'blackAlpha.500',
-								fontSize: '2xl',
+								fontSize: { md: 'xl', xl: '2xl' },
 							}}
 							_hover={{}}
 						/>
@@ -109,57 +119,116 @@ export const CreateOrganizationComponent: React.FC<
 					{errors.name?.message}
 				</Text>
 			</Flex>
-			<Flex
-				py="6"
-				w="100%"
-				justify="space-between
-            "
-			>
-				<Flex direction="column" gap="8" minW="80">
+			<Flex py="6" justify="space-between">
+				<Flex direction="column" gap="8" w="100%" maxW={{ lg: '80' }}>
 					<Flex direction="column" color="black" gap="6">
-						<Flex direction="column">
-							<Text {...labelStyle} mb="2">
-								{translate('type')}
-							</Text>
-							<Controller
-								name="type"
-								control={control}
-								render={({ field }) => (
-									<Select
-										{...field}
-										placeholder={translate('pleaseSelect')}
-										chakraStyles={{
-											placeholder: base => ({
-												...base,
-												color: 'blackAlpha.500',
-												fontSize: 'sm',
-											}),
-											control: group => ({
-												...group,
-												bg: 'white',
-												minWidth: '48',
-												borderColor: '#121212',
-												cursor: 'pointer',
-												_hover: {},
-											}),
-											menuList: group => ({
-												...group,
-												bg: 'white',
-												borderColor: '#121212',
-												borderRadius: 'base',
-											}),
-											option: (item, state) => ({
-												...item,
-												bg: state.isSelected ? 'gray.50' : 'none',
-											}),
-										}}
-										options={organizationsType}
-									/>
-								)}
-							/>
-							<Text fontSize="xs" color="red">
-								{errors.type?.message}
-							</Text>
+						<Flex
+							justify="space-between"
+							w="100%"
+							flexWrap={{ md: 'wrap', lg: 'nowrap' }}
+							gap="8"
+						>
+							<Flex direction="column" w="100%">
+								<Text {...labelStyle} mb="2">
+									Type *
+								</Text>
+								<Controller
+									name="type"
+									control={control}
+									render={({ field }) => (
+										<Select
+											{...field}
+											placeholder={translate('pleaseSelect')}
+											chakraStyles={{
+												placeholder: base => ({
+													...base,
+													color: 'blackAlpha.500',
+													fontSize: 'sm',
+												}),
+												control: group => ({
+													...group,
+													bg: 'white',
+													minWidth: '48',
+													borderColor: '#121212',
+													cursor: 'pointer',
+													_hover: {},
+												}),
+												menuList: group => ({
+													...group,
+													bg: 'white',
+													borderColor: '#121212',
+													borderRadius: 'base',
+												}),
+												option: (item, state) => ({
+													...item,
+													bg: state.isSelected ? 'gray.50' : 'none',
+												}),
+											}}
+											options={organizationsType}
+										/>
+									)}
+								/>
+								<Text fontSize="xs" color="red">
+									{errors.type?.message}
+								</Text>
+							</Flex>
+							<Flex
+								direction="column"
+								color={theme.text.primary}
+								w="100%"
+								display={{ md: 'flex', lg: 'none' }}
+							>
+								<Flex gap="2" mb="2">
+									<Text {...labelStyle}>Network *</Text>
+									<Icon as={BsQuestionCircle} color="gray.400" />
+								</Flex>
+								<Controller
+									name="network"
+									control={control}
+									render={({ field }) => (
+										<Select
+											{...field}
+											placeholder="Please select "
+											chakraStyles={{
+												placeholder: base => ({
+													...base,
+													color: 'blackAlpha.500',
+													fontSize: 'sm',
+												}),
+												control: group => ({
+													...group,
+													bg: 'white',
+													minWidth: '48',
+													borderColor: '#121212',
+													cursor: 'pointer',
+													_hover: {},
+												}),
+												menuList: group => ({
+													...group,
+													bg: 'white',
+													borderColor: '#121212',
+													borderRadius: 'base',
+												}),
+												option: (item, state) => ({
+													...item,
+													bg: state.isSelected ? 'gray.50' : 'none',
+												}),
+											}}
+											options={networksType}
+											// eslint-disable-next-line react/no-unstable-nested-components
+											formatOptionLabel={network => (
+												<Flex gap="2" align="center">
+													<Img src={network.icon} boxSize="5" />
+													<Text>{network.label}</Text>
+												</Flex>
+											)}
+										/>
+									)}
+								/>
+								<Text fontSize="xs" color="red">
+									{errors.type?.message}
+								</Text>
+							</Flex>
 						</Flex>
 						<Flex direction="column" position="relative">
 							<Text {...labelStyle} mb="2">
@@ -202,7 +271,7 @@ export const CreateOrganizationComponent: React.FC<
 										_hover={{}}
 										bgColor="white"
 										placeholder={translate('exampleDescription')}
-										minH="110"
+										minH="7.2rem"
 									/>
 								)}
 								name="description"
@@ -210,6 +279,10 @@ export const CreateOrganizationComponent: React.FC<
 							/>
 						</Flex>
 					</Flex>
+					<NewOrganizationLinks
+						control={control}
+						display={{ md: 'flex', lg: 'none' }}
+					/>
 					<Button
 						type="submit"
 						bg={theme.bg.primary}
@@ -225,7 +298,12 @@ export const CreateOrganizationComponent: React.FC<
 						<Text>{translate('createOrganization')}</Text>
 					</Button>
 				</Flex>
-				<Flex direction="column" minW="44" color={theme.text.primary}>
+				<Flex
+					direction="column"
+					color={theme.text.primary}
+					display={{ md: 'none', lg: 'flex' }}
+					maxW="48"
+				>
 					<Flex gap="2" mb="2">
 						<Text {...labelStyle}>{translate('network')}</Text>
 						<Icon as={BsQuestionCircle} color="gray.400" />
