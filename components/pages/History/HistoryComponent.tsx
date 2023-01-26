@@ -77,8 +77,7 @@ export const HistoryComponent: React.FC<IHistoryPage> = ({ history }) => {
 					<Flex align="center" justify="space-between">
 						<Text
 							fontSize={{ xl: 'md', '2xl': 'lg' }}
-							fontStyle="medium"
-							fontWeight="500"
+							fontWeight="medium"
 							color={theme.text.primary}
 						>
 							{translate('history')}
