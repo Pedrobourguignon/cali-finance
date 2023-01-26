@@ -1,6 +1,7 @@
 import { Flex, Text } from '@chakra-ui/react';
 import { OffsetButton } from 'components';
 import { usePicasso } from 'hooks';
+import useTranslation from 'next-translate/useTranslation';
 
 interface IOrganizationsDashboard {
 	organizationsCount: number;
@@ -16,6 +17,7 @@ export const OrganizationsDashboard: React.FC<IOrganizationsDashboard> = ({
 	totalFunds,
 }) => {
 	const theme = usePicasso();
+	const { t: translate } = useTranslation('organizations');
 	return (
 		<Flex
 			justify="space-between"
@@ -36,7 +38,7 @@ export const OrganizationsDashboard: React.FC<IOrganizationsDashboard> = ({
 					fontSize={{ md: 'xs', xl: 'sm', '2xl': 'md' }}
 					fontWeight="normal"
 				>
-					Companies
+					{translate('organizations')}
 				</Text>
 			</Flex>
 			<Flex direction="column">
@@ -50,7 +52,7 @@ export const OrganizationsDashboard: React.FC<IOrganizationsDashboard> = ({
 					fontSize={{ md: 'xs', xl: 'sm', '2xl': 'md' }}
 					fontWeight="normal"
 				>
-					Teams
+					{translate('teams')}
 				</Text>
 			</Flex>
 			<Flex direction="column">
@@ -64,7 +66,7 @@ export const OrganizationsDashboard: React.FC<IOrganizationsDashboard> = ({
 					fontSize={{ md: 'xs', xl: 'sm', '2xl': 'md' }}
 					fontWeight="normal"
 				>
-					Members
+					{translate('members')}
 				</Text>
 			</Flex>
 			<Flex direction="column">
@@ -79,10 +81,13 @@ export const OrganizationsDashboard: React.FC<IOrganizationsDashboard> = ({
 					fontSize={{ md: 'xs', xl: 'sm', '2xl': 'md' }}
 					fontWeight="normal"
 				>
-					Total Funds
+					{translate('totalFunds')}
 				</Text>
 			</Flex>
-			<OffsetButton name="Create Company" route="organizations/create" />
+			<OffsetButton
+				name={translate('createOrganization')}
+				route="organizations/create"
+			/>
 		</Flex>
 	);
 };

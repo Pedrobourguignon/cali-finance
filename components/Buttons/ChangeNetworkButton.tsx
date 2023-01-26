@@ -25,7 +25,7 @@ export const ChangeNetworkButton: React.FC<IChangeNetworkButton> = ({
 		_hover={{ bg: 'transparent' }}
 		_focus={{ bg: 'transparent' }}
 		gap="2"
-		w="40"
+		w={{ md: '8rem', xl: '9rem' }}
 	>
 		<Img src={networkIcon} bg="transparent" boxSize="6" />
 		<Text display={{ base: 'none', lg: 'flex' }}>{networkName}</Text>

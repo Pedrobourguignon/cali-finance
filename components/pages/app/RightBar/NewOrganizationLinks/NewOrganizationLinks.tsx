@@ -8,6 +8,7 @@ import {
 	ICreateOrganization,
 } from 'types';
 import { Control } from 'react-hook-form';
+import useTranslation from 'next-translate/useTranslation';
 
 const socialLinks: ISocialMediaInput[] = [
 	{
@@ -40,6 +41,7 @@ const socialLinks: ISocialMediaInput[] = [
 const OrganizationLogo: React.FC<{ org: INewOrganization }> = ({ org }) => {
 	const { logo, name } = org;
 	const theme = usePicasso();
+
 	if (logo) {
 		return <Img src={logo} boxSize="20" borderRadius="base" />;
 	}

@@ -14,6 +14,7 @@ import { Select } from 'chakra-react-select';
 import { BsQuestionCircle } from 'react-icons/bs';
 import { ICreateOrganization } from 'types';
 import { NewOrganizationLinks } from 'components';
+import useTranslation from 'next-translate/useTranslation';
 
 interface ICreateOrganizationComponent {
 	control: Control<ICreateOrganization>;
@@ -54,12 +55,6 @@ interface IBasicSelect {
 	label: string;
 }
 
-const organizationsType: IBasicSelect[] = [
-	{ value: 'DAO', label: 'DAO' },
-	{ value: 'financial', label: 'financial' },
-	{ value: 'e-commerce', label: 'e-commerce' },
-];
-
 const networksType: INetworkSelect[] = [
 	{ value: 'Ethereum', label: 'Ethereum', icon: '/images/eth.png' },
 	{ value: 'Polygon', label: 'Polygon', icon: '/images/polygon.png' },
@@ -76,6 +71,13 @@ export const CreateOrganizationComponent: React.FC<
 	ICreateOrganizationComponent
 > = ({ errors, control }) => {
 	const theme = usePicasso();
+	const { t: translate } = useTranslation('create-organization');
+
+	const organizationsType: IBasicSelect[] = [
+		{ value: 'DAO', label: 'DAO' },
+		{ value: translate('financial'), label: translate('financial') },
+		{ value: 'e-commerce', label: 'e-commerce' },
+	];
 
 	return (
 		<Flex direction="column" minW="24.2rem">
@@ -90,14 +92,14 @@ export const CreateOrganizationComponent: React.FC<
 					fontSize={{ md: 'md', lg: 'xl' }}
 					fontWeight="medium"
 				>
-					Create Company
+					{translate('createOrganization')}
 				</Text>
 				<Controller
 					render={({ field }) => (
 						<Input
 							{...field}
 							color="black"
-							placeholder="Company Name *"
+							placeholder={translate('organizationName')}
 							borderBottomWidth="0,125rem"
 							borderBottomColor="black"
 							borderRadius="none"
@@ -136,7 +138,7 @@ export const CreateOrganizationComponent: React.FC<
 									render={({ field }) => (
 										<Select
 											{...field}
-											placeholder="Please select "
+											placeholder={translate('pleaseSelect')}
 											chakraStyles={{
 												placeholder: base => ({
 													...base,
@@ -230,13 +232,13 @@ export const CreateOrganizationComponent: React.FC<
 						</Flex>
 						<Flex direction="column" position="relative">
 							<Text {...labelStyle} mb="2">
-								Corporative e-mail *
+								{translate('corporativeEmail')}
 							</Text>
 							<Controller
 								render={({ field }) => (
 									<Input
 										{...field}
-										placeholder="example@company.io"
+										placeholder={translate('exampleEmail')}
 										_placeholder={{
 											color: 'blackAlpha.500',
 											fontSize: 'sm',
@@ -255,7 +257,7 @@ export const CreateOrganizationComponent: React.FC<
 						</Flex>
 						<Flex direction="column">
 							<Text {...labelStyle} mb="2">
-								Description
+								{translate('description')}
 							</Text>
 							<Controller
 								render={({ field }) => (
@@ -268,7 +270,7 @@ export const CreateOrganizationComponent: React.FC<
 										}}
 										_hover={{}}
 										bgColor="white"
-										placeholder="Hello"
+										placeholder={translate('exampleDescription')}
 										minH="7.2rem"
 									/>
 								)}
@@ -293,7 +295,7 @@ export const CreateOrganizationComponent: React.FC<
 						lineHeight="6"
 					>
 						<Text>+</Text>
-						<Text>Create Company</Text>
+						<Text>{translate('createOrganization')}</Text>
 					</Button>
 				</Flex>
 				<Flex
@@ -303,7 +305,7 @@ export const CreateOrganizationComponent: React.FC<
 					maxW="48"
 				>
 					<Flex gap="2" mb="2">
-						<Text {...labelStyle}>Network *</Text>
+						<Text {...labelStyle}>{translate('network')}</Text>
 						<Icon as={BsQuestionCircle} color="gray.400" />
 					</Flex>
 					<Controller
@@ -312,7 +314,7 @@ export const CreateOrganizationComponent: React.FC<
 						render={({ field }) => (
 							<Select
 								{...field}
-								placeholder="Please select "
+								placeholder={translate('pleaseSelect')}
 								chakraStyles={{
 									placeholder: base => ({
 										...base,

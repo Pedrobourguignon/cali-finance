@@ -1,7 +1,7 @@
 import { Button, Icon, IconProps } from '@chakra-ui/react';
 import { OffsetShadow } from 'components';
 import { usePicasso } from 'hooks';
-import Router from 'next/router';
+import Router, { useRouter } from 'next/router';
 
 interface IOffsetButton {
 	route: string;
@@ -15,6 +15,7 @@ export const OffsetButton: React.FC<IOffsetButton> = ({
 	icon,
 }) => {
 	const theme = usePicasso();
+	const { locale } = useRouter();
 
 	const handleClick = () => {
 		Router.push(route);
@@ -28,7 +29,8 @@ export const OffsetButton: React.FC<IOffsetButton> = ({
 		>
 			<Button
 				onClick={handleClick}
-				px={{ md: '3', lg: '5', xl: '7' }}
+				px={locale === 'pt-BR' ? 4 : 3}
+				py="1.5"
 				position="absolute"
 				bg="white"
 				bottom="0.5rem"

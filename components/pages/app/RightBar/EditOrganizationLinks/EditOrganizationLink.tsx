@@ -1,6 +1,7 @@
 import { Flex, Img } from '@chakra-ui/react';
 import { ImageUploader, SocialMediaInput } from 'components';
 import { useOrganizations, usePicasso } from 'hooks';
+import useTranslation from 'next-translate/useTranslation';
 import { Control } from 'react-hook-form';
 import { ICreateOrganization, ISocialMediaInput } from 'types';
 import { handleLogoImage } from 'utils';

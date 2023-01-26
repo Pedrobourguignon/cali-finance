@@ -1,3 +1,4 @@
+import useTranslation from 'next-translate/useTranslation';
 import {
 	createContext,
 	Dispatch,
@@ -26,6 +27,8 @@ export const OrganizationsContext = createContext({} as IOrganizationsContext);
 export const OrganizationsProvider: React.FC<{ children: React.ReactNode }> = ({
 	children,
 }) => {
+	const { t: translate } = useTranslation('organizations');
+
 	const [organizations, setOrganizations] = useState<IOrganization[]>([
 		{
 			name: 'Kylie Cosmetics',
@@ -149,7 +152,7 @@ export const OrganizationsProvider: React.FC<{ children: React.ReactNode }> = ({
 			type: 'Deposit',
 			coin: 'USDT',
 			date: '08 Aug 22, 20:57',
-			status: 'Completed',
+			status: translate('completed'),
 			value: 100063,
 		},
 		{
@@ -157,7 +160,7 @@ export const OrganizationsProvider: React.FC<{ children: React.ReactNode }> = ({
 			type: 'Withdrawal',
 			coin: 'USDT',
 			date: '08 Aug 22, 20:57',
-			status: 'Completed',
+			status: translate('completed'),
 			value: 19636,
 		},
 		{
@@ -165,7 +168,7 @@ export const OrganizationsProvider: React.FC<{ children: React.ReactNode }> = ({
 			type: 'Team Created',
 			coin: 'USDT',
 			date: '08 Aug 22, 20:57',
-			status: 'Completed',
+			status: translate('completed'),
 			value: 10,
 		},
 	]);

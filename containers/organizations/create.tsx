@@ -10,6 +10,7 @@ import { ICreateOrganization } from 'types';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { OrganizationsProvider } from 'contexts';
+import useTranslation from 'next-translate/useTranslation';
 
 export const CreateOrganization = () => {
 	const {
@@ -19,6 +20,7 @@ export const CreateOrganization = () => {
 	} = useForm<ICreateOrganization>({
 		resolver: yupResolver(createOrganizationSchema),
 	});
+	const { t: translate } = useTranslation('create-organization');
 
 	const handleCreateOrganization = (organizationData: ICreateOrganization) => {
 		console.log(organizationData);
@@ -48,7 +50,7 @@ export const CreateOrganization = () => {
 								<NavigationBack
 									href={navigationPaths.dashboard.organizations.home}
 								>
-									Back to Companies
+									{translate('backToOrganizations')}
 								</NavigationBack>
 							</Flex>
 							<CreateOrganizationComponent errors={errors} control={control} />
