@@ -13,6 +13,7 @@ import { Control, FieldErrorsImpl, Controller } from 'react-hook-form';
 import { Select } from 'chakra-react-select';
 import { BsQuestionCircle } from 'react-icons/bs';
 import { ICreateOrganization } from 'types';
+import useTranslation from 'next-translate/useTranslation';
 
 interface ICreateOrganizationComponent {
 	control: Control<ICreateOrganization>;
@@ -53,12 +54,6 @@ interface IBasicSelect {
 	label: string;
 }
 
-const organizationsType: IBasicSelect[] = [
-	{ value: 'DAO', label: 'DAO' },
-	{ value: 'financial', label: 'financial' },
-	{ value: 'e-commerce', label: 'e-commerce' },
-];
-
 const networksType: INetworkSelect[] = [
 	{ value: 'Ethereum', label: 'Ethereum', icon: '/images/eth.png' },
 	{ value: 'Polygon', label: 'Polygon', icon: '/images/polygon.png' },
@@ -75,19 +70,26 @@ export const CreateOrganizationComponent: React.FC<
 	ICreateOrganizationComponent
 > = ({ errors, control }) => {
 	const theme = usePicasso();
+	const { t: translate } = useTranslation('create-organization');
+
+	const organizationsType: IBasicSelect[] = [
+		{ value: 'DAO', label: 'DAO' },
+		{ value: translate('financial'), label: translate('financial') },
+		{ value: 'e-commerce', label: 'e-commerce' },
+	];
 
 	return (
 		<Flex w="100%" direction="column" px="6">
 			<Flex direction="column" gap="6" mb="14" position="relative">
 				<Text color="black" fontSize="xl" fontWeight="medium">
-					Create Organization
+					{translate('createOrganization')}
 				</Text>
 				<Controller
 					render={({ field }) => (
 						<Input
 							{...field}
 							color="black"
-							placeholder="Organization Name *"
+							placeholder={translate('organizationName')}
 							borderBottomWidth="0,125rem"
 							borderBottomColor="black"
 							borderRadius="none"
@@ -117,7 +119,7 @@ export const CreateOrganizationComponent: React.FC<
 					<Flex direction="column" color="black" gap="6">
 						<Flex direction="column">
 							<Text {...labelStyle} mb="2">
-								Type *
+								{translate('type')}
 							</Text>
 							<Controller
 								name="type"
@@ -125,7 +127,7 @@ export const CreateOrganizationComponent: React.FC<
 								render={({ field }) => (
 									<Select
 										{...field}
-										placeholder="Please select "
+										placeholder={translate('pleaseSelect')}
 										chakraStyles={{
 											placeholder: base => ({
 												...base,
@@ -161,13 +163,13 @@ export const CreateOrganizationComponent: React.FC<
 						</Flex>
 						<Flex direction="column" position="relative">
 							<Text {...labelStyle} mb="2">
-								Corporative e-mail *
+								{translate('corporativeEmail')}
 							</Text>
 							<Controller
 								render={({ field }) => (
 									<Input
 										{...field}
-										placeholder="example@organization.io"
+										placeholder={translate('exampleEmail')}
 										_placeholder={{
 											color: 'blackAlpha.500',
 											fontSize: 'sm',
@@ -186,7 +188,7 @@ export const CreateOrganizationComponent: React.FC<
 						</Flex>
 						<Flex direction="column">
 							<Text {...labelStyle} mb="2">
-								Description
+								{translate('description')}
 							</Text>
 							<Controller
 								render={({ field }) => (
@@ -199,7 +201,7 @@ export const CreateOrganizationComponent: React.FC<
 										}}
 										_hover={{}}
 										bgColor="white"
-										placeholder="Hello Org is an organization that..."
+										placeholder={translate('exampleDescription')}
 										minH="110"
 									/>
 								)}
@@ -220,12 +222,12 @@ export const CreateOrganizationComponent: React.FC<
 						lineHeight="6"
 					>
 						<Text>+</Text>
-						<Text>Create Organization</Text>
+						<Text>{translate('createOrganization')}</Text>
 					</Button>
 				</Flex>
 				<Flex direction="column" minW="44" color={theme.text.primary}>
 					<Flex gap="2" mb="2">
-						<Text {...labelStyle}>Network *</Text>
+						<Text {...labelStyle}>{translate('network')}</Text>
 						<Icon as={BsQuestionCircle} color="gray.400" />
 					</Flex>
 					<Controller
@@ -234,7 +236,7 @@ export const CreateOrganizationComponent: React.FC<
 						render={({ field }) => (
 							<Select
 								{...field}
-								placeholder="Please select "
+								placeholder={translate('pleaseSelect')}
 								chakraStyles={{
 									placeholder: base => ({
 										...base,

@@ -5,5 +5,7 @@
 	"withdrawal": "Withdrawal",
 	"deposit": "Deposit",
 	"completed": "Completed",
-	"pending": "Pending"
+	"pending": "Pending",
+	"addedToTeam": "Added to team",
+	"teamCreated": "Team created"
 }

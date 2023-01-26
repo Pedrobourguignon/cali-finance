@@ -37,7 +37,7 @@ export const WithdrawContent: React.FC<ISelectedCoin> = ({ coin, onOpen }) => {
 					_hover={{}}
 				>
 					<option disabled selected style={{ background: 'white' }}>
-						Please select a org
+						{translate('selectAOrg')}
 					</option>
 					{orgs.map((org, index) => (
 						<option style={{ background: 'white' }} key={+index} color="black">
