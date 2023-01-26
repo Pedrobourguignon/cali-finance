@@ -3,10 +3,10 @@ import React from 'react';
 
 export const OrganizationWhiteBackground: React.FC = () => (
 	<Flex
-		w="full"
+		w="100%"
 		bg="white"
-		h={{ md: '48', lg: '64' }}
 		position="absolute"
+		h={{ md: '48', lg: '64' }}
 		left="0"
 	/>
 );

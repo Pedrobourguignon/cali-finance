@@ -34,7 +34,8 @@ const OrganizationLogo = () => {
 
 export const EditOrganizationLink: React.FC<{
 	control: Control<ICreateOrganization>;
-}> = ({ control }) => {
+	display?: object;
+}> = ({ control, display }) => {
 	const theme = usePicasso();
 	const { selectedOrganization } = useOrganizations();
 
@@ -76,32 +77,32 @@ export const EditOrganizationLink: React.FC<{
 	];
 
 	return (
-		<Flex direction="column" w="max-content" zIndex="docked">
-			<Flex
-				bg={theme.bg.black}
-				direction="column"
-				align="center"
-				justify="center"
-				px="4"
-				py="24"
-				gap="10"
-				borderRadius="base"
-			>
-				<Flex direction="column" align="center" gap="4">
-					<OrganizationLogo />
-					<ImageUploader />
-				</Flex>
-				<Flex>
-					<Flex direction="column" gap="4" minW="72">
-						{socialLinks.map((socialLink, index) => (
-							<SocialMediaInput
-								socialLink={socialLink}
-								key={+index}
-								control={control}
-								defaultValue={socialLink.defaultValue}
-							/>
-						))}
-					</Flex>
+		<Flex
+			bg={theme.bg.black}
+			direction="column"
+			align="center"
+			px="4"
+			py={{ md: '12', lg: '16', xl: '24' }}
+			gap="10"
+			borderRadius="base"
+			w="100%"
+			display={display}
+			zIndex="docked"
+		>
+			<Flex direction="column" align="center" gap="4" w="100%">
+				<OrganizationLogo />
+				<ImageUploader />
+			</Flex>
+			<Flex>
+				<Flex direction="column" gap="4" w="100%">
+					{socialLinks.map((socialLink, index) => (
+						<SocialMediaInput
+							socialLink={socialLink}
+							key={+index}
+							control={control}
+							defaultValue={socialLink.defaultValue}
+						/>
+					))}
 				</Flex>
 			</Flex>
 		</Flex>
