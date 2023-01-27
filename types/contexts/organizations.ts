@@ -1,4 +1,4 @@
-import { ISocialMedia } from 'types';
+import { IEmployee, ISocialMedia } from 'types';
 
 export interface IOrganization {
 	name: string;
@@ -11,4 +11,5 @@ export interface IOrganization {
 	socialMedias: ISocialMedia[];
 	teams: [string];
 	selectedNetwork?: string;
+	employees?: IEmployee[];
 }

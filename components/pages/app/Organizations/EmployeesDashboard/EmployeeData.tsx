@@ -69,7 +69,7 @@ export const EmployeeData: React.FC<IEmployeeData> = ({
 					</Flex>
 				</Flex>
 			</Flex>
-			<Flex>
+			{/* <Flex>
 				{isGeneral && (
 					<Select
 						borderColor="gray.200"
@@ -90,7 +90,7 @@ export const EmployeeData: React.FC<IEmployeeData> = ({
 						))}
 					</Select>
 				)}
-			</Flex>
+			</Flex> */}
 			<Flex direction="column" align="end">
 				<Flex gap="1" fontSize="xs">
 					<Text>{employee.amount}</Text>

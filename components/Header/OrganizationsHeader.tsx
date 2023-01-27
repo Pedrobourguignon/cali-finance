@@ -23,10 +23,10 @@ export const OrganizationsHeader = () => {
 			name: translate('overview'),
 			route: navigationPaths.dashboard.organizations.overview('1'),
 		},
-		{
-			name: translate('teams'),
-			route: navigationPaths.dashboard.organizations.teams('1'),
-		},
+		// {
+		// 	name: translate('teams'),
+		// 	route: navigationPaths.dashboard.organizations.teams('1'),
+		// },
 		{
 			name: translate('funds'),
 			route: navigationPaths.dashboard.organizations.funds('1'),
@@ -34,7 +34,7 @@ export const OrganizationsHeader = () => {
 	];
 
 	return (
-		<Flex direction="column" color={theme.text.primary} px="6" w="100%" gap="7">
+		<Flex direction="column" color={theme.text.primary} w="100%" gap="7">
 			<Flex w="100%" justify="space-between">
 				<NavigationBack href={navigationPaths.dashboard.organizations.home}>
 					{translate('backToOrganizations')}
