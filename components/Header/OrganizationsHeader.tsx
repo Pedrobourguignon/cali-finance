@@ -1,8 +1,9 @@
 import { Flex, Img, Text, useDisclosure, Link } from '@chakra-ui/react';
 import { useOrganizations, usePath, usePicasso } from 'hooks';
-import { navigationPaths } from 'utils';
+import { chainLogo, handleLogoImage, navigationPaths } from 'utils';
 import { NavigationBack, NotificationPopover } from 'components';
 import useTranslation from 'next-translate/useTranslation';
+import { IOrganization } from 'types';
 
 const organizationData = {
 	name: 'Kylie Cosmetics Super Extra',
@@ -11,7 +12,9 @@ const organizationData = {
 	network: { name: 'Ethereum', logo: '/images/eth.png' },
 };
 
-export const OrganizationsHeader = () => {
+export const OrganizationsHeader: React.FC<{
+	company: IOrganization;
+}> = ({ company }) => {
 	const theme = usePicasso();
 	const { isSamePath } = usePath();
 	const { setNotificationsList, notificationsList } = useOrganizations();
@@ -48,12 +51,33 @@ export const OrganizationsHeader = () => {
 				/>
 			</Flex>
 			<Flex w="100%" justify="space-between" align="center">
-				<Flex gap="3" align="center" w="72">
-					<Img src={organizationData.logo} boxSize="20" />
-					<Text fontSize="2xl">{organizationData.name}</Text>
+				<Flex gap="3" align="center">
+					{!company.logo ? (
+						<Flex
+							boxSize="20"
+							borderRadius="base"
+							align="center"
+							justify="center"
+							fontSize="lg"
+							fontWeight="bold"
+							bg={theme.bg.white2}
+						>
+							{handleLogoImage(company.name)}
+						</Flex>
+					) : (
+						<Img src={company.logo} boxSize="20" />
+					)}
+					<Text
+						maxW={{ md: '40', xl: '56' }}
+						maxH="20"
+						overflow="hidden"
+						fontSize="2xl"
+					>
+						{company.name}
+					</Text>
 				</Flex>
-				<Flex direction="column" w="28">
-					<Text fontSize="xl">${organizationData.totalFunds}</Text>
+				<Flex direction="column" maxW="28">
+					<Text fontSize="xl">${company.funds}</Text>
 					<Text fontSize="sm">{translate('totalFunds')}</Text>
 				</Flex>
 				<Link href={navigationPaths.dashboard.organizations.editOrg('1')}>
@@ -65,6 +89,7 @@ export const OrganizationsHeader = () => {
 						fontSize="sm"
 						fontWeight="medium"
 						cursor="pointer"
+						whiteSpace="nowrap"
 					>
 						{translate('editInformations')}
 					</Text>
@@ -110,8 +135,8 @@ export const OrganizationsHeader = () => {
 					gap="2"
 					h="6"
 				>
-					<Img src={organizationData.network.logo} boxSize="4" />
-					<Text fontSize="xs">{organizationData.network.name}</Text>
+					<Img src={chainLogo(company.selectedNetwork!)} boxSize="4" />
+					<Text fontSize="xs">{company.selectedNetwork}</Text>
 				</Flex>
 			</Flex>
 		</Flex>

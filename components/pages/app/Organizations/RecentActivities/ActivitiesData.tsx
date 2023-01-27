@@ -75,7 +75,7 @@ export const ActivitiesData: React.FC<IActivitiesData> = ({ activities }) => {
 					<Text
 						color="gray.500"
 						fontSize={{ md: 'xs', '2xl': 'sm' }}
-						w={{ md: '24', '2xl': '28' }}
+						whiteSpace="nowrap"
 					>
 						{activities.date}
 					</Text>

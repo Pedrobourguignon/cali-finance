@@ -1,4 +1,4 @@
-import { Flex, Img } from '@chakra-ui/react';
+import { Button, Flex, Img, Text } from '@chakra-ui/react';
 import { useOrganizations, usePicasso } from 'hooks';
 import { handleLogoImage } from 'utils';
 import { ImageUploader, SocialMediaInput } from 'components';
@@ -64,39 +64,55 @@ const OrganizationLogo: React.FC<{ org: INewOrganization }> = ({ org }) => {
 
 export const NewOrganizationLinks: React.FC<{
 	control: Control<ICreateOrganization>;
-	display?: object;
-}> = ({ control, display }) => {
+}> = ({ control }) => {
 	const theme = usePicasso();
 	const { selectedOrganization } = useOrganizations();
+	const { t: translate } = useTranslation('create-organization');
 
 	return (
-		<Flex
-			zIndex="docked"
-			bg={theme.bg.black}
-			direction="column"
-			px="4"
-			py={{ md: '12', lg: '16', xl: '24' }}
-			gap="10"
-			borderRadius="base"
-			align="center"
-			w="100%"
-			display={display}
-		>
-			<Flex direction="column" align="center" gap="4" w="100%">
-				<OrganizationLogo org={selectedOrganization} />
-				<ImageUploader />
-			</Flex>
-			<Flex w="100%">
-				<Flex direction="column" gap="4" w="100%">
-					{socialLinks.map((socialLink, index) => (
-						<SocialMediaInput
-							socialLink={socialLink}
-							key={+index}
-							control={control}
-						/>
-					))}
+		<Flex direction="column" zIndex="docked" w="100%" gap="8">
+			<Flex
+				bg={theme.bg.black}
+				direction="column"
+				px="4"
+				py={{ md: '12', lg: '16', xl: '24' }}
+				gap="10"
+				borderRadius="base"
+				align="center"
+				w="100%"
+			>
+				<Flex direction="column" align="center" gap="4" w="100%">
+					<OrganizationLogo org={selectedOrganization} />
+					<ImageUploader />
+				</Flex>
+				<Flex w="100%">
+					<Flex direction="column" gap="4" w="100%">
+						{socialLinks.map((socialLink, index) => (
+							<SocialMediaInput
+								socialLink={socialLink}
+								key={+index}
+								control={control}
+							/>
+						))}
+					</Flex>
 				</Flex>
 			</Flex>
+			<Button
+				type="submit"
+				bg={theme.bg.primary}
+				color="white"
+				borderRadius="sm"
+				_hover={{}}
+				gap="2.5"
+				fontWeight="medium"
+				fontSize="md"
+				lineHeight="6"
+				display={{ md: 'flex', lg: 'none' }}
+				w="100%"
+			>
+				<Text>+</Text>
+				<Text>{translate('createOrganization')}</Text>
+			</Button>
 		</Flex>
 	);
 };

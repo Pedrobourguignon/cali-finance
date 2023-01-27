@@ -4,15 +4,13 @@ import {
 	EmployeesDashboard,
 	RecentActivities,
 } from 'components';
-import { useOrganizations, usePicasso } from 'hooks';
-import { OrganizationWhiteBackground } from 'layouts';
+import { useOrganizations } from 'hooks';
 
 export const OverviewComponent = () => {
-	const theme = usePicasso();
 	const { selectedOrganization } = useOrganizations();
 	return (
 		<Flex direction="column">
-			<OrganizationWhiteBackground />
+			<Flex w="100%" bg="white" position="absolute" h="64" left="0" />
 			<Flex
 				color="black"
 				pt="6"
@@ -20,7 +18,7 @@ export const OverviewComponent = () => {
 				direction="column"
 				align="start"
 			>
-				<OrganizationsHeader />
+				<OrganizationsHeader company={selectedOrganization} />
 			</Flex>
 			<Flex py="6" direction="column" gap="9">
 				<Flex pt="6">

@@ -8,8 +8,8 @@ export interface IOrganization {
 	members: number;
 	logo: string;
 	description?: string;
-	socialMedias: ISocialMedia[];
+	socialMedias: ISocialMedia;
 	teams: [string];
-	selectedNetwork?: string;
+	selectedNetwork: string;
 	employees?: IEmployee[];
 }
