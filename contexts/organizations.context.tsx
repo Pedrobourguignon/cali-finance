@@ -97,7 +97,7 @@ export const OrganizationsProvider: React.FC<{ children: React.ReactNode }> = ({
 
 	const [selectedOrganization, setSelectedOrganization] =
 		useState<IOrganization>({
-			name: 'kylie skin varias outras coisas e mais um pouco',
+			name: 'kylie skin',
 			type: 'DAO',
 			email: 'kylieskin@gmail.com',
 			funds: 67986.09,
