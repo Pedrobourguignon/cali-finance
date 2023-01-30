@@ -5,11 +5,8 @@ import { InfosBanner, LifeIsEasier } from 'components';
 export const LifeIsEasierBanner = () => {
 	const theme = usePicasso();
 	return (
-		<InfosBanner
-			height={{ md: '15rem', lg: '39.313rem' }}
-			position={{ md: 'relative', lg: 'absolute' }}
-		>
-			<Flex>
+		<InfosBanner height="39.313rem" position="absolute">
+			<Flex w="full">
 				<Img src="/images/ondulated.png" w="full" />
 			</Flex>
 			<Flex position="absolute" top="0" w="full">

@@ -44,7 +44,6 @@ export const ConnectWalletButton = () => {
 			<OffsetShadow
 				px={{ lg: '3', xl: '6' }}
 				buttonText="Connect Wallet"
-				// width={{ lg: '32', xl: '40' }}
 				width="max-content"
 				height="8"
 				borderColor="white"

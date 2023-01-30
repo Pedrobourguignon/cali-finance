@@ -82,7 +82,7 @@ export const OrganizationsList = () => {
 				/>
 			</Flex>
 			<Box position="relative">
-				<Flex display="block" bg="transparent" ref={ref}>
+				<Flex bg="transparent" ref={ref} flex="1">
 					<Slider
 						{...settings}
 						ref={sliderRef => setSlider(sliderRef)}

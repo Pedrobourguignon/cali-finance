@@ -1,19 +1,21 @@
 import { Flex, Button, Text, Img } from '@chakra-ui/react';
 import { InfosBanner, OffsetShadow } from 'components';
 import { usePicasso } from 'hooks';
+import useTranslation from 'next-translate/useTranslation';
 
 export const CreateAccountBanner = () => {
 	const theme = usePicasso();
+	const { t: translate } = useTranslation('banners');
+
 	return (
 		<InfosBanner height="39.313rem">
 			<Flex direction="column" px="4" pt="32">
 				<Flex direction="column" w="60" gap="2">
 					<Text fontWeight="medium" fontSize="md">
-						Create Account
+						{translate('createAccount')}
 					</Text>
 					<Text fontSize="sm" fontWeight="normal" w="48">
-						Unlock our all-in-one suit for surfacing unlimited teams and
-						organizations payments
+						{translate('unlock')}
 					</Text>
 					<Flex gap="6">
 						<OffsetShadow
@@ -41,7 +43,7 @@ export const CreateAccountBanner = () => {
 								}}
 							>
 								<Img src="/images/star.png" boxSize="3.5" />
-								Create Account Now
+								{translate('createAccountButton')}
 							</Button>
 						</OffsetShadow>
 					</Flex>

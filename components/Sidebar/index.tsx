@@ -108,13 +108,13 @@ export const Sidebar: React.FC = () => {
 			>
 				<Flex
 					justify="center"
-					py="10"
+					pt="3"
 					direction="column"
 					align="center"
-					gap="6"
+					gap="2"
 					px="8"
 				>
-					<Link href={navigationPaths.dashboard.home}>
+					<Link href={navigationPaths.dashboard.home} pb="6">
 						<Img
 							src="/images/cali-logo.svg"
 							h={{ md: '8', '2xl': '10' }}
@@ -134,14 +134,14 @@ export const Sidebar: React.FC = () => {
 						_focus={{ background: 'white' }}
 						display={isConnected === true ? 'flex' : 'none'}
 					>
-						<Flex align="center" gap="2" px="4">
+						<Flex align="center" gap="2" px="4" w={{ md: '8rem', xl: '9rem' }}>
 							<Img
 								src={userProfile?.picture}
 								borderRadius="full"
 								boxSize="6"
 								objectFit="cover"
 							/>
-							<Text fontWeight="medium" fontSize="sm">
+							<Text fontWeight="medium" fontSize={{ md: 'xs', lg: 'sm' }}>
 								{userProfile?.wallet}
 							</Text>
 						</Flex>
@@ -155,7 +155,7 @@ export const Sidebar: React.FC = () => {
 						/>
 					)}
 				</Flex>
-				<Flex direction="column" gap="7" w="full" pb="36">
+				<Flex direction="column" gap="7" w="full" pb="36" pt="12">
 					{menuOptions.map((item, index) => {
 						const comparedPath = isSamePath(item.route);
 						return (

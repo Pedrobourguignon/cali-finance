@@ -1,5 +1,9 @@
 import { Img, Input, InputGroup, InputLeftElement } from '@chakra-ui/react';
-import { ISocialMediaInput, ICreateOrganization } from 'types';
+import {
+	ISocialMediaInput,
+	ICreateOrganization,
+	IEditedOrganization,
+} from 'types';
 import { Controller, Control } from 'react-hook-form';
 
 interface ISocialLink {

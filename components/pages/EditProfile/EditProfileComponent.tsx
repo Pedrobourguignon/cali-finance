@@ -70,7 +70,7 @@ export const EditProfileComponent = () => {
 				onClose={onClose}
 				sendImage={setEditProfilePicture}
 			/>
-			<Flex>
+			<Flex direction="column">
 				<Text
 					fontSize="xl"
 					color={theme.text.primary}
@@ -82,10 +82,17 @@ export const EditProfileComponent = () => {
 				>
 					{translate('editProfile')}
 				</Text>
-				<OrganizationWhiteBackground />
+				<Flex w="100%" bg="white" position="absolute" h="64" left="0" />
 			</Flex>
-			<Flex justify="center" pt="7" direction="column" align="center" gap="5">
-				<Button
+			<Flex
+				justify="center"
+				direction="column"
+				align="center"
+				gap="4"
+				pt="7"
+				pb="6"
+			>
+				<Flex
 					bgImage={editProfilePicture}
 					bgSize="cover"
 					bgRepeat="no-repeat"
@@ -94,18 +101,18 @@ export const EditProfileComponent = () => {
 					_focus={{}}
 					borderRadius="full"
 					onClick={onOpen}
-					pb="10"
-					boxSize="24"
+					zIndex="docked"
 				>
 					{editProfilePicture === '' && (
 						<Img src="/images/editImage.png" boxSize="24" />
 					)}
-				</Button>
+				</Flex>
 				<Button
-					fontSize="sm"
+					mt="4"
+					fontSize={{ md: 'xs', '2xl': 'sm' }}
 					bg={theme.text.primary}
 					borderRadius="sm"
-					px="2"
+					px={{ md: '2', '2xl': '6' }}
 					h="max-content"
 					py="1"
 					_hover={{}}
@@ -115,21 +122,26 @@ export const EditProfileComponent = () => {
 					{translate('editProfileImage')}
 				</Button>
 			</Flex>
-			<Flex h="full" direction="column" align="center" pt="24">
+			<Flex direction="column" align="center" h="full" pt="6">
 				<form onSubmit={handleSubmit(handleEditProfile)}>
 					<FormControl>
-						<Flex direction="column" gap="8">
+						<Flex direction="column" gap="8" maxW="80">
 							<Flex direction="column" gap="2">
 								<Text {...labelStyle}>{translate('name')}</Text>
 								<Input
+									borderRadius="base"
 									placeholder={translate('insertHere')}
-									_placeholder={{ color: 'blackAlpha.500' }}
+									_placeholder={{
+										color: 'blackAlpha.500',
+										fontSize: { xl: 'sm' },
+									}}
 									bgColor="white"
 									_hover={{}}
 									borderColor={theme.bg.primary}
-									pr="24"
 									{...register('name')}
 									color="black"
+									h="max-content"
+									py="1"
 								/>
 								<Text fontSize="xs" color="red">
 									{errors.name?.message}
@@ -139,11 +151,17 @@ export const EditProfileComponent = () => {
 								<Text {...labelStyle}>{translate('yourBestEmail')}</Text>
 								<Input
 									placeholder={translate('exampleEmail')}
-									_placeholder={{ color: 'blackAlpha.500' }}
+									_placeholder={{
+										color: 'blackAlpha.500',
+										fontSize: { xl: 'sm' },
+									}}
 									bgColor="white"
 									_hover={{}}
 									color="black"
 									borderColor={theme.bg.primary}
+									h="max-content"
+									py="1"
+									borderRadius="base"
 									{...register('email')}
 								/>
 								<Text fontSize="xs" color="red">
@@ -152,7 +170,7 @@ export const EditProfileComponent = () => {
 							</Flex>
 							<Button
 								type="submit"
-								px="28"
+								px={{ md: '28', '2xl': '36' }}
 								bg={theme.text.primary}
 								_hover={{ opacity: '80%' }}
 								_focus={{ bg: theme.text.primary }}

@@ -1,16 +1,17 @@
 import { Button, Flex, Text } from '@chakra-ui/react';
 import { CircularProgressBar } from 'components';
 import { usePicasso } from 'hooks';
+import useTranslation from 'next-translate/useTranslation';
 import { useState } from 'react';
-
-const buttonOptions = ['This Week', 'This Month'];
 
 const withdrawnPercentage = 50;
 export const WithdrawsBar = () => {
 	const theme = usePicasso();
+	const { t: translate } = useTranslation('organization-overall');
 	const [selectedOption, setSelectedOption] = useState<string | undefined>(
-		'This Week'
+		translate('thisWeek')
 	);
+	const buttonOptions = [translate('thisWeek'), translate('thisMonth')];
 
 	const handleSelectedOption = (btnName: string) => {
 		const filter = buttonOptions.find(item => item === btnName);
@@ -30,7 +31,7 @@ export const WithdrawsBar = () => {
 				gap="3"
 			>
 				<Text color="black" fontWeight="medium" fontSize="md">
-					Withdrawals
+					{translate('withdrawals')}
 				</Text>
 				<CircularProgressBar percentage={withdrawnPercentage} />
 				<Flex zIndex="docked" justify="center">
@@ -64,7 +65,7 @@ export const WithdrawsBar = () => {
 				textAlign="center"
 				position="absolute"
 			>
-				<Text fontSize="xs">Withdrawn</Text>
+				<Text fontSize="xs">{translate('withdrawn')}</Text>
 				<Text fontWeight="medium">{withdrawnPercentage}%</Text>
 			</Flex>
 		</Flex>
