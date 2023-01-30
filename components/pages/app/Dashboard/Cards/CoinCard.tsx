@@ -21,7 +21,7 @@ export const CoinCard: React.FC<ICoinCard> = ({ coin, borderColor, color }) => {
 			pl={{ md: '1', lg: '2', xl: '3', '2xl': '5' }}
 			pt={{ md: '2' }}
 			pb={{ md: '1.5' }}
-			minW={{ md: '5.2rem', lg: '5.65rem', xl: '7.1rem' }}
+			minW={{ md: '5.2rem', lg: '5.65rem', xl: '7.1rem', '2xl': '8.475rem' }}
 			transition="all 0.1s ease-in-out"
 		>
 			<Flex direction="column">
