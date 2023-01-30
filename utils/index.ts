@@ -1,4 +1,5 @@
 export * from './chainList';
+export * from './chainLogo';
 export * from './ColorHandler';
 export * from './logoHandler';
 export * from './navigationPaths';

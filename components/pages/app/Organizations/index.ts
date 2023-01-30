@@ -9,6 +9,7 @@ export * from './HistoryDashboard';
 export * from './InfosBanner';
 export * from './LifeIsEasierComponent';
 export * from './OrganizationsDashboard';
+export * from './OverviewComponent';
 export * from './PremiumAlert';
 export * from './RecentActivities';
 export * from './SurplusTeams';

@@ -21,7 +21,6 @@ export const WithdrawsBar = () => {
 	return (
 		<Flex direction="column" position="relative">
 			<Flex
-				w="60"
 				px="4"
 				py="2.5"
 				bg="white"
