@@ -10,7 +10,7 @@ import {
 	Text,
 	useDisclosure,
 } from '@chakra-ui/react';
-import { usePicasso, useTeams } from 'hooks';
+import { useOrganizations, usePicasso, useTeams } from 'hooks';
 import { AppLayout, OrganizationWhiteBackground } from 'layouts';
 import {
 	ActiveTeamsBar,
@@ -37,6 +37,7 @@ export const TeamComponent = () => {
 	const theme = usePicasso();
 	const { register, handleSubmit } = useForm();
 	const { teamPicture, setTeamPicture, teamData } = useTeams();
+	const { selectedOrganization } = useOrganizations();
 	const [editable, setEditable] = useState(false);
 	const [editedTeamData, setEditedTeamData] = useState<ITeamEdit>({
 		picture: teamData.photo,
@@ -79,7 +80,7 @@ export const TeamComponent = () => {
 		<AppLayout right={<ActiveTeamsBar />}>
 			<OrganizationWhiteBackground />
 			<Flex pt="6" zIndex="docked" direction="column" align="start">
-				<OrganizationsHeader />
+				<OrganizationsHeader company={selectedOrganization} />
 			</Flex>
 			<form onChange={handleSubmit(handleEditTeam)}>
 				<FormControl>

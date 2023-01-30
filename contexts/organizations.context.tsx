@@ -91,7 +91,9 @@ export const OrganizationsProvider: React.FC<{ children: React.ReactNode }> = ({
 		},
 	]);
 
-	const [selectedOrganizationLogo, setSelectedOrganizationLogo] = useState('');
+	const [selectedOrganizationLogo, setSelectedOrganizationLogo] = useState(
+		'/images/kylie-cosmetics-logo.png'
+	);
 
 	const [selectedOrganization, setSelectedOrganization] =
 		useState<IOrganization>({
@@ -110,6 +112,49 @@ export const OrganizationsProvider: React.FC<{ children: React.ReactNode }> = ({
 				twitter: 'twitter.com/kylieskin',
 				website: 'kylieskin.net',
 			},
+
+			employees: [
+				{
+					name: 'Kim Kardashian',
+					wallet: '0x7E48CA2BD05EC61C2FA83CF34B066A8FF36B4CFE',
+					photo: '/images/avatar.png',
+					amount: 10.0,
+					coin: 'USDT',
+					team: 'General',
+				},
+				{
+					name: 'Kylie Jenner',
+					wallet: '0x7E48CA2BD05EC61C2FA83CF34B066A8FF36Z9EXD',
+					photo: '/images/avatar.png',
+					amount: 100.0,
+					coin: 'USDT',
+					team: 'Marketing',
+				},
+				{
+					name: 'Kloe Kardashian',
+					wallet: '0x7E48CA2BD05EC61C2FA83CF34B066A8FF36C3QER',
+					photo: '/images/avatar.png',
+					amount: 80.0,
+					coin: 'USDT',
+					team: 'Finance',
+				},
+				{
+					name: 'Kloe Kardashian',
+					wallet: '0x7E48CA2BD05EC61C2FA83CF34B066A8FF36C3QER',
+					photo: '/images/avatar.png',
+					amount: 80.0,
+					coin: 'USDT',
+					team: 'Finance',
+				},
+				{
+					name: 'Kloe Kardashian',
+					wallet: '0x7E48CA2BD05EC61C2FA83CF34B066A8FF36C3QER',
+					photo: '/images/avatar.png',
+					amount: 80.0,
+					coin: 'USDT',
+					team: 'Finance',
+				},
+			],
 		});
 
 	const [notificationsList, setNotificationsList] = useState<

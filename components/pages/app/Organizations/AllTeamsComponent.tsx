@@ -5,7 +5,7 @@ import {
 	TeamsCard,
 	EmployeesDashboard,
 } from 'components';
-import { usePicasso, useTeams } from 'hooks';
+import { useOrganizations, usePicasso, useTeams } from 'hooks';
 import { AppLayout, OrganizationWhiteBackground } from 'layouts';
 import { IEmployee } from 'types';
 
@@ -65,11 +65,12 @@ export const AllTeamsComponent: React.FC<IAllTeamsComponent> = ({
 }) => {
 	const theme = usePicasso();
 	const { teams } = useTeams();
+	const { selectedOrganization } = useOrganizations();
 	return (
 		<AppLayout right={<ActiveTeamsBar />}>
 			<OrganizationWhiteBackground />
 			<Flex pt="6" zIndex="docked" direction="column" align="start">
-				<OrganizationsHeader />
+				<OrganizationsHeader company={selectedOrganization} />
 			</Flex>
 			<Flex
 				color={theme.text.primary}
