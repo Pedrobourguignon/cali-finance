@@ -13,7 +13,6 @@ export const DepositOrWithdrawBanner = () => {
 				p="4"
 				direction="column"
 				borderRadius="base"
-				w="320px"
 				className="deposit-withdraw-banner"
 			>
 				<DepositOrWithdrawCard />

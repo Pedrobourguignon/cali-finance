@@ -9,10 +9,10 @@ export const LifeIsEasier = () => {
 	const { t: translate } = useTranslation('banners');
 
 	return (
-		<Flex direction="column" maxW="56" gap="2">
+		<Flex direction="column" gap="2">
 			<Text fontWeight="medium">{translate('lifeIsEasier')}</Text>
 			<Text fontSize={{ lg: 'xs', xl: 'sm' }} fontWeight="normal">
-				{translate('youUnlocked')}
+				{translate('Efficiency')}
 			</Text>
 			<Flex gap="6">
 				<Link href={socialMediaLinks.instagram}>

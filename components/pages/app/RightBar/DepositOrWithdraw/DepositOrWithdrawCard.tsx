@@ -45,7 +45,7 @@ export const DepositOrWithdrawCard = () => {
 			w="100%"
 		>
 			<TokenSelector isOpen={isOpen} onClose={onClose} setToken={setToken} />
-			<Flex w="100%" justify="center">
+			<Flex w="100%" justify="center" direction={{ md: 'column', xl: 'row' }}>
 				{buttonOptions.map((item, index) => (
 					<Button
 						key={+index}
@@ -81,12 +81,12 @@ export const DepositOrWithdrawCard = () => {
 						_focus={{}}
 						onClick={onOpen}
 					>
-						<Flex gap="2" align="center" color="white">
-							<Img boxSize="4" src={token.logo} />
-							<Text fontSize="sm" width="8" lineHeight="5">
+						<Flex gap={{ md: '1', xl: '2' }} align="center" color="white">
+							<Img boxSize={{ md: '3', xl: '4' }} src={token.logo} />
+							<Text fontSize={{ md: 'xs', xl: 'sm' }} whiteSpace="nowrap">
 								{token.symbol}
 							</Text>
-							<Icon boxSize="4" as={IoIosArrowDown} />
+							<Icon boxSize={{ md: '3', xl: '4' }} as={IoIosArrowDown} />
 						</Flex>
 					</Button>
 				</InputGroup>
@@ -94,9 +94,11 @@ export const DepositOrWithdrawCard = () => {
 			<Button
 				bg={theme.bg.primary}
 				color="white"
-				w="full"
+				w="100%"
 				py="1.5"
+				h="100%"
 				px="6"
+				whiteSpace="normal"
 				fontSize="sm"
 				_hover={{
 					opacity: 0.8,
