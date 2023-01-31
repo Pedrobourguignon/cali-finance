@@ -8,7 +8,7 @@ import {
 
 export const WithdrawalsBanner = () => (
 	<Flex direction="column" gap="8" w="100%">
-		<InfosBanner>
+		<InfosBanner imgLink="/images/ondulate-background.png" bottom="0">
 			<Flex direction="column" px="4" py="4" gap="12" w="100%">
 				<WithdrawsBar />
 				<LifeIsEasier />

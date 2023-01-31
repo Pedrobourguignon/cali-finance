@@ -5,7 +5,12 @@ import { InfosBanner, LifeIsEasier } from 'components';
 export const LifeIsEasierBanner = () => {
 	const theme = usePicasso();
 	return (
-		<InfosBanner height="39.313rem" position="absolute">
+		<InfosBanner
+			height="39.313rem"
+			position="absolute"
+			imgLink="/images/ondulate-background.png"
+			bottom="0"
+		>
 			<Flex w="full">
 				<Img src="/images/ondulated.png" w="full" />
 			</Flex>

@@ -2,10 +2,10 @@ import { Flex } from '@chakra-ui/react';
 import {
 	DashboardHeader,
 	CreateCompanyCard,
-	SwapTokenBar,
 	RecentActivities,
 	CompaniesDashboard,
 	YourCompanies,
+	CompaniesRightBar,
 } from 'components';
 import { AppLayout } from 'layouts';
 import { useCompanies } from 'hooks';
@@ -15,7 +15,7 @@ export const CompaniesConnected: React.FC = () => {
 		useCompanies();
 
 	return (
-		<AppLayout right={<SwapTokenBar />}>
+		<AppLayout right={<CompaniesRightBar />}>
 			<Flex direction="column" gap="4" py="6" w="100%">
 				<DashboardHeader />
 				<CompaniesDashboard

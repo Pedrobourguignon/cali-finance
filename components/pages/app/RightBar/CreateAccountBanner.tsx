@@ -8,23 +8,36 @@ export const CreateAccountBanner = () => {
 	const { t: translate } = useTranslation('banners');
 
 	return (
-		<InfosBanner height="39.313rem">
-			<Flex direction="column" px="4" pt="32">
-				<Flex direction="column" w="60" gap="2">
-					<Text fontWeight="medium" fontSize="md">
-						{translate('createAccount')}
-					</Text>
-					<Text fontSize="sm" fontWeight="normal" w="48">
-						{translate('unlock')}
-					</Text>
+		<InfosBanner
+			height="39.313rem"
+			position="absolute"
+			imgLink="/images/ondulated2.png"
+			bottom="-20"
+		>
+			<Flex w="full">
+				<Img src="/images/ondulated.png" w="full" />
+			</Flex>
+			<Flex position="absolute" top="0" w="full">
+				<Img src="/images/sparkles.png" w="full" />
+			</Flex>
+			<Flex direction="column" pl="4" pt="10" pr="10">
+				<Flex direction="column" gap="6">
+					<Flex direction="column" gap="2">
+						<Text fontWeight="medium" fontSize="md">
+							{translate('createAccount')}
+						</Text>
+						<Text fontSize="sm" fontWeight="normal">
+							{translate('unlock')}
+						</Text>
+					</Flex>
 					<Flex gap="6">
 						<OffsetShadow
 							borderColor="white"
 							position="absolute"
-							px="20"
-							left="1.5"
-							top="1.5"
-							buttonText="a"
+							px="5"
+							left="1"
+							top="1"
+							buttonText="create account now"
 						>
 							<Button
 								bg="white"
@@ -33,6 +46,7 @@ export const CreateAccountBanner = () => {
 								fontSize="sm"
 								boxSize="full"
 								py="1.5"
+								px="3"
 								alignItems="center"
 								gap="2"
 								_focus={{}}
