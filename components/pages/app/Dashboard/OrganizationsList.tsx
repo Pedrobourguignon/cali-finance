@@ -4,6 +4,8 @@ import React, { useState, useRef } from 'react';
 import { OrganizationCard, Paginator } from 'components';
 import { ITeamsList } from 'types';
 import { useOrganizations } from 'hooks';
+import useTranslation from 'next-translate/useTranslation';
+import style from '../../../../styles/companiesList.module.css';
 
 const teamList: ITeamsList[] = [
 	{
@@ -44,6 +46,7 @@ export const OrganizationsList = () => {
 	const { organizations } = useOrganizations();
 	const [actualPage, setActualPage] = useState(1);
 	const maxPage = teamList.length - 2;
+	const { t: translate } = useTranslation('dashboard');
 
 	const previousPage = () => {
 		setActualPage(actualPage - 1);
@@ -72,7 +75,7 @@ export const OrganizationsList = () => {
 					fontWeight="medium"
 					color="#121212"
 				>
-					Your Organizations
+					{translate('yourOrganizations')}
 				</Text>
 				<Paginator
 					actualPage={actualPage}
@@ -81,20 +84,20 @@ export const OrganizationsList = () => {
 					next={nextPage}
 				/>
 			</Flex>
-			<Box position="relative">
-				<Flex bg="transparent" ref={ref} flex="1">
-					<Slider
-						{...settings}
-						ref={sliderRef => setSlider(sliderRef)}
-						arrows={false}
-						className="slider"
-					>
-						{organizations.map((team, index) => (
-							<OrganizationCard key={+index} team={team} />
-						))}
-					</Slider>
-				</Flex>
-			</Box>
+			{/* <Box position="relative"> */}
+			<Flex bg="blue">
+				<Slider
+					{...settings}
+					ref={sliderRef => setSlider(sliderRef)}
+					arrows={false}
+					className={style.slider}
+				>
+					{organizations.map((team, index) => (
+						<OrganizationCard key={+index} team={team} />
+					))}
+				</Slider>
+			</Flex>
+			{/* </Box> */}
 		</Flex>
 	);
 };

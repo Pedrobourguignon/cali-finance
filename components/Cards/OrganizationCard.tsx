@@ -21,9 +21,16 @@ export const OrganizationCard: React.FC<IOrganizationCard> = ({ team }) => {
 			borderRadius="base"
 			direction="column"
 			gap={{ md: '1', lg: '2', xl: '4' }}
+			w={{
+				md: '8.288rem',
+				lg: '11.05rem',
+				xl: '13.813rem',
+				'2xl': '16.575rem',
+			}}
+			h="8.375rem"
 		>
 			<Flex direction="column" pt="2.5" pl="4" color={theme.text.primary}>
-				<Flex align="center" gap={{ lg: '1', xl: '2.5' }}>
+				<Flex align="center" gap={{ md: '1', xl: '2' }}>
 					{team.logo ? (
 						<Img src={team.logo} boxSize="6" borderRadius="base" />
 					) : (
@@ -39,11 +46,11 @@ export const OrganizationCard: React.FC<IOrganizationCard> = ({ team }) => {
 							{handleLogoImage(team.name)}
 						</Flex>
 					)}
-					<Text fontSize={{ md: 'sm', xl: 'md' }} fontWeight="bold">
+					<Text fontSize={{ md: 'xs', xl: 'md' }} fontWeight="bold">
 						{team.name}
 					</Text>
 				</Flex>
-				<Flex pt={{ lg: '1', xl: '3' }} justify="space-between">
+				<Flex pt={{ md: '1', xl: '3' }} justify="space-between" pr="6">
 					<Flex direction="column">
 						<Text fontSize={{ md: 'xs', xl: 'sm' }} color="gray.500">
 							{translate('funds')}
@@ -60,12 +67,12 @@ export const OrganizationCard: React.FC<IOrganizationCard> = ({ team }) => {
 					</Flex>
 				</Flex>
 			</Flex>
-			<Flex w="100%" align="center" justify="center" pb={{ lg: '2', xl: '4' }}>
+			<Flex w="100%" align="center" justify="center" pb={{ md: '2', xl: '4' }}>
 				<Link href={navigationPaths.dashboard.organizations.overview('1')}>
 					<Text
 						color={theme.branding.blue}
 						bg="none"
-						fontSize="xs"
+						fontSize={{ md: 'xs' }}
 						fontWeight="medium"
 						cursor="pointer"
 					>

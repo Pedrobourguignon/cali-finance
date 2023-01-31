@@ -87,8 +87,6 @@ export const Sidebar: React.FC = () => {
 		Router.push(`/${pathname}`, `/${pathname}`, { locale: lang });
 	};
 
-	console.log(isConnected);
-
 	return (
 		<>
 			<NetworkModal
@@ -133,6 +131,7 @@ export const Sidebar: React.FC = () => {
 						_hover={{ background: 'white' }}
 						_focus={{ background: 'white' }}
 						display={isConnected === true ? 'flex' : 'none'}
+						w={{ md: '6.188rem', lg: '8.25rem', xl: '10.313rem' }}
 					>
 						<Flex align="center" gap="2" px="4" w={{ md: '8rem', xl: '9rem' }}>
 							<Img
