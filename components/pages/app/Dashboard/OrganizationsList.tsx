@@ -84,20 +84,20 @@ export const OrganizationsList = () => {
 					next={nextPage}
 				/>
 			</Flex>
-			{/* <Box position="relative"> */}
-			<Flex bg="blue">
-				<Slider
-					{...settings}
-					ref={sliderRef => setSlider(sliderRef)}
-					arrows={false}
-					className={style.slider}
-				>
-					{organizations.map((team, index) => (
-						<OrganizationCard key={+index} team={team} />
-					))}
-				</Slider>
-			</Flex>
-			{/* </Box> */}
+			<Box position="relative">
+				<Flex w="46rem" display="block" bg="transparent">
+					<Slider
+						{...settings}
+						ref={sliderRef => setSlider(sliderRef)}
+						arrows={false}
+						className={style.slider}
+					>
+						{organizations.map((team, index) => (
+							<OrganizationCard key={+index} team={team} />
+						))}
+					</Slider>
+				</Flex>
+			</Box>
 		</Flex>
 	);
 };

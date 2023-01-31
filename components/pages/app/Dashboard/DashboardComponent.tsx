@@ -63,7 +63,7 @@ export const DashboardComponent: React.FC = () => {
 				<Flex direction="column" gap={{ md: '6', lg: '7', xl: '9' }}>
 					{/* {isConnected ? <OrganizationsList /> : <CreateOrganizationCard />} */}
 					{isConnected && (
-						<Flex justify="space-between" w="full" gap="8">
+						<Flex justify="space-between" w="full" gap="6">
 							<MyAssets />
 							<RecentActivitiesDashboard
 								recentActivitiesList={recentActivitiesList}
