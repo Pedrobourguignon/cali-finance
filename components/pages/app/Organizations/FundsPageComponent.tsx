@@ -62,7 +62,7 @@ export const FundsPageComponent = () => {
 
 	return (
 		<AppLayout right={<DepositOrWithdrawBanner />}>
-			<OrganizationWhiteBackground />
+			<Flex w="100%" bg="white" position="absolute" h="64" left="0" />
 			<Flex
 				color="black"
 				pt="6"
@@ -72,19 +72,22 @@ export const FundsPageComponent = () => {
 			>
 				<OrganizationsHeader company={selectedOrganization} />
 			</Flex>
-			<Flex
-				color={theme.text.primary}
-				px="6"
-				py="12"
-				direction="column"
-				gap="10"
-			>
+			<Flex color={theme.text.primary} py="12" direction="column" gap="10">
 				<Flex direction="column" gap="4">
 					<Flex fontWeight="medium" gap="1">
 						<Text>{translate('coins')}</Text>
 					</Flex>
 
-					<Grid gap="4" w="full" templateColumns="repeat(5, 1fr)">
+					<Grid
+						gap="4"
+						w="full"
+						templateColumns={{
+							md: 'repeat(4, 1fr)',
+							lg: 'repeat(4, 1fr)',
+							xl: 'repeat(5, 1fr)',
+							'2xl': 'repeat(6, 1fr)',
+						}}
+					>
 						{coinCard.map((coin, index) => (
 							<GridItem key={+index} w="max-content">
 								<CoinCard
