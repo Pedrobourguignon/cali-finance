@@ -4,7 +4,7 @@ import { AppLayout } from 'layouts';
 import React, { useRef } from 'react';
 import Slider from 'react-slick';
 
-const Teste = () => {
+const Test = () => {
 	const settings = {
 		dots: true,
 		infinite: false,
@@ -47,4 +47,4 @@ const Teste = () => {
 	);
 };
 
-export default Teste;
+export default Test;

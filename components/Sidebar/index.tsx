@@ -197,7 +197,7 @@ export const Sidebar: React.FC = () => {
 											<Icon
 												as={item.icon}
 												boxSize={{ md: '5', xl: '6' }}
-												ml={{ md: '2', lg: '4', xl: '6' }}
+												ml={{ md: '7', lg: '4', xl: '6' }}
 											/>
 											{item.option}
 										</>

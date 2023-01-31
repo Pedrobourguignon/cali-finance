@@ -15,13 +15,13 @@ export const RecentActivitiesDashboard: React.FC<
 			boxShadow="xl"
 			px="3"
 			bg="white"
-			minH={{ xl: '16.625rem' }}
+			h="max-content"
 			w="max-content"
 		>
 			<Flex justify="space-between" py="2" align="center">
 				<Flex>
 					<Text
-						fontSize={{ md: 'sm', lg: 'md' }}
+						fontSize={{ md: 'xs', lg: 'sm', xl: 'md' }}
 						fontWeight="medium"
 						color="black"
 					>
@@ -30,7 +30,7 @@ export const RecentActivitiesDashboard: React.FC<
 				</Flex>
 				<Link href={navigationPaths.dashboard.history}>
 					<Text
-						fontSize={{ md: 'xs', lg: 'sm' }}
+						fontSize={{ md: 'xs', xl: 'sm' }}
 						cursor="pointer"
 						color="gray.500"
 					>
