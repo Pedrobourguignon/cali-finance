@@ -18,7 +18,7 @@ import { ISelectedCoin } from 'types';
 const buttonOptions = ['Deposit', 'Withdraw'];
 
 export const DepositOrWithdrawCard = () => {
-	const { t: translate } = useTranslation('organization-overall');
+	const { t: translate } = useTranslation('company-overall');
 	const theme = usePicasso();
 	const { onClose, isOpen, onOpen } = useDisclosure();
 	const [selectedOption, setSelectedOption] = useState<string | undefined>(

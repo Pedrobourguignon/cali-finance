@@ -1,4 +1,4 @@
-import { IEmployee } from 'types/organizations';
+import { IEmployee } from 'types';
 
 export interface IEditEmployee {
 	employee: IEmployee;

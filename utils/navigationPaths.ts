@@ -9,15 +9,15 @@ export const navigationPaths = {
 		home: '/app',
 		editProfile: '/app/edit-profile',
 		history: '/app/history',
-		organizations: {
-			home: '/app/organizations',
-			createOrg: '/app/organizations/create',
-			overview: (companyId: string) => `/app/organizations/${companyId}`,
-			teams: (companyId: string) => `/app/organizations/${companyId}/teams`,
-			funds: (companyId: string) => `/app/organizations/${companyId}/funds`,
-			editOrg: (companyId: string) => `/app/organizations/${companyId}/edit`,
+		companies: {
+			home: '/app/companies',
+			createOrg: '/app/companies/create',
+			overview: (companyId: string) => `/app/companies/${companyId}`,
+			teams: (companyId: string) => `/app/companies/${companyId}/teams`,
+			funds: (companyId: string) => `/app/companies/${companyId}/funds`,
+			editOrg: (companyId: string) => `/app/companies/${companyId}/edit`,
 			team: (companyId: string, teamId: string) =>
-				`/app/organizations/${companyId}/teams/${teamId}`,
+				`/app/companies/${companyId}/teams/${teamId}`,
 		},
 	},
 };

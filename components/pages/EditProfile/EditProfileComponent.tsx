@@ -12,7 +12,6 @@ import { usePicasso } from 'hooks';
 import React, { useState } from 'react';
 import useTranslation from 'next-translate/useTranslation';
 import { ImageUploaderModal } from 'components';
-import { OrganizationWhiteBackground } from 'layouts';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 import { limitSpecialCharacterRegex, nameRegex } from 'utils';

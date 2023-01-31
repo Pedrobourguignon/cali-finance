@@ -27,7 +27,7 @@ export const WithdrawContent: React.FC<ISelectedCoin> = ({ coin, onOpen }) => {
 		<Flex direction="column" gap="4">
 			<Flex direction="column" gap="2">
 				<Text color="black" fontSize="sm">
-					{translate('organizations')}
+					{translate('companies')}
 				</Text>
 				<Select
 					borderWidth="1px"

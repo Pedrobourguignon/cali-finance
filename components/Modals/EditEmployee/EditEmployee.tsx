@@ -178,7 +178,7 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 									</Flex>
 									<Text fontSize="xs" color={theme.text.primary} pb="6">
 										Please note that you will have to deposit more 0.0002 BTC in
-										the organizations’ funds.
+										the companies’ funds.
 									</Text>
 								</Flex>
 								<Flex direction="column" gap="2" pb="6">

@@ -1,2 +1,2 @@
-export * from './OrganizationCard';
+export * from './CompanyCard';
 export * from './TeamsCard';

@@ -4,16 +4,12 @@ import {
 	MobileHeader,
 	DashboardRightBar,
 } from 'components';
-import {
-	OrganizationsProvider,
-	ProfileProvider,
-	TokensProvider,
-} from 'contexts';
+import { CompaniesProvider, ProfileProvider, TokensProvider } from 'contexts';
 import { AppLayout } from 'layouts';
 import React from 'react';
 
 export const DashboardContainer = () => (
-	<OrganizationsProvider>
+	<CompaniesProvider>
 		<TokensProvider>
 			<ProfileProvider>
 				<AppLayout right={<DashboardRightBar />}>
@@ -24,7 +20,7 @@ export const DashboardContainer = () => (
 				</AppLayout>
 			</ProfileProvider>
 		</TokensProvider>
-	</OrganizationsProvider>
+	</CompaniesProvider>
 );
 
 export default DashboardContainer;

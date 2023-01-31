@@ -11,7 +11,7 @@ interface ITeamsCard {
 
 export const TeamsCard: React.FC<ITeamsCard> = ({ team }) => {
 	const theme = usePicasso();
-	const { t: translate } = useTranslation('organization-overall');
+	const { t: translate } = useTranslation('company-overall');
 	return (
 		<Flex
 			borderColor={theme.bg.primary}
@@ -73,7 +73,7 @@ export const TeamsCard: React.FC<ITeamsCard> = ({ team }) => {
 				</Flex>
 			</Flex>
 			<Flex w="100%" align="center" justify="center" py="1" pb="3">
-				<Link href={navigationPaths.dashboard.organizations.team('1', '1')}>
+				<Link href={navigationPaths.dashboard.companies.team('1', '1')}>
 					<Flex
 						color={theme.text.black}
 						bg="white"
