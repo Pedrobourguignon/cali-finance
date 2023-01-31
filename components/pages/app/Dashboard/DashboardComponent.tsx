@@ -2,11 +2,11 @@ import { Flex, useDisclosure } from '@chakra-ui/react';
 import {
 	DashboardHeader,
 	Coins,
-	CreateOrganizationCard,
+	CreateCompanyCard,
 	RecentActivitiesDashboard,
 	MyAssets,
 	ErrorAlert,
-	OrganizationsList,
+	CompaniesList,
 	WithdrawModal,
 } from 'components';
 import React from 'react';
@@ -61,7 +61,7 @@ export const DashboardComponent: React.FC = () => {
 				<DashboardHeader />
 				<Coins />
 				<Flex direction="column" gap="9">
-					{isConnected ? <OrganizationsList /> : <CreateOrganizationCard />}
+					{isConnected ? <CompaniesList /> : <CreateCompanyCard />}
 					{isConnected && (
 						<Flex justify="space-between">
 							<MyAssets />

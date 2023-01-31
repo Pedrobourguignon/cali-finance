@@ -1,7 +1,7 @@
 import { Flex, Text } from '@chakra-ui/react';
 import {
 	DashboardHeader,
-	CreateOrganizationCard,
+	CreateCompanyCard,
 	SwapTokenBar,
 	CompaniesDashboardNoConnected,
 } from 'components';
@@ -19,7 +19,7 @@ export const CompaniesLayoutNoConnected: React.FC = () => {
 				<Text color={theme.text.primary} fontWeight="medium">
 					Your Companies
 				</Text>
-				<CreateOrganizationCard />
+				<CreateCompanyCard />
 			</Flex>
 		</AppLayout>
 	);

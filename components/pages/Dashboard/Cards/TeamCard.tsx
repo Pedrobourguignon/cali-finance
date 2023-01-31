@@ -1,5 +1,5 @@
 import { Button, Flex, Icon, Text } from '@chakra-ui/react';
-import { OrganizationCardIcon } from 'components';
+import { CompanyCardIcon } from 'components';
 import { usePicasso } from 'hooks';
 import React from 'react';
 import useTranslation from 'next-translate/useTranslation';
@@ -17,7 +17,7 @@ export const TeamCard: React.FC<ITeamCard> = ({ name, funds, members }) => {
 		<Flex boxShadow="lg" justify="center" bg="white" mr="2">
 			<Flex direction="column">
 				<Flex align="center" gap="2.5" py="2.5">
-					<Icon as={OrganizationCardIcon} boxSize="6" color="black" />
+					<Icon as={CompanyCardIcon} boxSize="6" color="black" />
 					<Text fontSize="md" fontWeight="bold" color="#121212">
 						{name}
 					</Text>

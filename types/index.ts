@@ -1,3 +1,4 @@
+export * from './companies';
 export * from './contexts';
 export * from './dashboard';
 export * from './history';
@@ -6,5 +7,4 @@ export * from './ICoin';
 export * from './INetwork';
 export * from './IProfile';
 export * from './modals';
-export * from './organizations';
 export * from './popover';
