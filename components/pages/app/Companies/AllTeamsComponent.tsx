@@ -9,7 +9,7 @@ import { useCompanies, usePicasso, useTeams } from 'hooks';
 import { AppLayout, CompanyWhiteBackground } from 'layouts';
 import { IEmployee } from 'types';
 
-const Allemployees: IEmployee[] = [
+const AllEmployees: IEmployee[] = [
 	{
 		name: 'Kim Kardashian',
 		wallet: '0x7E48CA2BD05EC61C2FA83CF34B066A8FF36B4CFE',
@@ -112,7 +112,7 @@ export const AllTeamsComponent: React.FC<IAllTeamsComponent> = ({
 					</Grid>
 				</Flex>
 
-				<EmployeesDashboard isGeneral employees={Allemployees} />
+				<EmployeesDashboard isGeneral employees={AllEmployees} />
 			</Flex>
 			<Flex px="6" pt="10">
 				{children}
