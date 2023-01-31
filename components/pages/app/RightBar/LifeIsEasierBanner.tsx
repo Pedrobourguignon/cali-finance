@@ -8,11 +8,11 @@ export const LifeIsEasierBanner = () => {
 		<InfosBanner
 			height="39.313rem"
 			position="absolute"
-			imgLink="/images/ondulate-background.png"
+			imgLink="/images/small-ondulated.png"
 			bottom="0"
 		>
 			<Flex w="full">
-				<Img src="/images/ondulated.png" w="full" />
+				<Img src="/images/top-ondulated.png" w="full" />
 			</Flex>
 			<Flex position="absolute" top="0" w="full">
 				<Img src="/images/sparkles.png" w="full" />

@@ -11,11 +11,11 @@ export const CreateAccountBanner = () => {
 		<InfosBanner
 			height="39.313rem"
 			position="absolute"
-			imgLink="/images/ondulated2.png"
+			imgLink="/images/big-ondulated.png"
 			bottom="-20"
 		>
 			<Flex w="full">
-				<Img src="/images/ondulated.png" w="full" />
+				<Img src="/images/top-ondulated.png" w="full" />
 			</Flex>
 			<Flex position="absolute" top="0" w="full">
 				<Img src="/images/sparkles.png" w="full" />

@@ -11,7 +11,7 @@ export const DepositOrWithdrawBanner = () => {
 	const theme = usePicasso();
 	return (
 		<Flex direction="column" gap="8">
-			<InfosBanner imgLink="/images/ondulate-background.png" bottom="0">
+			<InfosBanner imgLink="/images/small-ondulated.png" bottom="0">
 				<Flex
 					bg={theme.bg.black}
 					zIndex="docked"
