@@ -64,10 +64,14 @@ export const DashboardComponent: React.FC = () => {
 					{/* {isConnected ? <OrganizationsList /> : <CreateOrganizationCard />} */}
 					{isConnected && (
 						<Flex justify="space-between" w="full" gap="6">
-							<MyAssets />
-							<RecentActivitiesDashboard
-								recentActivitiesList={recentActivitiesList}
-							/>
+							<Flex w="full" flex="5.5">
+								<MyAssets />
+							</Flex>
+							<Flex w="100%" h="max-content" flex={{ md: '5.5', xl: '4.5' }}>
+								<RecentActivitiesDashboard
+									recentActivitiesList={recentActivitiesList}
+								/>
+							</Flex>
 						</Flex>
 					)}
 				</Flex>

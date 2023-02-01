@@ -16,6 +16,7 @@ export const ChangeNetworkButton: React.FC<IChangeNetworkButton> = ({
 		fontSize="sm"
 		variant="outline"
 		fontWeight="500"
+		h="max-content"
 		py="1.5"
 		px="4"
 		bg="transparent"
@@ -27,7 +28,7 @@ export const ChangeNetworkButton: React.FC<IChangeNetworkButton> = ({
 		gap="2"
 		w={{ md: '6.188rem', lg: '8.25rem', xl: '10.313rem' }}
 	>
-		<Img src={networkIcon} bg="transparent" boxSize="6" />
+		<Img src={networkIcon} bg="transparent" boxSize="4" />
 		<Text display={{ base: 'none', lg: 'flex' }}>{networkName}</Text>
 	</Button>
 );

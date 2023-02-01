@@ -22,7 +22,7 @@ export const NewCoinButton = () => {
 				px={{ md: '1', xl: '1' }}
 				py={{ md: '2', xl: '3' }}
 				fontSize={{
-					md: locale === 'pt-BR' ? 'xs' : 'sm',
+					md: locale === 'pt-BR' ? 'xs' : 'xs',
 					xl: locale === 'pt-BR' ? 'xs' : 'sm',
 				}}
 				color="black"

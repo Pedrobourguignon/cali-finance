@@ -60,7 +60,7 @@ export const EditProfileForm: FC = () => {
 	return (
 		<form onSubmit={handleSubmit(handleEditProfile)}>
 			<FormControl>
-				<Flex direction="column" gap="8" pt="7">
+				<Flex direction="column" gap="8" pt="7" bg="red">
 					<Flex direction="column" gap="2">
 						<Text {...labelStyle}>{translate('name')}</Text>
 						<Input

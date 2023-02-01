@@ -41,11 +41,15 @@ export const Coins = () => {
 			minH={{ md: '5rem', lg: '6.44rem' }}
 		>
 			<Flex direction="column" gap={{ md: '1', xl: '1.5' }}>
-				<Text fontSize={{ lg: 'sm', xl: 'md' }} fontWeight="500" lineHeight="6">
+				<Text
+					fontSize={{ md: 'xs', lg: 'sm', xl: 'md' }}
+					fontWeight="500"
+					lineHeight="6"
+				>
 					{translate('coins')}
 				</Text>
 				<Text
-					fontSize={{ md: 'xs', xl: 'sm' }}
+					fontSize={{ md: '2xs', xl: 'sm' }}
 					fontWeight="medium"
 					lineHeight="5"
 					whiteSpace="nowrap"
@@ -53,14 +57,19 @@ export const Coins = () => {
 					{translate('stayConnected')}
 				</Text>
 				<Text
-					fontSize={{ md: 'xs', xl: 'sm' }}
+					fontSize={{ md: '2xs', xl: 'sm' }}
 					fontWeight="normal"
 					lineHeight="5"
 				>
 					{translate('principalCoins')}
 				</Text>
 			</Flex>
-			<Flex w="full" justify="space-between" mx="4">
+			<Flex
+				justify="space-between"
+				mx="4"
+				flex="1"
+				gap={{ md: '2', '2xl': '4' }}
+			>
 				{coinCard.map((card, index) => (
 					<CoinCard
 						coin={card}

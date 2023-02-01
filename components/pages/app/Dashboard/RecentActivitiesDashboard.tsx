@@ -12,16 +12,16 @@ export const RecentActivitiesDashboard: React.FC<
 		<Flex
 			direction="column"
 			borderRadius="base"
-			boxShadow="xl"
+			boxShadow="base"
 			px="3"
 			bg="white"
 			h="max-content"
-			w="max-content"
+			w="full"
 		>
 			<Flex justify="space-between" py="2" align="center">
 				<Flex>
 					<Text
-						fontSize={{ md: 'xs', lg: 'sm', xl: 'md' }}
+						fontSize={{ md: 'sm', xl: 'md' }}
 						fontWeight="medium"
 						color="black"
 					>
@@ -41,14 +41,13 @@ export const RecentActivitiesDashboard: React.FC<
 			<Flex direction="column" gap="2" py="2">
 				{recentActivitiesList.map((activity, index) => (
 					<Flex
+						w="full"
 						key={+index}
-						justify="space-around"
+						justify="space-between"
 						bg="gray.50"
 						color="white"
-						w="max-content"
 						borderRadius="base"
 						align="center"
-						gap={{ xl: '14', '2xl': '32' }}
 					>
 						<Flex gap={{ md: '2.5', '2xl': '4' }} align="center" p="0.5">
 							<Img src="/icons/deposit.svg" boxSize="7" pl="3" />
@@ -60,7 +59,7 @@ export const RecentActivitiesDashboard: React.FC<
 								>
 									{activity.type}
 								</Text>
-								<Text color="gray.500" fontSize="xs">
+								<Text color="gray.500" fontSize="xs" whiteSpace="nowrap">
 									{activity.date}
 								</Text>
 							</Flex>
@@ -75,7 +74,7 @@ export const RecentActivitiesDashboard: React.FC<
 							<Text fontSize="xs" color="black">
 								{activity.value}
 							</Text>
-							<Text fontSize="xs" color="green.400">
+							<Text fontSize="xs" color="green.400" whiteSpace="nowrap">
 								{activity.status}
 							</Text>
 						</Flex>
