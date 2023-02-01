@@ -13,7 +13,14 @@ interface IPaginatorProps extends ButtonProps {
 }
 
 const PaginatorButton: FC<IPaginatorProps> = ({ children, ...props }) => (
-	<Button boxSize="7" border="1px solid" bg="white" {...props} color="#121212">
+	<Button
+		border="1px solid"
+		bg="white"
+		{...props}
+		color="#121212"
+		size="xs"
+		boxSize="6"
+	>
 		{children}
 	</Button>
 );
@@ -43,7 +50,7 @@ export const Paginator: FC<IPaginatorProps> = ({
 				h="max-content"
 				fontWeight="medium"
 				color={theme.text.primary}
-				fontSize={{ md: 'md', lg: 'lg' }}
+				fontSize={{ md: 'xs', '2xl': 'lg' }}
 			>
 				{`${actualPage} ${translate('of')} ${maxPage}`}
 			</Text>

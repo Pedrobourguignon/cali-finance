@@ -73,7 +73,7 @@ export const HistoryComponent: React.FC<IHistoryPage> = ({ history }) => {
 			right={isConnected ? <LifeIsEasierBanner /> : <CreateAccountBanner />}
 		>
 			<Flex direction="column" gap="5" pt="6">
-				<Flex direction="column" gap="2">
+				<Flex direction="column" gap="4">
 					<Flex align="center" justify="space-between">
 						<Text
 							fontSize={{ xl: 'md', '2xl': 'lg' }}
@@ -97,7 +97,6 @@ export const HistoryComponent: React.FC<IHistoryPage> = ({ history }) => {
 								_hover={{}}
 								_active={{}}
 								_focus={{}}
-								borderBottomRadius="none"
 							>
 								{!isConnected ? translate('all') : selectedFilterOption}
 							</MenuButton>
