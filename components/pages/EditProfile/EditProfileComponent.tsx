@@ -133,7 +133,7 @@ export const EditProfileComponent = () => {
 										placeholder={translate('insertHere')}
 										_placeholder={{
 											color: 'blackAlpha.500',
-											fontSize: { xl: 'sm' },
+											fontSize: 'sm',
 										}}
 										bgColor="white"
 										_hover={{}}
@@ -153,7 +153,7 @@ export const EditProfileComponent = () => {
 										placeholder={translate('exampleEmail')}
 										_placeholder={{
 											color: 'blackAlpha.500',
-											fontSize: { xl: 'sm' },
+											fontSize: 'sm',
 										}}
 										bgColor="white"
 										_hover={{}}
