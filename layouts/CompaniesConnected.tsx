@@ -16,7 +16,7 @@ export const CompaniesConnected: React.FC = () => {
 
 	return (
 		<AppLayout right={<SwapTokenBar />}>
-			<Flex direction="column" gap="4" py="6" w="100%">
+			<Flex direction="column" gap="8" py="6" w="100%">
 				<DashboardHeader />
 				<CompaniesDashboard
 					members={totalMembers}

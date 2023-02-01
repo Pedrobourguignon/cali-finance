@@ -3,29 +3,39 @@ import React from 'react';
 import { IRecentActivitiesComponent } from 'types';
 import useTranslation from 'next-translate/useTranslation';
 import { navigationPaths } from 'utils';
+import { usePicasso } from 'hooks';
 
 export const RecentActivitiesDashboard: React.FC<
 	IRecentActivitiesComponent
 > = ({ recentActivitiesList }) => {
 	const { t: translate } = useTranslation('dashboard');
+	const theme = usePicasso();
 	return (
 		<Flex
 			direction="column"
 			borderRadius="base"
-			gap="2"
-			boxShadow="xl"
+			boxShadow="base"
 			px="3"
 			bg="white"
 			h="max-content"
+			w="full"
 		>
-			<Flex justify="space-between" py="2">
+			<Flex justify="space-between" py="2" align="center">
 				<Flex>
-					<Text fontSize="md" fontWeight="medium" color="black">
+					<Text
+						fontSize={{ md: 'sm', xl: 'md' }}
+						fontWeight="medium"
+						color={theme.text.primary}
+					>
 						{translate('recentActivities')}
 					</Text>
 				</Flex>
 				<Link href={navigationPaths.dashboard.history}>
-					<Text fontSize="sm" cursor="pointer" color="gray.500">
+					<Text
+						fontSize={{ md: 'xs', xl: 'sm' }}
+						cursor="pointer"
+						color="gray.500"
+					>
 						{translate('seeAll')}
 					</Text>
 				</Link>
@@ -33,35 +43,42 @@ export const RecentActivitiesDashboard: React.FC<
 			<Flex direction="column" gap="2" py="2">
 				{recentActivitiesList.map((activity, index) => (
 					<Flex
+						w="full"
 						key={+index}
 						justify="space-between"
 						bg="gray.50"
 						color="white"
-						px="4"
-						w="max-content"
-						h="max-content"
 						borderRadius="base"
 						align="center"
 					>
-						<Flex gap="2" align="center" p="0.5">
-							<Img src="/icons/deposit.svg" boxSize="4" />
+						<Flex gap={{ md: '2.5', '2xl': '4' }} align="center" p="0.5">
+							<Img src="/icons/deposit.svg" boxSize="7" pl="3" />
 							<Flex direction="column" justify="center">
-								<Text color="black" fontSize="sm" fontWeight="normal">
+								<Text
+									color={theme.text.primary}
+									fontSize={{ md: 'xs', lg: 'sm' }}
+									fontWeight="normal"
+								>
 									{activity.type}
 								</Text>
-								<Text color="gray.500" fontSize="xs">
+								<Text color="gray.500" fontSize="xs" whiteSpace="nowrap">
 									{activity.date}
 								</Text>
 							</Flex>
-							<Flex px="6" />
-							<Flex direction="column" align="flex-end" fontSize="sm" p="0.5">
-								<Text fontSize="xs" color="black">
-									{activity.value}
-								</Text>
-								<Text fontSize="xs" color="green.400">
-									{activity.status}
-								</Text>
-							</Flex>
+						</Flex>
+						<Flex
+							direction="column"
+							align="flex-end"
+							fontSize={{ md: 'xs', lg: 'sm' }}
+							p="0.5"
+							pr="2"
+						>
+							<Text fontSize="xs" color={theme.text.primary}>
+								{activity.value}
+							</Text>
+							<Text fontSize="xs" color="green.400" whiteSpace="nowrap">
+								{activity.status}
+							</Text>
 						</Flex>
 					</Flex>
 				))}

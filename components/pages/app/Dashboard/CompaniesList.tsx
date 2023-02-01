@@ -1,16 +1,10 @@
 import { Box, Flex, Text } from '@chakra-ui/react';
 import Slider from 'react-slick';
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { CompanyCard, Paginator } from 'components';
 import { ITeamsList } from 'types';
-import { useCompanies } from 'hooks';
-
-const settings = {
-	infinite: false,
-	speed: 500,
-	slidesToShow: 3,
-	slidesToScroll: 1,
-};
+import { useCompanies, usePicasso } from 'hooks';
+import useTranslation from 'next-translate/useTranslation';
 
 const teamList: ITeamsList[] = [
 	{
@@ -46,10 +40,12 @@ const teamList: ITeamsList[] = [
 ];
 
 export const CompaniesList = () => {
+	const ref = useRef<HTMLDivElement>(null);
 	const [slider, setSlider] = React.useState<Slider | null>(null);
 	const { companies } = useCompanies();
 	const [actualPage, setActualPage] = useState(1);
 	const maxPage = teamList.length - 2;
+	const theme = usePicasso();
 
 	const previousPage = () => {
 		setActualPage(actualPage - 1);
@@ -61,10 +57,23 @@ export const CompaniesList = () => {
 		slider?.slickNext();
 	};
 
+	const settings = {
+		infinite: false,
+		speed: 500,
+		slidesToShow: ref.current?.clientWidth === 1008 ? 4 : 3,
+		slidesToScroll: 1,
+	};
+
+	console.log(ref.current?.clientWidth);
+
 	return (
-		<Flex direction="column" gap="3">
+		<Flex direction="column" gap={{ md: '2', xl: '3' }}>
 			<Flex justify="space-between" align="center" pt="4">
-				<Text fontSize="16" fontWeight="medium" color="#121212">
+				<Text
+					fontSize={{ md: 'sm', xl: 'md' }}
+					fontWeight="medium"
+					color={theme.text.primary}
+				>
 					Your Companies
 				</Text>
 				<Paginator
