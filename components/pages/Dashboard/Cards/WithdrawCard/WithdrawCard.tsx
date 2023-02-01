@@ -19,14 +19,18 @@ export const WithdrawCard = () => {
 			bg="white"
 			direction="column"
 			p="6"
-			gap="6"
+			gap="4"
 			borderRadius="base"
 			borderWidth="0.1rem"
 			borderColor={theme.bg.primary}
 		>
 			<TokenSelector isOpen={isOpen} onClose={onClose} setToken={setToken} />
 			<Flex w="100%" justify="space-between" align="center">
-				<Text color={theme.text.black} fontWeight="semibold" fontSize="xl">
+				<Text
+					color={theme.text.black}
+					fontWeight="semibold"
+					fontSize={{ lg: 'lg', xl: 'xl' }}
+				>
 					$ {translate('withdraw')}
 				</Text>
 			</Flex>

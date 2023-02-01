@@ -123,16 +123,18 @@ export const Sidebar: React.FC = () => {
 					{isConnected === false && <ConnectWalletButton />}
 					<Flex
 						h="max-content"
-						py="2"
+						py="1"
+						justify="center"
 						fontSize="sm"
-						color="black"
+						color={theme.text.primary}
 						borderRadius="base"
 						bg="white"
 						_hover={{ background: 'white' }}
 						_focus={{ background: 'white' }}
 						display={isConnected === true ? 'flex' : 'none'}
+						w={{ md: '6.188rem', lg: '8.25rem', xl: '10.313rem' }}
 					>
-						<Flex align="center" gap="2" px="4" w={{ md: '8rem', xl: '9rem' }}>
+						<Flex align="center" gap="2" w={{ md: '8rem', xl: '9rem' }}>
 							<Img
 								src={userProfile?.picture}
 								borderRadius="full"
@@ -153,7 +155,13 @@ export const Sidebar: React.FC = () => {
 						/>
 					)}
 				</Flex>
-				<Flex direction="column" gap="7" w="full" pb="36" pt="12">
+				<Flex
+					direction="column"
+					gap="6"
+					w="full"
+					pb="36"
+					pt={isConnected === false ? '20' : '6'}
+				>
 					{menuOptions.map((item, index) => {
 						const comparedPath = isSamePath(item.route);
 						return (
@@ -196,7 +204,7 @@ export const Sidebar: React.FC = () => {
 											<Icon
 												as={item.icon}
 												boxSize={{ md: '5', xl: '6' }}
-												ml={{ md: '2', lg: '4', xl: '6' }}
+												ml={{ md: '7', lg: '4', xl: '6' }}
 											/>
 											{item.option}
 										</>

@@ -20,7 +20,6 @@ export const InfosBanner: React.FC<IInfos> = ({
 			direction="column"
 			position="relative"
 			borderRadius="base"
-			h="max-content"
 			{...props}
 			w="100%"
 		>

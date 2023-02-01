@@ -15,20 +15,19 @@ export const Asset: React.FC<IAsset> = ({ assetsOptions }) => {
 			bg={theme.bg.primary}
 			color="white"
 			px="4"
-			w="21.5rem"
 			borderRadius="base"
 		>
 			<Flex gap="2" align="center" p="0.5">
-				<Img src="/icons/usdc.svg" boxSize="6" />
-				<Flex direction="column" justify="center" fontSize="sm">
-					<Text fontSize="sm">{assetsOptions.name}</Text>
+				<Img src="/icons/usdc.svg" boxSize={{ lg: '5', xl: '6' }} />
+				<Flex direction="column" justify="center">
+					<Text fontSize={{ md: 'xs', lg: 'sm' }}>{assetsOptions.name}</Text>
 					<Text fontSize="xs" color="gray.400">
 						{assetsOptions.initials}
 					</Text>
 				</Flex>
 			</Flex>
 			<Flex direction="column" align="flex-end" p="0.5">
-				<Text fontSize="sm">{assetsOptions.units}</Text>
+				<Text fontSize={{ md: 'xs', lg: 'sm' }}>{assetsOptions.units}</Text>
 				<Text fontSize="xs" color="gray.400">
 					$ {assetsOptions.value.toLocaleString('en-US')}
 				</Text>

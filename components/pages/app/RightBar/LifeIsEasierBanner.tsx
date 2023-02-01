@@ -6,7 +6,7 @@ export const LifeIsEasierBanner = () => {
 	const theme = usePicasso();
 	return (
 		<InfosBanner
-			height="39.313rem"
+			height="100%"
 			position="absolute"
 			imgLink="/images/big-ondulated.png"
 			bottom="0"
@@ -17,7 +17,7 @@ export const LifeIsEasierBanner = () => {
 			<Flex position="absolute" top="0" w="full">
 				<Img src="/images/sparkles.png" w="full" />
 			</Flex>
-			<Flex direction="column" px="4" pt="10">
+			<Flex direction="column" px="4" pt="10" position="relative">
 				<LifeIsEasier />
 			</Flex>
 		</InfosBanner>

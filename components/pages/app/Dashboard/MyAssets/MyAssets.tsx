@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { Button, Flex, Text } from '@chakra-ui/react';
 import { Asset, OffsetShadow } from 'components';
 import { usePicasso } from 'hooks';
@@ -64,7 +65,7 @@ export const MyAssets = () => {
 	const totalAssetsValue = useMemo(
 		() =>
 			assetsOptions.reduce((totalValue, asset) => totalValue + asset.value, 0),
-		[assetsOptions]
+		[]
 	);
 
 	useEffect(() => {
@@ -88,11 +89,11 @@ export const MyAssets = () => {
 
 	return (
 		<OffsetShadow
-			width="23.5rem"
+			width="full"
 			height={flexHeight}
 			borderColor={theme.bg.primary}
-			top="3"
-			left="3"
+			top="2"
+			left="2"
 		>
 			<Flex
 				position="relative"
@@ -102,28 +103,33 @@ export const MyAssets = () => {
 				borderColor={theme.bg.primary}
 				h="max-content"
 				ref={ref}
+				w="full"
 			>
 				<Flex direction="column" bg="white" boxSize="full" borderRadius="base">
 					<Flex justify="space-between" px="4" py="2" align="start">
 						<Flex direction="column">
 							<Text
-								fontSize="md"
+								fontSize={{ md: 'sm', xl: 'md' }}
 								fontWeight="medium"
 								color={theme.text.primary}
 							>
 								{translate('myAssets')}
 							</Text>
-							<Text fontSize="sm" color={theme.text.primary}>
+							<Text
+								fontSize={{ md: 'xs', lg: 'sm' }}
+								color={theme.text.primary}
+							>
 								${totalAssetsValue.toLocaleString()}
 							</Text>
 						</Flex>
 						<Button
 							fontWeight="normal"
-							fontSize="sm"
+							fontSize="xs"
 							cursor="pointer"
 							color="gray.500"
 							h="0"
 							py="3"
+							pr="0"
 							onClick={() => fullList()}
 						>
 							{myAssetsFullList.buttonText}

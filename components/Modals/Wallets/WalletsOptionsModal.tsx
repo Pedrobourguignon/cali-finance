@@ -64,13 +64,13 @@ export const WalletsOptionsModal: React.FC<IWalletOptionsModal> = ({
 			<ModalContent
 				m="auto"
 				bg="white"
-				w="full"
+				w={{ md: '16.9rem', xl: '21.125rem' }}
 				h="min-content"
 				borderRadius="base"
 			>
 				<OffsetShadow
-					width="full"
-					height="410px"
+					width={{ md: '16.9rem', xl: '21.125rem' }}
+					height={{ md: '21.6rem', xl: '27rem' }}
 					buttonText="Connect to a Wallet"
 					top="2"
 					left="2"
@@ -82,16 +82,20 @@ export const WalletsOptionsModal: React.FC<IWalletOptionsModal> = ({
 						w="full"
 					>
 						<ModalHeader
-							py="6"
+							py={{ md: '4', xl: '6' }}
 							bg={theme.bg.modal}
 							borderRadius="base"
 							display="flex"
 							w="full"
 						>
-							<Text fontSize="lg" fontStyle="semi-bold" color={theme.text.mono}>
+							<Text
+								fontSize={{ md: 'md', xl: 'lg' }}
+								fontStyle="semi-bold"
+								color={theme.text.mono}
+							>
 								{translate('connectWalletModal')}
 							</Text>
-							<ModalCloseButton color="gray.400" py="7" />
+							<ModalCloseButton color="gray.400" py={{ md: '5', xl: '7' }} />
 						</ModalHeader>
 						<ModalBody
 							display="flex"
@@ -99,6 +103,7 @@ export const WalletsOptionsModal: React.FC<IWalletOptionsModal> = ({
 							gap="2"
 							py="0"
 							px="6"
+							w={{ md: '16.9rem', xl: '21.125rem' }}
 						>
 							{walletsOptions.map((wallet, index) => (
 								<Flex
@@ -119,29 +124,40 @@ export const WalletsOptionsModal: React.FC<IWalletOptionsModal> = ({
 									color={theme.text.mono}
 									transition="all 0.1s ease-in-out"
 									borderRadius="base"
+									px="4"
+									w="full"
 								>
-									<Button bg="transparent" fontWeight="medium" _hover={{}}>
+									<Button
+										p="0"
+										py={{ md: '2.5', xl: '4' }}
+										h="max-content"
+										bg="transparent"
+										fontWeight="medium"
+										_hover={{}}
+										fontSize={{ md: 'xs', xl: 'sm' }}
+									>
 										{wallet.name}
 									</Button>
-									<Img src={wallet.icon} boxSize="6" mr="3" />
+									<Img src={wallet.icon} boxSize={{ md: '4', xl: '6' }} />
 								</Flex>
 							))}
 							<Flex
 								direction="column"
 								align="center"
 								color={theme.text.mono}
-								py="6"
+								py={{ md: '2' }}
 							>
-								<Text>{translate('accept')}</Text>
-
+								<Text fontSize={{ md: '2xs', xl: 'sm' }} whiteSpace="nowrap">
+									{translate('accept')}
+								</Text>
 								<Link href={navigationPaths.termsAndConditions}>
-									<Text fontWeight="bold" cursor="pointer">
-										<Text as="span" textDecor="underline">
-											{translate('terms')}
-										</Text>
-										<Text as="span" textDecor="none">
-											.
-										</Text>
+									<Text
+										as="span"
+										textDecor="underline"
+										fontSize={{ md: '2xs', xl: 'sm' }}
+										fontWeight="bold"
+									>
+										{translate('terms')}
 									</Text>
 								</Link>
 							</Flex>

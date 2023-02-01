@@ -44,7 +44,7 @@ export const EditProfileComponent = () => {
 	});
 
 	const labelStyle: TextProps = {
-		color: 'black',
+		color: theme.text.primary,
 		fontSize: 'sm',
 		fontWeight: 'medium',
 	};
@@ -125,48 +125,51 @@ export const EditProfileComponent = () => {
 				<form onSubmit={handleSubmit(handleEditProfile)}>
 					<FormControl>
 						<Flex direction="column" gap="8" maxW="80">
-							<Flex direction="column" gap="2">
-								<Text {...labelStyle}>{translate('name')}</Text>
-								<Input
-									borderRadius="base"
-									placeholder={translate('insertHere')}
-									_placeholder={{
-										color: 'blackAlpha.500',
-										fontSize: { xl: 'sm' },
-									}}
-									bgColor="white"
-									_hover={{}}
-									borderColor={theme.bg.primary}
-									{...register('name')}
-									color="black"
-									h="max-content"
-									py="1"
-								/>
-								<Text fontSize="xs" color="red">
-									{errors.name?.message}
-								</Text>
+							<Flex direction="column" gap="6">
+								<Flex direction="column" gap="2">
+									<Text {...labelStyle}>{translate('name')}</Text>
+									<Input
+										borderRadius="base"
+										placeholder={translate('insertHere')}
+										_placeholder={{
+											color: 'blackAlpha.500',
+											fontSize: 'sm',
+										}}
+										bgColor="white"
+										_hover={{}}
+										borderColor={theme.bg.primary}
+										{...register('name')}
+										color="black"
+										h="max-content"
+										py="1"
+									/>
+									<Text fontSize="xs" color="red">
+										{errors.name?.message}
+									</Text>
+								</Flex>
+								<Flex direction="column" gap="2">
+									<Text {...labelStyle}>{translate('yourBestEmail')}</Text>
+									<Input
+										placeholder={translate('exampleEmail')}
+										_placeholder={{
+											color: 'blackAlpha.500',
+											fontSize: 'sm',
+										}}
+										bgColor="white"
+										_hover={{}}
+										color="black"
+										borderColor={theme.bg.primary}
+										h="max-content"
+										py="1"
+										borderRadius="base"
+										{...register('email')}
+									/>
+									<Text fontSize="xs" color="red">
+										{errors.email?.message}
+									</Text>
+								</Flex>
 							</Flex>
-							<Flex direction="column" gap="2">
-								<Text {...labelStyle}>{translate('yourBestEmail')}</Text>
-								<Input
-									placeholder={translate('exampleEmail')}
-									_placeholder={{
-										color: 'blackAlpha.500',
-										fontSize: { xl: 'sm' },
-									}}
-									bgColor="white"
-									_hover={{}}
-									color="black"
-									borderColor={theme.bg.primary}
-									h="max-content"
-									py="1"
-									borderRadius="base"
-									{...register('email')}
-								/>
-								<Text fontSize="xs" color="red">
-									{errors.email?.message}
-								</Text>
-							</Flex>
+
 							<Button
 								type="submit"
 								px={{ md: '28', '2xl': '36' }}
