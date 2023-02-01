@@ -15,7 +15,6 @@ export const OffsetButton: React.FC<IOffsetButton> = ({
 	icon,
 }) => {
 	const theme = usePicasso();
-	const { locale } = useRouter();
 
 	const handleClick = () => {
 		Router.push(route);
@@ -30,7 +29,7 @@ export const OffsetButton: React.FC<IOffsetButton> = ({
 		>
 			<Button
 				onClick={handleClick}
-				px={locale === 'pt-BR' ? 4 : 3}
+				px="3"
 				position="absolute"
 				bg="white"
 				bottom="0.25rem"

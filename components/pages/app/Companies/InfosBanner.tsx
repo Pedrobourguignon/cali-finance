@@ -25,14 +25,10 @@ export const InfosBanner: React.FC<IInfos> = ({
 			w="100%"
 		>
 			{children}
+			<Flex position="absolute" bottom="0" w="full" zIndex="docked">
+				<Img src="/images/illustration.png" w="full" />
+			</Flex>
 
-			<Img
-				position="absolute"
-				bottom="0"
-				src="/images/illustration.png"
-				w="full"
-				zIndex="docked"
-			/>
 			<Flex bottom={bottom} position={position} w="full">
 				<Img src={imgLink} w="full" />
 			</Flex>
