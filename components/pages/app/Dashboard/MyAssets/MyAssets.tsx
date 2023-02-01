@@ -90,8 +90,7 @@ export const MyAssets = () => {
 	return (
 		<OffsetShadow
 			width="full"
-			// height={flexHeight}
-			height={{ md: '13.5rem', lg: '14.3rem', xl: '14.5rem' }}
+			height={flexHeight}
 			borderColor={theme.bg.primary}
 			top="2"
 			left="2"
