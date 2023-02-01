@@ -12,18 +12,21 @@ interface IPaginatorProps extends ButtonProps {
 	maxPage: number;
 }
 
-const PaginatorButton: FC<IPaginatorProps> = ({ children, ...props }) => (
-	<Button
-		border="1px solid"
-		bg="white"
-		{...props}
-		color="#121212"
-		size="xs"
-		boxSize="6"
-	>
-		{children}
-	</Button>
-);
+const PaginatorButton: FC<IPaginatorProps> = ({ children, ...props }) => {
+	const theme = usePicasso();
+	return (
+		<Button
+			border="1px solid"
+			bg="white"
+			{...props}
+			color={theme.text.primary}
+			size="xs"
+			boxSize="6"
+		>
+			{children}
+		</Button>
+	);
+};
 
 export const Paginator: FC<IPaginatorProps> = ({
 	actualPage,
