@@ -19,8 +19,8 @@ export const CoinCard: React.FC<ICoinCard> = ({ coin, borderColor, color }) => {
 			borderColor={borderColor}
 			_hover={{ boxShadow: 'xl' }}
 			pl={{ md: '2', xl: '3', '2xl': '5' }}
-			pt={{ md: '2' }}
-			pb={{ md: '1.5' }}
+			pt="2"
+			pb="1.5"
 			transition="all 0.1s ease-in-out"
 			w="full"
 		>

@@ -1,3 +1,3 @@
 export * from './CoinCard';
-export * from './CreateOrganizationCard';
+export * from './CreateCompanyCard';
 export * from './HaveProblemCard';

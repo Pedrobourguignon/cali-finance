@@ -5,4 +5,4 @@ export * from './ErrorAlert';
 export * from './MyAssets';
 export * from './RecentActivitiesDashboard';
 export * from './SwapToken';
-export * from './OrganizationsList';
+export * from './CompaniesList';

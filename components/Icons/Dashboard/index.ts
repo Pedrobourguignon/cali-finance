@@ -1,1 +1,1 @@
-export * from './OrganizationCardIcon';
+export * from './CompanyCardIcon';

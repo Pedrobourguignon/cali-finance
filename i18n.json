@@ -13,9 +13,9 @@
 			"sidebar",
 			"dashboard",
 			"banners",
-			"organizations",
-			"create-organization",
-			"organization-overall",
+			"companies",
+			"create-company",
+			"company-overall",
 			"create-team"
 		],
 		"/": ["home", "example"],
@@ -27,9 +27,9 @@
 			"history-page",
 			"edit-profile",
 			"banners",
-			"organizations",
-			"create-organization",
-			"organization-overall",
+			"companies",
+			"create-company",
+			"company-overall",
 			"create-team"
 		]
 	}

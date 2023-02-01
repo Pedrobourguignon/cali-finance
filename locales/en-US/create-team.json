@@ -17,7 +17,7 @@
 	"employeeWallet": "Employee's Wallet Address *",
 	"amountPerMonth": "Amount (per month) *",
 	"team": "Team *",
-	"byAdding": "By adding this wallet address to your organization you accept the ",
+	"byAdding": "By adding this wallet address to your company you accept the ",
 	"termsAndConditions": "Terms and Conditions.",
 	"teamPlaceholder": "Select or Insert name to Create Team",
 	"dragAndDrop": "Drag 'n' drop your .csv or Select and upload your .csv file.",

@@ -14,7 +14,7 @@ import { usePath, usePicasso, useProfile } from 'hooks';
 import Router, { useRouter } from 'next/router';
 import {
 	DashboardIcon,
-	OrganizationIcon,
+	CompanyIcon,
 	EditProfileIcon,
 	HistoryIcon,
 	ConnectWalletButton,
@@ -56,8 +56,8 @@ export const Sidebar: React.FC = () => {
 			option: translate('dashboard'),
 		},
 		{
-			icon: OrganizationIcon,
-			route: navigationPaths.dashboard.organizations.home,
+			icon: CompanyIcon,
+			route: navigationPaths.dashboard.companies.home,
 			option: translate('companies'),
 		},
 

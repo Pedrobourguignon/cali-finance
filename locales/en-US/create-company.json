@@ -1,0 +1,18 @@
+{
+	"backToCompanies": "Back to Companies",
+	"createCompany": "Create Company",
+	"editCompany": "Edit Company",
+	"companyName": "Company Name *",
+	"type": "Type *",
+	"pleaseSelect": "Please select",
+	"financial": "financial",
+	"corporativeEmail": "Corporative e-mail *",
+	"exampleEmail": "example@company.io",
+	"description": "Description",
+	"exampleDescription": "Hello Org is an company that...",
+	"network": "Network *",
+	"editLogoImage": "Edit logo image",
+	"website": "website.io",
+	"company": "company",
+	"saveChanges": "Save changes"
+}
