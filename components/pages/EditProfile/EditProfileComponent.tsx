@@ -44,7 +44,7 @@ export const EditProfileComponent = () => {
 	});
 
 	const labelStyle: TextProps = {
-		color: 'black',
+		color: theme.text.primary,
 		fontSize: 'sm',
 		fontWeight: 'medium',
 	};
