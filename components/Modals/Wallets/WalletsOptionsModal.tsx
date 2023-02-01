@@ -64,13 +64,13 @@ export const WalletsOptionsModal: React.FC<IWalletOptionsModal> = ({
 			<ModalContent
 				m="auto"
 				bg="white"
-				w={{ md: '16.9rem', xl: '21.125rem' }}
+				w="21.125rem"
 				h="min-content"
 				borderRadius="base"
 			>
 				<OffsetShadow
-					width={{ md: '16.9rem', xl: '21.125rem' }}
-					height={{ md: '21.6rem', xl: '27rem' }}
+					width="21.125rem"
+					height="27rem"
 					buttonText="Connect to a Wallet"
 					top="2"
 					left="2"
@@ -82,20 +82,16 @@ export const WalletsOptionsModal: React.FC<IWalletOptionsModal> = ({
 						w="full"
 					>
 						<ModalHeader
-							py={{ md: '4', xl: '6' }}
+							py="6"
 							bg={theme.bg.modal}
 							borderRadius="base"
 							display="flex"
 							w="full"
 						>
-							<Text
-								fontSize={{ md: 'md', xl: 'lg' }}
-								fontStyle="semi-bold"
-								color={theme.text.mono}
-							>
+							<Text fontSize="lg" fontStyle="semi-bold" color={theme.text.mono}>
 								{translate('connectWalletModal')}
 							</Text>
-							<ModalCloseButton color="gray.400" py={{ md: '5', xl: '7' }} />
+							<ModalCloseButton color="gray.400" py="7" />
 						</ModalHeader>
 						<ModalBody
 							display="flex"
@@ -103,7 +99,7 @@ export const WalletsOptionsModal: React.FC<IWalletOptionsModal> = ({
 							gap="2"
 							py="0"
 							px="6"
-							w={{ md: '16.9rem', xl: '21.125rem' }}
+							w="21.125rem"
 						>
 							{walletsOptions.map((wallet, index) => (
 								<Flex
@@ -129,32 +125,32 @@ export const WalletsOptionsModal: React.FC<IWalletOptionsModal> = ({
 								>
 									<Button
 										p="0"
-										py={{ md: '2.5', xl: '4' }}
+										py="4"
 										h="max-content"
 										bg="transparent"
 										fontWeight="medium"
 										_hover={{}}
-										fontSize={{ md: 'xs', xl: 'sm' }}
+										fontSize="sm"
 									>
 										{wallet.name}
 									</Button>
-									<Img src={wallet.icon} boxSize={{ md: '4', xl: '6' }} />
+									<Img src={wallet.icon} boxSize="6" />
 								</Flex>
 							))}
 							<Flex
 								direction="column"
 								align="center"
 								color={theme.text.mono}
-								py={{ md: '2' }}
+								py="2"
 							>
-								<Text fontSize={{ md: '2xs', xl: 'sm' }} whiteSpace="nowrap">
+								<Text fontSize="sm" whiteSpace="nowrap">
 									{translate('accept')}
 								</Text>
 								<Link href={navigationPaths.termsAndConditions}>
 									<Text
 										as="span"
 										textDecor="underline"
-										fontSize={{ md: '2xs', xl: 'sm' }}
+										fontSize="sm"
 										fontWeight="bold"
 									>
 										{translate('terms')}
