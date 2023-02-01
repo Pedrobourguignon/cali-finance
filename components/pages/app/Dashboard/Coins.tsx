@@ -43,7 +43,7 @@ export const Coins = () => {
 			<Flex direction="column" gap={{ md: '1', xl: '1.5' }}>
 				<Text
 					fontSize={{ md: 'xs', lg: 'sm', xl: 'md' }}
-					fontWeight="500"
+					fontWeight="medium"
 					lineHeight="6"
 				>
 					{translate('coins')}

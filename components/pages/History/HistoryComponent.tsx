@@ -138,12 +138,7 @@ export const HistoryComponent: React.FC<IHistoryPage> = ({ history }) => {
 							Please connect your wallet to be able to view your history.
 						</Text>
 						<HistorySkeletons display={shouldntDisplay} />
-						<Flex
-							direction="column"
-							gap="2"
-							display={shouldDisplay}
-							color="black"
-						>
+						<Flex direction="column" gap="2" display={shouldDisplay}>
 							<DisplayedNotifications
 								notificationPerPage={notificationPerPage}
 								pagesVisited={pagesVisited}

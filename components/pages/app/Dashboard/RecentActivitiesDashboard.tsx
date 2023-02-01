@@ -3,11 +3,13 @@ import React from 'react';
 import { IRecentActivitiesComponent } from 'types';
 import useTranslation from 'next-translate/useTranslation';
 import { navigationPaths } from 'utils';
+import { usePicasso } from 'hooks';
 
 export const RecentActivitiesDashboard: React.FC<
 	IRecentActivitiesComponent
 > = ({ recentActivitiesList }) => {
 	const { t: translate } = useTranslation('dashboard');
+	const theme = usePicasso();
 	return (
 		<Flex
 			direction="column"
@@ -23,7 +25,7 @@ export const RecentActivitiesDashboard: React.FC<
 					<Text
 						fontSize={{ md: 'sm', xl: 'md' }}
 						fontWeight="medium"
-						color="black"
+						color={theme.text.primary}
 					>
 						{translate('recentActivities')}
 					</Text>
@@ -53,7 +55,7 @@ export const RecentActivitiesDashboard: React.FC<
 							<Img src="/icons/deposit.svg" boxSize="7" pl="3" />
 							<Flex direction="column" justify="center">
 								<Text
-									color="black"
+									color={theme.text.primary}
 									fontSize={{ md: 'xs', lg: 'sm' }}
 									fontWeight="normal"
 								>
@@ -71,7 +73,7 @@ export const RecentActivitiesDashboard: React.FC<
 							p="0.5"
 							pr="2"
 						>
-							<Text fontSize="xs" color="black">
+							<Text fontSize="xs" color={theme.text.primary}>
 								{activity.value}
 							</Text>
 							<Text fontSize="xs" color="green.400" whiteSpace="nowrap">

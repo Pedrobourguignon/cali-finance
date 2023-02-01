@@ -28,15 +28,15 @@ export const CoinCard: React.FC<ICoinCard> = ({ coin, borderColor, color }) => {
 				<Flex align="center" gap="2">
 					<Img src={coin.icon} boxSize={{ md: '5', xl: '6' }} />
 					<Flex direction="column">
-						<Text fontSize={{ md: '2xs' }} color={color}>
+						<Text fontSize="2xs" color={color}>
 							{coin.name}
 						</Text>
-						<Text fontSize={{ md: '2xs' }} color={color}>
+						<Text fontSize="2xs" color={color}>
 							{coin.value}
 						</Text>
 					</Flex>
 				</Flex>
-				<Text fontSize={{ md: '2xs' }} color={varianceColor()}>
+				<Text fontSize="2xs" color={varianceColor()}>
 					{coin.variation > 0 && '+'}
 					{coin.variation}%
 				</Text>

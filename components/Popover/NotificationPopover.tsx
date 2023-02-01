@@ -50,7 +50,7 @@ export const NotificationPopover: React.FC<INotificationPopover> = ({
 							fontSize={{ md: 'sm', xl: 'md' }}
 							fontWeight="medium"
 							px="1"
-							color="black"
+							color={theme.text.primary}
 						>
 							{notificationsList.length} pending notifications
 						</Text>
@@ -101,7 +101,7 @@ export const NotificationPopover: React.FC<INotificationPopover> = ({
 									<Img src={notification.icon} boxSize="4" />
 									<Flex direction="column" justify="center">
 										<Text
-											color="black"
+											color={theme.text.primary}
 											fontSize={{ md: 'xs', xl: 'sm' }}
 											fontWeight="normal"
 										>

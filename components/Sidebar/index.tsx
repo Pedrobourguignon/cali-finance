@@ -126,7 +126,7 @@ export const Sidebar: React.FC = () => {
 						py="1"
 						justify="center"
 						fontSize="sm"
-						color="black"
+						color={theme.text.primary}
 						borderRadius="base"
 						bg="white"
 						_hover={{ background: 'white' }}

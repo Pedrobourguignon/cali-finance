@@ -15,7 +15,7 @@ export const ChangeNetworkButton: React.FC<IChangeNetworkButton> = ({
 	<Button
 		fontSize="sm"
 		variant="outline"
-		fontWeight="500"
+		fontWeight="medium"
 		h="max-content"
 		py="1.5"
 		px="4"

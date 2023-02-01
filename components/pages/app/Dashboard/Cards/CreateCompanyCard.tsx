@@ -21,7 +21,7 @@ export const CreateCompanyCard = () => {
 			<Flex
 				align="center"
 				justify="space-between"
-				gap={{ xl: '5' }}
+				gap="5"
 				color={theme.text.mono}
 			>
 				<Icon
