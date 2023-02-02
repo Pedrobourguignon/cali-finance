@@ -40,7 +40,7 @@ export const DisplayedNotifications: React.FC<IDisplayedNotifications> = ({
 						<Icon as={notification.companyIcon} boxSize="6" />
 						<Text
 							fontSize="sm"
-							fontWeight="600"
+							fontWeight="semibold"
 							color={theme.text.primary}
 							whiteSpace="nowrap"
 						>
