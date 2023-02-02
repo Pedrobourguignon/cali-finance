@@ -5,7 +5,11 @@ import { ActiveTeamsCard, InfosBanner, LifeIsEasier } from 'components';
 export const ActiveTeamsBar = () => {
 	const theme = usePicasso();
 	return (
-		<InfosBanner>
+		<InfosBanner
+			ondulatedImg="/images/small-ondulated.png"
+			ilustrationImg="/images/illustration-small.png"
+			bottom="0"
+		>
 			<Flex
 				bg={theme.bg.black}
 				zIndex="docked"

@@ -22,17 +22,22 @@ export const WithdrawsBar = () => {
 		<Flex direction="column" position="relative">
 			<Flex
 				px="4"
-				py="2.5"
+				pt="2.5"
+				pb="5"
 				bg="white"
 				borderRadius="base"
 				h="100%"
 				direction="column"
 				gap="3"
 			>
-				<Text color="black" fontWeight="medium" fontSize="md">
-					{translate('withdrawals')}
-				</Text>
-				<CircularProgressBar percentage={withdrawnPercentage} />
+				<Flex direction="column">
+					<Text color="black" fontWeight="medium" fontSize="md">
+						{translate('withdrawals')}
+					</Text>
+					<Flex>
+						<CircularProgressBar percentage={withdrawnPercentage} />
+					</Flex>
+				</Flex>
 				<Flex zIndex="docked" justify="center">
 					{buttonOptions.map((item, index) => (
 						<Button
@@ -44,7 +49,7 @@ export const WithdrawsBar = () => {
 							w="20"
 							fontSize="xs"
 							fontWeight="bold"
-							h="6"
+							h="4"
 							_hover={{}}
 							_active={{}}
 							_focus={{}}

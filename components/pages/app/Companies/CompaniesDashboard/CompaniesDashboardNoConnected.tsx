@@ -11,7 +11,6 @@ export const CompaniesDashboardNoConnected = () => {
 			px={{ md: '3', xl: '4', '2xl': '7' }}
 			borderRadius="base"
 			align="center"
-			minW={{ md: '24.2rem', lg: '34.8rem', xl: '43.5rem', '2xl': '52.4rem' }}
 			minH="6.5rem"
 		>
 			<Flex direction="column" flex="1">
@@ -59,7 +58,7 @@ export const CompaniesDashboardNoConnected = () => {
 				</Text>
 			</Flex>
 			<Flex flex="2">
-				<OffsetButton name="Create Company" route="company/create" />
+				<OffsetButton name="Create Company" route="companies/create" />
 			</Flex>
 		</Flex>
 	);
