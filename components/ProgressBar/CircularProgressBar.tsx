@@ -10,13 +10,13 @@ export const CircularProgressBar: React.FC<IPercentage> = ({ percentage }) => {
 	const percentCalc = (240 - percentage * 2.4).toString?.();
 
 	return (
-		<svg display="block" viewBox="25 -5 150 100">
+		<svg display="block" viewBox="10 -5 170 103">
 			<path
 				strokeWidth="5"
 				strokeLinecap="round"
-				stroke={theme.bg.gray}
-				d="M55,90
-				A55,55 0 1,1 140,90"
+				stroke={theme.bg.gray2}
+				d="M52,90
+				A52,52 0 1,1 140,90"
 				fill="none"
 			/>
 			<path
@@ -25,8 +25,8 @@ export const CircularProgressBar: React.FC<IPercentage> = ({ percentage }) => {
 				stroke={theme.branding.blue}
 				strokeDasharray="248"
 				strokeDashoffset={percentCalc}
-				d="M55,90
-				A55,55 0 1,1 140,90"
+				d="M52,90
+				A52,52 0 1,1 140,90"
 				fill="none"
 			/>
 		</svg>
