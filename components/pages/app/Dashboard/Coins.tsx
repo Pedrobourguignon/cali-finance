@@ -33,7 +33,7 @@ export const Coins = () => {
 		<Flex
 			justify="space-between"
 			bg={theme.bg.primary}
-			py={{ md: '2', xl: '3' }}
+			py="3"
 			px={{ md: '3', xl: '4' }}
 			borderRadius="base"
 			align="center"
