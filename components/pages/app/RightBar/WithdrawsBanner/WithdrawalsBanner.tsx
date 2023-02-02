@@ -7,14 +7,14 @@ import {
 } from 'components';
 
 export const WithdrawalsBanner = () => (
-	<Flex direction="column" gap="8" w="100%">
+	<Flex direction="column" w="100%" gap="8">
 		<InfosBanner
-			imgLink="/images/small-ondulated.png"
+			ondulatedImg="/images/small-ondulated.png"
+			ilustrationImg="/images/illustration-small.png"
 			bottom="0"
 			position="absolute"
-			h="45rem"
 		>
-			<Flex direction="column" px="4" py="4" gap="12" w="100%">
+			<Flex direction="column" px="4" py="4" gap="10" w="100%">
 				<WithdrawsBar />
 				<LifeIsEasier />
 			</Flex>

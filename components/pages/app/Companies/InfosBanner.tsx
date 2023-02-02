@@ -3,12 +3,14 @@ import { usePicasso } from 'hooks';
 
 interface IInfos extends FlexProps {
 	children: React.ReactNode;
-	imgLink: string;
+	ondulatedImg: string;
+	ilustrationImg: string;
 }
 
 export const InfosBanner: React.FC<IInfos> = ({
 	children,
-	imgLink,
+	ondulatedImg,
+	ilustrationImg,
 	bottom,
 	position,
 	...props
@@ -25,11 +27,11 @@ export const InfosBanner: React.FC<IInfos> = ({
 		>
 			{children}
 			<Flex position="absolute" bottom="0" w="full" zIndex="docked">
-				<Img src="/images/illustration.png" w="full" />
+				<Img src={ilustrationImg} w="full" />
 			</Flex>
 
-			<Flex bottom={bottom} position={position} w="full">
-				<Img src={imgLink} w="full" />
+			<Flex bottom={bottom} w="full">
+				<Img src={ondulatedImg} w="full" />
 			</Flex>
 		</Flex>
 	);

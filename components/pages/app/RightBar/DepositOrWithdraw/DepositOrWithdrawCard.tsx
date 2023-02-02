@@ -52,6 +52,7 @@ export const DepositOrWithdrawCard = () => {
 						bgColor={item === selectedOption ? theme.bg.primary : 'none'}
 						color={item === selectedOption ? 'white' : 'gray.500'}
 						onClick={() => handleSelectedButton(item)}
+						h="9"
 						borderRadius="full"
 						_hover={{}}
 						_focus={{}}
@@ -67,6 +68,7 @@ export const DepositOrWithdrawCard = () => {
 						_placeholder={{ color: 'blackAlpha.500' }}
 						placeholder="0.00"
 						borderColor={theme.bg.primary}
+						h="8"
 						flex="3"
 						borderRightRadius="none"
 						_hover={{}}
@@ -77,6 +79,7 @@ export const DepositOrWithdrawCard = () => {
 						borderLeftRadius="none"
 						bg={theme.bg.primary}
 						_hover={{ opacity: '80%' }}
+						h="8"
 						_active={{}}
 						_focus={{}}
 						onClick={onOpen}

@@ -7,7 +7,10 @@ import {
 } from 'components';
 
 export const UpgradeAccount = () => (
-	<InfosBanner imgLink="/images/small-ondulated.png">
+	<InfosBanner
+		ondulatedImg="/images/small-ondulated.png"
+		ilustrationImg="/images/illustration-small.png"
+	>
 		<Flex direction="column" px="4" py="4" gap="14">
 			<ActiveTeamsBar />
 			<Flex direction="column" maxW="60" gap="5">
