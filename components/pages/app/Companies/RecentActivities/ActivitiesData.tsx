@@ -48,13 +48,14 @@ export const ActivitiesData: React.FC<IActivitiesData> = ({ activities }) => {
 	return (
 		<Flex
 			align="center"
-			px={{ md: '2', lg: '5' }}
-			py={{ md: '1', lg: '2', xl: '3' }}
+			px={{ md: '2', lg: '3' }}
+			py="1"
 			bg="gray.50"
 			borderRadius="base"
 			justify="space-between"
 		>
 			<Text
+				h="max-content"
 				fontSize={{ md: 'xs', xl: 'sm', '2xl': 'md' }}
 				fontWeight="normal"
 				w={{ md: '24', lg: '36' }}

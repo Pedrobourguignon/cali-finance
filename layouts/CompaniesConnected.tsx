@@ -16,15 +16,17 @@ export const CompaniesConnected: React.FC = () => {
 
 	return (
 		<AppLayout right={<CompaniesRightBar />}>
-			<Flex direction="column" gap="4" py="6" w="100%">
-				<DashboardHeader />
-				<CompaniesDashboard
-					members={totalMembers}
-					companiesCount={companies.length}
-					teams={totalTeams}
-					totalFunds={totalFunds}
-				/>
-				<Flex w="full" flexDir="column" gap={{ md: '4', xl: '8' }}>
+			<Flex direction="column" gap="2.75rem" pt="6" w="100%">
+				<Flex direction="column">
+					<DashboardHeader />
+					<CompaniesDashboard
+						members={totalMembers}
+						companiesCount={companies.length}
+						teams={totalTeams}
+						totalFunds={totalFunds}
+					/>
+				</Flex>
+				<Flex w="full" flexDir="column" gap="8">
 					{companies.length ? <YourCompanies /> : <CreateCompanyCard />}
 					{activities && <RecentActivities />}
 				</Flex>
