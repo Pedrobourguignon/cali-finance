@@ -89,8 +89,8 @@ export const HistoryComponent: React.FC<IHistoryPage> = ({ history }) => {
 									h="max-content"
 									py="2"
 									px="3"
-									gap={{ md: '22', lg: '28', xl: '32' }}
-									fontSize={{ md: 'xs', xl: 'sm', '2xl': 'md' }}
+									gap="32"
+									fontSize={{ md: 'sm', '2xl': 'md' }}
 									color={theme.text.primary}
 									as={Button}
 									rightIcon={<BiChevronDown />}
@@ -131,7 +131,7 @@ export const HistoryComponent: React.FC<IHistoryPage> = ({ history }) => {
 							</Menu>
 						</Flex>
 						<Text
-							fontSize={{ lg: 'xs', xl: 'sm', '2xl': 'md' }}
+							fontSize="sm"
 							display={shouldntDisplay}
 							color={theme.text.primary}
 						>
