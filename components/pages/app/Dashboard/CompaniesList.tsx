@@ -67,13 +67,9 @@ export const CompaniesList = () => {
 	console.log(ref.current?.clientWidth);
 
 	return (
-		<Flex direction="column" gap={{ md: '2', xl: '3' }}>
-			<Flex justify="space-between" align="center" pt="4">
-				<Text
-					fontSize={{ md: 'sm', xl: 'md' }}
-					fontWeight="medium"
-					color={theme.text.primary}
-				>
+		<Flex direction="column" gap="4" pt="10">
+			<Flex justify="space-between" align="center">
+				<Text fontSize="md" fontWeight="medium" color={theme.text.primary}>
 					Your Companies
 				</Text>
 				<Paginator
@@ -84,7 +80,7 @@ export const CompaniesList = () => {
 				/>
 			</Flex>
 			<Box position="relative">
-				<Flex w="46rem" display="block" bg="transparent">
+				<Flex w="43.5rem" display="block" bg="transparent">
 					<Slider
 						{...settings}
 						ref={sliderRef => setSlider(sliderRef)}

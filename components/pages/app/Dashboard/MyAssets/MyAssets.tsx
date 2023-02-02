@@ -106,7 +106,7 @@ export const MyAssets = () => {
 				w="full"
 			>
 				<Flex direction="column" bg="white" boxSize="full" borderRadius="base">
-					<Flex justify="space-between" px="4" py="2" align="start">
+					<Flex justify="space-between" px="4" pt="2" align="start">
 						<Flex direction="column">
 							<Text
 								fontSize={{ md: 'sm', xl: 'md' }}
