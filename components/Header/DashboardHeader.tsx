@@ -69,7 +69,7 @@ export const DashboardHeader: React.FC = () => {
 				<Flex>
 					<Text
 						color={theme.text.primary}
-						fontSize={{ md: 'sm', lg: 'xl', xl: '2xl', '2xl': '3xl' }}
+						fontSize="2xl"
 						fontWeight="medium"
 						lineHeight="8"
 						fontStyle="normal"
@@ -88,32 +88,18 @@ export const DashboardHeader: React.FC = () => {
 				</Flex>
 			</Flex>
 			<Flex>
-				<Text
-					fontSize={{ sm: 'xs', xl: 'sm', '2xl': 'md' }}
-					color={theme.text.primary}
-				>
+				<Text fontSize="sm" color={theme.text.primary}>
 					{translate('assetInfo')}
-					<Text
-						as="span"
-						fontSize={{ sm: 'xs', xl: 'sm', '2xl': 'md' }}
-						color={dynamicAssetInfo()?.color}
-					>
+					<Text as="span" fontSize="sm" color={dynamicAssetInfo()?.color}>
 						{'\u00A0'}
 						{dynamicAssetInfo()?.status}
 						{'\u00A0'}
 					</Text>
 				</Text>
 
-				<Text
-					fontSize={{ sm: 'xs', xl: 'sm', '2xl': 'md' }}
-					color={theme.text.primary}
-				>
+				<Text fontSize="sm" color={theme.text.primary}>
 					{translate('increased')}
-					<Text
-						as="span"
-						fontSize={{ sm: 'xs', xl: 'sm', '2xl': 'md' }}
-						color={dynamicAssetInfo()?.color}
-					>
+					<Text as="span" fontSize="sm" color={dynamicAssetInfo()?.color}>
 						{'\u00A0'}
 						{translate('percentage', { percentage })}
 					</Text>

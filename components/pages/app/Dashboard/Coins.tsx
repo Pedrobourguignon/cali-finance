@@ -42,14 +42,14 @@ export const Coins = () => {
 		>
 			<Flex direction="column" gap={{ md: '1', xl: '1.5' }}>
 				<Text
-					fontSize={{ md: 'xs', lg: 'sm', xl: 'md' }}
+					fontSize={{ md: 'sm', xl: 'md' }}
 					fontWeight="medium"
 					lineHeight="6"
 				>
 					{translate('coins')}
 				</Text>
 				<Text
-					fontSize={{ md: '2xs', xl: 'sm' }}
+					fontSize={{ md: 'xs', xl: 'sm' }}
 					fontWeight="medium"
 					lineHeight="5"
 					whiteSpace="nowrap"
@@ -57,7 +57,7 @@ export const Coins = () => {
 					{translate('stayConnected')}
 				</Text>
 				<Text
-					fontSize={{ md: '2xs', xl: 'sm' }}
+					fontSize={{ md: 'xs', xl: 'sm' }}
 					fontWeight="normal"
 					lineHeight="5"
 				>

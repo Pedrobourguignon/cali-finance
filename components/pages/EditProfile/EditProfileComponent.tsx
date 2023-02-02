@@ -172,7 +172,7 @@ export const EditProfileComponent = () => {
 
 							<Button
 								type="submit"
-								px={{ md: '28', '2xl': '36' }}
+								px={{ md: '32', '2xl': '36' }}
 								bg={theme.text.primary}
 								_hover={{ opacity: '80%' }}
 								_focus={{ bg: theme.text.primary }}
