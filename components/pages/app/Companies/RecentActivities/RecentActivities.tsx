@@ -14,7 +14,8 @@ export const RecentActivities = () => {
 			direction="column"
 			bg="white"
 			px="4"
-			py="2.5"
+			pt="2.5"
+			pb="4"
 			gap="4"
 			borderRadius="base"
 			color={theme.text.primary}
@@ -38,7 +39,7 @@ export const RecentActivities = () => {
 					</Text>
 				</Link>
 			</Flex>
-			<Flex gap={{ md: '2', '2xl': '3' }} direction="column">
+			<Flex gap="2" direction="column">
 				{activities.map((activity, index) => (
 					<ActivitiesData key={+index} activities={activity} />
 				))}
