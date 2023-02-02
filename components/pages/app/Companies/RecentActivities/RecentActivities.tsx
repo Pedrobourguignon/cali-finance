@@ -22,16 +22,13 @@ export const RecentActivities = () => {
 			w="full"
 		>
 			<Flex justify="space-between" align="center">
-				<Text
-					fontWeight="medium"
-					fontSize={{ lg: 'sm', xl: 'md', '2xl': 'lg' }}
-				>
+				<Text fontWeight="medium" fontSize="md">
 					{translate('recentActivities')}
 				</Text>
 				<Link href={navigationPaths.dashboard.history}>
 					<Text
 						color="gray.500"
-						fontSize={{ md: 'xs', '2xl': 'sm' }}
+						fontSize="xs"
 						cursor="pointer"
 						fontWeight="medium"
 					>

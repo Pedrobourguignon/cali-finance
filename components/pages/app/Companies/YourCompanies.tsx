@@ -9,7 +9,7 @@ export const YourCompanies = () => {
 	const theme = usePicasso();
 
 	return (
-		<Flex direction="column" gap={{ md: '1', lg: '2', xl: '4' }} w="full">
+		<Flex direction="column" gap="4" w="full">
 			<Text
 				color={theme.text.primary}
 				fontSize={{ md: 'sm', xl: 'md' }}

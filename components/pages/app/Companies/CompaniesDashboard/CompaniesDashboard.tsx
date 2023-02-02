@@ -22,65 +22,44 @@ export const CompaniesDashboard: React.FC<ICompaniesDashboard> = ({
 		<Flex
 			justify="space-between"
 			bg={theme.bg.primary}
-			py={{ md: '4', xl: '6', '2xl': '8' }}
+			py="6"
 			px={{ md: '3', xl: '5', '2xl': '7' }}
 			borderRadius="base"
 			align="center"
 		>
-			<Flex direction="column">
-				<Text
-					fontSize={{ md: 'sm', lg: 'xl', xl: '2xl', '2xl': '3xl' }}
-					fontWeight="medium"
-				>
+			<Flex direction="column" justify="space-between">
+				<Text fontSize={{ md: 'sm', lg: 'xl', xl: '2xl' }} fontWeight="medium">
 					{companiesCount}
 				</Text>
-				<Text
-					fontSize={{ md: 'xs', xl: 'sm', '2xl': 'md' }}
-					fontWeight="normal"
-				>
+				<Text fontSize={{ md: 'xs', xl: 'sm' }} fontWeight="normal">
 					{translate('companies')}
 				</Text>
 			</Flex>
 			<Flex direction="column">
-				<Text
-					fontSize={{ md: 'sm', lg: 'xl', xl: '2xl', '2xl': '3xl' }}
-					fontWeight="medium"
-				>
+				<Text fontSize={{ md: 'sm', lg: 'xl', xl: '2xl' }} fontWeight="medium">
 					{teams}
 				</Text>
-				<Text
-					fontSize={{ md: 'xs', xl: 'sm', '2xl': 'md' }}
-					fontWeight="normal"
-				>
+				<Text fontSize={{ md: 'xs', xl: 'sm' }} fontWeight="normal">
 					{translate('teams')}
 				</Text>
 			</Flex>
 			<Flex direction="column">
-				<Text
-					fontSize={{ md: 'sm', lg: 'xl', xl: '2xl', '2xl': '3xl' }}
-					fontWeight="medium"
-				>
+				<Text fontSize={{ md: 'sm', lg: 'xl', xl: '2xl' }} fontWeight="medium">
 					{members}
 				</Text>
-				<Text
-					fontSize={{ md: 'xs', xl: 'sm', '2xl': 'md' }}
-					fontWeight="normal"
-				>
+				<Text fontSize={{ md: 'xs', xl: 'sm' }} fontWeight="normal">
 					{translate('members')}
 				</Text>
 			</Flex>
 			<Flex direction="column">
 				<Text
-					fontSize={{ md: 'sm', lg: 'xl', xl: '2xl', '2xl': '3xl' }}
+					fontSize={{ md: 'sm', lg: 'xl', xl: '2xl' }}
 					fontWeight="medium"
 					minW={{ md: '20', lg: '24' }}
 				>
 					${totalFunds}
 				</Text>
-				<Text
-					fontSize={{ md: 'xs', xl: 'sm', '2xl': 'md' }}
-					fontWeight="normal"
-				>
+				<Text fontSize={{ md: 'xs', xl: 'sm' }} fontWeight="normal">
 					{translate('totalFunds')}
 				</Text>
 			</Flex>
