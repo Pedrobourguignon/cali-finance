@@ -137,9 +137,14 @@ export const Sidebar: React.FC = () => {
 								_hover={{ background: 'white' }}
 								_focus={{ background: 'white' }}
 								display={isConnected === true ? 'flex' : 'none'}
-								w={{ md: '6.188rem', lg: '8.25rem', xl: '10.313rem' }}
+								w={{ md: '8.25rem', xl: '10.313rem' }}
 							>
-								<Flex align="center" gap="2" w={{ md: '8rem', xl: '9rem' }}>
+								<Flex
+									align="center"
+									gap="2"
+									w={{ md: '8rem', xl: '9rem' }}
+									justify="center"
+								>
 									<Img
 										src={userProfile?.picture}
 										borderRadius="full"
@@ -234,6 +239,7 @@ export const Sidebar: React.FC = () => {
 						px={{ md: '2', lg: '4', xl: '6' }}
 						py="10"
 						w="full"
+						ml={{ md: '6', lg: '0' }}
 					>
 						<Flex gap="4">
 							{languages.map((lang, index) => (
