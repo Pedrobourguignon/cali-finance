@@ -12,7 +12,6 @@ import {
 	TextProps,
 	Input,
 	FormControl,
-	Select,
 	InputGroup,
 	Img,
 } from '@chakra-ui/react';
@@ -26,8 +25,6 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { addEmployeeSchema } from 'utils';
 import { IoIosArrowDown } from 'react-icons/io';
-
-const teams = ['Marketing', 'Dev', 'Business'];
 
 export const AddEmployee: React.FC<IAddEmployee> = ({
 	isOpen,
@@ -92,7 +89,6 @@ export const AddEmployee: React.FC<IAddEmployee> = ({
 					photo: '/images/avatar.png',
 					amount: newEmployeeData.amount,
 					coin: 'USDT',
-					team: 'General',
 				},
 			])
 		);
@@ -115,7 +111,7 @@ export const AddEmployee: React.FC<IAddEmployee> = ({
 					bg={theme.bg.modal}
 					borderRadius="base"
 				>
-					<ModalHeader display="flex" p="6" flexDir="column" gap="5">
+					<ModalHeader display="flex" px="6" flexDir="column" gap="5">
 						<Flex gap="3">
 							<Icon as={IoPersonAddOutline} color="black" boxSize="6" mt="1" />
 							<Flex direction="column">
@@ -133,7 +129,7 @@ export const AddEmployee: React.FC<IAddEmployee> = ({
 									{translate('to')} {company}
 								</Text>
 							</Flex>
-							<ModalCloseButton color="gray.400" py="6" />
+							<ModalCloseButton color="gray.400" py="7" />
 						</Flex>
 						<Flex>
 							<Button
@@ -194,7 +190,7 @@ export const AddEmployee: React.FC<IAddEmployee> = ({
 					</ModalHeader>
 					<form onSubmit={handleSubmit(handleAddEmployee)}>
 						<FormControl>
-							<ModalBody display={shouldDisplay} flexDirection="column" gap="4">
+							<ModalBody display={shouldDisplay} flexDirection="column" gap="2">
 								<Flex direction="column" gap="2">
 									<Text {...labelStyle}>{translate('employeeWallet')}</Text>
 									<Input
@@ -205,6 +201,8 @@ export const AddEmployee: React.FC<IAddEmployee> = ({
 										_hover={{}}
 										color={theme.text.primary}
 										{...register('walletAddress')}
+										h="max-content"
+										py="1"
 									/>
 									<Text fontSize="xs" color="red">
 										{errors.walletAddress?.message}
@@ -224,6 +222,8 @@ export const AddEmployee: React.FC<IAddEmployee> = ({
 											placeholder="0.00"
 											borderColor="black"
 											flex="3"
+											h="max-content"
+											py="1"
 											borderRightRadius="none"
 											_hover={{}}
 											_focusVisible={{}}
@@ -244,6 +244,7 @@ export const AddEmployee: React.FC<IAddEmployee> = ({
 											_hover={{ opacity: '80%' }}
 											_active={{}}
 											_focus={{}}
+											h="2.136rem"
 										>
 											<Flex gap="2" align="center">
 												<Img boxSize="4" src={selectedCoin.logo} />
@@ -258,41 +259,7 @@ export const AddEmployee: React.FC<IAddEmployee> = ({
 										{errors.amount?.message}
 									</Text>
 								</Flex>
-								<Flex direction="column" gap="2">
-									<Text {...labelStyle}>{translate('team')}</Text>
-									<Select
-										{...register('team')}
-										borderColor={theme.text.primary}
-										_placeholder={{ ...placeholderStyle }}
-										_focusVisible={{}}
-										color={theme.text.primary}
-										_hover={{}}
-										isReadOnly={false}
-									>
-										<>
-											<option
-												value="option1"
-												style={{ background: 'white' }}
-												disabled
-												selected
-											>
-												{translate('teamPlaceholder')}
-											</option>
-											{teams.map((team, index) => (
-												<option
-													value="option1"
-													style={{ background: 'white' }}
-													key={+index}
-												>
-													{team}
-												</option>
-											))}
-										</>
-									</Select>
-									<Text fontSize="xs" color="red">
-										{errors.team?.message}
-									</Text>
-								</Flex>
+
 								<Button
 									type="submit"
 									color="white"

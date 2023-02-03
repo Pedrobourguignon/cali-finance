@@ -17,12 +17,13 @@ export const UploadCsv = () => {
 	);
 
 	return (
-		<Flex direction="column" align="center" w="full">
+		<Flex direction="column" w="full">
 			<Text
 				color={theme.text.primary}
 				fontSize="sm"
 				pb="5"
-				px={locale === 'pt-BR' ? 4 : 0}
+				px="4"
+				textAlign="center"
 			>
 				{translate('dragAndDrop')}
 			</Text>
