@@ -21,6 +21,7 @@ export const AppLayout: React.FC<ILanding> = ({ children, right }) => {
 					borderColor={theme.branding.blue}
 					borderLeftRadius="sm"
 					position="relative"
+					flex="7"
 				>
 					<Flex
 						bg={theme.bg.gray2}

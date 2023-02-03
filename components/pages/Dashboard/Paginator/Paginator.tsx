@@ -53,7 +53,7 @@ export const Paginator: FC<IPaginatorProps> = ({
 				h="max-content"
 				fontWeight="medium"
 				color={theme.text.primary}
-				fontSize={{ md: 'xs', '2xl': 'lg' }}
+				fontSize="xs"
 			>
 				{`${actualPage} ${translate('of')} ${maxPage}`}
 			</Text>

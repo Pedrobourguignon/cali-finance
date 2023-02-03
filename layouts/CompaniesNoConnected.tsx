@@ -13,13 +13,17 @@ export const CompaniesLayoutNoConnected: React.FC = () => {
 	const theme = usePicasso();
 	return (
 		<AppLayout right={<CreateAccountBanner />}>
-			<Flex direction="column" gap="4" py="6" w="100%">
-				<DashboardHeader />
-				<CompaniesDashboardNoConnected />
-				<Text color={theme.text.primary} fontWeight="medium">
-					Your Companies
-				</Text>
-				<CreateCompanyCard />
+			<Flex direction="column" gap="12" py="6" w="100%">
+				<Flex direction="column">
+					<DashboardHeader />
+					<CompaniesDashboardNoConnected />
+				</Flex>
+				<Flex direction="column" gap="4">
+					<Text color={theme.text.primary} fontWeight="medium">
+						Your Companies
+					</Text>
+					<CreateCompanyCard />
+				</Flex>
 			</Flex>
 		</AppLayout>
 	);
