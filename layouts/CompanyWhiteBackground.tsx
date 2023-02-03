@@ -6,7 +6,7 @@ export const CompanyWhiteBackground: React.FC = () => (
 		w="100%"
 		bg="white"
 		position="absolute"
-		h={{ md: '48', lg: '64' }}
+		h={{ md: '48', lg: '14.4rem' }}
 		left="0"
 	/>
 );
