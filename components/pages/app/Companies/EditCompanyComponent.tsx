@@ -119,11 +119,7 @@ export const EditCompanyComponent: React.FC<IEditCompanyComponent> = ({
 				mb={{ md: '8', lg: '14' }}
 				position="relative"
 			>
-				<Text
-					color="black"
-					fontSize={{ md: 'md', lg: 'xl' }}
-					fontWeight="medium"
-				>
+				<Text color="black" fontSize="xl" fontWeight="medium">
 					{translate('editCompany')}
 				</Text>
 				<Controller
@@ -137,7 +133,7 @@ export const EditCompanyComponent: React.FC<IEditCompanyComponent> = ({
 							borderBottomColor="black"
 							borderRadius="none"
 							px="1"
-							fontSize={{ md: 'xl', xl: '2xl' }}
+							fontSize="2xl"
 							_placeholder={{
 								color: 'blackAlpha.500',
 								fontSize: { md: 'xl', xl: '2xl' },
