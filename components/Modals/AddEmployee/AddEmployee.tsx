@@ -12,7 +12,6 @@ import {
 	TextProps,
 	Input,
 	FormControl,
-	Select,
 	InputGroup,
 	Img,
 } from '@chakra-ui/react';
@@ -112,7 +111,7 @@ export const AddEmployee: React.FC<IAddEmployee> = ({
 					bg={theme.bg.modal}
 					borderRadius="base"
 				>
-					<ModalHeader display="flex" p="6" flexDir="column" gap="5">
+					<ModalHeader display="flex" px="6" flexDir="column" gap="5">
 						<Flex gap="3">
 							<Icon as={IoPersonAddOutline} color="black" boxSize="6" mt="1" />
 							<Flex direction="column">
@@ -191,7 +190,7 @@ export const AddEmployee: React.FC<IAddEmployee> = ({
 					</ModalHeader>
 					<form onSubmit={handleSubmit(handleAddEmployee)}>
 						<FormControl>
-							<ModalBody display={shouldDisplay} flexDirection="column" gap="4">
+							<ModalBody display={shouldDisplay} flexDirection="column" gap="2">
 								<Flex direction="column" gap="2">
 									<Text {...labelStyle}>{translate('employeeWallet')}</Text>
 									<Input

@@ -109,7 +109,7 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 					<form onSubmit={handleSubmit(handleEditEmployee)}>
 						<FormControl>
 							<ModalBody display="flex" flexDirection="column">
-								<Flex direction="column" gap="2">
+								<Flex direction="column" gap="2" pb="8">
 									<Flex align="center" justify="space-between">
 										<Text {...labelStyle}>Amount (per month)*</Text>
 										<Text fontSize="xs" color="gray.500">
@@ -178,7 +178,7 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 											{expenseCalculation()}
 										</Text>
 									</Flex>
-									<Text fontSize="xs" color={theme.text.primary} pb="6">
+									<Text fontSize="xs" color={theme.text.primary}>
 										Please note that you will have to deposit more 0.0002 BTC in
 										the companies’ funds.
 									</Text>
