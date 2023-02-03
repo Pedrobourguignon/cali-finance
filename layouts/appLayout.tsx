@@ -20,7 +20,7 @@ export const AppLayout: React.FC<ILanding> = ({ children, right }) => {
 					borderLeft="0.25rem solid"
 					borderColor={theme.branding.blue}
 					borderLeftRadius="sm"
-					// position="relative"
+					position="relative"
 					flex="7"
 				>
 					<Flex
@@ -29,7 +29,7 @@ export const AppLayout: React.FC<ILanding> = ({ children, right }) => {
 						bgImage="/images/calipattern.png"
 						bgRepeat="no-repeat"
 						bgPosition="right bottom"
-						// position="relative"
+						position="relative"
 						px="6"
 						gap="4"
 						flexWrap={{ md: 'wrap', lg: 'nowrap' }}

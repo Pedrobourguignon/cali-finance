@@ -193,7 +193,6 @@ export const Sidebar: React.FC = () => {
 										{comparedPath && (
 											<Box
 												bgColor={theme.branding.blue}
-												// h="full"
 												w="3"
 												h="8"
 												borderLeftRadius="none"
