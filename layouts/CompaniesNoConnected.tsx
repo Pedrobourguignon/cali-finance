@@ -14,7 +14,7 @@ export const CompaniesLayoutNoConnected: React.FC = () => {
 	return (
 		<AppLayout right={<CreateAccountBanner />}>
 			<Flex direction="column" gap="12" py="6" w="100%">
-				<Flex direction="column" gap="4">
+				<Flex direction="column">
 					<DashboardHeader />
 					<CompaniesDashboardNoConnected />
 				</Flex>
