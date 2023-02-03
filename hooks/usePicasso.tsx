@@ -13,6 +13,7 @@ const usePicasso = () => {
 			black3: '#0F0F0F',
 			primary: '#121212',
 			black2: useColorModeValue('#1A202C', '#1A202C'),
+			gray700: '#2D3748',
 		},
 		branding: {
 			blue: '#1A94E1',
@@ -41,6 +42,7 @@ const usePicasso = () => {
 				'linear-gradient(178.33deg, #FFFFFF 19.26%, rgba(255, 255, 255, 0) 142.45%);',
 			select: '#191919',
 			dashboard: '#EDF2F7',
+			missingFunds: '#FED7D7',
 		},
 		sizes: {
 			menuItem: '11.875rem',

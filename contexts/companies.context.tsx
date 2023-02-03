@@ -27,6 +27,8 @@ interface ICompanysContext {
 	selectedCompanyLogo: string;
 	setEditedInfo: Dispatch<SetStateAction<IEditedCompany>>;
 	editedInfo: IEditedCompany;
+	displayMissingFundsWarning: string;
+	setDisplayMissingFundsWarning: Dispatch<SetStateAction<string>>;
 }
 
 export const CompaniesContext = createContext({} as ICompanysContext);
@@ -35,6 +37,8 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 	children,
 }) => {
 	const { t: translate } = useTranslation('companies');
+	const [displayMissingFundsWarning, setDisplayMissingFundsWarning] =
+		useState('none');
 
 	const [companies, setCompanies] = useState<ICompany[]>([
 		{
@@ -90,6 +94,17 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 			},
 		},
 	]);
+
+	const showMissingFundsWarning = () => {
+		// eslint-disable-next-line no-unused-expressions
+		companies[0].funds < 10000
+			? setDisplayMissingFundsWarning('flex')
+			: setDisplayMissingFundsWarning('none');
+	};
+	useEffect(() => {
+		showMissingFundsWarning();
+	});
+	console.log(displayMissingFundsWarning);
 
 	const [selectedCompanyLogo, setSelectedCompanyLogo] = useState(
 		'/images/kylie-cosmetics-logo.png'
@@ -253,6 +268,8 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 			selectedCompanyLogo,
 			setEditedInfo,
 			editedInfo,
+			displayMissingFundsWarning,
+			setDisplayMissingFundsWarning,
 		}),
 		[
 			selectedCompany,
@@ -267,6 +284,8 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 			selectedCompanyLogo,
 			setEditedInfo,
 			editedInfo,
+			displayMissingFundsWarning,
+			setDisplayMissingFundsWarning,
 		]
 	);
 	return (
