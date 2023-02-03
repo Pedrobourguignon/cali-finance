@@ -71,7 +71,8 @@ export const NewCompanyLinks: React.FC<{
 				bg={theme.bg.black}
 				direction="column"
 				px="4"
-				py={{ md: '12', lg: '16', xl: '24' }}
+				pt="24"
+				pb="28"
 				gap="10"
 				borderRadius="base"
 				align="center"

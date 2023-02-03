@@ -9,3 +9,4 @@ export * from './Popover';
 export * from './ProgressBar';
 export * from './Sidebar';
 export * from './Toasts';
+export * from './Tooltips';

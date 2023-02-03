@@ -7,6 +7,7 @@ import {
 	Text,
 	Textarea,
 	TextProps,
+	Tooltip,
 } from '@chakra-ui/react';
 import { usePicasso } from 'hooks';
 import { Control, FieldErrorsImpl, Controller } from 'react-hook-form';
@@ -14,6 +15,7 @@ import { Select } from 'chakra-react-select';
 import { BsQuestionCircle } from 'react-icons/bs';
 import { ICreateCompany } from 'types';
 import useTranslation from 'next-translate/useTranslation';
+import { NetworkTooltip } from 'components/Tooltips';
 
 interface ICreateCompanyComponent {
 	control: Control<ICreateCompany>;
@@ -87,11 +89,7 @@ export const CreateCompanyComponent: React.FC<ICreateCompanyComponent> = ({
 				mb={{ md: '8', lg: '14' }}
 				position="relative"
 			>
-				<Text
-					color="black"
-					fontSize={{ md: 'md', lg: 'xl' }}
-					fontWeight="medium"
-				>
+				<Text color="black" fontSize="xl" fontWeight="medium">
 					{translate('createCompany')}
 				</Text>
 				<Controller
@@ -104,10 +102,10 @@ export const CreateCompanyComponent: React.FC<ICreateCompanyComponent> = ({
 							borderBottomColor="black"
 							borderRadius="none"
 							px="1"
-							fontSize={{ md: 'xl', xl: '2xl' }}
+							fontSize="2xl"
 							_placeholder={{
 								color: 'blackAlpha.500',
-								fontSize: { md: 'xl', xl: '2xl' },
+								fontSize: '2xl',
 							}}
 							_hover={{}}
 						/>
@@ -151,17 +149,17 @@ export const CreateCompanyComponent: React.FC<ICreateCompanyComponent> = ({
 													minWidth: '48',
 													borderColor: '#121212',
 													cursor: 'pointer',
-													_hover: {},
 												}),
 												menuList: group => ({
 													...group,
 													bg: 'white',
+													boxShadow: 'none',
 													borderColor: '#121212',
 													borderRadius: 'base',
 												}),
 												option: (item, state) => ({
 													...item,
-													bg: state.isSelected ? 'gray.50' : 'none',
+													bg: state.isFocused ? 'gray.50' : 'none',
 												}),
 											}}
 											options={companiesType}
@@ -178,9 +176,26 @@ export const CreateCompanyComponent: React.FC<ICreateCompanyComponent> = ({
 								w="100%"
 								display={{ md: 'flex', lg: 'none' }}
 							>
-								<Flex gap="2" mb="2">
+								<Flex gap="2" mb="2" align="center">
 									<Text {...labelStyle}>Network *</Text>
-									<Icon as={BsQuestionCircle} color="gray.400" />
+
+									<Tooltip
+										label={
+											<NetworkTooltip>
+												Choose the most suitable network for paying your staff
+												efficiently.
+											</NetworkTooltip>
+										}
+										placement="top"
+										hasArrow
+										arrowShadowColor={theme.branding.blue}
+										arrowPadding={10}
+										gutter={12}
+										bg="none"
+										shadow="none"
+									>
+										<Icon as={BsQuestionCircle} color="gray.400" />
+									</Tooltip>
 								</Flex>
 								<Controller
 									name="network"
@@ -201,17 +216,17 @@ export const CreateCompanyComponent: React.FC<ICreateCompanyComponent> = ({
 													minWidth: '48',
 													borderColor: '#121212',
 													cursor: 'pointer',
-													_hover: {},
 												}),
 												menuList: group => ({
 													...group,
+													boxShadow: 'none',
 													bg: 'white',
 													borderColor: '#121212',
 													borderRadius: 'base',
 												}),
 												option: (item, state) => ({
 													...item,
-													bg: state.isSelected ? 'gray.50' : 'none',
+													bg: state.isFocused ? 'gray.50' : 'none',
 												}),
 											}}
 											options={networksType}
@@ -302,9 +317,27 @@ export const CreateCompanyComponent: React.FC<ICreateCompanyComponent> = ({
 					display={{ md: 'none', lg: 'flex' }}
 					maxW="48"
 				>
-					<Flex gap="2" mb="2">
+					<Flex gap="2" mb="2" align="center">
 						<Text {...labelStyle}>{translate('network')}</Text>
-						<Icon as={BsQuestionCircle} color="gray.400" />
+						<Tooltip
+							label={
+								<NetworkTooltip>
+									Choose the most suitable network for paying your staff
+									efficiently.
+								</NetworkTooltip>
+							}
+							placement="top"
+							hasArrow
+							arrowShadowColor={theme.branding.blue}
+							arrowPadding={10}
+							gutter={12}
+							bg="none"
+							shadow="none"
+						>
+							<span>
+								<Icon as={BsQuestionCircle} color="gray.400" />
+							</span>
+						</Tooltip>
 					</Flex>
 					<Controller
 						name="network"
@@ -330,12 +363,13 @@ export const CreateCompanyComponent: React.FC<ICreateCompanyComponent> = ({
 									menuList: group => ({
 										...group,
 										bg: 'white',
+										boxShadow: 'none',
 										borderColor: '#121212',
 										borderRadius: 'base',
 									}),
 									option: (item, state) => ({
 										...item,
-										bg: state.isSelected ? 'gray.50' : 'none',
+										bg: state.isFocused ? 'gray.50' : 'none',
 									}),
 								}}
 								options={networksType}
