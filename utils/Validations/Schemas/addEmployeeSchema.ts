@@ -8,6 +8,4 @@ export const addEmployeeSchema = yup.object().shape({
 		.matches(ethAddressRegex, `This wallet does not exist`)
 		.min(40),
 	amount: yup.number().required('Required'),
-
-	team: yup.string().required('Required'),
 });

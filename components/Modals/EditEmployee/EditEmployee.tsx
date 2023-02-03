@@ -12,13 +12,12 @@ import {
 	TextProps,
 	Input,
 	FormControl,
-	Select,
 	InputGroup,
 	Img,
 } from '@chakra-ui/react';
 import { usePicasso } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
-import React, { useMemo, useState } from 'react';
+import React, { useState } from 'react';
 import { IoIosArrowDown } from 'react-icons/io';
 import { IEditEmployee, IEditEmployeeForm } from 'types';
 import { EditProfileIcon } from 'components';
@@ -104,7 +103,7 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 									{employee.name} - {truncateWallet(employee.wallet)}
 								</Text>
 							</Flex>
-							<ModalCloseButton color="gray.400" py="6" />
+							<ModalCloseButton color="gray.400" py="7" />
 						</Flex>
 					</ModalHeader>
 					<form onSubmit={handleSubmit(handleEditEmployee)}>
@@ -120,6 +119,8 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 									<InputGroup>
 										<Input
 											type="number"
+											h="max-content"
+											py="1"
 											{...register('amount')}
 											_placeholder={{ ...placeholderStyle }}
 											placeholder="0.00"
@@ -144,6 +145,7 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 											bg={theme.bg.primary}
 											_hover={{ opacity: '80%' }}
 											_active={{}}
+											h="2.137rem"
 											_focus={{}}
 										>
 											<Flex gap="2" align="center">
@@ -181,33 +183,7 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 										the companies’ funds.
 									</Text>
 								</Flex>
-								<Flex direction="column" gap="2" pb="6">
-									<Text {...labelStyle}>Team*</Text>
-									<Select
-										{...register('team')}
-										borderColor={theme.text.primary}
-										_focusVisible={{}}
-										color={theme.text.primary}
-										_hover={{}}
-										isReadOnly={false}
-										_placeholderShown={{ bg: 'white' }}
-									>
-										<option
-											style={{ background: 'white' }}
-											value="option1"
-											disabled
-											selected
-										>
-											Select or Insert name to Create Team
-										</option>
-										<option style={{ background: 'white' }} value="option1">
-											Option 1
-										</option>
-									</Select>
-									<Text fontSize="xs" color="red">
-										{errors.team?.message}
-									</Text>
-								</Flex>
+
 								<Flex pb="4">
 									<Button
 										w="full"
