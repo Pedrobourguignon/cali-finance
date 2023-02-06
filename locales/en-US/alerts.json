@@ -2,5 +2,8 @@
 	"yourCompanieIsMissing": "Your company {{companie}} is missing needed funds.",
 	"deposit": "Deposit",
 	"atLeast": "at least {{value}} at the company’s funds tab.",
-	"needingFunds": "Needing Funds! Please deposit now"
+	"needingFunds": "Needing Funds! Please deposit now",
+	"yourCompanies": "Your companies are missing needed funds.",
+	"depositFunds": "Deposit funds",
+	"companiesPage": "at the companies’ page."
 }

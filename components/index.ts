@@ -1,4 +1,4 @@
-export * from './AlertBanner';
+export * from './Alerts';
 export * from './Buttons';
 export * from './Cards';
 export * from './Header';
