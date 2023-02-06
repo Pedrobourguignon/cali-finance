@@ -1,5 +1,6 @@
 import { Flex, Img, Text } from '@chakra-ui/react';
 import { usePicasso } from 'hooks';
+import useTranslation from 'next-translate/useTranslation';
 import { IUserHistory } from 'types';
 import { truncateWallet } from 'utils';
 
@@ -9,13 +10,15 @@ interface IHistoryData {
 
 export const HistoryData: React.FC<IHistoryData> = ({ userHistory }) => {
 	const theme = usePicasso();
+	const { t: translate } = useTranslation('company-overall');
+
 	const handleIcon = () => {
 		if (userHistory.type === 'Withdrawal') return '/icons/withdrawal.svg';
 		return '/icons/deposit.svg';
 	};
 
 	const getStatusColor = () => {
-		if (userHistory.status === 'Completed') return 'green.400';
+		if (userHistory.status === translate('completed')) return 'green.400';
 		return 'yellow.600';
 	};
 	return (
@@ -32,9 +35,6 @@ export const HistoryData: React.FC<IHistoryData> = ({ userHistory }) => {
 				<Img src="/images/avatar.png" boxSize="6" />
 				<Flex direction="column">
 					<Text fontSize="sm">{truncateWallet(userHistory.wallet)}</Text>
-					<Text color="gray.500" fontSize="xs">
-						{userHistory.team}
-					</Text>
 				</Flex>
 			</Flex>
 			<Flex align="center" gap="4">
