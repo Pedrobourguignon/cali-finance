@@ -1,4 +1,4 @@
-import { Flex, Img, Text } from '@chakra-ui/react';
+import { Flex, Img, Link, Text } from '@chakra-ui/react';
 import { useCompanies, usePicasso } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
 import React from 'react';
@@ -36,14 +36,16 @@ export const MissingFundsWarning: React.FC<IMissingFunds> = () => {
 				>
 					{translate('yourCompanieIsMissing', { companie: companies[0].name })}
 				</Text>
-				<Text
-					fontSize={{ md: 'xs', xl: 'sm' }}
-					color={theme.bg.primary}
-					fontWeight="semibold"
-					whiteSpace="nowrap"
-				>
-					&nbsp;{translate('deposit')}&nbsp;
-				</Text>
+				<Link href="/app/companies">
+					<Text
+						fontSize={{ md: 'xs', xl: 'sm' }}
+						color={theme.bg.primary}
+						fontWeight="semibold"
+						whiteSpace="nowrap"
+					>
+						&nbsp;{translate('deposit')}&nbsp;
+					</Text>
+				</Link>
 				<Text
 					fontSize={{ md: 'xs', xl: 'sm' }}
 					color={theme.bg.primary}
