@@ -58,7 +58,7 @@ export const DashboardComponent: React.FC = () => {
 	return (
 		<Flex w="full">
 			<Flex direction="column" w="full">
-				<Flex direction="column" gap="8">
+				<Flex direction="column">
 					<DashboardHeader />
 					<Coins />
 				</Flex>
@@ -78,7 +78,6 @@ export const DashboardComponent: React.FC = () => {
 					)}
 				</Flex>
 			</Flex>
-			<WithdrawModal isOpen={isOpen} onClose={onClose} />
 		</Flex>
 	);
 };

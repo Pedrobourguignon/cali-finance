@@ -13,7 +13,7 @@ export const NewCoinButton = () => {
 			borderColor="white"
 			position="absolute"
 			buttonText={translate('newCoin')}
-			px={{ md: '2', lg: '4', xl: '5', '2xl': '10' }}
+			px={{ md: '2', xl: '5', '2xl': '10' }}
 		>
 			<Button
 				position="relative"
