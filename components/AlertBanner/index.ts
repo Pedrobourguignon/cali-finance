@@ -1,1 +1,2 @@
-export * from './MissingFunds';
+export * from './MissingFundsGeneral';
+export * from './NeedFundsCompaniesHeader';

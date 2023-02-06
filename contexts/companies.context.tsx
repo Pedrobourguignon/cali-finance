@@ -30,6 +30,8 @@ interface ICompanysContext {
 	editedInfo: IEditedCompany;
 	displayMissingFundsWarning: string;
 	setDisplayMissingFundsWarning: Dispatch<SetStateAction<string>>;
+	displayNeedFundsCard: string;
+	setDisplayNeedFundsCard: Dispatch<SetStateAction<string>>;
 }
 
 export const CompaniesContext = createContext({} as ICompanysContext);
@@ -40,6 +42,7 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 	const { t: translate } = useTranslation('companies');
 	const [displayMissingFundsWarning, setDisplayMissingFundsWarning] =
 		useState('none');
+	const [displayNeedFundsCard, setDisplayNeedFundsCard] = useState('none');
 
 	const [companies, setCompanies] = useState<ICompany[]>([
 		{
@@ -245,12 +248,18 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 		.toString();
 
 	const showMissingFundsWarning = () => {
-		selectedCompany.funds < 11231234
+		selectedCompany.funds < 1123123
 			? setDisplayMissingFundsWarning('flex')
 			: setDisplayMissingFundsWarning('none');
 	};
+	const showNeedingFundsCard = () => {
+		selectedCompany.funds < 1123123
+			? setDisplayNeedFundsCard('flex')
+			: setDisplayNeedFundsCard('none');
+	};
 	useEffect(() => {
 		showMissingFundsWarning();
+		showNeedingFundsCard();
 	}, []);
 
 	const contextStates = useMemo(
@@ -269,6 +278,8 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 			editedInfo,
 			displayMissingFundsWarning,
 			setDisplayMissingFundsWarning,
+			displayNeedFundsCard,
+			setDisplayNeedFundsCard,
 		}),
 		[
 			selectedCompany,
@@ -285,6 +296,8 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 			editedInfo,
 			displayMissingFundsWarning,
 			setDisplayMissingFundsWarning,
+			displayNeedFundsCard,
+			setDisplayNeedFundsCard,
 		]
 	);
 	return (

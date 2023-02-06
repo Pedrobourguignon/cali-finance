@@ -43,6 +43,7 @@ const usePicasso = () => {
 			select: '#191919',
 			dashboard: '#EDF2F7',
 			missingFunds: '#FED7D7',
+			needingFunds: '#E53E3E',
 		},
 		sizes: {
 			menuItem: '11.875rem',
