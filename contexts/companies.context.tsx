@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-expressions */
 import useTranslation from 'next-translate/useTranslation';
 import {
 	createContext,
@@ -94,17 +95,6 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 			},
 		},
 	]);
-
-	const showMissingFundsWarning = () => {
-		// eslint-disable-next-line no-unused-expressions
-		companies[0].funds < 10000
-			? setDisplayMissingFundsWarning('flex')
-			: setDisplayMissingFundsWarning('none');
-	};
-	useEffect(() => {
-		showMissingFundsWarning();
-	});
-	console.log(displayMissingFundsWarning);
 
 	const [selectedCompanyLogo, setSelectedCompanyLogo] = useState(
 		'/images/kylie-cosmetics-logo.png'
@@ -253,6 +243,15 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 	const totalMembers = companies
 		.reduce((total: number, org: ICompany) => total + org.teams.length, 0)
 		.toString();
+
+	const showMissingFundsWarning = () => {
+		selectedCompany.funds < 11231234
+			? setDisplayMissingFundsWarning('flex')
+			: setDisplayMissingFundsWarning('none');
+	};
+	useEffect(() => {
+		showMissingFundsWarning();
+	}, []);
 
 	const contextStates = useMemo(
 		() => ({

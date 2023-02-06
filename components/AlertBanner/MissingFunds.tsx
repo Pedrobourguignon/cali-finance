@@ -1,15 +1,20 @@
-/* eslint-disable no-unused-expressions */
 import { Flex, Img, Text } from '@chakra-ui/react';
 import { useCompanies, usePicasso } from 'hooks';
-import React, { useState } from 'react';
+import useTranslation from 'next-translate/useTranslation';
+import React from 'react';
 
 interface IMissingFunds {
 	display: string;
 }
 
-export const MissingFundsWarning: React.FC<IMissingFunds> = ({ display }) => {
+export const MissingFundsWarning: React.FC<IMissingFunds> = () => {
 	const theme = usePicasso();
-	const { companies, setDisplayMissingFundsWarning } = useCompanies();
+	const { t: translate } = useTranslation('alerts');
+	const {
+		companies,
+		setDisplayMissingFundsWarning,
+		displayMissingFundsWarning,
+	} = useCompanies();
 	const missingValue = 23121423;
 
 	return (
@@ -18,7 +23,7 @@ export const MissingFundsWarning: React.FC<IMissingFunds> = ({ display }) => {
 			py="1.5"
 			justify="center"
 			align="center"
-			display={display}
+			display={displayMissingFundsWarning}
 			w="full"
 		>
 			<Flex w="full" justify="center">
@@ -29,7 +34,7 @@ export const MissingFundsWarning: React.FC<IMissingFunds> = ({ display }) => {
 					pl="2.5"
 					whiteSpace="nowrap"
 				>
-					Your company {companies[0].name} is missing needed funds.
+					{translate('yourCompanieIsMissing', { companie: companies[0].name })}
 				</Text>
 				<Text
 					fontSize={{ md: 'xs', xl: 'sm' }}
@@ -37,15 +42,16 @@ export const MissingFundsWarning: React.FC<IMissingFunds> = ({ display }) => {
 					fontWeight="semibold"
 					whiteSpace="nowrap"
 				>
-					&nbsp;Deposit&nbsp;
+					&nbsp;{translate('deposit')}&nbsp;
 				</Text>
 				<Text
 					fontSize={{ md: 'xs', xl: 'sm' }}
 					color={theme.bg.primary}
 					whiteSpace="nowrap"
 				>
-					at least ${missingValue.toLocaleString('en-US')} at the company’s
-					funds tab.
+					{translate('atLeast', {
+						value: missingValue.toLocaleString('en-US'),
+					})}
 				</Text>
 			</Flex>
 
