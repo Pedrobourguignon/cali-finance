@@ -35,7 +35,7 @@ export const NotificationPopover: React.FC<INotificationPopover> = ({
 				<Button bg="transparent" onClick={onOpen} h="6" p="0">
 					<Icon
 						as={notificationsList.length > 0 ? VscBellDot : VscBell}
-						boxSize={{ md: '5', xl: '6', '2xl': '7' }}
+						boxSize="6"
 						color="black"
 					/>
 				</Button>
@@ -47,7 +47,7 @@ export const NotificationPopover: React.FC<INotificationPopover> = ({
 				<PopoverBody bg="white" borderRadius="base">
 					<Flex fontSize="sm" py="3" bg="white">
 						<Text
-							fontSize={{ md: 'sm', xl: 'md' }}
+							fontSize="md"
 							fontWeight="medium"
 							px="1"
 							color={theme.text.primary}
@@ -57,7 +57,7 @@ export const NotificationPopover: React.FC<INotificationPopover> = ({
 
 						<PopoverCloseButton
 							disabled={notificationsList.length <= 0}
-							fontSize={{ md: 'xs', xl: 'sm' }}
+							fontSize="sm"
 							color={theme.branding.blue}
 							_hover={{ color: 'theme.branding.blue', bg: 'none' }}
 							_focus={{ color: 'theme.branding.blue', bg: 'none' }}
@@ -102,7 +102,7 @@ export const NotificationPopover: React.FC<INotificationPopover> = ({
 									<Flex direction="column" justify="center">
 										<Text
 											color={theme.text.primary}
-											fontSize={{ md: 'xs', xl: 'sm' }}
+											fontSize="sm"
 											fontWeight="normal"
 										>
 											{notification.type}

@@ -26,10 +26,6 @@ export const CompaniesHeader: React.FC<{
 			name: translate('overview'),
 			route: navigationPaths.dashboard.companies.overview('1'),
 		},
-		// {
-		// 	name: translate('teams'),
-		// 	route: navigationPaths.dashboard.companies.teams('1'),
-		// },
 		{
 			name: translate('funds'),
 			route: navigationPaths.dashboard.companies.funds('1'),
