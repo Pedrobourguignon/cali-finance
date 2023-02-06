@@ -86,7 +86,7 @@ export const CreateCompanyComponent: React.FC<ICreateCompanyComponent> = ({
 			<Flex
 				direction="column"
 				gap={{ md: '2', lg: '6' }}
-				mb={{ md: '8', lg: '14' }}
+				mb={{ md: '8', lg: '10' }}
 				position="relative"
 			>
 				<Text color="black" fontSize="xl" fontWeight="medium">
@@ -102,6 +102,7 @@ export const CreateCompanyComponent: React.FC<ICreateCompanyComponent> = ({
 							borderBottomColor="black"
 							borderRadius="none"
 							px="1"
+							h="8"
 							fontSize="2xl"
 							_placeholder={{
 								color: 'blackAlpha.500',
@@ -137,6 +138,7 @@ export const CreateCompanyComponent: React.FC<ICreateCompanyComponent> = ({
 										<Select
 											{...field}
 											placeholder={translate('pleaseSelect')}
+											size="sm"
 											chakraStyles={{
 												placeholder: base => ({
 													...base,
@@ -147,6 +149,7 @@ export const CreateCompanyComponent: React.FC<ICreateCompanyComponent> = ({
 													...group,
 													bg: 'white',
 													minWidth: '48',
+													borderRadius: 'base',
 													borderColor: '#121212',
 													cursor: 'pointer',
 												}),
@@ -194,7 +197,9 @@ export const CreateCompanyComponent: React.FC<ICreateCompanyComponent> = ({
 										bg="none"
 										shadow="none"
 									>
-										<Icon as={BsQuestionCircle} color="gray.400" />
+										<span>
+											<Icon as={BsQuestionCircle} color="gray.400" />
+										</span>
 									</Tooltip>
 								</Flex>
 								<Controller
@@ -204,6 +209,7 @@ export const CreateCompanyComponent: React.FC<ICreateCompanyComponent> = ({
 										<Select
 											{...field}
 											placeholder="Please select "
+											size="sm"
 											chakraStyles={{
 												placeholder: base => ({
 													...base,
@@ -213,6 +219,7 @@ export const CreateCompanyComponent: React.FC<ICreateCompanyComponent> = ({
 												control: group => ({
 													...group,
 													bg: 'white',
+													borderRadius: 'base',
 													minWidth: '48',
 													borderColor: '#121212',
 													cursor: 'pointer',
@@ -258,7 +265,9 @@ export const CreateCompanyComponent: React.FC<ICreateCompanyComponent> = ({
 											color: 'blackAlpha.500',
 											fontSize: 'sm',
 										}}
+										h="8"
 										bgColor="white"
+										borderRadius="base"
 										_hover={{}}
 										borderColor={theme.bg.primary}
 									/>
@@ -346,6 +355,7 @@ export const CreateCompanyComponent: React.FC<ICreateCompanyComponent> = ({
 							<Select
 								{...field}
 								placeholder={translate('pleaseSelect')}
+								size="sm"
 								chakraStyles={{
 									placeholder: base => ({
 										...base,
@@ -356,6 +366,7 @@ export const CreateCompanyComponent: React.FC<ICreateCompanyComponent> = ({
 										...group,
 										bg: 'white',
 										minWidth: '48',
+										borderRadius: 'base',
 										borderColor: '#121212',
 										cursor: 'pointer',
 										_hover: {},

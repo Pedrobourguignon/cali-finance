@@ -32,7 +32,7 @@ export const NotificationPopover: React.FC<INotificationPopover> = ({
 	return (
 		<Popover placement="bottom-end" onClose={onClose} isOpen={isOpen}>
 			<PopoverTrigger>
-				<Button bg="transparent" onClick={onOpen} p="0">
+				<Button bg="transparent" onClick={onOpen} h="6" p="0">
 					<Icon
 						as={notificationsList.length > 0 ? VscBellDot : VscBell}
 						boxSize={{ md: '5', xl: '6', '2xl': '7' }}
