@@ -3,7 +3,7 @@ import { CompaniesProvider } from 'contexts';
 import { CompaniesLayoutNoConnected, CompaniesConnected } from 'layouts';
 
 export const CompaniesContainer = () => {
-	const isConnected = false;
+	const isConnected = true;
 	return (
 		<CompaniesProvider>
 			<Flex>
