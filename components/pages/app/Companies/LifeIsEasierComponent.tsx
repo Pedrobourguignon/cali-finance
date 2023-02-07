@@ -11,7 +11,7 @@ export const LifeIsEasier = () => {
 	return (
 		<Flex direction="column" gap="2">
 			<Text fontWeight="medium">{translate('lifeIsEasier')}</Text>
-			<Text fontSize={{ lg: 'xs', xl: 'sm' }} fontWeight="normal">
+			<Text fontSize={{ md: 'sm', lg: 'xs', xl: 'sm' }} fontWeight="normal">
 				{translate('Efficiency')}
 			</Text>
 			<Flex gap="6">
