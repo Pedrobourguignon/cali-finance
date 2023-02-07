@@ -37,7 +37,7 @@ export const Coins = () => {
 			px={{ md: '3', xl: '4' }}
 			borderRadius="base"
 			align="center"
-			minW={{ lg: '33.713rem', xl: '43.5rem' }}
+			minW={{ md: '33.713rem', '2xl': '43.5rem' }}
 			minH={{ md: '5rem', lg: '6.44rem' }}
 		>
 			<Flex direction="column" gap={{ md: '1', xl: '1.5' }}>
@@ -68,7 +68,7 @@ export const Coins = () => {
 				justify="space-between"
 				mx="4"
 				flex="1"
-				gap={{ md: '2', '2xl': '4' }}
+				gap={{ md: '4', '2xl': '4' }}
 			>
 				{coinCard.map((card, index) => (
 					<CoinCard

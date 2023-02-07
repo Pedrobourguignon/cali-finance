@@ -17,7 +17,7 @@ export const YourCompanies = () => {
 			>
 				{translate('yourCompanies')}
 			</Text>
-			<Flex gap={{ md: '4', '2xl': '6' }} w="full">
+			<Flex gap="4" w="full">
 				{companies.map((team, index) => (
 					<CompanyCard key={+index} team={team} />
 				))}
