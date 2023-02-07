@@ -5,6 +5,7 @@ export * from './DashboardRightBar';
 export * from './DepositOrWithdraw';
 export * from './EditCompanyLink';
 export * from './LifeIsEasierBanner';
+export * from './LifeIsEasierTabletBreakpoint';
 export * from './NewCompanyLinks';
 export * from './SwapToken';
 export * from './UpgradeAccount';

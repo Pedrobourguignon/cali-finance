@@ -21,9 +21,9 @@ export const CompanyCard: React.FC<ICompanyCard> = ({ team }) => {
 			borderRadius="base"
 			direction="column"
 			gap={{ md: '1', lg: '2', xl: '4' }}
-			w={{
+			minW={{
 				md: '8.288rem',
-				lg: '11.05rem',
+				lg: '10.5rem',
 				xl: '13.813rem',
 				'2xl': '16.575rem',
 			}}
