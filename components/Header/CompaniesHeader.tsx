@@ -1,7 +1,11 @@
 import { Flex, Img, Text, useDisclosure, Link } from '@chakra-ui/react';
 import { useCompanies, usePath, usePicasso } from 'hooks';
 import { chainLogo, handleLogoImage, navigationPaths } from 'utils';
-import { NavigationBack, NotificationPopover } from 'components';
+import {
+	NavigationBack,
+	NeedFundsCompaniesHeader,
+	NotificationPopover,
+} from 'components';
 import useTranslation from 'next-translate/useTranslation';
 import { ICompany } from 'types';
 
@@ -38,13 +42,16 @@ export const CompaniesHeader: React.FC<{
 				<NavigationBack href={navigationPaths.dashboard.companies.home}>
 					{translate('backToCompanies')}
 				</NavigationBack>
-				<NotificationPopover
-					setNotificationsList={setNotificationsList}
-					onClose={onClose}
-					isOpen={isOpen}
-					onOpen={onOpen}
-					notificationsList={notificationsList}
-				/>
+				<Flex align="center" gap="2">
+					<NeedFundsCompaniesHeader />
+					<NotificationPopover
+						setNotificationsList={setNotificationsList}
+						onClose={onClose}
+						isOpen={isOpen}
+						onOpen={onOpen}
+						notificationsList={notificationsList}
+					/>
+				</Flex>
 			</Flex>
 			<Flex w="100%" justify="space-between" align="center">
 				<Flex gap="3" align="center">
