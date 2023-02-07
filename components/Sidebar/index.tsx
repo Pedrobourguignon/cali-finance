@@ -236,12 +236,13 @@ export const Sidebar: React.FC = () => {
 						direction="column"
 						align="flex-start"
 						gap="3"
-						px={{ md: '2', lg: '4', xl: '6' }}
+						px={{ md: '2', lg: '4', xl: '5' }}
 						py="10"
 						w="full"
-						ml={{ md: '6', lg: '0' }}
+						position="absolute"
+						bottom="0"
 					>
-						<Flex gap="4">
+						<Flex gap="4" pl={{ md: '4', lg: '2', xl: '2' }}>
 							{languages.map((lang, index) => (
 								<Text
 									key={+index}
@@ -265,6 +266,7 @@ export const Sidebar: React.FC = () => {
 								textDecoration: 'none',
 								opacity: 0.8,
 							}}
+							pl={{ md: '4', lg: '2', xl: '2' }}
 						>
 							{translate('help')}
 						</Link>
@@ -275,22 +277,36 @@ export const Sidebar: React.FC = () => {
 								textDecoration: 'none',
 								opacity: 0.8,
 							}}
+							pl={{ md: '4', lg: '2', xl: '2' }}
 						>
 							{translate('docs')}
 						</Link>
-					</Flex>
-
-					<Flex flexDirection="row" px="2" w="full" alignItems="flex-start">
-						<Link href={socialMediaLinks.discord} isExternal>
-							<Button bg="transparent" borderRadius="full">
-								<Icon as={FaDiscord} boxSize="6" color={theme.branding.blue} />
-							</Button>
-						</Link>
-						<Link href={socialMediaLinks.twitter} isExternal>
-							<Button bg="transparent" borderRadius="full">
-								<Icon as={FaTwitter} boxSize="6" color={theme.branding.blue} />
-							</Button>
-						</Link>
+						<Flex
+							flexDirection="row"
+							w="full"
+							alignItems="flex-start"
+							pl={{ md: '2', lg: '0' }}
+							pt="5"
+						>
+							<Link href={socialMediaLinks.discord} isExternal>
+								<Button bg="transparent" borderRadius="full" p="0">
+									<Icon
+										as={FaDiscord}
+										boxSize="6"
+										color={theme.branding.blue}
+									/>
+								</Button>
+							</Link>
+							<Link href={socialMediaLinks.twitter} isExternal>
+								<Button bg="transparent" borderRadius="full">
+									<Icon
+										as={FaTwitter}
+										boxSize="6"
+										color={theme.branding.blue}
+									/>
+								</Button>
+							</Link>
+						</Flex>
 					</Flex>
 				</Flex>
 			</Flex>
