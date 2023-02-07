@@ -1,15 +1,17 @@
 import { Flex, Img } from '@chakra-ui/react';
+import { usePicasso } from 'hooks';
 import { useRouter } from 'next/router';
 import React from 'react';
 import { LifeIsEasier } from '../Companies';
 
 export const LifeIsEasierTabletBreakpoint = () => {
 	const { locale } = useRouter();
+	const theme = usePicasso();
 	return (
 		<Flex
 			w="full"
 			h="12.938rem"
-			bg="black"
+			bg={theme.bg.select}
 			borderRadius="base"
 			px="6"
 			bgImage="/images/ondulatedMd.png"
