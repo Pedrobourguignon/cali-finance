@@ -37,7 +37,7 @@ export const Coins = () => {
 			px={{ md: '3', xl: '4' }}
 			borderRadius="base"
 			align="center"
-			w={{ md: '33.713rem', xl: '43.5rem' }}
+			minW={{ md: '33.713rem', '2xl': '43.5rem' }}
 			minH={{ md: '5rem', lg: '6.44rem' }}
 		>
 			<Flex direction="column" gap={{ md: '1', xl: '1.5' }}>

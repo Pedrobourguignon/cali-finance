@@ -151,7 +151,7 @@ export const Sidebar: React.FC = () => {
 										boxSize="6"
 										objectFit="cover"
 									/>
-									<Text fontWeight="medium" fontSize={{ md: 'xs', lg: 'sm' }}>
+									<Text fontWeight="medium" fontSize={{ md: 'xs', xl: 'sm' }}>
 										{userProfile?.wallet}
 									</Text>
 								</Flex>
@@ -236,7 +236,7 @@ export const Sidebar: React.FC = () => {
 						direction="column"
 						align="flex-start"
 						gap="3"
-						px={{ md: '2', lg: '4', xl: '6' }}
+						px={{ md: '4', lg: '6', xl: '6' }}
 						py="10"
 						w="full"
 						ml={{ md: '6', lg: '0' }}
@@ -280,7 +280,12 @@ export const Sidebar: React.FC = () => {
 						</Link>
 					</Flex>
 
-					<Flex flexDirection="row" px="2" w="full" alignItems="flex-start">
+					<Flex
+						flexDirection="row"
+						px={{ md: '4', lg: '2', xl: '2' }}
+						w="full"
+						alignItems="flex-start"
+					>
 						<Link href={socialMediaLinks.discord} isExternal>
 							<Button bg="transparent" borderRadius="full">
 								<Icon as={FaDiscord} boxSize="6" color={theme.branding.blue} />
