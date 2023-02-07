@@ -9,7 +9,6 @@ export const CreateAccountBanner = () => {
 
 	return (
 		<InfosBanner
-			height="39.313rem"
 			position="absolute"
 			ilustrationImg="/images/illustration-big.png"
 			ondulatedImg="/images/big-ondulated.png"
