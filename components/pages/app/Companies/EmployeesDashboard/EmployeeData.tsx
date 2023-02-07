@@ -43,12 +43,12 @@ export const EmployeeData: React.FC<IEmployeeData> = ({
 			align="center"
 			bg="white"
 			color="black"
-			px="3"
+			px="4"
 			py="2"
 			borderRadius="base"
 		>
 			<EditEmployee isOpen={isOpen} onClose={onClose} employee={employee} />
-			<Flex justify="center" align="center" gap="3" maxW="36">
+			<Flex justify="center" align="center" gap="3">
 				<Img src={employee.photo} boxSize="6" />
 				<Flex direction="column" justifyItems="center">
 					<Text fontSize="sm">{employee.name}</Text>

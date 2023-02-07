@@ -32,13 +32,7 @@ export const CreateCompany = () => {
 				<FormControl>
 					<AppLayout right={<NewCompanyLinks control={control} />}>
 						<CompanyWhiteBackground />
-						<Flex
-							direction="column"
-							gap={{ md: '4', lg: '10' }}
-							zIndex="docked"
-							pt="6"
-							w="100%"
-						>
+						<Flex direction="column" gap="10" zIndex="docked" pt="6" w="100%">
 							<Flex w="100%">
 								<NavigationBack href={navigationPaths.dashboard.companies.home}>
 									{translate('backToCompanies')}

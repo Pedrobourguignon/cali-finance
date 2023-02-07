@@ -118,7 +118,7 @@ export const CreateCompanyComponent: React.FC<ICreateCompanyComponent> = ({
 					{errors.name?.message}
 				</Text>
 			</Flex>
-			<Flex py="6" justify="space-between">
+			<Flex py="10" justify="space-between">
 				<Flex direction="column" gap="8" w="100%" maxW={{ lg: '80' }}>
 					<Flex direction="column" color="black" gap="6">
 						<Flex
@@ -198,7 +198,12 @@ export const CreateCompanyComponent: React.FC<ICreateCompanyComponent> = ({
 										shadow="none"
 									>
 										<span>
-											<Icon as={BsQuestionCircle} color="gray.400" />
+											<Icon
+												as={BsQuestionCircle}
+												color="gray.400"
+												boxSize="0.813rem"
+												mt="2"
+											/>
 										</span>
 									</Tooltip>
 								</Flex>
@@ -326,8 +331,10 @@ export const CreateCompanyComponent: React.FC<ICreateCompanyComponent> = ({
 					display={{ md: 'none', lg: 'flex' }}
 					maxW="48"
 				>
-					<Flex gap="2" mb="2" align="center">
-						<Text {...labelStyle}>{translate('network')}</Text>
+					<Flex gap="2" align="center">
+						<Text {...labelStyle} mb="2">
+							{translate('network')}
+						</Text>
 						<Tooltip
 							label={
 								<NetworkTooltip>
@@ -344,7 +351,12 @@ export const CreateCompanyComponent: React.FC<ICreateCompanyComponent> = ({
 							shadow="none"
 						>
 							<span>
-								<Icon as={BsQuestionCircle} color="gray.400" />
+								<Icon
+									as={BsQuestionCircle}
+									color="gray.400"
+									boxSize="0.813rem"
+									mb="1"
+								/>
 							</span>
 						</Tooltip>
 					</Flex>
