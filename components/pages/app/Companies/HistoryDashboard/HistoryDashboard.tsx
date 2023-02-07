@@ -78,6 +78,7 @@ export const HistoryDashboard = () => {
 				<Text fontWeight="medium">{translate('history')}</Text>
 				<Select
 					w="max-content"
+					h="8"
 					bg="white"
 					onChange={event => filterUserHistory(event.target.value)}
 				>

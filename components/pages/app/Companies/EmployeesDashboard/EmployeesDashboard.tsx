@@ -60,7 +60,7 @@ export const EmployeesDashboard: React.FC<IEmployeeDashboard> = ({
 				</Flex>
 			</Flex>
 			<Flex w="100%" direction="column" gap="2">
-				<Flex justify="space-between">
+				<Flex justify="space-between" fontSize="sm">
 					<Text>{translate('nameAddress')}</Text>
 					{isGeneral && <Text>{translate('team')}</Text>}
 					<Text w="24">{translate('amount')}</Text>

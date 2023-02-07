@@ -66,7 +66,7 @@ export const NewCompanyLinks: React.FC<{
 	const { t: translate } = useTranslation('create-company');
 
 	return (
-		<Flex direction="column" zIndex="docked" w="100%" gap="8">
+		<Flex direction="column" align="center" zIndex="docked" w="100%" gap="8">
 			<Flex
 				bg={theme.bg.black}
 				direction="column"
@@ -101,6 +101,7 @@ export const NewCompanyLinks: React.FC<{
 				borderRadius="sm"
 				_hover={{}}
 				gap="2.5"
+				maxW="80"
 				fontWeight="medium"
 				fontSize="md"
 				lineHeight="6"

@@ -31,10 +31,6 @@ export const CompaniesHeader: React.FC<{
 			name: translate('overview'),
 			route: navigationPaths.dashboard.companies.overview('1'),
 		},
-		// {
-		// 	name: translate('teams'),
-		// 	route: navigationPaths.dashboard.companies.teams('1'),
-		// },
 		{
 			name: translate('funds'),
 			route: navigationPaths.dashboard.companies.funds('1'),
@@ -43,7 +39,7 @@ export const CompaniesHeader: React.FC<{
 
 	return (
 		<Flex direction="column" color={theme.text.primary} w="100%" gap="7">
-			<Flex w="100%" justify="space-between">
+			<Flex w="100%" justify="space-between" align="center">
 				<NavigationBack href={navigationPaths.dashboard.companies.home}>
 					{translate('backToCompanies')}
 				</NavigationBack>

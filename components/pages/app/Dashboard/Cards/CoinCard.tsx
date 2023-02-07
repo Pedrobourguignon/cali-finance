@@ -18,7 +18,8 @@ export const CoinCard: React.FC<ICoinCard> = ({ coin, borderColor, color }) => {
 			border="1px solid"
 			borderColor={borderColor}
 			_hover={{ boxShadow: 'xl' }}
-			pl={{ md: '2', xl: '3', '2xl': '5' }}
+			pl="3"
+			pr="12"
 			pt="2"
 			pb="1.5"
 			transition="all 0.1s ease-in-out"
@@ -28,15 +29,15 @@ export const CoinCard: React.FC<ICoinCard> = ({ coin, borderColor, color }) => {
 				<Flex align="center" gap="2">
 					<Img src={coin.icon} boxSize={{ md: '5', xl: '6' }} />
 					<Flex direction="column">
-						<Text fontSize="2xs" color={color}>
+						<Text fontSize="xs" color={color}>
 							{coin.name}
 						</Text>
-						<Text fontSize="2xs" color={color}>
+						<Text fontSize="xs" color={color}>
 							{coin.value}
 						</Text>
 					</Flex>
 				</Flex>
-				<Text fontSize="2xs" color={varianceColor()}>
+				<Text fontSize="xs" color={varianceColor()}>
 					{coin.variation > 0 && '+'}
 					{coin.variation}%
 				</Text>

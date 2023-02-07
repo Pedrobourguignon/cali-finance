@@ -62,7 +62,7 @@ export const FundsPageComponent = () => {
 
 	return (
 		<AppLayout right={<DepositOrWithdrawBanner />}>
-			<Flex w="100%" bg="white" position="absolute" h="64" left="0" />
+			<Flex w="100%" bg="white" position="absolute" h="14.4rem" left="0" />
 			<Flex
 				color="black"
 				pt="6"

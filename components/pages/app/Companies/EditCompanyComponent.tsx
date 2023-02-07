@@ -7,6 +7,7 @@ import {
 	Text,
 	Textarea,
 	TextProps,
+	Tooltip,
 } from '@chakra-ui/react';
 import { useCompanies, usePicasso } from 'hooks';
 import { Control, FieldErrorsImpl, Controller } from 'react-hook-form';
@@ -15,6 +16,7 @@ import { Select } from 'chakra-react-select';
 import { BsQuestionCircle } from 'react-icons/bs';
 import useTranslation from 'next-translate/useTranslation';
 import { useEffect } from 'react';
+import { NetworkTooltip } from 'components';
 
 interface IEditCompanyComponent {
 	control: Control<ICreateCompany>;
@@ -116,14 +118,10 @@ export const EditCompanyComponent: React.FC<IEditCompanyComponent> = ({
 			<Flex
 				direction="column"
 				gap={{ md: '2', lg: '6' }}
-				mb={{ md: '8', lg: '14' }}
+				mb={{ md: '8', lg: '10' }}
 				position="relative"
 			>
-				<Text
-					color="black"
-					fontSize={{ md: 'md', lg: 'xl' }}
-					fontWeight="medium"
-				>
+				<Text color="black" fontSize="xl" fontWeight="medium">
 					{translate('editCompany')}
 				</Text>
 				<Controller
@@ -136,8 +134,9 @@ export const EditCompanyComponent: React.FC<IEditCompanyComponent> = ({
 							borderBottomWidth="0,125rem"
 							borderBottomColor="black"
 							borderRadius="none"
+							h="8"
 							px="1"
-							fontSize={{ md: 'xl', xl: '2xl' }}
+							fontSize="2xl"
 							_placeholder={{
 								color: 'blackAlpha.500',
 								fontSize: { md: 'xl', xl: '2xl' },
@@ -178,6 +177,7 @@ export const EditCompanyComponent: React.FC<IEditCompanyComponent> = ({
 										<Select
 											{...field}
 											placeholder={translate('pleaseSelect')}
+											size="sm"
 											onChange={editedType =>
 												setEditedInfo(prevState => ({
 													...prevState,
@@ -194,6 +194,7 @@ export const EditCompanyComponent: React.FC<IEditCompanyComponent> = ({
 													...group,
 													bg: 'white',
 													minWidth: '48',
+													borderRadius: 'base',
 													borderColor: '#121212',
 													cursor: 'pointer',
 													_hover: {},
@@ -206,7 +207,7 @@ export const EditCompanyComponent: React.FC<IEditCompanyComponent> = ({
 												}),
 												option: (item, state) => ({
 													...item,
-													bg: state.isSelected ? 'gray.50' : 'none',
+													bg: state.isFocused ? 'gray.50' : 'none',
 												}),
 											}}
 											options={companiesType}
@@ -224,10 +225,30 @@ export const EditCompanyComponent: React.FC<IEditCompanyComponent> = ({
 								color={theme.text.primary}
 								display={{ md: 'flex', lg: 'none' }}
 							>
-								<Flex gap="2" mb="2">
+								<Flex gap="2" mb="2" align="center">
 									<Text {...labelStyle}>Network *</Text>
-									<Icon as={BsQuestionCircle} color="gray.400" />
+
+									<Tooltip
+										label={
+											<NetworkTooltip>
+												Choose the most suitable network for paying your staff
+												efficiently.
+											</NetworkTooltip>
+										}
+										placement="top"
+										hasArrow
+										arrowShadowColor={theme.branding.blue}
+										arrowPadding={10}
+										gutter={12}
+										bg="none"
+										shadow="none"
+									>
+										<span>
+											<Icon as={BsQuestionCircle} color="gray.400" />
+										</span>
+									</Tooltip>
 								</Flex>
+
 								<Controller
 									name="network"
 									control={control}
@@ -235,6 +256,7 @@ export const EditCompanyComponent: React.FC<IEditCompanyComponent> = ({
 										<Select
 											{...field}
 											placeholder="Please select"
+											size="sm"
 											onChange={editedNetwork =>
 												setEditedInfo(prevState => ({
 													...prevState,
@@ -251,6 +273,7 @@ export const EditCompanyComponent: React.FC<IEditCompanyComponent> = ({
 													...group,
 													bg: 'white',
 													minWidth: '48',
+													borderRadius: 'base',
 													borderColor: '#121212',
 													cursor: 'pointer',
 													_hover: {},
@@ -296,7 +319,10 @@ export const EditCompanyComponent: React.FC<IEditCompanyComponent> = ({
 											color: 'blackAlpha.500',
 											fontSize: 'sm',
 										}}
+										h="8"
+										fontSize="sm"
 										bgColor="white"
+										borderRadius="base"
 										_hover={{}}
 										borderColor={theme.bg.primary}
 										defaultValue={email}
@@ -323,6 +349,7 @@ export const EditCompanyComponent: React.FC<IEditCompanyComponent> = ({
 								render={({ field }) => (
 									<Textarea
 										{...field}
+										fontSize="sm"
 										borderColor={theme.bg.primary}
 										_placeholder={{
 											color: 'blackAlpha.500',
@@ -378,9 +405,28 @@ export const EditCompanyComponent: React.FC<IEditCompanyComponent> = ({
 					color={theme.text.primary}
 					display={{ md: 'none', lg: 'flex' }}
 				>
-					<Flex gap="2" mb="2">
-						<Text {...labelStyle}>{translate('network')}</Text>
-						<Icon as={BsQuestionCircle} color="gray.400" />
+					<Flex gap="2" mb="2" align="center">
+						<Text {...labelStyle}>Network *</Text>
+
+						<Tooltip
+							label={
+								<NetworkTooltip>
+									Choose the most suitable network for paying your staff
+									efficiently.
+								</NetworkTooltip>
+							}
+							placement="top"
+							hasArrow
+							arrowShadowColor={theme.branding.blue}
+							arrowPadding={10}
+							gutter={12}
+							bg="none"
+							shadow="none"
+						>
+							<span>
+								<Icon as={BsQuestionCircle} color="gray.400" />
+							</span>
+						</Tooltip>
 					</Flex>
 					<Controller
 						name="network"
@@ -389,6 +435,7 @@ export const EditCompanyComponent: React.FC<IEditCompanyComponent> = ({
 							<Select
 								{...field}
 								placeholder={translate('pleaseSelect')}
+								size="sm"
 								onChange={editedNetwork =>
 									setEditedInfo(prevState => ({
 										...prevState,
@@ -408,6 +455,7 @@ export const EditCompanyComponent: React.FC<IEditCompanyComponent> = ({
 									control: group => ({
 										...group,
 										bg: 'white',
+										borderRadius: 'base',
 										minWidth: '48',
 										borderColor: '#121212',
 										cursor: 'pointer',

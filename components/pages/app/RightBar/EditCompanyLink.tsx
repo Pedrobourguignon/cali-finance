@@ -77,13 +77,14 @@ export const EditCompanyLink: React.FC<{
 	];
 
 	return (
-		<Flex direction="column" w="100%" gap="8">
+		<Flex direction="column" w="100%" align="center" gap="8">
 			<Flex
 				bg={theme.bg.black}
 				direction="column"
 				align="center"
 				px="4"
-				py={{ md: '12', lg: '16', xl: '24' }}
+				pt="24"
+				pb="28"
 				gap="10"
 				borderRadius="base"
 				w="100%"
@@ -93,7 +94,7 @@ export const EditCompanyLink: React.FC<{
 					<CompanyLogo />
 					<ImageUploader />
 				</Flex>
-				<Flex>
+				<Flex w="100%">
 					<Flex direction="column" gap="4" w="100%">
 						{socialLinks.map((socialLink, index) => (
 							<SocialMediaInput
@@ -115,6 +116,7 @@ export const EditCompanyLink: React.FC<{
 				_active={{}}
 				_focus={{}}
 				gap="2.5"
+				minW="80"
 				fontWeight="medium"
 				fontSize="md"
 				lineHeight="6"
