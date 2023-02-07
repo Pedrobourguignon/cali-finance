@@ -4,4 +4,5 @@ export * from './createTeamSchema';
 export * from './edit-company';
 export * from './editEmployeeSchema';
 export * from './swapTokensSchema';
+export * from './transactionSchema';
 export * from './uploadCsvSchema';
