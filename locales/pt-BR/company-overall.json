@@ -15,7 +15,7 @@
 	"pending": "Pendente",
 	"amount": "Quantia",
 	"addFunds": "Adicionar fundos a organização",
-	"withdrawFunds": "Retirar fundos da organização",
+	"withdrawFunds": "Retirar fundos ",
 	"createTeam": "Criar Time",
 	"members": "Membros",
 	"employees": "Funcionários",
@@ -29,5 +29,9 @@
 	"withdrawals": "Retiradas",
 	"withdrawn": "Retirada",
 	"thisWeek": "Essa Semana",
-	"thisMonth": "Esse Mês"
+	"thisMonth": "Esse Mês",
+	"confirmTransaction": "Confirme {{transactionType}}",
+	"fee": "Taxa",
+	"totalTransaction": "Total {{transactionType}}",
+	"cancel": "Cancelar"
 }

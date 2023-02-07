@@ -28,8 +28,6 @@ interface IDepositOrWithdrawnForm {
 	amount: number;
 }
 
-const buttonOptions = ['Deposit', 'Withdraw'];
-
 export const DepositOrWithdrawCard: React.FC<IDepoistOrWithdrawCard> = ({
 	setTransaction,
 	setConfirm,
@@ -37,6 +35,7 @@ export const DepositOrWithdrawCard: React.FC<IDepoistOrWithdrawCard> = ({
 	const { t: translate } = useTranslation('company-overall');
 	const theme = usePicasso();
 	const { onClose, isOpen, onOpen } = useDisclosure();
+	const buttonOptions = [translate('deposit'), translate('withdrawal')];
 	const [selectedOption, setSelectedOption] = useState<string>(
 		translate('deposit')
 	);

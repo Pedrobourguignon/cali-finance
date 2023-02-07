@@ -9,12 +9,12 @@ interface IConfirmTransaction {
 	setConfirm: Dispatch<SetStateAction<boolean>>;
 }
 
-const buttonOptions = ['Deposit', 'Withdraw'];
 export const ConfirmTransaction: React.FC<IConfirmTransaction> = ({
 	transaction,
 	setConfirm,
 }) => {
 	const { t: translate } = useTranslation('company-overall');
+	const buttonOptions = [translate('deposit'), translate('withdrawal')];
 
 	const [selectedOption, setSelectedOption] = useState<string | undefined>(
 		transaction.type
@@ -53,7 +53,9 @@ export const ConfirmTransaction: React.FC<IConfirmTransaction> = ({
 			</Flex>
 			<Flex direction="column" gap="4">
 				<Text color={theme.text.primary} fontWeight="medium">
-					Confirm Deposit
+					{translate('confirmTransaction', {
+						transactionType: transaction.type,
+					})}
 				</Text>
 				<Flex direction="column" gap="3">
 					<Flex
@@ -64,14 +66,14 @@ export const ConfirmTransaction: React.FC<IConfirmTransaction> = ({
 						color="gray.600"
 					>
 						<Flex justify="space-between">
-							<Text>Amount</Text>
+							<Text>{translate('amount')}</Text>
 							<Flex align="center" gap="1">
 								<Text>{transaction.amount.toLocaleString('en-US')}</Text>
 								<Img src={transaction.logo} boxSize="4" />
 							</Flex>
 						</Flex>
 						<Flex justify="space-between">
-							<Text>Fee</Text>
+							<Text>{translate('fee')}</Text>
 							<Text>0.5%</Text>
 						</Flex>
 					</Flex>
@@ -84,7 +86,11 @@ export const ConfirmTransaction: React.FC<IConfirmTransaction> = ({
 						borderRadius="base"
 						px="2"
 					>
-						<Text fontWeight="medium">Total Deposit</Text>
+						<Text fontWeight="medium">
+							{translate('totalTransaction', {
+								transactionType: transaction.type,
+							})}
+						</Text>
 						<Flex align="center" gap="1">
 							<Text>{transaction.amount.toLocaleString('en-US')}</Text>
 							<Img src={transaction.logo} boxSize="4" />
@@ -138,7 +144,7 @@ export const ConfirmTransaction: React.FC<IConfirmTransaction> = ({
 						opacity: 0.8,
 					}}
 				>
-					Cancel
+					{translate('cancel')}
 				</Button>
 			</Flex>
 		</Flex>

@@ -15,7 +15,7 @@
 	"pending": "Pending",
 	"amount": "Amount",
 	"addFunds": "Add Funds to Company",
-	"withdrawFunds": "Withdraw Funds from Company",
+	"withdrawFunds": "Withdraw Funds ",
 	"createTeam": "Create Team",
 	"members": "Members",
 	"employees": "Employees",
@@ -29,5 +29,9 @@
 	"withdrawals": "Withdrawals",
 	"withdrawn": "Withdrawn",
 	"thisWeek": "This Week",
-	"thisMonth": "This Month"
+	"thisMonth": "This Month",
+	"confirmTransaction": "Confirm {{transactionType}}",
+	"fee": "Fee",
+	"totalTransaction": "Total {{transactionType}}",
+	"cancel": "Cancel"
 }
