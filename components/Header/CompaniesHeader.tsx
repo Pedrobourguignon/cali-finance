@@ -21,8 +21,7 @@ export const CompaniesHeader: React.FC<{
 }> = ({ company }) => {
 	const theme = usePicasso();
 	const { isSamePath } = usePath();
-	const { setNotificationsList, notificationsList, displayNeedFundsCard } =
-		useCompanies();
+	const { setNotificationsList, notificationsList } = useCompanies();
 	const { onClose, isOpen, onOpen } = useDisclosure();
 	const { t: translate } = useTranslation('company-overall');
 
@@ -44,7 +43,7 @@ export const CompaniesHeader: React.FC<{
 					{translate('backToCompanies')}
 				</NavigationBack>
 				<Flex align="center" gap="2">
-					<NeedFundsCompaniesHeader display={displayNeedFundsCard} />
+					<NeedFundsCompaniesHeader />
 					<NotificationPopover
 						setNotificationsList={setNotificationsList}
 						onClose={onClose}

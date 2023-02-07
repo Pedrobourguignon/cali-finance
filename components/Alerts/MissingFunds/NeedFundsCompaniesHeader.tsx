@@ -3,17 +3,13 @@ import { useCompanies, usePicasso } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
 import React from 'react';
 
-interface IMissingFunds {
-	display: string;
-}
-
-export const NeedFundsCompaniesHeader: React.FC<IMissingFunds> = () => {
+export const NeedFundsCompaniesHeader = () => {
 	const theme = usePicasso();
 	const { displayNeedFundsCard } = useCompanies();
 	const { t: translate } = useTranslation('alerts');
 	return (
 		<Flex
-			bg={theme.bg.needingFunds}
+			bg="red.500"
 			h="max-content"
 			borderRadius="full"
 			py="0.25"

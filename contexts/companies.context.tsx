@@ -1,5 +1,3 @@
-/* eslint-disable array-callback-return */
-/* eslint-disable no-unused-expressions */
 import useTranslation from 'next-translate/useTranslation';
 import {
 	createContext,
@@ -63,7 +61,7 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 				twitter: 'twitter.com/kyliecosmetics',
 				website: 'kyliecosmetics.net',
 			},
-			funds: 0,
+			funds: 999,
 			neededFunds: 1,
 		},
 		{
@@ -81,7 +79,7 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 				twitter: 'twitter.com/kylieskin',
 				website: 'kylieskin.net',
 			},
-			funds: 0,
+			funds: 999,
 			neededFunds: 1,
 		},
 		{
@@ -253,6 +251,7 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 		.reduce((total: number, org: ICompany) => total + org.teams.length, 0)
 		.toString();
 
+	// eslint-disable-next-line array-callback-return
 	companies.map(companie => {
 		if (companie.funds < companie.neededFunds) {
 			companiesWithMissingFunds.push(companie);

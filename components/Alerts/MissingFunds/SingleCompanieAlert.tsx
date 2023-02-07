@@ -1,7 +1,6 @@
-import { Flex, Text } from '@chakra-ui/react';
+import { Flex, Text, Link } from '@chakra-ui/react';
 import { useCompanies, usePicasso } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
-import Link from 'next/link';
 import React from 'react';
 
 interface ISingleCompanieAlert {

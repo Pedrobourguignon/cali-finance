@@ -18,7 +18,7 @@ export const MissingFundsWarning: React.FC<IMissingFunds> = () => {
 
 	return (
 		<Flex
-			bg={theme.bg.missingFunds}
+			bg="red.100"
 			py="1.5"
 			justify="center"
 			align="center"
@@ -34,7 +34,7 @@ export const MissingFundsWarning: React.FC<IMissingFunds> = () => {
 				)}
 			</Flex>
 			<Text
-				color={theme.text.gray700}
+				color="gray.700"
 				cursor="pointer"
 				fontSize="xs"
 				onClick={() => setDisplayMissingFundsWarning('none')}
