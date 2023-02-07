@@ -76,7 +76,7 @@ export const DepositOrWithdrawCard: React.FC<IDepoistOrWithdrawCard> = ({
 					direction="column"
 					color={theme.text.primary}
 					p="4"
-					gap="6"
+					gap="4"
 					w="100%"
 				>
 					<TokenSelector
@@ -95,13 +95,14 @@ export const DepositOrWithdrawCard: React.FC<IDepoistOrWithdrawCard> = ({
 								borderRadius="full"
 								_hover={{}}
 								_focus={{}}
+								fontSize="sm"
 							>
 								{item}
 							</Button>
 						))}
 					</Flex>
-					<Flex direction="column" gap="1">
-						<Text>{translate('amount')}</Text>
+					<Flex direction="column" gap="2">
+						<Text fontSize="sm">{translate('amount')}</Text>
 						<InputGroup>
 							<Input
 								_placeholder={{ color: 'blackAlpha.500' }}

@@ -46,13 +46,14 @@ export const ConfirmTransaction: React.FC<IConfirmTransaction> = ({
 						disabled={item !== selectedOption}
 						_hover={{}}
 						_focus={{}}
+						fontSize="sm"
 					>
 						{item}
 					</Button>
 				))}
 			</Flex>
 			<Flex direction="column" gap="4">
-				<Text color={theme.text.primary} fontWeight="medium">
+				<Text color={theme.text.primary} fontWeight="medium" fontSize="sm">
 					{translate('confirmTransaction', {
 						transactionType: transaction.type,
 					})}
@@ -86,13 +87,15 @@ export const ConfirmTransaction: React.FC<IConfirmTransaction> = ({
 						borderRadius="base"
 						px="2"
 					>
-						<Text fontWeight="medium">
+						<Text fontWeight="medium" fontSize="sm">
 							{translate('totalTransaction', {
 								transactionType: transaction.type,
 							})}
 						</Text>
 						<Flex align="center" gap="1">
-							<Text>{transaction.amount.toLocaleString('en-US')}</Text>
+							<Text fontSize="sm">
+								{transaction.amount.toLocaleString('en-US')}
+							</Text>
 							<Img src={transaction.logo} boxSize="4" />
 						</Flex>
 					</Flex>
