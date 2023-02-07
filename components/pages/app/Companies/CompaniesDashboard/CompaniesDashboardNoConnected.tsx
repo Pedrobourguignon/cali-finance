@@ -7,8 +7,8 @@ export const CompaniesDashboardNoConnected = () => {
 	return (
 		<Flex
 			bg={theme.bg.primary}
-			py={{ md: '4', xl: '6', '2xl': '8' }}
-			px={{ md: '3', xl: '4', '2xl': '7' }}
+			py="6"
+			px="4"
 			borderRadius="base"
 			align="center"
 			minH="6.5rem"
@@ -57,7 +57,7 @@ export const CompaniesDashboardNoConnected = () => {
 					Total Funds
 				</Text>
 			</Flex>
-			<Flex flex="2">
+			<Flex flex="1">
 				<OffsetButton name="Create Company" route="companies/create" />
 			</Flex>
 		</Flex>
