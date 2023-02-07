@@ -12,4 +12,5 @@ export interface ICompany {
 	teams: [string];
 	selectedNetwork: string;
 	employees?: IEmployee[];
+	neededFunds: number;
 }

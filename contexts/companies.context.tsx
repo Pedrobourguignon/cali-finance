@@ -27,6 +27,11 @@ interface ICompanysContext {
 	selectedCompanyLogo: string;
 	setEditedInfo: Dispatch<SetStateAction<IEditedCompany>>;
 	editedInfo: IEditedCompany;
+	displayMissingFundsWarning: string;
+	setDisplayMissingFundsWarning: Dispatch<SetStateAction<string>>;
+	displayNeedFundsCard: string;
+	setDisplayNeedFundsCard: Dispatch<SetStateAction<string>>;
+	companiesWithMissingFunds: ICompany[];
 }
 
 export const CompaniesContext = createContext({} as ICompanysContext);
@@ -35,6 +40,10 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 	children,
 }) => {
 	const { t: translate } = useTranslation('companies');
+	const [displayMissingFundsWarning, setDisplayMissingFundsWarning] =
+		useState('none');
+	const [displayNeedFundsCard, setDisplayNeedFundsCard] = useState('none');
+	const companiesWithMissingFunds: ICompany[] = [];
 
 	const [companies, setCompanies] = useState<ICompany[]>([
 		{
@@ -52,14 +61,13 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 				twitter: 'twitter.com/kyliecosmetics',
 				website: 'kyliecosmetics.net',
 			},
-
-			funds: 2234.05,
+			funds: 999,
+			neededFunds: 1,
 		},
 		{
 			name: 'Kylie Skin',
 			type: 'DAO',
 			email: 'kylieskin@gmail.com',
-			funds: 92234.11,
 			members: 170,
 			teams: ['marketing'],
 			description: 'Hello',
@@ -71,12 +79,13 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 				twitter: 'twitter.com/kylieskin',
 				website: 'kylieskin.net',
 			},
+			funds: 999,
+			neededFunds: 1,
 		},
 		{
 			name: 'Kylie Baby',
 			type: 'DAO',
 			email: 'kyliebaby@gmail.com',
-			funds: 5234.11,
 			members: 13,
 			teams: ['marketing'],
 			description: 'Hello',
@@ -88,6 +97,8 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 				twitter: 'twitter.com/kyliebaby',
 				website: 'kyliebaby.net',
 			},
+			funds: 5234.11,
+			neededFunds: 1,
 		},
 	]);
 
@@ -111,6 +122,7 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 			twitter: 'twitter.com/kylieskin',
 			website: 'kylieskin.net',
 		},
+		neededFunds: 2235,
 
 		employees: [
 			{
@@ -239,6 +251,26 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 		.reduce((total: number, org: ICompany) => total + org.teams.length, 0)
 		.toString();
 
+	// eslint-disable-next-line array-callback-return
+	companies.map(companie => {
+		if (companie.funds < companie.neededFunds) {
+			companiesWithMissingFunds.push(companie);
+		}
+	});
+
+	const showMissingFundsWarning = () => {
+		if (companiesWithMissingFunds.length) {
+			setDisplayMissingFundsWarning('flex');
+			setDisplayNeedFundsCard('flex');
+		} else {
+			setDisplayMissingFundsWarning('none');
+			setDisplayNeedFundsCard('none');
+		}
+	};
+	useEffect(() => {
+		showMissingFundsWarning();
+	}, []);
+
 	const contextStates = useMemo(
 		() => ({
 			companies,
@@ -253,6 +285,11 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 			selectedCompanyLogo,
 			setEditedInfo,
 			editedInfo,
+			displayMissingFundsWarning,
+			setDisplayMissingFundsWarning,
+			displayNeedFundsCard,
+			setDisplayNeedFundsCard,
+			companiesWithMissingFunds,
 		}),
 		[
 			selectedCompany,
@@ -267,6 +304,11 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 			selectedCompanyLogo,
 			setEditedInfo,
 			editedInfo,
+			displayMissingFundsWarning,
+			setDisplayMissingFundsWarning,
+			displayNeedFundsCard,
+			setDisplayNeedFundsCard,
+			companiesWithMissingFunds,
 		]
 	);
 	return (

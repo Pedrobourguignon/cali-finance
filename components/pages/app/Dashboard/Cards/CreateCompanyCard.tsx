@@ -8,12 +8,13 @@ export const CreateCompanyCard = () => {
 	const theme = usePicasso();
 	return (
 		<Flex
-			boxShadow="2xl"
+			boxShadow="base"
 			direction="column"
 			justify="center"
 			align="center"
 			borderRadius="base"
-			maxW={{ md: '44', xl: '56', '2xl': '16.6rem' }}
+			maxW="56"
+			bg="white"
 			px="4"
 			py="4"
 			gap="4"
@@ -24,14 +25,10 @@ export const CreateCompanyCard = () => {
 				gap="5"
 				color={theme.text.mono}
 			>
-				<Icon
-					as={CompanyIcon}
-					boxSize={{ md: '6', xl: '9' }}
-					color={theme.text.mono}
-				/>
+				<Icon as={CompanyIcon} boxSize="9" color={theme.text.mono} />
 				<Flex direction="column">
 					<Text
-						fontSize={{ md: 'xs', xl: 'md', '2xl': 'lg' }}
+						fontSize="md"
 						fontStyle="normal"
 						fontWeight="medium"
 						color={theme.text.mono}
@@ -43,7 +40,7 @@ export const CreateCompanyCard = () => {
 			<Button
 				color="white"
 				bg={theme.bg.primary}
-				fontSize={{ md: 'xs', xl: 'sm' }}
+				fontSize="sm"
 				fontWeight="medium"
 				borderRadius="sm"
 				_hover={{ bg: 'black' }}
