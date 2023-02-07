@@ -7,7 +7,7 @@ interface IPercentage {
 export const CircularProgressBar: React.FC<IPercentage> = ({ percentage }) => {
 	const theme = usePicasso();
 
-	const percentCalc = (240 - percentage * 2.4).toString?.();
+	const percentCalc = (240 - percentage * 2.22).toString?.();
 
 	return (
 		<svg display="block" viewBox="10 -5 170 103">
@@ -23,7 +23,7 @@ export const CircularProgressBar: React.FC<IPercentage> = ({ percentage }) => {
 				strokeWidth="5"
 				strokeLinecap="round"
 				stroke={theme.branding.blue}
-				strokeDasharray="248"
+				strokeDasharray="240"
 				strokeDashoffset={percentCalc}
 				d="M52,90
 				A52,52 0 1,1 140,90"

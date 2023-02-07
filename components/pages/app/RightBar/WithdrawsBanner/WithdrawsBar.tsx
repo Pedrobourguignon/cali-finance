@@ -23,7 +23,7 @@ export const WithdrawsBar = () => {
 			<Flex
 				px="4"
 				pt="2.5"
-				pb="5"
+				pb="4"
 				bg="white"
 				borderRadius="base"
 				h="100%"
@@ -49,7 +49,7 @@ export const WithdrawsBar = () => {
 							w="20"
 							fontSize="xs"
 							fontWeight="bold"
-							h="4"
+							h="6"
 							_hover={{}}
 							_active={{}}
 							_focus={{}}

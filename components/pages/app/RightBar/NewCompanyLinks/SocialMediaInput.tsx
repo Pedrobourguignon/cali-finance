@@ -14,15 +14,17 @@ export const SocialMediaInput: React.FC<ISocialLink> = ({
 }) => (
 	<Controller
 		render={({ field }) => (
-			<InputGroup {...field} bg="whiteAlpha.200">
+			<InputGroup {...field} bg="whiteAlpha.200" h="8">
 				<InputLeftElement
+					h="8"
 					pointerEvents="none"
 					borderRightColor="whiteAlpha.200"
 					borderRightWidth="0.1rem"
 				>
-					<Img src={socialLink.imgSrc} />
+					<Img src={socialLink.imgSrc} boxSize="6" />
 				</InputLeftElement>
 				<Input
+					h="8"
 					placeholder={socialLink.placeHolder}
 					_placeholder={{
 						color: 'whiteAlpha.300	',
