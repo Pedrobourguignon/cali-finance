@@ -63,7 +63,7 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 				twitter: 'twitter.com/kyliecosmetics',
 				website: 'kyliecosmetics.net',
 			},
-			funds: 1234,
+			funds: 0,
 			neededFunds: 1,
 		},
 		{
@@ -81,7 +81,7 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 				twitter: 'twitter.com/kylieskin',
 				website: 'kylieskin.net',
 			},
-			funds: 92234.11,
+			funds: 0,
 			neededFunds: 1,
 		},
 		{

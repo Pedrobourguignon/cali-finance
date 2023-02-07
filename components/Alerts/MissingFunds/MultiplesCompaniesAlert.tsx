@@ -9,24 +9,25 @@ export const MultipleCompaniesAlert = () => {
 	const { t: translate } = useTranslation('alerts');
 	return (
 		<Flex>
-			<Link href="/app/companies/funds">
-				<Text
-					pl="2.5"
-					fontSize={{ md: 'xs', xl: 'sm' }}
-					color={theme.bg.primary}
-					whiteSpace="nowrap"
-				>
-					{translate('yourCompanies')}
-				</Text>
-			</Link>
 			<Text
+				pl="2.5"
 				fontSize={{ md: 'xs', xl: 'sm' }}
 				color={theme.bg.primary}
 				whiteSpace="nowrap"
-				fontWeight="semibold"
 			>
-				&nbsp;{translate('depositFunds')}&nbsp;
+				{translate('yourCompanies')}
 			</Text>
+			<Link href="/app/companies">
+				<Text
+					cursor="pointer"
+					fontSize={{ md: 'xs', xl: 'sm' }}
+					color={theme.bg.primary}
+					whiteSpace="nowrap"
+					fontWeight="semibold"
+				>
+					&nbsp;{translate('depositFunds')}&nbsp;
+				</Text>
+			</Link>
 			<Text
 				fontSize={{ md: 'xs', xl: 'sm' }}
 				color={theme.bg.primary}

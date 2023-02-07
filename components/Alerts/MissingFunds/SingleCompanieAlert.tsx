@@ -16,20 +16,20 @@ export const SingleCompanieAlert: React.FC<ISingleCompanieAlert> = ({
 	const { companiesWithMissingFunds } = useCompanies();
 	return (
 		<Flex>
-			<Link href="/app/companies">
+			<Text
+				fontSize={{ md: 'xs', xl: 'sm' }}
+				color={theme.bg.primary}
+				pl="2.5"
+				whiteSpace="nowrap"
+			>
+				{translate('yourCompanieIsMissing', {
+					companie: companiesWithMissingFunds[0]?.name,
+				})}
+			</Text>
+
+			<Link href="/app/companies/1/funds">
 				<Text
-					fontSize={{ md: 'xs', xl: 'sm' }}
-					color={theme.bg.primary}
-					pl="2.5"
-					whiteSpace="nowrap"
-				>
-					{translate('yourCompanieIsMissing', {
-						companie: companiesWithMissingFunds[0]?.name,
-					})}
-				</Text>
-			</Link>
-			<Link href="/app/companies">
-				<Text
+					cursor="pointer"
 					fontSize={{ md: 'xs', xl: 'sm' }}
 					color={theme.bg.primary}
 					fontWeight="semibold"
@@ -38,17 +38,15 @@ export const SingleCompanieAlert: React.FC<ISingleCompanieAlert> = ({
 					&nbsp;{translate('deposit')}&nbsp;
 				</Text>
 			</Link>
-			<Link href="/app/companies/funds">
-				<Text
-					fontSize={{ md: 'xs', xl: 'sm' }}
-					color={theme.bg.primary}
-					whiteSpace="nowrap"
-				>
-					{translate('atLeast', {
-						value: missingValue.toLocaleString('en-US'),
-					})}
-				</Text>
-			</Link>
+			<Text
+				fontSize={{ md: 'xs', xl: 'sm' }}
+				color={theme.bg.primary}
+				whiteSpace="nowrap"
+			>
+				{translate('atLeast', {
+					value: missingValue.toLocaleString('en-US'),
+				})}
+			</Text>
 		</Flex>
 	);
 };
