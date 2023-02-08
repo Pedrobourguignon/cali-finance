@@ -19,8 +19,9 @@ export const RecentActivitiesDashboard: React.FC<
 			bg="white"
 			h="max-content"
 			w="full"
+			pb="2"
 		>
-			<Flex justify="space-between" py="2" align="center">
+			<Flex justify="space-between" pt="2.5" pb="2" align="center">
 				<Flex>
 					<Text
 						fontSize={{ md: 'sm', xl: 'md' }}
@@ -31,11 +32,7 @@ export const RecentActivitiesDashboard: React.FC<
 					</Text>
 				</Flex>
 				<Link href={navigationPaths.dashboard.history}>
-					<Text
-						fontSize={{ md: 'xs', xl: 'sm' }}
-						cursor="pointer"
-						color="gray.500"
-					>
+					<Text fontSize="xs" cursor="pointer" color="gray.500">
 						{translate('seeAll')}
 					</Text>
 				</Link>
