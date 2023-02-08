@@ -5,7 +5,12 @@ interface ICoinCard extends FlexProps {
 	coin: ICoin;
 }
 
-export const CoinCard: React.FC<ICoinCard> = ({ coin, borderColor, color }) => {
+export const CoinCard: React.FC<ICoinCard> = ({
+	coin,
+	bg,
+	borderColor,
+	color,
+}) => {
 	const varianceColor = () => {
 		if (coin.variation > 0) return 'green.400';
 		if (coin.variation === 0) return color;
@@ -16,6 +21,7 @@ export const CoinCard: React.FC<ICoinCard> = ({ coin, borderColor, color }) => {
 		<Flex
 			borderRadius="base"
 			border="1px solid"
+			bg={bg}
 			borderColor={borderColor}
 			_hover={{ boxShadow: 'xl' }}
 			pl={{ md: '2', xl: '3' }}
