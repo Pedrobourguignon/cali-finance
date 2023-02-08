@@ -92,6 +92,7 @@ export const AddEmployee: React.FC<IAddEmployee> = ({
 				},
 			])
 		);
+		onClose();
 	};
 
 	return (
@@ -271,7 +272,7 @@ export const AddEmployee: React.FC<IAddEmployee> = ({
 									_hover={{}}
 									_active={{}}
 									_focus={{}}
-									onClick={onClose}
+									onClick={() => handleAddEmployee}
 								>
 									<Text>+</Text>
 									{translate('addEmployee')}
