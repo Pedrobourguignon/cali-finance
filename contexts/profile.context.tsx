@@ -19,7 +19,7 @@ export const ProfileContext = createContext({} as IProfileContext);
 export const ProfileProvider: React.FC<{ children: React.ReactNode }> = ({
 	children,
 }) => {
-	const [isConnected, setIsConnected] = useState(false);
+	const [isConnected, setIsConnected] = useState(true);
 	const [isLoading, setIsLoading] = useState(true);
 	const [userProfile, setUserProfile] = useState<IProfile>({
 		wallet: '0x6856...BF99',
