@@ -66,6 +66,7 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 
 	const handleEditEmployee = (editedEmployeeData: IEditEmployeeForm) => {
 		console.log(editedEmployeeData);
+		onClose();
 	};
 
 	return (
