@@ -7,5 +7,18 @@
 	"completed": "Completed",
 	"pending": "Pending",
 	"addedToTeam": "Added to team",
-	"teamCreated": "Team created"
+	"teamCreated": "Team created",
+	"pleaseConnect": "Please connect your wallet to be able to view your history.",
+	"jan": "Jan",
+	"feb": "Feb",
+	"mar": "Mar",
+	"apr": "Apr",
+	"may": "May",
+	"june": "June",
+	"july": "July",
+	"aug": "Aug",
+	"sept": "Sept",
+	"oct": "Oct",
+	"nov": "Nov",
+	"dec": "Dec"
 }

@@ -1,11 +1,13 @@
 import { Button, Flex, Text, Icon } from '@chakra-ui/react';
 import { CompanyIcon } from 'components';
 import { usePicasso, useProfile } from 'hooks';
+import useTranslation from 'next-translate/useTranslation';
 import React from 'react';
 import { AiOutlinePlus } from 'react-icons/ai';
 
 export const CreateCompanyCard = () => {
 	const theme = usePicasso();
+	const { t: translate } = useTranslation('dashboard');
 	const { isConnected } = useProfile();
 	return (
 		<Flex
@@ -34,7 +36,7 @@ export const CreateCompanyCard = () => {
 						fontWeight="medium"
 						color={theme.text.mono}
 					>
-						You don’t have a Company yet
+						{translate('dontHaveCompany')}
 					</Text>
 				</Flex>
 			</Flex>
@@ -50,7 +52,7 @@ export const CreateCompanyCard = () => {
 				disabled={!isConnected}
 			>
 				<Icon as={AiOutlinePlus} />
-				Create a Company
+				{translate('createCompany')}
 			</Button>
 		</Flex>
 	);

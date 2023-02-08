@@ -8,9 +8,11 @@ import {
 import React from 'react';
 import { AppLayout } from 'layouts';
 import { usePicasso } from 'hooks';
+import useTranslation from 'next-translate/useTranslation';
 
 export const CompaniesLayoutNoConnected: React.FC = () => {
 	const theme = usePicasso();
+	const { t: translate } = useTranslation('companies');
 	return (
 		<AppLayout right={<CreateAccountBanner />}>
 			<Flex direction="column" gap="12" py="6" w="100%">
@@ -20,7 +22,7 @@ export const CompaniesLayoutNoConnected: React.FC = () => {
 				</Flex>
 				<Flex direction="column" gap="4">
 					<Text color={theme.text.primary} fontWeight="medium">
-						Your Companies
+						{translate('yourCompanies')}
 					</Text>
 					<CreateCompanyCard />
 				</Flex>

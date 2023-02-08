@@ -135,7 +135,7 @@ export const HistoryComponent: React.FC<IHistoryPage> = ({ history }) => {
 							display={shouldntDisplay}
 							color={theme.text.primary}
 						>
-							Please connect your wallet to be able to view your history.
+							{translate('pleaseConnect')}
 						</Text>
 						<HistorySkeletons display={shouldntDisplay} />
 						<Flex direction="column" gap="2" display={shouldDisplay}>
