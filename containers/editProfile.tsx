@@ -1,11 +1,16 @@
 import { EditProfileComponent } from 'components';
-import { AppLayout } from 'layouts';
+import { ProfileProvider, TeamsProvider } from 'contexts';
+import { EditProfileLayout } from 'layouts';
 import React from 'react';
 
 export const EditProfileContainer = () => (
-	<AppLayout>
-		<EditProfileComponent />
-	</AppLayout>
+	<ProfileProvider>
+		<TeamsProvider>
+			<EditProfileLayout>
+				<EditProfileComponent />
+			</EditProfileLayout>
+		</TeamsProvider>
+	</ProfileProvider>
 );
 
 export default EditProfileContainer;

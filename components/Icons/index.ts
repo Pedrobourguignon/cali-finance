@@ -1,5 +1,5 @@
 export * from './Dashboard';
 export * from './History';
 export * from './More';
-export * from './Organizations';
+export * from './Companies';
 export * from './Sidebar';

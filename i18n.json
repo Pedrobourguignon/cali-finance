@@ -11,7 +11,13 @@
 			"history-page",
 			"edit-profile",
 			"sidebar",
-			"dashboard"
+			"dashboard",
+			"banners",
+			"companies",
+			"create-company",
+			"company-overall",
+			"create-team",
+			"alerts"
 		],
 		"/": ["home", "example"],
 		"/dashboard": [
@@ -20,7 +26,13 @@
 			"sidebar",
 			"dashboard",
 			"history-page",
-			"edit-profile"
+			"edit-profile",
+			"banners",
+			"companies",
+			"create-company",
+			"company-overall",
+			"create-team",
+			"alerts"
 		]
 	}
 }

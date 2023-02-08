@@ -1,0 +1,9 @@
+{
+	"yourCompanieIsMissing": "Sua organização {{companie}} está faltando fundos.",
+	"deposit": "Deposite",
+	"atLeast": "pelo menos {{value}} na aba de fundos da organização.",
+	"needingFunds": "Precisando de Fundos! Por favor, deposite agora",
+	"yourCompanies": "Suas organizações estão faltando fundos.",
+	"depositFunds": "Deposite fundos",
+	"companiesPage": "na página de organizações."
+}

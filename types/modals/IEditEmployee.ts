@@ -1,6 +1,7 @@
+import { IEmployee } from 'types';
+
 export interface IEditEmployee {
-	employeeName: string;
-	employeeWalletAddress: string;
+	employee: IEmployee;
 	isOpen: boolean;
 	onClose: () => void;
 }

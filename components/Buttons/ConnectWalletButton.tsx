@@ -1,4 +1,4 @@
-import { Button, Flex, Img, Text, useDisclosure } from '@chakra-ui/react';
+import { Button, Flex, Text, useDisclosure } from '@chakra-ui/react';
 import React, { useState } from 'react';
 import useTranslation from 'next-translate/useTranslation';
 import {
@@ -6,6 +6,7 @@ import {
 	WalletsOptionsModal,
 	OffsetShadow,
 } from 'components';
+import { useProfile } from 'hooks';
 
 interface IWalletData {
 	name: string;
@@ -13,13 +14,9 @@ interface IWalletData {
 }
 
 export const ConnectWalletButton = () => {
-	const profilePicture =
-		'http://t0.gstatic.com/licensed-image?q=tbn:ANd9GcRIJYVo526c4XTP0V4CyE2XbTLsdYcxSilLYaSDYC4XDtXArbTNxmX63MnX3gP6d2cI';
-	const walletAddress = '0x6856...BF99';
 	const { t: translate } = useTranslation('sidebar');
-	const isConnected = false;
-	const shouldDisplay = isConnected ? 'none' : 'flex';
-	const shouldntDisplay = isConnected ? 'flex' : 'none';
+	const { isConnected } = useProfile();
+	const shouldDisplay = isConnected === true ? 'none' : 'flex';
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const [walletData, setWalletData] = useState<IWalletData>({
 		name: '',
@@ -45,9 +42,9 @@ export const ConnectWalletButton = () => {
 				onClose={onCloseLoading}
 			/>
 			<OffsetShadow
-				px=""
-				buttonText=""
-				width="40"
+				px={{ lg: '3', xl: '6' }}
+				buttonText="Connect Wallet"
+				width="max-content"
 				height="8"
 				borderColor="white"
 				top="0.5rem"
@@ -74,29 +71,6 @@ export const ConnectWalletButton = () => {
 						{translate('connectWallet')}
 					</Text>
 				</Button>
-				<Flex
-					h="max-content"
-					py="2"
-					fontSize="sm"
-					color="black"
-					borderRadius="base"
-					bg="white"
-					_hover={{ background: 'white' }}
-					_focus={{ background: 'white' }}
-					display={shouldntDisplay}
-				>
-					<Flex display={shouldntDisplay} align="center" gap="2" px="4">
-						<Img
-							src={profilePicture}
-							borderRadius="full"
-							boxSize="6"
-							objectFit="cover"
-						/>
-						<Text fontWeight="500" fontSize="sm">
-							{walletAddress}
-						</Text>
-					</Flex>
-				</Flex>
 			</OffsetShadow>
 		</Flex>
 	);

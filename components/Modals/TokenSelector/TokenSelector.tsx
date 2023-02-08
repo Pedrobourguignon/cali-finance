@@ -15,19 +15,22 @@ import {
 	Text,
 } from '@chakra-ui/react';
 import { usePicasso, useTokens } from 'hooks';
-import { IBasicModal } from 'types';
+import { IBasicModal, ISelectedCoin } from 'types';
 import { TokenOptions } from 'components';
 import { IoIosSearch, IoMdArrowDown } from 'react-icons/io';
 
-export const TokenSelector: React.FC<IBasicModal> = ({ isOpen, onClose }) => {
+interface ITokenSelector extends IBasicModal {
+	setToken: React.Dispatch<React.SetStateAction<ISelectedCoin>>;
+}
+
+export const TokenSelector: React.FC<ITokenSelector> = ({
+	isOpen,
+	onClose,
+	setToken,
+}) => {
 	const theme = usePicasso();
-	const {
-		setFilteredTokens,
-		filteredTokens,
-		handleSearchToken,
-		listOfTokens,
-		setChosenToken,
-	} = useTokens();
+	const { setFilteredTokens, filteredTokens, handleSearchToken, listOfTokens } =
+		useTokens();
 
 	const handleOnClose = () => {
 		setFilteredTokens(listOfTokens);
@@ -35,8 +38,11 @@ export const TokenSelector: React.FC<IBasicModal> = ({ isOpen, onClose }) => {
 	};
 
 	const handleOnClick = (name: string, logoURI: string) => {
-		const chosedToken = { symbol: name, logo: logoURI };
-		setChosenToken(chosedToken);
+		const chosedToken = {
+			symbol: name,
+			logo: logoURI,
+		};
+		setToken(chosedToken);
 		handleOnClose();
 	};
 

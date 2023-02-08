@@ -19,11 +19,13 @@ export const NavigationBack: FC<INavigationBack> = ({
 	return (
 		<Button
 			px="0"
+			h="6"
 			color="gray.500"
 			leftIcon={<IoIosArrowBack />}
 			onClick={handleClick}
 			lineHeight="6"
 			fontWeight="medium"
+			fontSize="md"
 			{...rest}
 		>
 			{children}

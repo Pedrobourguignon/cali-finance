@@ -12,7 +12,6 @@ import {
 	TextProps,
 	Input,
 	FormControl,
-	Select,
 	InputGroup,
 	Img,
 } from '@chakra-ui/react';
@@ -27,20 +26,20 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { addEmployeeSchema } from 'utils';
 import { IoIosArrowDown } from 'react-icons/io';
 
-const teams = ['Marketing', 'Dev', 'Business'];
-
 export const AddEmployee: React.FC<IAddEmployee> = ({
 	isOpen,
 	onClose,
 	company,
 	setEmployees,
 }) => {
-	const [selectedTab, setSelectedTab] = useState('Add individually');
+	const { t: translate } = useTranslation('create-team');
+	const [selectedTab, setSelectedTab] = useState<string>(
+		translate('addIndividually')
+	);
 	const [amountInDollar, setAmountInDollar] = useState<number>(0);
 	const bitcoinPrice = 87.586;
 
 	const theme = usePicasso();
-	const { t: translate } = useTranslation('swap-token');
 
 	const selectedCoin: ISelectedCoin = {
 		logo: 'https://assets.coingecko.com/coins/images/1/thumb/bitcoin.png?1547033579',
@@ -64,7 +63,7 @@ export const AddEmployee: React.FC<IAddEmployee> = ({
 	const changeTab = (tab: string) => {
 		setSelectedTab(tab);
 		setIndividuallyOrList(false);
-		if (selectedTab === 'Upload list') {
+		if (selectedTab === translate('uploadList')) {
 			setIndividuallyOrList(true);
 		}
 	};
@@ -90,7 +89,6 @@ export const AddEmployee: React.FC<IAddEmployee> = ({
 					photo: '/images/avatar.png',
 					amount: newEmployeeData.amount,
 					coin: 'USDT',
-					team: 'General',
 				},
 			])
 		);
@@ -113,7 +111,7 @@ export const AddEmployee: React.FC<IAddEmployee> = ({
 					bg={theme.bg.modal}
 					borderRadius="base"
 				>
-					<ModalHeader display="flex" p="6" flexDir="column" gap="5">
+					<ModalHeader display="flex" px="6" flexDir="column" gap="5">
 						<Flex gap="3">
 							<Icon as={IoPersonAddOutline} color="black" boxSize="6" mt="1" />
 							<Flex direction="column">
@@ -125,29 +123,33 @@ export const AddEmployee: React.FC<IAddEmployee> = ({
 									_active={{}}
 									_focus={{}}
 								>
-									Add Employee
+									{translate('addEmployee')}
 								</Text>
 								<Text color="gray.500" fontWeight="normal" fontSize="sm">
-									to: {company}
+									{translate('to')} {company}
 								</Text>
 							</Flex>
-							<ModalCloseButton color="gray.400" py="6" />
+							<ModalCloseButton color="gray.400" py="7" />
 						</Flex>
 						<Flex>
 							<Button
 								disabled={selectedTab === 'Add individually'}
 								_disabled={{ color: theme.text.primary }}
-								value="Add individually"
+								value={translate('addIndividually')}
 								borderRadius="none"
 								fontSize="sm"
 								fontWeight={
-									selectedTab === 'Add individually' ? 'semibold' : 'normal'
+									selectedTab === translate('addIndividually')
+										? 'semibold'
+										: 'normal'
 								}
 								borderBottom={
-									selectedTab === 'Add individually' ? '3px solid' : 'none'
+									selectedTab === translate('addIndividually')
+										? '3px solid'
+										: 'none'
 								}
 								color={
-									selectedTab === 'Add individually'
+									selectedTab === translate('addIndividually')
 										? theme.text.primary
 										: 'gray.500'
 								}
@@ -156,23 +158,25 @@ export const AddEmployee: React.FC<IAddEmployee> = ({
 								_focus={{}}
 								_hover={{}}
 							>
-								Add individually
+								{translate('addIndividually')}
 							</Button>
 							<Button
 								disabled={selectedTab === 'Upload list'}
 								_disabled={{ color: theme.text.primary }}
-								value="Upload list"
+								value={translate('uploadList')}
 								borderRadius="none"
 								fontSize="sm"
 								fontWeight={
-									selectedTab === 'Upload list' ? 'semibold' : 'normal'
+									selectedTab === translate('uploadList')
+										? 'semibold'
+										: 'normal'
 								}
 								onClick={tab => changeTab(tab.currentTarget.value)}
 								borderBottom={
-									selectedTab === 'Upload list' ? '3px solid' : 'none'
+									selectedTab === translate('uploadList') ? '3px solid' : 'none'
 								}
 								color={
-									selectedTab === 'Upload list'
+									selectedTab === translate('uploadList')
 										? theme.text.primary
 										: 'gray.500'
 								}
@@ -180,15 +184,15 @@ export const AddEmployee: React.FC<IAddEmployee> = ({
 								_focus={{}}
 								_hover={{}}
 							>
-								Upload list
+								{translate('uploadList')}
 							</Button>
 						</Flex>
 					</ModalHeader>
 					<form onSubmit={handleSubmit(handleAddEmployee)}>
 						<FormControl>
-							<ModalBody display={shouldDisplay} flexDirection="column" gap="4">
+							<ModalBody display={shouldDisplay} flexDirection="column" gap="2">
 								<Flex direction="column" gap="2">
-									<Text {...labelStyle}>Employee&apos;s Wallet Address*</Text>
+									<Text {...labelStyle}>{translate('employeeWallet')}</Text>
 									<Input
 										placeholder="0x6856...BF99"
 										borderColor={theme.text.primary}
@@ -197,6 +201,8 @@ export const AddEmployee: React.FC<IAddEmployee> = ({
 										_hover={{}}
 										color={theme.text.primary}
 										{...register('walletAddress')}
+										h="max-content"
+										py="1"
 									/>
 									<Text fontSize="xs" color="red">
 										{errors.walletAddress?.message}
@@ -204,7 +210,7 @@ export const AddEmployee: React.FC<IAddEmployee> = ({
 								</Flex>
 								<Flex direction="column" gap="2">
 									<Flex align="center" justify="space-between">
-										<Text {...labelStyle}>Amount (per month)*</Text>
+										<Text {...labelStyle}>{translate('amountPerMonth')}</Text>
 										<Text fontWeight="normal" fontSize="xs" color="gray.500">
 											US${amountInDollar}
 										</Text>
@@ -216,6 +222,8 @@ export const AddEmployee: React.FC<IAddEmployee> = ({
 											placeholder="0.00"
 											borderColor="black"
 											flex="3"
+											h="max-content"
+											py="1"
 											borderRightRadius="none"
 											_hover={{}}
 											_focusVisible={{}}
@@ -236,6 +244,7 @@ export const AddEmployee: React.FC<IAddEmployee> = ({
 											_hover={{ opacity: '80%' }}
 											_active={{}}
 											_focus={{}}
+											h="2.136rem"
 										>
 											<Flex gap="2" align="center">
 												<Img boxSize="4" src={selectedCoin.logo} />
@@ -250,41 +259,7 @@ export const AddEmployee: React.FC<IAddEmployee> = ({
 										{errors.amount?.message}
 									</Text>
 								</Flex>
-								<Flex direction="column" gap="2">
-									<Text {...labelStyle}>Team*</Text>
-									<Select
-										{...register('team')}
-										borderColor={theme.text.primary}
-										_placeholder={{ ...placeholderStyle }}
-										_focusVisible={{}}
-										color={theme.text.primary}
-										_hover={{}}
-										isReadOnly={false}
-									>
-										<>
-											<option
-												value="option1"
-												style={{ background: 'white' }}
-												disabled
-												selected
-											>
-												Select or Insert name to Create Team
-											</option>
-											{teams.map((team, index) => (
-												<option
-													value="option1"
-													style={{ background: 'white' }}
-													key={+index}
-												>
-													{team}
-												</option>
-											))}
-										</>
-									</Select>
-									<Text fontSize="xs" color="red">
-										{errors.team?.message}
-									</Text>
-								</Flex>
+
 								<Button
 									type="submit"
 									color="white"
@@ -299,7 +274,7 @@ export const AddEmployee: React.FC<IAddEmployee> = ({
 									onClick={onClose}
 								>
 									<Text>+</Text>
-									Add Employee
+									{translate('addEmployee')}
 								</Button>
 								<Text
 									color="gray.500"
@@ -308,10 +283,9 @@ export const AddEmployee: React.FC<IAddEmployee> = ({
 									pb="5"
 									textAlign="center"
 								>
-									By adding this wallet address to your organization you accept
-									the{' '}
+									{translate('byAdding')}
 									<Text as="u" fontWeight="semibold">
-										Terms and Conditions.
+										{translate('termsAndConditions')}
 									</Text>
 								</Text>
 							</ModalBody>

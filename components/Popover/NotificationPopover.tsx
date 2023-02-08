@@ -32,7 +32,7 @@ export const NotificationPopover: React.FC<INotificationPopover> = ({
 	return (
 		<Popover placement="bottom-end" onClose={onClose} isOpen={isOpen}>
 			<PopoverTrigger>
-				<Button bg="transparent" onClick={onOpen} p="0">
+				<Button bg="transparent" onClick={onOpen} h="6" p="0">
 					<Icon
 						as={notificationsList.length > 0 ? VscBellDot : VscBell}
 						boxSize="6"
@@ -40,10 +40,18 @@ export const NotificationPopover: React.FC<INotificationPopover> = ({
 					/>
 				</Button>
 			</PopoverTrigger>
-			<PopoverContent borderRadius="base">
+			<PopoverContent
+				borderRadius="base"
+				minW={{ md: '14.1rem', lg: '18.8rem', xl: '23.5rem', '2xl': '28.2rem' }}
+			>
 				<PopoverBody bg="white" borderRadius="base">
 					<Flex fontSize="sm" py="3" bg="white">
-						<Text fontSize="md" fontWeight="medium" px="1" color="black">
+						<Text
+							fontSize="md"
+							fontWeight="medium"
+							px="1"
+							color={theme.text.primary}
+						>
 							{notificationsList.length} pending notifications
 						</Text>
 
@@ -92,7 +100,11 @@ export const NotificationPopover: React.FC<INotificationPopover> = ({
 								<Flex gap="2" align="center" py="1" w="full">
 									<Img src={notification.icon} boxSize="4" />
 									<Flex direction="column" justify="center">
-										<Text color="black" fontSize="sm" fontWeight="normal">
+										<Text
+											color={theme.text.primary}
+											fontSize="sm"
+											fontWeight="normal"
+										>
 											{notification.type}
 										</Text>
 										<Text color="gray.500" fontSize="xs">

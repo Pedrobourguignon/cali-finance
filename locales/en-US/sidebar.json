@@ -1,7 +1,7 @@
 {
 	"connectWallet": "Connect Wallet",
 	"dashboard": "Dashboard",
-	"organizations": "Organizations",
+	"companies": "Companies",
 	"teams": "Teams",
 	"funds": "Funds",
 	"editProfile": "Edit profile",
@@ -11,7 +11,7 @@
 	"docs": "Docs",
 	"connectWalletModal": "Connect to a Wallet",
 	"accept": "By connecting your wallet you accept the",
-	"terms": "Terms and Conditions",
+	"terms": "Terms and Conditions.",
 	"initializing": "Initializing...",
 	"changeNetwork": "Change Network"
 }

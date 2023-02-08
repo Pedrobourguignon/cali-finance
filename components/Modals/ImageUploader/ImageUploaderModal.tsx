@@ -13,12 +13,24 @@ import {
 import { usePicasso } from 'hooks';
 import { IBasicModal } from 'types';
 import { DragDrop } from 'components';
+import { useState } from 'react';
 
-export const ImageUploaderModal: React.FC<IBasicModal> = ({
+interface IImageUploader extends IBasicModal {
+	sendImage: React.Dispatch<React.SetStateAction<string>>;
+}
+
+export const ImageUploaderModal: React.FC<IImageUploader> = ({
 	isOpen,
 	onClose,
+	sendImage,
 }) => {
 	const theme = usePicasso();
+	const [picture, setPicture] = useState('');
+
+	const handleUploadFile = () => {
+		sendImage(picture);
+		onClose();
+	};
 
 	return (
 		<Modal isOpen={isOpen} onClose={onClose} size="sm">
@@ -55,7 +67,7 @@ export const ImageUploaderModal: React.FC<IBasicModal> = ({
 							</Text>
 						</Flex>
 						<Flex w="100%" justify="center">
-							<DragDrop />
+							<DragDrop setPicture={setPicture} />
 						</Flex>
 					</ModalBody>
 				</Flex>
@@ -76,6 +88,7 @@ export const ImageUploaderModal: React.FC<IBasicModal> = ({
 						px="8"
 						borderRadius="base"
 						_hover={{ opacity: '0.75' }}
+						onClick={handleUploadFile}
 					>
 						Upload File
 					</Button>

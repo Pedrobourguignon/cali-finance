@@ -12,7 +12,7 @@ import {
 	Text,
 } from '@chakra-ui/react';
 import { OffsetShadow } from 'components';
-import { usePicasso } from 'hooks';
+import { usePicasso, useProfile } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
 import { IWalletOptionsModal } from 'types';
 import { navigationPaths } from 'utils';
@@ -47,12 +47,14 @@ export const WalletsOptionsModal: React.FC<IWalletOptionsModal> = ({
 	setWalletData,
 }) => {
 	const { t: translate } = useTranslation('sidebar');
+	const { setIsConnected } = useProfile();
 	const theme = usePicasso();
 	const onTriggerLoadingModal = (icon: string, name: string) => {
 		setWalletData({
 			icon,
 			name,
 		});
+		setIsConnected(true);
 		openLoadingWalletModal();
 		onClose();
 	};
@@ -62,13 +64,13 @@ export const WalletsOptionsModal: React.FC<IWalletOptionsModal> = ({
 			<ModalContent
 				m="auto"
 				bg="white"
-				w="full"
+				w="21.125rem"
 				h="min-content"
 				borderRadius="base"
 			>
 				<OffsetShadow
-					width="full"
-					height="410px"
+					width="21.125rem"
+					height="27rem"
 					buttonText="Connect to a Wallet"
 					top="2"
 					left="2"
@@ -97,6 +99,7 @@ export const WalletsOptionsModal: React.FC<IWalletOptionsModal> = ({
 							gap="2"
 							py="0"
 							px="6"
+							w="21.125rem"
 						>
 							{walletsOptions.map((wallet, index) => (
 								<Flex
@@ -117,29 +120,40 @@ export const WalletsOptionsModal: React.FC<IWalletOptionsModal> = ({
 									color={theme.text.mono}
 									transition="all 0.1s ease-in-out"
 									borderRadius="base"
+									px="4"
+									w="full"
 								>
-									<Button bg="transparent" fontWeight="medium" _hover={{}}>
+									<Button
+										p="0"
+										py="4"
+										h="max-content"
+										bg="transparent"
+										fontWeight="medium"
+										_hover={{}}
+										fontSize="sm"
+									>
 										{wallet.name}
 									</Button>
-									<Img src={wallet.icon} boxSize="6" mr="3" />
+									<Img src={wallet.icon} boxSize="6" />
 								</Flex>
 							))}
 							<Flex
 								direction="column"
 								align="center"
 								color={theme.text.mono}
-								py="6"
+								py="2"
 							>
-								<Text>{translate('accept')}</Text>
-
+								<Text fontSize="sm" whiteSpace="nowrap">
+									{translate('accept')}
+								</Text>
 								<Link href={navigationPaths.termsAndConditions}>
-									<Text fontWeight="bold" cursor="pointer">
-										<Text as="span" textDecor="underline">
-											{translate('terms')}
-										</Text>
-										<Text as="span" textDecor="none">
-											.
-										</Text>
+									<Text
+										as="span"
+										textDecor="underline"
+										fontSize="sm"
+										fontWeight="bold"
+									>
+										{translate('terms')}
 									</Text>
 								</Link>
 							</Flex>

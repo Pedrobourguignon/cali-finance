@@ -11,14 +11,15 @@
 	"recentActivities": "Recent Activities",
 	"deposit": "Deposit",
 	"completed": "Completed",
-	"dontHaveOrganization": "You don’t have a Organization yet",
-	"createOrganization": "Create a Organization",
+	"dontHaveCompany": "You don’t have a Company yet",
+	"createCompany": "Create a Company",
 	"somethingWentWrong": "Something went wrong",
 	"backDashboard": "Back to dashboard",
 	"oops": "Oops...",
-	"yourOrganizations": "Your Organizations",
+	"yourCompanies": "Your Companies",
 	"of": "of",
 	"amount": "Amount",
-	"organizations": "Organizations",
-	"withdraw": "Withdraw"
+	"companies": "Companies",
+	"withdraw": "Withdraw",
+	"selectAOrg": "Please select a Company"
 }

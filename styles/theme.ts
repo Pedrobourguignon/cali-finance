@@ -37,8 +37,8 @@ export const theme = extendTheme({
 	},
 	colors: {},
 	fonts: {
-		heading: 'Roboto',
-		body: 'Roboto',
-		mono: 'Roboto',
+		heading: 'Inter',
+		body: 'Inter',
+		mono: 'Inter',
 	},
 });

@@ -34,6 +34,7 @@ export const DisplayedNotifications: React.FC<IDisplayedNotifications> = ({
 					borderRadius="base"
 					align="center"
 					justify="space-between"
+					gap={{ md: '0', lg: '7' }}
 				>
 					<Flex align="center" gap="3">
 						<Icon as={notification.companyIcon} boxSize="6" />
@@ -41,6 +42,7 @@ export const DisplayedNotifications: React.FC<IDisplayedNotifications> = ({
 							fontSize="sm"
 							fontWeight="semibold"
 							color={theme.text.primary}
+							whiteSpace="nowrap"
 						>
 							{notification.company}
 						</Text>
@@ -62,13 +64,13 @@ export const DisplayedNotifications: React.FC<IDisplayedNotifications> = ({
 							<Text fontSize="sm" color={theme.text.primary}>
 								{translate(notification.type.toLowerCase())}
 							</Text>
-							<Text fontSize="xs" color="gray.500">
+							<Text fontSize="xs" color="gray.500" whiteSpace="nowrap">
 								{notification.date}
 							</Text>
 						</Flex>
 					</Flex>
 					<Flex direction="column" align="end" h="max-content">
-						<Text color={theme.text.primary} fontSize="xs">
+						<Text color={theme.text.primary} fontSize="xs" whiteSpace="nowrap">
 							{notification.value}
 						</Text>
 						<Text

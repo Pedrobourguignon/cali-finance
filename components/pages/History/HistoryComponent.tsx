@@ -12,26 +12,28 @@ import {
 	CreateAccountBanner,
 	HistorySkeletons,
 	DisplayedNotifications,
+	Paginator,
 } from 'components';
-import { usePicasso } from 'hooks';
+import { ProfileProvider } from 'contexts';
+import { usePicasso, useProfile } from 'hooks';
 import { AppLayout } from 'layouts';
 import useTranslation from 'next-translate/useTranslation';
 import React, { useMemo, useState } from 'react';
 import { BiChevronDown } from 'react-icons/bi';
 import { IHistoryNotification, IHistoryPage } from 'types';
-import { layoutLimit } from 'utils';
-import { Paginator } from '../Dashboard';
 
 export const HistoryComponent: React.FC<IHistoryPage> = ({ history }) => {
-	const [selectedFilterOption, setSelectedFilterOption] = useState('All');
+	const { t: translate } = useTranslation('history-page');
+	const [selectedFilterOption, setSelectedFilterOption] = useState<string>(
+		translate('all')
+	);
 	const [pageNumber, setPageNumber] = useState(0);
 	const [filteredNotifications, setFilteredNotifications] =
 		useState<IHistoryNotification[]>(history);
+	const { isConnected } = useProfile();
 
 	const theme = usePicasso();
-	const { t: translate } = useTranslation('history-page');
 
-	const isConnected = true;
 	const shouldDisplay = isConnected ? 'flex' : 'none';
 	const shouldntDisplay = isConnected ? 'none' : 'flex';
 
@@ -50,118 +52,111 @@ export const HistoryComponent: React.FC<IHistoryPage> = ({ history }) => {
 	};
 
 	const historyFilterOptions = [
-		'All',
-		'Deposit',
-		'Withdrawal',
-		'Added to team',
-		'Team Created',
+		translate('all'),
+		translate('deposit'),
+		translate('withdrawal'),
+		translate('addedToTeam'),
+		translate('teamCreated'),
 	];
 
 	const filterHistoryNotifications = (filter: string) => {
 		setFilteredNotifications(
 			history.filter(notification => notification.type === filter)
 		);
-		if (filter === 'All') {
+		if (filter === translate('all')) {
 			setFilteredNotifications(history);
 		}
 		setSelectedFilterOption(filter);
 	};
 
 	return (
-		<AppLayout
-			right={isConnected ? <LifeIsEasierBanner /> : <CreateAccountBanner />}
-		>
-			<Flex direction="column" gap="5" p="6">
-				<Flex direction="column" gap="2" w={layoutLimit}>
-					<Flex justify="space-between" align="center">
-						<Flex direction="column" gap="4">
+		<ProfileProvider>
+			<AppLayout
+				right={isConnected ? <LifeIsEasierBanner /> : <CreateAccountBanner />}
+			>
+				<Flex direction="column" gap="5" pt="6">
+					<Flex direction="column" gap="4">
+						<Flex align="center" justify="space-between">
 							<Text
-								fontSize="md"
-								fontStyle="medium"
-								fontWeight="500"
+								fontSize={{ xl: 'md', '2xl': 'lg' }}
+								fontWeight="medium"
 								color={theme.text.primary}
 							>
 								{translate('history')}
 							</Text>
-							<Text
-								fontSize="sm"
-								display={shouldntDisplay}
-								color={theme.text.primary}
-							>
-								Please connect your wallet to be able to view your history.
-							</Text>
+							<Menu gutter={0} autoSelect={false}>
+								<MenuButton
+									h="max-content"
+									py="2"
+									px="3"
+									gap="32"
+									fontSize={{ md: 'sm', '2xl': 'md' }}
+									color={theme.text.primary}
+									as={Button}
+									rightIcon={<BiChevronDown />}
+									bg="white"
+									disabled={!isConnected}
+									_hover={{}}
+									_active={{}}
+									_focus={{}}
+									borderBottomRadius="none"
+								>
+									{!isConnected ? translate('all') : selectedFilterOption}
+								</MenuButton>
+								<MenuList
+									p="0"
+									borderTopRadius="none"
+									borderColor="white"
+									minW={theme.sizes.menuItem}
+								>
+									{historyFilterOptions.map((option, index) => (
+										<MenuItem
+											key={+index}
+											bg="white"
+											color={theme.text.primary}
+											fontSize={{ md: 'xs', lg: 'sm' }}
+											_hover={{ bg: theme.bg.black, color: 'white' }}
+											borderBottom="1px solid"
+											borderBottomColor="gray.200"
+											borderBottomRadius={
+												option === translate('teamCreated') ? 'base' : 'none'
+											}
+											onClick={() => filterHistoryNotifications(option)}
+											_active={{}}
+										>
+											{option}
+										</MenuItem>
+									))}
+								</MenuList>
+							</Menu>
 						</Flex>
-						<Menu gutter={0} autoSelect={false}>
-							<MenuButton
-								w={theme.sizes.menuItem}
-								color={theme.text.primary}
-								h="max-content"
-								as={Button}
-								rightIcon={<BiChevronDown />}
-								bg="white"
-								fontSize="sm"
-								px="3"
-								py="2"
-								gap="24"
-								disabled={!isConnected}
-								_hover={{}}
-								_active={{}}
-								_focus={{}}
-								borderBottomRadius="none"
-							>
-								{!isConnected ? 'All' : selectedFilterOption}
-							</MenuButton>
-							<MenuList
-								p="0"
-								borderTopRadius="none"
-								borderColor="white"
-								minW={theme.sizes.menuItem}
-							>
-								{historyFilterOptions.map((option, index) => (
-									<MenuItem
-										key={+index}
-										bg="white"
-										color={theme.text.primary}
-										fontSize="sm"
-										_hover={{ bg: theme.bg.black, color: 'white' }}
-										borderBottom="1px solid"
-										borderBottomColor="gray.200"
-										borderBottomRadius={
-											option === 'Team Created' ? 'base' : 'none'
-										}
-										onClick={() => filterHistoryNotifications(option)}
-										_active={{}}
-									>
-										{option}
-									</MenuItem>
-								))}
-							</MenuList>
-						</Menu>
-					</Flex>
-					<HistorySkeletons display={shouldntDisplay} />
-					<Flex
-						direction="column"
-						gap="2"
-						display={shouldDisplay}
-						color="black"
-					>
-						<DisplayedNotifications
-							notificationPerPage={notificationPerPage}
-							pagesVisited={pagesVisited}
-							filteredNotifications={filteredNotifications}
-						/>
-					</Flex>
-					<Flex display={shouldDisplay} justify="center">
-						<Paginator
-							actualPage={pageNumber + 1}
-							maxPage={maxPage}
-							previous={previous}
-							next={next}
-						/>
+						<Text
+							fontSize="sm"
+							display={shouldntDisplay}
+							color={theme.text.primary}
+						>
+							Please connect your wallet to be able to view your history.
+						</Text>
+						<HistorySkeletons display={shouldntDisplay} />
+						<Flex direction="column" gap="2" display={shouldDisplay}>
+							<DisplayedNotifications
+								notificationPerPage={notificationPerPage}
+								pagesVisited={pagesVisited}
+								filteredNotifications={filteredNotifications}
+							/>
+						</Flex>
+						<Flex display={shouldDisplay} justify="center">
+							<Paginator
+								actualPage={pageNumber + 1}
+								maxPage={maxPage}
+								previous={previous}
+								next={next}
+							/>
+						</Flex>
 					</Flex>
 				</Flex>
-			</Flex>
-		</AppLayout>
+			</AppLayout>
+		</ProfileProvider>
 	);
 };
 

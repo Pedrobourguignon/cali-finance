@@ -3,13 +3,15 @@ import { NotificationPopover } from 'components';
 import { INotificationList } from 'types';
 import { useState, useMemo } from 'react';
 import useTranslation from 'next-translate/useTranslation';
+import { usePicasso, useProfile } from 'hooks';
 
 export const DashboardHeader: React.FC = () => {
 	const { onClose, isOpen, onOpen } = useDisclosure();
 	const { t: translate } = useTranslation('app-header');
-	const isConnected = true;
+	const { isConnected } = useProfile();
 	const percentage = 0;
 	const name = 'Bradley';
+	const theme = usePicasso();
 
 	const greetingMessage = useMemo(() => {
 		const hour = new Date().getHours();
@@ -62,46 +64,46 @@ export const DashboardHeader: React.FC = () => {
 	]);
 
 	return (
-		<Flex direction="row" justify="space-between" h="max-content" pb="4">
-			<Flex flexDirection="column" gap="1.5">
+		<Flex direction="column" pb="8">
+			<Flex justify="space-between">
 				<Flex>
 					<Text
-						color="black"
+						color={theme.text.primary}
 						fontSize="2xl"
-						fontWeight="500"
+						fontWeight="medium"
 						lineHeight="8"
 						fontStyle="normal"
 					>
-						{greetingMessage} {isConnected ? name : ''}
+						{greetingMessage} {isConnected && name}
 					</Text>
 				</Flex>
-				<Flex>
-					<Text fontSize="sm" color="black">
-						{translate('assetInfo')}
-						<Text as="span" fontSize="sm" color={dynamicAssetInfo()?.color}>
-							{'\u00A0'}
-							{dynamicAssetInfo()?.status}
-							{'\u00A0'}
-						</Text>
-					</Text>
-
-					<Text fontSize="sm" color="black">
-						{translate('increased')}
-						<Text as="span" fontSize="sm" color={dynamicAssetInfo()?.color}>
-							{'\u00A0'}
-							{translate('percentage', { percentage })}
-						</Text>
-					</Text>
+				<Flex display={{ base: 'none', md: 'flex' }} h="8" align="center">
+					<NotificationPopover
+						setNotificationsList={setNotificationsList}
+						onClose={onClose}
+						isOpen={isOpen}
+						onOpen={onOpen}
+						notificationsList={notificationsList}
+					/>
 				</Flex>
 			</Flex>
-			<Flex display={{ base: 'none', md: 'flex' }}>
-				<NotificationPopover
-					setNotificationsList={setNotificationsList}
-					onClose={onClose}
-					isOpen={isOpen}
-					onOpen={onOpen}
-					notificationsList={notificationsList}
-				/>
+			<Flex>
+				<Text fontSize="sm" color={theme.text.primary}>
+					{translate('assetInfo')}
+					<Text as="span" fontSize="sm" color={dynamicAssetInfo()?.color}>
+						{'\u00A0'}
+						{dynamicAssetInfo()?.status}
+						{'\u00A0'}
+					</Text>
+				</Text>
+
+				<Text fontSize="sm" color={theme.text.primary}>
+					{translate('increased')}
+					<Text as="span" fontSize="sm" color={dynamicAssetInfo()?.color}>
+						{'\u00A0'}
+						{translate('percentage', { percentage })}
+					</Text>
+				</Text>
 			</Flex>
 		</Flex>
 	);

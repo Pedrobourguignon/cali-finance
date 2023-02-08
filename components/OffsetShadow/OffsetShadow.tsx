@@ -25,7 +25,7 @@ export const OffsetShadow: React.FC<IOffsetShadow> = ({
 		position="relative"
 		borderRadius={borderRadius}
 	>
-		<Flex px={px} py="1">
+		<Flex px={px} py="1" color="transparent">
 			{buttonText}
 		</Flex>
 		<Flex

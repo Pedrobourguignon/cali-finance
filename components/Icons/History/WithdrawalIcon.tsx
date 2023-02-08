@@ -2,13 +2,7 @@ import { Icon, IconProps } from '@chakra-ui/react';
 
 const WithdrawalIcon = (props: IconProps) => (
 	<Icon {...props}>
-		<svg
-			width="16"
-			height="16"
-			viewBox="0 0 16 16"
-			fill="none"
-			xmlns="http://www.w3.org/2000/svg"
-		>
+		<svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
 			<path
 				d="M7.99974 2.15396L7.99974 10.6725"
 				stroke="currentColor"

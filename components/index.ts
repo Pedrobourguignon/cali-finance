@@ -1,3 +1,4 @@
+export * from './Alerts';
 export * from './Buttons';
 export * from './Cards';
 export * from './Header';
@@ -9,3 +10,4 @@ export * from './Popover';
 export * from './ProgressBar';
 export * from './Sidebar';
 export * from './Toasts';
+export * from './Tooltips';

@@ -1,7 +1,7 @@
 {
 	"coins": "Moedas",
-	"stayConnected": "Fique sempre ligado",
-	"principalCoins": "nas principais moedas",
+	"stayConnected": "Fique ligado nas",
+	"principalCoins": "principais moedas",
 	"newCoin": "Nova Moeda",
 	"funds": "Fundos",
 	"members": "Membros",
@@ -11,14 +11,15 @@
 	"recentActivities": "Atividades Recentes",
 	"deposit": "Depósito",
 	"completed": "Completo",
-	"dontHaveOrganization": "Você não possui uma organização ainda",
-	"createOrganization": "Criar organização",
+	"dontHaveCompany": "Você não possui uma organização ainda",
+	"createCompany": "Criar organização",
 	"somethingWentWrong": "Algo deu errado",
 	"backDashboard": "Voltar ao painel",
 	"oops": "Oops...",
-	"yourOrganizations": "Suas organizações",
+	"yourCompanies": "Suas organizações",
 	"of": "de",
 	"amount": "Quantia",
-	"organizations": "Organizações",
-	"withdraw": "Retirar"
+	"companies": "Organizações",
+	"withdraw": "Retirar",
+	"selectAOrg": "Selecione uma organização"
 }

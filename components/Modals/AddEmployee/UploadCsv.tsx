@@ -4,8 +4,12 @@ import { BsArrowUp } from 'react-icons/bs';
 import { DragAndDrop } from 'components';
 import { IUploadedFile } from 'types';
 import { usePicasso } from 'hooks';
+import useTranslation from 'next-translate/useTranslation';
+import { useRouter } from 'next/router';
 
 export const UploadCsv = () => {
+	const { t: translate } = useTranslation('create-team');
+	const { locale } = useRouter();
 	const theme = usePicasso();
 	const [fileData] = useState();
 	const [uploadedFileData, setUploadedFileData] = useState<IUploadedFile>(
@@ -13,9 +17,15 @@ export const UploadCsv = () => {
 	);
 
 	return (
-		<Flex direction="column" align="center" w="full">
-			<Text color={theme.text.primary} fontSize="sm" pb="5">
-				Drag &apos;n&apos; drop your .csv or Select and upload your .csv file.
+		<Flex direction="column" w="full">
+			<Text
+				color={theme.text.primary}
+				fontSize="sm"
+				pb="5"
+				px="4"
+				textAlign="center"
+			>
+				{translate('dragAndDrop')}
 			</Text>
 			<DragAndDrop setUploadedFileData={setUploadedFileData} />
 
@@ -36,15 +46,15 @@ export const UploadCsv = () => {
 					disabled={uploadedFileData.ext !== 'csv'}
 				>
 					<Icon as={BsArrowUp} />
-					Load CSV list
+					{translate('loadCsv')}
 				</Button>
 				<Text fontSize="sm" color={theme.text.primary}>
 					{fileData}
 				</Text>
 				<Text color="gray.500" fontSize="xs" textAlign="center">
-					By adding this wallet address to your organization you accept the{' '}
+					{translate('byAdding')}
 					<Text as="u" fontWeight="semibold">
-						Terms and Conditions.
+						{translate('termsAndConditions')}
 					</Text>
 				</Text>
 			</Flex>

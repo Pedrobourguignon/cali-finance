@@ -1,3 +1,4 @@
+export * from './BackToTeamsButton';
 export * from './ChangeNetworkButton';
 export * from './ConnectWalletButton';
 export * from './NavigationBack';

@@ -2,20 +2,21 @@ import { Flex, useDisclosure } from '@chakra-ui/react';
 import {
 	DashboardHeader,
 	Coins,
-	CreateOrganizationCard,
+	CreateCompanyCard,
 	RecentActivitiesDashboard,
 	MyAssets,
 	ErrorAlert,
-	OrganizationsList,
+	CompaniesList,
 	WithdrawModal,
 } from 'components';
-import { usePicasso } from 'hooks';
 import React from 'react';
 import { IRecentActivitiesList } from 'types';
 import useTranslation from 'next-translate/useTranslation';
+import { useProfile } from 'hooks';
 
 export const DashboardComponent: React.FC = () => {
 	const { t: translate } = useTranslation('dashboard');
+	const { isConnected } = useProfile();
 	const { isOpen, onClose } = useDisclosure();
 
 	const recentActivitiesList: IRecentActivitiesList[] = [
@@ -45,11 +46,7 @@ export const DashboardComponent: React.FC = () => {
 		},
 	];
 
-	const isConnected = true;
-
 	const error = false;
-
-	const theme = usePicasso();
 
 	if (error)
 		return (
@@ -59,21 +56,28 @@ export const DashboardComponent: React.FC = () => {
 		);
 
 	return (
-		<Flex>
-			<Flex direction="column" px="8" gap="4">
-				<DashboardHeader />
-				<Coins />
-				{isConnected ? <OrganizationsList /> : <CreateOrganizationCard />}
-				{isConnected && (
-					<Flex gap="6" flexWrap="wrap">
-						<MyAssets />
-						<RecentActivitiesDashboard
-							recentActivitiesList={recentActivitiesList}
-						/>
-					</Flex>
-				)}
+		<Flex w="full">
+			<Flex direction="column" w="full">
+				<Flex direction="column">
+					<DashboardHeader />
+					<Coins />
+				</Flex>
+				<Flex direction="column" gap="9" pt="8">
+					{isConnected ? <CompaniesList /> : <CreateCompanyCard />}
+					{isConnected && (
+						<Flex justify="space-between" w="full" gap="6">
+							<Flex w="full" flex="5.5">
+								<MyAssets />
+							</Flex>
+							<Flex w="100%" h="max-content" flex={{ md: '5.5', xl: '4.5' }}>
+								<RecentActivitiesDashboard
+									recentActivitiesList={recentActivitiesList}
+								/>
+							</Flex>
+						</Flex>
+					)}
+				</Flex>
 			</Flex>
-			<WithdrawModal isOpen={isOpen} onClose={onClose} />
 		</Flex>
 	);
 };

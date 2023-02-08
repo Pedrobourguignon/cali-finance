@@ -1,0 +1,18 @@
+{
+	"backToCompanies": "Voltar para Organizações",
+	"createCompany": "Criar organização",
+	"editCompany": "Editar Organização",
+	"companyName": "Nome da Organização *",
+	"type": "Tipo *",
+	"pleaseSelect": "Selecione",
+	"financial": "financeira",
+	"corporativeEmail": "E-mail corporativo *",
+	"exampleEmail": "exemplo@organização.io",
+	"description": "Descrição",
+	"exampleDescription": "Olá Org é uma organização que...",
+	"network": "Rede *",
+	"editLogoImage": "Editar logo",
+	"website": "site.io",
+	"company": "empresa",
+	"saveChanges": "Salvar alterações"
+}
