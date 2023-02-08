@@ -41,6 +41,7 @@ export const NotificationPopover: React.FC<INotificationPopover> = ({
 				</Button>
 			</PopoverTrigger>
 			<PopoverContent
+				boxShadow="xl"
 				borderRadius="base"
 				minW={{ md: '14.1rem', lg: '18.8rem', xl: '23.5rem', '2xl': '28.2rem' }}
 			>
