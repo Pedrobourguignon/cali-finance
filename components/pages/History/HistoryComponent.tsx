@@ -15,7 +15,7 @@ import {
 	Paginator,
 } from 'components';
 import { ProfileProvider } from 'contexts';
-import { usePicasso } from 'hooks';
+import { usePicasso, useProfile } from 'hooks';
 import { AppLayout } from 'layouts';
 import useTranslation from 'next-translate/useTranslation';
 import React, { useMemo, useState } from 'react';
@@ -30,10 +30,10 @@ export const HistoryComponent: React.FC<IHistoryPage> = ({ history }) => {
 	const [pageNumber, setPageNumber] = useState(0);
 	const [filteredNotifications, setFilteredNotifications] =
 		useState<IHistoryNotification[]>(history);
+	const { isConnected } = useProfile();
 
 	const theme = usePicasso();
 
-	const isConnected = true;
 	const shouldDisplay = isConnected ? 'flex' : 'none';
 	const shouldntDisplay = isConnected ? 'none' : 'flex';
 

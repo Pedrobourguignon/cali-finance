@@ -12,11 +12,15 @@ export const NeedFundsCompaniesHeader = () => {
 			bg="red.500"
 			h="max-content"
 			borderRadius="full"
-			py="0.25"
+			py={{ base: '0.25', xl: '0.5' }}
 			px="4"
 			display={displayNeedFundsCard}
 		>
-			<Text fontWeight="medium" fontSize="2xs" color={theme.text.white}>
+			<Text
+				fontWeight="medium"
+				fontSize={{ base: '2xs', '2xl': 'xs' }}
+				color={theme.text.white}
+			>
 				{translate('needingFunds')}
 			</Text>
 		</Flex>

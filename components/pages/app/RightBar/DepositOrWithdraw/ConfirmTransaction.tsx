@@ -112,7 +112,7 @@ export const ConfirmTransaction: React.FC<IConfirmTransaction> = ({
 					h="8"
 					px="6"
 					whiteSpace="normal"
-					fontSize="sm"
+					fontSize={{ base: 'xs', xl: 'md' }}
 					_hover={{
 						opacity: 0.8,
 					}}

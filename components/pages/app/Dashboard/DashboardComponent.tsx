@@ -12,9 +12,11 @@ import {
 import React from 'react';
 import { IRecentActivitiesList } from 'types';
 import useTranslation from 'next-translate/useTranslation';
+import { useProfile } from 'hooks';
 
 export const DashboardComponent: React.FC = () => {
 	const { t: translate } = useTranslation('dashboard');
+	const { isConnected } = useProfile();
 	const { isOpen, onClose } = useDisclosure();
 
 	const recentActivitiesList: IRecentActivitiesList[] = [
@@ -44,8 +46,6 @@ export const DashboardComponent: React.FC = () => {
 		},
 	];
 
-	const isConnected = true;
-
 	const error = false;
 
 	if (error)
@@ -63,7 +63,7 @@ export const DashboardComponent: React.FC = () => {
 					<Coins />
 				</Flex>
 				<Flex direction="column" gap="9" pt="8">
-					{/* {isConnected ? <CompaniesList /> : <CreateCompanyCard />} */}
+					{isConnected ? <CompaniesList /> : <CreateCompanyCard />}
 					{isConnected && (
 						<Flex justify="space-between" w="full" gap="6">
 							<Flex w="full" flex="5.5">

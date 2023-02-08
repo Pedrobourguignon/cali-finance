@@ -119,7 +119,7 @@ export const MyAssets = () => {
 								fontSize={{ md: 'xs', lg: 'sm' }}
 								color={theme.text.primary}
 							>
-								${totalAssetsValue.toLocaleString()}
+								${totalAssetsValue.toLocaleString('en-US')}
 							</Text>
 						</Flex>
 						<Button

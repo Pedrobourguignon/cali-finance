@@ -16,7 +16,13 @@ export const AppLayout: React.FC<ILanding> = ({ children, right }) => {
 			<CompaniesProvider>
 				<Flex minH="100vh" w="full" direction="column">
 					<MissingFundsWarning display={displayMissingFundsWarning} />
-					<Flex bg={theme.bg.primary} py="6" minH="100vh" w="full">
+					<Flex
+						bg={theme.bg.primary}
+						py="6"
+						minH="100vh"
+						w="full"
+						className="flex-bg"
+					>
 						<Sidebar />
 						<Flex
 							bg="white"

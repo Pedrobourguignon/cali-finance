@@ -78,27 +78,17 @@ export const FundsPageComponent = () => {
 						<Text>{translate('coins')}</Text>
 					</Flex>
 
-					<Grid
-						gap="4"
-						w="full"
-						templateColumns={{
-							md: 'repeat(4, 1fr)',
-							lg: 'repeat(4, 1fr)',
-							xl: 'repeat(5, 1fr)',
-							'2xl': 'repeat(6, 1fr)',
-						}}
-					>
+					<Flex gap="4" w="full" justify="flex-start" flexWrap="wrap">
 						{coinCard.map((coin, index) => (
-							<GridItem key={+index} w="max-content">
-								<CoinCard
-									coin={coin}
-									borderColor="gray.400"
-									bg="white"
-									color={theme.text.primary}
-								/>
-							</GridItem>
+							<CoinCard
+								coin={coin}
+								borderColor="gray.400"
+								bg="white"
+								color={theme.text.primary}
+								key={+index}
+							/>
 						))}
-					</Grid>
+					</Flex>
 				</Flex>
 				<HistoryDashboard />
 			</Flex>

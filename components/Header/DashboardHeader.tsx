@@ -3,12 +3,12 @@ import { NotificationPopover } from 'components';
 import { INotificationList } from 'types';
 import { useState, useMemo } from 'react';
 import useTranslation from 'next-translate/useTranslation';
-import { usePicasso } from 'hooks';
+import { usePicasso, useProfile } from 'hooks';
 
 export const DashboardHeader: React.FC = () => {
 	const { onClose, isOpen, onOpen } = useDisclosure();
 	const { t: translate } = useTranslation('app-header');
-	const isConnected = true;
+	const { isConnected } = useProfile();
 	const percentage = 0;
 	const name = 'Bradley';
 	const theme = usePicasso();

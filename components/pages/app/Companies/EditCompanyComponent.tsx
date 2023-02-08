@@ -9,7 +9,7 @@ import {
 	TextProps,
 	Tooltip,
 } from '@chakra-ui/react';
-import { useCompanies, usePicasso } from 'hooks';
+import { useCompanies, usePicasso, useProfile } from 'hooks';
 import { Control, FieldErrorsImpl, Controller } from 'react-hook-form';
 import { ICreateCompany, ICompany } from 'types';
 import { Select } from 'chakra-react-select';
@@ -87,6 +87,7 @@ export const EditCompanyComponent: React.FC<IEditCompanyComponent> = ({
 	const theme = usePicasso();
 	const { t: translate } = useTranslation('create-company');
 	const { selectedCompanyLogo, setEditedInfo, editedInfo } = useCompanies();
+	const { isConnected } = useProfile();
 
 	useEffect(() => {
 		setEditedInfo({
@@ -137,6 +138,7 @@ export const EditCompanyComponent: React.FC<IEditCompanyComponent> = ({
 							h="8"
 							px="1"
 							fontSize="2xl"
+							isDisabled={!isConnected}
 							_placeholder={{
 								color: 'blackAlpha.500',
 								fontSize: { md: 'xl', xl: '2xl' },
@@ -212,6 +214,7 @@ export const EditCompanyComponent: React.FC<IEditCompanyComponent> = ({
 											}}
 											options={companiesType}
 											defaultValue={companiesType[indexOfCompanyType]}
+											isDisabled={!isConnected}
 										/>
 									)}
 								/>
@@ -291,6 +294,7 @@ export const EditCompanyComponent: React.FC<IEditCompanyComponent> = ({
 											}}
 											options={networksType}
 											defaultValue={networksType[indexOfCompanyNetwork]}
+											isDisabled={!isConnected}
 											// eslint-disable-next-line react/no-unstable-nested-components
 											formatOptionLabel={network => (
 												<Flex gap="2" align="center">
@@ -326,6 +330,7 @@ export const EditCompanyComponent: React.FC<IEditCompanyComponent> = ({
 										_hover={{}}
 										borderColor={theme.bg.primary}
 										defaultValue={email}
+										disabled={!isConnected}
 										onChange={editedEmail =>
 											setEditedInfo(prevState => ({
 												...prevState,
@@ -360,6 +365,7 @@ export const EditCompanyComponent: React.FC<IEditCompanyComponent> = ({
 										bgColor="white"
 										placeholder={translate('exampleDescription')}
 										minH="110"
+										disabled={!isConnected}
 										onChange={editedDescription =>
 											setEditedInfo(prevState => ({
 												...prevState,
@@ -387,12 +393,13 @@ export const EditCompanyComponent: React.FC<IEditCompanyComponent> = ({
 						fontSize="md"
 						lineHeight="6"
 						disabled={
-							editedInfo.logo === selectedCompanyLogo &&
-							editedInfo.name === name &&
-							editedInfo.email === email &&
-							editedInfo.description === description &&
-							editedInfo.type === type &&
-							editedInfo.selectedNetwork === selectedNetwork
+							(editedInfo.logo === selectedCompanyLogo &&
+								editedInfo.name === name &&
+								editedInfo.email === email &&
+								editedInfo.description === description &&
+								editedInfo.type === type &&
+								editedInfo.selectedNetwork === selectedNetwork) ||
+							!isConnected
 						}
 						display={{ md: 'none', lg: 'flex' }}
 					>
@@ -474,6 +481,7 @@ export const EditCompanyComponent: React.FC<IEditCompanyComponent> = ({
 								}}
 								options={networksType}
 								defaultValue={networksType[indexOfCompanyNetwork]}
+								isDisabled={!isConnected}
 								// eslint-disable-next-line react/no-unstable-nested-components
 								formatOptionLabel={network => (
 									<Flex gap="2" align="center">

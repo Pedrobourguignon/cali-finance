@@ -1,11 +1,12 @@
 import { Button, Flex, Text, Icon } from '@chakra-ui/react';
 import { CompanyIcon } from 'components';
-import { usePicasso } from 'hooks';
+import { usePicasso, useProfile } from 'hooks';
 import React from 'react';
 import { AiOutlinePlus } from 'react-icons/ai';
 
 export const CreateCompanyCard = () => {
 	const theme = usePicasso();
+	const { isConnected } = useProfile();
 	return (
 		<Flex
 			boxShadow="base"
@@ -46,6 +47,7 @@ export const CreateCompanyCard = () => {
 				_hover={{ bg: 'black' }}
 				gap="2"
 				w="100%"
+				disabled={!isConnected}
 			>
 				<Icon as={AiOutlinePlus} />
 				Create a Company

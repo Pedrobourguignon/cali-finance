@@ -64,12 +64,7 @@ export const Coins = () => {
 					{translate('principalCoins')}
 				</Text>
 			</Flex>
-			<Flex
-				justify="space-between"
-				mx="4"
-				flex="1"
-				gap={{ md: '4', '2xl': '4' }}
-			>
+			<Flex justify="flex-start" mx="4" flex="1" gap={{ md: '4', '2xl': '4' }}>
 				{coinCard.map((card, index) => (
 					<CoinCard
 						coin={card}

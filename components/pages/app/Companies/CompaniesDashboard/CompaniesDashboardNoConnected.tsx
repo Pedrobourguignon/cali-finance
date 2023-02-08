@@ -1,9 +1,10 @@
 import { Flex, Text } from '@chakra-ui/react';
 import { OffsetButton } from 'components';
-import { usePicasso } from 'hooks';
+import { usePicasso, useProfile } from 'hooks';
 
 export const CompaniesDashboardNoConnected = () => {
 	const theme = usePicasso();
+	const { isConnected } = useProfile();
 	return (
 		<Flex
 			bg={theme.bg.primary}
@@ -58,7 +59,11 @@ export const CompaniesDashboardNoConnected = () => {
 				</Text>
 			</Flex>
 			<Flex flex="1">
-				<OffsetButton name="Create Company" route="companies/create" />
+				<OffsetButton
+					name="Create Company"
+					route="companies/create"
+					disabled={!isConnected}
+				/>
 			</Flex>
 		</Flex>
 	);

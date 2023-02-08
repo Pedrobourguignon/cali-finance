@@ -8,7 +8,7 @@ import {
 	TextProps,
 	useDisclosure,
 } from '@chakra-ui/react';
-import { usePicasso } from 'hooks';
+import { usePicasso, useProfile } from 'hooks';
 import React, { useState } from 'react';
 import useTranslation from 'next-translate/useTranslation';
 import { ImageUploaderModal } from 'components';
@@ -28,6 +28,7 @@ export const EditProfileComponent = () => {
 	const theme = usePicasso();
 	const { t: translate } = useTranslation('edit-profile');
 	const { isOpen, onOpen, onClose } = useDisclosure();
+	const { isConnected } = useProfile();
 
 	const editProfileSchema = yup.object().shape({
 		name: yup
@@ -99,7 +100,7 @@ export const EditProfileComponent = () => {
 					_active={{}}
 					_focus={{}}
 					borderRadius="full"
-					onClick={onOpen}
+					onClick={isConnected ? onOpen : undefined}
 					zIndex="docked"
 				>
 					{editProfilePicture === '' && (
@@ -117,6 +118,7 @@ export const EditProfileComponent = () => {
 					_hover={{}}
 					_focus={{ bg: theme.text.primary }}
 					onClick={onOpen}
+					disabled={!isConnected}
 				>
 					{translate('editProfileImage')}
 				</Button>
@@ -142,6 +144,7 @@ export const EditProfileComponent = () => {
 										color="black"
 										h="max-content"
 										py="1"
+										disabled={!isConnected}
 									/>
 									<Text fontSize="xs" color="red">
 										{errors.name?.message}
@@ -163,6 +166,7 @@ export const EditProfileComponent = () => {
 										py="1"
 										borderRadius="base"
 										{...register('email')}
+										disabled={!isConnected}
 									/>
 									<Text fontSize="xs" color="red">
 										{errors.email?.message}
@@ -179,6 +183,7 @@ export const EditProfileComponent = () => {
 								fontWeight="medium"
 								fontSize="md"
 								borderRadius="sm"
+								disabled={!isConnected}
 							>
 								{translate('saveChanges')}
 							</Button>

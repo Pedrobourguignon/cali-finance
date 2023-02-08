@@ -1,6 +1,6 @@
 import { Button, Flex, useDisclosure } from '@chakra-ui/react';
 import { ImageUploaderModal } from 'components';
-import { useCompanies, usePicasso } from 'hooks';
+import { useCompanies, usePicasso, useProfile } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
 
 export const ImageUploader = () => {
@@ -8,6 +8,7 @@ export const ImageUploader = () => {
 	const theme = usePicasso();
 	const { t: translate } = useTranslation('create-company');
 	const { setSelectedCompanyLogo } = useCompanies();
+	const { isConnected } = useProfile();
 
 	return (
 		<Flex>
@@ -19,6 +20,7 @@ export const ImageUploader = () => {
 				fontWeight="medium"
 				px="3"
 				h="6"
+				disabled={!isConnected}
 			>
 				{translate('editLogoImage')}
 			</Button>

@@ -23,7 +23,7 @@ export const CoinCard: React.FC<ICoinCard> = ({ coin, borderColor, color }) => {
 			pt="2"
 			pb="1.5"
 			transition="all 0.1s ease-in-out"
-			w="full"
+			w="max-content"
 		>
 			<Flex direction="column">
 				<Flex align="center" gap="2">
