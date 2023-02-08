@@ -8,6 +8,7 @@ interface ICoinCard extends FlexProps {
 export const CoinCard: React.FC<ICoinCard> = ({
 	coin,
 	bg,
+	pr,
 	borderColor,
 	color,
 }) => {
@@ -25,7 +26,7 @@ export const CoinCard: React.FC<ICoinCard> = ({
 			borderColor={borderColor}
 			_hover={{ boxShadow: 'xl' }}
 			pl={{ md: '2', xl: '3' }}
-			pr={{ md: '2', xl: '8' }}
+			pr={pr}
 			pt="2"
 			pb="1.5"
 			transition="all 0.1s ease-in-out"
