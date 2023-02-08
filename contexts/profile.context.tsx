@@ -1,4 +1,4 @@
-import React, { useEffect, createContext, useState, useMemo } from 'react';
+import React, { createContext, useState, useMemo } from 'react';
 import { IProfile } from 'types';
 
 interface IProfileData {
