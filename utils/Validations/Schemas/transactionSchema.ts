@@ -4,5 +4,6 @@ export const transactionSchema = yup.object().shape({
 	amount: yup
 		.number()
 		.typeError('Amount must be a number')
-		.required('Required'),
+		.required('Required')
+		.positive('Amount must be positive'),
 });
