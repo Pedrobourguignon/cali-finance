@@ -8,6 +8,7 @@ interface ICoinCard extends FlexProps {
 export const CoinCard: React.FC<ICoinCard> = ({
 	coin,
 	bg,
+	pr,
 	borderColor,
 	color,
 }) => {
@@ -25,13 +26,13 @@ export const CoinCard: React.FC<ICoinCard> = ({
 			borderColor={borderColor}
 			_hover={{ boxShadow: 'xl' }}
 			pl={{ md: '2', xl: '3' }}
-			pr={{ md: '6', xl: '12' }}
+			pr={pr}
 			pt="2"
 			pb="1.5"
 			transition="all 0.1s ease-in-out"
 			w="max-content"
 		>
-			<Flex direction="column">
+			<Flex direction="column" w="max-content">
 				<Flex align="center" gap="2">
 					<Img src={coin.icon} boxSize={{ md: '5', xl: '6' }} />
 					<Flex direction="column">
