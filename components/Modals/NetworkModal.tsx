@@ -79,7 +79,7 @@ export const NetworkModal: React.FC<INetworkModal> = ({
 									onClick={() =>
 										handleSetNetworkData(network.icon, network.name)
 									}
-									gap="2"
+									gap="4"
 									boxSize="full"
 									justifyContent="left"
 									bg="transparent"
