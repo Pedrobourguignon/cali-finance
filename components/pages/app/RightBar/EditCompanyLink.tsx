@@ -1,6 +1,6 @@
 import { Button, Flex, Img, Text } from '@chakra-ui/react';
 import { ImageUploader, SocialMediaInput } from 'components';
-import { useCompanies, usePicasso } from 'hooks';
+import { useCompanies, usePicasso, useProfile } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
 import { Control } from 'react-hook-form';
 import { ICreateCompany, ICompany, ISocialMediaInput } from 'types';
@@ -38,7 +38,6 @@ export const EditCompanyLink: React.FC<{
 	const theme = usePicasso();
 	const { selectedCompany, editedInfo, selectedCompanyLogo } = useCompanies();
 	const { t: translate } = useTranslation('create-company');
-
 	const socialLinks: ISocialMediaInput[] = [
 		{
 			name: 'socialMedias.website',

@@ -9,7 +9,7 @@ import { editCompanySchema, navigationPaths } from 'utils';
 import { IEditCompany } from 'types';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useCompanies } from 'hooks';
+import { useCompanies, useProfile } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
 
 export const EditCompany = () => {

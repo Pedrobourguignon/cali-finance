@@ -1,5 +1,5 @@
 import { Flex, Img, Text, useDisclosure, Link } from '@chakra-ui/react';
-import { useCompanies, usePath, usePicasso } from 'hooks';
+import { useCompanies, usePath, usePicasso, useProfile } from 'hooks';
 import { chainLogo, handleLogoImage, navigationPaths } from 'utils';
 import {
 	NavigationBack,
@@ -21,6 +21,7 @@ export const CompaniesHeader: React.FC<{
 }> = ({ company }) => {
 	const theme = usePicasso();
 	const { isSamePath } = usePath();
+	const { isConnected } = useProfile();
 	const { setNotificationsList, notificationsList } = useCompanies();
 	const { onClose, isOpen, onOpen } = useDisclosure();
 	const { t: translate } = useTranslation('company-overall');

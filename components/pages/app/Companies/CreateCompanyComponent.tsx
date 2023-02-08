@@ -9,13 +9,13 @@ import {
 	TextProps,
 	Tooltip,
 } from '@chakra-ui/react';
-import { usePicasso } from 'hooks';
+import { usePicasso, useProfile } from 'hooks';
 import { Control, FieldErrorsImpl, Controller } from 'react-hook-form';
 import { Select } from 'chakra-react-select';
 import { BsQuestionCircle } from 'react-icons/bs';
 import { ICreateCompany } from 'types';
 import useTranslation from 'next-translate/useTranslation';
-import { NetworkTooltip } from 'components/Tooltips';
+import { NetworkTooltip } from 'components';
 
 interface ICreateCompanyComponent {
 	control: Control<ICreateCompany>;
@@ -74,6 +74,7 @@ export const CreateCompanyComponent: React.FC<ICreateCompanyComponent> = ({
 }) => {
 	const theme = usePicasso();
 	const { t: translate } = useTranslation('create-company');
+	const { isConnected } = useProfile();
 
 	const companiesType: IBasicSelect[] = [
 		{ value: 'DAO', label: 'DAO' },
@@ -101,6 +102,7 @@ export const CreateCompanyComponent: React.FC<ICreateCompanyComponent> = ({
 							borderBottomWidth="0,125rem"
 							borderBottomColor="black"
 							borderRadius="none"
+							disabled={!isConnected}
 							px="1"
 							h="8"
 							fontSize="2xl"
@@ -139,6 +141,7 @@ export const CreateCompanyComponent: React.FC<ICreateCompanyComponent> = ({
 											{...field}
 											placeholder={translate('pleaseSelect')}
 											size="sm"
+											isDisabled={!isConnected}
 											chakraStyles={{
 												placeholder: base => ({
 													...base,
@@ -215,6 +218,7 @@ export const CreateCompanyComponent: React.FC<ICreateCompanyComponent> = ({
 											{...field}
 											placeholder="Please select "
 											size="sm"
+											isDisabled={!isConnected}
 											chakraStyles={{
 												placeholder: base => ({
 													...base,
@@ -265,6 +269,7 @@ export const CreateCompanyComponent: React.FC<ICreateCompanyComponent> = ({
 								render={({ field }) => (
 									<Input
 										{...field}
+										disabled={!isConnected}
 										placeholder={translate('exampleEmail')}
 										_placeholder={{
 											color: 'blackAlpha.500',
@@ -292,6 +297,7 @@ export const CreateCompanyComponent: React.FC<ICreateCompanyComponent> = ({
 								render={({ field }) => (
 									<Textarea
 										{...field}
+										disabled={!isConnected}
 										borderColor={theme.bg.primary}
 										_placeholder={{
 											color: 'blackAlpha.500',
@@ -316,6 +322,7 @@ export const CreateCompanyComponent: React.FC<ICreateCompanyComponent> = ({
 						borderRadius="sm"
 						_hover={{}}
 						gap="2.5"
+						disabled={!isConnected}
 						fontWeight="medium"
 						fontSize="md"
 						lineHeight="6"
@@ -366,6 +373,7 @@ export const CreateCompanyComponent: React.FC<ICreateCompanyComponent> = ({
 						render={({ field }) => (
 							<Select
 								{...field}
+								isDisabled={!isConnected}
 								placeholder={translate('pleaseSelect')}
 								size="sm"
 								chakraStyles={{
