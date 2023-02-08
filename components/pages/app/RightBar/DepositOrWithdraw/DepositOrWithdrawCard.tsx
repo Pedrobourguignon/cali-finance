@@ -101,66 +101,68 @@ export const DepositOrWithdrawCard: React.FC<IDepoistOrWithdrawCard> = ({
 							</Button>
 						))}
 					</Flex>
-					<Flex direction="column" gap="2">
-						<Text fontSize="sm">{translate('amount')}</Text>
-						<InputGroup>
-							<Input
-								_placeholder={{ color: 'blackAlpha.500' }}
-								placeholder="0.00"
-								borderColor={theme.bg.primary}
-								h="8"
-								flex="3"
-								borderRightRadius="none"
-								_hover={{}}
-								color="blackAlpha.500"
-								type="number"
-								zIndex="docked"
-								{...register('amount')}
-							/>
-							<Text position="absolute" color="red" pt="7">
-								{errors.amount?.message}
-							</Text>
-							<Button
-								borderLeftRadius="none"
-								bg={theme.bg.primary}
-								_hover={{ opacity: '80%' }}
-								h="8"
-								_active={{}}
-								_focus={{}}
-								onClick={onOpen}
-							>
-								<Flex gap="2" align="center" color="white">
-									<Img boxSize="4" src={token.logo} />
-									<Text fontSize="sm" whiteSpace="nowrap">
-										{token.symbol}
-									</Text>
-									<Icon boxSize="4" as={IoIosArrowDown} />
-								</Flex>
-							</Button>
-						</InputGroup>
+					<Flex direction="column" gap="6">
+						<Flex direction="column" gap="2">
+							<Text fontSize="sm">{translate('amount')}</Text>
+							<InputGroup>
+								<Input
+									_placeholder={{ color: 'blackAlpha.500' }}
+									placeholder="0.00"
+									borderColor={theme.bg.primary}
+									h="8"
+									flex="3"
+									borderRightRadius="none"
+									_hover={{}}
+									color={theme.text.primary}
+									type="number"
+									zIndex="docked"
+									{...register('amount')}
+								/>
+								<Text position="absolute" color="red" pt="8">
+									{errors.amount?.message}
+								</Text>
+								<Button
+									borderLeftRadius="none"
+									bg={theme.bg.primary}
+									_hover={{ opacity: '80%' }}
+									h="8"
+									_active={{}}
+									_focus={{}}
+									onClick={onOpen}
+								>
+									<Flex gap="2" align="center" color="white">
+										<Img boxSize="4" src={token.logo} />
+										<Text fontSize="sm" whiteSpace="nowrap">
+											{token.symbol}
+										</Text>
+										<Icon boxSize="4" as={IoIosArrowDown} />
+									</Flex>
+								</Button>
+							</InputGroup>
+						</Flex>
+						<Button
+							bg={theme.bg.primary}
+							type="submit"
+							color="white"
+							w="100%"
+							py="1.5"
+							h="8"
+							px="6"
+							whiteSpace="normal"
+							fontSize={{ base: 'xs', xl: 'md' }}
+							_hover={{
+								opacity: 0.8,
+							}}
+							_focus={{}}
+							_active={{
+								opacity: 0.8,
+							}}
+						>
+							{selectedOption === translate('deposit')
+								? translate('addFunds')
+								: translate('withdrawFunds')}
+						</Button>
 					</Flex>
-					<Button
-						bg={theme.bg.primary}
-						type="submit"
-						color="white"
-						w="100%"
-						py="1.5"
-						h="8"
-						px="6"
-						whiteSpace="normal"
-						fontSize={{ base: 'xs', xl: 'md' }}
-						_hover={{
-							opacity: 0.8,
-						}}
-						_focus={{}}
-						_active={{
-							opacity: 0.8,
-						}}
-					>
-						{selectedOption === translate('deposit')
-							? translate('addFunds')
-							: translate('withdrawFunds')}
-					</Button>
 				</Flex>
 			</form>
 		</FormControl>
