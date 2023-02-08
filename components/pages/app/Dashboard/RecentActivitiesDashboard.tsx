@@ -15,13 +15,12 @@ export const RecentActivitiesDashboard: React.FC<
 			direction="column"
 			borderRadius="base"
 			boxShadow="base"
-			px="3"
+			px="4"
 			bg="white"
 			h="max-content"
 			w="full"
-			pb="2"
 		>
-			<Flex justify="space-between" pt="2.5" pb="2" align="center">
+			<Flex justify="space-between" pt="2.5" align="center">
 				<Flex>
 					<Text
 						fontSize={{ md: 'sm', xl: 'md' }}
@@ -32,12 +31,17 @@ export const RecentActivitiesDashboard: React.FC<
 					</Text>
 				</Flex>
 				<Link href={navigationPaths.dashboard.history}>
-					<Text fontSize="xs" cursor="pointer" color="gray.500">
+					<Text
+						fontSize="xs"
+						cursor="pointer"
+						color="gray.500"
+						fontWeight="medium"
+					>
 						{translate('seeAll')}
 					</Text>
 				</Link>
 			</Flex>
-			<Flex direction="column" gap="2" py="2">
+			<Flex direction="column" gap="2" py="4">
 				{recentActivitiesList.map((activity, index) => (
 					<Flex
 						w="full"
