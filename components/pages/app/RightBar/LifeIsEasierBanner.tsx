@@ -4,8 +4,8 @@ import { InfosBanner, LifeIsEasier } from 'components';
 export const LifeIsEasierBanner = () => (
 	<InfosBanner
 		position="absolute"
-		ilustrationImg="/images/illustration.svg"
-		ondulatedImg="/images/bottom-wave.svg"
+		ilustrationImg="/images/illustration-big.svg"
+		ondulatedImg="/images/bottom-big-wave.svg"
 		bottom="0"
 	>
 		<Flex w="full">

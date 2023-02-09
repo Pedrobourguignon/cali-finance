@@ -6,8 +6,8 @@ export const ActiveTeamsBar = () => {
 	const theme = usePicasso();
 	return (
 		<InfosBanner
-			ondulatedImg="/images/small-ondulated.png"
-			ilustrationImg="/images/illustration-small.png"
+			ondulatedImg="/images/bottom-small-wave.svg"
+			ilustrationImg="/images/illustration.svg"
 			bottom="0"
 		>
 			<Flex

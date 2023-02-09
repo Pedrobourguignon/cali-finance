@@ -10,15 +10,15 @@ export const CreateAccountBanner = () => {
 	return (
 		<InfosBanner
 			position="absolute"
-			ilustrationImg="/images/illustration-big.png"
-			ondulatedImg="/images/big-ondulated.png"
+			ilustrationImg="/images/illustration-big.svg"
+			ondulatedImg="/images/bottom-big-wave.svg"
 			bottom="0"
 		>
 			<Flex w="full">
-				<Img src="/images/top-ondulated.png" w="full" />
+				<Img src="/images/top-wave.svg" w="full" />
 			</Flex>
 			<Flex position="absolute" top="0" w="full">
-				<Img src="/images/sparkles.png" w="full" />
+				<Img src="/images/sparkles.svg" w="full" />
 			</Flex>
 			<Flex direction="column" pl="4" pt="10" pr="10">
 				<Flex direction="column" gap="6">
