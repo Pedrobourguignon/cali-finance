@@ -150,7 +150,7 @@ export const CreateCompanyComponent: React.FC<ICreateCompanyComponent> = ({
 													bg: 'white',
 													minWidth: '48',
 													borderRadius: 'base',
-													borderColor: '#121212',
+													borderColor: errors.type ? 'red' : theme.bg.primary,
 													cursor: 'pointer',
 												}),
 												menuList: group => ({
@@ -181,7 +181,6 @@ export const CreateCompanyComponent: React.FC<ICreateCompanyComponent> = ({
 							>
 								<Flex gap="2" mb="2" align="center">
 									<Text {...labelStyle}>Network *</Text>
-
 									<Tooltip
 										label={
 											<NetworkTooltip>
@@ -226,7 +225,9 @@ export const CreateCompanyComponent: React.FC<ICreateCompanyComponent> = ({
 													bg: 'white',
 													borderRadius: 'base',
 													minWidth: '48',
-													borderColor: '#121212',
+													borderColor: errors.network
+														? 'red'
+														: theme.bg.primary,
 													cursor: 'pointer',
 												}),
 												menuList: group => ({
@@ -274,7 +275,7 @@ export const CreateCompanyComponent: React.FC<ICreateCompanyComponent> = ({
 										bgColor="white"
 										borderRadius="base"
 										_hover={{}}
-										borderColor={theme.bg.primary}
+										borderColor={errors.email ? 'red' : theme.bg.primary}
 									/>
 								)}
 								name="email"
@@ -308,7 +309,6 @@ export const CreateCompanyComponent: React.FC<ICreateCompanyComponent> = ({
 							/>
 						</Flex>
 					</Flex>
-
 					<Button
 						type="submit"
 						bg={theme.bg.primary}
@@ -379,7 +379,7 @@ export const CreateCompanyComponent: React.FC<ICreateCompanyComponent> = ({
 										bg: 'white',
 										minWidth: '48',
 										borderRadius: 'base',
-										borderColor: '#121212',
+										borderColor: errors.network ? 'red' : theme.bg.primary,
 										cursor: 'pointer',
 										_hover: {},
 									}),

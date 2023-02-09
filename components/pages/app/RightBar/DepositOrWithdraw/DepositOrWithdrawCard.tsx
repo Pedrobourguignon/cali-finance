@@ -101,14 +101,14 @@ export const DepositOrWithdrawCard: React.FC<IDepoistOrWithdrawCard> = ({
 							</Button>
 						))}
 					</Flex>
-					<Flex direction="column" gap="6">
+					<Flex direction="column" gap={errors.amount ? '2' : '6'}>
 						<Flex direction="column" gap="2">
 							<Text fontSize="sm">{translate('amount')}</Text>
 							<InputGroup>
 								<Input
 									_placeholder={{ color: 'blackAlpha.500' }}
 									placeholder="0.00"
-									borderColor={theme.bg.primary}
+									borderColor={errors.amount ? 'red' : theme.bg.primary}
 									h="8"
 									flex="3"
 									borderRightRadius="none"
@@ -118,9 +118,9 @@ export const DepositOrWithdrawCard: React.FC<IDepoistOrWithdrawCard> = ({
 									zIndex="docked"
 									{...register('amount')}
 								/>
-								<Text position="absolute" color="red" pt="8">
+								{/* <Text position="absolute" color="red" pt="8" fontSize="sm">
 									{errors.amount?.message}
-								</Text>
+								</Text> */}
 								<Button
 									borderLeftRadius="none"
 									bg={theme.bg.primary}
@@ -139,6 +139,9 @@ export const DepositOrWithdrawCard: React.FC<IDepoistOrWithdrawCard> = ({
 									</Flex>
 								</Button>
 							</InputGroup>
+							<Text color="red" fontSize="sm">
+								{errors.amount?.message}
+							</Text>
 						</Flex>
 						<Button
 							bg={theme.bg.primary}

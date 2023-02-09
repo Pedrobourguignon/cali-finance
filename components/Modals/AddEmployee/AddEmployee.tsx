@@ -196,7 +196,9 @@ export const AddEmployee: React.FC<IAddEmployee> = ({
 									<Text {...labelStyle}>{translate('employeeWallet')}</Text>
 									<Input
 										placeholder="0x6856...BF99"
-										borderColor={theme.text.primary}
+										borderColor={
+											errors.walletAddress ? 'red' : theme.bg.primary
+										}
 										_placeholder={{ ...placeholderStyle }}
 										_focusVisible={{}}
 										_hover={{}}
@@ -221,7 +223,7 @@ export const AddEmployee: React.FC<IAddEmployee> = ({
 											{...register('amount')}
 											_placeholder={{ ...placeholderStyle }}
 											placeholder="0.00"
-											borderColor="black"
+											borderColor={errors.amount ? 'red' : theme.bg.primary}
 											flex="3"
 											h="max-content"
 											py="1"
@@ -260,7 +262,6 @@ export const AddEmployee: React.FC<IAddEmployee> = ({
 										{errors.amount?.message}
 									</Text>
 								</Flex>
-
 								<Button
 									type="submit"
 									color="white"

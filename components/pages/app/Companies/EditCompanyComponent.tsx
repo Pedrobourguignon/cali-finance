@@ -197,7 +197,9 @@ export const EditCompanyComponent: React.FC<IEditCompanyComponent> = ({
 													bg: 'white',
 													minWidth: '48',
 													borderRadius: 'base',
-													borderColor: '#121212',
+													borderColor: errors.network
+														? 'red'
+														: theme.bg.primary,
 													cursor: 'pointer',
 													_hover: {},
 												}),
@@ -277,7 +279,9 @@ export const EditCompanyComponent: React.FC<IEditCompanyComponent> = ({
 													bg: 'white',
 													minWidth: '48',
 													borderRadius: 'base',
-													borderColor: '#121212',
+													borderColor: errors.network
+														? 'red'
+														: theme.bg.primary,
 													cursor: 'pointer',
 													_hover: {},
 												}),
@@ -379,7 +383,6 @@ export const EditCompanyComponent: React.FC<IEditCompanyComponent> = ({
 							/>
 						</Flex>
 					</Flex>
-
 					<Button
 						type="submit"
 						bg={theme.bg.primary}
@@ -464,7 +467,7 @@ export const EditCompanyComponent: React.FC<IEditCompanyComponent> = ({
 										bg: 'white',
 										borderRadius: 'base',
 										minWidth: '48',
-										borderColor: '#121212',
+										borderColor: errors.network ? 'red' : theme.bg.primary,
 										cursor: 'pointer',
 										_hover: {},
 									}),
