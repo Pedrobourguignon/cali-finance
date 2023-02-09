@@ -16,7 +16,7 @@ import { Select } from 'chakra-react-select';
 import { BsQuestionCircle } from 'react-icons/bs';
 import useTranslation from 'next-translate/useTranslation';
 import { useEffect } from 'react';
-import { NetworkTooltip } from 'components';
+import { BlackButton, NetworkTooltip } from 'components';
 
 interface IEditCompanyComponent {
 	control: Control<ICreateCompany>;
@@ -381,14 +381,13 @@ export const EditCompanyComponent: React.FC<IEditCompanyComponent> = ({
 					</Flex>
 
 					<Button
-						type="submit"
 						bg={theme.bg.primary}
+						type="submit"
 						color="white"
 						borderRadius="sm"
 						_hover={{ opacity: '80%' }}
 						_active={{}}
 						_focus={{}}
-						gap="2.5"
 						fontWeight="medium"
 						fontSize="md"
 						lineHeight="6"
@@ -405,6 +404,24 @@ export const EditCompanyComponent: React.FC<IEditCompanyComponent> = ({
 					>
 						<Text>{translate('saveChanges')}</Text>
 					</Button>
+					<BlackButton
+						type="submit"
+						lineHeight="6"
+						fontSize="md"
+						py="2.5"
+						display={{ md: 'none', lg: 'flex' }}
+						disabled={
+							(editedInfo.logo === selectedCompanyLogo &&
+								editedInfo.name === name &&
+								editedInfo.email === email &&
+								editedInfo.description === description &&
+								editedInfo.type === type &&
+								editedInfo.selectedNetwork === selectedNetwork) ||
+							!isConnected
+						}
+					>
+						{translate('saveChanges')}
+					</BlackButton>
 				</Flex>
 				<Flex
 					direction="column"
