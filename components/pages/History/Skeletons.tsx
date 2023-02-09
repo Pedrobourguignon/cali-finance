@@ -1,18 +1,8 @@
 import { Flex, Skeleton, SkeletonCircle, Stack } from '@chakra-ui/react';
 import React from 'react';
 
-interface ISkeleton {
-	display: 'flex' | 'none';
-}
-
-export const HistorySkeletons: React.FC<ISkeleton> = ({ display }) => (
-	<Flex
-		bg="white"
-		p="3"
-		display={display}
-		align="center"
-		justify="space-between"
-	>
+export const HistorySkeletons = () => (
+	<Flex bg="white" p="3" align="center" justify="space-between">
 		<Flex gap="3" align="center">
 			<SkeletonCircle size={{ md: '2', lg: '4', xl: '6' }} />
 			<Skeleton
