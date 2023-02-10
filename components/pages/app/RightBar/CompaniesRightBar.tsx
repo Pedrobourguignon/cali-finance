@@ -6,7 +6,7 @@ import {
 } from 'components';
 
 export const CompaniesRightBar = () => (
-	<Flex direction="column" gap="8">
+	<Flex direction="column" gap="8" w="full">
 		<Flex display={{ md: 'none', lg: 'flex' }}>
 			<LifeIsEasierBanner />
 		</Flex>
