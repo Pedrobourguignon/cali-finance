@@ -27,6 +27,7 @@ interface IEditProfile {
 export const EditProfileComponent = () => {
 	const theme = usePicasso();
 	const { t: translate } = useTranslation('edit-profile');
+	const { t: translateSchemas } = useTranslation('schemas');
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const { isConnected } = useProfile();
 
@@ -169,7 +170,7 @@ export const EditProfileComponent = () => {
 										disabled={!isConnected}
 									/>
 									<Text fontSize="xs" color="red">
-										{errors.email?.message}
+										{errors.email && translateSchemas('emailFormatInvalid')}
 									</Text>
 								</Flex>
 							</Flex>

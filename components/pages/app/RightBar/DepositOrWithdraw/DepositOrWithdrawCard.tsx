@@ -33,6 +33,7 @@ export const DepositOrWithdrawCard: React.FC<IDepoistOrWithdrawCard> = ({
 	setConfirm,
 }) => {
 	const { t: translate } = useTranslation('company-overall');
+	const { t: translateSchema } = useTranslation('schemas');
 	const theme = usePicasso();
 	const { onClose, isOpen, onOpen } = useDisclosure();
 	const buttonOptions = [translate('deposit'), translate('withdrawal')];
@@ -119,7 +120,8 @@ export const DepositOrWithdrawCard: React.FC<IDepoistOrWithdrawCard> = ({
 									{...register('amount')}
 								/>
 								<Text position="absolute" color="red" pt="8">
-									{errors.amount?.message}
+									{/* {errors.amount?.message} */}
+									{errors.amount && translateSchema('amountMustBe')}
 								</Text>
 								<Button
 									borderLeftRadius="none"
