@@ -1,5 +1,5 @@
 import { Flex, Img, Text, useDisclosure, Link } from '@chakra-ui/react';
-import { useCompanies, usePath, usePicasso, useProfile } from 'hooks';
+import { useCompanies, usePath, usePicasso } from 'hooks';
 import { chainLogo, handleLogoImage, navigationPaths } from 'utils';
 import {
 	NavigationBack,
@@ -9,19 +9,11 @@ import {
 import useTranslation from 'next-translate/useTranslation';
 import { ICompany } from 'types';
 
-const companyData = {
-	name: 'Kylie Cosmetics Super Extra',
-	logo: '/images/kylie-cosmetics-logo.png',
-	totalFunds: '67,986.09',
-	network: { name: 'Ethereum', logo: '/images/eth.png' },
-};
-
 export const CompaniesHeader: React.FC<{
 	company: ICompany;
 }> = ({ company }) => {
 	const theme = usePicasso();
 	const { isSamePath } = usePath();
-	const { isConnected } = useProfile();
 	const { setNotificationsList, notificationsList } = useCompanies();
 	const { onClose, isOpen, onOpen } = useDisclosure();
 	const { t: translate } = useTranslation('company-overall');
@@ -81,7 +73,7 @@ export const CompaniesHeader: React.FC<{
 					</Text>
 				</Flex>
 				<Flex direction="column" maxW="28">
-					<Text fontSize="xl">${company.funds}</Text>
+					<Text fontSize="xl">${company.funds.toLocaleString('en-US')}</Text>
 					<Text fontSize="sm">{translate('totalFunds')}</Text>
 				</Flex>
 				<Link href={navigationPaths.dashboard.companies.editOrg('1')}>

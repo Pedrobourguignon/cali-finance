@@ -1,12 +1,13 @@
-import { Button, Flex, Text, Icon } from '@chakra-ui/react';
-import { CompanyIcon } from 'components';
-import { usePicasso, useProfile } from 'hooks';
+import { Flex, Text, Icon } from '@chakra-ui/react';
+import { BlackButton, CompanyIcon } from 'components';
+import { usePicasso } from 'hooks';
+import useTranslation from 'next-translate/useTranslation';
 import React from 'react';
 import { AiOutlinePlus } from 'react-icons/ai';
 
 export const CreateCompanyCard = () => {
 	const theme = usePicasso();
-	const { isConnected } = useProfile();
+	const { t: translate } = useTranslation('dashboard');
 	return (
 		<Flex
 			boxShadow="base"
@@ -38,20 +39,18 @@ export const CreateCompanyCard = () => {
 					</Text>
 				</Flex>
 			</Flex>
-			<Button
-				color="white"
-				bg={theme.bg.primary}
+			<BlackButton
 				fontSize="sm"
-				fontWeight="medium"
-				borderRadius="sm"
-				_hover={{ bg: 'black' }}
 				gap="2"
-				w="100%"
-				disabled={!isConnected}
+				px="7"
+				py="2"
+				fontWeight="medium"
+				color="white"
+				borderRadius="sm"
 			>
 				<Icon as={AiOutlinePlus} />
-				Create a Company
-			</Button>
+				{translate('createCompany')}
+			</BlackButton>
 		</Flex>
 	);
 };

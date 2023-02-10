@@ -11,11 +11,12 @@ import {
 import { usePicasso, useProfile } from 'hooks';
 import React, { useState } from 'react';
 import useTranslation from 'next-translate/useTranslation';
-import { ImageUploaderModal } from 'components';
+import { BlackButton, ImageUploaderModal } from 'components';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 import { limitSpecialCharacterRegex, nameRegex } from 'utils';
 import * as yup from 'yup';
+import { useSession } from 'next-auth/react';
 
 interface IEditProfile {
 	name: string;
@@ -28,7 +29,7 @@ export const EditProfileComponent = () => {
 	const theme = usePicasso();
 	const { t: translate } = useTranslation('edit-profile');
 	const { isOpen, onOpen, onClose } = useDisclosure();
-	const { isConnected } = useProfile();
+	const { data: session } = useSession();
 
 	const editProfileSchema = yup.object().shape({
 		name: yup
@@ -100,7 +101,7 @@ export const EditProfileComponent = () => {
 					_active={{}}
 					_focus={{}}
 					borderRadius="full"
-					onClick={isConnected ? onOpen : undefined}
+					onClick={session ? onOpen : undefined}
 					zIndex="docked"
 				>
 					{editProfilePicture === '' && (
@@ -118,7 +119,7 @@ export const EditProfileComponent = () => {
 					_hover={{}}
 					_focus={{ bg: theme.text.primary }}
 					onClick={onOpen}
-					disabled={!isConnected}
+					disabled={!session}
 				>
 					{translate('editProfileImage')}
 				</Button>
@@ -144,7 +145,7 @@ export const EditProfileComponent = () => {
 										color="black"
 										h="max-content"
 										py="1"
-										disabled={!isConnected}
+										disabled={!session}
 									/>
 									<Text fontSize="xs" color="red">
 										{errors.name?.message}
@@ -166,27 +167,22 @@ export const EditProfileComponent = () => {
 										py="1"
 										borderRadius="base"
 										{...register('email')}
-										disabled={!isConnected}
+										disabled={!session}
 									/>
 									<Text fontSize="xs" color="red">
 										{errors.email?.message}
 									</Text>
 								</Flex>
 							</Flex>
-
-							<Button
-								type="submit"
+							<BlackButton
 								px={{ md: '32', '2xl': '36' }}
-								bg={theme.text.primary}
-								_hover={{ opacity: '80%' }}
-								_focus={{ bg: theme.text.primary }}
-								fontWeight="medium"
+								type="submit"
 								fontSize="md"
+								py="2.5"
 								borderRadius="sm"
-								disabled={!isConnected}
 							>
 								{translate('saveChanges')}
-							</Button>
+							</BlackButton>
 						</Flex>
 					</FormControl>
 				</form>

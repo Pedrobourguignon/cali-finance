@@ -1,6 +1,7 @@
-import { Button, Flex, Img, Text } from '@chakra-ui/react';
-import { ImageUploader, SocialMediaInput } from 'components';
-import { useCompanies, usePicasso, useProfile } from 'hooks';
+import { Flex, Img } from '@chakra-ui/react';
+import { BlackButton, ImageUploader, SocialMediaInput } from 'components';
+import { useCompanies, usePicasso } from 'hooks';
+import { useSession } from 'next-auth/react';
 import useTranslation from 'next-translate/useTranslation';
 import { Control } from 'react-hook-form';
 import { ICreateCompany, ICompany, ISocialMediaInput } from 'types';
@@ -8,6 +9,7 @@ import { handleLogoImage } from 'utils';
 
 const CompanyLogo = () => {
 	const { selectedCompany } = useCompanies();
+
 	const theme = usePicasso();
 
 	if (selectedCompany.logo) {
@@ -38,6 +40,8 @@ export const EditCompanyLink: React.FC<{
 	const theme = usePicasso();
 	const { selectedCompany, editedInfo, selectedCompanyLogo } = useCompanies();
 	const { t: translate } = useTranslation('create-company');
+	const { data: session } = useSession();
+
 	const socialLinks: ISocialMediaInput[] = [
 		{
 			name: 'socialMedias.website',
@@ -106,31 +110,26 @@ export const EditCompanyLink: React.FC<{
 					</Flex>
 				</Flex>
 			</Flex>
-			<Button
+			<BlackButton
 				type="submit"
-				bg={theme.bg.primary}
-				color="white"
-				borderRadius="sm"
-				_hover={{ opacity: '80%' }}
-				_active={{}}
-				_focus={{}}
-				gap="2.5"
-				minW="80"
-				fontWeight="medium"
-				fontSize="md"
 				lineHeight="6"
-				disabled={
-					editedInfo.logo === selectedCompanyLogo &&
-					editedInfo.name === name &&
-					editedInfo.email === email &&
-					editedInfo.description === description &&
-					editedInfo.type === type &&
-					editedInfo.selectedNetwork === selectedNetwork
-				}
+				fontSize="md"
+				borderRadius="sm"
+				minW="80"
+				py="2.5"
 				display={{ md: 'flex', lg: 'none' }}
+				disabled={
+					(editedInfo.logo === selectedCompanyLogo &&
+						editedInfo.name === name &&
+						editedInfo.email === email &&
+						editedInfo.description === description &&
+						editedInfo.type === type &&
+						editedInfo.selectedNetwork === selectedNetwork) ||
+					!session
+				}
 			>
-				<Text>{translate('saveChanges')}</Text>
-			</Button>
+				{translate('saveChanges')}
+			</BlackButton>
 		</Flex>
 	);
 };

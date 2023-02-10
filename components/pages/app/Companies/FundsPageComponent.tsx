@@ -1,4 +1,4 @@
-import { Flex, Grid, GridItem, Text } from '@chakra-ui/react';
+import { Flex, Text } from '@chakra-ui/react';
 import { useCompanies, usePicasso } from 'hooks';
 import { AppLayout } from 'layouts';
 import {
@@ -9,6 +9,9 @@ import {
 } from 'components';
 import { ICoin } from 'types';
 import useTranslation from 'next-translate/useTranslation';
+import { useSession } from 'next-auth/react';
+import { useEffect } from 'react';
+import Router from 'next/router';
 
 const coinCard: ICoin[] = [
 	{
@@ -59,6 +62,11 @@ export const FundsPageComponent = () => {
 	const theme = usePicasso();
 	const { t: translate } = useTranslation('company-overall');
 	const { selectedCompany } = useCompanies();
+	const { data: session } = useSession();
+	console.log(session);
+	// useEffect(() => {
+	// 	if (!session) Router.push('/app/companies');
+	// }, []);
 
 	return (
 		<AppLayout right={<DepositOrWithdrawBanner />}>
@@ -83,6 +91,7 @@ export const FundsPageComponent = () => {
 							<CoinCard
 								coin={coin}
 								borderColor="gray.400"
+								pr="2.97rem"
 								bg="white"
 								color={theme.text.primary}
 								key={+index}

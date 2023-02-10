@@ -1,10 +1,11 @@
 import { Flex, Text } from '@chakra-ui/react';
 import { OffsetButton } from 'components';
-import { usePicasso, useProfile } from 'hooks';
+import { usePicasso } from 'hooks';
+import { useSession } from 'next-auth/react';
 
 export const CompaniesDashboardNoConnected = () => {
 	const theme = usePicasso();
-	const { isConnected } = useProfile();
+	const { data: session } = useSession();
 	return (
 		<Flex
 			bg={theme.bg.primary}
@@ -62,7 +63,7 @@ export const CompaniesDashboardNoConnected = () => {
 				<OffsetButton
 					name="Create Company"
 					route="companies/create"
-					disabled={!isConnected}
+					disabled={!session}
 				/>
 			</Flex>
 		</Flex>

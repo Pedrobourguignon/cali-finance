@@ -9,8 +9,11 @@ import { editCompanySchema, navigationPaths } from 'utils';
 import { IEditCompany } from 'types';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useCompanies, useProfile } from 'hooks';
+import { useCompanies } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
+import { useEffect } from 'react';
+import { useSession } from 'next-auth/react';
+import Router from 'next/router';
 
 export const EditCompany = () => {
 	const { t: translate } = useTranslation('create-company');
@@ -21,6 +24,11 @@ export const EditCompany = () => {
 	} = useForm<IEditCompany>({
 		resolver: yupResolver(editCompanySchema),
 	});
+	const { data: session } = useSession();
+
+	useEffect(() => {
+		if (!session) Router.push('/app/companies');
+	}, [session]);
 
 	const handleEditCompany = (editedCompanyData: IEditCompany) => {
 		console.log(editedCompanyData);

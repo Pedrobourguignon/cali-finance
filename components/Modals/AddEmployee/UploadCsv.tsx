@@ -1,7 +1,7 @@
-import { Button, Flex, Icon, Text } from '@chakra-ui/react';
+import { Flex, Icon, Text } from '@chakra-ui/react';
 import React, { useState } from 'react';
 import { BsArrowUp } from 'react-icons/bs';
-import { DragAndDrop } from 'components';
+import { BlackButton, DragAndDrop } from 'components';
 import { IUploadedFile } from 'types';
 import { usePicasso } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
@@ -30,24 +30,16 @@ export const UploadCsv = () => {
 			<DragAndDrop setUploadedFileData={setUploadedFileData} />
 
 			<Flex py="6" direction="column" align="center" gap="4" px="6">
-				<Button
-					type="submit"
-					w="full"
+				<BlackButton
+					py="2.5"
 					gap="2.5"
-					bg={theme.text.primary}
-					color="white"
+					width="full"
 					borderRadius="sm"
-					fontSize="md"
-					fontWeight="medium"
-					_hover={{}}
-					_active={{}}
-					_focus={{}}
-					py="2"
 					disabled={uploadedFileData.ext !== 'csv'}
 				>
 					<Icon as={BsArrowUp} />
 					{translate('loadCsv')}
-				</Button>
+				</BlackButton>
 				<Text fontSize="sm" color={theme.text.primary}>
 					{fileData}
 				</Text>

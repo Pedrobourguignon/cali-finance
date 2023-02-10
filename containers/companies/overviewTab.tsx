@@ -1,7 +1,6 @@
 import { OverviewComponent, WithdrawalsBanner } from 'components';
 import { usePicasso } from 'hooks';
 import { AppLayout } from 'layouts';
-import useTranslation from 'next-translate/useTranslation';
 import { CompaniesProvider, ProfileProvider } from 'contexts';
 
 const teams = [
@@ -30,7 +29,6 @@ const teams = [
 
 export const OverviewTab = () => {
 	const theme = usePicasso();
-	const { t: translate } = useTranslation('company-overall');
 
 	return (
 		<ProfileProvider>

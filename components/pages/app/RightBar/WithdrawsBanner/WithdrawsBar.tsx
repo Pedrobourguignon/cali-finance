@@ -1,13 +1,14 @@
 import { Button, Flex, Text } from '@chakra-ui/react';
 import { CircularProgressBar } from 'components';
-import { usePicasso, useProfile } from 'hooks';
+import { usePicasso } from 'hooks';
+import { useSession } from 'next-auth/react';
 import useTranslation from 'next-translate/useTranslation';
 import { useState } from 'react';
 
 const withdrawnPercentage = 50;
 export const WithdrawsBar = () => {
 	const theme = usePicasso();
-	const { isConnected } = useProfile();
+	const { data: session } = useSession();
 	const { t: translate } = useTranslation('company-overall');
 	const [selectedOption, setSelectedOption] = useState<string | undefined>(
 		translate('thisWeek')
@@ -37,7 +38,7 @@ export const WithdrawsBar = () => {
 					</Text>
 					<Flex>
 						<CircularProgressBar
-							percentage={!isConnected ? 0 : withdrawnPercentage}
+							percentage={!session ? 0 : withdrawnPercentage}
 						/>
 					</Flex>
 				</Flex>
@@ -73,9 +74,7 @@ export const WithdrawsBar = () => {
 				position="absolute"
 			>
 				<Text fontSize="xs">{translate('withdrawn')}</Text>
-				<Text fontWeight="medium">
-					{!isConnected ? 0 : withdrawnPercentage}%
-				</Text>
+				<Text fontWeight="medium">{!session ? 0 : withdrawnPercentage}%</Text>
 			</Flex>
 		</Flex>
 	);

@@ -15,7 +15,8 @@ import { Select } from 'chakra-react-select';
 import { BsQuestionCircle } from 'react-icons/bs';
 import { ICreateCompany } from 'types';
 import useTranslation from 'next-translate/useTranslation';
-import { NetworkTooltip } from 'components';
+import { BlackButton, NetworkTooltip } from 'components';
+import { useSession } from 'next-auth/react';
 
 interface ICreateCompanyComponent {
 	control: Control<ICreateCompany>;
@@ -74,7 +75,7 @@ export const CreateCompanyComponent: React.FC<ICreateCompanyComponent> = ({
 }) => {
 	const theme = usePicasso();
 	const { t: translate } = useTranslation('create-company');
-	const { isConnected } = useProfile();
+	const { data: session } = useSession();
 
 	const companiesType: IBasicSelect[] = [
 		{ value: 'DAO', label: 'DAO' },
@@ -102,7 +103,7 @@ export const CreateCompanyComponent: React.FC<ICreateCompanyComponent> = ({
 							borderBottomWidth="0,125rem"
 							borderBottomColor="black"
 							borderRadius="none"
-							disabled={!isConnected}
+							disabled={!session}
 							px="1"
 							h="8"
 							fontSize="2xl"
@@ -141,7 +142,7 @@ export const CreateCompanyComponent: React.FC<ICreateCompanyComponent> = ({
 											{...field}
 											placeholder={translate('pleaseSelect')}
 											size="sm"
-											isDisabled={!isConnected}
+											isDisabled={!session}
 											chakraStyles={{
 												placeholder: base => ({
 													...base,
@@ -152,6 +153,7 @@ export const CreateCompanyComponent: React.FC<ICreateCompanyComponent> = ({
 													...group,
 													bg: 'white',
 													minWidth: '48',
+													_hover: {},
 													borderRadius: 'base',
 													borderColor: '#121212',
 													cursor: 'pointer',
@@ -218,7 +220,7 @@ export const CreateCompanyComponent: React.FC<ICreateCompanyComponent> = ({
 											{...field}
 											placeholder="Please select "
 											size="sm"
-											isDisabled={!isConnected}
+											isDisabled={!session}
 											chakraStyles={{
 												placeholder: base => ({
 													...base,
@@ -269,7 +271,7 @@ export const CreateCompanyComponent: React.FC<ICreateCompanyComponent> = ({
 								render={({ field }) => (
 									<Input
 										{...field}
-										disabled={!isConnected}
+										disabled={!session}
 										placeholder={translate('exampleEmail')}
 										_placeholder={{
 											color: 'blackAlpha.500',
@@ -297,7 +299,7 @@ export const CreateCompanyComponent: React.FC<ICreateCompanyComponent> = ({
 								render={({ field }) => (
 									<Textarea
 										{...field}
-										disabled={!isConnected}
+										disabled={!session}
 										borderColor={theme.bg.primary}
 										_placeholder={{
 											color: 'blackAlpha.500',
@@ -314,23 +316,20 @@ export const CreateCompanyComponent: React.FC<ICreateCompanyComponent> = ({
 							/>
 						</Flex>
 					</Flex>
-
-					<Button
+					<BlackButton
 						type="submit"
-						bg={theme.bg.primary}
-						color="white"
-						borderRadius="sm"
-						_hover={{}}
 						gap="2.5"
-						disabled={!isConnected}
+						disabled={!session}
 						fontWeight="medium"
 						fontSize="md"
 						lineHeight="6"
 						display={{ md: 'none', lg: 'flex' }}
+						py="2.5"
+						borderRadius="sm"
 					>
 						<Text>+</Text>
 						<Text>{translate('createCompany')}</Text>
-					</Button>
+					</BlackButton>
 				</Flex>
 				<Flex
 					direction="column"
@@ -373,7 +372,7 @@ export const CreateCompanyComponent: React.FC<ICreateCompanyComponent> = ({
 						render={({ field }) => (
 							<Select
 								{...field}
-								isDisabled={!isConnected}
+								isDisabled={!session}
 								placeholder={translate('pleaseSelect')}
 								size="sm"
 								chakraStyles={{

@@ -1,5 +1,4 @@
 import {
-	Button,
 	Flex,
 	Icon,
 	Img,
@@ -9,14 +8,15 @@ import {
 	TextProps,
 	Tooltip,
 } from '@chakra-ui/react';
-import { useCompanies, usePicasso, useProfile } from 'hooks';
+import { useCompanies, usePicasso } from 'hooks';
 import { Control, FieldErrorsImpl, Controller } from 'react-hook-form';
 import { ICreateCompany, ICompany } from 'types';
 import { Select } from 'chakra-react-select';
 import { BsQuestionCircle } from 'react-icons/bs';
 import useTranslation from 'next-translate/useTranslation';
 import { useEffect } from 'react';
-import { NetworkTooltip } from 'components';
+import { BlackButton, NetworkTooltip } from 'components';
+import { useSession } from 'next-auth/react';
 
 interface IEditCompanyComponent {
 	control: Control<ICreateCompany>;
@@ -87,7 +87,7 @@ export const EditCompanyComponent: React.FC<IEditCompanyComponent> = ({
 	const theme = usePicasso();
 	const { t: translate } = useTranslation('create-company');
 	const { selectedCompanyLogo, setEditedInfo, editedInfo } = useCompanies();
-	const { isConnected } = useProfile();
+	const { data: session } = useSession();
 
 	useEffect(() => {
 		setEditedInfo({
@@ -138,7 +138,7 @@ export const EditCompanyComponent: React.FC<IEditCompanyComponent> = ({
 							h="8"
 							px="1"
 							fontSize="2xl"
-							isDisabled={!isConnected}
+							isDisabled={!session}
 							_placeholder={{
 								color: 'blackAlpha.500',
 								fontSize: { md: 'xl', xl: '2xl' },
@@ -214,7 +214,7 @@ export const EditCompanyComponent: React.FC<IEditCompanyComponent> = ({
 											}}
 											options={companiesType}
 											defaultValue={companiesType[indexOfCompanyType]}
-											isDisabled={!isConnected}
+											isDisabled={!session}
 										/>
 									)}
 								/>
@@ -294,7 +294,7 @@ export const EditCompanyComponent: React.FC<IEditCompanyComponent> = ({
 											}}
 											options={networksType}
 											defaultValue={networksType[indexOfCompanyNetwork]}
-											isDisabled={!isConnected}
+											isDisabled={!session}
 											// eslint-disable-next-line react/no-unstable-nested-components
 											formatOptionLabel={network => (
 												<Flex gap="2" align="center">
@@ -330,7 +330,7 @@ export const EditCompanyComponent: React.FC<IEditCompanyComponent> = ({
 										_hover={{}}
 										borderColor={theme.bg.primary}
 										defaultValue={email}
-										disabled={!isConnected}
+										disabled={!session}
 										onChange={editedEmail =>
 											setEditedInfo(prevState => ({
 												...prevState,
@@ -365,7 +365,7 @@ export const EditCompanyComponent: React.FC<IEditCompanyComponent> = ({
 										bgColor="white"
 										placeholder={translate('exampleDescription')}
 										minH="110"
-										disabled={!isConnected}
+										disabled={!session}
 										onChange={editedDescription =>
 											setEditedInfo(prevState => ({
 												...prevState,
@@ -380,18 +380,13 @@ export const EditCompanyComponent: React.FC<IEditCompanyComponent> = ({
 						</Flex>
 					</Flex>
 
-					<Button
+					<BlackButton
 						type="submit"
-						bg={theme.bg.primary}
-						color="white"
-						borderRadius="sm"
-						_hover={{ opacity: '80%' }}
-						_active={{}}
-						_focus={{}}
-						gap="2.5"
-						fontWeight="medium"
-						fontSize="md"
 						lineHeight="6"
+						fontSize="md"
+						borderRadius="sm"
+						py="2.5"
+						display={{ md: 'none', lg: 'flex' }}
 						disabled={
 							(editedInfo.logo === selectedCompanyLogo &&
 								editedInfo.name === name &&
@@ -399,12 +394,11 @@ export const EditCompanyComponent: React.FC<IEditCompanyComponent> = ({
 								editedInfo.description === description &&
 								editedInfo.type === type &&
 								editedInfo.selectedNetwork === selectedNetwork) ||
-							!isConnected
+							!session
 						}
-						display={{ md: 'none', lg: 'flex' }}
 					>
-						<Text>{translate('saveChanges')}</Text>
-					</Button>
+						{translate('saveChanges')}
+					</BlackButton>
 				</Flex>
 				<Flex
 					direction="column"
@@ -481,7 +475,7 @@ export const EditCompanyComponent: React.FC<IEditCompanyComponent> = ({
 								}}
 								options={networksType}
 								defaultValue={networksType[indexOfCompanyNetwork]}
-								isDisabled={!isConnected}
+								isDisabled={!session}
 								// eslint-disable-next-line react/no-unstable-nested-components
 								formatOptionLabel={network => (
 									<Flex gap="2" align="center">

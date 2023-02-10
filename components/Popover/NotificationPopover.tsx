@@ -11,6 +11,7 @@ import {
 	PopoverCloseButton,
 } from '@chakra-ui/react';
 import { usePicasso } from 'hooks';
+import { useSession } from 'next-auth/react';
 import React from 'react';
 import { VscBellDot, VscBell } from 'react-icons/vsc';
 import { INotificationPopover } from 'types';
@@ -23,6 +24,7 @@ export const NotificationPopover: React.FC<INotificationPopover> = ({
 	onOpen,
 }) => {
 	const theme = usePicasso();
+	const { data: session } = useSession();
 
 	const clearAllNotifications = () => {
 		setNotificationsList([]);
@@ -32,7 +34,13 @@ export const NotificationPopover: React.FC<INotificationPopover> = ({
 	return (
 		<Popover placement="bottom-end" onClose={onClose} isOpen={isOpen}>
 			<PopoverTrigger>
-				<Button bg="transparent" onClick={onOpen} h="6" p="0">
+				<Button
+					bg="transparent"
+					onClick={onOpen}
+					h="6"
+					p="0"
+					disabled={!session}
+				>
 					<Icon
 						as={notificationsList.length > 0 ? VscBellDot : VscBell}
 						boxSize="6"

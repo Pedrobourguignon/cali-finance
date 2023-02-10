@@ -11,6 +11,9 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { CompaniesProvider } from 'contexts';
 import useTranslation from 'next-translate/useTranslation';
+import { useEffect } from 'react';
+import { useSession } from 'next-auth/react';
+import Router from 'next/router';
 
 export const CreateCompany = () => {
 	const {
@@ -21,6 +24,11 @@ export const CreateCompany = () => {
 		resolver: yupResolver(createCompanySchema),
 	});
 	const { t: translate } = useTranslation('create-company');
+	const { data: session } = useSession();
+
+	useEffect(() => {
+		if (!session) Router.push('/app/companies');
+	}, [session]);
 
 	const handleCreateCompany = (companyData: ICreateCompany) => {
 		console.log(companyData);
