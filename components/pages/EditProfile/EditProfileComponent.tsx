@@ -11,7 +11,7 @@ import {
 import { usePicasso, useProfile } from 'hooks';
 import React, { useState } from 'react';
 import useTranslation from 'next-translate/useTranslation';
-import { ImageUploaderModal } from 'components';
+import { BlackButton, ImageUploaderModal } from 'components';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 import { limitSpecialCharacterRegex, nameRegex } from 'utils';
@@ -173,20 +173,15 @@ export const EditProfileComponent = () => {
 									</Text>
 								</Flex>
 							</Flex>
-
-							<Button
-								type="submit"
+							<BlackButton
 								px={{ md: '32', '2xl': '36' }}
-								bg={theme.text.primary}
-								_hover={{ opacity: '80%' }}
-								_focus={{ bg: theme.text.primary }}
-								fontWeight="medium"
+								type="submit"
 								fontSize="md"
+								py="2.5"
 								borderRadius="sm"
-								disabled={!isConnected}
 							>
 								{translate('saveChanges')}
-							</Button>
+							</BlackButton>
 						</Flex>
 					</FormControl>
 				</form>
