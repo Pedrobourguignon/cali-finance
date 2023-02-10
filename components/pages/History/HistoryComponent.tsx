@@ -66,8 +66,6 @@ export const HistoryComponent: React.FC<IHistoryPage> = ({ history }) => {
 		setSelectedFilterOption(filter);
 	};
 
-	console.log(selectedFilterOption);
-
 	return (
 		<AppLayout
 			right={
@@ -159,7 +157,7 @@ export const HistoryComponent: React.FC<IHistoryPage> = ({ history }) => {
 									filteredNotifications={filteredNotifications}
 								/>
 							</Flex>
-							{filteredNotifications.length !== 0 && (
+							{filteredNotifications.length !== 0 ? (
 								<Flex justify="center" pb="6">
 									<Paginator
 										actualPage={pageNumber + 1}
@@ -167,6 +165,28 @@ export const HistoryComponent: React.FC<IHistoryPage> = ({ history }) => {
 										previous={previous}
 										next={next}
 									/>
+								</Flex>
+							) : (
+								<Flex>
+									<Text color={theme.text.primary} size="sm">
+										{translate('noResults')}&nbsp;
+									</Text>
+									<Text
+										color={theme.text.primary}
+										size="sm"
+										as="u"
+										fontWeight="semibold"
+										cursor="pointer"
+										onClick={() => {
+											setFilteredNotifications(history);
+											setSelectedFilterOption(translate('all'));
+										}}
+									>
+										{translate('returnToAllResults')}
+									</Text>
+									<Text color={theme.text.primary} size="sm">
+										&nbsp;{translate('orSelectAnother')}
+									</Text>
 								</Flex>
 							)}
 						</>
