@@ -1,4 +1,11 @@
 {
-	"amountMustBe": "Quantidade deve ser um número",
-	"emailFormatInvalid": "Formato de e-mail inválido"
+	"amountMustBeANumber": "Quantidade deve ser um número",
+	"amountMustBeAPositive": "Quantidade deve ser positiva",
+	"emailFormatInvalid": "Formato de e-mail inválido",
+	"required": "Obrigatório",
+	"emailContains": "E-mail contém _ - @ .",
+	"nameMin": "Nome deve possuir pelo menos 3 caracteres",
+	"nameDontAcceptNumber": "Nome não pode conter número(s)",
+	"walletNotExist": "Esta carteira não existe",
+	"thisFileIsTooLarge": "Este arquivo é muito grande"
 }

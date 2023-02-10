@@ -1,4 +1,11 @@
 {
-	"amountMustBe": "Amount must be a number",
-	"emailFormatInvalid": "E-mail format invalid"
+	"amountMustBeANumber": "Amount must be a number",
+	"amountMustBeAPositive": "Amount must be a positive",
+	"emailFormatInvalid": "E-mail format invalid",
+	"required": "Required",
+	"emailContains": "Your email may contain _ - @ .",
+	"nameMin": "Name should be at least 3 characters",
+	"nameDontAcceptNumber": "Name can't have number",
+	"walletNotExist": "This wallet does not exist",
+	"thisFileIsTooLarge": "The file is too large,"
 }
