@@ -4,7 +4,7 @@ import { useProfile } from 'hooks';
 import { CompaniesLayoutNoConnected, CompaniesConnected } from 'layouts';
 
 export const CompaniesContainer = () => {
-	const { isConnected } = useProfile();
+	const isConnected = true;
 	return (
 		<CompaniesProvider>
 			<Flex>
