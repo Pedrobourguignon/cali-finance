@@ -19,7 +19,7 @@ import { ISelectedCoin, ITransaction } from 'types';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { transactionSchema } from 'utils';
 
-interface IDepoistOrWithdrawCard {
+interface IDepositOrWithdrawCard {
 	setTransaction: Dispatch<SetStateAction<ITransaction>>;
 	setConfirm: Dispatch<SetStateAction<boolean>>;
 }
@@ -28,7 +28,7 @@ interface IDepositOrWithdrawnForm {
 	amount: number;
 }
 
-export const DepositOrWithdrawCard: React.FC<IDepoistOrWithdrawCard> = ({
+export const DepositOrWithdrawCard: React.FC<IDepositOrWithdrawCard> = ({
 	setTransaction,
 	setConfirm,
 }) => {
@@ -118,9 +118,6 @@ export const DepositOrWithdrawCard: React.FC<IDepoistOrWithdrawCard> = ({
 									zIndex="docked"
 									{...register('amount')}
 								/>
-								{/* <Text position="absolute" color="red" pt="8" fontSize="sm">
-									{errors.amount?.message}
-								</Text> */}
 								<Button
 									borderLeftRadius="none"
 									bg={theme.bg.primary}
