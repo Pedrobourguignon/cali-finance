@@ -35,7 +35,7 @@ export const HistoryComponent: React.FC<IHistoryPage> = ({ history }) => {
 
 	const theme = usePicasso();
 
-	const notificationPerPage = 13;
+	const notificationPerPage = 14;
 	const maxPage = useMemo(
 		() => Math.ceil(filteredNotifications.length / notificationPerPage),
 		[filteredNotifications.length]
