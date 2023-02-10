@@ -74,7 +74,7 @@ export const ImageUploaderModal: React.FC<IImageUploader> = ({
 				<ModalFooter display="flex" justifyContent="space-between">
 					<Button
 						onClick={onClose}
-						borderRadius="base"
+						borderRadius="sm"
 						color="black"
 						borderColor="black"
 						borderWidth="0.1rem"
@@ -86,7 +86,7 @@ export const ImageUploaderModal: React.FC<IImageUploader> = ({
 						px="8"
 						py="2.5"
 						onClick={handleUploadFile}
-						borderRadius="base"
+						borderRadius="sm"
 					>
 						Upload File
 					</BlackButton>

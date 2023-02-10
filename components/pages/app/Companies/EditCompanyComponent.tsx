@@ -380,34 +380,11 @@ export const EditCompanyComponent: React.FC<IEditCompanyComponent> = ({
 						</Flex>
 					</Flex>
 
-					<Button
-						bg={theme.bg.primary}
-						type="submit"
-						color="white"
-						borderRadius="sm"
-						_hover={{ opacity: '80%' }}
-						_active={{}}
-						_focus={{}}
-						fontWeight="medium"
-						fontSize="md"
-						lineHeight="6"
-						disabled={
-							(editedInfo.logo === selectedCompanyLogo &&
-								editedInfo.name === name &&
-								editedInfo.email === email &&
-								editedInfo.description === description &&
-								editedInfo.type === type &&
-								editedInfo.selectedNetwork === selectedNetwork) ||
-							!isConnected
-						}
-						display={{ md: 'none', lg: 'flex' }}
-					>
-						<Text>{translate('saveChanges')}</Text>
-					</Button>
 					<BlackButton
 						type="submit"
 						lineHeight="6"
 						fontSize="md"
+						borderRadius="sm"
 						py="2.5"
 						display={{ md: 'none', lg: 'flex' }}
 						disabled={

@@ -15,8 +15,7 @@ import { Select } from 'chakra-react-select';
 import { BsQuestionCircle } from 'react-icons/bs';
 import { ICreateCompany } from 'types';
 import useTranslation from 'next-translate/useTranslation';
-import { NetworkTooltip } from 'components/Tooltips';
-import { BlackButton } from 'components/Buttons';
+import { NetworkTooltip, BlackButton } from 'components';
 
 interface ICreateCompanyComponent {
 	control: Control<ICreateCompany>;

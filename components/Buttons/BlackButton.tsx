@@ -14,10 +14,12 @@ export const BlackButton: React.FC<IBlackButton> = ({
 	py,
 	px,
 	width,
+	display,
 	fontWeight,
 	type,
 	borderRadius,
 	mb,
+	minW,
 	onClick,
 	whiteSpace,
 }) => {
@@ -25,6 +27,7 @@ export const BlackButton: React.FC<IBlackButton> = ({
 	const { isConnected } = useProfile();
 	return (
 		<Button
+			minW={minW}
 			onClick={onClick}
 			color="white"
 			type={type}
@@ -33,6 +36,7 @@ export const BlackButton: React.FC<IBlackButton> = ({
 			borderRadius={borderRadius}
 			fontWeight={fontWeight}
 			fontSize={fontSize}
+			display={display}
 			gap={gap}
 			width={width}
 			py={py}

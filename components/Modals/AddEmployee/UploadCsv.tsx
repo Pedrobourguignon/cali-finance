@@ -1,4 +1,4 @@
-import { Button, Flex, Icon, Text } from '@chakra-ui/react';
+import { Flex, Icon, Text } from '@chakra-ui/react';
 import React, { useState } from 'react';
 import { BsArrowUp } from 'react-icons/bs';
 import { BlackButton, DragAndDrop } from 'components';
