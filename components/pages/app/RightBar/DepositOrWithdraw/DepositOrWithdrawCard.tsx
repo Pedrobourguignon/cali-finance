@@ -9,7 +9,7 @@ import {
 	Text,
 	useDisclosure,
 } from '@chakra-ui/react';
-import { TokenSelector } from 'components';
+import { BlackButton, TokenSelector } from 'components';
 import { usePicasso } from 'hooks';
 import { useForm } from 'react-hook-form';
 import useTranslation from 'next-translate/useTranslation';
@@ -140,28 +140,11 @@ export const DepositOrWithdrawCard: React.FC<IDepoistOrWithdrawCard> = ({
 								</Button>
 							</InputGroup>
 						</Flex>
-						<Button
-							bg={theme.bg.primary}
-							type="submit"
-							color="white"
-							w="100%"
-							py="1.5"
-							h="8"
-							px="6"
-							whiteSpace="normal"
-							fontSize={{ base: 'xs', xl: 'md' }}
-							_hover={{
-								opacity: 0.8,
-							}}
-							_focus={{}}
-							_active={{
-								opacity: 0.8,
-							}}
-						>
+						<BlackButton py="1.5" type="submit" whiteSpace="normal">
 							{selectedOption === translate('deposit')
 								? translate('addFunds')
 								: translate('withdrawFunds')}
-						</Button>
+						</BlackButton>
 					</Flex>
 				</Flex>
 			</form>
