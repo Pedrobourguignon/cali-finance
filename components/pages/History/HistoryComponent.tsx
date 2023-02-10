@@ -99,6 +99,7 @@ export const HistoryComponent: React.FC<IHistoryPage> = ({ history }) => {
 								py="2"
 								px="3"
 								gap="32"
+								fontWeight="normal"
 								fontSize={{ md: 'sm', '2xl': 'md' }}
 								color={theme.text.primary}
 								as={Button}
@@ -149,7 +150,7 @@ export const HistoryComponent: React.FC<IHistoryPage> = ({ history }) => {
 					)}
 
 					{!isConnected && (
-						<>
+						<Flex w="full" direction="column">
 							<Flex direction="column" gap="2">
 								<DisplayedNotifications
 									notificationPerPage={notificationPerPage}
@@ -158,7 +159,7 @@ export const HistoryComponent: React.FC<IHistoryPage> = ({ history }) => {
 								/>
 							</Flex>
 							{filteredNotifications.length !== 0 ? (
-								<Flex justify="center" pb="6">
+								<Flex justify="center" pt="5" pb="6">
 									<Paginator
 										actualPage={pageNumber + 1}
 										maxPage={maxPage}
@@ -167,29 +168,33 @@ export const HistoryComponent: React.FC<IHistoryPage> = ({ history }) => {
 									/>
 								</Flex>
 							) : (
-								<Flex>
-									<Text color={theme.text.primary} size="sm">
-										{translate('noResults')}&nbsp;
-									</Text>
+								<Flex whiteSpace="normal">
 									<Text
 										color={theme.text.primary}
-										size="sm"
-										as="u"
-										fontWeight="semibold"
-										cursor="pointer"
-										onClick={() => {
-											setFilteredNotifications(history);
-											setSelectedFilterOption(translate('all'));
-										}}
+										fontSize="sm"
+										whiteSpace="normal"
 									>
-										{translate('returnToAllResults')}
-									</Text>
-									<Text color={theme.text.primary} size="sm">
-										&nbsp;{translate('orSelectAnother')}
+										{translate('noResults')}
+										<Text
+											decoration="underline"
+											color={theme.text.primary}
+											fontSize="sm"
+											as="span"
+											whiteSpace="normal"
+											fontWeight="semibold"
+											cursor="pointer"
+											onClick={() => {
+												setFilteredNotifications(history);
+												setSelectedFilterOption(translate('all'));
+											}}
+										>
+											{translate('returnToAllResults')}
+										</Text>{' '}
+										{translate('orSelectAnother')}
 									</Text>
 								</Flex>
 							)}
-						</>
+						</Flex>
 					)}
 				</Flex>
 			</Flex>

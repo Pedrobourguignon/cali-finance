@@ -39,21 +39,24 @@ export const HistoryDashboard = () => {
 			coin: 'USDT',
 			status: translate('completed'),
 		},
-		{
-			icon: '',
-			wallet: '0x52908400098527886E0F7030069857D2E4169EE7',
-			team: 'Sales Team',
-			type: translate('deposit'),
-			date: '08 Aug 22, 20:57',
-			amount: 10000,
-			coin: 'USDT',
-			status: translate('pending'),
-		},
+		// {
+		// // 	icon: '',
+		// // 	wallet: '0x52908400098527886E0F7030069857D2E4169EE7',
+		// // 	team: 'Sales Team',
+		// // 	type: translate('deposit'),
+		// // 	date: '08 Aug 22, 20:57',
+		// // 	amount: 10000,
+		// // 	coin: 'USDT',
+		// // 	status: translate('pending'),
+		// // },
 	];
 
 	const theme = usePicasso();
 	const [filteredUserHistory, setFilteredUserHistory] =
 		useState<IUserHistory[]>(userHistory);
+	const [selectedFilterOption, setSelectedFilterOption] = useState<string>(
+		translate('all')
+	);
 
 	const filterUserHistory = (filter: string) => {
 		setFilteredUserHistory(userHistory.filter(data => data.type === filter));
@@ -78,6 +81,7 @@ export const HistoryDashboard = () => {
 			>
 				<Text fontWeight="medium">{translate('history')}</Text>
 				<Select
+					placeholder={selectedFilterOption}
 					w="max-content"
 					h="8"
 					bg="white"
@@ -96,22 +100,25 @@ export const HistoryDashboard = () => {
 				))}
 			</Flex>
 			{filteredUserHistory.length === 0 && (
-				<Flex>
-					<Text color={theme.text.primary} size="sm">
-						{translateHistory('noResults')}&nbsp;
-					</Text>
-					<Text
-						color={theme.text.primary}
-						size="sm"
-						as="u"
-						fontWeight="semibold"
-						cursor="pointer"
-						onClick={() => setFilteredUserHistory(userHistory)}
-					>
-						{translateHistory('returnToAllResults')}
-					</Text>
-					<Text color={theme.text.primary} size="sm">
-						&nbsp;{translateHistory('orSelectAnother')}
+				<Flex whiteSpace="normal">
+					<Text color={theme.text.primary} fontSize="sm" whiteSpace="normal">
+						{translateHistory('noResults')}
+						<Text
+							decoration="underline"
+							color={theme.text.primary}
+							fontSize="sm"
+							as="span"
+							whiteSpace="normal"
+							fontWeight="semibold"
+							cursor="pointer"
+							onClick={() => {
+								setFilteredUserHistory(userHistory);
+								setSelectedFilterOption(translate('all'));
+							}}
+						>
+							{translateHistory('returnToAllResults')}
+						</Text>{' '}
+						{translateHistory('orSelectAnother')}
 					</Text>
 				</Flex>
 			)}
