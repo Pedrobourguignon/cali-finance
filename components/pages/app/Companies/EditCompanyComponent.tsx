@@ -197,7 +197,9 @@ export const EditCompanyComponent: React.FC<IEditCompanyComponent> = ({
 													bg: 'white',
 													minWidth: '48',
 													borderRadius: 'base',
-													borderColor: '#121212',
+													borderColor: errors.network
+														? 'red'
+														: theme.bg.primary,
 													cursor: 'pointer',
 													_hover: {},
 												}),
@@ -218,7 +220,7 @@ export const EditCompanyComponent: React.FC<IEditCompanyComponent> = ({
 										/>
 									)}
 								/>
-								<Text fontSize="xs" color="red">
+								<Text fontSize="xs" color="red" position="absolute" pt="16">
 									{errors.type?.message}
 								</Text>
 							</Flex>
@@ -277,7 +279,9 @@ export const EditCompanyComponent: React.FC<IEditCompanyComponent> = ({
 													bg: 'white',
 													minWidth: '48',
 													borderRadius: 'base',
-													borderColor: '#121212',
+													borderColor: errors.network
+														? 'red'
+														: theme.bg.primary,
 													cursor: 'pointer',
 													_hover: {},
 												}),
@@ -458,7 +462,7 @@ export const EditCompanyComponent: React.FC<IEditCompanyComponent> = ({
 										bg: 'white',
 										borderRadius: 'base',
 										minWidth: '48',
-										borderColor: '#121212',
+										borderColor: errors.network ? 'red' : theme.bg.primary,
 										cursor: 'pointer',
 										_hover: {},
 									}),

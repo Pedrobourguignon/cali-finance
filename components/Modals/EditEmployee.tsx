@@ -125,7 +125,7 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 											{...register('amount')}
 											_placeholder={{ ...placeholderStyle }}
 											placeholder="0.00"
-											borderColor="black"
+											borderColor={errors.amount ? 'red' : theme.bg.primary}
 											flex="3"
 											borderRightRadius="none"
 											_hover={{}}
