@@ -220,7 +220,7 @@ export const EditCompanyComponent: React.FC<IEditCompanyComponent> = ({
 										/>
 									)}
 								/>
-								<Text fontSize="xs" color="red">
+								<Text fontSize="xs" color="red" position="absolute" pt="16">
 									{errors.type?.message}
 								</Text>
 							</Flex>
