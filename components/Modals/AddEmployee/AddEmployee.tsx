@@ -16,14 +16,13 @@ import {
 	Img,
 } from '@chakra-ui/react';
 import { BlackButton, UploadCsv } from 'components';
-import { usePicasso } from 'hooks';
+import { usePicasso, useSchema } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
 import React, { useState } from 'react';
 import { IAddEmployee, IAddEmployeeForm, ISelectedCoin } from 'types';
 import { IoPersonAddOutline } from 'react-icons/io5';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { addEmployeeSchema } from 'utils';
 import { IoIosArrowDown } from 'react-icons/io';
 
 export const AddEmployee: React.FC<IAddEmployee> = ({
@@ -38,6 +37,7 @@ export const AddEmployee: React.FC<IAddEmployee> = ({
 	);
 	const [amountInDollar, setAmountInDollar] = useState<number>(0);
 	const bitcoinPrice = 87.586;
+	const { addEmployeeSchema } = useSchema();
 
 	const theme = usePicasso();
 

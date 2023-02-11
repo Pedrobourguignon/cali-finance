@@ -5,11 +5,9 @@ import { BlackButton, DragAndDrop } from 'components';
 import { IUploadedFile } from 'types';
 import { usePicasso } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
-import { useRouter } from 'next/router';
 
 export const UploadCsv = () => {
 	const { t: translate } = useTranslation('create-team');
-	const { locale } = useRouter();
 	const theme = usePicasso();
 	const [fileData] = useState();
 	const [uploadedFileData, setUploadedFileData] = useState<IUploadedFile>(

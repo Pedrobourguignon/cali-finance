@@ -15,11 +15,10 @@ import {
 	Paginator,
 	LifeIsEasierTabletBreakpoint,
 } from 'components';
-import { ProfileProvider } from 'contexts';
 import { usePicasso, useProfile } from 'hooks';
 import { AppLayout } from 'layouts';
 import useTranslation from 'next-translate/useTranslation';
-import React, { useMemo, useState, useEffect } from 'react';
+import React, { useMemo, useState } from 'react';
 import { BiChevronDown } from 'react-icons/bi';
 import { IHistoryNotification, IHistoryPage } from 'types';
 
@@ -48,10 +47,6 @@ export const HistoryComponent: React.FC<IHistoryPage> = ({ history }) => {
 	const next = () => {
 		setPageNumber(pageNumber + 1);
 	};
-
-	useEffect(() => {
-		console.log(isConnected);
-	}, [isConnected]);
 
 	const historyFilterOptions = [
 		translate('all'),
@@ -109,13 +104,13 @@ export const HistoryComponent: React.FC<IHistoryPage> = ({ history }) => {
 								as={Button}
 								rightIcon={<BiChevronDown />}
 								bg="white"
-								disabled={!isConnected}
+								disabled={isConnected}
 								_hover={{}}
 								_active={{}}
 								_focus={{}}
 								borderBottomRadius="none"
 							>
-								{!isConnected ? translate('all') : selectedFilterOption}
+								{isConnected ? translate('all') : selectedFilterOption}
 							</MenuButton>
 							<MenuList
 								p="0"
@@ -162,14 +157,38 @@ export const HistoryComponent: React.FC<IHistoryPage> = ({ history }) => {
 									filteredNotifications={filteredNotifications}
 								/>
 							</Flex>
-							<Flex justify="center" pb="6">
-								<Paginator
-									actualPage={pageNumber + 1}
-									maxPage={maxPage}
-									previous={previous}
-									next={next}
-								/>
-							</Flex>
+							{filteredNotifications.length !== 0 ? (
+								<Flex justify="center" pb="6">
+									<Paginator
+										actualPage={pageNumber + 1}
+										maxPage={maxPage}
+										previous={previous}
+										next={next}
+									/>
+								</Flex>
+							) : (
+								<Flex flexWrap="wrap" minW="26.1rem">
+									<Text color={theme.text.primary} size="sm">
+										{translate('noResults')}&nbsp;
+									</Text>
+									<Text
+										color={theme.text.primary}
+										size="sm"
+										as="u"
+										fontWeight="semibold"
+										cursor="pointer"
+										onClick={() => {
+											setFilteredNotifications(history);
+											setSelectedFilterOption(translate('all'));
+										}}
+									>
+										{translate('returnToAllResults')}
+									</Text>
+									<Text color={theme.text.primary} size="sm">
+										&nbsp;{translate('orSelectAnother')}
+									</Text>
+								</Flex>
+							)}
 						</>
 					)}
 				</Flex>

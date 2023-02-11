@@ -15,7 +15,7 @@ import {
 	InputGroup,
 	Img,
 } from '@chakra-ui/react';
-import { usePicasso } from 'hooks';
+import { usePicasso, useSchema } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
 import React, { useState } from 'react';
 import { IoIosArrowDown } from 'react-icons/io';
@@ -23,7 +23,7 @@ import { IEditEmployee, IEditEmployeeForm } from 'types';
 import { BlackButton, EditProfileIcon } from 'components';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { editEmployeeSchema, truncateWallet } from 'utils';
+import { truncateWallet } from 'utils';
 
 export const EditEmployee: React.FC<IEditEmployee> = ({
 	isOpen,
@@ -31,9 +31,9 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 	employee,
 }) => {
 	const theme = usePicasso();
-	const { t: translate } = useTranslation('swap-token');
 	const [amountInDollar, setAmountInDollar] = useState<number>(0);
 	const bitcoinPrice = 87586;
+	const { editEmployeeSchema } = useSchema();
 
 	const selectedCoin = {
 		logo: 'https://assets.coingecko.com/coins/images/1/thumb/bitcoin.png?1547033579',
