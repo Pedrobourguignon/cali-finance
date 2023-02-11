@@ -10,14 +10,13 @@ import {
 	useDisclosure,
 } from '@chakra-ui/react';
 import { BlackButton, TokenSelector } from 'components';
-import { usePicasso } from 'hooks';
+import { usePicasso, useSchema } from 'hooks';
 import { useForm } from 'react-hook-form';
 import useTranslation from 'next-translate/useTranslation';
 import { Dispatch, SetStateAction, useState } from 'react';
 import { IoIosArrowDown } from 'react-icons/io';
 import { ISelectedCoin, ITransaction } from 'types';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { transactionSchema } from 'utils';
 
 interface IDepoistOrWithdrawCard {
 	setTransaction: Dispatch<SetStateAction<ITransaction>>;
@@ -33,6 +32,7 @@ export const DepositOrWithdrawCard: React.FC<IDepoistOrWithdrawCard> = ({
 	setConfirm,
 }) => {
 	const { t: translate } = useTranslation('company-overall');
+	const { transactionSchema } = useSchema();
 	const theme = usePicasso();
 	const { onClose, isOpen, onOpen } = useDisclosure();
 	const buttonOptions = [translate('deposit'), translate('withdrawal')];
