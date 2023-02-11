@@ -167,7 +167,7 @@ export const HistoryComponent: React.FC<IHistoryPage> = ({ history }) => {
 									/>
 								</Flex>
 							) : (
-								<Flex>
+								<Flex flexWrap="wrap" minW="26.1rem">
 									<Text color={theme.text.primary} size="sm">
 										{translate('noResults')}&nbsp;
 									</Text>
