@@ -7,6 +7,7 @@ import useTranslation from 'next-translate/useTranslation';
 
 export const HistoryDashboard = () => {
 	const { t: translate } = useTranslation('company-overall');
+	const { t: translateHistory } = useTranslation('history-page');
 	const userHistory: IUserHistory[] = [
 		{
 			icon: '',
@@ -94,6 +95,26 @@ export const HistoryDashboard = () => {
 					<HistoryData key={+index} userHistory={item} />
 				))}
 			</Flex>
+			{filteredUserHistory.length === 0 && (
+				<Flex>
+					<Text color={theme.text.primary} size="sm">
+						{translateHistory('noResults')}&nbsp;
+					</Text>
+					<Text
+						color={theme.text.primary}
+						size="sm"
+						as="u"
+						fontWeight="semibold"
+						cursor="pointer"
+						onClick={() => setFilteredUserHistory(userHistory)}
+					>
+						{translateHistory('returnToAllResults')}
+					</Text>
+					<Text color={theme.text.primary} size="sm">
+						&nbsp;{translateHistory('orSelectAnother')}
+					</Text>
+				</Flex>
+			)}
 		</Flex>
 	);
 };
