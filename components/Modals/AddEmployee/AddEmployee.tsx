@@ -142,7 +142,7 @@ export const AddEmployee: React.FC<IAddEmployee> = ({
 									{translate('addEmployee')}
 								</Text>
 								<Text color="gray.500" fontWeight="normal" fontSize="sm">
-									{`${translate('to')} ${company || selectedCompany}}`}
+									{`${translate('to')} ${company || selectedCompany.name}`}
 								</Text>
 							</Flex>
 							<ModalCloseButton color="gray.400" py="7" />
