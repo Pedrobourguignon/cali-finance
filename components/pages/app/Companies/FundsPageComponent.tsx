@@ -83,6 +83,7 @@ export const FundsPageComponent = () => {
 							<CoinCard
 								coin={coin}
 								borderColor="gray.400"
+								pr="2.97rem"
 								bg="white"
 								color={theme.text.primary}
 								key={+index}

@@ -12,6 +12,7 @@ import {
 	IActivities,
 	INotificationList,
 	IEditedCompany,
+	IEmployee,
 } from 'types';
 
 interface ICompanysContext {
@@ -22,6 +23,9 @@ interface ICompanysContext {
 	totalMembers: string;
 	notificationsList: INotificationList[];
 	setNotificationsList: Dispatch<SetStateAction<INotificationList[]>>;
+	setSelectedCompany: Dispatch<SetStateAction<ICompany>>;
+	setSelectedCompanyEmployees: Dispatch<SetStateAction<IEmployee[]>>;
+	selectedCompanyEmployees: IEmployee[];
 	selectedCompany: ICompany;
 	setSelectedCompanyLogo: Dispatch<SetStateAction<string>>;
 	selectedCompanyLogo: string;
@@ -106,6 +110,51 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 		'/images/kylie-cosmetics-logo.png'
 	);
 
+	const [selectedCompanyEmployees, setSelectedCompanyEmployees] = useState<
+		IEmployee[]
+	>([
+		{
+			name: 'Kim Kardashian',
+			wallet: '0x7E48CA2BD05EC61C2FA83CF34B066A8FF36B4CFE',
+			photo: '/images/avatar.png',
+			amount: 10.0,
+			coin: 'USDT',
+			team: 'General',
+		},
+		{
+			name: 'Kylie Jenner',
+			wallet: '0x7E48CA2BD05EC61C2FA83CF34B066A8FF36Z9EXD',
+			photo: '/images/avatar.png',
+			amount: 100.0,
+			coin: 'USDT',
+			team: 'Marketing',
+		},
+		{
+			name: 'Kloe Kardashian',
+			wallet: '0x7E48CA2BD05EC61C2FA83CF34B066A8FF36C3QER',
+			photo: '/images/avatar.png',
+			amount: 80.0,
+			coin: 'USDT',
+			team: 'Finance',
+		},
+		{
+			name: 'Kloe Kardashian',
+			wallet: '0x7E48CA2BD05EC61C2FA83CF34B066A8FF36C3QER',
+			photo: '/images/avatar.png',
+			amount: 80.0,
+			coin: 'USDT',
+			team: 'Finance',
+		},
+		{
+			name: 'Kloe Kardashian',
+			wallet: '0x7E48CA2BD05EC61C2FA83CF34B066A8FF36C3QER',
+			photo: '/images/avatar.png',
+			amount: 80.0,
+			coin: 'USDT',
+			team: 'Finance',
+		},
+	]);
+
 	const [selectedCompany, setSelectedCompany] = useState<ICompany>({
 		name: 'kylie skin',
 		type: 'DAO',
@@ -124,48 +173,7 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 		},
 		neededFunds: 2235,
 
-		employees: [
-			{
-				name: 'Kim Kardashian',
-				wallet: '0x7E48CA2BD05EC61C2FA83CF34B066A8FF36B4CFE',
-				photo: '/images/avatar.png',
-				amount: 10.0,
-				coin: 'USDT',
-				team: 'General',
-			},
-			{
-				name: 'Kylie Jenner',
-				wallet: '0x7E48CA2BD05EC61C2FA83CF34B066A8FF36Z9EXD',
-				photo: '/images/avatar.png',
-				amount: 100.0,
-				coin: 'USDT',
-				team: 'Marketing',
-			},
-			{
-				name: 'Kloe Kardashian',
-				wallet: '0x7E48CA2BD05EC61C2FA83CF34B066A8FF36C3QER',
-				photo: '/images/avatar.png',
-				amount: 80.0,
-				coin: 'USDT',
-				team: 'Finance',
-			},
-			{
-				name: 'Kloe Kardashian',
-				wallet: '0x7E48CA2BD05EC61C2FA83CF34B066A8FF36C3QER',
-				photo: '/images/avatar.png',
-				amount: 80.0,
-				coin: 'USDT',
-				team: 'Finance',
-			},
-			{
-				name: 'Kloe Kardashian',
-				wallet: '0x7E48CA2BD05EC61C2FA83CF34B066A8FF36C3QER',
-				photo: '/images/avatar.png',
-				amount: 80.0,
-				coin: 'USDT',
-				team: 'Finance',
-			},
-		],
+		employees: selectedCompanyEmployees,
 	});
 
 	const [notificationsList, setNotificationsList] = useState<
@@ -237,8 +245,9 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 		setSelectedCompany(prevState => ({
 			...prevState,
 			logo: selectedCompanyLogo,
+			employees: selectedCompanyEmployees,
 		}));
-	}, [selectedCompanyLogo]);
+	}, [selectedCompanyLogo, selectedCompanyEmployees]);
 
 	const totalFunds = companies
 		.reduce((total: number, org: ICompany) => total + org.funds, 0)
@@ -280,6 +289,7 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 			totalMembers,
 			notificationsList,
 			setNotificationsList,
+			setSelectedCompany,
 			selectedCompany,
 			setSelectedCompanyLogo,
 			selectedCompanyLogo,
@@ -290,6 +300,8 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 			displayNeedFundsCard,
 			setDisplayNeedFundsCard,
 			companiesWithMissingFunds,
+			setSelectedCompanyEmployees,
+			selectedCompanyEmployees,
 		}),
 		[
 			selectedCompany,
@@ -299,6 +311,7 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 			totalTeams,
 			totalMembers,
 			notificationsList,
+			setSelectedCompany,
 			setNotificationsList,
 			setSelectedCompanyLogo,
 			selectedCompanyLogo,
@@ -309,6 +322,8 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 			displayNeedFundsCard,
 			setDisplayNeedFundsCard,
 			companiesWithMissingFunds,
+			setSelectedCompanyEmployees,
+			selectedCompanyEmployees,
 		]
 	);
 	return (

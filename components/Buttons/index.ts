@@ -1,4 +1,5 @@
 export * from './BackToTeamsButton';
+export * from './BlackButton';
 export * from './ChangeNetworkButton';
 export * from './ConnectWalletButton';
 export * from './NavigationBack';

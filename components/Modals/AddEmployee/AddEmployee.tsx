@@ -15,15 +15,14 @@ import {
 	InputGroup,
 	Img,
 } from '@chakra-ui/react';
-import { UploadCsv } from 'components';
-import { usePicasso } from 'hooks';
+import { BlackButton, UploadCsv } from 'components';
+import { useCompanies, usePicasso, useSchema } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
 import React, { useState } from 'react';
 import { IAddEmployee, IAddEmployeeForm, ISelectedCoin } from 'types';
 import { IoPersonAddOutline } from 'react-icons/io5';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { addEmployeeSchema } from 'utils';
 import { IoIosArrowDown } from 'react-icons/io';
 
 export const AddEmployee: React.FC<IAddEmployee> = ({
@@ -38,6 +37,8 @@ export const AddEmployee: React.FC<IAddEmployee> = ({
 	);
 	const [amountInDollar, setAmountInDollar] = useState<number>(0);
 	const bitcoinPrice = 87.586;
+	const { addEmployeeSchema } = useSchema();
+	const { setSelectedCompanyEmployees, selectedCompany } = useCompanies();
 
 	const theme = usePicasso();
 
@@ -81,17 +82,32 @@ export const AddEmployee: React.FC<IAddEmployee> = ({
 	});
 
 	const handleAddEmployee = (newEmployeeData: IAddEmployeeForm) => {
-		setEmployees(prevState =>
-			prevState.concat([
-				{
-					name: 'Azeitona',
-					wallet: newEmployeeData.walletAddress,
-					photo: '/images/avatar.png',
-					amount: newEmployeeData.amount,
-					coin: 'USDT',
-				},
-			])
-		);
+		if (setEmployees) {
+			setEmployees(prevState =>
+				prevState.concat([
+					{
+						name: 'Azeitona',
+						wallet: newEmployeeData.walletAddress,
+						photo: '/images/avatar.png',
+						amount: newEmployeeData.amount,
+						coin: 'USDT',
+					},
+				])
+			);
+		} else {
+			setSelectedCompanyEmployees(prevState =>
+				prevState.concat([
+					{
+						name: 'Azeitona',
+						wallet: newEmployeeData.walletAddress,
+						photo: '/images/avatar.png',
+						amount: newEmployeeData.amount,
+						coin: 'USDT',
+					},
+				])
+			);
+		}
+		onClose();
 	};
 
 	return (
@@ -126,7 +142,7 @@ export const AddEmployee: React.FC<IAddEmployee> = ({
 									{translate('addEmployee')}
 								</Text>
 								<Text color="gray.500" fontWeight="normal" fontSize="sm">
-									{translate('to')} {company}
+									{`${translate('to')} ${company || selectedCompany}}`}
 								</Text>
 							</Flex>
 							<ModalCloseButton color="gray.400" py="7" />
@@ -195,7 +211,9 @@ export const AddEmployee: React.FC<IAddEmployee> = ({
 									<Text {...labelStyle}>{translate('employeeWallet')}</Text>
 									<Input
 										placeholder="0x6856...BF99"
-										borderColor={theme.text.primary}
+										borderColor={
+											errors.walletAddress ? 'red' : theme.bg.primary
+										}
 										_placeholder={{ ...placeholderStyle }}
 										_focusVisible={{}}
 										_hover={{}}
@@ -220,7 +238,7 @@ export const AddEmployee: React.FC<IAddEmployee> = ({
 											{...register('amount')}
 											_placeholder={{ ...placeholderStyle }}
 											placeholder="0.00"
-											borderColor="black"
+											borderColor={errors.amount ? 'red' : theme.bg.primary}
 											flex="3"
 											h="max-content"
 											py="1"
@@ -259,23 +277,17 @@ export const AddEmployee: React.FC<IAddEmployee> = ({
 										{errors.amount?.message}
 									</Text>
 								</Flex>
-
-								<Button
+								<BlackButton
+									py="2.5"
 									type="submit"
-									color="white"
-									bg={theme.text.primary}
-									borderRadius="sm"
 									fontWeight="normal"
-									size="md"
 									gap="3"
-									_hover={{}}
-									_active={{}}
-									_focus={{}}
-									onClick={onClose}
+									borderRadius="sm"
+									onClick={() => handleAddEmployee}
 								>
 									<Text>+</Text>
 									{translate('addEmployee')}
-								</Button>
+								</BlackButton>
 								<Text
 									color="gray.500"
 									fontSize="xs"

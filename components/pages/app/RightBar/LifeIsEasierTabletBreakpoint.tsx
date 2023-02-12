@@ -33,7 +33,7 @@ export const LifeIsEasierTabletBreakpoint = () => {
 				</Flex>
 			</Flex>
 			<Flex position="relative" justify="flex-end" boxSize="full">
-				<Img src="/images/illustration-big.png" />
+				<Img src="/images/illustration-big.svg" />
 			</Flex>
 		</Flex>
 	);
