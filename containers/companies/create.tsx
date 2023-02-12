@@ -5,14 +5,16 @@ import {
 	CreateCompanyComponent,
 } from 'components';
 import { AppLayout, CompanyWhiteBackground } from 'layouts';
-import { createCompanySchema, navigationPaths } from 'utils';
+import { navigationPaths } from 'utils';
 import { ICreateCompany } from 'types';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { CompaniesProvider } from 'contexts';
 import useTranslation from 'next-translate/useTranslation';
+import { useSchema } from 'hooks';
 
 export const CreateCompany = () => {
+	const { createCompanySchema } = useSchema();
 	const {
 		handleSubmit,
 		control,

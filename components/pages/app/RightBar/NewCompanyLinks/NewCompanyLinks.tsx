@@ -1,7 +1,7 @@
 import { Button, Flex, Img, Text } from '@chakra-ui/react';
-import { useCompanies, usePicasso } from 'hooks';
+import { useCompanies, usePicasso, useProfile } from 'hooks';
 import { handleLogoImage } from 'utils';
-import { ImageUploader, SocialMediaInput } from 'components';
+import { BlackButton, ImageUploader, SocialMediaInput } from 'components';
 import { INewCompany, ISocialMediaInput, ICreateCompany } from 'types';
 import { Control } from 'react-hook-form';
 import useTranslation from 'next-translate/useTranslation';
@@ -64,6 +64,7 @@ export const NewCompanyLinks: React.FC<{
 	const theme = usePicasso();
 	const { selectedCompany } = useCompanies();
 	const { t: translate } = useTranslation('create-company');
+	const { isConnected } = useProfile();
 
 	return (
 		<Flex direction="column" align="center" zIndex="docked" w="100%" gap="8">
@@ -94,23 +95,19 @@ export const NewCompanyLinks: React.FC<{
 					</Flex>
 				</Flex>
 			</Flex>
-			<Button
+
+			<BlackButton
 				type="submit"
-				bg={theme.bg.primary}
-				color="white"
-				borderRadius="sm"
-				_hover={{}}
-				gap="2.5"
-				maxW="80"
-				fontWeight="medium"
-				fontSize="md"
 				lineHeight="6"
+				fontSize="md"
+				minW="80"
+				borderRadius="sm"
+				py="2.5"
 				display={{ md: 'flex', lg: 'none' }}
-				w="100%"
+				disabled={!isConnected}
 			>
-				<Text>+</Text>
-				<Text>{translate('createCompany')}</Text>
-			</Button>
+				{translate('createCompany')}
+			</BlackButton>
 		</Flex>
 	);
 };

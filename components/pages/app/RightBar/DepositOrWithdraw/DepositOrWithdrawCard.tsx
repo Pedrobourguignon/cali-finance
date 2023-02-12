@@ -9,15 +9,14 @@ import {
 	Text,
 	useDisclosure,
 } from '@chakra-ui/react';
-import { TokenSelector } from 'components';
-import { usePicasso } from 'hooks';
+import { BlackButton, TokenSelector } from 'components';
+import { usePicasso, useSchema } from 'hooks';
 import { useForm } from 'react-hook-form';
 import useTranslation from 'next-translate/useTranslation';
 import { Dispatch, SetStateAction, useState } from 'react';
 import { IoIosArrowDown } from 'react-icons/io';
 import { ISelectedCoin, ITransaction } from 'types';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { transactionSchema } from 'utils';
 
 interface IDepoistOrWithdrawCard {
 	setTransaction: Dispatch<SetStateAction<ITransaction>>;
@@ -33,6 +32,7 @@ export const DepositOrWithdrawCard: React.FC<IDepoistOrWithdrawCard> = ({
 	setConfirm,
 }) => {
 	const { t: translate } = useTranslation('company-overall');
+	const { transactionSchema } = useSchema();
 	const theme = usePicasso();
 	const { onClose, isOpen, onOpen } = useDisclosure();
 	const buttonOptions = [translate('deposit'), translate('withdrawal')];
@@ -140,28 +140,11 @@ export const DepositOrWithdrawCard: React.FC<IDepoistOrWithdrawCard> = ({
 								</Button>
 							</InputGroup>
 						</Flex>
-						<Button
-							bg={theme.bg.primary}
-							type="submit"
-							color="white"
-							w="100%"
-							py="1.5"
-							h="8"
-							px="6"
-							whiteSpace="normal"
-							fontSize={{ base: 'xs', xl: 'md' }}
-							_hover={{
-								opacity: 0.8,
-							}}
-							_focus={{}}
-							_active={{
-								opacity: 0.8,
-							}}
-						>
+						<BlackButton py="1.5" type="submit" whiteSpace="normal">
 							{selectedOption === translate('deposit')
 								? translate('addFunds')
 								: translate('withdrawFunds')}
-						</Button>
+						</BlackButton>
 					</Flex>
 				</Flex>
 			</form>

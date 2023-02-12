@@ -15,15 +15,14 @@ import {
 	InputGroup,
 	Img,
 } from '@chakra-ui/react';
-import { UploadCsv } from 'components';
-import { usePicasso } from 'hooks';
+import { BlackButton, UploadCsv } from 'components';
+import { usePicasso, useSchema } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
 import React, { useState } from 'react';
 import { IAddEmployee, IAddEmployeeForm, ISelectedCoin } from 'types';
 import { IoPersonAddOutline } from 'react-icons/io5';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { addEmployeeSchema } from 'utils';
 import { IoIosArrowDown } from 'react-icons/io';
 
 export const AddEmployee: React.FC<IAddEmployee> = ({
@@ -38,6 +37,7 @@ export const AddEmployee: React.FC<IAddEmployee> = ({
 	);
 	const [amountInDollar, setAmountInDollar] = useState<number>(0);
 	const bitcoinPrice = 87.586;
+	const { addEmployeeSchema } = useSchema();
 
 	const theme = usePicasso();
 
@@ -260,23 +260,17 @@ export const AddEmployee: React.FC<IAddEmployee> = ({
 										{errors.amount?.message}
 									</Text>
 								</Flex>
-
-								<Button
+								<BlackButton
+									py="2.5"
 									type="submit"
-									color="white"
-									bg={theme.text.primary}
-									borderRadius="sm"
 									fontWeight="normal"
-									size="md"
 									gap="3"
-									_hover={{}}
-									_active={{}}
-									_focus={{}}
+									borderRadius="sm"
 									onClick={() => handleAddEmployee}
 								>
 									<Text>+</Text>
 									{translate('addEmployee')}
-								</Button>
+								</BlackButton>
 								<Text
 									color="gray.500"
 									fontSize="xs"

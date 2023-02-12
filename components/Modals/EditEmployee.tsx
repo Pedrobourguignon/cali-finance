@@ -15,15 +15,15 @@ import {
 	InputGroup,
 	Img,
 } from '@chakra-ui/react';
-import { usePicasso } from 'hooks';
+import { usePicasso, useSchema } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
 import React, { useState } from 'react';
 import { IoIosArrowDown } from 'react-icons/io';
 import { IEditEmployee, IEditEmployeeForm } from 'types';
-import { EditProfileIcon } from 'components';
+import { BlackButton, EditProfileIcon } from 'components';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { editEmployeeSchema, truncateWallet } from 'utils';
+import { truncateWallet } from 'utils';
 
 export const EditEmployee: React.FC<IEditEmployee> = ({
 	isOpen,
@@ -31,9 +31,9 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 	employee,
 }) => {
 	const theme = usePicasso();
-	const { t: translate } = useTranslation('swap-token');
 	const [amountInDollar, setAmountInDollar] = useState<number>(0);
 	const bitcoinPrice = 87586;
+	const { editEmployeeSchema } = useSchema();
 
 	const selectedCoin = {
 		logo: 'https://assets.coingecko.com/coins/images/1/thumb/bitcoin.png?1547033579',
@@ -184,24 +184,17 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 										the companies’ funds.
 									</Text>
 								</Flex>
-
-								<Flex pb="4">
-									<Button
-										w="full"
-										type="submit"
-										color="white"
-										bg={theme.text.primary}
-										borderRadius="sm"
-										fontWeight="medium"
-										size="md"
-										gap="3"
-										_hover={{}}
-										_active={{}}
-										_focus={{}}
-									>
-										Update Employee&apos;s Data
-									</Button>
-								</Flex>
+								<BlackButton
+									py="2.5"
+									type="submit"
+									fontWeight="normal"
+									gap="3"
+									borderRadius="sm"
+									mb="4"
+								>
+									<Text>+</Text>
+									Update Employee&apos;s Data
+								</BlackButton>
 							</ModalBody>
 						</FormControl>
 					</form>

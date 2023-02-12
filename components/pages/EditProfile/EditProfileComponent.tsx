@@ -8,14 +8,12 @@ import {
 	TextProps,
 	useDisclosure,
 } from '@chakra-ui/react';
-import { usePicasso, useProfile } from 'hooks';
+import { usePicasso, useProfile, useSchema } from 'hooks';
 import React, { useState } from 'react';
 import useTranslation from 'next-translate/useTranslation';
-import { ImageUploaderModal } from 'components';
+import { BlackButton, ImageUploaderModal } from 'components';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
-import { limitSpecialCharacterRegex, nameRegex } from 'utils';
-import * as yup from 'yup';
 
 interface IEditProfile {
 	name: string;
@@ -29,20 +27,7 @@ export const EditProfileComponent = () => {
 	const { t: translate } = useTranslation('edit-profile');
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const { isConnected } = useProfile();
-
-	const editProfileSchema = yup.object().shape({
-		name: yup
-			.string()
-			.required(translate('form.required'))
-			.matches(nameRegex, translate('form.nameNumber'))
-			.min(3, translate('form.nameMin')),
-		email: yup
-			.string()
-			.lowercase()
-			.required(translate('form.required'))
-			.email(translate('form.invalidEmailFormat'))
-			.matches(limitSpecialCharacterRegex, translate('form.emailContains')),
-	});
+	const { editProfileSchema } = useSchema();
 
 	const labelStyle: TextProps = {
 		color: theme.text.primary,
@@ -173,20 +158,15 @@ export const EditProfileComponent = () => {
 									</Text>
 								</Flex>
 							</Flex>
-
-							<Button
-								type="submit"
+							<BlackButton
 								px={{ md: '32', '2xl': '36' }}
-								bg={theme.text.primary}
-								_hover={{ opacity: '80%' }}
-								_focus={{ bg: theme.text.primary }}
-								fontWeight="medium"
+								type="submit"
 								fontSize="md"
+								py="2.5"
 								borderRadius="sm"
-								disabled={!isConnected}
 							>
 								{translate('saveChanges')}
-							</Button>
+							</BlackButton>
 						</Flex>
 					</FormControl>
 				</form>

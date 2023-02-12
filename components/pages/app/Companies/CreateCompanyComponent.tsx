@@ -15,7 +15,7 @@ import { Select } from 'chakra-react-select';
 import { BsQuestionCircle } from 'react-icons/bs';
 import { ICreateCompany } from 'types';
 import useTranslation from 'next-translate/useTranslation';
-import { NetworkTooltip } from 'components/Tooltips';
+import { NetworkTooltip, BlackButton } from 'components';
 
 interface ICreateCompanyComponent {
 	control: Control<ICreateCompany>;
@@ -308,22 +308,17 @@ export const CreateCompanyComponent: React.FC<ICreateCompanyComponent> = ({
 							/>
 						</Flex>
 					</Flex>
-
-					<Button
+					<BlackButton
 						type="submit"
-						bg={theme.bg.primary}
-						color="white"
-						borderRadius="sm"
-						_hover={{}}
 						gap="2.5"
-						fontWeight="medium"
-						fontSize="md"
 						lineHeight="6"
 						display={{ md: 'none', lg: 'flex' }}
+						py="2.5"
+						borderRadius="sm"
 					>
 						<Text>+</Text>
 						<Text>{translate('createCompany')}</Text>
-					</Button>
+					</BlackButton>
 				</Flex>
 				<Flex
 					direction="column"
