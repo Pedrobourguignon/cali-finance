@@ -71,7 +71,7 @@ export const HistoryComponent: React.FC<IHistoryPage> = ({ history }) => {
 	return (
 		<AppLayout
 			right={
-				!isConnected ? (
+				isConnected ? (
 					<>
 						<Flex display={{ md: 'none', lg: 'flex' }}>
 							<LifeIsEasierBanner />
@@ -108,7 +108,7 @@ export const HistoryComponent: React.FC<IHistoryPage> = ({ history }) => {
 								as={Button}
 								rightIcon={<BiChevronDown />}
 								bg="white"
-								disabled={isConnected}
+								disabled={!isConnected}
 								_hover={{}}
 								_active={{}}
 								_focus={{}}
@@ -142,16 +142,14 @@ export const HistoryComponent: React.FC<IHistoryPage> = ({ history }) => {
 							</MenuList>
 						</Menu>
 					</Flex>
-					{isConnected && (
+					{!isConnected ? (
 						<>
 							<Text fontSize="sm" color={theme.text.primary}>
 								Please connect your wallet to be able to view your history.
 							</Text>
 							<HistorySkeletons />
 						</>
-					)}
-
-					{!isConnected && (
+					) : (
 						<Flex w="full" direction="column">
 							<Flex direction="column" gap="2">
 								<DisplayedNotifications
@@ -160,7 +158,7 @@ export const HistoryComponent: React.FC<IHistoryPage> = ({ history }) => {
 									filteredNotifications={filteredNotifications}
 								/>
 							</Flex>
-							{filteredNotifications.length !== 0 ? (
+							{filteredNotifications.length ? (
 								<Flex justify="center" pt="5" pb="6">
 									<Paginator
 										actualPage={pageNumber + 1}
@@ -198,6 +196,9 @@ export const HistoryComponent: React.FC<IHistoryPage> = ({ history }) => {
 							)}
 						</Flex>
 					)}
+					{/*
+					{!isConnected && (
+					)} */}
 				</Flex>
 			</Flex>
 		</AppLayout>
