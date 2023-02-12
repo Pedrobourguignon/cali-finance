@@ -12,9 +12,9 @@ export const CoinCard: React.FC<ICoinCard> = ({
 	borderColor,
 	color,
 }) => {
-	const varianceColor = () => {
+	const colorVariance = () => {
 		if (coin.variation > 0) return 'green.400';
-		if (coin.variation === 0) return color;
+		if (!coin.variation) return color;
 		return 'red.500';
 	};
 
@@ -44,7 +44,7 @@ export const CoinCard: React.FC<ICoinCard> = ({
 						</Text>
 					</Flex>
 				</Flex>
-				<Text fontSize="xs" color={varianceColor()}>
+				<Text fontSize="xs" color={colorVariance()}>
 					{coin.variation > 0 && '+'}
 					{coin.variation}%
 				</Text>

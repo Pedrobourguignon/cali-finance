@@ -118,13 +118,13 @@ export const EditProfileComponent = () => {
 									<Input
 										borderRadius="base"
 										placeholder={translate('insertHere')}
+										borderColor={errors.name ? 'red' : theme.bg.primary}
 										_placeholder={{
 											color: 'blackAlpha.500',
 											fontSize: 'sm',
 										}}
 										bgColor="white"
 										_hover={{}}
-										borderColor={theme.bg.primary}
 										{...register('name')}
 										color="black"
 										h="max-content"
@@ -146,7 +146,7 @@ export const EditProfileComponent = () => {
 										bgColor="white"
 										_hover={{}}
 										color="black"
-										borderColor={theme.bg.primary}
+										borderColor={errors.email ? 'red' : theme.bg.primary}
 										h="max-content"
 										py="1"
 										borderRadius="base"
