@@ -95,7 +95,7 @@ export const HistoryDashboard = () => {
 					<HistoryData key={+index} userHistory={item} />
 				))}
 			</Flex>
-			{filteredUserHistory.length === 0 && (
+			{!filteredUserHistory.length && (
 				<Flex>
 					<Text color={theme.text.primary} size="sm">
 						{translateHistory('noResults')}&nbsp;

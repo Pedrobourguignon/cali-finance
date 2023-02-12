@@ -139,16 +139,14 @@ export const HistoryComponent: React.FC<IHistoryPage> = ({ history }) => {
 							</MenuList>
 						</Menu>
 					</Flex>
-					{isConnected && (
+					{isConnected ? (
 						<>
 							<Text fontSize="sm" color={theme.text.primary}>
 								Please connect your wallet to be able to view your history.
 							</Text>
 							<HistorySkeletons />
 						</>
-					)}
-
-					{!isConnected && (
+					) : (
 						<>
 							<Flex direction="column" gap="2">
 								<DisplayedNotifications
@@ -157,7 +155,7 @@ export const HistoryComponent: React.FC<IHistoryPage> = ({ history }) => {
 									filteredNotifications={filteredNotifications}
 								/>
 							</Flex>
-							{filteredNotifications.length !== 0 ? (
+							{filteredNotifications.length ? (
 								<Flex justify="center" pb="6">
 									<Paginator
 										actualPage={pageNumber + 1}
