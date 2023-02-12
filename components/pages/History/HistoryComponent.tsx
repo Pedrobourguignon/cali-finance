@@ -15,24 +15,22 @@ import {
 	Paginator,
 	LifeIsEasierTabletBreakpoint,
 } from 'components';
-import { usePicasso, useProfile } from 'hooks';
+import { useCompanies, usePicasso, useProfile } from 'hooks';
 import { AppLayout } from 'layouts';
 import useTranslation from 'next-translate/useTranslation';
-import React, { useMemo, useState } from 'react';
+import React, { useMemo, useState, useEffect } from 'react';
 import { BiChevronDown } from 'react-icons/bi';
-import { IHistoryNotification, IHistoryPage } from 'types';
+import { IHistoryPage } from 'types';
 
 export const HistoryComponent: React.FC<IHistoryPage> = ({ history }) => {
 	const { t: translate } = useTranslation('history-page');
+	const theme = usePicasso();
 	const [selectedFilterOption, setSelectedFilterOption] = useState<string>(
 		translate('all')
 	);
 	const [pageNumber, setPageNumber] = useState(0);
-	const [filteredNotifications, setFilteredNotifications] =
-		useState<IHistoryNotification[]>(history);
+	const { filteredNotifications, setFilteredNotifications } = useCompanies();
 	const { isConnected } = useProfile();
-
-	const theme = usePicasso();
 
 	const notificationPerPage = 14;
 	const maxPage = useMemo(
@@ -66,6 +64,10 @@ export const HistoryComponent: React.FC<IHistoryPage> = ({ history }) => {
 		setSelectedFilterOption(filter);
 	};
 
+	useEffect(() => {
+		setPageNumber(0);
+	}, [filteredNotifications]);
+
 	return (
 		<AppLayout
 			right={
@@ -98,6 +100,7 @@ export const HistoryComponent: React.FC<IHistoryPage> = ({ history }) => {
 								h="max-content"
 								py="2"
 								px="3"
+								w="190px"
 								gap="32"
 								fontWeight="normal"
 								fontSize={{ md: 'sm', '2xl': 'md' }}
@@ -109,7 +112,6 @@ export const HistoryComponent: React.FC<IHistoryPage> = ({ history }) => {
 								_hover={{}}
 								_active={{}}
 								_focus={{}}
-								borderBottomRadius="none"
 							>
 								{isConnected ? translate('all') : selectedFilterOption}
 							</MenuButton>
@@ -168,7 +170,7 @@ export const HistoryComponent: React.FC<IHistoryPage> = ({ history }) => {
 									/>
 								</Flex>
 							) : (
-								<Flex whiteSpace="normal">
+								<Flex whiteSpace="normal" w={{ md: '33.75rem', lg: 'full' }}>
 									<Text
 										color={theme.text.primary}
 										fontSize="sm"

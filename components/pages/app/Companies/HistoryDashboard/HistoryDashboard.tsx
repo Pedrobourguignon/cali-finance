@@ -1,9 +1,18 @@
-import { Flex, Select, Text } from '@chakra-ui/react';
+import {
+	Button,
+	Flex,
+	Menu,
+	MenuButton,
+	MenuItem,
+	MenuList,
+	Text,
+} from '@chakra-ui/react';
 import { usePicasso } from 'hooks';
 import { HistoryData } from 'components';
 import { IUserHistory } from 'types';
 import { useState } from 'react';
 import useTranslation from 'next-translate/useTranslation';
+import { BiChevronDown } from 'react-icons/bi';
 
 export const HistoryDashboard = () => {
 	const { t: translate } = useTranslation('company-overall');
@@ -39,16 +48,16 @@ export const HistoryDashboard = () => {
 			coin: 'USDT',
 			status: translate('completed'),
 		},
-		// {
-		// // 	icon: '',
-		// // 	wallet: '0x52908400098527886E0F7030069857D2E4169EE7',
-		// // 	team: 'Sales Team',
-		// // 	type: translate('deposit'),
-		// // 	date: '08 Aug 22, 20:57',
-		// // 	amount: 10000,
-		// // 	coin: 'USDT',
-		// // 	status: translate('pending'),
-		// // },
+		{
+			icon: '',
+			wallet: '0x52908400098527886E0F7030069857D2E4169EE7',
+			team: 'Sales Team',
+			type: translate('deposit'),
+			date: '08 Aug 22, 20:57',
+			amount: 10000,
+			coin: 'USDT',
+			status: translate('pending'),
+		},
 	];
 
 	const theme = usePicasso();
@@ -63,6 +72,7 @@ export const HistoryDashboard = () => {
 		if (filter === translate('all')) {
 			setFilteredUserHistory(userHistory);
 		}
+		setSelectedFilterOption(filter);
 	};
 
 	const selectOptions = [
@@ -80,19 +90,51 @@ export const HistoryDashboard = () => {
 				color={theme.text.primary}
 			>
 				<Text fontWeight="medium">{translate('history')}</Text>
-				<Select
-					placeholder={selectedFilterOption}
-					w="max-content"
-					h="8"
-					bg="white"
-					onChange={event => filterUserHistory(event.target.value)}
-				>
-					{selectOptions.map((option, index) => (
-						<option style={{ background: 'white' }} key={+index}>
-							{option}
-						</option>
-					))}
-				</Select>
+				<Menu gutter={0} autoSelect={false}>
+					<MenuButton
+						h="max-content"
+						py="2"
+						px="3"
+						w="190px"
+						gap="32"
+						fontWeight="normal"
+						fontSize={{ md: 'sm', '2xl': 'md' }}
+						color={theme.text.primary}
+						as={Button}
+						rightIcon={<BiChevronDown />}
+						bg="white"
+						_hover={{}}
+						_active={{}}
+						_focus={{}}
+					>
+						{selectedFilterOption}
+					</MenuButton>
+					<MenuList
+						p="0"
+						borderTopRadius="none"
+						borderColor="white"
+						minW={theme.sizes.menuItem}
+					>
+						{selectOptions.map((option, index) => (
+							<MenuItem
+								key={+index}
+								bg="white"
+								color={theme.text.primary}
+								fontSize={{ md: 'xs', lg: 'sm' }}
+								_hover={{ bg: theme.bg.black, color: 'white' }}
+								borderBottom="1px solid"
+								borderBottomColor="gray.200"
+								borderBottomRadius={
+									option === translate('teamCreated') ? 'base' : 'none'
+								}
+								onClick={() => filterUserHistory(option)}
+								_active={{}}
+							>
+								{option}
+							</MenuItem>
+						))}
+					</MenuList>
+				</Menu>
 			</Flex>
 			<Flex direction="column" gap="2">
 				{filteredUserHistory.map((item, index) => (
