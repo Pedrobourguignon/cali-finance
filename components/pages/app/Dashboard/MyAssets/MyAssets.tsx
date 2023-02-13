@@ -4,7 +4,7 @@ import { Asset, OffsetShadow } from 'components';
 import { usePicasso } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
 import React, { useState, useRef, useEffect, useMemo } from 'react';
-import { IAssetsOptions, IMyAssetsFullList } from 'types';
+import { IAssetsOptions, IRenderFullList } from 'types';
 
 const assetsOptions: IAssetsOptions[] = [
 	{
@@ -52,7 +52,7 @@ const assetsOptions: IAssetsOptions[] = [
 ];
 
 export const MyAssets = () => {
-	const [myAssetsFullList, setMyAssetsFullList] = useState<IMyAssetsFullList>({
+	const [myAssetsFullList, setMyAssetsFullList] = useState<IRenderFullList>({
 		listLength: 3,
 		buttonText: 'See all',
 	});

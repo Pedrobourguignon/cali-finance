@@ -1,4 +1,4 @@
-export interface IMyAssetsFullList {
+export interface IRenderFullList {
 	listLength: number;
 	buttonText: string;
 }
