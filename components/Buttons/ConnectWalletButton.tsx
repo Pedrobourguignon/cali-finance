@@ -1,5 +1,5 @@
 import { Button, Flex, Text, useDisclosure } from '@chakra-ui/react';
-import React, { useState } from 'react';
+import React from 'react';
 import useTranslation from 'next-translate/useTranslation';
 import {
 	LoadingWalletConnectModal,
@@ -8,20 +8,13 @@ import {
 } from 'components';
 import { useProfile } from 'hooks';
 
-interface IWalletData {
-	name: string;
-	icon: string;
-}
-
 export const ConnectWalletButton = () => {
 	const { t: translate } = useTranslation('sidebar');
 	const { isConnected } = useProfile();
 	const shouldDisplay = isConnected === true ? 'none' : 'flex';
 	const { isOpen, onOpen, onClose } = useDisclosure();
-	const [walletData, setWalletData] = useState<IWalletData>({
-		name: '',
-		icon: '',
-	});
+	const { walletData, setWalletData } = useProfile();
+	const { icon, name } = walletData;
 	const {
 		isOpen: isOpenLoading,
 		onClose: onCloseLoading,
@@ -36,8 +29,8 @@ export const ConnectWalletButton = () => {
 				openLoadingWalletModal={onOpenLoading}
 			/>
 			<LoadingWalletConnectModal
-				walletIcon={walletData.icon}
-				walletName={walletData.name}
+				walletIcon={icon}
+				walletName={name}
 				isOpen={isOpenLoading}
 				onClose={onCloseLoading}
 			/>
@@ -47,8 +40,8 @@ export const ConnectWalletButton = () => {
 				width="max-content"
 				height="8"
 				borderColor="white"
-				top="0.5rem"
-				left="0.375rem"
+				top="0.44rem"
+				left="0.30rem"
 				display={shouldDisplay}
 			>
 				<Button
