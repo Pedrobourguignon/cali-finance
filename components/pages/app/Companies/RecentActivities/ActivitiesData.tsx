@@ -27,12 +27,7 @@ export const ActivitiesData: React.FC<IActivitiesData> = ({ activities }) => {
 		if (activities.type === 'Withdrawal' || activities.type === 'Deposit') {
 			return (
 				<Flex direction="column" align="end" w="20">
-					<Flex
-						flexDir="row"
-						fontSize="sm"
-						fontWeight="normal"
-						gap={{ md: '1', '2xl': '2' }}
-					>
+					<Flex flexDir="row" fontSize="xs" fontWeight="normal" gap="1">
 						<Text>{activities.value.toLocaleString('en-US')}</Text>
 						<Text>{activities.coin}</Text>
 					</Flex>
