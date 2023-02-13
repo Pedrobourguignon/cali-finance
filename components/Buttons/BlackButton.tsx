@@ -11,9 +11,11 @@ export const BlackButton: React.FC<IBlackButton> = ({
 	disabled,
 	...rest
 }) => {
+	const theme = usePicasso();
 	const { isConnected } = useProfile();
 	return (
 		<Button
+			bg={theme.bg.primary}
 			color="white"
 			h="max-content"
 			_hover={{ opacity: '80%' }}
