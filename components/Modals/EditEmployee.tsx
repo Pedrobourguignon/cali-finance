@@ -15,7 +15,7 @@ import {
 	InputGroup,
 	Img,
 } from '@chakra-ui/react';
-import { usePicasso, useSchema } from 'hooks';
+import { useCompanies, usePicasso, useSchema } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
 import React, { useState } from 'react';
 import { IoIosArrowDown } from 'react-icons/io';
@@ -31,7 +31,10 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 	employee,
 }) => {
 	const theme = usePicasso();
-	const [amountInDollar, setAmountInDollar] = useState<number>(0);
+	const [editedEmployeeData, setEditedEmployeeData] = useState({
+		amount: 0,
+		amountInDollar: 0,
+	});
 	const bitcoinPrice = 87586;
 	const { editEmployeeSchema } = useSchema();
 
@@ -52,25 +55,34 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 
 	const expenseCalculation = () => '30% more expenses.';
 
-	const converterToDollar = (amount: number) => {
-		setAmountInDollar(amount * bitcoinPrice);
+	const converterToDollar = (amountInDollar: number) => {
+		setEditedEmployeeData(prevState => ({
+			...prevState,
+			amountInDollar: amountInDollar * bitcoinPrice,
+		}));
 	};
 
 	const {
 		register,
 		handleSubmit,
+		reset,
 		formState: { errors },
 	} = useForm<IEditEmployeeForm>({
 		resolver: yupResolver(editEmployeeSchema),
 	});
 
-	const handleEditEmployee = (editedEmployeeData: IEditEmployeeForm) => {
-		console.log(editedEmployeeData);
+	const handleResetFormInputs = () => {
+		reset();
+		onClose();
+	};
+
+	const handleEditEmployee = (editedEmployeeFormData: IEditEmployeeForm) => {
+		console.log(editedEmployeeFormData);
 		onClose();
 	};
 
 	return (
-		<Modal isOpen={isOpen} onClose={onClose} size="sm">
+		<Modal isOpen={isOpen} onClose={handleResetFormInputs} size="sm">
 			<ModalOverlay />
 			<ModalContent
 				m="auto"
@@ -114,7 +126,7 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 									<Flex align="center" justify="space-between">
 										<Text {...labelStyle}>Amount (per month)*</Text>
 										<Text fontSize="xs" color="gray.500">
-											US$&nbsp;{amountInDollar}
+											US$&nbsp;{editedEmployeeData.amountInDollar}
 										</Text>
 									</Flex>
 									<InputGroup>
@@ -132,15 +144,23 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 											_focusVisible={{}}
 											color={theme.text.primary}
 											onChange={amount => {
+												setEditedEmployeeData(prevState => ({
+													...prevState,
+													amount: parseInt(amount.target.value, 10),
+												}));
 												converterToDollar(
 													parseInt(amount.currentTarget.value, 10)
 												);
-												return amount.currentTarget.value === ''
-													? setAmountInDollar(0)
-													: '';
+												return (
+													amount.currentTarget.value === '' &&
+													setEditedEmployeeData(prevState => ({
+														...prevState,
+														amountInDollar: 0,
+														amount: 0,
+													}))
+												);
 											}}
 										/>
-
 										<Button
 											borderLeftRadius="none"
 											bg={theme.bg.primary}
@@ -191,6 +211,7 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 									gap="3"
 									borderRadius="sm"
 									mb="4"
+									disabled={editedEmployeeData.amount === 0}
 								>
 									<Text>+</Text>
 									Update Employee&apos;s Data

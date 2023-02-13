@@ -1,3 +1,4 @@
+/* eslint-disable no-unneeded-ternary */
 import {
 	Flex,
 	Modal,
@@ -35,7 +36,11 @@ export const AddEmployee: React.FC<IAddEmployee> = ({
 	const [selectedTab, setSelectedTab] = useState<string>(
 		translate('addIndividually')
 	);
-	const [amountInDollar, setAmountInDollar] = useState<number>(0);
+	const [addedEmployeeData, setAddedEmployeeData] = useState({
+		walletAddress: '',
+		amount: 0,
+		amountInDollar: 0,
+	});
 	const bitcoinPrice = 87.586;
 	const { addEmployeeSchema } = useSchema();
 	const { setSelectedCompanyEmployees, selectedCompany } = useCompanies();
@@ -69,13 +74,17 @@ export const AddEmployee: React.FC<IAddEmployee> = ({
 		}
 	};
 
-	const converterToDollar = (amount: number) => {
-		setAmountInDollar(amount * bitcoinPrice);
+	const converterToDollar = (amountInDollar: number) => {
+		setAddedEmployeeData(prevState => ({
+			...prevState,
+			amountInDollar: amountInDollar * bitcoinPrice,
+		}));
 	};
 
 	const {
 		register,
 		handleSubmit,
+		reset,
 		formState: { errors },
 	} = useForm<IAddEmployeeForm>({
 		resolver: yupResolver(addEmployeeSchema),
@@ -110,8 +119,13 @@ export const AddEmployee: React.FC<IAddEmployee> = ({
 		onClose();
 	};
 
+	const handleResetFormInputs = () => {
+		reset();
+		onClose();
+	};
+
 	return (
-		<Modal isOpen={isOpen} onClose={onClose} size="sm">
+		<Modal isOpen={isOpen} onClose={handleResetFormInputs} size="sm">
 			<ModalOverlay />
 			<ModalContent
 				m="auto"
@@ -145,7 +159,11 @@ export const AddEmployee: React.FC<IAddEmployee> = ({
 									{`${translate('to')} ${company || selectedCompany.name}`}
 								</Text>
 							</Flex>
-							<ModalCloseButton color="gray.400" py="7" />
+							<ModalCloseButton
+								color="gray.400"
+								py="7"
+								onClick={() => reset()}
+							/>
 						</Flex>
 						<Flex>
 							<Button
@@ -221,6 +239,12 @@ export const AddEmployee: React.FC<IAddEmployee> = ({
 										{...register('walletAddress')}
 										h="max-content"
 										py="1"
+										onChange={wallet =>
+											setAddedEmployeeData(prevState => ({
+												...prevState,
+												walletAddress: wallet.target.value,
+											}))
+										}
 									/>
 									<Text fontSize="xs" color="red">
 										{errors.walletAddress?.message}
@@ -230,7 +254,7 @@ export const AddEmployee: React.FC<IAddEmployee> = ({
 									<Flex align="center" justify="space-between">
 										<Text {...labelStyle}>{translate('amountPerMonth')}</Text>
 										<Text fontWeight="normal" fontSize="xs" color="gray.500">
-											US${amountInDollar}
+											US${addedEmployeeData.amountInDollar}
 										</Text>
 									</Flex>
 									<InputGroup>
@@ -247,15 +271,23 @@ export const AddEmployee: React.FC<IAddEmployee> = ({
 											_focusVisible={{}}
 											color={theme.text.primary}
 											onChange={amount => {
+												setAddedEmployeeData(prevState => ({
+													...prevState,
+													amount: parseInt(amount.target.value, 10),
+												}));
 												converterToDollar(
 													parseInt(amount.currentTarget.value, 10)
 												);
-												return amount.currentTarget.value === ''
-													? setAmountInDollar(0)
-													: '';
+												return (
+													amount.currentTarget.value === '' &&
+													setAddedEmployeeData(prevState => ({
+														...prevState,
+														amountInDollar: 0,
+														amount: 0,
+													}))
+												);
 											}}
 										/>
-
 										<Button
 											borderLeftRadius="none"
 											bg={theme.bg.primary}
@@ -284,6 +316,10 @@ export const AddEmployee: React.FC<IAddEmployee> = ({
 									gap="3"
 									borderRadius="sm"
 									onClick={() => handleAddEmployee}
+									disabled={
+										addedEmployeeData.walletAddress === '' ||
+										addedEmployeeData.amount === 0
+									}
 								>
 									<Text>+</Text>
 									{translate('addEmployee')}
