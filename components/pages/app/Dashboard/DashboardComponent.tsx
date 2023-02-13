@@ -12,7 +12,6 @@ import {
 import React from 'react';
 import { IRecentActivitiesList } from 'types';
 import useTranslation from 'next-translate/useTranslation';
-import { useProfile } from 'hooks';
 import { useSession } from 'next-auth/react';
 
 export const DashboardComponent: React.FC = () => {

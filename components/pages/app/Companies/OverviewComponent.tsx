@@ -5,17 +5,9 @@ import {
 	RecentActivities,
 } from 'components';
 import { useCompanies } from 'hooks';
-import { useSession } from 'next-auth/react';
-import Router from 'next/router';
-import { useEffect } from 'react';
 
 export const OverviewComponent = () => {
 	const { selectedCompany } = useCompanies();
-	const { data: session } = useSession();
-
-	useEffect(() => {
-		if (!session) Router.push('/app/companies');
-	}, []);
 
 	return (
 		<Flex direction="column">

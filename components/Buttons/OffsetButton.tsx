@@ -1,7 +1,7 @@
 import { Button, ButtonProps, Icon, IconProps } from '@chakra-ui/react';
 import { OffsetShadow } from 'components';
 import { usePicasso } from 'hooks';
-import Router, { useRouter } from 'next/router';
+import router, { useRouter } from 'next/router';
 
 interface IOffsetButton extends ButtonProps {
 	route: string;
@@ -18,7 +18,7 @@ export const OffsetButton: React.FC<IOffsetButton> = ({
 	const theme = usePicasso();
 
 	const handleClick = () => {
-		Router.push(route);
+		router.push(route);
 	};
 
 	return (

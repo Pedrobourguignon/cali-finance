@@ -9,9 +9,6 @@ import {
 } from 'components';
 import { ICoin } from 'types';
 import useTranslation from 'next-translate/useTranslation';
-import { useSession } from 'next-auth/react';
-import { useEffect } from 'react';
-import Router from 'next/router';
 
 const coinCard: ICoin[] = [
 	{
@@ -62,11 +59,6 @@ export const FundsPageComponent = () => {
 	const theme = usePicasso();
 	const { t: translate } = useTranslation('company-overall');
 	const { selectedCompany } = useCompanies();
-	const { data: session } = useSession();
-	console.log(session);
-	// useEffect(() => {
-	// 	if (!session) Router.push('/app/companies');
-	// }, []);
 
 	return (
 		<AppLayout right={<DepositOrWithdrawBanner />}>

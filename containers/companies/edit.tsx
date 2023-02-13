@@ -13,7 +13,7 @@ import { useCompanies } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
 import { useEffect } from 'react';
 import { useSession } from 'next-auth/react';
-import Router from 'next/router';
+import router from 'next/router';
 
 export const EditCompany = () => {
 	const { t: translate } = useTranslation('create-company');
@@ -27,7 +27,7 @@ export const EditCompany = () => {
 	const { data: session } = useSession();
 
 	useEffect(() => {
-		if (!session) Router.push('/app/companies');
+		if (!session) router.push('/app/companies');
 	}, [session]);
 
 	const handleEditCompany = (editedCompanyData: IEditCompany) => {

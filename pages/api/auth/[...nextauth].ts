@@ -4,13 +4,17 @@ import CredentialsProvider from 'next-auth/providers/credentials';
 export const authOptions: NextAuthOptions = {
 	// Configure one or more authentication providers
 	providers: [
-		// CredentialsProvider({
-		// 	type: 'credentials',
-		// 	credentials: {},
-		// 	authorize(credentials, req) {
-		// 		if (credentials) return credentials;
-		// 	},
-		// }),
+		CredentialsProvider({
+			name: 'credentials',
+			credentials: {},
+			async authorize() {
+				const user = { id: '', name: '', email: '' };
+				if (user) {
+					return user;
+				}
+				return null;
+			},
+		}),
 	],
 };
 export default NextAuth(authOptions);

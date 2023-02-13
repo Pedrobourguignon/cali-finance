@@ -49,7 +49,7 @@ export const WalletsOptionsModal: React.FC<IWalletOptionsModal> = ({
 }) => {
 	const { t: translate } = useTranslation('sidebar');
 	const theme = usePicasso();
-	const onTriggerLoadingModal = (icon: string, name: string) => {
+	const onTriggerLoadingModal = async (icon: string, name: string) => {
 		setWalletData({
 			icon,
 			name,

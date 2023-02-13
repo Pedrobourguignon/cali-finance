@@ -8,10 +8,10 @@ import {
 	Text,
 	useDisclosure,
 } from '@chakra-ui/react';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FaDiscord, FaTwitter } from 'react-icons/fa';
 import { usePath, usePicasso, useProfile } from 'hooks';
-import Router, { useRouter } from 'next/router';
+import router, { useRouter } from 'next/router';
 import {
 	DashboardIcon,
 	CompanyIcon,
@@ -86,7 +86,7 @@ export const Sidebar: React.FC = () => {
 	} as INetwork);
 
 	const changeLanguage = (lang: ILanguage) => {
-		Router.push(`/${pathname}`, `/${pathname}`, { locale: lang });
+		router.push(`/${pathname}`, `/${pathname}`, { locale: lang });
 	};
 
 	return (

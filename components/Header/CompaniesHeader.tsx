@@ -8,6 +8,8 @@ import {
 } from 'components';
 import useTranslation from 'next-translate/useTranslation';
 import { ICompany } from 'types';
+import { useSession } from 'next-auth/react';
+import router from 'next/router';
 
 export const CompaniesHeader: React.FC<{
 	company: ICompany;
@@ -17,6 +19,12 @@ export const CompaniesHeader: React.FC<{
 	const { setNotificationsList, notificationsList } = useCompanies();
 	const { onClose, isOpen, onOpen } = useDisclosure();
 	const { t: translate } = useTranslation('company-overall');
+	const { data: session } = useSession({
+		required: true,
+		onUnauthenticated() {
+			router.push('/app/companies');
+		},
+	});
 
 	const menuOptions = [
 		{
