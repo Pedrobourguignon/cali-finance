@@ -5,5 +5,5 @@ export interface IAddEmployee {
 	isOpen: boolean;
 	onClose: () => void;
 	company?: string;
-	setEmployees: Dispatch<SetStateAction<IEmployee[]>>;
+	setEmployees?: Dispatch<SetStateAction<IEmployee[]>>;
 }

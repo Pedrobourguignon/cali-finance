@@ -10,16 +10,15 @@ import {
 	useDisclosure,
 } from '@chakra-ui/react';
 import { BlackButton, TokenSelector } from 'components';
-import { usePicasso } from 'hooks';
+import { usePicasso, useSchema } from 'hooks';
 import { useForm } from 'react-hook-form';
 import useTranslation from 'next-translate/useTranslation';
 import { Dispatch, SetStateAction, useState } from 'react';
 import { IoIosArrowDown } from 'react-icons/io';
 import { ISelectedCoin, ITransaction } from 'types';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { transactionSchema } from 'utils';
 
-interface IDepoistOrWithdrawCard {
+interface IDepositOrWithdrawCard {
 	setTransaction: Dispatch<SetStateAction<ITransaction>>;
 	setConfirm: Dispatch<SetStateAction<boolean>>;
 }
@@ -28,11 +27,12 @@ interface IDepositOrWithdrawnForm {
 	amount: number;
 }
 
-export const DepositOrWithdrawCard: React.FC<IDepoistOrWithdrawCard> = ({
+export const DepositOrWithdrawCard: React.FC<IDepositOrWithdrawCard> = ({
 	setTransaction,
 	setConfirm,
 }) => {
 	const { t: translate } = useTranslation('company-overall');
+	const { transactionSchema } = useSchema();
 	const theme = usePicasso();
 	const { onClose, isOpen, onOpen } = useDisclosure();
 	const buttonOptions = [translate('deposit'), translate('withdrawal')];
@@ -101,14 +101,14 @@ export const DepositOrWithdrawCard: React.FC<IDepoistOrWithdrawCard> = ({
 							</Button>
 						))}
 					</Flex>
-					<Flex direction="column" gap="6">
+					<Flex direction="column" gap={errors.amount ? '2' : '6'}>
 						<Flex direction="column" gap="2">
 							<Text fontSize="sm">{translate('amount')}</Text>
 							<InputGroup>
 								<Input
 									_placeholder={{ color: 'blackAlpha.500' }}
 									placeholder="0.00"
-									borderColor={theme.bg.primary}
+									borderColor={errors.amount ? 'red' : theme.bg.primary}
 									h="8"
 									flex="3"
 									borderRightRadius="none"
@@ -118,9 +118,6 @@ export const DepositOrWithdrawCard: React.FC<IDepoistOrWithdrawCard> = ({
 									zIndex="docked"
 									{...register('amount')}
 								/>
-								<Text position="absolute" color="red" pt="8">
-									{errors.amount?.message}
-								</Text>
 								<Button
 									borderLeftRadius="none"
 									bg={theme.bg.primary}
@@ -139,6 +136,9 @@ export const DepositOrWithdrawCard: React.FC<IDepoistOrWithdrawCard> = ({
 									</Flex>
 								</Button>
 							</InputGroup>
+							<Text color="red" fontSize="sm">
+								{errors.amount?.message}
+							</Text>
 						</Flex>
 						<BlackButton py="1.5" type="submit" whiteSpace="normal">
 							{selectedOption === translate('deposit')

@@ -8,14 +8,12 @@ import {
 	TextProps,
 	useDisclosure,
 } from '@chakra-ui/react';
-import { usePicasso, useProfile } from 'hooks';
+import { usePicasso, useSchema } from 'hooks';
 import React, { useState } from 'react';
 import useTranslation from 'next-translate/useTranslation';
 import { BlackButton, ImageUploaderModal } from 'components';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
-import { limitSpecialCharacterRegex, nameRegex } from 'utils';
-import * as yup from 'yup';
 import { useSession } from 'next-auth/react';
 
 interface IEditProfile {
@@ -29,21 +27,9 @@ export const EditProfileComponent = () => {
 	const theme = usePicasso();
 	const { t: translate } = useTranslation('edit-profile');
 	const { isOpen, onOpen, onClose } = useDisclosure();
-	const { data: session } = useSession();
 
-	const editProfileSchema = yup.object().shape({
-		name: yup
-			.string()
-			.required(translate('form.required'))
-			.matches(nameRegex, translate('form.nameNumber'))
-			.min(3, translate('form.nameMin')),
-		email: yup
-			.string()
-			.lowercase()
-			.required(translate('form.required'))
-			.email(translate('form.invalidEmailFormat'))
-			.matches(limitSpecialCharacterRegex, translate('form.emailContains')),
-	});
+	const { data: session } = useSession();
+	const { editProfileSchema } = useSchema();
 
 	const labelStyle: TextProps = {
 		color: theme.text.primary,
@@ -134,13 +120,13 @@ export const EditProfileComponent = () => {
 									<Input
 										borderRadius="base"
 										placeholder={translate('insertHere')}
+										borderColor={errors.name ? 'red' : theme.bg.primary}
 										_placeholder={{
 											color: 'blackAlpha.500',
 											fontSize: 'sm',
 										}}
 										bgColor="white"
 										_hover={{}}
-										borderColor={theme.bg.primary}
 										{...register('name')}
 										color="black"
 										h="max-content"
@@ -162,7 +148,7 @@ export const EditProfileComponent = () => {
 										bgColor="white"
 										_hover={{}}
 										color="black"
-										borderColor={theme.bg.primary}
+										borderColor={errors.email ? 'red' : theme.bg.primary}
 										h="max-content"
 										py="1"
 										borderRadius="base"

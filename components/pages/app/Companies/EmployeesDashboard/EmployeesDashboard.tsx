@@ -1,5 +1,5 @@
 import { Flex, Link, Text, useDisclosure } from '@chakra-ui/react';
-import { useCompanies, usePicasso } from 'hooks';
+import { usePicasso } from 'hooks';
 import { AddEmployee, BlackButton, EmployeeData } from 'components';
 import { IEmployee } from 'types';
 import useTranslation from 'next-translate/useTranslation';
@@ -17,16 +17,10 @@ export const EmployeesDashboard: React.FC<IEmployeeDashboard> = ({
 	const { t: translate } = useTranslation('company-overall');
 
 	const { isOpen, onOpen, onClose } = useDisclosure();
-	const { setSelectedCompanyEmployees, selectedCompany } = useCompanies();
 
 	return (
 		<Flex w="100%" direction="column" gap="4" color={theme.text.primary}>
-			<AddEmployee
-				isOpen={isOpen}
-				onClose={onClose}
-				company={selectedCompany.name}
-				setEmployees={setSelectedCompanyEmployees}
-			/>
+			<AddEmployee isOpen={isOpen} onClose={onClose} />
 			<Flex justify="space-between" w="100%" align="center">
 				<Flex fontWeight="medium" gap="1">
 					<Text>{employees?.length}</Text>

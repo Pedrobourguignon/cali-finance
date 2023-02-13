@@ -15,12 +15,11 @@ import {
 	Paginator,
 	LifeIsEasierTabletBreakpoint,
 } from 'components';
-import { ProfileProvider } from 'contexts';
 import { usePicasso, useProfile } from 'hooks';
 import { AppLayout } from 'layouts';
 import { useSession } from 'next-auth/react';
 import useTranslation from 'next-translate/useTranslation';
-import React, { useMemo, useState, useEffect } from 'react';
+import React, { useMemo, useState } from 'react';
 import { BiChevronDown } from 'react-icons/bi';
 import { IHistoryNotification, IHistoryPage } from 'types';
 
@@ -107,6 +106,7 @@ export const HistoryComponent: React.FC<IHistoryPage> = ({ history }) => {
 								rightIcon={<BiChevronDown />}
 								bg="white"
 								disabled={!session}
+								fb0bfdb3e84b980e3bee2b86dd5fa8dc6560fb9
 								_hover={{}}
 								_active={{}}
 								_focus={{}}
@@ -141,17 +141,15 @@ export const HistoryComponent: React.FC<IHistoryPage> = ({ history }) => {
 							</MenuList>
 						</Menu>
 					</Flex>
-					{!session && (
+					{!session ? (
 						<>
 							<Text fontSize="sm" color={theme.text.primary}>
 								Please connect your wallet to be able to view your history.
 							</Text>
 							<HistorySkeletons />
 						</>
-					)}
-
-					{session && (
-						<>
+					) : (
+						<Flex w="full" direction="column">
 							<Flex direction="column" gap="2">
 								<DisplayedNotifications
 									notificationPerPage={notificationPerPage}
@@ -159,16 +157,45 @@ export const HistoryComponent: React.FC<IHistoryPage> = ({ history }) => {
 									filteredNotifications={filteredNotifications}
 								/>
 							</Flex>
-							<Flex justify="center" pb="6">
-								<Paginator
-									actualPage={pageNumber + 1}
-									maxPage={maxPage}
-									previous={previous}
-									next={next}
-								/>
-							</Flex>
-						</>
-					)}
+							{filteredNotifications.length ? (
+								<Flex justify="center" pt="5" pb="6">
+									<Paginator
+										actualPage={pageNumber + 1}
+										maxPage={maxPage}
+										previous={previous}
+										next={next}
+									/>
+								</Flex>
+							) : (
+								<Flex whiteSpace="normal" w={{ md: '33.75rem', lg: 'full' }}>
+									<Text
+										color={theme.text.primary}
+										fontSize="sm"
+										whiteSpace="normal"
+									>
+										{translate('noResults')}
+										<Text
+											decoration="underline"
+											color={theme.text.primary}
+											fontSize="sm"
+											as="span"
+											whiteSpace="normal"
+											fontWeight="semibold"
+											cursor="pointer"
+											onClick={() => {
+												setFilteredNotifications(history);
+												setSelectedFilterOption(translate('all'));
+											}}
+										>
+											{' '}
+											{translate('returnToAllResults')}
+										</Text>{' '}
+										{translate('orSelectAnother')}
+									</Text>
+								</Flex>
+							)}
+						</Flex>
+					)}{' '}
 				</Flex>
 			</Flex>
 		</AppLayout>

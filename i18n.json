@@ -17,7 +17,8 @@
 			"create-company",
 			"company-overall",
 			"create-team",
-			"alerts"
+			"alerts",
+			"schemas"
 		],
 		"/": ["home", "example"],
 		"/dashboard": [
@@ -32,7 +33,8 @@
 			"create-company",
 			"company-overall",
 			"create-team",
-			"alerts"
+			"alerts",
+			"schemas"
 		]
 	}
 }
