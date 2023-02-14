@@ -1,7 +1,7 @@
 import { OverviewComponent, WithdrawalsBanner } from 'components';
 import { usePicasso } from 'hooks';
 import { AppLayout } from 'layouts';
-import { CompaniesProvider, ProfileProvider } from 'contexts';
+import { CompaniesProvider, ProfileProvider, TokensProvider } from 'contexts';
 
 const teams = [
 	{
@@ -31,12 +31,14 @@ export const OverviewTab = () => {
 	const theme = usePicasso();
 
 	return (
-		<ProfileProvider>
-			<CompaniesProvider>
-				<AppLayout right={<WithdrawalsBanner />}>
-					<OverviewComponent />
-				</AppLayout>
-			</CompaniesProvider>
-		</ProfileProvider>
+		<TokensProvider>
+			<ProfileProvider>
+				<CompaniesProvider>
+					<AppLayout right={<WithdrawalsBanner />}>
+						<OverviewComponent />
+					</AppLayout>
+				</CompaniesProvider>
+			</ProfileProvider>
+		</TokensProvider>
 	);
 };
