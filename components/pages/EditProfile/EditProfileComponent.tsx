@@ -43,6 +43,7 @@ export const EditProfileComponent = () => {
 		resolver: yupResolver(editProfileSchema),
 	});
 	const [editProfilePicture, setEditProfilePicture] = useState('');
+	const { userProfile } = useProfile();
 
 	const handleEditProfile = (newDataOfProfile: IEditProfile) => {
 		console.log(newDataOfProfile);
@@ -78,19 +79,22 @@ export const EditProfileComponent = () => {
 				pb="6"
 			>
 				<Flex
-					bgImage={editProfilePicture}
-					bgSize="cover"
-					bgRepeat="no-repeat"
 					_hover={{ opacity: '80%' }}
 					_active={{}}
 					_focus={{}}
-					borderRadius="full"
 					onClick={isConnected ? onOpen : undefined}
 					zIndex="docked"
 				>
-					{editProfilePicture === '' && (
-						<Img src="/images/editImage.png" boxSize="24" />
-					)}
+					<Img
+						src={
+							userProfile.picture === ''
+								? '/images/editImage.png'
+								: userProfile.picture
+						}
+						boxSize="24"
+						borderRadius="full"
+						objectFit="cover"
+					/>
 				</Flex>
 				<Button
 					mt="4"
