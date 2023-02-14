@@ -3,7 +3,7 @@ import { OverviewComponent, WithdrawalsBanner } from 'components';
 import { usePicasso } from 'hooks';
 import { AppLayout } from 'layouts';
 import useTranslation from 'next-translate/useTranslation';
-import { CompaniesProvider } from 'contexts';
+import { CompaniesProvider, TokensProvider } from 'contexts';
 
 const teams = [
 	{
@@ -35,9 +35,11 @@ export const OverviewTab = () => {
 
 	return (
 		<CompaniesProvider>
-			<AppLayout right={<WithdrawalsBanner />}>
-				<OverviewComponent />
-			</AppLayout>
+			<TokensProvider>
+				<AppLayout right={<WithdrawalsBanner />}>
+					<OverviewComponent />
+				</AppLayout>
+			</TokensProvider>
 		</CompaniesProvider>
 	);
 };

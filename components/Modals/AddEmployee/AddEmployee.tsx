@@ -15,8 +15,9 @@ import {
 	FormControl,
 	InputGroup,
 	Img,
+	useDisclosure,
 } from '@chakra-ui/react';
-import { BlackButton, UploadCsv } from 'components';
+import { BlackButton, TokenSelector, UploadCsv } from 'components';
 import { useCompanies, usePicasso, useSchema } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
 import React, { useState } from 'react';
@@ -41,16 +42,20 @@ export const AddEmployee: React.FC<IAddEmployee> = ({
 		amount: 0,
 		amountInDollar: 0,
 	});
+	const [token, setToken] = useState<ISelectedCoin>({
+		logo: 'https://assets.coingecko.com/coins/images/1/thumb/bitcoin.png?1547033579',
+		symbol: 'BTC',
+	} as ISelectedCoin);
 	const bitcoinPrice = 87.586;
 	const { addEmployeeSchema } = useSchema();
 	const { setSelectedCompanyEmployees, selectedCompany } = useCompanies();
 
 	const theme = usePicasso();
-
-	const selectedCoin: ISelectedCoin = {
-		logo: 'https://assets.coingecko.com/coins/images/1/thumb/bitcoin.png?1547033579',
-		symbol: 'BTC',
-	};
+	const {
+		isOpen: isOpenTokenSelector,
+		onOpen: onOpenTokenSelector,
+		onClose: onCloseTokenSelector,
+	} = useDisclosure();
 
 	const [individuallyOrList, setIndividuallyOrList] = useState(true);
 	const shouldDisplay = individuallyOrList ? 'flex' : 'none';
@@ -126,6 +131,11 @@ export const AddEmployee: React.FC<IAddEmployee> = ({
 
 	return (
 		<Modal isOpen={isOpen} onClose={handleResetFormInputs} size="sm">
+			<TokenSelector
+				isOpen={isOpenTokenSelector}
+				onClose={onCloseTokenSelector}
+				setToken={setToken}
+			/>
 			<ModalOverlay />
 			<ModalContent
 				m="auto"
@@ -295,11 +305,12 @@ export const AddEmployee: React.FC<IAddEmployee> = ({
 											_active={{}}
 											_focus={{}}
 											h="2.136rem"
+											onClick={onOpenTokenSelector}
 										>
 											<Flex gap="2" align="center">
-												<Img boxSize="4" src={selectedCoin.logo} />
+												<Img boxSize="4" src={token.logo} />
 												<Text fontSize="sm" width="8" lineHeight="5">
-													{selectedCoin.symbol}
+													{token.symbol}
 												</Text>
 												<Icon boxSize="4" as={IoIosArrowDown} />
 											</Flex>
