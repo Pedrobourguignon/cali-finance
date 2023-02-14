@@ -37,20 +37,20 @@ export const ErrorAlert = () => {
 				<Link href="/app">
 					<OffsetShadow
 						width="64"
-						height="9"
-						borderColor="black"
+						height="10"
+						borderColor={theme.bg.primary}
 						top="2"
-						left="1.5"
+						left="2"
 					>
 						<Button
 							_hover={{}}
 							_focus={{ background: 'black' }}
 							_active={{
 								background: 'white',
-								transform: 'translateY(0.4rem) translateX(0.4rem)',
+								transform: 'translateY(0.5rem) translateX(0.5rem)',
 							}}
 							color="white"
-							bg="black"
+							bg={theme.bg.primary}
 							fontSize="md"
 							w="max-content"
 							px="20"
