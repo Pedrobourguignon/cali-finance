@@ -196,9 +196,6 @@ export const HistoryComponent: React.FC<IHistoryPage> = ({ history }) => {
 							)}
 						</Flex>
 					)}
-					{/*
-					{!isConnected && (
-					)} */}
 				</Flex>
 			</Flex>
 		</AppLayout>
