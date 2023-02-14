@@ -34,13 +34,13 @@ export const ErrorAlert = () => {
 				<Text fontSize={{ base: 'xl', sm: '4xl' }} color={theme.text.black3}>
 					{translate('somethingWentWrong')}
 				</Text>
-				<Link href="/">
+				<Link href="/app">
 					<OffsetShadow
 						width="64"
 						height="9"
 						borderColor="black"
-						top="0.5rem"
-						left="0.375rem"
+						top="2"
+						left="1.5"
 					>
 						<Button
 							_hover={{}}
