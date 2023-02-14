@@ -1,20 +1,19 @@
 import { Flex, Link, Text, useDisclosure } from '@chakra-ui/react';
-import { usePicasso } from 'hooks';
+import { useCompanies, usePicasso } from 'hooks';
 import { AddEmployee, BlackButton, EmployeeData } from 'components';
-import { IEmployee } from 'types';
 import useTranslation from 'next-translate/useTranslation';
 
 interface IEmployeeDashboard {
-	employees: IEmployee[];
 	isGeneral: boolean;
 }
 
 export const EmployeesDashboard: React.FC<IEmployeeDashboard> = ({
-	employees,
 	isGeneral,
 }) => {
 	const theme = usePicasso();
 	const { t: translate } = useTranslation('company-overall');
+	const { selectedCompany } = useCompanies();
+	const { employees } = selectedCompany;
 
 	const { isOpen, onOpen, onClose } = useDisclosure();
 

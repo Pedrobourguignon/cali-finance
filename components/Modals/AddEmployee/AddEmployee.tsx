@@ -95,6 +95,16 @@ export const AddEmployee: React.FC<IAddEmployee> = ({
 		resolver: yupResolver(addEmployeeSchema),
 	});
 
+	const handleResetFormInputs = () => {
+		reset();
+		onClose();
+		setAddedEmployeeData(prevState => ({
+			...prevState,
+			amount: 0,
+			walletAddress: '',
+		}));
+	};
+
 	const handleAddEmployee = (newEmployeeData: IAddEmployeeForm) => {
 		if (setEmployees) {
 			setEmployees(prevState =>
@@ -121,12 +131,8 @@ export const AddEmployee: React.FC<IAddEmployee> = ({
 				])
 			);
 		}
-		onClose();
-	};
-
-	const handleResetFormInputs = () => {
-		reset();
-		onClose();
+		console.log(selectedCompany.employees);
+		handleResetFormInputs();
 	};
 
 	return (

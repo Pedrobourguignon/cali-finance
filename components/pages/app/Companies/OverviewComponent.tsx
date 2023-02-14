@@ -22,10 +22,7 @@ export const OverviewComponent = () => {
 			</Flex>
 			<Flex py="6" direction="column" gap="9">
 				<Flex pt="6">
-					<EmployeesDashboard
-						employees={selectedCompany.employees!}
-						isGeneral={false}
-					/>
+					<EmployeesDashboard isGeneral={false} />
 				</Flex>
 				<RecentActivities />
 			</Flex>

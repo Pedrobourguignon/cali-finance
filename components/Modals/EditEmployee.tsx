@@ -16,8 +16,7 @@ import {
 	Img,
 	useDisclosure,
 } from '@chakra-ui/react';
-import { useCompanies, usePicasso, useSchema } from 'hooks';
-import useTranslation from 'next-translate/useTranslation';
+import { usePicasso, useSchema } from 'hooks';
 import React, { useState } from 'react';
 import { IoIosArrowDown } from 'react-icons/io';
 import { IEditEmployee, IEditEmployeeForm, ISelectedCoin } from 'types';
@@ -80,11 +79,15 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 	const handleResetFormInputs = () => {
 		reset();
 		onClose();
+		setEditedEmployeeData(prevState => ({
+			...prevState,
+			amount: 0,
+		}));
 	};
 
 	const handleEditEmployee = (editedEmployeeFormData: IEditEmployeeForm) => {
 		console.log(editedEmployeeFormData);
-		onClose();
+		handleResetFormInputs();
 	};
 
 	return (
