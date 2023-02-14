@@ -8,7 +8,7 @@
 	"pending": "Pending",
 	"addedToTeam": "Added to team",
 	"teamCreated": "Team created",
-	"noResults": "No results were found for this filter. You can",
+	"noResults": "No results were found for this filter. You can ",
 	"returnToAllResults": "Return to All Results",
 	"orSelectAnother": "or select another option above."
 }
