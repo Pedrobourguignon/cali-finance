@@ -15,7 +15,7 @@ import { Select } from 'chakra-react-select';
 import { BsQuestionCircle } from 'react-icons/bs';
 import { ICreateCompany } from 'types';
 import useTranslation from 'next-translate/useTranslation';
-import { NetworkTooltip } from 'components/Tooltips';
+import { NetworkTooltip, BlackButton } from 'components';
 
 interface ICreateCompanyComponent {
 	control: Control<ICreateCompany>;
@@ -150,7 +150,7 @@ export const CreateCompanyComponent: React.FC<ICreateCompanyComponent> = ({
 													bg: 'white',
 													minWidth: '48',
 													borderRadius: 'base',
-													borderColor: '#121212',
+													borderColor: errors.type ? 'red' : theme.bg.primary,
 													cursor: 'pointer',
 												}),
 												menuList: group => ({
@@ -181,7 +181,6 @@ export const CreateCompanyComponent: React.FC<ICreateCompanyComponent> = ({
 							>
 								<Flex gap="2" mb="2" align="center">
 									<Text {...labelStyle}>Network *</Text>
-
 									<Tooltip
 										label={
 											<NetworkTooltip>
@@ -226,7 +225,9 @@ export const CreateCompanyComponent: React.FC<ICreateCompanyComponent> = ({
 													bg: 'white',
 													borderRadius: 'base',
 													minWidth: '48',
-													borderColor: '#121212',
+													borderColor: errors.network
+														? 'red'
+														: theme.bg.primary,
 													cursor: 'pointer',
 												}),
 												menuList: group => ({
@@ -274,7 +275,7 @@ export const CreateCompanyComponent: React.FC<ICreateCompanyComponent> = ({
 										bgColor="white"
 										borderRadius="base"
 										_hover={{}}
-										borderColor={theme.bg.primary}
+										borderColor={errors.email ? 'red' : theme.bg.primary}
 									/>
 								)}
 								name="email"
@@ -308,22 +309,17 @@ export const CreateCompanyComponent: React.FC<ICreateCompanyComponent> = ({
 							/>
 						</Flex>
 					</Flex>
-
-					<Button
+					<BlackButton
 						type="submit"
-						bg={theme.bg.primary}
-						color="white"
-						borderRadius="sm"
-						_hover={{}}
 						gap="2.5"
-						fontWeight="medium"
-						fontSize="md"
 						lineHeight="6"
 						display={{ md: 'none', lg: 'flex' }}
+						py="2.5"
+						borderRadius="sm"
 					>
 						<Text>+</Text>
 						<Text>{translate('createCompany')}</Text>
-					</Button>
+					</BlackButton>
 				</Flex>
 				<Flex
 					direction="column"
@@ -379,7 +375,7 @@ export const CreateCompanyComponent: React.FC<ICreateCompanyComponent> = ({
 										bg: 'white',
 										minWidth: '48',
 										borderRadius: 'base',
-										borderColor: '#121212',
+										borderColor: errors.network ? 'red' : theme.bg.primary,
 										cursor: 'pointer',
 										_hover: {},
 									}),

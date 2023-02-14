@@ -8,8 +8,8 @@ import {
 
 export const UpgradeAccount = () => (
 	<InfosBanner
-		ondulatedImg="/images/small-ondulated.png"
-		ilustrationImg="/images/illustration-small.png"
+		ondulatedImg="/images/bottom-small-wave.svg"
+		ilustrationImg="/images/illustration.svg"
 	>
 		<Flex direction="column" px="4" py="4" gap="14">
 			<ActiveTeamsBar />

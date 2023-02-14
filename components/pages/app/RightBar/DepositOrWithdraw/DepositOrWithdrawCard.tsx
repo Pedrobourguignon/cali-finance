@@ -9,17 +9,16 @@ import {
 	Text,
 	useDisclosure,
 } from '@chakra-ui/react';
-import { TokenSelector } from 'components';
-import { usePicasso } from 'hooks';
+import { BlackButton, TokenSelector } from 'components';
+import { usePicasso, useSchema } from 'hooks';
 import { useForm } from 'react-hook-form';
 import useTranslation from 'next-translate/useTranslation';
 import { Dispatch, SetStateAction, useState } from 'react';
 import { IoIosArrowDown } from 'react-icons/io';
 import { ISelectedCoin, ITransaction } from 'types';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { transactionSchema } from 'utils';
 
-interface IDepoistOrWithdrawCard {
+interface IDepositOrWithdrawCard {
 	setTransaction: Dispatch<SetStateAction<ITransaction>>;
 	setConfirm: Dispatch<SetStateAction<boolean>>;
 }
@@ -28,11 +27,12 @@ interface IDepositOrWithdrawnForm {
 	amount: number;
 }
 
-export const DepositOrWithdrawCard: React.FC<IDepoistOrWithdrawCard> = ({
+export const DepositOrWithdrawCard: React.FC<IDepositOrWithdrawCard> = ({
 	setTransaction,
 	setConfirm,
 }) => {
 	const { t: translate } = useTranslation('company-overall');
+	const { transactionSchema } = useSchema();
 	const theme = usePicasso();
 	const { onClose, isOpen, onOpen } = useDisclosure();
 	const buttonOptions = [translate('deposit'), translate('withdrawal')];
@@ -101,66 +101,51 @@ export const DepositOrWithdrawCard: React.FC<IDepoistOrWithdrawCard> = ({
 							</Button>
 						))}
 					</Flex>
-					<Flex direction="column" gap="2">
-						<Text fontSize="sm">{translate('amount')}</Text>
-						<InputGroup>
-							<Input
-								_placeholder={{ color: 'blackAlpha.500' }}
-								placeholder="0.00"
-								borderColor={theme.bg.primary}
-								h="8"
-								flex="3"
-								borderRightRadius="none"
-								_hover={{}}
-								color="blackAlpha.500"
-								type="number"
-								zIndex="docked"
-								{...register('amount')}
-							/>
-							<Text position="absolute" color="red" pt="7">
+					<Flex direction="column" gap={errors.amount ? '2' : '6'}>
+						<Flex direction="column" gap="2">
+							<Text fontSize="sm">{translate('amount')}</Text>
+							<InputGroup>
+								<Input
+									_placeholder={{ color: 'blackAlpha.500' }}
+									placeholder="0.00"
+									borderColor={errors.amount ? 'red' : theme.bg.primary}
+									h="8"
+									flex="3"
+									borderRightRadius="none"
+									_hover={{}}
+									color={theme.text.primary}
+									type="number"
+									zIndex="docked"
+									{...register('amount')}
+								/>
+								<Button
+									borderLeftRadius="none"
+									bg={theme.bg.primary}
+									_hover={{ opacity: '80%' }}
+									h="8"
+									_active={{}}
+									_focus={{}}
+									onClick={onOpen}
+								>
+									<Flex gap="2" align="center" color="white">
+										<Img boxSize="4" src={token.logo} />
+										<Text fontSize="sm" whiteSpace="nowrap">
+											{token.symbol}
+										</Text>
+										<Icon boxSize="4" as={IoIosArrowDown} />
+									</Flex>
+								</Button>
+							</InputGroup>
+							<Text color="red" fontSize="sm">
 								{errors.amount?.message}
 							</Text>
-							<Button
-								borderLeftRadius="none"
-								bg={theme.bg.primary}
-								_hover={{ opacity: '80%' }}
-								h="8"
-								_active={{}}
-								_focus={{}}
-								onClick={onOpen}
-							>
-								<Flex gap="2" align="center" color="white">
-									<Img boxSize="4" src={token.logo} />
-									<Text fontSize="sm" whiteSpace="nowrap">
-										{token.symbol}
-									</Text>
-									<Icon boxSize="4" as={IoIosArrowDown} />
-								</Flex>
-							</Button>
-						</InputGroup>
+						</Flex>
+						<BlackButton py="1.5" type="submit" whiteSpace="normal">
+							{selectedOption === translate('deposit')
+								? translate('addFunds')
+								: translate('withdrawFunds')}
+						</BlackButton>
 					</Flex>
-					<Button
-						bg={theme.bg.primary}
-						type="submit"
-						color="white"
-						w="100%"
-						py="1.5"
-						h="8"
-						px="6"
-						whiteSpace="normal"
-						fontSize={{ base: 'xs', xl: 'md' }}
-						_hover={{
-							opacity: 0.8,
-						}}
-						_focus={{}}
-						_active={{
-							opacity: 0.8,
-						}}
-					>
-						{selectedOption === translate('deposit')
-							? translate('addFunds')
-							: translate('withdrawFunds')}
-					</Button>
 				</Flex>
 			</form>
 		</FormControl>

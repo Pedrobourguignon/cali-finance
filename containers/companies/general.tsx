@@ -3,7 +3,7 @@ import { CompaniesProvider, ProfileProvider } from 'contexts';
 import { usePicasso } from 'hooks';
 
 export const CompaniesContainer = () => {
-	const theme = usePicasso();
+	const isConnected = true;
 	return (
 		<ProfileProvider>
 			<CompaniesProvider>

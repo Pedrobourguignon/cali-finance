@@ -20,8 +20,8 @@ export const DepositOrWithdrawBanner = () => {
 	return (
 		<Flex direction="column" gap="8">
 			<InfosBanner
-				ilustrationImg="/images/illustration-small.png"
-				ondulatedImg="/images/small-ondulated.png"
+				ilustrationImg="/images/illustration.svg"
+				ondulatedImg="/images/bottom-small-wave.svg"
 				bottom="0"
 			>
 				<Flex

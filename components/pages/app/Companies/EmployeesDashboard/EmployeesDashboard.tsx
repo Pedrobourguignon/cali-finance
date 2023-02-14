@@ -1,6 +1,6 @@
-import { Button, Flex, Link, Text, useDisclosure } from '@chakra-ui/react';
-import { usePicasso, useTeams } from 'hooks';
-import { AddEmployee, EmployeeData } from 'components';
+import { Flex, Link, Text, useDisclosure } from '@chakra-ui/react';
+import { usePicasso } from 'hooks';
+import { AddEmployee, BlackButton, EmployeeData } from 'components';
 import { IEmployee } from 'types';
 import useTranslation from 'next-translate/useTranslation';
 
@@ -17,16 +17,10 @@ export const EmployeesDashboard: React.FC<IEmployeeDashboard> = ({
 	const { t: translate } = useTranslation('company-overall');
 
 	const { isOpen, onOpen, onClose } = useDisclosure();
-	const { setMarketingEmployee } = useTeams();
 
 	return (
 		<Flex w="100%" direction="column" gap="4" color={theme.text.primary}>
-			<AddEmployee
-				isOpen={isOpen}
-				onClose={onClose}
-				company="Kylie"
-				setEmployees={setMarketingEmployee}
-			/>
+			<AddEmployee isOpen={isOpen} onClose={onClose} />
 			<Flex justify="space-between" w="100%" align="center">
 				<Flex fontWeight="medium" gap="1">
 					<Text>{employees?.length}</Text>
@@ -40,23 +34,19 @@ export const EmployeesDashboard: React.FC<IEmployeeDashboard> = ({
 							</Text>
 						</Link>
 					)}
-					<Button
-						bg={theme.bg.primary}
-						fontSize="xs"
-						fontWeight="medium"
-						gap="2.5"
-						color="white"
-						h="6"
+
+					<BlackButton
 						px="3"
-						borderRadius="base"
-						_hover={{ opacity: '80%' }}
-						_active={{}}
-						_focus={{}}
 						onClick={onOpen}
+						fontSize="xs"
+						gap="2.5"
+						fontWeight="medium"
+						py="1"
+						borderRadius="base"
 					>
 						<Text>+</Text>
 						<Text>{translate('addEmployee')}</Text>
-					</Button>
+					</BlackButton>
 				</Flex>
 			</Flex>
 			<Flex w="100%" direction="column" gap="2">
