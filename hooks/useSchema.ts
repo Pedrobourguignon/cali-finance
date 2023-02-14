@@ -6,17 +6,8 @@ import { ethAddressRegex } from '../utils/Validations/regex';
 const useSchema = () => {
 	const { t: translate } = useTranslation('schemas');
 	const editProfileSchema = yup.object().shape({
-		name: yup
-			.string()
-			.required(translate('required'))
-			.matches(nameRegex, translate('nameDontAcceptNumber'))
-			.min(3, translate('nameMin')),
-		email: yup
-			.string()
-			.lowercase()
-			.required(translate('required'))
-			.email(translate('emailFormatInvalid'))
-			.matches(limitSpecialCharacterRegex, translate('emailContains')),
+		name: yup.string().matches(nameRegex, translate('nameDontAcceptNumber')),
+		email: yup.string().lowercase().email(translate('emailFormatInvalid')),
 	});
 	const editEmployeeSchema = yup.object().shape({
 		amount: yup

@@ -17,9 +17,8 @@ import { useForm } from 'react-hook-form';
 
 interface IEditProfile {
 	name: string;
-	type: string;
 	email: string;
-	description?: string;
+	picture: string;
 }
 
 export const EditProfileComponent = () => {
@@ -43,7 +42,7 @@ export const EditProfileComponent = () => {
 		resolver: yupResolver(editProfileSchema),
 	});
 	const [editProfilePicture, setEditProfilePicture] = useState('');
-	const { userProfile } = useProfile();
+	const { userProfile, setUserProfile, editedProfileInfo } = useProfile();
 
 	const handleEditProfile = (newDataOfProfile: IEditProfile) => {
 		console.log(newDataOfProfile);
@@ -120,6 +119,8 @@ export const EditProfileComponent = () => {
 								<Flex direction="column" gap="2">
 									<Text {...labelStyle}>{translate('name')}</Text>
 									<Input
+										type="text"
+										defaultValue={userProfile.name}
 										borderRadius="base"
 										placeholder={translate('insertHere')}
 										borderColor={errors.name ? 'red' : theme.bg.primary}
@@ -134,6 +135,12 @@ export const EditProfileComponent = () => {
 										h="max-content"
 										py="1"
 										disabled={!isConnected}
+										onChange={name => {
+											setUserProfile(prevState => ({
+												...prevState,
+												name: name.target.value,
+											}));
+										}}
 									/>
 									<Text fontSize="xs" color="red">
 										{errors.name?.message}
@@ -142,6 +149,7 @@ export const EditProfileComponent = () => {
 								<Flex direction="column" gap="2">
 									<Text {...labelStyle}>{translate('yourBestEmail')}</Text>
 									<Input
+										defaultValue={userProfile.email}
 										placeholder={translate('exampleEmail')}
 										_placeholder={{
 											color: 'blackAlpha.500',
@@ -156,6 +164,12 @@ export const EditProfileComponent = () => {
 										borderRadius="base"
 										{...register('email')}
 										disabled={!isConnected}
+										onChange={email => {
+											setUserProfile(prevState => ({
+												...prevState,
+												email: email.target.value,
+											}));
+										}}
 									/>
 									<Text fontSize="xs" color="red">
 										{errors.email?.message}
@@ -168,6 +182,11 @@ export const EditProfileComponent = () => {
 								fontSize="md"
 								py="2.5"
 								borderRadius="sm"
+								disabled={
+									editedProfileInfo.email === userProfile.email &&
+									editedProfileInfo.name === userProfile.name &&
+									editedProfileInfo.picture === userProfile.picture
+								}
 							>
 								{translate('saveChanges')}
 							</BlackButton>
