@@ -64,6 +64,8 @@ export const HistoryComponent: React.FC<IHistoryPage> = ({ history }) => {
 		setSelectedFilterOption(filter);
 	};
 
+	console.log(selectedFilterOption);
+
 	useEffect(() => {
 		setPageNumber(0);
 	}, [filteredNotifications]);
@@ -113,7 +115,7 @@ export const HistoryComponent: React.FC<IHistoryPage> = ({ history }) => {
 								_active={{}}
 								_focus={{}}
 							>
-								{isConnected ? translate('all') : selectedFilterOption}
+								{!isConnected ? translate('all') : selectedFilterOption}
 							</MenuButton>
 							<MenuList
 								p="0"
