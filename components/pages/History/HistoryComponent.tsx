@@ -100,7 +100,7 @@ export const HistoryComponent: React.FC<IHistoryPage> = ({ history }) => {
 								h="max-content"
 								py="2"
 								px="3"
-								w="190px"
+								w="11.875rem"
 								gap="32"
 								fontWeight="normal"
 								fontSize={{ md: 'sm', '2xl': 'md' }}
