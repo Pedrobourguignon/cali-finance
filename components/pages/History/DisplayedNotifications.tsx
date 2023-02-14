@@ -31,6 +31,7 @@ export const DisplayedNotifications: React.FC<IDisplayedNotifications> = ({
 					bg="white"
 					px="3"
 					py="2"
+					h="3.25rem"
 					borderRadius="base"
 					align="center"
 					justify="space-between"

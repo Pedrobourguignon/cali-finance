@@ -20,5 +20,8 @@
 	"sept": "Sept",
 	"oct": "Oct",
 	"nov": "Nov",
-	"dec": "Dec"
+	"dec": "Dec",
+	"noResults": "No results were found for this filter. You can",
+	"returnToAllResults": "Return to All Results",
+	"orSelectAnother": "or select another option above."
 }

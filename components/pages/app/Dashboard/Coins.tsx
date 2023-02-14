@@ -70,6 +70,7 @@ export const Coins = () => {
 						coin={card}
 						borderColor="gray.50"
 						color="white"
+						pr={{ md: '2', xl: '9' }}
 						key={+index}
 					/>
 				))}

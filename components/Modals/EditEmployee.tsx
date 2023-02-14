@@ -14,16 +14,17 @@ import {
 	FormControl,
 	InputGroup,
 	Img,
+	useDisclosure,
 } from '@chakra-ui/react';
-import { usePicasso } from 'hooks';
+import { usePicasso, useSchema } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
 import React, { useState } from 'react';
 import { IoIosArrowDown } from 'react-icons/io';
-import { IEditEmployee, IEditEmployeeForm } from 'types';
-import { EditProfileIcon } from 'components';
+import { IEditEmployee, IEditEmployeeForm, ISelectedCoin } from 'types';
+import { BlackButton, EditProfileIcon, TokenSelector } from 'components';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { editEmployeeSchema, truncateWallet } from 'utils';
+import { truncateWallet } from 'utils';
 
 export const EditEmployee: React.FC<IEditEmployee> = ({
 	isOpen,
@@ -31,14 +32,19 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 	employee,
 }) => {
 	const theme = usePicasso();
-	const { t: translate } = useTranslation('swap-token');
 	const [amountInDollar, setAmountInDollar] = useState<number>(0);
-	const bitcoinPrice = 87586;
-
-	const selectedCoin = {
+	const [token, setToken] = useState<ISelectedCoin>({
 		logo: 'https://assets.coingecko.com/coins/images/1/thumb/bitcoin.png?1547033579',
 		symbol: 'BTC',
-	};
+	} as ISelectedCoin);
+	const bitcoinPrice = 87586;
+	const { editEmployeeSchema } = useSchema();
+
+	const {
+		isOpen: isOpenTokenSelector,
+		onOpen: onOpenTokenSelector,
+		onClose: onCloseTokenSelector,
+	} = useDisclosure();
 
 	const labelStyle: TextProps = {
 		color: 'black',
@@ -66,11 +72,17 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 
 	const handleEditEmployee = (editedEmployeeData: IEditEmployeeForm) => {
 		console.log(editedEmployeeData);
+		onClose();
 	};
 
 	return (
 		<Modal isOpen={isOpen} onClose={onClose} size="sm">
 			<ModalOverlay />
+			<TokenSelector
+				isOpen={isOpenTokenSelector}
+				onClose={onCloseTokenSelector}
+				setToken={setToken}
+			/>
 			<ModalContent
 				m="auto"
 				zIndex="1"
@@ -124,7 +136,7 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 											{...register('amount')}
 											_placeholder={{ ...placeholderStyle }}
 											placeholder="0.00"
-											borderColor="black"
+											borderColor={errors.amount ? 'red' : theme.bg.primary}
 											flex="3"
 											borderRightRadius="none"
 											_hover={{}}
@@ -147,11 +159,12 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 											_active={{}}
 											h="2.137rem"
 											_focus={{}}
+											onClick={onOpenTokenSelector}
 										>
 											<Flex gap="2" align="center">
-												<Img boxSize="4" src={selectedCoin.logo} />
+												<Img boxSize="4" src={token.logo} />
 												<Text fontSize="sm" width="8" lineHeight="5">
-													{selectedCoin.symbol}
+													{token.symbol}
 												</Text>
 												<Icon boxSize="4" as={IoIosArrowDown} />
 											</Flex>
@@ -183,24 +196,17 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 										the companies’ funds.
 									</Text>
 								</Flex>
-
-								<Flex pb="4">
-									<Button
-										w="full"
-										type="submit"
-										color="white"
-										bg={theme.text.primary}
-										borderRadius="sm"
-										fontWeight="medium"
-										size="md"
-										gap="3"
-										_hover={{}}
-										_active={{}}
-										_focus={{}}
-									>
-										Update Employee&apos;s Data
-									</Button>
-								</Flex>
+								<BlackButton
+									py="2.5"
+									type="submit"
+									fontWeight="normal"
+									gap="3"
+									borderRadius="sm"
+									mb="4"
+								>
+									<Text>+</Text>
+									Update Employee&apos;s Data
+								</BlackButton>
 							</ModalBody>
 						</FormControl>
 					</form>

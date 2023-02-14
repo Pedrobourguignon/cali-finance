@@ -62,8 +62,8 @@ export const DashboardComponent: React.FC = () => {
 					<DashboardHeader />
 					<Coins />
 				</Flex>
-				<Flex direction="column" gap="9" pt="8">
-					{isConnected ? <CompaniesList /> : <CreateCompanyCard />}
+				<Flex direction="column" gap="9" pt={!isConnected ? '4' : 0}>
+					{/* {isConnected ? <CompaniesList /> : <CreateCompanyCard />} */}
 					{isConnected && (
 						<Flex justify="space-between" w="full" gap="6">
 							<Flex w="full" flex="5.5">

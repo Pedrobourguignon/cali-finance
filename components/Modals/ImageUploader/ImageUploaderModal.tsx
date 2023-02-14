@@ -12,7 +12,7 @@ import {
 } from '@chakra-ui/react';
 import { usePicasso } from 'hooks';
 import { IBasicModal } from 'types';
-import { DragDrop } from 'components';
+import { BlackButton, DragDrop } from 'components';
 import { useState } from 'react';
 
 interface IImageUploader extends IBasicModal {
@@ -74,7 +74,7 @@ export const ImageUploaderModal: React.FC<IImageUploader> = ({
 				<ModalFooter display="flex" justifyContent="space-between">
 					<Button
 						onClick={onClose}
-						borderRadius="base"
+						borderRadius="sm"
 						color="black"
 						borderColor="black"
 						borderWidth="0.1rem"
@@ -82,16 +82,14 @@ export const ImageUploaderModal: React.FC<IImageUploader> = ({
 					>
 						Cancel
 					</Button>
-
-					<Button
-						bg="black"
+					<BlackButton
 						px="8"
-						borderRadius="base"
-						_hover={{ opacity: '0.75' }}
+						py="2.5"
 						onClick={handleUploadFile}
+						borderRadius="sm"
 					>
 						Upload File
-					</Button>
+					</BlackButton>
 				</ModalFooter>
 			</ModalContent>
 		</Modal>

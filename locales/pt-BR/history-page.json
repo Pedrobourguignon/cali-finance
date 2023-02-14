@@ -20,5 +20,8 @@
 	"sept": "Set",
 	"oct": "Out",
 	"nov": "Nov",
-	"dec": "Dez"
+	"dec": "Dez",
+	"noResults": "Nenhum resultado foi encontrado para este filtro. Você pode",
+	"returnToAllResults": "Retornar a Todos Resultados",
+	"orSelectAnother": "ou selecionar outra opção acima."
 }
