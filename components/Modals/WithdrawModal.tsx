@@ -37,7 +37,7 @@ export const WithdrawModal: React.FC<IBasicModal> = ({ isOpen, onClose }) => {
 		<Modal isOpen={isOpen} onClose={onClose}>
 			<ModalOverlay />
 			<ModalContent>
-				<OffsetShadow width="100%" height="56" top="2" left="2">
+				<OffsetShadow width="100%" top="0.5rem" left="0.5rem">
 					<Flex
 						borderRadius="base"
 						borderWidth="0.1rem"
