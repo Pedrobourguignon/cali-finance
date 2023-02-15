@@ -4,7 +4,7 @@ import { usePicasso } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
 import React from 'react';
 
-export const ErrorAlert = () => {
+export const NotFoundPage = () => {
 	const { t: translate } = useTranslation('dashboard');
 	const theme = usePicasso();
 	return (
@@ -34,17 +34,17 @@ export const ErrorAlert = () => {
 				<Text fontSize={{ base: 'xl', sm: '4xl' }} color={theme.text.black3}>
 					{translate('somethingWentWrong')}
 				</Text>
-				<Link href="/">
+				<Link href="/app">
 					<OffsetShadow borderColor="black" top="0.5rem" left="0.375rem">
 						<Button
 							_hover={{}}
 							_focus={{ background: 'black' }}
 							_active={{
 								background: 'white',
-								transform: 'translateY(0.4rem) translateX(0.4rem)',
+								transform: 'translateY(0.5rem) translateX(0.5rem)',
 							}}
 							color="white"
-							bg="black"
+							bg={theme.bg.primary}
 							fontSize="md"
 							w="max-content"
 							px="20"
@@ -58,4 +58,4 @@ export const ErrorAlert = () => {
 	);
 };
 
-export default ErrorAlert;
+export default NotFoundPage;
