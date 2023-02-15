@@ -87,7 +87,6 @@ export const Sidebar: React.FC = () => {
 	} as INetwork);
 
 	const changeLanguage = (lang: ILanguage) => {
-
 		router.push(`/${pathname}`, `/${pathname}`, { locale: lang });
 	};
 
