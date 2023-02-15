@@ -8,6 +8,7 @@
 	"manage": "Manage",
 	"myAssets": "My Assets",
 	"seeAll": "See all",
+	"seeLess": "See less",
 	"recentActivities": "Recent Activities",
 	"deposit": "Deposit",
 	"completed": "Completed",
@@ -21,5 +22,7 @@
 	"amount": "Amount",
 	"companies": "Companies",
 	"withdraw": "Withdraw",
-	"selectAOrg": "Please select a Company"
+	"selectAOrg": "Please select a Company",
+	"pendingNotifications": "pending notifications",
+	"clearAll": "Clear all"
 }

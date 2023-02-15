@@ -69,7 +69,7 @@ export const HistoryComponent: React.FC<IHistoryPage> = ({ history }) => {
 	return (
 		<AppLayout
 			right={
-				!isConnected ? (
+				isConnected ? (
 					<>
 						<Flex display={{ md: 'none', lg: 'flex' }}>
 							<LifeIsEasierBanner />
@@ -104,13 +104,13 @@ export const HistoryComponent: React.FC<IHistoryPage> = ({ history }) => {
 								as={Button}
 								rightIcon={<BiChevronDown />}
 								bg="white"
-								disabled={isConnected}
+								disabled={!isConnected}
 								_hover={{}}
 								_active={{}}
 								_focus={{}}
 								borderBottomRadius="none"
 							>
-								{isConnected ? translate('all') : selectedFilterOption}
+								{!isConnected ? translate('all') : selectedFilterOption}
 							</MenuButton>
 							<MenuList
 								p="0"
@@ -139,10 +139,10 @@ export const HistoryComponent: React.FC<IHistoryPage> = ({ history }) => {
 							</MenuList>
 						</Menu>
 					</Flex>
-					{isConnected ? (
+					{!isConnected ? (
 						<>
 							<Text fontSize="sm" color={theme.text.primary}>
-								Please connect your wallet to be able to view your history.
+								{translate('pleaseConnect')}
 							</Text>
 							<HistorySkeletons />
 						</>

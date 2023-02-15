@@ -3,7 +3,6 @@ import React from 'react';
 
 interface IOffsetShadow extends FlexProps {
 	children: JSX.Element | JSX.Element[];
-	buttonText?: string;
 }
 
 export const OffsetShadow: React.FC<IOffsetShadow> = ({
@@ -12,35 +11,42 @@ export const OffsetShadow: React.FC<IOffsetShadow> = ({
 	height = 'max-content',
 	bg = 'none',
 	children,
-	top,
-	left,
+	top = '0rem',
+	left = '0rem',
 	borderRadius = 'base',
-	buttonText = '',
 	display,
-	px,
 }) => (
 	<Flex
-		width={width}
-		height={height}
 		position="relative"
 		borderRadius={borderRadius}
+		width={width}
+		height={height}
 	>
-		<Flex px={px} py="1" color="transparent">
-			{buttonText}
-		</Flex>
 		<Flex
-			bg={bg}
-			boxSize="full"
-			top={top}
-			left={left}
-			zIndex="0"
 			position="absolute"
+			left={left}
+			bg={bg}
+			top={`calc(${top} - 1px)`}
+			zIndex="0"
 			border="1px solid"
 			borderColor={borderColor}
 			borderRadius="inherit"
 			display={display}
-		/>
-		<Flex zIndex="1" position="absolute" boxSize="full">
+			w="full"
+			px="0"
+			py="0"
+		>
+			<Flex opacity="0">{children}</Flex>
+		</Flex>
+		<Flex
+			bg={bg}
+			zIndex="0"
+			borderRadius="inherit"
+			display={display}
+			w="full"
+			px="0"
+			py="0"
+		>
 			{children}
 		</Flex>
 	</Flex>

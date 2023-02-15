@@ -35,13 +35,7 @@ export const ErrorAlert = () => {
 					{translate('somethingWentWrong')}
 				</Text>
 				<Link href="/">
-					<OffsetShadow
-						width="64"
-						height="9"
-						borderColor="black"
-						top="0.5rem"
-						left="0.375rem"
-					>
+					<OffsetShadow borderColor="black" top="0.5rem" left="0.375rem">
 						<Button
 							_hover={{}}
 							_focus={{ background: 'black' }}
