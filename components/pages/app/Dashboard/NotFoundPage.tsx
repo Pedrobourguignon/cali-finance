@@ -4,7 +4,7 @@ import { usePicasso } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
 import React from 'react';
 
-export const ErrorAlert = () => {
+export const NotFoundPage = () => {
 	const { t: translate } = useTranslation('dashboard');
 	const theme = usePicasso();
 	return (
@@ -64,4 +64,4 @@ export const ErrorAlert = () => {
 	);
 };
 
-export default ErrorAlert;
+export default NotFoundPage;

@@ -1,5 +1,5 @@
-import { ErrorAlert } from 'components';
+import { NotFoundContainer } from 'containers';
 
-export const Custom404 = () => <ErrorAlert />;
+export const NotFound = () => <NotFoundContainer />;
 
-export default Custom404;
+export default NotFound;
