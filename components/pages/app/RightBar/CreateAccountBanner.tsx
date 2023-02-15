@@ -31,7 +31,7 @@ export const CreateAccountBanner = () => {
 						</Text>
 					</Flex>
 					<Flex gap="6">
-						<OffsetShadow>
+						<OffsetShadow top="0.25rem" left="0.3rem" borderColor="white">
 							<Button
 								bg="white"
 								borderRadius="base"

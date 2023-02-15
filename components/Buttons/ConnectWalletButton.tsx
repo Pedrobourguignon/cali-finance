@@ -53,6 +53,7 @@ export const ConnectWalletButton = () => {
 				display={shouldDisplay}
 			>
 				<Button
+					w={{ md: '8.5rem', xl: '40', '2xl': '52' }}
 					h="max-content"
 					py={{ md: locale === 'pt-BR' ? '2.5' : '2', xl: '2' }}
 					fontSize={{ md: locale === 'pt-BR' ? 'xs' : 'sm', xl: 'sm' }}
