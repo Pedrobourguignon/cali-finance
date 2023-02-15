@@ -20,6 +20,7 @@
 	"members": "Membros",
 	"employees": "Funcionários",
 	"seeAll": "Ver tudo",
+	"seeLess": "Ver menos",
 	"addEmployee": "Adicionar funcionário",
 	"nameAddress": "Nome/Endereço",
 	"manage": "Gerenciar",

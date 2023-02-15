@@ -7,6 +7,7 @@ import {
 	OffsetShadow,
 } from 'components';
 import { useProfile } from 'hooks';
+import { useRouter } from 'next/router';
 
 interface IWalletData {
 	name: string;
@@ -16,6 +17,7 @@ interface IWalletData {
 export const ConnectWalletButton = () => {
 	const { t: translate } = useTranslation('sidebar');
 	const { isConnected } = useProfile();
+	const { locale } = useRouter();
 	const shouldDisplay = isConnected === true ? 'none' : 'flex';
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const [walletData, setWalletData] = useState<IWalletData>({
@@ -43,7 +45,6 @@ export const ConnectWalletButton = () => {
 			/>
 			<OffsetShadow
 				px={{ lg: '3', xl: '6' }}
-				buttonText="Connect Wallet"
 				width="max-content"
 				height="8"
 				borderColor="white"
@@ -53,8 +54,8 @@ export const ConnectWalletButton = () => {
 			>
 				<Button
 					h="max-content"
-					py="2"
-					fontSize="sm"
+					py={{ md: locale === 'pt-BR' ? '2.5' : '2', xl: '2' }}
+					fontSize={{ md: locale === 'pt-BR' ? 'xs' : 'sm', xl: 'sm' }}
 					color="black"
 					borderRadius="base"
 					bg="white"

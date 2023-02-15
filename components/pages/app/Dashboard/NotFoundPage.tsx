@@ -35,13 +35,7 @@ export const NotFoundPage = () => {
 					{translate('somethingWentWrong')}
 				</Text>
 				<Link href="/app">
-					<OffsetShadow
-						width="64"
-						height="10"
-						borderColor={theme.bg.primary}
-						top="2"
-						left="2"
-					>
+					<OffsetShadow borderColor="black" top="0.5rem" left="0.375rem">
 						<Button
 							_hover={{}}
 							_focus={{ background: 'black' }}

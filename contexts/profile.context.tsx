@@ -1,4 +1,4 @@
-import React, { useEffect, createContext, useState, useMemo } from 'react';
+import React, { createContext, useState, useMemo } from 'react';
 import { IProfile } from 'types';
 
 interface IProfileData {
@@ -19,7 +19,7 @@ export const ProfileContext = createContext({} as IProfileContext);
 export const ProfileProvider: React.FC<{ children: React.ReactNode }> = ({
 	children,
 }) => {
-	const [isConnected, setIsConnected] = useState(true);
+	const [isConnected, setIsConnected] = useState(false);
 	const [isLoading, setIsLoading] = useState(true);
 	const [userProfile, setUserProfile] = useState<IProfile>({
 		wallet: '0x6856...BF99',
