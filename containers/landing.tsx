@@ -75,14 +75,7 @@ export const LandingContainer: React.FC = () => {
 							gap="10"
 							align={{ base: 'center', lg: 'flex-start' }}
 						>
-							<OffsetShadow
-								width="48"
-								height="10"
-								borderColor="white"
-								borderRadius="sm"
-								position="absolute"
-								buttonText="Book a Demo"
-							>
+							<OffsetShadow borderColor="white" borderRadius="sm" top="0rem">
 								<Button
 									_hover={{
 										background: 'white',
