@@ -75,6 +75,7 @@ export const Sidebar: React.FC = () => {
 	];
 	const theme = usePicasso();
 	const { isSamePath } = usePath();
+
 	const { userProfile } = useProfile();
 	const { data: session } = useSession();
 	const { locale, pathname } = useRouter();
@@ -86,6 +87,7 @@ export const Sidebar: React.FC = () => {
 	} as INetwork);
 
 	const changeLanguage = (lang: ILanguage) => {
+
 		router.push(`/${pathname}`, `/${pathname}`, { locale: lang });
 	};
 
