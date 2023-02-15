@@ -27,16 +27,11 @@ export const ActivitiesData: React.FC<IActivitiesData> = ({ activities }) => {
 		if (activities.type === 'Withdrawal' || activities.type === 'Deposit') {
 			return (
 				<Flex direction="column" align="end" w="20">
-					<Flex
-						flexDir="row"
-						fontSize={{ md: 'xs', xl: 'sm', '2xl': 'md' }}
-						fontWeight="normal"
-						gap={{ md: '1', '2xl': '2' }}
-					>
+					<Flex flexDir="row" fontSize="xs" fontWeight="normal" gap="1">
 						<Text>{activities.value.toLocaleString('en-US')}</Text>
 						<Text>{activities.coin}</Text>
 					</Flex>
-					<Text fontSize={{ md: 'xs', '2xl': 'sm' }} color={getStatusColor()}>
+					<Text fontSize="xs" color={getStatusColor()}>
 						{translate(activities.status)}
 					</Text>
 				</Flex>
@@ -56,28 +51,22 @@ export const ActivitiesData: React.FC<IActivitiesData> = ({ activities }) => {
 		>
 			<Text
 				h="max-content"
-				fontSize={{ md: 'xs', xl: 'sm', '2xl': 'md' }}
+				fontSize="sm"
 				fontWeight="normal"
 				w={{ md: '24', lg: '36' }}
+				whiteSpace="nowrap"
 			>
 				{activities.name}
 			</Text>
 			<Flex align="center" gap="2">
-				<Img src={handleIcon()} boxSize={{ md: '4', '2xl': '6' }} />
+				<Img src={handleIcon()} boxSize="4" />
 				<Flex direction="column">
-					<Text
-						fontSize={{ md: 'xs', xl: 'sm', '2xl': 'md' }}
-						fontWeight="normal"
-					>
+					<Text fontSize="sm" fontWeight="normal">
 						{activities.type === 'Team Created'
 							? translate('teamCreated')
 							: translate(activities.type.toLowerCase())}
 					</Text>
-					<Text
-						color="gray.500"
-						fontSize={{ md: 'xs', '2xl': 'sm' }}
-						whiteSpace="nowrap"
-					>
+					<Text color="gray.500" fontSize="xs" whiteSpace="nowrap">
 						{activities.date}
 					</Text>
 				</Flex>

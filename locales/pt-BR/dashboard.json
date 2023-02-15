@@ -22,5 +22,7 @@
 	"amount": "Quantia",
 	"companies": "Organizações",
 	"withdraw": "Retirar",
-	"selectAOrg": "Selecione uma organização"
+	"selectAOrg": "Selecione uma organização",
+	"pendingNotifications": "notificações pendentes",
+	"clearAll": "Limpar tudo"
 }

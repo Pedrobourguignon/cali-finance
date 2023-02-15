@@ -23,7 +23,6 @@ export const InfosBanner: React.FC<IInfos> = ({
 			position="relative"
 			borderRadius="base"
 			{...props}
-			w="100%"
 		>
 			{children}
 			<Flex h="100%" w="100%" />

@@ -22,5 +22,7 @@
 	"amount": "Amount",
 	"companies": "Companies",
 	"withdraw": "Withdraw",
-	"selectAOrg": "Please select a Company"
+	"selectAOrg": "Please select a Company",
+	"pendingNotifications": "pending notifications",
+	"clearAll": "Clear all"
 }

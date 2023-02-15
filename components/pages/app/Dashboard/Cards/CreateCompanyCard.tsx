@@ -35,7 +35,7 @@ export const CreateCompanyCard = () => {
 						fontWeight="medium"
 						color={theme.text.mono}
 					>
-						You don’t have a Company yet
+						{translate('dontHaveCompany')}
 					</Text>
 				</Flex>
 			</Flex>
