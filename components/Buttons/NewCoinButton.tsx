@@ -9,18 +9,13 @@ export const NewCoinButton = () => {
 	const { t: translate } = useTranslation('dashboard');
 	const { locale } = useRouter();
 	return (
-		<OffsetShadow
-			borderColor="white"
-			position="absolute"
-			buttonText={translate('newCoin')}
-			px={{ md: '2', xl: '5', '2xl': '10' }}
-		>
+		<OffsetShadow borderColor="white" top="0rem" left="0rem">
 			<Button
 				position="relative"
 				w="full"
 				h="full"
-				px={{ md: '1', xl: '1' }}
-				py={{ md: '2', xl: '3' }}
+				px={{ base: '5' }}
+				py={{ base: '2' }}
 				fontSize={{
 					md: locale === 'pt-BR' ? 'xs' : 'xs',
 					xl: locale === 'pt-BR' ? 'xs' : 'sm',

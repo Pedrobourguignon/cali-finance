@@ -6,9 +6,16 @@ import { useCompanies, usePicasso } from 'hooks';
 interface ILanding {
 	children: React.ReactNode;
 	right?: React.ReactNode;
+	hasBg?: boolean;
+	bgColor?: string;
 }
 
-export const AppLayout: React.FC<ILanding> = ({ children, right }) => {
+export const AppLayout: React.FC<ILanding> = ({
+	children,
+	right,
+	hasBg = true,
+	bgColor,
+}) => {
 	const theme = usePicasso();
 	const { displayMissingFundsWarning } = useCompanies();
 	return (
@@ -25,7 +32,7 @@ export const AppLayout: React.FC<ILanding> = ({ children, right }) => {
 					>
 						<Sidebar />
 						<Flex
-							bg="white"
+							bg={bgColor || 'white'}
 							w="full"
 							borderLeft="0.25rem solid"
 							borderColor={theme.branding.blue}
@@ -34,9 +41,9 @@ export const AppLayout: React.FC<ILanding> = ({ children, right }) => {
 							flex="7"
 						>
 							<Flex
-								bg={theme.bg.gray2}
+								bg={bgColor || theme.bg.gray2}
 								w="full"
-								bgImage="/images/calipattern.png"
+								bgImage={hasBg ? '/images/calipattern.png' : 'none'}
 								bgRepeat="no-repeat"
 								bgPosition="right bottom"
 								position="relative"
@@ -47,7 +54,7 @@ export const AppLayout: React.FC<ILanding> = ({ children, right }) => {
 								<Flex direction="column" flex="7">
 									{children}
 								</Flex>
-								<Flex py="6" flex="3">
+								<Flex py="6" maxW={{ base: '100%', lg: '296px' }} w="100%">
 									{right}
 								</Flex>
 							</Flex>

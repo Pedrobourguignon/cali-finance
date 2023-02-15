@@ -102,7 +102,7 @@ export const Sidebar: React.FC = () => {
 				bg={theme.bg.primary}
 				align="center"
 				color="white"
-				minW={{ md: '44', lg: '9.65rem', xl: '13.7rem', '2xl': '16.3rem' }}
+				minW={{ md: '44', xl: '13.7rem', '2xl': '16.3rem' }}
 			>
 				<Flex
 					h="100vh"
@@ -111,7 +111,7 @@ export const Sidebar: React.FC = () => {
 					bg={theme.bg.primary}
 					align="center"
 					color="white"
-					minW={{ md: '44', lg: '9.65rem', xl: '13.7rem', '2xl': '16.3rem' }}
+					minW={{ md: '44', xl: '13.7rem', '2xl': '16.3rem' }}
 					position="fixed"
 				>
 					<Flex
@@ -197,8 +197,9 @@ export const Sidebar: React.FC = () => {
 									>
 										{comparedPath && (
 											<Box
+												position="absolute"
 												bgColor={theme.branding.blue}
-												w="3"
+												w="1"
 												h="8"
 												borderLeftRadius="none"
 												borderRightRadius="sm"

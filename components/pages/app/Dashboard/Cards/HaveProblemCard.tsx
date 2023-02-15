@@ -22,10 +22,15 @@ export const HaveProblemCard = () => {
 				position="relative"
 			>
 				<Flex direction="column" zIndex="docked">
-					<Text fontSize="xl" lineHeight="7" color="white" whiteSpace="nowrap">
+					<Text
+						fontSize={{ lg: 'md', xl: 'xl' }}
+						lineHeight="7"
+						color="white"
+						whiteSpace="nowrap"
+					>
 						{translate('haveAProblem')}
 					</Text>
-					<Text fontSize="md" lineHeight="6" color="white">
+					<Text fontSize={{ lg: 'sm', xl: 'md' }} lineHeight="6" color="white">
 						{translate('getInTouch')}
 					</Text>
 				</Flex>

@@ -5,7 +5,6 @@ import {
 	CreateCompanyCard,
 	RecentActivitiesDashboard,
 	MyAssets,
-	ErrorAlert,
 	CompaniesList,
 	WithdrawModal,
 } from 'components';
@@ -13,6 +12,7 @@ import React from 'react';
 import { IRecentActivitiesList } from 'types';
 import useTranslation from 'next-translate/useTranslation';
 import { useProfile } from 'hooks';
+import { NotFoundContainer } from 'containers';
 
 export const DashboardComponent: React.FC = () => {
 	const { t: translate } = useTranslation('dashboard');
@@ -45,15 +45,6 @@ export const DashboardComponent: React.FC = () => {
 			status: translate('completed'),
 		},
 	];
-
-	const error = false;
-
-	if (error)
-		return (
-			<Flex align="center" w="full" justify="center">
-				<ErrorAlert />
-			</Flex>
-		);
 
 	return (
 		<Flex w="full">

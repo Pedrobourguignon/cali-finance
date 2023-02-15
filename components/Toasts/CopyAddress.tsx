@@ -7,10 +7,8 @@ interface IToast {
 }
 export const CopyAddressToast: React.FC<IToast> = ({ onClick }) => (
 	<OffsetShadow
-		width="25rem"
-		height="14"
-		top="1"
-		left="1"
+		top="0.25rem"
+		left="0.25rem"
 		borderColor="green.500"
 		bg="green.500"
 	>

@@ -113,7 +113,7 @@ export const HistoryComponent: React.FC<IHistoryPage> = ({ history }) => {
 								_active={{}}
 								_focus={{}}
 							>
-								{isConnected ? translate('all') : selectedFilterOption}
+								{!isConnected ? translate('all') : selectedFilterOption}
 							</MenuButton>
 							<MenuList
 								p="0"
@@ -145,7 +145,7 @@ export const HistoryComponent: React.FC<IHistoryPage> = ({ history }) => {
 					{!isConnected ? (
 						<>
 							<Text fontSize="sm" color={theme.text.primary}>
-								Please connect your wallet to be able to view your history.
+								{translate('pleaseConnect')}
 							</Text>
 							<HistorySkeletons />
 						</>

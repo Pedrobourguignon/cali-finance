@@ -22,19 +22,14 @@ export const OffsetButton: React.FC<IOffsetButton> = ({
 	};
 
 	return (
-		<OffsetShadow
-			borderColor={props.disabled ? 'transparent' : 'white'}
-			position="absolute"
-			buttonText={name}
-			px={{ md: '1', '2xl': '3' }}
-		>
+		<OffsetShadow borderColor="white" top="0rem" right="0rem">
 			<Button
 				onClick={handleClick}
 				px="3"
-				position="absolute"
 				bg="white"
 				bottom="0.25rem"
 				right="0.25rem"
+				w="max-content"
 				h="8"
 				fontSize={{ md: 'sm', '2xl': 'md' }}
 				fontWeight="medium"

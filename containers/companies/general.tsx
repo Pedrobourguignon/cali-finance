@@ -1,15 +1,10 @@
-import { Flex } from '@chakra-ui/react';
-import { CompaniesProvider } from 'contexts';
-import { useProfile } from 'hooks';
-import { CompaniesLayoutNoConnected, CompaniesConnected } from 'layouts';
+import { GeneralComponent } from 'components';
+import { CompaniesProvider, ProfileProvider } from 'contexts';
 
-export const CompaniesContainer = () => {
-	const isConnected = true;
-	return (
+export const CompaniesContainer = () => (
+	<ProfileProvider>
 		<CompaniesProvider>
-			<Flex>
-				{isConnected ? <CompaniesConnected /> : <CompaniesLayoutNoConnected />}
-			</Flex>
+			<GeneralComponent />
 		</CompaniesProvider>
-	);
-};
+	</ProfileProvider>
+);
