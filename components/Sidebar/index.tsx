@@ -75,7 +75,7 @@ export const Sidebar: React.FC = () => {
 	const theme = usePicasso();
 	const { isSamePath } = usePath();
 	const { userProfile, isConnected } = useProfile();
-	const { locale, pathname } = useRouter();
+	const { locale, asPath } = useRouter();
 	const languages: ILanguage[] = ['en-US', 'pt-BR'];
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const [networkData, setNetworkData] = useState<INetwork>({
@@ -84,7 +84,7 @@ export const Sidebar: React.FC = () => {
 	} as INetwork);
 
 	const changeLanguage = (lang: ILanguage) => {
-		Router.push(`/${pathname}`, `/${pathname}`, { locale: lang });
+		Router.push(`${asPath}`, `${asPath}`, { locale: lang });
 	};
 
 	return (
