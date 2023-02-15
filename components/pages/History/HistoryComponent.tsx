@@ -144,7 +144,7 @@ export const HistoryComponent: React.FC<IHistoryPage> = ({ history }) => {
 					{!session ? (
 						<>
 							<Text fontSize="sm" color={theme.text.primary}>
-								Please connect your wallet to be able to view your history.
+								{translate('pleaseConnect')}
 							</Text>
 							<HistorySkeletons />
 						</>

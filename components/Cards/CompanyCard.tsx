@@ -61,7 +61,7 @@ export const CompanyCard: React.FC<ICompanyCard> = ({ team }) => {
 					</Flex>
 					<Flex direction="column">
 						<Text fontSize={{ md: 'xs', xl: 'sm' }} color="gray.500">
-							Members
+							{translate('members')}
 						</Text>
 						<Text fontSize={{ md: 'xs', xl: 'sm' }}>{team.members}</Text>
 					</Flex>

@@ -225,14 +225,7 @@ export const SwapToken = () => {
 						</Flex>
 					</Flex>
 					<Flex justify="center">
-						<OffsetShadow
-							borderColor="white"
-							position="absolute"
-							buttonText={translate('swap')}
-							top="0.375rem"
-							left="0.375rem"
-							px="20"
-						>
+						<OffsetShadow borderColor="white" top="0.375rem" left="0.375rem">
 							<Button
 								position="relative"
 								type="submit"

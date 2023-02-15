@@ -55,14 +55,7 @@ export const CreateAccountBanner = () => {
 						</Text>
 					</Flex>
 					<Flex gap="6">
-						<OffsetShadow
-							borderColor="white"
-							position="absolute"
-							px="5"
-							left="1"
-							top="1"
-							buttonText="create account now"
-						>
+						<OffsetShadow>
 							<Button
 								bg="white"
 								onClick={onOpen}

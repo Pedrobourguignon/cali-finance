@@ -12,6 +12,7 @@ import {
 } from '@chakra-ui/react';
 import { usePicasso } from 'hooks';
 import { useSession } from 'next-auth/react';
+import useTranslation from 'next-translate/useTranslation';
 import React from 'react';
 import { VscBellDot, VscBell } from 'react-icons/vsc';
 import { INotificationPopover } from 'types';
@@ -25,6 +26,7 @@ export const NotificationPopover: React.FC<INotificationPopover> = ({
 }) => {
 	const theme = usePicasso();
 	const { data: session } = useSession();
+	const { t: translate } = useTranslation('dashboard');
 
 	const clearAllNotifications = () => {
 		setNotificationsList([]);
@@ -61,7 +63,7 @@ export const NotificationPopover: React.FC<INotificationPopover> = ({
 							px="1"
 							color={theme.text.primary}
 						>
-							{notificationsList.length} pending notifications
+							{notificationsList.length} {translate('pendingNotifications')}
 						</Text>
 
 						<PopoverCloseButton
@@ -74,7 +76,7 @@ export const NotificationPopover: React.FC<INotificationPopover> = ({
 							py="7"
 							onClick={() => clearAllNotifications()}
 						>
-							Clear all
+							{translate('clearAll')}
 						</PopoverCloseButton>
 					</Flex>
 					<Flex

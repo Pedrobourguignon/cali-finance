@@ -1,15 +1,10 @@
-import { Flex } from '@chakra-ui/react';
-import { CompaniesProvider } from 'contexts';
-import { CompaniesLayoutNoConnected, CompaniesConnected } from 'layouts';
-import { useSession } from 'next-auth/react';
+import { GeneralComponent } from 'components';
+import { CompaniesProvider, ProfileProvider } from 'contexts';
 
-export const CompaniesContainer = () => {
-	const { data: session } = useSession();
-	return (
-		<CompaniesProvider>
-			<Flex>
-				{session ? <CompaniesConnected /> : <CompaniesLayoutNoConnected />}
-			</Flex>
-		</CompaniesProvider>
-	);
-};
+export const CompaniesContainer = () => (
+	<CompaniesProvider>
+		<ProfileProvider>
+			<GeneralComponent />
+		</ProfileProvider>
+	</CompaniesProvider>
+);
