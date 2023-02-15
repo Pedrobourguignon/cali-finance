@@ -137,7 +137,7 @@ export const Sidebar: React.FC = () => {
 								_hover={{ background: 'white' }}
 								_focus={{ background: 'white' }}
 								display={isConnected === true ? 'flex' : 'none'}
-								w={{ md: '8.25rem', xl: '10.313rem' }}
+								w={{ md: '8.25rem', xl: '10.313rem', '2xl': '52' }}
 							>
 								<Flex
 									align="center"
