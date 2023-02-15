@@ -64,6 +64,8 @@ export const HistoryComponent: React.FC<IHistoryPage> = ({ history }) => {
 		setSelectedFilterOption(filter);
 	};
 
+	console.log(selectedFilterOption);
+
 	useEffect(() => {
 		setPageNumber(0);
 	}, [filteredNotifications]);
