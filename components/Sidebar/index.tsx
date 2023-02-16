@@ -150,7 +150,11 @@ export const Sidebar: React.FC = () => {
 									justify="center"
 								>
 									<Img
-										src={userProfile?.picture}
+										src={
+											userProfile.picture === ''
+												? '/images/editImage.png'
+												: userProfile.picture
+										}
 										borderRadius="full"
 										boxSize="6"
 										objectFit="cover"

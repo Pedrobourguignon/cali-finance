@@ -7,6 +7,8 @@ interface IProfileContext {
 	setIsConnected: React.Dispatch<React.SetStateAction<boolean>>;
 	userProfile: IProfile;
 	setUserProfile: React.Dispatch<React.SetStateAction<IProfile>>;
+	editedProfileInfo: IProfile;
+	setEditedProfileInfo: React.Dispatch<React.SetStateAction<IProfile>>;
 	walletData: IWalletData;
 	setWalletData: React.Dispatch<React.SetStateAction<IWalletData>>;
 }
@@ -19,9 +21,16 @@ export const ProfileProvider: React.FC<{ children: React.ReactNode }> = ({
 	const [isConnected, setIsConnected] = useState(false);
 	const [isLoading, setIsLoading] = useState(true);
 	const [userProfile, setUserProfile] = useState<IProfile>({
+		name: '',
+		email: '',
 		wallet: '0x6856...BF99',
-		picture:
-			'http://t0.gstatic.com/licensed-image?q=tbn:ANd9GcRIJYVo526c4XTP0V4CyE2XbTLsdYcxSilLYaSDYC4XDtXArbTNxmX63MnX3gP6d2cI',
+		picture: '',
+	});
+	const [editedProfileInfo, setEditedProfileInfo] = useState<IProfile>({
+		name: userProfile.name,
+		email: userProfile.email,
+		wallet: userProfile.wallet,
+		picture: userProfile.picture,
 	});
 	const [walletData, setWalletData] = useState<IWalletData>({
 		name: '',
@@ -35,6 +44,8 @@ export const ProfileProvider: React.FC<{ children: React.ReactNode }> = ({
 			setIsConnected,
 			userProfile,
 			setUserProfile,
+			editedProfileInfo,
+			setEditedProfileInfo,
 			walletData,
 			setWalletData,
 		}),
@@ -44,6 +55,8 @@ export const ProfileProvider: React.FC<{ children: React.ReactNode }> = ({
 			setIsConnected,
 			userProfile,
 			setUserProfile,
+			editedProfileInfo,
+			setEditedProfileInfo,
 			walletData,
 			setWalletData,
 		]
