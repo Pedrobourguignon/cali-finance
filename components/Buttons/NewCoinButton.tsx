@@ -36,7 +36,6 @@ export const NewCoinButton = () => {
 				right="0.25rem"
 				fontWeight="medium"
 				lineHeight="5"
-				// gap={{ lg: '1', xl: '2' }}
 				gap="1.5"
 				alignContent="center"
 			>
