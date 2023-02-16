@@ -20,7 +20,7 @@ import {
 	ImageUploaderModal,
 	CompaniesHeader,
 } from 'components';
-import Router from 'next/router';
+import router from 'next/router';
 import { navigationPaths } from 'utils';
 import { BsCardImage, BsCheck } from 'react-icons/bs';
 import { AiOutlineEdit } from 'react-icons/ai';
@@ -96,7 +96,7 @@ export const TeamComponent = () => {
 								<Flex justify="space-between" w="100%">
 									<BackToTeams
 										onClick={() =>
-											Router.push(
+											router.push(
 												navigationPaths.dashboard.companies.teams('1')
 											)
 										}

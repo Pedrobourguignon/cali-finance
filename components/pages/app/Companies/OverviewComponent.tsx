@@ -8,6 +8,7 @@ import { useCompanies } from 'hooks';
 
 export const OverviewComponent = () => {
 	const { selectedCompany } = useCompanies();
+
 	return (
 		<Flex direction="column">
 			<Flex w="100%" bg="white" position="absolute" h="14.4rem" left="0" />

@@ -1,6 +1,7 @@
-import { Button, Flex, Img, Text } from '@chakra-ui/react';
+import { Flex, Img } from '@chakra-ui/react';
 import { BlackButton, ImageUploader, SocialMediaInput } from 'components';
-import { useCompanies, usePicasso, useProfile } from 'hooks';
+import { useCompanies, usePicasso } from 'hooks';
+import { useSession } from 'next-auth/react';
 import useTranslation from 'next-translate/useTranslation';
 import { Control } from 'react-hook-form';
 import { ICreateCompany, ICompany, ISocialMediaInput } from 'types';
@@ -39,7 +40,7 @@ export const EditCompanyLink: React.FC<{
 	const theme = usePicasso();
 	const { selectedCompany, editedInfo, selectedCompanyLogo } = useCompanies();
 	const { t: translate } = useTranslation('create-company');
-	const { isConnected } = useProfile();
+	const { data: session } = useSession();
 
 	const socialLinks: ISocialMediaInput[] = [
 		{
@@ -124,7 +125,7 @@ export const EditCompanyLink: React.FC<{
 						editedInfo.description === description &&
 						editedInfo.type === type &&
 						editedInfo.selectedNetwork === selectedNetwork) ||
-					!isConnected
+					!session
 				}
 			>
 				{translate('saveChanges')}

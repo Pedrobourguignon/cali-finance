@@ -15,8 +15,9 @@ import {
 	Paginator,
 	LifeIsEasierTabletBreakpoint,
 } from 'components';
-import { useCompanies, usePicasso, useProfile } from 'hooks';
+import { useCompanies, usePicasso } from 'hooks';
 import { AppLayout } from 'layouts';
+import { useSession } from 'next-auth/react';
 import useTranslation from 'next-translate/useTranslation';
 import React, { useMemo, useState, useEffect } from 'react';
 import { BiChevronDown } from 'react-icons/bi';
@@ -29,8 +30,8 @@ export const HistoryComponent: React.FC<IHistoryPage> = ({ history }) => {
 		translate('all')
 	);
 	const [pageNumber, setPageNumber] = useState(0);
+	const { data: session } = useSession();
 	const { filteredNotifications, setFilteredNotifications } = useCompanies();
-	const { isConnected } = useProfile();
 
 	const notificationPerPage = 14;
 	const maxPage = useMemo(
@@ -64,8 +65,6 @@ export const HistoryComponent: React.FC<IHistoryPage> = ({ history }) => {
 		setSelectedFilterOption(filter);
 	};
 
-	console.log(selectedFilterOption);
-
 	useEffect(() => {
 		setPageNumber(0);
 	}, [filteredNotifications]);
@@ -73,7 +72,7 @@ export const HistoryComponent: React.FC<IHistoryPage> = ({ history }) => {
 	return (
 		<AppLayout
 			right={
-				isConnected ? (
+				session ? (
 					<>
 						<Flex display={{ md: 'none', lg: 'flex' }}>
 							<LifeIsEasierBanner />
@@ -110,12 +109,13 @@ export const HistoryComponent: React.FC<IHistoryPage> = ({ history }) => {
 								as={Button}
 								rightIcon={<BiChevronDown />}
 								bg="white"
-								disabled={!isConnected}
+								disabled={!session}
+								fb0bfdb3e84b980e3bee2b86dd5fa8dc6560fb9
 								_hover={{}}
 								_active={{}}
 								_focus={{}}
 							>
-								{!isConnected ? translate('all') : selectedFilterOption}
+								{!session ? translate('all') : selectedFilterOption}
 							</MenuButton>
 							<MenuList
 								p="0"
@@ -144,7 +144,7 @@ export const HistoryComponent: React.FC<IHistoryPage> = ({ history }) => {
 							</MenuList>
 						</Menu>
 					</Flex>
-					{!isConnected ? (
+					{!session ? (
 						<>
 							<Text fontSize="sm" color={theme.text.primary}>
 								{translate('pleaseConnect')}
@@ -191,7 +191,7 @@ export const HistoryComponent: React.FC<IHistoryPage> = ({ history }) => {
 											}}
 										>
 											{translate('returnToAllResults')}
-										</Text>{' '}
+										</Text>
 										{translate('orSelectAnother')}
 									</Text>
 								</Flex>

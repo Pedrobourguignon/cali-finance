@@ -1,7 +1,7 @@
 import { Img, Input, InputGroup, InputLeftElement } from '@chakra-ui/react';
-import { ISocialMediaInput, ICreateCompany, IEditedCompany } from 'types';
+import { ISocialMediaInput, ICreateCompany } from 'types';
 import { Controller, Control } from 'react-hook-form';
-import { useProfile } from 'hooks';
+import { useSession } from 'next-auth/react';
 
 interface ISocialLink {
 	socialLink: ISocialMediaInput;
@@ -13,7 +13,7 @@ export const SocialMediaInput: React.FC<ISocialLink> = ({
 	control,
 	defaultValue,
 }) => {
-	const { isConnected } = useProfile();
+	const { data: session } = useSession();
 	return (
 		<Controller
 			render={({ field }) => (
@@ -39,7 +39,7 @@ export const SocialMediaInput: React.FC<ISocialLink> = ({
 						_hover={{}}
 						borderColor="rgba(255, 255, 255, 0.08)"
 						defaultValue={defaultValue}
-						disabled={!isConnected}
+						disabled={!session}
 					/>
 				</InputGroup>
 			)}
