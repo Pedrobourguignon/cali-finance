@@ -1,10 +1,13 @@
 import { Flex, Text } from '@chakra-ui/react';
 import { OffsetButton } from 'components';
-import { usePicasso, useProfile } from 'hooks';
+import useTranslation from 'next-translate/useTranslation';
+import { usePicasso } from 'hooks';
+import { useSession } from 'next-auth/react';
 
 export const CompaniesDashboardNoConnected = () => {
 	const theme = usePicasso();
-	const { isConnected } = useProfile();
+	const { t: translate } = useTranslation('companies');
+	const { data: session } = useSession();
 	return (
 		<Flex
 			bg={theme.bg.primary}
@@ -22,7 +25,7 @@ export const CompaniesDashboardNoConnected = () => {
 					fontSize={{ md: 'xs', xl: 'sm', '2xl': 'md' }}
 					fontWeight="normal"
 				>
-					Companies
+					{translate('companies')}
 				</Text>
 			</Flex>
 			<Flex direction="column" flex="1">
@@ -33,7 +36,7 @@ export const CompaniesDashboardNoConnected = () => {
 					fontSize={{ md: 'xs', xl: 'sm', '2xl': 'md' }}
 					fontWeight="normal"
 				>
-					Teams
+					{translate('teams')}
 				</Text>
 			</Flex>
 			<Flex direction="column" flex="1">
@@ -44,7 +47,7 @@ export const CompaniesDashboardNoConnected = () => {
 					fontSize={{ md: 'xs', xl: 'sm', '2xl': 'md' }}
 					fontWeight="normal"
 				>
-					Members
+					{translate('members')}
 				</Text>
 			</Flex>
 			<Flex direction="column" flex="2">
@@ -55,14 +58,14 @@ export const CompaniesDashboardNoConnected = () => {
 					fontSize={{ md: 'xs', xl: 'sm', '2xl': 'md' }}
 					fontWeight="normal"
 				>
-					Total Funds
+					{translate('totalFunds')}
 				</Text>
 			</Flex>
 			<Flex flex="1">
 				<OffsetButton
-					name="Create Company"
+					name={translate('createCompany')}
 					route="companies/create"
-					disabled={!isConnected}
+					disabled={!session}
 				/>
 			</Flex>
 		</Flex>

@@ -1,5 +1,5 @@
 import { Button, Flex, Text, useDisclosure } from '@chakra-ui/react';
-import React, { useState } from 'react';
+import React from 'react';
 import useTranslation from 'next-translate/useTranslation';
 import {
 	LoadingWalletConnectModal,
@@ -7,21 +7,16 @@ import {
 	OffsetShadow,
 } from 'components';
 import { useProfile } from 'hooks';
-
-interface IWalletData {
-	name: string;
-	icon: string;
-}
+import { useRouter } from 'next/router';
 
 export const ConnectWalletButton = () => {
 	const { t: translate } = useTranslation('sidebar');
 	const { isConnected } = useProfile();
+	const { locale } = useRouter();
 	const shouldDisplay = isConnected === true ? 'none' : 'flex';
 	const { isOpen, onOpen, onClose } = useDisclosure();
-	const [walletData, setWalletData] = useState<IWalletData>({
-		name: '',
-		icon: '',
-	});
+	const { walletData, setWalletData } = useProfile();
+	const { icon, name } = walletData;
 	const {
 		isOpen: isOpenLoading,
 		onClose: onCloseLoading,
@@ -36,25 +31,24 @@ export const ConnectWalletButton = () => {
 				openLoadingWalletModal={onOpenLoading}
 			/>
 			<LoadingWalletConnectModal
-				walletIcon={walletData.icon}
-				walletName={walletData.name}
+				walletIcon={icon}
+				walletName={name}
 				isOpen={isOpenLoading}
 				onClose={onCloseLoading}
 			/>
 			<OffsetShadow
 				px={{ lg: '3', xl: '6' }}
-				buttonText="Connect Wallet"
 				width="max-content"
 				height="8"
 				borderColor="white"
-				top="0.5rem"
-				left="0.375rem"
+				top="0.44rem"
+				left="0.30rem"
 				display={shouldDisplay}
 			>
 				<Button
 					h="max-content"
-					py="2"
-					fontSize="sm"
+					py={{ md: locale === 'pt-BR' ? '2.5' : '2', xl: '2' }}
+					fontSize={{ md: locale === 'pt-BR' ? 'xs' : 'sm', xl: 'sm' }}
 					color="black"
 					borderRadius="base"
 					bg="white"

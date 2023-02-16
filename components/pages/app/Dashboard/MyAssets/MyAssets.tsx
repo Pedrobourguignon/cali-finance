@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import { Button, Flex, Text } from '@chakra-ui/react';
+import { Button, Flex, Text, useDisclosure } from '@chakra-ui/react';
 import { Asset, OffsetShadow } from 'components';
 import { usePicasso } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
 import React, { useState, useRef, useEffect, useMemo } from 'react';
-import { IAssetsOptions, IMyAssetsFullList } from 'types';
+import { IAssetsOptions } from 'types';
 
 const assetsOptions: IAssetsOptions[] = [
 	{
@@ -52,11 +52,8 @@ const assetsOptions: IAssetsOptions[] = [
 ];
 
 export const MyAssets = () => {
-	const [myAssetsFullList, setMyAssetsFullList] = useState<IMyAssetsFullList>({
-		listLength: 3,
-		buttonText: 'See all',
-	});
 	const { t: translate } = useTranslation('dashboard');
+	const { isOpen: isFullList, onToggle: toggleListView } = useDisclosure();
 	const theme = usePicasso();
 
 	const ref = useRef<HTMLDivElement>(null);
@@ -65,35 +62,16 @@ export const MyAssets = () => {
 	const totalAssetsValue = useMemo(
 		() =>
 			assetsOptions.reduce((totalValue, asset) => totalValue + asset.value, 0),
-		[]
+		[assetsOptions]
 	);
-
-	useEffect(() => {
-		setFlexHeight(ref.current!.clientHeight);
-	}, [myAssetsFullList.listLength]);
-
-	const fullList = () => {
-		if (myAssetsFullList.listLength === 3) {
-			setMyAssetsFullList({
-				listLength: assetsOptions.length,
-				buttonText: 'See less',
-			});
-		} else {
-			setMyAssetsFullList({
-				listLength: 3,
-				buttonText: 'See all',
-			});
-			setFlexHeight(ref.current!.clientHeight);
-		}
-	};
 
 	return (
 		<OffsetShadow
 			width="full"
-			height={flexHeight}
+			height={ref.current?.scrollHeight}
 			borderColor={theme.bg.primary}
-			top="2"
-			left="2"
+			top="10px"
+			left="10px"
 		>
 			<Flex
 				position="relative"
@@ -130,14 +108,14 @@ export const MyAssets = () => {
 							h="0"
 							py="3"
 							pr="0"
-							onClick={() => fullList()}
+							onClick={() => toggleListView()}
 						>
-							{myAssetsFullList.buttonText}
+							{isFullList ? translate('seeLess') : translate('seeAll')}
 						</Button>
 					</Flex>
 					<Flex direction="column" px="4" gap="2" py="3">
 						{assetsOptions
-							.slice(0, myAssetsFullList.listLength)
+							.slice(0, isFullList ? assetsOptions.length : 3)
 							.map((asset, index) => (
 								<Asset assetsOptions={asset} key={+index} />
 							))}

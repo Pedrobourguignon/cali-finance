@@ -13,6 +13,7 @@ import {
 } from '@chakra-ui/react';
 import { OffsetShadow } from 'components';
 import { usePicasso, useProfile } from 'hooks';
+import { useSession, signIn } from 'next-auth/react';
 import useTranslation from 'next-translate/useTranslation';
 import { IWalletOptionsModal } from 'types';
 import { navigationPaths } from 'utils';
@@ -47,14 +48,13 @@ export const WalletsOptionsModal: React.FC<IWalletOptionsModal> = ({
 	setWalletData,
 }) => {
 	const { t: translate } = useTranslation('sidebar');
-	const { setIsConnected } = useProfile();
 	const theme = usePicasso();
-	const onTriggerLoadingModal = (icon: string, name: string) => {
+	const onTriggerLoadingModal = async (icon: string, name: string) => {
 		setWalletData({
 			icon,
 			name,
 		});
-		setIsConnected(true);
+		signIn('credentials', {});
 		openLoadingWalletModal();
 		onClose();
 	};
@@ -71,9 +71,8 @@ export const WalletsOptionsModal: React.FC<IWalletOptionsModal> = ({
 				<OffsetShadow
 					width="21.125rem"
 					height="27rem"
-					buttonText="Connect to a Wallet"
-					top="2"
-					left="2"
+					top="0.625rem"
+					left="0.625rem"
 				>
 					<Flex
 						direction="column"

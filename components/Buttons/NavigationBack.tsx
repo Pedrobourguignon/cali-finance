@@ -1,6 +1,6 @@
 import { Button } from '@chakra-ui/react';
 import { IoIosArrowBack } from 'react-icons/io';
-import Router from 'next/router';
+import router from 'next/router';
 import { FC, ReactNode } from 'react';
 
 interface INavigationBack {
@@ -14,7 +14,7 @@ export const NavigationBack: FC<INavigationBack> = ({
 	...rest
 }) => {
 	const handleClick = () => {
-		Router.push(href);
+		router.push(href);
 	};
 	return (
 		<Button

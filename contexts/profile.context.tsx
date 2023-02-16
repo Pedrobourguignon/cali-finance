@@ -1,11 +1,6 @@
 import React, { createContext, useState, useMemo } from 'react';
-import { IProfile } from 'types';
+import { IProfile, IWalletData } from 'types';
 
-interface IProfileData {
-	name: string;
-	photo: string;
-	email: string;
-}
 interface IProfileContext {
 	isLoading: boolean;
 	isConnected: boolean;
@@ -14,6 +9,8 @@ interface IProfileContext {
 	setUserProfile: React.Dispatch<React.SetStateAction<IProfile>>;
 	editedProfileInfo: IProfile;
 	setEditedProfileInfo: React.Dispatch<React.SetStateAction<IProfile>>;
+	walletData: IWalletData;
+	setWalletData: React.Dispatch<React.SetStateAction<IWalletData>>;
 }
 
 export const ProfileContext = createContext({} as IProfileContext);
@@ -21,7 +18,7 @@ export const ProfileContext = createContext({} as IProfileContext);
 export const ProfileProvider: React.FC<{ children: React.ReactNode }> = ({
 	children,
 }) => {
-	const [isConnected, setIsConnected] = useState(true);
+	const [isConnected, setIsConnected] = useState(false);
 	const [isLoading, setIsLoading] = useState(true);
 	const [userProfile, setUserProfile] = useState<IProfile>({
 		name: '',
@@ -35,6 +32,10 @@ export const ProfileProvider: React.FC<{ children: React.ReactNode }> = ({
 		wallet: userProfile.wallet,
 		picture: userProfile.picture,
 	});
+	const [walletData, setWalletData] = useState<IWalletData>({
+		name: '',
+		icon: '',
+	});
 
 	const contextStates = useMemo(
 		() => ({
@@ -45,6 +46,8 @@ export const ProfileProvider: React.FC<{ children: React.ReactNode }> = ({
 			setUserProfile,
 			editedProfileInfo,
 			setEditedProfileInfo,
+			walletData,
+			setWalletData,
 		}),
 		[
 			isLoading,
@@ -54,6 +57,8 @@ export const ProfileProvider: React.FC<{ children: React.ReactNode }> = ({
 			setUserProfile,
 			editedProfileInfo,
 			setEditedProfileInfo,
+			walletData,
+			setWalletData,
 		]
 	);
 

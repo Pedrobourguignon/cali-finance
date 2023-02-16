@@ -14,6 +14,7 @@ import useTranslation from 'next-translate/useTranslation';
 import { BlackButton, ImageUploaderModal } from 'components';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
+import { useSession } from 'next-auth/react';
 
 interface IEditProfile {
 	name: string;
@@ -25,7 +26,8 @@ export const EditProfileComponent = () => {
 	const theme = usePicasso();
 	const { t: translate } = useTranslation('edit-profile');
 	const { isOpen, onOpen, onClose } = useDisclosure();
-	const { isConnected } = useProfile();
+
+	const { data: session } = useSession();
 	const { editProfileSchema } = useSchema();
 
 	const labelStyle: TextProps = {
@@ -81,7 +83,8 @@ export const EditProfileComponent = () => {
 					_hover={{ opacity: '80%' }}
 					_active={{}}
 					_focus={{}}
-					onClick={isConnected ? onOpen : undefined}
+					borderRadius="full"
+					onClick={session ? onOpen : undefined}
 					zIndex="docked"
 				>
 					<Img
@@ -106,7 +109,7 @@ export const EditProfileComponent = () => {
 					_hover={{}}
 					_focus={{ bg: theme.text.primary }}
 					onClick={onOpen}
-					disabled={!isConnected}
+					disabled={!session}
 				>
 					{translate('editProfileImage')}
 				</Button>
@@ -134,7 +137,7 @@ export const EditProfileComponent = () => {
 										color="black"
 										h="max-content"
 										py="1"
-										disabled={!isConnected}
+										disabled={!session}
 										onChange={name => {
 											setUserProfile(prevState => ({
 												...prevState,
@@ -163,7 +166,7 @@ export const EditProfileComponent = () => {
 										py="1"
 										borderRadius="base"
 										{...register('email')}
-										disabled={!isConnected}
+										disabled={!session}
 										onChange={email => {
 											setUserProfile(prevState => ({
 												...prevState,

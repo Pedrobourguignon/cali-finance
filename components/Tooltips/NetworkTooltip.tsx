@@ -11,10 +11,8 @@ export const NetworkTooltip: React.FC<INetworkTooltip> = ({ children }) => {
 	return (
 		<OffsetShadow
 			borderRadius="md"
-			width="64"
-			height="3.75rem"
-			top="-1"
-			left="0.5"
+			top="-4px"
+			left="0.125rem"
 			borderColor={theme.branding.blue}
 			bg={theme.branding.blue}
 		>

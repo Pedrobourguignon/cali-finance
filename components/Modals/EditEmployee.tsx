@@ -14,13 +14,14 @@ import {
 	FormControl,
 	InputGroup,
 	Img,
+	useDisclosure,
 } from '@chakra-ui/react';
 import { usePicasso, useSchema } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
 import React, { useState } from 'react';
 import { IoIosArrowDown } from 'react-icons/io';
-import { IEditEmployee, IEditEmployeeForm } from 'types';
-import { BlackButton, EditProfileIcon } from 'components';
+import { IEditEmployee, IEditEmployeeForm, ISelectedCoin } from 'types';
+import { BlackButton, EditProfileIcon, TokenSelector } from 'components';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { truncateWallet } from 'utils';
@@ -32,13 +33,18 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 }) => {
 	const theme = usePicasso();
 	const [amountInDollar, setAmountInDollar] = useState<number>(0);
+	const [token, setToken] = useState<ISelectedCoin>({
+		logo: 'https://assets.coingecko.com/coins/images/1/thumb/bitcoin.png?1547033579',
+		symbol: 'BTC',
+	} as ISelectedCoin);
 	const bitcoinPrice = 87586;
 	const { editEmployeeSchema } = useSchema();
 
-	const selectedCoin = {
-		logo: 'https://assets.coingecko.com/coins/images/1/thumb/bitcoin.png?1547033579',
-		symbol: 'BTC',
-	};
+	const {
+		isOpen: isOpenTokenSelector,
+		onOpen: onOpenTokenSelector,
+		onClose: onCloseTokenSelector,
+	} = useDisclosure();
 
 	const labelStyle: TextProps = {
 		color: 'black',
@@ -72,6 +78,11 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 	return (
 		<Modal isOpen={isOpen} onClose={onClose} size="sm">
 			<ModalOverlay />
+			<TokenSelector
+				isOpen={isOpenTokenSelector}
+				onClose={onCloseTokenSelector}
+				setToken={setToken}
+			/>
 			<ModalContent
 				m="auto"
 				zIndex="1"
@@ -148,11 +159,12 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 											_active={{}}
 											h="2.137rem"
 											_focus={{}}
+											onClick={onOpenTokenSelector}
 										>
 											<Flex gap="2" align="center">
-												<Img boxSize="4" src={selectedCoin.logo} />
+												<Img boxSize="4" src={token.logo} />
 												<Text fontSize="sm" width="8" lineHeight="5">
-													{selectedCoin.symbol}
+													{token.symbol}
 												</Text>
 												<Icon boxSize="4" as={IoIosArrowDown} />
 											</Flex>
