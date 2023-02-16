@@ -43,8 +43,10 @@ export const EditProfileComponent = () => {
 	} = useForm<IEditProfile>({
 		resolver: yupResolver(editProfileSchema),
 	});
-	const [editProfilePicture, setEditProfilePicture] = useState('');
 	const { userProfile, setUserProfile, editedProfileInfo } = useProfile();
+	const [editProfilePicture, setEditProfilePicture] = useState(
+		userProfile.picture || ''
+	);
 
 	const handleEditProfile = (newDataOfProfile: IEditProfile) => {
 		console.log(newDataOfProfile);
@@ -89,9 +91,9 @@ export const EditProfileComponent = () => {
 				>
 					<Img
 						src={
-							userProfile.picture === ''
+							editProfilePicture === ''
 								? '/images/editImage.png'
-								: userProfile.picture
+								: editProfilePicture
 						}
 						boxSize="24"
 						borderRadius="full"

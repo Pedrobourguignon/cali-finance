@@ -14,7 +14,7 @@ const useSchema = () => {
 			.number()
 			.required(translate('required'))
 			.typeError(translate('amountMustBeANumber'))
-			.positive('amountMustBeAPositive'),
+			.positive(translate('amountMustBeAPositive')),
 	});
 	const addEmployeeSchema = yup.object().shape({
 		walletAddress: yup
