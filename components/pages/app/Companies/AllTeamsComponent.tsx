@@ -112,7 +112,7 @@ export const AllTeamsComponent: React.FC<IAllTeamsComponent> = ({
 					</Grid>
 				</Flex>
 
-				<EmployeesDashboard isGeneral employees={AllEmployees} />
+				<EmployeesDashboard isGeneral />
 			</Flex>
 			<Flex px="6" pt="10">
 				{children}

@@ -1,9 +1,7 @@
-import { Flex, Grid, GridItem, Link, Text } from '@chakra-ui/react';
 import { OverviewComponent, WithdrawalsBanner } from 'components';
 import { usePicasso } from 'hooks';
 import { AppLayout } from 'layouts';
-import useTranslation from 'next-translate/useTranslation';
-import { CompaniesProvider, TokensProvider } from 'contexts';
+import { CompaniesProvider, ProfileProvider, TokensProvider } from 'contexts';
 
 const teams = [
 	{
@@ -31,15 +29,16 @@ const teams = [
 
 export const OverviewTab = () => {
 	const theme = usePicasso();
-	const { t: translate } = useTranslation('company-overall');
 
 	return (
-		<CompaniesProvider>
-			<TokensProvider>
-				<AppLayout right={<WithdrawalsBanner />}>
-					<OverviewComponent />
-				</AppLayout>
-			</TokensProvider>
-		</CompaniesProvider>
+		<TokensProvider>
+			<ProfileProvider>
+				<CompaniesProvider>
+					<AppLayout right={<WithdrawalsBanner />}>
+						<OverviewComponent />
+					</AppLayout>
+				</CompaniesProvider>
+			</ProfileProvider>
+		</TokensProvider>
 	);
 };

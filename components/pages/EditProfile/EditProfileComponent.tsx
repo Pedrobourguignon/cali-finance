@@ -14,19 +14,20 @@ import useTranslation from 'next-translate/useTranslation';
 import { BlackButton, ImageUploaderModal } from 'components';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
+import { useSession } from 'next-auth/react';
 
 interface IEditProfile {
 	name: string;
-	type: string;
 	email: string;
-	description?: string;
+	picture: string;
 }
 
 export const EditProfileComponent = () => {
 	const theme = usePicasso();
 	const { t: translate } = useTranslation('edit-profile');
 	const { isOpen, onOpen, onClose } = useDisclosure();
-	const { isConnected } = useProfile();
+
+	const { data: session } = useSession();
 	const { editProfileSchema } = useSchema();
 
 	const labelStyle: TextProps = {
@@ -42,7 +43,10 @@ export const EditProfileComponent = () => {
 	} = useForm<IEditProfile>({
 		resolver: yupResolver(editProfileSchema),
 	});
-	const [editProfilePicture, setEditProfilePicture] = useState('');
+	const { userProfile, setUserProfile, editedProfileInfo } = useProfile();
+	const [editProfilePicture, setEditProfilePicture] = useState(
+		userProfile.picture || ''
+	);
 
 	const handleEditProfile = (newDataOfProfile: IEditProfile) => {
 		console.log(newDataOfProfile);
@@ -78,19 +82,23 @@ export const EditProfileComponent = () => {
 				pb="6"
 			>
 				<Flex
-					bgImage={editProfilePicture}
-					bgSize="cover"
-					bgRepeat="no-repeat"
 					_hover={{ opacity: '80%' }}
 					_active={{}}
 					_focus={{}}
 					borderRadius="full"
-					onClick={isConnected ? onOpen : undefined}
+					onClick={session ? onOpen : undefined}
 					zIndex="docked"
 				>
-					{editProfilePicture === '' && (
-						<Img src="/images/editImage.png" boxSize="24" />
-					)}
+					<Img
+						src={
+							editProfilePicture === ''
+								? '/images/editImage.png'
+								: editProfilePicture
+						}
+						boxSize="24"
+						borderRadius="full"
+						objectFit="cover"
+					/>
 				</Flex>
 				<Button
 					mt="4"
@@ -103,7 +111,7 @@ export const EditProfileComponent = () => {
 					_hover={{}}
 					_focus={{ bg: theme.text.primary }}
 					onClick={onOpen}
-					disabled={!isConnected}
+					disabled={!session}
 				>
 					{translate('editProfileImage')}
 				</Button>
@@ -116,6 +124,8 @@ export const EditProfileComponent = () => {
 								<Flex direction="column" gap="2">
 									<Text {...labelStyle}>{translate('name')}</Text>
 									<Input
+										type="text"
+										defaultValue={userProfile.name}
 										borderRadius="base"
 										placeholder={translate('insertHere')}
 										borderColor={errors.name ? 'red' : theme.bg.primary}
@@ -129,7 +139,13 @@ export const EditProfileComponent = () => {
 										color="black"
 										h="max-content"
 										py="1"
-										disabled={!isConnected}
+										disabled={!session}
+										onChange={name => {
+											setUserProfile(prevState => ({
+												...prevState,
+												name: name.target.value,
+											}));
+										}}
 									/>
 									<Text fontSize="xs" color="red">
 										{errors.name?.message}
@@ -138,6 +154,7 @@ export const EditProfileComponent = () => {
 								<Flex direction="column" gap="2">
 									<Text {...labelStyle}>{translate('yourBestEmail')}</Text>
 									<Input
+										defaultValue={userProfile.email}
 										placeholder={translate('exampleEmail')}
 										_placeholder={{
 											color: 'blackAlpha.500',
@@ -151,7 +168,13 @@ export const EditProfileComponent = () => {
 										py="1"
 										borderRadius="base"
 										{...register('email')}
-										disabled={!isConnected}
+										disabled={!session}
+										onChange={email => {
+											setUserProfile(prevState => ({
+												...prevState,
+												email: email.target.value,
+											}));
+										}}
 									/>
 									<Text fontSize="xs" color="red">
 										{errors.email?.message}
@@ -164,6 +187,11 @@ export const EditProfileComponent = () => {
 								fontSize="md"
 								py="2.5"
 								borderRadius="sm"
+								disabled={
+									editedProfileInfo.email === userProfile.email &&
+									editedProfileInfo.name === userProfile.name &&
+									editedProfileInfo.picture === userProfile.picture
+								}
 							>
 								{translate('saveChanges')}
 							</BlackButton>

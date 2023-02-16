@@ -1,4 +1,4 @@
-import { Flex, Grid, GridItem, Text } from '@chakra-ui/react';
+import { Flex, Text } from '@chakra-ui/react';
 import { useCompanies, usePicasso } from 'hooks';
 import { AppLayout } from 'layouts';
 import {
