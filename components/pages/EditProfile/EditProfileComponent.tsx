@@ -90,7 +90,7 @@ export const EditProfileComponent = () => {
 					onClick={session ? onOpen : undefined}
 					zIndex="docked"
 				>
-					{editProfilePicture === '' && (
+					{!editProfilePicture && (
 						<Img src="/images/editImage.png" boxSize="24" />
 					)}
 				</Flex>
