@@ -1,8 +1,8 @@
-import { Flex, Link, Text, useDisclosure } from '@chakra-ui/react';
-import { Button, Flex, Link, Text, useDisclosure } from '@chakra-ui/react';
+import { Flex, Link, Text, useDisclosure, Button } from '@chakra-ui/react';
+
 import { AddEmployee, BlackButton, EmployeeData } from 'components';
+import { useCompanies, usePicasso } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
-import { useState } from 'react';
 
 interface IEmployeeDashboard {
 	isGeneral: boolean;

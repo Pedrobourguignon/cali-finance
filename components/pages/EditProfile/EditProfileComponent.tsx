@@ -88,7 +88,7 @@ export const EditProfileComponent = () => {
 					onClick={isConnected ? onOpen : undefined}
 					zIndex="docked"
 				>
-					{editProfilePicture === '' && (
+					{!editProfilePicture && (
 						<Img src="/images/editImage.png" boxSize="24" />
 					)}
 				</Flex>

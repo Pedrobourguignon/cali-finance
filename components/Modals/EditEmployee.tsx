@@ -166,7 +166,7 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 													parseInt(amount.currentTarget.value, 10)
 												);
 												return (
-													amount.currentTarget.value === '' &&
+													!amount.currentTarget.value &&
 													setEditedEmployeeData(prevState => ({
 														...prevState,
 														amountInDollar: 0,
@@ -226,7 +226,7 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 									gap="3"
 									borderRadius="sm"
 									mb="4"
-									disabled={editedEmployeeData.amount === 0}
+									disabled={!editedEmployeeData.amount}
 								>
 									<Text>+</Text>
 									Update Employee&apos;s Data

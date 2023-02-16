@@ -130,7 +130,6 @@ export const AddEmployee: React.FC<IAddEmployee> = ({
 				])
 			);
 		}
-		console.log(selectedCompany.employees);
 		handleResetFormInputs();
 	};
 
@@ -294,7 +293,7 @@ export const AddEmployee: React.FC<IAddEmployee> = ({
 													parseInt(amount.currentTarget.value, 10)
 												);
 												return (
-													amount.currentTarget.value === '' &&
+													amount.currentTarget.value &&
 													setAddedEmployeeData(prevState => ({
 														...prevState,
 														amountInDollar: 0,
@@ -333,8 +332,8 @@ export const AddEmployee: React.FC<IAddEmployee> = ({
 									borderRadius="sm"
 									onClick={() => handleAddEmployee}
 									disabled={
-										addedEmployeeData.walletAddress === '' ||
-										addedEmployeeData.amount === 0
+										!addedEmployeeData.walletAddress ||
+										!addedEmployeeData.amount
 									}
 								>
 									<Text>+</Text>
