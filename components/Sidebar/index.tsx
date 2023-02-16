@@ -274,8 +274,8 @@ export const Sidebar: React.FC = () => {
 									color={locale === lang ? theme.branding.blue : 'white'}
 								>
 									{locale === lang
-										? `[${lang?.toUpperCase()}]`
-										: lang?.toUpperCase()}
+										? `[${lang.toUpperCase()}]`
+										: lang.toUpperCase()}
 								</Text>
 							))}
 						</Flex>
