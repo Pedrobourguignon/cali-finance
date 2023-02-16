@@ -43,13 +43,23 @@ export const EditProfileComponent = () => {
 	} = useForm<IEditProfile>({
 		resolver: yupResolver(editProfileSchema),
 	});
-	const { userProfile, setUserProfile, editedProfileInfo } = useProfile();
+	const {
+		userProfile,
+		setUserProfile,
+		editedProfileInfo,
+		setEditedProfileInfo,
+	} = useProfile();
 	const [editProfilePicture, setEditProfilePicture] = useState(
 		userProfile.picture || ''
 	);
 
-	const handleEditProfile = (newDataOfProfile: IEditProfile) => {
-		console.log(newDataOfProfile);
+	const handleEditProfile = () => {
+		setUserProfile({
+			name: editedProfileInfo.name,
+			email: editedProfileInfo.email,
+			picture: editedProfileInfo.picture,
+			wallet: '0x6856...BF99',
+		});
 	};
 
 	return (
@@ -91,9 +101,9 @@ export const EditProfileComponent = () => {
 				>
 					<Img
 						src={
-							editProfilePicture === ''
+							editedProfileInfo.picture === ''
 								? '/images/editImage.png'
-								: editProfilePicture
+								: editedProfileInfo.picture
 						}
 						boxSize="24"
 						borderRadius="full"
@@ -141,7 +151,7 @@ export const EditProfileComponent = () => {
 										py="1"
 										disabled={!session}
 										onChange={name => {
-											setUserProfile(prevState => ({
+											setEditedProfileInfo(prevState => ({
 												...prevState,
 												name: name.target.value,
 											}));
@@ -170,7 +180,7 @@ export const EditProfileComponent = () => {
 										{...register('email')}
 										disabled={!session}
 										onChange={email => {
-											setUserProfile(prevState => ({
+											setEditedProfileInfo(prevState => ({
 												...prevState,
 												email: email.target.value,
 											}));

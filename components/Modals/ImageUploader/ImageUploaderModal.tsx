@@ -26,11 +26,11 @@ export const ImageUploaderModal: React.FC<IImageUploader> = ({
 }) => {
 	const theme = usePicasso();
 	const [picture, setPicture] = useState('');
-	const { setUserProfile } = useProfile();
+	const { setUserProfile, setEditedProfileInfo } = useProfile();
 
 	const handleUploadFile = () => {
 		sendImage(picture);
-		setUserProfile(prevState => ({
+		setEditedProfileInfo(prevState => ({
 			...prevState,
 			picture,
 		}));
