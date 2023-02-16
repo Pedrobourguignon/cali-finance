@@ -8,7 +8,7 @@ import {
 	Text,
 	useDisclosure,
 } from '@chakra-ui/react';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { FaDiscord, FaTwitter } from 'react-icons/fa';
 import { usePath, usePicasso, useProfile } from 'hooks';
 import router, { useRouter } from 'next/router';
@@ -78,7 +78,7 @@ export const Sidebar: React.FC = () => {
 
 	const { userProfile } = useProfile();
 	const { data: session } = useSession();
-	const { locale, pathname } = useRouter();
+	const { locale, asPath } = useRouter();
 	const languages: ILanguage[] = ['en-US', 'pt-BR'];
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const [networkData, setNetworkData] = useState<INetwork>({
@@ -87,7 +87,7 @@ export const Sidebar: React.FC = () => {
 	} as INetwork);
 
 	const changeLanguage = (lang: ILanguage) => {
-		router.push(`/${pathname}`, `/${pathname}`, { locale: lang });
+		router.push(`/${asPath}`, `/${asPath}`, { locale: lang });
 	};
 
 	return (
