@@ -15,25 +15,23 @@ import {
 	Paginator,
 	LifeIsEasierTabletBreakpoint,
 } from 'components';
-import { usePicasso, useProfile } from 'hooks';
+import { useCompanies, usePicasso } from 'hooks';
 import { AppLayout } from 'layouts';
 import { useSession } from 'next-auth/react';
 import useTranslation from 'next-translate/useTranslation';
-import React, { useMemo, useState } from 'react';
+import React, { useMemo, useState, useEffect } from 'react';
 import { BiChevronDown } from 'react-icons/bi';
-import { IHistoryNotification, IHistoryPage } from 'types';
+import { IHistoryPage } from 'types';
 
 export const HistoryComponent: React.FC<IHistoryPage> = ({ history }) => {
 	const { t: translate } = useTranslation('history-page');
+	const theme = usePicasso();
 	const [selectedFilterOption, setSelectedFilterOption] = useState<string>(
 		translate('all')
 	);
 	const [pageNumber, setPageNumber] = useState(0);
-	const [filteredNotifications, setFilteredNotifications] =
-		useState<IHistoryNotification[]>(history);
 	const { data: session } = useSession();
-
-	const theme = usePicasso();
+	const { filteredNotifications, setFilteredNotifications } = useCompanies();
 
 	const notificationPerPage = 14;
 	const maxPage = useMemo(
@@ -67,6 +65,10 @@ export const HistoryComponent: React.FC<IHistoryPage> = ({ history }) => {
 		setSelectedFilterOption(filter);
 	};
 
+	useEffect(() => {
+		setPageNumber(0);
+	}, [filteredNotifications]);
+
 	return (
 		<AppLayout
 			right={
@@ -99,7 +101,9 @@ export const HistoryComponent: React.FC<IHistoryPage> = ({ history }) => {
 								h="max-content"
 								py="2"
 								px="3"
+								w="11.875rem"
 								gap="32"
+								fontWeight="normal"
 								fontSize={{ md: 'sm', '2xl': 'md' }}
 								color={theme.text.primary}
 								as={Button}
@@ -110,7 +114,6 @@ export const HistoryComponent: React.FC<IHistoryPage> = ({ history }) => {
 								_hover={{}}
 								_active={{}}
 								_focus={{}}
-								borderBottomRadius="none"
 							>
 								{!session ? translate('all') : selectedFilterOption}
 							</MenuButton>
@@ -187,15 +190,14 @@ export const HistoryComponent: React.FC<IHistoryPage> = ({ history }) => {
 												setSelectedFilterOption(translate('all'));
 											}}
 										>
-											{' '}
 											{translate('returnToAllResults')}
-										</Text>{' '}
+										</Text>
 										{translate('orSelectAnother')}
 									</Text>
 								</Flex>
 							)}
 						</Flex>
-					)}{' '}
+					)}
 				</Flex>
 			</Flex>
 		</AppLayout>
