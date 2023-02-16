@@ -53,15 +53,21 @@ export const LandingHeader: React.FC = () => {
 					);
 				})}
 			</Flex>
-			<Link href={navigationPaths.dashboard.home}>
+			<Link
+				href={navigationPaths.dashboard.home}
+				textDecoration="none"
+				_hover={{ textDecoration: 'none' }}
+			>
 				<Button
-					_hover={{ bg: 'white' }}
+					_hover={{ bg: 'white', textDecor: 'none' }}
 					_focus={{
 						border: '2px solid white',
 						color: 'white',
 						bgColor: 'transparent',
 					}}
 					_active={{ color: 'black' }}
+					_focusVisible={{}}
+					_focusWithin={{}}
 					display={{ base: 'none', md: 'flex' }}
 					borderRadius="sm"
 					bg="white"
@@ -72,6 +78,7 @@ export const LandingHeader: React.FC = () => {
 					py="3"
 					fontSize="md"
 					fontWeight="normal"
+					textDecoration="none"
 				>
 					Launch App
 				</Button>

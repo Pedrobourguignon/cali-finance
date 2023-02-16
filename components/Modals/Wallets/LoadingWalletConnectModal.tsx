@@ -38,7 +38,7 @@ export const LoadingWalletConnectModal: React.FC<
 				borderStyle="solid"
 				borderColor="black"
 			>
-				<OffsetShadow top="0.5rem" left="0.5rem">
+				<OffsetShadow top="0.5rem" left="0.5rem" width="full">
 					<Flex
 						direction="column"
 						w="full"

@@ -13,7 +13,9 @@ import {
 	INotificationList,
 	IEditedCompany,
 	IEmployee,
+	IHistoryNotification,
 } from 'types';
+import { historyNotifications } from 'components';
 
 interface ICompanysContext {
 	companies: ICompany[];
@@ -36,6 +38,8 @@ interface ICompanysContext {
 	displayNeedFundsCard: string;
 	setDisplayNeedFundsCard: Dispatch<SetStateAction<string>>;
 	companiesWithMissingFunds: ICompany[];
+	filteredNotifications: IHistoryNotification[];
+	setFilteredNotifications: Dispatch<SetStateAction<IHistoryNotification[]>>;
 }
 
 export const CompaniesContext = createContext({} as ICompanysContext);
@@ -48,6 +52,9 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 		useState('none');
 	const [displayNeedFundsCard, setDisplayNeedFundsCard] = useState('none');
 	const companiesWithMissingFunds: ICompany[] = [];
+
+	const [filteredNotifications, setFilteredNotifications] =
+		useState<IHistoryNotification[]>(historyNotifications);
 
 	const [companies, setCompanies] = useState<ICompany[]>([
 		{
@@ -302,6 +309,8 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 			companiesWithMissingFunds,
 			setSelectedCompanyEmployees,
 			selectedCompanyEmployees,
+			filteredNotifications,
+			setFilteredNotifications,
 		}),
 		[
 			selectedCompany,
@@ -324,6 +333,8 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 			companiesWithMissingFunds,
 			setSelectedCompanyEmployees,
 			selectedCompanyEmployees,
+			filteredNotifications,
+			setFilteredNotifications,
 		]
 	);
 	return (

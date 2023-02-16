@@ -64,8 +64,6 @@ export const CompaniesList = () => {
 		slidesToScroll: 1,
 	};
 
-	console.log(ref.current?.clientWidth);
-
 	return (
 		<Flex direction="column" gap="4" pt="10">
 			<Flex justify="space-between" align="center">

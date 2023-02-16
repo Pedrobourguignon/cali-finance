@@ -1,11 +1,23 @@
-import { Flex, Button, Text, Img } from '@chakra-ui/react';
-import { InfosBanner, OffsetShadow } from 'components';
-import { usePicasso } from 'hooks';
+import { Flex, Button, Text, Img, useDisclosure } from '@chakra-ui/react';
+import {
+	InfosBanner,
+	LoadingWalletConnectModal,
+	OffsetShadow,
+	WalletsOptionsModal,
+} from 'components';
+import { usePicasso, useProfile } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
 
 export const CreateAccountBanner = () => {
 	const theme = usePicasso();
 	const { t: translate } = useTranslation('banners');
+	const { isOpen, onOpen, onClose } = useDisclosure();
+	const { walletData, setWalletData } = useProfile();
+	const {
+		isOpen: isOpenLoading,
+		onClose: onCloseLoading,
+		onOpen: onOpenLoading,
+	} = useDisclosure();
 
 	return (
 		<InfosBanner
@@ -14,6 +26,18 @@ export const CreateAccountBanner = () => {
 			ondulatedImg="/images/bottom-big-wave.svg"
 			bottom="0"
 		>
+			<WalletsOptionsModal
+				setWalletData={setWalletData}
+				isOpen={isOpen}
+				onClose={onClose}
+				openLoadingWalletModal={onOpenLoading}
+			/>
+			<LoadingWalletConnectModal
+				walletIcon={walletData.icon}
+				walletName={walletData.name}
+				isOpen={isOpenLoading}
+				onClose={onCloseLoading}
+			/>
 			<Flex w="full">
 				<Img src="/images/top-wave.svg" w="full" />
 			</Flex>
@@ -31,9 +55,10 @@ export const CreateAccountBanner = () => {
 						</Text>
 					</Flex>
 					<Flex gap="6">
-						<OffsetShadow>
+						<OffsetShadow top="0.25rem" left="0.3rem" borderColor="white">
 							<Button
 								bg="white"
+								onClick={onOpen}
 								borderRadius="base"
 								color={theme.text.primary}
 								fontSize="sm"

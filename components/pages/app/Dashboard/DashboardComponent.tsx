@@ -11,12 +11,12 @@ import {
 import React from 'react';
 import { IRecentActivitiesList } from 'types';
 import useTranslation from 'next-translate/useTranslation';
-import { useProfile } from 'hooks';
+import { useSession } from 'next-auth/react';
 import { NotFoundContainer } from 'containers';
 
 export const DashboardComponent: React.FC = () => {
 	const { t: translate } = useTranslation('dashboard');
-	const { isConnected } = useProfile();
+	const { data: session } = useSession();
 	const { isOpen, onClose } = useDisclosure();
 
 	const recentActivitiesList: IRecentActivitiesList[] = [
@@ -53,9 +53,9 @@ export const DashboardComponent: React.FC = () => {
 					<DashboardHeader />
 					<Coins />
 				</Flex>
-				<Flex direction="column" gap="9" pt={!isConnected ? '4' : 0}>
-					{/* {isConnected ? <CompaniesList /> : <CreateCompanyCard />} */}
-					{isConnected && (
+				<Flex direction="column" gap="9" pt={!session ? '4' : 0}>
+					{/* {session ? <CompaniesList /> : <CreateCompanyCard />} */}
+					{session && (
 						<Flex justify="space-between" w="full" gap="6">
 							<Flex w="full" flex="5.5">
 								<MyAssets />

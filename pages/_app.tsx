@@ -1,8 +1,12 @@
 import Head from 'next/head';
 import type { AppProps } from 'next/app';
 import { ColorHandler } from 'utils';
+import { SessionProvider } from 'next-auth/react';
 
-const MyApp = ({ Component, pageProps }: AppProps) => (
+const MyApp = ({
+	Component,
+	pageProps: { session, ...pageProps },
+}: AppProps) => (
 	<>
 		<Head>
 			{/* Primary Meta Tags */}
@@ -29,9 +33,11 @@ const MyApp = ({ Component, pageProps }: AppProps) => (
 			<meta property="twitter:description" content="Your money, any time." />
 			<meta property="twitter:image" content="/meta/default.png" />
 		</Head>
-		<ColorHandler cookies={pageProps.cookies}>
-			<Component {...pageProps} />
-		</ColorHandler>
+		<SessionProvider session={session}>
+			<ColorHandler cookies={pageProps.cookies}>
+				<Component {...pageProps} />
+			</ColorHandler>
+		</SessionProvider>
 	</>
 );
 

@@ -12,7 +12,7 @@ import {
 import React, { useState, useEffect } from 'react';
 import { FaDiscord, FaTwitter } from 'react-icons/fa';
 import { usePath, usePicasso, useProfile } from 'hooks';
-import Router, { useRouter } from 'next/router';
+import router, { useRouter } from 'next/router';
 import {
 	DashboardIcon,
 	CompanyIcon,
@@ -25,6 +25,7 @@ import {
 import { navigationPaths, socialMediaLinks } from 'utils';
 import { INetwork } from 'types';
 import useTranslation from 'next-translate/useTranslation';
+import { useSession, signOut } from 'next-auth/react';
 
 interface IMenuItem {
 	icon: typeof Icon;
@@ -75,8 +76,9 @@ export const Sidebar: React.FC = () => {
 	];
 	const theme = usePicasso();
 	const { isSamePath } = usePath();
-	const { userProfile, isConnected } = useProfile();
-	const { locale, asPath } = useRouter();
+	const { userProfile } = useProfile();
+	const { data: session } = useSession();
+	const { locale, pathname } = useRouter();
 	const languages: ILanguage[] = ['en-US', 'pt-BR'];
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const [networkData, setNetworkData] = useState<INetwork>({
@@ -91,7 +93,7 @@ export const Sidebar: React.FC = () => {
 	}, []);
 
 	const changeLanguage = (lang: string) => {
-		Router.push(`${asPath}`, `${asPath}`, { locale: lang });
+		router.push(`/${pathname}`, `/${pathname}`, { locale: lang });
 		localStorage.setItem('language', lang);
 	};
 
@@ -136,7 +138,7 @@ export const Sidebar: React.FC = () => {
 						<Link href={navigationPaths.dashboard.home} pb="6">
 							<Img src="/images/cali-logo.svg" h="8" w="20" cursor="pointer" />
 						</Link>
-						{isConnected === false && <ConnectWalletButton />}
+						{!session && <ConnectWalletButton />}
 						<Flex direction="column" gap="2">
 							<Flex
 								h="max-content"
@@ -146,10 +148,11 @@ export const Sidebar: React.FC = () => {
 								color={theme.text.primary}
 								borderRadius="base"
 								bg="white"
+								onClick={() => signOut()}
 								_hover={{ background: 'white' }}
 								_focus={{ background: 'white' }}
-								display={isConnected === true ? 'flex' : 'none'}
-								w={{ md: '8.25rem', xl: '10.313rem' }}
+								display={session ? 'flex' : 'none'}
+								w={{ md: '8.25rem', xl: '10.313rem', '2xl': '52' }}
 							>
 								<Flex
 									align="center"
@@ -158,7 +161,11 @@ export const Sidebar: React.FC = () => {
 									justify="center"
 								>
 									<Img
-										src={userProfile?.picture}
+										src={
+											userProfile.picture === ''
+												? '/images/editImage.png'
+												: userProfile.picture
+										}
 										borderRadius="full"
 										boxSize="6"
 										objectFit="cover"
@@ -169,7 +176,7 @@ export const Sidebar: React.FC = () => {
 								</Flex>
 							</Flex>
 
-							{isConnected === true && (
+							{session && (
 								<ChangeNetworkButton
 									onClick={onOpen}
 									networkIcon={networkData.icon}
@@ -183,7 +190,7 @@ export const Sidebar: React.FC = () => {
 						gap="3"
 						w="full"
 						pb="6.4rem"
-						pt={isConnected === false ? '16' : '6'}
+						pt={!session ? '16' : '6'}
 					>
 						{menuOptions.map((item, index) => {
 							const comparedPath = isSamePath(item.route);

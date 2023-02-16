@@ -11,6 +11,9 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useCompanies, useSchema } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
+import { useEffect } from 'react';
+import { useSession } from 'next-auth/react';
+import router from 'next/router';
 
 export const EditCompany = () => {
 	const { t: translate } = useTranslation('create-company');
@@ -22,6 +25,11 @@ export const EditCompany = () => {
 	} = useForm<IEditCompany>({
 		resolver: yupResolver(editCompanySchema),
 	});
+	const { data: session } = useSession();
+
+	useEffect(() => {
+		if (!session) router.push('/app/companies');
+	}, [session]);
 
 	const handleEditCompany = (editedCompanyData: IEditCompany) => {
 		console.log(editedCompanyData);
