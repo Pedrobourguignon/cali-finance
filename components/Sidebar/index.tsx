@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-expressions */
 import {
 	Box,
 	Button,
@@ -8,7 +9,7 @@ import {
 	Text,
 	useDisclosure,
 } from '@chakra-ui/react';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FaDiscord, FaTwitter } from 'react-icons/fa';
 import { usePath, usePicasso, useProfile } from 'hooks';
 import Router, { useRouter } from 'next/router';
@@ -83,9 +84,20 @@ export const Sidebar: React.FC = () => {
 		icon: '/images/eth.png',
 	} as INetwork);
 
-	const changeLanguage = (lang: ILanguage) => {
+	useEffect(() => {
+		if (!localStorage.getItem('language')) {
+			locale && localStorage.setItem('language', locale);
+		}
+	}, []);
+
+	const changeLanguage = (lang: string) => {
 		Router.push(`${asPath}`, `${asPath}`, { locale: lang });
+		localStorage.setItem('language', lang);
 	};
+
+	useEffect(() => {
+		changeLanguage(localStorage.getItem('language')!);
+	}, [locale]);
 
 	return (
 		<>
@@ -255,8 +267,8 @@ export const Sidebar: React.FC = () => {
 									color={locale === lang ? theme.branding.blue : 'white'}
 								>
 									{locale === lang
-										? `[${lang.toUpperCase()}]`
-										: lang.toUpperCase()}
+										? `[${lang?.toUpperCase()}]`
+										: lang?.toUpperCase()}
 								</Text>
 							))}
 						</Flex>
