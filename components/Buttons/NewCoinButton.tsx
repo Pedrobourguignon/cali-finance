@@ -12,7 +12,10 @@ export const NewCoinButton = () => {
 		<OffsetShadow borderColor="white" top="0rem" left="0rem">
 			<Button
 				position="relative"
-				w="full"
+				w={{
+					md: locale === 'pt-BR' ? '6.938rem' : '5.625rem',
+					xl: locale === 'pt-BR' ? '7.813rem' : '6.938rem',
+				}}
 				h="full"
 				px={{ base: '5' }}
 				py={{ base: '2' }}
@@ -33,7 +36,7 @@ export const NewCoinButton = () => {
 				right="0.25rem"
 				fontWeight="medium"
 				lineHeight="5"
-				gap={{ lg: '1', xl: '2' }}
+				gap="1.5"
 				alignContent="center"
 			>
 				<Icon as={AiOutlinePlus} />
