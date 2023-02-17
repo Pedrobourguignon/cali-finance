@@ -341,20 +341,20 @@ export const AddEmployee: React.FC<IAddEmployee> = ({
 									<Text>+</Text>
 									{translate('addEmployee')}
 								</BlackButton>
-								<Link href={navigationPaths.termsAndConditions}>
-									<Text
-										color="gray.500"
-										fontSize="xs"
-										pt="3"
-										pb="5"
-										textAlign="center"
-									>
-										{translate('byAdding')}
+								<Text
+									color="gray.500"
+									fontSize="xs"
+									pt="3"
+									pb="5"
+									textAlign="center"
+								>
+									{translate('byAdding')}
+									<Link href={navigationPaths.termsAndConditions}>
 										<Text as="u" fontWeight="semibold">
 											{translate('termsAndConditions')}
 										</Text>
-									</Text>
-								</Link>
+									</Link>
+								</Text>
 							</ModalBody>
 						</FormControl>
 					</form>
