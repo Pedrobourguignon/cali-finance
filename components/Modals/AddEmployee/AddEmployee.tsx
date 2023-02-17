@@ -15,6 +15,7 @@ import {
 	InputGroup,
 	Img,
 	useDisclosure,
+	Link,
 } from '@chakra-ui/react';
 import { BlackButton, TokenSelector, UploadCsv } from 'components';
 import { useCompanies, usePicasso, useSchema } from 'hooks';
@@ -25,6 +26,7 @@ import { IoPersonAddOutline } from 'react-icons/io5';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { IoIosArrowDown } from 'react-icons/io';
+import { navigationPaths } from 'utils';
 
 export const AddEmployee: React.FC<IAddEmployee> = ({
 	isOpen,
@@ -339,18 +341,20 @@ export const AddEmployee: React.FC<IAddEmployee> = ({
 									<Text>+</Text>
 									{translate('addEmployee')}
 								</BlackButton>
-								<Text
-									color="gray.500"
-									fontSize="xs"
-									pt="3"
-									pb="5"
-									textAlign="center"
-								>
-									{translate('byAdding')}
-									<Text as="u" fontWeight="semibold">
-										{translate('termsAndConditions')}
+								<Link href={navigationPaths.termsAndConditions}>
+									<Text
+										color="gray.500"
+										fontSize="xs"
+										pt="3"
+										pb="5"
+										textAlign="center"
+									>
+										{translate('byAdding')}
+										<Text as="u" fontWeight="semibold">
+											{translate('termsAndConditions')}
+										</Text>
 									</Text>
-								</Text>
+								</Link>
 							</ModalBody>
 						</FormControl>
 					</form>
