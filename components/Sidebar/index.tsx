@@ -9,7 +9,7 @@ import {
 	Text,
 	useDisclosure,
 } from '@chakra-ui/react';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FaDiscord, FaTwitter } from 'react-icons/fa';
 import { usePath, usePicasso, useProfile } from 'hooks';
 import router, { useRouter } from 'next/router';
@@ -86,7 +86,6 @@ export const Sidebar: React.FC = () => {
 		icon: '/images/eth.png',
 	} as INetwork);
 
-
 	useEffect(() => {
 		if (!localStorage.getItem('language')) {
 			locale && localStorage.setItem('language', locale);
@@ -94,7 +93,6 @@ export const Sidebar: React.FC = () => {
 	}, []);
 
 	const changeLanguage = (lang: string) => {
-  	const changeLanguage = (lang: ILanguage) => {
 		router.push(`/${asPath}`, `/${asPath}`, { locale: lang });
 		localStorage.setItem('language', lang);
 	};
