@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-expressions */
 import {
 	Box,
 	Button,
@@ -75,7 +76,6 @@ export const Sidebar: React.FC = () => {
 	];
 	const theme = usePicasso();
 	const { isSamePath } = usePath();
-
 	const { userProfile } = useProfile();
 	const { data: session } = useSession();
 	const { locale, pathname } = useRouter();
@@ -86,9 +86,20 @@ export const Sidebar: React.FC = () => {
 		icon: '/images/eth.png',
 	} as INetwork);
 
-	const changeLanguage = (lang: ILanguage) => {
+	useEffect(() => {
+		if (!localStorage.getItem('language')) {
+			locale && localStorage.setItem('language', locale);
+		}
+	}, []);
+
+	const changeLanguage = (lang: string) => {
 		router.push(`/${pathname}`, `/${pathname}`, { locale: lang });
+		localStorage.setItem('language', lang);
 	};
+
+	useEffect(() => {
+		changeLanguage(localStorage.getItem('language')!);
+	}, [locale]);
 
 	return (
 		<>
