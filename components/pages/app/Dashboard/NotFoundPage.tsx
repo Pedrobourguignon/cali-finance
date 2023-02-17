@@ -9,6 +9,7 @@ export const NotFoundPage = () => {
 	const theme = usePicasso();
 	return (
 		<Flex
+			ml={{ lg: '7.813rem' }}
 			align="center"
 			justify="center"
 			w="100%"
