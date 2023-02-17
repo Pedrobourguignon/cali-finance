@@ -16,14 +16,8 @@ export const UploadCsv = () => {
 
 	return (
 		<Flex direction="column" w="full">
-			<Text
-				color={theme.text.primary}
-				fontSize="sm"
-				pb="5"
-				px="4"
-				textAlign="center"
-			>
-				{translate('dragAndDrop')}
+			<Text color={theme.text.primary} fontSize="sm" pb="5" px="6">
+				{translate('yourCsvMustHave')}
 			</Text>
 			<DragAndDrop setUploadedFileData={setUploadedFileData} />
 
