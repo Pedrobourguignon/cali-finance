@@ -7,11 +7,12 @@ import {
 	Text,
 	TextProps,
 	useDisclosure,
+	useToast,
 } from '@chakra-ui/react';
 import { usePicasso, useProfile, useSchema } from 'hooks';
 import React, { useState } from 'react';
 import useTranslation from 'next-translate/useTranslation';
-import { BlackButton, ImageUploaderModal } from 'components';
+import { BlackButton, ImageUploaderModal, SaveChangesToast } from 'components';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 import { useSession } from 'next-auth/react';
@@ -26,6 +27,7 @@ export const EditProfileComponent = () => {
 	const theme = usePicasso();
 	const { t: translate } = useTranslation('edit-profile');
 	const { isOpen, onOpen, onClose } = useDisclosure();
+	const toast = useToast();
 
 	const { data: session } = useSession();
 	const { editProfileSchema } = useSchema();
@@ -59,6 +61,10 @@ export const EditProfileComponent = () => {
 			email: editedProfileInfo.email,
 			picture: editedProfileInfo.picture,
 			wallet: '0x6856...BF99',
+		});
+		toast({
+			position: 'top-right',
+			render: () => <SaveChangesToast onClick={toast.closeAll} />,
 		});
 	};
 
