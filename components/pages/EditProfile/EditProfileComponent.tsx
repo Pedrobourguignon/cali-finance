@@ -7,11 +7,12 @@ import {
 	Text,
 	TextProps,
 	useDisclosure,
+	useToast,
 } from '@chakra-ui/react';
 import { usePicasso, useProfile, useSchema } from 'hooks';
 import React, { useState } from 'react';
 import useTranslation from 'next-translate/useTranslation';
-import { BlackButton, ImageUploaderModal } from 'components';
+import { BlackButton, ImageUploaderModal, SaveChangesToast } from 'components';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 import { useSession } from 'next-auth/react';
@@ -26,6 +27,7 @@ export const EditProfileComponent = () => {
 	const theme = usePicasso();
 	const { t: translate } = useTranslation('edit-profile');
 	const { isOpen, onOpen, onClose } = useDisclosure();
+	const toast = useToast();
 
 	const { data: session } = useSession();
 	const { editProfileSchema } = useSchema();
@@ -43,13 +45,27 @@ export const EditProfileComponent = () => {
 	} = useForm<IEditProfile>({
 		resolver: yupResolver(editProfileSchema),
 	});
-	const { userProfile, setUserProfile, editedProfileInfo } = useProfile();
+	const {
+		userProfile,
+		setUserProfile,
+		editedProfileInfo,
+		setEditedProfileInfo,
+	} = useProfile();
 	const [editProfilePicture, setEditProfilePicture] = useState(
 		userProfile.picture || ''
 	);
 
-	const handleEditProfile = (newDataOfProfile: IEditProfile) => {
-		console.log(newDataOfProfile);
+	const handleEditProfile = () => {
+		setUserProfile({
+			name: editedProfileInfo.name,
+			email: editedProfileInfo.email,
+			picture: editedProfileInfo.picture,
+			wallet: '0x6856...BF99',
+		});
+		toast({
+			position: 'top-right',
+			render: () => <SaveChangesToast onClick={toast.closeAll} />,
+		});
 	};
 
 	return (
@@ -91,9 +107,9 @@ export const EditProfileComponent = () => {
 				>
 					<Img
 						src={
-							editProfilePicture === ''
+							editedProfileInfo.picture === ''
 								? '/images/editImage.png'
-								: editProfilePicture
+								: editedProfileInfo.picture
 						}
 						boxSize="24"
 						borderRadius="full"
@@ -141,7 +157,7 @@ export const EditProfileComponent = () => {
 										py="1"
 										disabled={!session}
 										onChange={name => {
-											setUserProfile(prevState => ({
+											setEditedProfileInfo(prevState => ({
 												...prevState,
 												name: name.target.value,
 											}));
@@ -170,7 +186,7 @@ export const EditProfileComponent = () => {
 										{...register('email')}
 										disabled={!session}
 										onChange={email => {
-											setUserProfile(prevState => ({
+											setEditedProfileInfo(prevState => ({
 												...prevState,
 												email: email.target.value,
 											}));
