@@ -11,7 +11,6 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useCompanies, useSchema } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
-import { useEffect } from 'react';
 import { useSession } from 'next-auth/react';
 import router from 'next/router';
 
@@ -25,11 +24,12 @@ export const EditCompany = () => {
 	} = useForm<IEditCompany>({
 		resolver: yupResolver(editCompanySchema),
 	});
-	const { data: session } = useSession();
-
-	useEffect(() => {
-		if (!session) router.push('/app/companies');
-	}, [session]);
+	const { data: session } = useSession({
+		required: true,
+		onUnauthenticated() {
+			router.push('/app/companies');
+		},
+	});
 
 	const handleEditCompany = (editedCompanyData: IEditCompany) => {
 		console.log(editedCompanyData);
@@ -46,8 +46,10 @@ export const EditCompany = () => {
 					<CompanyWhiteBackground />
 					<Flex direction="column" gap="10" zIndex="docked" pt="6" w="100%">
 						<Flex w="100%">
-							<NavigationBack href={navigationPaths.dashboard.companies.home}>
-								{translate('backToCompanies')}
+							<NavigationBack
+								href={navigationPaths.dashboard.companies.overview('1')}
+							>
+								{translate('backToCompany')}
 							</NavigationBack>
 						</Flex>
 						<EditCompanyComponent

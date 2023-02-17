@@ -1,13 +1,13 @@
 import { Flex } from '@chakra-ui/react';
-import { useProfile } from 'hooks';
 import { CompaniesConnected, CompaniesLayoutNoConnected } from 'layouts';
+import { useSession } from 'next-auth/react';
 import React from 'react';
 
 export const GeneralComponent = () => {
-	const { isConnected } = useProfile();
+	const { data: session } = useSession();
 	return (
 		<Flex>
-			{isConnected ? <CompaniesConnected /> : <CompaniesLayoutNoConnected />}
+			{session ? <CompaniesConnected /> : <CompaniesLayoutNoConnected />}
 		</Flex>
 	);
 };
