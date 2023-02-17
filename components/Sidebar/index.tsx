@@ -2,10 +2,15 @@
 import {
 	Box,
 	Button,
+	Collapse,
 	Flex,
 	Icon,
 	Img,
 	Link,
+	Menu,
+	MenuButton,
+	MenuItem,
+	MenuList,
 	Text,
 	useDisclosure,
 } from '@chakra-ui/react';
@@ -21,6 +26,7 @@ import {
 	ConnectWalletButton,
 	ChangeNetworkButton,
 	NetworkModal,
+	LogoutButton,
 } from 'components';
 import { navigationPaths, socialMediaLinks } from 'utils';
 import { INetwork } from 'types';
@@ -81,6 +87,11 @@ export const Sidebar: React.FC = () => {
 	const { locale, asPath } = useRouter();
 	const languages: ILanguage[] = ['en-US', 'pt-BR'];
 	const { isOpen, onOpen, onClose } = useDisclosure();
+	const {
+		isOpen: isOpenMenu,
+		onOpen: onOpenMenu,
+		onClose: onCloseMenu,
+	} = useDisclosure();
 	const [networkData, setNetworkData] = useState<INetwork>({
 		name: 'Ethereum',
 		icon: '/images/eth.png',
@@ -138,52 +149,87 @@ export const Sidebar: React.FC = () => {
 						<Link href={navigationPaths.dashboard.home} pb="6">
 							<Img src="/images/cali-logo.svg" h="8" w="20" cursor="pointer" />
 						</Link>
-						{!session && <ConnectWalletButton />}
-						<Flex direction="column" gap="2">
-							<Flex
-								h="max-content"
-								py="1"
-								justify="center"
-								fontSize="sm"
-								color={theme.text.primary}
-								borderRadius="base"
-								bg="white"
-								onClick={() => signOut()}
-								_hover={{ background: 'white' }}
-								_focus={{ background: 'white' }}
-								display={session ? 'flex' : 'none'}
-								w={{ md: '8.25rem', xl: '10.313rem', '2xl': '52' }}
-							>
-								<Flex
-									align="center"
-									gap="2"
-									w={{ md: '8rem', xl: '9rem' }}
-									justify="center"
+						{!session ? (
+							<ConnectWalletButton />
+						) : (
+							<Flex direction="column" gap="2">
+								<Menu
+									gutter={0}
+									autoSelect={false}
+									isOpen={isOpenMenu}
+									onClose={onCloseMenu}
 								>
-									<Img
-										src={
-											userProfile.picture === ''
-												? '/images/editImage.png'
-												: userProfile.picture
-										}
-										borderRadius="full"
-										boxSize="6"
-										objectFit="cover"
+									<MenuButton
+										h="max-content"
+										borderBottomRadius={isOpenMenu ? 'none' : 'base'}
+										borderRadius="base"
+										w={{ md: '8.25rem', xl: '10.313rem', '2xl': '13rem' }}
+										justifyItems="center"
+										py="1"
+										px="3"
+										gap="32"
+										fontWeight="normal"
+										fontSize={{ md: 'sm', '2xl': 'md' }}
+										color={theme.text.primary}
+										as={Button}
+										bg="white"
+										disabled={!session}
+										onClick={onOpenMenu}
+										_hover={{}}
+										_active={{}}
+										_focus={{}}
+									>
+										<Flex align="center" gap="2" justify="center">
+											<Img
+												src={
+													userProfile.picture === ''
+														? '/images/editImage.png'
+														: userProfile.picture
+												}
+												borderRadius="full"
+												boxSize="6"
+												objectFit="cover"
+											/>
+											<Text
+												fontWeight="medium"
+												fontSize={{ md: 'xs', xl: 'sm' }}
+											>
+												{userProfile?.wallet}
+											</Text>
+										</Flex>
+									</MenuButton>
+									<MenuList
+										p="0"
+										borderTopRadius="none"
+										borderColor="white"
+										borderTopColor="black"
+										minW={{ md: '8.25rem', xl: '10.313rem', '2xl': '13rem' }}
+									>
+										<MenuItem
+											py="2.5"
+											bg="white"
+											justifyContent="center"
+											color={theme.text.primary}
+											_hover={{ opacity: '80%' }}
+											fontSize="sm"
+											borderBottomRadius="base"
+											_active={{}}
+											onClick={() => signOut()}
+											_focus={{}}
+										>
+											{translate('logOut')}
+										</MenuItem>
+									</MenuList>
+								</Menu>
+								{session && (
+									<ChangeNetworkButton
+										onClick={onOpen}
+										networkIcon={networkData.icon}
+										networkName={networkData.name}
 									/>
-									<Text fontWeight="medium" fontSize={{ md: 'xs', xl: 'sm' }}>
-										{userProfile?.wallet}
-									</Text>
-								</Flex>
+								)}
 							</Flex>
-
-							{session && (
-								<ChangeNetworkButton
-									onClick={onOpen}
-									networkIcon={networkData.icon}
-									networkName={networkData.name}
-								/>
-							)}
-						</Flex>
+						)}
 					</Flex>
 					<Flex
 						direction="column"
