@@ -1,8 +1,7 @@
 import axios from 'axios';
 
-const baseURL = 'await .env setting';
 const apiClient = axios.create({
-	baseURL,
+	baseURL: process.env.NEXT_PUBLIC_API_URL,
 	withCredentials: false,
 });
 
