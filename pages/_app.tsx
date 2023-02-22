@@ -37,15 +37,15 @@ const MyApp = ({
 			<meta property="twitter:description" content="Your money, any time." />
 			<meta property="twitter:image" content="/meta/default.png" />
 		</Head>
-			<WagmiWrapper>
-		<QueryClientProvider client={queryClient}>
-			<SessionProvider session={session}>
-				<ColorHandler cookies={pageProps.cookies}>
-					<Component {...pageProps} />
-				</ColorHandler>
-			</SessionProvider>
-		</QueryClientProvider>
-    			</WagmiWrapper>
+		<WagmiWrapper>
+			<QueryClientProvider client={queryClient}>
+				<SessionProvider session={session}>
+					<ColorHandler cookies={pageProps.cookies}>
+						<Component {...pageProps} />
+					</ColorHandler>
+				</SessionProvider>
+			</QueryClientProvider>
+		</WagmiWrapper>
 	</>
 );
 
