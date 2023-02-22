@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import type { AppProps } from 'next/app';
 import { ColorHandler } from 'utils';
+import { WagmiWrapper } from 'wrappers';
 import { SessionProvider } from 'next-auth/react';
 import { QueryClient, QueryClientProvider } from 'react-query';
 
@@ -36,13 +37,15 @@ const MyApp = ({
 			<meta property="twitter:description" content="Your money, any time." />
 			<meta property="twitter:image" content="/meta/default.png" />
 		</Head>
-		<QueryClientProvider client={queryClient}>
-			<SessionProvider session={session}>
-				<ColorHandler cookies={pageProps.cookies}>
-					<Component {...pageProps} />
-				</ColorHandler>
-			</SessionProvider>
-		</QueryClientProvider>
+		<WagmiWrapper>
+			<QueryClientProvider client={queryClient}>
+				<SessionProvider session={session}>
+					<ColorHandler cookies={pageProps.cookies}>
+						<Component {...pageProps} />
+					</ColorHandler>
+				</SessionProvider>
+			</QueryClientProvider>
+		</WagmiWrapper>
 	</>
 );
 

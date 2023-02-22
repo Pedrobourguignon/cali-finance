@@ -1,6 +1,6 @@
-export * from './apiClient';
 export * from './chainList';
 export * from './chainLogo';
+export * from './clients';
 export * from './ColorHandler';
 export * from './logoHandler';
 export * from './navigationPaths';
