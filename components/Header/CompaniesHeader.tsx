@@ -10,6 +10,7 @@ import useTranslation from 'next-translate/useTranslation';
 import { ICompany } from 'types';
 import { useSession } from 'next-auth/react';
 import router from 'next/router';
+import NextLink from 'next/link';
 
 export const CompaniesHeader: React.FC<{
 	company: ICompany;
@@ -84,7 +85,10 @@ export const CompaniesHeader: React.FC<{
 					<Text fontSize="xl">${company.funds.toLocaleString('en-US')}</Text>
 					<Text fontSize="sm">{translate('totalFunds')}</Text>
 				</Flex>
-				<Link href={navigationPaths.dashboard.companies.editOrg('1')}>
+				<Link
+					href={navigationPaths.dashboard.companies.editOrg('1')}
+					as={NextLink}
+				>
 					<Text
 						borderRadius="base"
 						px="5"
@@ -106,6 +110,7 @@ export const CompaniesHeader: React.FC<{
 						return (
 							<Link
 								key={+index}
+								as={NextLink}
 								href={menuOption.route}
 								_hover={{
 									textDecoration: 'none',

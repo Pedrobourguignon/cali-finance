@@ -4,6 +4,7 @@ import useTranslation from 'next-translate/useTranslation';
 import React from 'react';
 import { ITeamsData } from 'types';
 import { handleLogoImage, navigationPaths } from 'utils';
+import NextLink from 'next/link';
 
 interface ITeamsCard {
 	team: ITeamsData;
@@ -73,7 +74,10 @@ export const TeamsCard: React.FC<ITeamsCard> = ({ team }) => {
 				</Flex>
 			</Flex>
 			<Flex w="100%" align="center" justify="center" py="1" pb="3">
-				<Link href={navigationPaths.dashboard.companies.team('1', '1')}>
+				<Link
+					href={navigationPaths.dashboard.companies.team('1', '1')}
+					as={NextLink}
+				>
 					<Flex
 						color={theme.text.black}
 						bg="white"

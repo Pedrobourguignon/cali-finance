@@ -1,10 +1,10 @@
-import { Flex, Img, Text } from '@chakra-ui/react';
+import { Flex, Img, Link, Text } from '@chakra-ui/react';
 import { usePicasso } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
-import Link from 'next/link';
 import React from 'react';
 import { ICompany } from 'types';
 import { handleLogoImage, navigationPaths } from 'utils';
+import NextLink from 'next/link';
 
 interface ICompanyCard {
 	team: ICompany;
@@ -68,7 +68,10 @@ export const CompanyCard: React.FC<ICompanyCard> = ({ team }) => {
 				</Flex>
 			</Flex>
 			<Flex w="100%" align="center" justify="center" pb={{ lg: '2', xl: '4' }}>
-				<Link href={navigationPaths.dashboard.companies.overview('1')}>
+				<Link
+					href={navigationPaths.dashboard.companies.overview('1')}
+					as={NextLink}
+				>
 					<Text
 						color={theme.branding.blue}
 						bg="none"

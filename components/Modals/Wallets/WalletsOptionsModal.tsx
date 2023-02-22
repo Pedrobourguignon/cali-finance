@@ -12,11 +12,12 @@ import {
 	Text,
 } from '@chakra-ui/react';
 import { OffsetShadow } from 'components';
-import { usePicasso, useProfile } from 'hooks';
-import { useSession, signIn } from 'next-auth/react';
+import { usePicasso } from 'hooks';
+import { signIn } from 'next-auth/react';
 import useTranslation from 'next-translate/useTranslation';
 import { IWalletOptionsModal } from 'types';
 import { navigationPaths } from 'utils';
+import NextLink from 'next/link';
 
 const walletsOptions = [
 	{
@@ -145,7 +146,7 @@ export const WalletsOptionsModal: React.FC<IWalletOptionsModal> = ({
 								<Text fontSize="sm" whiteSpace="nowrap">
 									{translate('accept')}
 								</Text>
-								<Link href={navigationPaths.termsAndConditions}>
+								<Link as={NextLink} href={navigationPaths.termsAndConditions}>
 									<Text
 										as="span"
 										textDecor="underline"
