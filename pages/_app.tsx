@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import type { AppProps } from 'next/app';
 import { ColorHandler } from 'utils';
+import { WagmiWrapper } from 'wrappers';
 
 const MyApp = ({ Component, pageProps }: AppProps) => (
 	<>
@@ -30,7 +31,9 @@ const MyApp = ({ Component, pageProps }: AppProps) => (
 			<meta property="twitter:image" content="/meta/default.png" />
 		</Head>
 		<ColorHandler cookies={pageProps.cookies}>
-			<Component {...pageProps} />
+			<WagmiWrapper>
+				<Component {...pageProps} />
+			</WagmiWrapper>
 		</ColorHandler>
 	</>
 );
