@@ -1,5 +1,5 @@
 import { Button, Flex, Text, useDisclosure } from '@chakra-ui/react';
-import React from 'react';
+import React, { useEffect } from 'react';
 import useTranslation from 'next-translate/useTranslation';
 import {
 	LoadingWalletConnectModal,
@@ -8,6 +8,7 @@ import {
 } from 'components';
 import { useAuth, useProfile } from 'hooks';
 import { useRouter } from 'next/router';
+import { useConnect } from 'wagmi';
 
 export const ConnectWalletButton = () => {
 	const { t: translate } = useTranslation('sidebar');
@@ -17,12 +18,14 @@ export const ConnectWalletButton = () => {
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const { walletData, setWalletData } = useProfile();
 	const { getAuthorization } = useAuth();
+
 	const { icon, name } = walletData;
 	const {
 		isOpen: isOpenLoading,
 		onClose: onCloseLoading,
 		onOpen: onOpenLoading,
 	} = useDisclosure();
+
 	return (
 		<Flex>
 			<WalletsOptionsModal
@@ -60,8 +63,8 @@ export const ConnectWalletButton = () => {
 						background: 'white',
 						transform: 'translateY(0.5rem) translateX(0.375rem)',
 					}}
-					// onClick={onOpen}
-					onClick={getAuthorization}
+					onClick={onOpen}
+					// onClick={getAuthorization}
 					display={shouldDisplay}
 				>
 					<Text px="8" display={shouldDisplay}>

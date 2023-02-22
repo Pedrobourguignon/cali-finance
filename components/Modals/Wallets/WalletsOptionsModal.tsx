@@ -13,11 +13,16 @@ import {
 } from '@chakra-ui/react';
 import { OffsetShadow } from 'components';
 import { usePicasso, useProfile } from 'hooks';
-import { useSession, signIn } from 'next-auth/react';
 import useTranslation from 'next-translate/useTranslation';
 import { IWalletOptionsModal } from 'types';
 import { navigationPaths } from 'utils';
-import { useConnect } from 'wagmi';
+import { Connector, useAccount, useConnect } from 'wagmi';
+
+interface IWallet {
+	name: string;
+	icon: string;
+	connector?: Connector<any, any, any>;
+}
 
 export const WalletsOptionsModal: React.FC<IWalletOptionsModal> = ({
 	isOpen,
@@ -26,16 +31,16 @@ export const WalletsOptionsModal: React.FC<IWalletOptionsModal> = ({
 	setWalletData,
 }) => {
 	const { t: translate } = useTranslation('sidebar');
-	const { setIsConnected } = useProfile();
-	const { connectors } = useConnect();
+	const { connectors, connect } = useConnect();
 	const theme = usePicasso();
-	const onTriggerLoadingModal = async (icon: string, name: string) => {
+	const onTriggerLoadingModal = async (wallet: IWallet) => {
+		const { connector, icon, name } = wallet;
 		setWalletData({
 			icon,
 			name,
 		});
-		signIn('credentials', {});
 		openLoadingWalletModal();
+		await connect({ connector });
 		onClose();
 	};
 
@@ -48,14 +53,17 @@ export const WalletsOptionsModal: React.FC<IWalletOptionsModal> = ({
 		{
 			name: 'Coinbase Wallet',
 			icon: '/icons/coinbase.svg',
+			connector: connectors[1],
 		},
 		{
 			name: 'WalletConnect',
 			icon: '/icons/walletConnect.svg',
+			connector: connectors[2],
 		},
 		{
 			name: 'Binance Wallet',
 			icon: '/icons/binance.svg',
+			connector: connectors[0],
 		},
 		{
 			name: 'More',
@@ -118,9 +126,7 @@ export const WalletsOptionsModal: React.FC<IWalletOptionsModal> = ({
 										color: 'white',
 										bg: 'black',
 									}}
-									onClick={() =>
-										onTriggerLoadingModal(wallet.icon, wallet.name)
-									}
+									onClick={() => onTriggerLoadingModal(wallet)}
 									color={theme.text.mono}
 									transition="all 0.1s ease-in-out"
 									borderRadius="base"

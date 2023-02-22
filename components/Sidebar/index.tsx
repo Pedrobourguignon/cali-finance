@@ -32,6 +32,7 @@ import { navigationPaths, socialMediaLinks } from 'utils';
 import { INetwork } from 'types';
 import useTranslation from 'next-translate/useTranslation';
 import { useSession, signOut } from 'next-auth/react';
+import { useAccount, useDisconnect } from 'wagmi';
 
 interface IMenuItem {
 	icon: typeof Icon;
@@ -83,7 +84,8 @@ export const Sidebar: React.FC = () => {
 	const theme = usePicasso();
 	const { isSamePath } = usePath();
 	const { userProfile } = useProfile();
-	const { data: session } = useSession();
+	const { isConnected } = useAccount();
+	const { disconnect } = useDisconnect();
 	const { locale, asPath } = useRouter();
 	const languages: ILanguage[] = ['en-US', 'pt-BR'];
 	const { isOpen, onOpen, onClose } = useDisclosure();
@@ -149,7 +151,7 @@ export const Sidebar: React.FC = () => {
 						<Link href={navigationPaths.dashboard.home} pb="6">
 							<Img src="/images/cali-logo.svg" h="8" w="20" cursor="pointer" />
 						</Link>
-						{!session ? (
+						{!isConnected ? (
 							<ConnectWalletButton />
 						) : (
 							<Flex direction="column" gap="2">
@@ -173,7 +175,7 @@ export const Sidebar: React.FC = () => {
 										color={theme.text.primary}
 										as={Button}
 										bg="white"
-										disabled={!session}
+										disabled={!isConnected}
 										onClick={onOpenMenu}
 										_hover={{}}
 										_active={{}}
@@ -214,14 +216,14 @@ export const Sidebar: React.FC = () => {
 											fontSize="sm"
 											borderBottomRadius="base"
 											_active={{}}
-											onClick={() => signOut()}
+											onClick={() => disconnect()}
 											_focus={{}}
 										>
 											{translate('logOut')}
 										</MenuItem>
 									</MenuList>
 								</Menu>
-								{session && (
+								{isConnected && (
 									<ChangeNetworkButton
 										onClick={onOpen}
 										networkIcon={networkData.icon}
@@ -236,7 +238,7 @@ export const Sidebar: React.FC = () => {
 						gap="3"
 						w="full"
 						pb="6.4rem"
-						pt={!session ? '16' : '6'}
+						pt={!isConnected ? '16' : '6'}
 					>
 						{menuOptions.map((item, index) => {
 							const comparedPath = isSamePath(item.route);
