@@ -8,13 +8,8 @@ import {
 } from 'components';
 import useTranslation from 'next-translate/useTranslation';
 import { ICompany } from 'types';
-
-const companyData = {
-	name: 'Kylie Cosmetics Super Extra',
-	logo: '/images/kylie-cosmetics-logo.png',
-	totalFunds: '67,986.09',
-	network: { name: 'Ethereum', logo: '/images/eth.png' },
-};
+import { useSession } from 'next-auth/react';
+import router from 'next/router';
 
 export const CompaniesHeader: React.FC<{
 	company: ICompany;
@@ -24,6 +19,12 @@ export const CompaniesHeader: React.FC<{
 	const { setNotificationsList, notificationsList } = useCompanies();
 	const { onClose, isOpen, onOpen } = useDisclosure();
 	const { t: translate } = useTranslation('company-overall');
+	const { data: session } = useSession({
+		required: true,
+		onUnauthenticated() {
+			router.push('/app/companies');
+		},
+	});
 
 	const menuOptions = [
 		{
@@ -80,7 +81,7 @@ export const CompaniesHeader: React.FC<{
 					</Text>
 				</Flex>
 				<Flex direction="column" maxW="28">
-					<Text fontSize="xl">${company.funds}</Text>
+					<Text fontSize="xl">${company.funds.toLocaleString('en-US')}</Text>
 					<Text fontSize="sm">{translate('totalFunds')}</Text>
 				</Flex>
 				<Link href={navigationPaths.dashboard.companies.editOrg('1')}>

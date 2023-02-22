@@ -13,5 +13,6 @@
 	"processing": "Processing",
 	"createCompany": "Create Company",
 	"withdrawal": "Withdrawal",
-	"teamCreated": "Team created"
+	"teamCreated": "Team created",
+	"addressCopiedSuccessfully": "Address copied successfully"
 }

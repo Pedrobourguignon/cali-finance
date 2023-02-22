@@ -6,8 +6,8 @@ import { AiFillCheckCircle, AiOutlineClose } from 'react-icons/ai';
 interface IToast {
 	onClick: () => void;
 }
-export const CopyAddressToast: React.FC<IToast> = ({ onClick }) => {
-	const { t: translate } = useTranslation('companies');
+export const SaveChangesToast: React.FC<IToast> = ({ onClick }) => {
+	const { t: translate } = useTranslation('edit-profile');
 	return (
 		<OffsetShadow
 			top="0.25rem"
@@ -28,7 +28,9 @@ export const CopyAddressToast: React.FC<IToast> = ({ onClick }) => {
 			>
 				<Flex gap="3" align="center">
 					<Icon as={AiFillCheckCircle} color="green.500" boxSize="5" />
-					<Text w="max-content">{translate('addressCopiedSuccessfully')}</Text>
+					<Text w="max-content">
+						{translate('changesMadeWithSuccessfully')}
+					</Text>
 				</Flex>
 				<Button onClick={onClick}>
 					<Icon boxSize="5" as={AiOutlineClose} />

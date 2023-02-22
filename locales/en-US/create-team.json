@@ -21,5 +21,6 @@
 	"termsAndConditions": "Terms and Conditions.",
 	"teamPlaceholder": "Select or Insert name to Create Team",
 	"dragAndDrop": "Drag 'n' drop your .csv or Select and upload your .csv file.",
-	"loadCsv": "Load CSV list"
+	"loadCsv": "Load CSV list",
+	"yourCsvMustHave": "Your .csv file  must have the columns 'employee', 'address', 'amount', 'token symbol'."
 }

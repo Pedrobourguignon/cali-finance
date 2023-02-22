@@ -1,22 +1,23 @@
-import { Flex, Link, Text, useDisclosure } from '@chakra-ui/react';
-import { usePicasso } from 'hooks';
+import { Flex, Link, Text, useDisclosure, Button } from '@chakra-ui/react';
+
 import { AddEmployee, BlackButton, EmployeeData } from 'components';
-import { IEmployee } from 'types';
+import { useCompanies, usePicasso } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
 
 interface IEmployeeDashboard {
-	employees: IEmployee[];
 	isGeneral: boolean;
 }
 
 export const EmployeesDashboard: React.FC<IEmployeeDashboard> = ({
-	employees,
 	isGeneral,
 }) => {
 	const theme = usePicasso();
 	const { t: translate } = useTranslation('company-overall');
+	const { selectedCompany } = useCompanies();
+	const { employees } = selectedCompany;
 
 	const { isOpen, onOpen, onClose } = useDisclosure();
+	const { isOpen: isFullList, onToggle: toggleListView } = useDisclosure();
 
 	return (
 		<Flex w="100%" direction="column" gap="4" color={theme.text.primary}>
@@ -27,13 +28,11 @@ export const EmployeesDashboard: React.FC<IEmployeeDashboard> = ({
 					<Text>{translate('employees')}</Text>
 				</Flex>
 				<Flex gap="8" align="center">
-					{isGeneral && (
-						<Link href="/">
-							<Text fontSize="xs" color="gray.500" fontWeight="medium">
-								{translate('seeAll')}
-							</Text>
-						</Link>
-					)}
+					<Button h="max-content" onClick={() => toggleListView()}>
+						<Text fontSize="xs" color="gray.500" fontWeight="medium">
+							{isFullList ? translate('seeLess') : translate('seeAll')}
+						</Text>
+					</Button>
 
 					<BlackButton
 						px="3"
@@ -56,13 +55,15 @@ export const EmployeesDashboard: React.FC<IEmployeeDashboard> = ({
 					<Text w="24">{translate('amount')}</Text>
 				</Flex>
 				<Flex direction="column" gap="2">
-					{employees?.slice(0, 3).map((employee, index) => (
-						<EmployeeData
-							key={+index}
-							employee={employee}
-							isGeneral={isGeneral}
-						/>
-					))}
+					{employees
+						?.slice(0, isFullList ? employees.length : 3)
+						.map((employee, index) => (
+							<EmployeeData
+								key={+index}
+								employee={employee}
+								isGeneral={isGeneral}
+							/>
+						))}
 				</Flex>
 			</Flex>
 		</Flex>

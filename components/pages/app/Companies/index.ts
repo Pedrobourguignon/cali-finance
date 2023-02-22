@@ -6,6 +6,7 @@ export * from './CreateTeam';
 export * from './EditCompanyComponent';
 export * from './EmployeesDashboard';
 export * from './FundsPageComponent';
+export * from './GeneralComponent';
 export * from './HistoryDashboard';
 export * from './InfosBanner';
 export * from './LifeIsEasierComponent';

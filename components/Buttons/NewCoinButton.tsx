@@ -9,18 +9,16 @@ export const NewCoinButton = () => {
 	const { t: translate } = useTranslation('dashboard');
 	const { locale } = useRouter();
 	return (
-		<OffsetShadow
-			borderColor="white"
-			position="absolute"
-			buttonText={translate('newCoin')}
-			px={{ md: '2', xl: '5', '2xl': '10' }}
-		>
+		<OffsetShadow borderColor="white" top="0rem" left="0rem">
 			<Button
 				position="relative"
-				w="full"
+				w={{
+					md: locale === 'pt-BR' ? '6.938rem' : '5.625rem',
+					xl: locale === 'pt-BR' ? '7.813rem' : '6.938rem',
+				}}
 				h="full"
-				px={{ md: '1', xl: '1' }}
-				py={{ md: '2', xl: '3' }}
+				px={{ base: '5' }}
+				py={{ base: '2' }}
 				fontSize={{
 					md: locale === 'pt-BR' ? 'xs' : 'xs',
 					xl: locale === 'pt-BR' ? 'xs' : 'sm',
@@ -38,7 +36,7 @@ export const NewCoinButton = () => {
 				right="0.25rem"
 				fontWeight="medium"
 				lineHeight="5"
-				gap={{ lg: '1', xl: '2' }}
+				gap="1.5"
 				alignContent="center"
 			>
 				<Icon as={AiOutlinePlus} />

@@ -13,5 +13,6 @@
 	"accept": "By connecting your wallet you accept the",
 	"terms": "Terms and Conditions.",
 	"initializing": "Initializing...",
-	"changeNetwork": "Change Network"
+	"changeNetwork": "Change Network",
+	"logOut": "Log out"
 }

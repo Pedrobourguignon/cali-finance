@@ -1,9 +1,18 @@
-import { Flex, Select, Text } from '@chakra-ui/react';
+import {
+	Button,
+	Flex,
+	Menu,
+	MenuButton,
+	MenuItem,
+	MenuList,
+	Text,
+} from '@chakra-ui/react';
 import { usePicasso } from 'hooks';
 import { HistoryData } from 'components';
 import { IUserHistory } from 'types';
 import { useState } from 'react';
 import useTranslation from 'next-translate/useTranslation';
+import { BiChevronDown } from 'react-icons/bi';
 
 export const HistoryDashboard = () => {
 	const { t: translate } = useTranslation('company-overall');
@@ -54,12 +63,16 @@ export const HistoryDashboard = () => {
 	const theme = usePicasso();
 	const [filteredUserHistory, setFilteredUserHistory] =
 		useState<IUserHistory[]>(userHistory);
+	const [selectedFilterOption, setSelectedFilterOption] = useState<string>(
+		translate('all')
+	);
 
 	const filterUserHistory = (filter: string) => {
 		setFilteredUserHistory(userHistory.filter(data => data.type === filter));
 		if (filter === translate('all')) {
 			setFilteredUserHistory(userHistory);
 		}
+		setSelectedFilterOption(filter);
 	};
 
 	const selectOptions = [
@@ -77,18 +90,51 @@ export const HistoryDashboard = () => {
 				color={theme.text.primary}
 			>
 				<Text fontWeight="medium">{translate('history')}</Text>
-				<Select
-					w="max-content"
-					h="8"
-					bg="white"
-					onChange={event => filterUserHistory(event.target.value)}
-				>
-					{selectOptions.map((option, index) => (
-						<option style={{ background: 'white' }} key={+index}>
-							{option}
-						</option>
-					))}
-				</Select>
+				<Menu gutter={0} autoSelect={false}>
+					<MenuButton
+						h="max-content"
+						py="2"
+						px="3"
+						w="11.875rem"
+						gap="32"
+						fontWeight="normal"
+						fontSize={{ md: 'sm', '2xl': 'md' }}
+						color={theme.text.primary}
+						as={Button}
+						rightIcon={<BiChevronDown />}
+						bg="white"
+						_hover={{}}
+						_active={{}}
+						_focus={{}}
+					>
+						{selectedFilterOption}
+					</MenuButton>
+					<MenuList
+						p="0"
+						borderTopRadius="none"
+						borderColor="white"
+						minW={theme.sizes.menuItem}
+					>
+						{selectOptions.map((option, index) => (
+							<MenuItem
+								key={+index}
+								bg="white"
+								color={theme.text.primary}
+								fontSize={{ md: 'xs', lg: 'sm' }}
+								_hover={{ bg: theme.bg.black, color: 'white' }}
+								borderBottom="1px solid"
+								borderBottomColor="gray.200"
+								borderBottomRadius={
+									option === translate('teamCreated') ? 'base' : 'none'
+								}
+								onClick={() => filterUserHistory(option)}
+								_active={{}}
+							>
+								{option}
+							</MenuItem>
+						))}
+					</MenuList>
+				</Menu>
 			</Flex>
 			<Flex direction="column" gap="2">
 				{filteredUserHistory.map((item, index) => (
@@ -96,22 +142,25 @@ export const HistoryDashboard = () => {
 				))}
 			</Flex>
 			{!filteredUserHistory.length && (
-				<Flex>
-					<Text color={theme.text.primary} size="sm">
-						{translateHistory('noResults')}&nbsp;
-					</Text>
-					<Text
-						color={theme.text.primary}
-						size="sm"
-						as="u"
-						fontWeight="semibold"
-						cursor="pointer"
-						onClick={() => setFilteredUserHistory(userHistory)}
-					>
-						{translateHistory('returnToAllResults')}
-					</Text>
-					<Text color={theme.text.primary} size="sm">
-						&nbsp;{translateHistory('orSelectAnother')}
+				<Flex whiteSpace="normal">
+					<Text color={theme.text.primary} fontSize="sm" whiteSpace="normal">
+						{translateHistory('noResults')}
+						<Text
+							decoration="underline"
+							color={theme.text.primary}
+							fontSize="sm"
+							as="span"
+							whiteSpace="normal"
+							fontWeight="semibold"
+							cursor="pointer"
+							onClick={() => {
+								setFilteredUserHistory(userHistory);
+								setSelectedFilterOption(translate('all'));
+							}}
+						>
+							{translateHistory('returnToAllResults')}
+						</Text>{' '}
+						{translateHistory('orSelectAnother')}
 					</Text>
 				</Flex>
 			)}

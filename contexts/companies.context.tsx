@@ -14,7 +14,9 @@ import {
 	INotificationList,
 	IEditedCompany,
 	IEmployee,
+	IHistoryNotification,
 } from 'types';
+import { historyNotifications } from 'components';
 
 interface ICompanysContext {
 	companies: ICompany[];
@@ -37,6 +39,8 @@ interface ICompanysContext {
 	displayNeedFundsCard: string;
 	setDisplayNeedFundsCard: Dispatch<SetStateAction<string>>;
 	companiesWithMissingFunds: ICompany[];
+	filteredNotifications: IHistoryNotification[];
+	setFilteredNotifications: Dispatch<SetStateAction<IHistoryNotification[]>>;
 }
 
 export const CompaniesContext = createContext({} as ICompanysContext);
@@ -49,6 +53,9 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 		useState('none');
 	const [displayNeedFundsCard, setDisplayNeedFundsCard] = useState('none');
 	const companiesWithMissingFunds: ICompany[] = [];
+
+	const [filteredNotifications, setFilteredNotifications] =
+		useState<IHistoryNotification[]>(historyNotifications);
 
 	const [companies, setCompanies] = useState<ICompany[]>([
 		{
@@ -118,7 +125,7 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 			name: 'Kim Kardashian',
 			wallet: '0x7E48CA2BD05EC61C2FA83CF34B066A8FF36B4CFE',
 			photo: '/images/avatar.png',
-			amount: 10.0,
+			amount: 10000,
 			coin: 'USDT',
 			team: 'General',
 		},
@@ -126,7 +133,7 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 			name: 'Kylie Jenner',
 			wallet: '0x7E48CA2BD05EC61C2FA83CF34B066A8FF36Z9EXD',
 			photo: '/images/avatar.png',
-			amount: 100.0,
+			amount: 1000,
 			coin: 'USDT',
 			team: 'Marketing',
 		},
@@ -134,7 +141,7 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 			name: 'Kloe Kardashian',
 			wallet: '0x7E48CA2BD05EC61C2FA83CF34B066A8FF36C3QER',
 			photo: '/images/avatar.png',
-			amount: 80.0,
+			amount: 800,
 			coin: 'USDT',
 			team: 'Finance',
 		},
@@ -142,7 +149,7 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 			name: 'Kloe Kardashian',
 			wallet: '0x7E48CA2BD05EC61C2FA83CF34B066A8FF36C3QER',
 			photo: '/images/avatar.png',
-			amount: 80.0,
+			amount: 800,
 			coin: 'USDT',
 			team: 'Finance',
 		},
@@ -150,7 +157,7 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 			name: 'Kloe Kardashian',
 			wallet: '0x7E48CA2BD05EC61C2FA83CF34B066A8FF36C3QER',
 			photo: '/images/avatar.png',
-			amount: 80.0,
+			amount: 8030,
 			coin: 'USDT',
 			team: 'Finance',
 		},
@@ -303,6 +310,8 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 			companiesWithMissingFunds,
 			setSelectedCompanyEmployees,
 			selectedCompanyEmployees,
+			filteredNotifications,
+			setFilteredNotifications,
 		}),
 		[
 			selectedCompany,
@@ -325,6 +334,8 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 			companiesWithMissingFunds,
 			setSelectedCompanyEmployees,
 			selectedCompanyEmployees,
+			filteredNotifications,
+			setFilteredNotifications,
 		]
 	);
 	return (

@@ -1,17 +1,23 @@
+/* eslint-disable no-unused-expressions */
 import {
 	Box,
 	Button,
+	Collapse,
 	Flex,
 	Icon,
 	Img,
 	Link,
+	Menu,
+	MenuButton,
+	MenuItem,
+	MenuList,
 	Text,
 	useDisclosure,
 } from '@chakra-ui/react';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FaDiscord, FaTwitter } from 'react-icons/fa';
 import { usePath, usePicasso, useProfile } from 'hooks';
-import Router, { useRouter } from 'next/router';
+import router, { useRouter } from 'next/router';
 import {
 	DashboardIcon,
 	CompanyIcon,
@@ -20,10 +26,12 @@ import {
 	ConnectWalletButton,
 	ChangeNetworkButton,
 	NetworkModal,
+	LogoutButton,
 } from 'components';
 import { navigationPaths, socialMediaLinks } from 'utils';
 import { INetwork } from 'types';
 import useTranslation from 'next-translate/useTranslation';
+import { useSession, signOut } from 'next-auth/react';
 
 interface IMenuItem {
 	icon: typeof Icon;
@@ -74,18 +82,35 @@ export const Sidebar: React.FC = () => {
 	];
 	const theme = usePicasso();
 	const { isSamePath } = usePath();
-	const { userProfile, isConnected } = useProfile();
-	const { locale, pathname } = useRouter();
+	const { userProfile } = useProfile();
+	const { data: session } = useSession();
+	const { locale, asPath } = useRouter();
 	const languages: ILanguage[] = ['en-US', 'pt-BR'];
 	const { isOpen, onOpen, onClose } = useDisclosure();
+	const {
+		isOpen: isOpenMenu,
+		onOpen: onOpenMenu,
+		onClose: onCloseMenu,
+	} = useDisclosure();
 	const [networkData, setNetworkData] = useState<INetwork>({
 		name: 'Ethereum',
 		icon: '/images/eth.png',
 	} as INetwork);
 
-	const changeLanguage = (lang: ILanguage) => {
-		Router.push(`/${pathname}`, `/${pathname}`, { locale: lang });
+	useEffect(() => {
+		if (!localStorage.getItem('language')) {
+			locale && localStorage.setItem('language', locale);
+		}
+	}, []);
+
+	const changeLanguage = (lang: string) => {
+		router.push(`/${asPath}`, `/${asPath}`, { locale: lang });
+		localStorage.setItem('language', lang);
 	};
+
+	useEffect(() => {
+		changeLanguage(localStorage.getItem('language')!);
+	}, [locale]);
 
 	return (
 		<>
@@ -102,7 +127,7 @@ export const Sidebar: React.FC = () => {
 				bg={theme.bg.primary}
 				align="center"
 				color="white"
-				minW={{ md: '44', lg: '9.65rem', xl: '13.7rem', '2xl': '16.3rem' }}
+				minW={{ md: '44', xl: '13.7rem', '2xl': '16.3rem' }}
 			>
 				<Flex
 					h="100vh"
@@ -111,7 +136,7 @@ export const Sidebar: React.FC = () => {
 					bg={theme.bg.primary}
 					align="center"
 					color="white"
-					minW={{ md: '44', lg: '9.65rem', xl: '13.7rem', '2xl': '16.3rem' }}
+					minW={{ md: '44', xl: '13.7rem', '2xl': '16.3rem' }}
 					position="fixed"
 				>
 					<Flex
@@ -124,54 +149,94 @@ export const Sidebar: React.FC = () => {
 						<Link href={navigationPaths.dashboard.home} pb="6">
 							<Img src="/images/cali-logo.svg" h="8" w="20" cursor="pointer" />
 						</Link>
-						{isConnected === false && <ConnectWalletButton />}
-						<Flex direction="column" gap="2">
-							<Flex
-								h="max-content"
-								py="1"
-								justify="center"
-								fontSize="sm"
-								color={theme.text.primary}
-								borderRadius="base"
-								bg="white"
-								_hover={{ background: 'white' }}
-								_focus={{ background: 'white' }}
-								display={isConnected === true ? 'flex' : 'none'}
-								w={{ md: '8.25rem', xl: '10.313rem' }}
-							>
-								<Flex
-									align="center"
-									gap="2"
-									w={{ md: '8rem', xl: '9rem' }}
-									justify="center"
+						{!session ? (
+							<ConnectWalletButton />
+						) : (
+							<Flex direction="column" gap="2">
+								<Menu
+									gutter={0}
+									autoSelect={false}
+									isOpen={isOpenMenu}
+									onClose={onCloseMenu}
 								>
-									<Img
-										src={userProfile?.picture}
-										borderRadius="full"
-										boxSize="6"
-										objectFit="cover"
+									<MenuButton
+										h="max-content"
+										borderBottomRadius={isOpenMenu ? 'none' : 'base'}
+										borderRadius="base"
+										w={{ md: '8.25rem', xl: '10.313rem', '2xl': '13rem' }}
+										justifyItems="center"
+										py="1"
+										px="3"
+										gap="32"
+										fontWeight="normal"
+										fontSize={{ md: 'sm', '2xl': 'md' }}
+										color={theme.text.primary}
+										as={Button}
+										bg="white"
+										disabled={!session}
+										onClick={onOpenMenu}
+										_hover={{}}
+										_active={{}}
+										_focus={{}}
+									>
+										<Flex align="center" gap="2" justify="center">
+											<Img
+												src={
+													userProfile.picture === ''
+														? '/images/editImage.png'
+														: userProfile.picture
+												}
+												borderRadius="full"
+												boxSize="6"
+												objectFit="cover"
+											/>
+											<Text
+												fontWeight="medium"
+												fontSize={{ md: 'xs', xl: 'sm' }}
+											>
+												{userProfile?.wallet}
+											</Text>
+										</Flex>
+									</MenuButton>
+									<MenuList
+										p="0"
+										borderTopRadius="none"
+										borderColor="white"
+										borderTopColor="black"
+										minW={{ md: '8.25rem', xl: '10.313rem', '2xl': '13rem' }}
+									>
+										<MenuItem
+											py="2.5"
+											bg="white"
+											justifyContent="center"
+											color={theme.text.primary}
+											_hover={{ opacity: '80%' }}
+											fontSize="sm"
+											borderBottomRadius="base"
+											_active={{}}
+											onClick={() => signOut()}
+											_focus={{}}
+										>
+											{translate('logOut')}
+										</MenuItem>
+									</MenuList>
+								</Menu>
+								{session && (
+									<ChangeNetworkButton
+										onClick={onOpen}
+										networkIcon={networkData.icon}
+										networkName={networkData.name}
 									/>
-									<Text fontWeight="medium" fontSize={{ md: 'xs', xl: 'sm' }}>
-										{userProfile?.wallet}
-									</Text>
-								</Flex>
+								)}
 							</Flex>
-
-							{isConnected === true && (
-								<ChangeNetworkButton
-									onClick={onOpen}
-									networkIcon={networkData.icon}
-									networkName={networkData.name}
-								/>
-							)}
-						</Flex>
+						)}
 					</Flex>
 					<Flex
 						direction="column"
 						gap="3"
 						w="full"
 						pb="6.4rem"
-						pt={isConnected === false ? '16' : '6'}
+						pt={!session ? '16' : '6'}
 					>
 						{menuOptions.map((item, index) => {
 							const comparedPath = isSamePath(item.route);
@@ -197,8 +262,9 @@ export const Sidebar: React.FC = () => {
 									>
 										{comparedPath && (
 											<Box
+												position="absolute"
 												bgColor={theme.branding.blue}
-												w="3"
+												w="1"
 												h="8"
 												borderLeftRadius="none"
 												borderRightRadius="sm"

@@ -2,8 +2,15 @@ import Head from 'next/head';
 import type { AppProps } from 'next/app';
 import { ColorHandler } from 'utils';
 import { WagmiWrapper } from 'wrappers';
+import { SessionProvider } from 'next-auth/react';
+import { QueryClient, QueryClientProvider } from 'react-query';
 
-const MyApp = ({ Component, pageProps }: AppProps) => (
+const queryClient = new QueryClient();
+
+const MyApp = ({
+	Component,
+	pageProps: { session, ...pageProps },
+}: AppProps) => (
 	<>
 		<Head>
 			{/* Primary Meta Tags */}
@@ -30,11 +37,15 @@ const MyApp = ({ Component, pageProps }: AppProps) => (
 			<meta property="twitter:description" content="Your money, any time." />
 			<meta property="twitter:image" content="/meta/default.png" />
 		</Head>
-		<ColorHandler cookies={pageProps.cookies}>
 			<WagmiWrapper>
-				<Component {...pageProps} />
-			</WagmiWrapper>
-		</ColorHandler>
+		<QueryClientProvider client={queryClient}>
+			<SessionProvider session={session}>
+				<ColorHandler cookies={pageProps.cookies}>
+					<Component {...pageProps} />
+				</ColorHandler>
+			</SessionProvider>
+		</QueryClientProvider>
+    			</WagmiWrapper>
 	</>
 );
 

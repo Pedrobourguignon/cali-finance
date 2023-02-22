@@ -53,29 +53,36 @@ export const LandingHeader: React.FC = () => {
 					);
 				})}
 			</Flex>
-			{/* <Link href={navigationPaths.dashboard.home}> */}
-			<Button
-				_hover={{ bg: 'white' }}
-				_focus={{
-					border: '2px solid white',
-					color: 'white',
-					bgColor: 'transparent',
-				}}
-				_active={{ color: 'black' }}
-				display={{ base: 'none', md: 'flex' }}
-				borderRadius="sm"
-				bg="white"
-				border="2px solid"
-				borderColor="transparent"
-				color={theme.text.black}
-				px="12"
-				py="3"
-				fontSize="md"
-				fontWeight="normal"
+			<Link
+				href={navigationPaths.dashboard.home}
+				textDecoration="none"
+				_hover={{ textDecoration: 'none' }}
 			>
-				Launch App
-			</Button>
-			{/* </Link> */}
+				<Button
+					_hover={{ bg: 'white', textDecor: 'none' }}
+					_focus={{
+						border: '2px solid white',
+						color: 'white',
+						bgColor: 'transparent',
+					}}
+					_active={{ color: 'black' }}
+					_focusVisible={{}}
+					_focusWithin={{}}
+					display={{ base: 'none', md: 'flex' }}
+					borderRadius="sm"
+					bg="white"
+					border="2px solid"
+					borderColor="transparent"
+					color={theme.text.black}
+					px="12"
+					py="3"
+					fontSize="md"
+					fontWeight="normal"
+					textDecoration="none"
+				>
+					Launch App
+				</Button>
+			</Link>
 		</Flex>
 	);
 };

@@ -8,6 +8,7 @@
 	"manage": "Administrar",
 	"myAssets": "Meus ativos",
 	"seeAll": "Ver tudo",
+	"seeLess": "Ver menos",
 	"recentActivities": "Atividades Recentes",
 	"deposit": "Depósito",
 	"completed": "Completo",
@@ -15,11 +16,13 @@
 	"createCompany": "Criar organização",
 	"somethingWentWrong": "Algo deu errado",
 	"backDashboard": "Voltar ao painel",
-	"oops": "Oops...",
+	"oops": "Ops...",
 	"yourCompanies": "Suas organizações",
 	"of": "de",
 	"amount": "Quantia",
 	"companies": "Organizações",
 	"withdraw": "Retirar",
-	"selectAOrg": "Selecione uma organização"
+	"selectAOrg": "Selecione uma organização",
+	"pendingNotifications": "notificações pendentes",
+	"clearAll": "Limpar tudo"
 }

@@ -26,14 +26,8 @@ export const ContactOptionsModal: React.FC<IBasicModal> = ({
 	return (
 		<Modal isOpen={isOpen} onClose={onClose} size="sm">
 			<ModalOverlay />
-			<ModalContent>
-				<OffsetShadow
-					width="full"
-					height="19rem"
-					buttonText="Connect to a Wallet"
-					top="2"
-					left="2"
-				>
+			<ModalContent w="max-content">
+				<OffsetShadow top="0.5rem" left="0.5rem" width="22.2rem">
 					<Flex
 						direction="column"
 						bg={theme.bg.modal}

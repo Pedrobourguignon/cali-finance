@@ -13,5 +13,6 @@
 	"processing": "Processando",
 	"createCompany": "Criar Organização",
 	"withdrawal": "Retirada",
-	"teamCreated": "Time criado"
+	"teamCreated": "Time criado",
+	"addressCopiedSuccessfully": "Endereço copiado com sucesso"
 }

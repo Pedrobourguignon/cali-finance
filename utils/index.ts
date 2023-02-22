@@ -1,3 +1,4 @@
+export * from './apiClient';
 export * from './chainList';
 export * from './chainLogo';
 export * from './ColorHandler';

@@ -14,13 +14,13 @@ import {
 	FormControl,
 	InputGroup,
 	Img,
+	useDisclosure,
 } from '@chakra-ui/react';
 import { usePicasso, useSchema } from 'hooks';
-import useTranslation from 'next-translate/useTranslation';
 import React, { useState } from 'react';
 import { IoIosArrowDown } from 'react-icons/io';
-import { IEditEmployee, IEditEmployeeForm } from 'types';
-import { BlackButton, EditProfileIcon } from 'components';
+import { IEditEmployee, IEditEmployeeForm, ISelectedCoin } from 'types';
+import { BlackButton, EditProfileIcon, TokenSelector } from 'components';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { truncateWallet } from 'utils';
@@ -31,14 +31,22 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 	employee,
 }) => {
 	const theme = usePicasso();
-	const [amountInDollar, setAmountInDollar] = useState<number>(0);
+	const [editedEmployeeData, setEditedEmployeeData] = useState({
+		amount: 0,
+		amountInDollar: 0,
+	});
+	const [token, setToken] = useState<ISelectedCoin>({
+		logo: 'https://assets.coingecko.com/coins/images/1/thumb/bitcoin.png?1547033579',
+		symbol: 'BTC',
+	} as ISelectedCoin);
 	const bitcoinPrice = 87586;
 	const { editEmployeeSchema } = useSchema();
 
-	const selectedCoin = {
-		logo: 'https://assets.coingecko.com/coins/images/1/thumb/bitcoin.png?1547033579',
-		symbol: 'BTC',
-	};
+	const {
+		isOpen: isOpenTokenSelector,
+		onOpen: onOpenTokenSelector,
+		onClose: onCloseTokenSelector,
+	} = useDisclosure();
 
 	const labelStyle: TextProps = {
 		color: 'black',
@@ -52,26 +60,44 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 
 	const expenseCalculation = () => '30% more expenses.';
 
-	const converterToDollar = (amount: number) => {
-		setAmountInDollar(amount * bitcoinPrice);
+	const converterToDollar = (amountInDollar: number) => {
+		setEditedEmployeeData(prevState => ({
+			...prevState,
+			amountInDollar: amountInDollar * bitcoinPrice,
+		}));
 	};
 
 	const {
 		register,
 		handleSubmit,
+		reset,
 		formState: { errors },
 	} = useForm<IEditEmployeeForm>({
 		resolver: yupResolver(editEmployeeSchema),
 	});
 
-	const handleEditEmployee = (editedEmployeeData: IEditEmployeeForm) => {
-		console.log(editedEmployeeData);
+	const handleResetFormInputs = () => {
+		reset();
 		onClose();
+		setEditedEmployeeData(prevState => ({
+			...prevState,
+			amount: 0,
+		}));
+	};
+
+	const handleEditEmployee = (editedEmployeeFormData: IEditEmployeeForm) => {
+		console.log(editedEmployeeFormData);
+		handleResetFormInputs();
 	};
 
 	return (
-		<Modal isOpen={isOpen} onClose={onClose} size="sm">
+		<Modal isOpen={isOpen} onClose={handleResetFormInputs} size="sm">
 			<ModalOverlay />
+			<TokenSelector
+				isOpen={isOpenTokenSelector}
+				onClose={onCloseTokenSelector}
+				setToken={setToken}
+			/>
 			<ModalContent
 				m="auto"
 				zIndex="1"
@@ -114,7 +140,7 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 									<Flex align="center" justify="space-between">
 										<Text {...labelStyle}>Amount (per month)*</Text>
 										<Text fontSize="xs" color="gray.500">
-											US$&nbsp;{amountInDollar}
+											US$&nbsp;{editedEmployeeData.amountInDollar}
 										</Text>
 									</Flex>
 									<InputGroup>
@@ -132,15 +158,23 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 											_focusVisible={{}}
 											color={theme.text.primary}
 											onChange={amount => {
+												setEditedEmployeeData(prevState => ({
+													...prevState,
+													amount: parseInt(amount.target.value, 10),
+												}));
 												converterToDollar(
 													parseInt(amount.currentTarget.value, 10)
 												);
-												return amount.currentTarget.value === ''
-													? setAmountInDollar(0)
-													: '';
+												return (
+													!amount.currentTarget.value &&
+													setEditedEmployeeData(prevState => ({
+														...prevState,
+														amountInDollar: 0,
+														amount: 0,
+													}))
+												);
 											}}
 										/>
-
 										<Button
 											borderLeftRadius="none"
 											bg={theme.bg.primary}
@@ -148,11 +182,12 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 											_active={{}}
 											h="2.137rem"
 											_focus={{}}
+											onClick={onOpenTokenSelector}
 										>
 											<Flex gap="2" align="center">
-												<Img boxSize="4" src={selectedCoin.logo} />
+												<Img boxSize="4" src={token.logo} />
 												<Text fontSize="sm" width="8" lineHeight="5">
-													{selectedCoin.symbol}
+													{token.symbol}
 												</Text>
 												<Icon boxSize="4" as={IoIosArrowDown} />
 											</Flex>
@@ -191,6 +226,7 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 									gap="3"
 									borderRadius="sm"
 									mb="4"
+									disabled={!editedEmployeeData.amount}
 								>
 									<Text>+</Text>
 									Update Employee&apos;s Data

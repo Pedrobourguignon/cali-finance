@@ -7,6 +7,7 @@ import {
 	Text,
 	useDisclosure,
 	useToast,
+	useClipboard,
 } from '@chakra-ui/react';
 import { MdContentCopy } from 'react-icons/md';
 import { IEmployee } from 'types';
@@ -28,9 +29,10 @@ export const EmployeeData: React.FC<IEmployeeData> = ({
 	const toast = useToast();
 	const { t: translate } = useTranslation('create-team');
 	const { isOpen, onOpen, onClose } = useDisclosure();
+	const { onCopy } = useClipboard(employee.wallet);
 
 	const handleCopyButton = () => {
-		navigator.clipboard.writeText(employee.wallet);
+		onCopy();
 		toast({
 			position: 'top-right',
 			render: () => <CopyAddressToast onClick={toast.closeAll} />,
@@ -93,7 +95,7 @@ export const EmployeeData: React.FC<IEmployeeData> = ({
 			</Flex>
 			<Flex direction="column" align="end">
 				<Flex gap="1" fontSize="xs">
-					<Text>{employee.amount}</Text>
+					<Text>{employee.amount.toLocaleString('en-US')}</Text>
 					<Text>{employee.coin}</Text>
 				</Flex>
 				<Button
