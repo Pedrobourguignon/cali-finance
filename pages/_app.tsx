@@ -2,6 +2,9 @@ import Head from 'next/head';
 import type { AppProps } from 'next/app';
 import { ColorHandler } from 'utils';
 import { SessionProvider } from 'next-auth/react';
+import { QueryClient, QueryClientProvider } from 'react-query';
+
+const queryClient = new QueryClient();
 
 const MyApp = ({
 	Component,
@@ -33,11 +36,13 @@ const MyApp = ({
 			<meta property="twitter:description" content="Your money, any time." />
 			<meta property="twitter:image" content="/meta/default.png" />
 		</Head>
-		<SessionProvider session={session}>
-			<ColorHandler cookies={pageProps.cookies}>
-				<Component {...pageProps} />
-			</ColorHandler>
-		</SessionProvider>
+		<QueryClientProvider client={queryClient}>
+			<SessionProvider session={session}>
+				<ColorHandler cookies={pageProps.cookies}>
+					<Component {...pageProps} />
+				</ColorHandler>
+			</SessionProvider>
+		</QueryClientProvider>
 	</>
 );
 
