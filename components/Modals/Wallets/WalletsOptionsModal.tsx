@@ -17,29 +17,7 @@ import { useSession, signIn } from 'next-auth/react';
 import useTranslation from 'next-translate/useTranslation';
 import { IWalletOptionsModal } from 'types';
 import { navigationPaths } from 'utils';
-
-const walletsOptions = [
-	{
-		name: 'MetaMask',
-		icon: '/icons/metamask.svg',
-	},
-	{
-		name: 'Coinbase Wallet',
-		icon: '/icons/coinbase.svg',
-	},
-	{
-		name: 'WalletConnect',
-		icon: '/icons/walletConnect.svg',
-	},
-	{
-		name: 'Binance Wallet',
-		icon: '/icons/binance.svg',
-	},
-	{
-		name: 'More',
-		icon: '/icons/treedots.svg',
-	},
-];
+import { useConnect } from 'wagmi';
 
 export const WalletsOptionsModal: React.FC<IWalletOptionsModal> = ({
 	isOpen,
@@ -48,6 +26,8 @@ export const WalletsOptionsModal: React.FC<IWalletOptionsModal> = ({
 	setWalletData,
 }) => {
 	const { t: translate } = useTranslation('sidebar');
+	const { setIsConnected } = useProfile();
+	const { connectors } = useConnect();
 	const theme = usePicasso();
 	const onTriggerLoadingModal = async (icon: string, name: string) => {
 		setWalletData({
@@ -58,6 +38,31 @@ export const WalletsOptionsModal: React.FC<IWalletOptionsModal> = ({
 		openLoadingWalletModal();
 		onClose();
 	};
+
+	const walletsOptions = [
+		{
+			name: 'MetaMask',
+			icon: '/icons/metamask.svg',
+			connector: connectors[0],
+		},
+		{
+			name: 'Coinbase Wallet',
+			icon: '/icons/coinbase.svg',
+		},
+		{
+			name: 'WalletConnect',
+			icon: '/icons/walletConnect.svg',
+		},
+		{
+			name: 'Binance Wallet',
+			icon: '/icons/binance.svg',
+		},
+		{
+			name: 'More',
+			icon: '/icons/treedots.svg',
+		},
+	];
+
 	return (
 		<Modal isOpen={isOpen} onClose={onClose} size="sm">
 			<ModalOverlay />
