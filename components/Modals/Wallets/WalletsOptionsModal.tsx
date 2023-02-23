@@ -63,13 +63,15 @@ export const WalletsOptionsModal: React.FC<IWalletOptionsModal> = ({
 		{
 			name: 'Binance Wallet',
 			icon: '/icons/binance.svg',
-			connector: connectors[0],
+			connector: connectors[4],
 		},
 		{
 			name: 'More',
 			icon: '/icons/treedots.svg',
 		},
 	];
+
+	console.log(connectors);
 
 	return (
 		<Modal isOpen={isOpen} onClose={onClose} size="sm">
