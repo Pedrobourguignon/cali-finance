@@ -17,12 +17,15 @@ import useTranslation from 'next-translate/useTranslation';
 import { IWalletOptionsModal } from 'types';
 import { navigationPaths } from 'utils';
 import { Connector, useAccount, useConnect } from 'wagmi';
+import { signIn } from 'next-auth/react';
+import NextLink from 'next/link';
 
 interface IWallet {
 	name: string;
 	icon: string;
 	connector?: Connector<any, any, any>;
 }
+
 
 export const WalletsOptionsModal: React.FC<IWalletOptionsModal> = ({
 	isOpen,
@@ -32,6 +35,7 @@ export const WalletsOptionsModal: React.FC<IWalletOptionsModal> = ({
 }) => {
 	const { t: translate } = useTranslation('sidebar');
 	const { connectors, connect } = useConnect();
+
 	const theme = usePicasso();
 	const onTriggerLoadingModal = async (wallet: IWallet) => {
 		const { connector, icon, name } = wallet;
@@ -158,7 +162,7 @@ export const WalletsOptionsModal: React.FC<IWalletOptionsModal> = ({
 								<Text fontSize="sm" whiteSpace="nowrap">
 									{translate('accept')}
 								</Text>
-								<Link href={navigationPaths.termsAndConditions}>
+								<Link as={NextLink} href={navigationPaths.termsAndConditions}>
 									<Text
 										as="span"
 										textDecor="underline"
