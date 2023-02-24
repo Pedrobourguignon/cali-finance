@@ -14,6 +14,7 @@ export const useAuth = () => {
 		try {
 			if (!wallet) throw new Error('User not connected');
 			const response = await fetch(AUTH_SERVICE_ROUTES.nonce(wallet));
+			console.log(response.json);
 			return response.json();
 		} catch (error: any) {
 			throw new Error(error);

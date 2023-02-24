@@ -17,7 +17,8 @@ import { useSession, signIn } from 'next-auth/react';
 import useTranslation from 'next-translate/useTranslation';
 import { IWalletOptionsModal } from 'types';
 import { navigationPaths } from 'utils';
-import { useConnect } from 'wagmi';
+import { useAccount, useConnect } from 'wagmi';
+import { InjectedConnector } from 'wagmi/connectors/injected';
 
 export const WalletsOptionsModal: React.FC<IWalletOptionsModal> = ({
 	isOpen,
@@ -26,7 +27,10 @@ export const WalletsOptionsModal: React.FC<IWalletOptionsModal> = ({
 	setWalletData,
 }) => {
 	const { t: translate } = useTranslation('sidebar');
+	const { connect } = useConnect({ connector: new InjectedConnector() });
 	const { setIsConnected } = useProfile();
+	const { address: wallets } = useAccount();
+
 	const { connectors } = useConnect();
 	const theme = usePicasso();
 	const onTriggerLoadingModal = async (icon: string, name: string) => {
@@ -34,7 +38,8 @@ export const WalletsOptionsModal: React.FC<IWalletOptionsModal> = ({
 			icon,
 			name,
 		});
-		signIn('credentials', {});
+		connect();
+		signIn('credentials', { redirect: false, wallet: wallets });
 		openLoadingWalletModal();
 		onClose();
 	};
