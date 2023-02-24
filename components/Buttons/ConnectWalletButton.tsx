@@ -8,6 +8,8 @@ import {
 } from 'components';
 import { useAuth, useProfile } from 'hooks';
 import { useRouter } from 'next/router';
+import { useConnect } from 'wagmi';
+import { InjectedConnector } from 'wagmi/connectors/injected';
 
 export const ConnectWalletButton = () => {
 	const { t: translate } = useTranslation('sidebar');
@@ -18,6 +20,9 @@ export const ConnectWalletButton = () => {
 	const { walletData, setWalletData } = useProfile();
 	const { getAuthorization } = useAuth();
 	const { icon, name } = walletData;
+	const { connect } = useConnect({
+		connector: new InjectedConnector(),
+	});
 	const {
 		isOpen: isOpenLoading,
 		onClose: onCloseLoading,
@@ -60,8 +65,8 @@ export const ConnectWalletButton = () => {
 						background: 'white',
 						transform: 'translateY(0.5rem) translateX(0.375rem)',
 					}}
-					// onClick={onOpen}
-					onClick={getAuthorization}
+					// onClick={() => connect()}
+					onClick={onOpen}
 					display={shouldDisplay}
 				>
 					<Text px="8" display={shouldDisplay}>

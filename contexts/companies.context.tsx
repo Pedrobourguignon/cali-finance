@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import useTranslation from 'next-translate/useTranslation';
 import {
 	createContext,
@@ -15,8 +16,11 @@ import {
 	IEditedCompany,
 	IEmployee,
 	IHistoryNotification,
+	ISocialMedia,
 } from 'types';
 import { historyNotifications } from 'components';
+import { mainClient } from 'utils';
+import { getCookie } from 'cookies-next';
 
 interface ICompanysContext {
 	companies: ICompany[];
@@ -41,6 +45,7 @@ interface ICompanysContext {
 	companiesWithMissingFunds: ICompany[];
 	filteredNotifications: IHistoryNotification[];
 	setFilteredNotifications: Dispatch<SetStateAction<IHistoryNotification[]>>;
+	createCompany: (company: any) => Promise<void>;
 }
 
 export const CompaniesContext = createContext({} as ICompanysContext);
@@ -288,6 +293,10 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 		showMissingFundsWarning();
 	}, []);
 
+	const createCompany = async (company: any) => {
+		await mainClient.post('/company/', company);
+	};
+
 	const contextStates = useMemo(
 		() => ({
 			companies,
@@ -312,6 +321,7 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 			selectedCompanyEmployees,
 			filteredNotifications,
 			setFilteredNotifications,
+			createCompany,
 		}),
 		[
 			selectedCompany,
@@ -336,6 +346,7 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 			selectedCompanyEmployees,
 			filteredNotifications,
 			setFilteredNotifications,
+			createCompany,
 		]
 	);
 	return (

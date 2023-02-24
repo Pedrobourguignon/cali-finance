@@ -2,6 +2,7 @@ import { AUTH_SERVICE_ROUTES } from 'helpers';
 import { authClient } from 'utils';
 import { useAccount, useSignMessage } from 'wagmi';
 import { useMemo } from 'react';
+import { setCookie } from 'cookies-next';
 import { useToasty } from './useToasty';
 
 export const useAuth = () => {
@@ -47,6 +48,7 @@ export const useAuth = () => {
 				signature,
 			});
 			const { jwt } = data;
+			setCookie('jwt', jwt);
 			localStorage.setItem('cali-finance-authorization', jwt);
 		} catch (error: any) {
 			throw new Error(error);

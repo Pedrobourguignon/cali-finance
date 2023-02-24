@@ -9,14 +9,28 @@ import {
 	TextProps,
 	Tooltip,
 } from '@chakra-ui/react';
-import { usePicasso, useProfile } from 'hooks';
+import { useCompanies, usePicasso, useProfile } from 'hooks';
 import { Control, FieldErrorsImpl, Controller } from 'react-hook-form';
 import { Select } from 'chakra-react-select';
 import { BsQuestionCircle } from 'react-icons/bs';
-import { ICreateCompany } from 'types';
+import { ICreateCompany, ISocialMedia } from 'types';
 import useTranslation from 'next-translate/useTranslation';
 import { BlackButton, NetworkTooltip } from 'components';
 import { useSession } from 'next-auth/react';
+import { useMutation } from 'react-query';
+
+export interface ICompany {
+	id?: number;
+	wallet?: string;
+	name?: string;
+	contactEmail?: string;
+	isPublic?: boolean;
+	color?: string;
+	logo?: string;
+	createdAt?: Date;
+	updatedAt?: Date;
+	socialMedia?: ISocialMedia[];
+}
 
 interface ICreateCompanyComponent {
 	control: Control<ICreateCompany>;
@@ -76,12 +90,25 @@ export const CreateCompanyComponent: React.FC<ICreateCompanyComponent> = ({
 	const theme = usePicasso();
 	const { t: translate } = useTranslation('create-company');
 	const { data: session } = useSession();
+	const { createCompany } = useCompanies();
 
 	const companiesType: IBasicSelect[] = [
 		{ value: 'DAO', label: 'DAO' },
 		{ value: translate('financial'), label: translate('financial') },
 		{ value: 'e-commerce', label: 'e-commerce' },
 	];
+
+	const company = {
+		name: 'Prisco Company',
+		contactEmail: 'company22@email.com',
+		isPublic: true,
+		color: '#aaaaaa',
+		logo: 'no-logo.png',
+	};
+
+	const { mutate } = useMutation(() => createCompany(company), {
+		onSuccess: () => console.log(company),
+	});
 
 	return (
 		<Flex direction="column" minW="24.2rem">
@@ -327,6 +354,7 @@ export const CreateCompanyComponent: React.FC<ICreateCompanyComponent> = ({
 						display={{ md: 'none', lg: 'flex' }}
 						py="2.5"
 						borderRadius="sm"
+						onClick={() => mutate()}
 					>
 						<Text>+</Text>
 						<Text>{translate('createCompany')}</Text>
