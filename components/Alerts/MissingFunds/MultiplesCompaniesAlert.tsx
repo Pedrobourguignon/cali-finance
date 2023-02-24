@@ -2,6 +2,7 @@ import { Flex, Text, Link } from '@chakra-ui/react';
 import { usePicasso } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
 import React from 'react';
+import NextLink from 'next/link';
 
 export const MultipleCompaniesAlert = () => {
 	const theme = usePicasso();
@@ -16,7 +17,7 @@ export const MultipleCompaniesAlert = () => {
 			>
 				{translate('yourCompanies')}
 			</Text>
-			<Link href="/app/companies">
+			<Link href="/app/companies" as={NextLink}>
 				<Text
 					cursor="pointer"
 					fontSize={{ md: 'xs', xl: 'sm' }}

@@ -2,6 +2,7 @@ import { Flex, Img, Text, Link } from '@chakra-ui/react';
 import React from 'react';
 import { IRecentActivitiesComponent } from 'types';
 import { navigationPaths } from 'utils';
+import NextLink from 'next/link';
 
 export const RecentActivities: React.FC<IRecentActivitiesComponent> = ({
 	recentActivitiesList,
@@ -20,7 +21,7 @@ export const RecentActivities: React.FC<IRecentActivitiesComponent> = ({
 					Recent Activities
 				</Text>
 			</Flex>
-			<Link href={navigationPaths.dashboard.history}>
+			<Link href={navigationPaths.dashboard.history} as={NextLink}>
 				<Text fontSize="sm" cursor="pointer" color="gray.500">
 					See all
 				</Text>
