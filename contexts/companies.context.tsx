@@ -17,6 +17,9 @@ import {
 	IHistoryNotification,
 } from 'types';
 import { historyNotifications } from 'components';
+import { mainClient } from 'utils';
+import { useQuery } from 'react-query';
+import { useAccount } from 'wagmi';
 
 interface ICompanysContext {
 	companies: ICompany[];
@@ -49,6 +52,7 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 	children,
 }) => {
 	const { t: translate } = useTranslation('companies');
+	const { address: wallet } = useAccount();
 	const [displayMissingFundsWarning, setDisplayMissingFundsWarning] =
 		useState('none');
 	const [displayNeedFundsCard, setDisplayNeedFundsCard] = useState('none');
@@ -287,6 +291,15 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 	useEffect(() => {
 		showMissingFundsWarning();
 	}, []);
+
+	const getCompanies = async () => {
+		const response = await mainClient.get(
+			`https://4fcf-187-73-24-131.sa.ngrok.io/user/${wallet}/company`
+		);
+		return response.data;
+	};
+
+	const { data, isLoading, error } = useQuery('all-companies', getCompanies);
 
 	const contextStates = useMemo(
 		() => ({
