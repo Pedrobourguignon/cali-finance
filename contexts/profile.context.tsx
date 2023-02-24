@@ -3,8 +3,6 @@ import { IProfile, IWalletData } from 'types';
 
 interface IProfileContext {
 	isLoading: boolean;
-	isConnected: boolean;
-	setIsConnected: React.Dispatch<React.SetStateAction<boolean>>;
 	userProfile: IProfile;
 	setUserProfile: React.Dispatch<React.SetStateAction<IProfile>>;
 	editedProfileInfo: IProfile;
@@ -18,7 +16,6 @@ export const ProfileContext = createContext({} as IProfileContext);
 export const ProfileProvider: React.FC<{ children: React.ReactNode }> = ({
 	children,
 }) => {
-	const [isConnected, setIsConnected] = useState(false);
 	const [isLoading, setIsLoading] = useState(true);
 	const [userProfile, setUserProfile] = useState<IProfile>({
 		name: '',
@@ -40,8 +37,6 @@ export const ProfileProvider: React.FC<{ children: React.ReactNode }> = ({
 	const contextStates = useMemo(
 		() => ({
 			isLoading,
-			isConnected,
-			setIsConnected,
 			userProfile,
 			setUserProfile,
 			editedProfileInfo,
@@ -51,8 +46,6 @@ export const ProfileProvider: React.FC<{ children: React.ReactNode }> = ({
 		}),
 		[
 			isLoading,
-			isConnected,
-			setIsConnected,
 			userProfile,
 			setUserProfile,
 			editedProfileInfo,

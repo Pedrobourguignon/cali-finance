@@ -8,16 +8,14 @@ import {
 } from 'components';
 import { useAuth, useProfile } from 'hooks';
 import { useRouter } from 'next/router';
-import { useConnect } from 'wagmi';
 
 export const ConnectWalletButton = () => {
 	const { t: translate } = useTranslation('sidebar');
-	const { isConnected } = useProfile();
 	const { locale } = useRouter();
-	const shouldDisplay = isConnected === true ? 'none' : 'flex';
+	const { isAuthorized } = useAuth();
+	const shouldDisplay = isAuthorized === true ? 'none' : 'flex';
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const { walletData, setWalletData } = useProfile();
-	const { getAuthorization } = useAuth();
 
 	const { icon, name } = walletData;
 	const {

@@ -15,7 +15,7 @@ import {
 } from '@chakra-ui/react';
 import React, { useState, useEffect } from 'react';
 import { FaDiscord, FaTwitter } from 'react-icons/fa';
-import { usePath, usePicasso, useProfile } from 'hooks';
+import { useAuth, usePath, usePicasso, useProfile } from 'hooks';
 import router, { useRouter } from 'next/router';
 import {
 	DashboardIcon,
@@ -31,7 +31,7 @@ import { INetwork } from 'types';
 import useTranslation from 'next-translate/useTranslation';
 import { useSession, signOut } from 'next-auth/react';
 import NextLink from 'next/link';
-import { useAccount, useDisconnect } from 'wagmi';
+import { useDisconnect } from 'wagmi';
 
 interface IMenuItem {
 	icon: typeof Icon;
@@ -83,7 +83,7 @@ export const Sidebar: React.FC = () => {
 	const theme = usePicasso();
 	const { isSamePath } = usePath();
 	const { userProfile } = useProfile();
-	const { isConnected } = useAccount();
+	const { isAuthorized } = useAuth();
 	const { disconnect } = useDisconnect();
 	const { locale, asPath } = useRouter();
 	const languages: ILanguage[] = ['en-US', 'pt-BR'];
@@ -150,9 +150,7 @@ export const Sidebar: React.FC = () => {
 						<Link as={NextLink} href={navigationPaths.dashboard.home} pb="6">
 							<Img src="/images/cali-logo.svg" h="8" w="20" cursor="pointer" />
 						</Link>
-						{!isConnected ? (
-							<ConnectWalletButton />
-						) : (
+						{isAuthorized ? (
 							<Flex direction="column" gap="2">
 								<Menu
 									gutter={0}
@@ -174,7 +172,7 @@ export const Sidebar: React.FC = () => {
 										color={theme.text.primary}
 										as={Button}
 										bg="white"
-										disabled={!isConnected}
+										disabled={!isAuthorized}
 										onClick={onOpenMenu}
 										_hover={{}}
 										_active={{}}
@@ -222,7 +220,7 @@ export const Sidebar: React.FC = () => {
 										</MenuItem>
 									</MenuList>
 								</Menu>
-								{isConnected && (
+								{isAuthorized && (
 									<ChangeNetworkButton
 										onClick={onOpen}
 										networkIcon={networkData.icon}
@@ -230,6 +228,8 @@ export const Sidebar: React.FC = () => {
 									/>
 								)}
 							</Flex>
+						) : (
+							<ConnectWalletButton />
 						)}
 					</Flex>
 					<Flex
@@ -237,7 +237,7 @@ export const Sidebar: React.FC = () => {
 						gap="3"
 						w="full"
 						pb="6.4rem"
-						pt={!isConnected ? '16' : '6'}
+						pt={isAuthorized ? '6' : '16'}
 					>
 						{menuOptions.map((item, index) => {
 							const comparedPath = isSamePath(item.route);

@@ -16,7 +16,7 @@ import { usePicasso, useProfile } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
 import { IWalletOptionsModal } from 'types';
 import { navigationPaths } from 'utils';
-import { Connector, useAccount, useConnect } from 'wagmi';
+import { Connector, useConnect } from 'wagmi';
 import { signIn } from 'next-auth/react';
 import NextLink from 'next/link';
 
@@ -26,7 +26,6 @@ interface IWallet {
 	connector?: Connector<any, any, any>;
 }
 
-
 export const WalletsOptionsModal: React.FC<IWalletOptionsModal> = ({
 	isOpen,
 	onClose,
@@ -34,7 +33,7 @@ export const WalletsOptionsModal: React.FC<IWalletOptionsModal> = ({
 	setWalletData,
 }) => {
 	const { t: translate } = useTranslation('sidebar');
-	const { connectors, connect } = useConnect();
+	const { connectors, connectAsync } = useConnect();
 
 	const theme = usePicasso();
 	const onTriggerLoadingModal = async (wallet: IWallet) => {
@@ -44,7 +43,7 @@ export const WalletsOptionsModal: React.FC<IWalletOptionsModal> = ({
 			name,
 		});
 		openLoadingWalletModal();
-		await connect({ connector });
+		await connectAsync({ connector });
 		onClose();
 	};
 

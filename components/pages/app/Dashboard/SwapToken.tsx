@@ -9,7 +9,7 @@ import {
 	Text,
 	useDisclosure,
 } from '@chakra-ui/react';
-import { usePicasso, useProfile, useTokens } from 'hooks';
+import { useAuth, usePicasso, useProfile, useTokens } from 'hooks';
 import React, { useState } from 'react';
 
 import { BsArrowDownUp } from 'react-icons/bs';
@@ -36,7 +36,7 @@ export const SwapToken = () => {
 	);
 	const [paidData, setPaidData] = useState<ISelectedCoin>({} as ISelectedCoin);
 	const theme = usePicasso();
-	const { isConnected } = useProfile();
+	const { isAuthorized } = useAuth();
 	const { t: translate } = useTranslation('swap-token');
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const {
@@ -125,7 +125,7 @@ export const SwapToken = () => {
 								<Input
 									placeholder="0"
 									type="number"
-									disabled={!isConnected}
+									disabled={!isAuthorized}
 									_hover={{ focus: 'none' }}
 									{...register('youPay')}
 								/>
@@ -164,7 +164,7 @@ export const SwapToken = () => {
 								<Input
 									{...register('youReceive')}
 									placeholder="0"
-									disabled={!isConnected}
+									disabled={!isAuthorized}
 									_hover={{ focus: 'none' }}
 									type="number"
 								/>
