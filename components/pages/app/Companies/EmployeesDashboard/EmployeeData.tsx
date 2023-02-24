@@ -29,7 +29,7 @@ export const EmployeeData: React.FC<IEmployeeData> = ({
 	const toast = useToast();
 	const { t: translate } = useTranslation('create-team');
 	const { isOpen, onOpen, onClose } = useDisclosure();
-	const { onCopy } = useClipboard(employee.wallet);
+	const { onCopy } = useClipboard(employee.wallet!);
 
 	const handleCopyButton = () => {
 		onCopy();
