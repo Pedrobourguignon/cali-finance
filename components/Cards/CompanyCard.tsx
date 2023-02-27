@@ -6,11 +6,15 @@ import { ICompany } from 'types';
 import { handleLogoImage, navigationPaths } from 'utils';
 import NextLink from 'next/link';
 
+interface ITesteCompany {
+	name: string;
+	logo: string;
+}
 interface ICompanyCard {
-	team: ICompany;
+	companie: ITesteCompany;
 }
 
-export const CompanyCard: React.FC<ICompanyCard> = ({ team }) => {
+export const CompanyCard: React.FC<ICompanyCard> = ({ companie }) => {
 	const theme = usePicasso();
 	const { t: translate } = useTranslation('companies');
 
@@ -31,8 +35,8 @@ export const CompanyCard: React.FC<ICompanyCard> = ({ team }) => {
 		>
 			<Flex direction="column" pt="2.5" pl="4" color={theme.text.primary}>
 				<Flex align="center" gap={{ md: '1', xl: '2' }}>
-					{team.logo ? (
-						<Img src={team.logo} boxSize="6" borderRadius="base" />
+					{companie.logo ? (
+						<Img src={companie.logo} boxSize="6" borderRadius="base" />
 					) : (
 						<Flex
 							boxSize="6"
@@ -43,11 +47,11 @@ export const CompanyCard: React.FC<ICompanyCard> = ({ team }) => {
 							fontWeight="bold"
 							bg={theme.bg.white2}
 						>
-							{handleLogoImage(team.name)}
+							{handleLogoImage(companie.name)}
 						</Flex>
 					)}
 					<Text fontSize={{ md: 'xs', xl: 'md' }} fontWeight="bold">
-						{team.name}
+						{companie.name.split(' ')[0]} {companie.name.split(' ')[1]}
 					</Text>
 				</Flex>
 				<Flex pt={{ md: '1', xl: '3' }} justify="space-between" pr="6">
@@ -56,14 +60,18 @@ export const CompanyCard: React.FC<ICompanyCard> = ({ team }) => {
 							{translate('funds')}
 						</Text>
 						<Text fontSize={{ md: 'xs', xl: 'sm' }}>
-							${team.funds.toLocaleString('en-US')}
+							{/* ${companie.funds.toLocaleString('en-US')} */}
+							1234
 						</Text>
 					</Flex>
 					<Flex direction="column">
 						<Text fontSize={{ md: 'xs', xl: 'sm' }} color="gray.500">
 							{translate('members')}
 						</Text>
-						<Text fontSize={{ md: 'xs', xl: 'sm' }}>{team.members}</Text>
+						<Text fontSize={{ md: 'xs', xl: 'sm' }}>
+							{/* {companie.members} */}
+							17
+						</Text>
 					</Flex>
 				</Flex>
 			</Flex>

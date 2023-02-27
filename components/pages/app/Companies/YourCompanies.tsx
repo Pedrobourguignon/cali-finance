@@ -4,7 +4,7 @@ import { useCompanies, usePicasso } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
 
 export const YourCompanies = () => {
-	const { companies } = useCompanies();
+	const { companies, backEndCompanies } = useCompanies();
 	const { t: translate } = useTranslation('companies');
 	const theme = usePicasso();
 
@@ -18,8 +18,8 @@ export const YourCompanies = () => {
 				{translate('yourCompanies')}
 			</Text>
 			<Flex gap="4" w="full">
-				{companies.map((team, index) => (
-					<CompanyCard key={+index} team={team} />
+				{backEndCompanies.map((companie, index) => (
+					<CompanyCard key={+index} companie={companie} />
 				))}
 			</Flex>
 		</Flex>

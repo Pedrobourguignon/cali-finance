@@ -23,3 +23,4 @@ export const mainClient = axios.create({
 });
 
 mainClient.defaults.headers.common.Authorization = checkJwt();
+// mainClient.defaults.headers.common.Authorization = `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiIweDE3MThlYWEzYWE2YmVjYmI3YWY1YjU3ZWZhMjdmNzNlNjlhMTA3YTUiLCJleHAiOjE2Nzc1ODYyOTAsImlhdCI6MTY3NzQ5OTg5MH0.TIDK4qnv5td9hWlCNfhYYxfH2yYo-UcYfWvjhpGiFiY`;

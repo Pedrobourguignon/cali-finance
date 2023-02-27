@@ -6,6 +6,7 @@ import {
 	CompaniesDashboard,
 	YourCompanies,
 	CompaniesRightBar,
+	CompaniesList,
 } from 'components';
 import { AppLayout } from 'layouts';
 import { useCompanies } from 'hooks';
@@ -27,7 +28,7 @@ export const CompaniesConnected: React.FC = () => {
 					/>
 				</Flex>
 				<Flex w="full" flexDir="column" gap="8">
-					{companies.length ? <YourCompanies /> : <CreateCompanyCard />}
+					{companies.length ? <CompaniesList /> : <CreateCompanyCard />}
 					{activities && <RecentActivities />}
 				</Flex>
 			</Flex>

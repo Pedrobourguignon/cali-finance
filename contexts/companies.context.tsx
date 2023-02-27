@@ -21,6 +21,11 @@ import { mainClient } from 'utils';
 import { useQuery } from 'react-query';
 import { useAccount } from 'wagmi';
 
+interface ITestCompany {
+	name: string;
+	logo: string;
+}
+
 interface ICompanysContext {
 	companies: ICompany[];
 	activities: IActivities[];
@@ -44,6 +49,8 @@ interface ICompanysContext {
 	companiesWithMissingFunds: ICompany[];
 	filteredNotifications: IHistoryNotification[];
 	setFilteredNotifications: Dispatch<SetStateAction<IHistoryNotification[]>>;
+	backEndCompanies: ITestCompany[];
+	isLoadingCompanies: boolean;
 }
 
 export const CompaniesContext = createContext({} as ICompanysContext);
@@ -292,14 +299,24 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 		showMissingFundsWarning();
 	}, []);
 
+	const [backEndCompanies, setBackEndCompanies] = useState<ITestCompany[]>([]);
+
 	const getCompanies = async () => {
 		const response = await mainClient.get(
-			`https://4fcf-187-73-24-131.sa.ngrok.io/user/${wallet}/company`
+			`http://localhost:3001/user/${wallet}/company`
+			// `http://localhost:3001/company/`
 		);
+		setBackEndCompanies(response.data);
 		return response.data;
 	};
 
-	const { data, isLoading, error } = useQuery('all-companies', getCompanies);
+	const {
+		data,
+		isLoading: isLoadingCompanies,
+		error,
+	} = useQuery('all-companies', getCompanies);
+
+	console.log(data);
 
 	const contextStates = useMemo(
 		() => ({
@@ -325,6 +342,8 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 			selectedCompanyEmployees,
 			filteredNotifications,
 			setFilteredNotifications,
+			backEndCompanies,
+			isLoadingCompanies,
 		}),
 		[
 			selectedCompany,
@@ -349,6 +368,8 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 			selectedCompanyEmployees,
 			filteredNotifications,
 			setFilteredNotifications,
+			backEndCompanies,
+			isLoadingCompanies,
 		]
 	);
 	return (
