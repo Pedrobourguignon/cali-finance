@@ -2,7 +2,6 @@ import { Flex, Img, Link, Text } from '@chakra-ui/react';
 import { usePicasso } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
 import React from 'react';
-import { ICompany } from 'types';
 import { handleLogoImage, navigationPaths } from 'utils';
 import NextLink from 'next/link';
 
@@ -25,11 +24,10 @@ export const CompanyCard: React.FC<ICompanyCard> = ({ companie }) => {
 			borderRadius="base"
 			direction="column"
 			gap={{ md: '1', lg: '2', xl: '4' }}
-			minW={{
+			w={{
 				md: '8.288rem',
 				lg: '10.5rem',
 				xl: '13.813rem',
-				'2xl': '16.575rem',
 			}}
 			h="8.375rem"
 		>

@@ -14,13 +14,11 @@ export const CompanyCardSkeleton = () => {
 			borderRadius="base"
 			direction="column"
 			gap={{ md: '1', lg: '2', xl: '4' }}
-			// minW={{
-			// 	md: '8.288rem',
-			// 	lg: '10.5rem',
-			// 	xl: '13.813rem',
-			// 	'2xl': '16.575rem',
-			// }}
-			w="221px"
+			w={{
+				md: '8.288rem',
+				lg: '10.5rem',
+				xl: '13.813rem',
+			}}
 			h="8.375rem"
 		>
 			<Flex direction="column" pt="2.5" pl="4" color={theme.text.primary}>
