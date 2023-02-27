@@ -26,7 +26,7 @@ import {
 	ChangeNetworkButton,
 	NetworkModal,
 } from 'components';
-import { navigationPaths, socialMediaLinks } from 'utils';
+import { navigationPaths, socialMediaLinks, truncateWallet } from 'utils';
 import { INetwork } from 'types';
 import useTranslation from 'next-translate/useTranslation';
 import { useSession, signOut } from 'next-auth/react';
@@ -193,7 +193,7 @@ export const Sidebar: React.FC = () => {
 												fontWeight="medium"
 												fontSize={{ md: 'xs', xl: 'sm' }}
 											>
-												{userProfile?.wallet}
+												{truncateWallet(userProfile.wallet)}
 											</Text>
 										</Flex>
 									</MenuButton>
