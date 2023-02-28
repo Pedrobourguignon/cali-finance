@@ -60,8 +60,8 @@ export const ConnectWalletButton = () => {
 						background: 'white',
 						transform: 'translateY(0.5rem) translateX(0.375rem)',
 					}}
-					// onClick={onOpen}
-					onClick={getAuthorization}
+					onClick={onOpen}
+					// onClick={getAuthorization}
 					display={shouldDisplay}
 				>
 					<Text px="8" display={shouldDisplay}>

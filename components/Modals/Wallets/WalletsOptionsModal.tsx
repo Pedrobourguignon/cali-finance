@@ -12,12 +12,13 @@ import {
 	Text,
 } from '@chakra-ui/react';
 import { OffsetShadow } from 'components';
-import { usePicasso, useProfile } from 'hooks';
-import { useSession, signIn } from 'next-auth/react';
+import { AUTH_SERVICE_ROUTES } from 'helpers';
+import { usePicasso, useProfile, useToasty } from 'hooks';
+import { signIn, useSession } from 'next-auth/react';
 import useTranslation from 'next-translate/useTranslation';
 import { IWalletOptionsModal } from 'types';
 import { navigationPaths } from 'utils';
-import { useAccount, useConnect } from 'wagmi';
+import { useAccount, useConnect, useSignMessage } from 'wagmi';
 import { InjectedConnector } from 'wagmi/connectors/injected';
 
 export const WalletsOptionsModal: React.FC<IWalletOptionsModal> = ({
@@ -27,21 +28,63 @@ export const WalletsOptionsModal: React.FC<IWalletOptionsModal> = ({
 	setWalletData,
 }) => {
 	const { t: translate } = useTranslation('sidebar');
-	const { connect } = useConnect({ connector: new InjectedConnector() });
-	const { setIsConnected } = useProfile();
-	const { address: wallets } = useAccount();
-
+	const { connectAsync } = useConnect({ connector: new InjectedConnector() });
+	const { address: walletNumber, isConnected } = useAccount();
+	const { signMessageAsync } = useSignMessage();
+	const { toast } = useToasty();
+	const { data: session } = useSession();
 	const { connectors } = useConnect();
 	const theme = usePicasso();
+
+	const getNonce = async () => {
+		try {
+			console.log(walletNumber);
+			if (!walletNumber) throw new Error('User not connected');
+			const response = await fetch(AUTH_SERVICE_ROUTES.nonce(walletNumber));
+			return response.json();
+		} catch (error: any) {
+			throw new Error(error);
+		}
+	};
+
+	const getSignature = async (nonce: string) => {
+		try {
+			await signMessageAsync({
+				message: nonce,
+			});
+		} catch (error: any) {
+			if (error.message.includes('User rejected')) {
+				toast({
+					title: 'Error',
+					description: 'The signature was cancelled. Please try again.',
+					status: 'error',
+				});
+				return;
+			}
+			throw new Error(error);
+		}
+	};
+
+	console.log(isConnected);
 	const onTriggerLoadingModal = async (icon: string, name: string) => {
-		setWalletData({
-			icon,
-			name,
-		});
-		connect();
-		signIn('credentials', { redirect: false, wallet: wallets });
-		openLoadingWalletModal();
-		onClose();
+		if (!isConnected) await connectAsync();
+		try {
+			const { nonce } = await getNonce();
+			const signature = await getSignature(nonce);
+			setWalletData({
+				icon,
+				name,
+			});
+			signIn('credentials', {
+				redirect: false,
+				wallet: walletNumber,
+				message: signature,
+			});
+			openLoadingWalletModal();
+			onClose();
+		} catch (error: any) {
+			throw new Error(error);
+		}
 	};
 
 	const walletsOptions = [

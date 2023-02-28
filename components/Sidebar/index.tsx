@@ -32,6 +32,7 @@ import { navigationPaths, socialMediaLinks } from 'utils';
 import { INetwork } from 'types';
 import useTranslation from 'next-translate/useTranslation';
 import { useSession, signOut } from 'next-auth/react';
+import { useDisconnect } from 'wagmi';
 
 interface IMenuItem {
 	icon: typeof Icon;
@@ -85,6 +86,7 @@ export const Sidebar: React.FC = () => {
 	const { userProfile } = useProfile();
 	const { data: session } = useSession();
 	const { locale, asPath } = useRouter();
+	const { disconnect } = useDisconnect();
 	const languages: ILanguage[] = ['en-US', 'pt-BR'];
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const {
@@ -111,6 +113,11 @@ export const Sidebar: React.FC = () => {
 	useEffect(() => {
 		changeLanguage(localStorage.getItem('language')!);
 	}, [locale]);
+
+	const handleSignOut = () => {
+		disconnect();
+		signOut();
+	};
 
 	return (
 		<>
@@ -214,7 +221,7 @@ export const Sidebar: React.FC = () => {
 											fontSize="sm"
 											borderBottomRadius="base"
 											_active={{}}
-											onClick={() => signOut()}
+											onClick={handleSignOut}
 											_focus={{}}
 										>
 											{translate('logOut')}

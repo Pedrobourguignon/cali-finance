@@ -66,9 +66,9 @@ export const useAuth = () => {
 		}
 	};
 
-	useMemo(() => {
-		getStoredAuthorization();
-	}, []);
+	// useMemo(() => {
+	// 	getStoredAuthorization();
+	// }, []);
 
 	return { getAuthorization, getStoredAuthorization };
 };
