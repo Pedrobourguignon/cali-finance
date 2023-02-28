@@ -30,11 +30,15 @@ export const CompaniesHeader: React.FC<{
 	const menuOptions = [
 		{
 			name: translate('overview'),
-			route: navigationPaths.dashboard.companies.overview('1'),
+			route: navigationPaths.dashboard.companies.overview(
+				localStorage.getItem('selectedCompanyId')
+			),
 		},
 		{
 			name: translate('funds'),
-			route: navigationPaths.dashboard.companies.funds('1'),
+			route: navigationPaths.dashboard.companies.funds(
+				localStorage.getItem('selectedCompanyId')
+			),
 		},
 	];
 
@@ -86,7 +90,9 @@ export const CompaniesHeader: React.FC<{
 					<Text fontSize="sm">{translate('totalFunds')}</Text>
 				</Flex>
 				<Link
-					href={navigationPaths.dashboard.companies.editOrg('1')}
+					href={navigationPaths.dashboard.companies.editOrg(
+						localStorage.getItem('selectedCompanyId')
+					)}
 					as={NextLink}
 				>
 					<Text

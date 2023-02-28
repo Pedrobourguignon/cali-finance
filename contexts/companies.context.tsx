@@ -24,6 +24,7 @@ import { useAccount } from 'wagmi';
 interface ITestCompany {
 	name: string;
 	logo: string;
+	id: number;
 }
 
 interface ICompanysContext {
@@ -63,7 +64,8 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 	const [displayMissingFundsWarning, setDisplayMissingFundsWarning] =
 		useState('none');
 	const [displayNeedFundsCard, setDisplayNeedFundsCard] = useState('none');
-	const companiesWithMissingFunds: ICompany[] = [];
+
+	const companiesWithMissingFunds: ICompany[] = useMemo(() => [], []);
 
 	const [filteredNotifications, setFilteredNotifications] =
 		useState<IHistoryNotification[]>(historyNotifications);
@@ -195,6 +197,10 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 		employees: selectedCompanyEmployees,
 	});
 
+	const [selectedCardCompany, setSelectedCardCompany] = useState<ICompany>(
+		{} as ICompany
+	);
+
 	const [notificationsList, setNotificationsList] = useState<
 		INotificationList[]
 	>([
@@ -310,13 +316,13 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 		return response.data;
 	};
 
+	console.log(backEndCompanies);
+
 	const {
 		data,
 		isLoading: isLoadingCompanies,
 		error,
 	} = useQuery('all-companies', getCompanies);
-
-	console.log(data);
 
 	const contextStates = useMemo(
 		() => ({

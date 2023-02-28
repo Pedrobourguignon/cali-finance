@@ -1,16 +1,17 @@
 import { Flex, Img, Link, Text } from '@chakra-ui/react';
-import { usePicasso } from 'hooks';
+import { useCompanies, usePicasso } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
-import React from 'react';
+import React, { useState } from 'react';
 import { handleLogoImage, navigationPaths } from 'utils';
 import NextLink from 'next/link';
 
-interface ITesteCompany {
+interface ITestCompany {
 	name: string;
 	logo: string;
+	id: number;
 }
 interface ICompanyCard {
-	companie: ITesteCompany;
+	companie: ITestCompany;
 }
 
 export const CompanyCard: React.FC<ICompanyCard> = ({ companie }) => {
@@ -75,7 +76,9 @@ export const CompanyCard: React.FC<ICompanyCard> = ({ companie }) => {
 			</Flex>
 			<Flex w="100%" align="center" justify="center" pb={{ lg: '2', xl: '4' }}>
 				<Link
-					href={navigationPaths.dashboard.companies.overview('1')}
+					href={navigationPaths.dashboard.companies.overview(
+						companie.id.toString()
+					)}
 					as={NextLink}
 				>
 					<Text
@@ -84,6 +87,9 @@ export const CompanyCard: React.FC<ICompanyCard> = ({ companie }) => {
 						fontSize={{ md: 'xs' }}
 						fontWeight="medium"
 						cursor="pointer"
+						onClick={() =>
+							localStorage.setItem('selectedCompanyId', companie.id.toString())
+						}
 					>
 						{translate('manage')}
 					</Text>

@@ -46,8 +46,6 @@ export const DashboardComponent: React.FC = () => {
 		},
 	];
 
-	console.log(isLoadingCompanies);
-
 	return (
 		<Flex w="full">
 			<Flex direction="column" w="full">
