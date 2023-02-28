@@ -12,7 +12,7 @@ import {
 	Text,
 } from '@chakra-ui/react';
 import { OffsetShadow } from 'components';
-import { useAuth, usePicasso } from 'hooks';
+import { useAuth, usePicasso, useProfile } from 'hooks';
 import { signIn, useSession } from 'next-auth/react';
 import useTranslation from 'next-translate/useTranslation';
 import { IWalletOptionsModal } from 'types';
@@ -39,6 +39,7 @@ export const WalletsOptionsModal: React.FC<IWalletOptionsModal> = ({
 	const { connectors, connectAsync, status } = useConnect({
 		async onSuccess(data) {
 			const { account } = data;
+			console.log(account);
 			try {
 				const { nonce } = await getNonce(account);
 				const signature = await getSignature(nonce);

@@ -26,12 +26,12 @@ import {
 	ChangeNetworkButton,
 	NetworkModal,
 } from 'components';
-import { navigationPaths, socialMediaLinks } from 'utils';
+import { navigationPaths, socialMediaLinks, truncateWallet } from 'utils';
 import { INetwork } from 'types';
 import useTranslation from 'next-translate/useTranslation';
 import { useSession, signOut } from 'next-auth/react';
 import NextLink from 'next/link';
-import { useDisconnect } from 'wagmi';
+import { useAccount, useDisconnect } from 'wagmi';
 
 interface IMenuItem {
 	icon: typeof Icon;
@@ -83,6 +83,7 @@ export const Sidebar: React.FC = () => {
 	const theme = usePicasso();
 	const { isSamePath } = usePath();
 	const { userProfile } = useProfile();
+	const { address: walletAddress } = useAccount();
 	const { locale, asPath } = useRouter();
 	const { data: session } = useSession();
 	const { disconnect } = useDisconnect({
@@ -202,7 +203,7 @@ export const Sidebar: React.FC = () => {
 												fontWeight="medium"
 												fontSize={{ md: 'xs', xl: 'sm' }}
 											>
-												{userProfile?.wallet}
+												{truncateWallet(walletAddress)}
 											</Text>
 										</Flex>
 									</MenuButton>
