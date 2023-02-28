@@ -2,7 +2,6 @@
 import {
 	Box,
 	Button,
-	Collapse,
 	Flex,
 	Icon,
 	Img,
@@ -26,12 +25,12 @@ import {
 	ConnectWalletButton,
 	ChangeNetworkButton,
 	NetworkModal,
-	LogoutButton,
 } from 'components';
 import { navigationPaths, socialMediaLinks } from 'utils';
 import { INetwork } from 'types';
 import useTranslation from 'next-translate/useTranslation';
 import { useSession, signOut } from 'next-auth/react';
+import NextLink from 'next/link';
 import { useDisconnect } from 'wagmi';
 
 interface IMenuItem {
@@ -84,9 +83,13 @@ export const Sidebar: React.FC = () => {
 	const theme = usePicasso();
 	const { isSamePath } = usePath();
 	const { userProfile } = useProfile();
-	const { data: session } = useSession();
 	const { locale, asPath } = useRouter();
-	const { disconnect } = useDisconnect();
+	const { data: session } = useSession();
+	const { disconnect } = useDisconnect({
+		onSuccess(data) {
+			console.log(data);
+		},
+	});
 	const languages: ILanguage[] = ['en-US', 'pt-BR'];
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const {
@@ -153,12 +156,10 @@ export const Sidebar: React.FC = () => {
 						align="center"
 						pb="2"
 					>
-						<Link href={navigationPaths.dashboard.home} pb="6">
+						<Link as={NextLink} href={navigationPaths.dashboard.home} pb="6">
 							<Img src="/images/cali-logo.svg" h="8" w="20" cursor="pointer" />
 						</Link>
-						{!session ? (
-							<ConnectWalletButton />
-						) : (
+						{session ? (
 							<Flex direction="column" gap="2">
 								<Menu
 									gutter={0}
@@ -236,6 +237,8 @@ export const Sidebar: React.FC = () => {
 									/>
 								)}
 							</Flex>
+						) : (
+							<ConnectWalletButton />
 						)}
 					</Flex>
 					<Flex
@@ -243,12 +246,13 @@ export const Sidebar: React.FC = () => {
 						gap="3"
 						w="full"
 						pb="6.4rem"
-						pt={!session ? '16' : '6'}
+						pt={session ? '6' : '16'}
 					>
 						{menuOptions.map((item, index) => {
 							const comparedPath = isSamePath(item.route);
 							return (
 								<Link
+									as={NextLink}
 									href={item.route}
 									key={+index}
 									display="flex"
@@ -333,6 +337,7 @@ export const Sidebar: React.FC = () => {
 							))}
 						</Flex>
 						<Link
+							as={NextLink}
 							fontSize="sm"
 							href={navigationPaths.help}
 							_hover={{
@@ -344,6 +349,7 @@ export const Sidebar: React.FC = () => {
 							{translate('help')}
 						</Link>
 						<Link
+							as={NextLink}
 							fontSize="sm"
 							href={navigationPaths.docs}
 							_hover={{
@@ -361,7 +367,7 @@ export const Sidebar: React.FC = () => {
 							pl={{ md: '2', lg: '0' }}
 							pt="5"
 						>
-							<Link href={socialMediaLinks.discord} isExternal>
+							<Link href={socialMediaLinks.discord} isExternal as={NextLink}>
 								<Button bg="transparent" borderRadius="full" p="0">
 									<Icon
 										as={FaDiscord}
@@ -370,7 +376,7 @@ export const Sidebar: React.FC = () => {
 									/>
 								</Button>
 							</Link>
-							<Link href={socialMediaLinks.twitter} isExternal>
+							<Link href={socialMediaLinks.twitter} isExternal as={NextLink}>
 								<Button bg="transparent" borderRadius="full">
 									<Icon
 										as={FaTwitter}

@@ -13,6 +13,7 @@ export default async function auth(req: NextApiRequest, res: NextApiResponse) {
 				signature: {},
 			},
 			async authorize(credentials) {
+				console.log(credentials);
 				if (!credentials?.signature && !credentials?.wallet) {
 					throw new Error('User not connected');
 				}

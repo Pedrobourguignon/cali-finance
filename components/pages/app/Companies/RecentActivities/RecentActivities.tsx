@@ -3,6 +3,7 @@ import { ActivitiesData } from 'components';
 import { useCompanies, usePicasso } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
 import { navigationPaths } from 'utils';
+import NextLink from 'next/link';
 
 export const RecentActivities = () => {
 	const { activities } = useCompanies();
@@ -25,7 +26,7 @@ export const RecentActivities = () => {
 				<Text fontWeight="medium" fontSize="md">
 					{translate('recentActivities')}
 				</Text>
-				<Link href={navigationPaths.dashboard.history}>
+				<Link href={navigationPaths.dashboard.history} as={NextLink}>
 					<Text
 						color="gray.500"
 						fontSize="xs"

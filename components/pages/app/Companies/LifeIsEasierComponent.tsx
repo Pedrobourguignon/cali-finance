@@ -3,6 +3,7 @@ import { usePicasso } from 'hooks';
 import { socialMediaLinks } from 'utils';
 import { FiInstagram, FiLinkedin, FiTwitter } from 'react-icons/fi';
 import useTranslation from 'next-translate/useTranslation';
+import NextLink from 'next/link';
 
 export const LifeIsEasier = () => {
 	const theme = usePicasso();
@@ -15,13 +16,13 @@ export const LifeIsEasier = () => {
 				{translate('Efficiency')}
 			</Text>
 			<Flex gap="6">
-				<Link href={socialMediaLinks.instagram}>
+				<Link href={socialMediaLinks.instagram} as={NextLink}>
 					<Icon boxSize="5" color={theme.branding.cyan} as={FiInstagram} />
 				</Link>
-				<Link href={socialMediaLinks.linkedin}>
+				<Link href={socialMediaLinks.linkedin} as={NextLink}>
 					<Icon boxSize="5" color={theme.branding.cyan} as={FiLinkedin} />
 				</Link>
-				<Link href={socialMediaLinks.twitter}>
+				<Link href={socialMediaLinks.twitter} as={NextLink}>
 					<Icon boxSize="5" color={theme.branding.cyan} as={FiTwitter} />
 				</Link>
 			</Flex>

@@ -1,8 +1,7 @@
-import { WagmiConfig, createClient, configureChains, mainnet } from 'wagmi';
-
+import { WagmiConfig, createClient, configureChains } from 'wagmi';
+import { bsc, mainnet } from 'wagmi/chains';
 import { alchemyProvider } from 'wagmi/providers/alchemy';
 import { publicProvider } from 'wagmi/providers/public';
-
 import { CoinbaseWalletConnector } from 'wagmi/connectors/coinbaseWallet';
 import { InjectedConnector } from 'wagmi/connectors/injected';
 import { MetaMaskConnector } from 'wagmi/connectors/metaMask';
@@ -11,7 +10,7 @@ import { RPCs } from 'helpers';
 
 // Set up chains
 const { chains, provider, webSocketProvider } = configureChains(
-	[mainnet],
+	[mainnet, bsc],
 	[
 		alchemyProvider({ apiKey: RPCs.alchemy.mainnet as string }),
 		alchemyProvider({ apiKey: RPCs.alchemy.polygon as string }),
@@ -44,6 +43,13 @@ const client = createClient({
 				shimDisconnect: true,
 			},
 		}),
+		// new InjectedConnector({
+		// 	options: {
+		// 		name: 'Binance Wallet',
+		// 		getProvider: () =>
+		// 			typeof window !== 'undefined' ? window.BinanceChain : undefined,
+		// 	},
+		// }),
 	],
 	provider,
 	webSocketProvider,

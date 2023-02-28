@@ -2,6 +2,7 @@ import {
 	Flex,
 	Icon,
 	Img,
+	Link,
 	Modal,
 	ModalBody,
 	ModalCloseButton,
@@ -15,6 +16,8 @@ import { usePicasso } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
 import { FaDiscord } from 'react-icons/fa';
 import { IBasicModal } from 'types';
+import { navigationPaths, socialMediaLinks } from 'utils';
+import NextLink from 'next/link';
 
 export const ContactOptionsModal: React.FC<IBasicModal> = ({
 	isOpen,
@@ -67,7 +70,14 @@ export const ContactOptionsModal: React.FC<IBasicModal> = ({
 								border="1px solid"
 								borderColor="blackAlpha.200"
 							>
-								<Flex align="center" gap="4" pl="4">
+								<Link
+									display="flex"
+									href={socialMediaLinks.discord}
+									alignItems="center"
+									gap="4"
+									pl="4"
+									as={NextLink}
+								>
 									<Icon as={FaDiscord} color="#5A69EA" boxSize="6" />
 									<Text
 										fontSize="sm"
@@ -77,7 +87,7 @@ export const ContactOptionsModal: React.FC<IBasicModal> = ({
 									>
 										{translate('openAService')}
 									</Text>
-								</Flex>
+								</Link>
 							</Flex>
 							<Flex
 								gap="4"
@@ -85,7 +95,14 @@ export const ContactOptionsModal: React.FC<IBasicModal> = ({
 								border="1px solid"
 								borderColor="blackAlpha.200"
 							>
-								<Flex align="center" gap="4" pl="4">
+								<Link
+									display="flex"
+									href={socialMediaLinks.discord}
+									alignItems="center"
+									gap="4"
+									pl="4"
+									as={NextLink}
+								>
 									<Img src="/images/schedule.png" boxSize="6" />
 									<Text
 										fontSize="sm"
@@ -95,7 +112,7 @@ export const ContactOptionsModal: React.FC<IBasicModal> = ({
 									>
 										{translate('scheduleAMeeting')}
 									</Text>
-								</Flex>
+								</Link>
 							</Flex>
 						</ModalBody>
 
@@ -104,14 +121,16 @@ export const ContactOptionsModal: React.FC<IBasicModal> = ({
 								{translate('orYouCan')}
 								&nbsp;
 							</Text>
-							<Text
+							<Link
+								as={NextLink}
+								href={navigationPaths.docs}
 								color={theme.text.black2}
-								as="u"
+								textDecoration="underline"
 								fontSize="sm"
 								fontWeight="semibold"
 							>
 								{translate('sendUsAEmail')}
-							</Text>
+							</Link>
 						</Flex>
 					</Flex>
 				</OffsetShadow>

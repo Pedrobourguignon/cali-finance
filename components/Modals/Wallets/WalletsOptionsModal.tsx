@@ -12,14 +12,20 @@ import {
 	Text,
 } from '@chakra-ui/react';
 import { OffsetShadow } from 'components';
-import { AUTH_SERVICE_ROUTES } from 'helpers';
-import { usePicasso, useProfile, useToasty } from 'hooks';
+import { useAuth, usePicasso } from 'hooks';
 import { signIn, useSession } from 'next-auth/react';
 import useTranslation from 'next-translate/useTranslation';
 import { IWalletOptionsModal } from 'types';
 import { navigationPaths } from 'utils';
-import { useAccount, useConnect, useSignMessage } from 'wagmi';
-import { InjectedConnector } from 'wagmi/connectors/injected';
+import { useAccount, useConnect, Connector } from 'wagmi';
+import NextLink from 'next/link';
+import { useEffect } from 'react';
+
+interface IWallet {
+	name: string;
+	icon: string;
+	connector?: Connector<any, any, any>;
+}
 
 export const WalletsOptionsModal: React.FC<IWalletOptionsModal> = ({
 	isOpen,
@@ -28,64 +34,41 @@ export const WalletsOptionsModal: React.FC<IWalletOptionsModal> = ({
 	setWalletData,
 }) => {
 	const { t: translate } = useTranslation('sidebar');
-	const { connectAsync } = useConnect({ connector: new InjectedConnector() });
-	const { address: walletNumber, isConnected } = useAccount();
-	const { signMessageAsync } = useSignMessage();
-	const { toast } = useToasty();
+	const { getNonce, getSignature } = useAuth();
 	const { data: session } = useSession();
-	const { connectors } = useConnect();
+	const { connectors, connectAsync, status } = useConnect({
+		async onSuccess(data) {
+			const { account } = data;
+			try {
+				const { nonce } = await getNonce(account);
+				const signature = await getSignature(nonce);
+				signIn('credentials', {
+					redirect: false,
+					wallet: account,
+					message: signature,
+				});
+			} catch (error: any) {
+				throw new Error(error);
+			}
+		},
+	});
+	const { isConnected } = useAccount();
 	const theme = usePicasso();
 
-	const getNonce = async () => {
-		try {
-			console.log(walletNumber);
-			if (!walletNumber) throw new Error('User not connected');
-			const response = await fetch(AUTH_SERVICE_ROUTES.nonce(walletNumber));
-			return response.json();
-		} catch (error: any) {
-			throw new Error(error);
-		}
-	};
-
-	const getSignature = async (nonce: string) => {
-		try {
-			await signMessageAsync({
-				message: nonce,
-			});
-		} catch (error: any) {
-			if (error.message.includes('User rejected')) {
-				toast({
-					title: 'Error',
-					description: 'The signature was cancelled. Please try again.',
-					status: 'error',
-				});
-				return;
-			}
-			throw new Error(error);
-		}
-	};
-
-	console.log(isConnected);
-	const onTriggerLoadingModal = async (icon: string, name: string) => {
-		if (!isConnected) await connectAsync();
-		try {
-			const { nonce } = await getNonce();
-			const signature = await getSignature(nonce);
-			setWalletData({
-				icon,
-				name,
-			});
-			signIn('credentials', {
-				redirect: false,
-				wallet: walletNumber,
-				message: signature,
-			});
-			openLoadingWalletModal();
+	const onTriggerLoadingModal = async (wallet: IWallet) => {
+		const { connector, icon, name } = wallet;
+		if (!isConnected) {
+			setWalletData({ icon, name });
 			onClose();
-		} catch (error: any) {
-			throw new Error(error);
+			await connectAsync({ connector });
 		}
 	};
+
+	useEffect(() => {
+		if (status === 'loading') {
+			openLoadingWalletModal();
+		}
+	}, [status]);
 
 	const walletsOptions = [
 		{
@@ -96,14 +79,17 @@ export const WalletsOptionsModal: React.FC<IWalletOptionsModal> = ({
 		{
 			name: 'Coinbase Wallet',
 			icon: '/icons/coinbase.svg',
+			connector: connectors[1],
 		},
 		{
 			name: 'WalletConnect',
 			icon: '/icons/walletConnect.svg',
+			connector: connectors[2],
 		},
 		{
 			name: 'Binance Wallet',
 			icon: '/icons/binance.svg',
+			connector: connectors[4],
 		},
 		{
 			name: 'More',
@@ -166,9 +152,7 @@ export const WalletsOptionsModal: React.FC<IWalletOptionsModal> = ({
 										color: 'white',
 										bg: 'black',
 									}}
-									onClick={() =>
-										onTriggerLoadingModal(wallet.icon, wallet.name)
-									}
+									onClick={() => onTriggerLoadingModal(wallet)}
 									color={theme.text.mono}
 									transition="all 0.1s ease-in-out"
 									borderRadius="base"
@@ -198,7 +182,7 @@ export const WalletsOptionsModal: React.FC<IWalletOptionsModal> = ({
 								<Text fontSize="sm" whiteSpace="nowrap">
 									{translate('accept')}
 								</Text>
-								<Link href={navigationPaths.termsAndConditions}>
+								<Link as={NextLink} href={navigationPaths.termsAndConditions}>
 									<Text
 										as="span"
 										textDecor="underline"

@@ -1,6 +1,7 @@
 import { Button, Flex, Img, Text, Link } from '@chakra-ui/react';
 import { usePicasso } from 'hooks';
 import React from 'react';
+import NextLink from 'next/link';
 
 export const ErrorAlert = () => {
 	const theme = usePicasso();
@@ -16,7 +17,7 @@ export const ErrorAlert = () => {
 				<Text fontSize="4xl" color={theme.text.primary}>
 					Something went wrong
 				</Text>
-				<Link href="/">
+				<Link href="/" as={NextLink}>
 					<Button
 						color="white"
 						bg="black"

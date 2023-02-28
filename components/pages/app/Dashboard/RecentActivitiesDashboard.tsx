@@ -4,6 +4,7 @@ import { IRecentActivitiesComponent } from 'types';
 import useTranslation from 'next-translate/useTranslation';
 import { navigationPaths } from 'utils';
 import { usePicasso } from 'hooks';
+import NextLink from 'next/link';
 
 export const RecentActivitiesDashboard: React.FC<
 	IRecentActivitiesComponent
@@ -30,7 +31,7 @@ export const RecentActivitiesDashboard: React.FC<
 						{translate('recentActivities')}
 					</Text>
 				</Flex>
-				<Link href={navigationPaths.dashboard.history}>
+				<Link href={navigationPaths.dashboard.history} as={NextLink}>
 					<Text
 						fontSize="xs"
 						cursor="pointer"

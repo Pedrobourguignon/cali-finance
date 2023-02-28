@@ -6,23 +6,25 @@ import {
 	WalletsOptionsModal,
 	OffsetShadow,
 } from 'components';
-import { useAuth, useProfile } from 'hooks';
+import { useProfile } from 'hooks';
 import { useRouter } from 'next/router';
+import { useSession } from 'next-auth/react';
 
 export const ConnectWalletButton = () => {
 	const { t: translate } = useTranslation('sidebar');
-	const { isConnected } = useProfile();
+	const { data: session } = useSession();
 	const { locale } = useRouter();
-	const shouldDisplay = isConnected === true ? 'none' : 'flex';
+	const shouldDisplay = session ? 'none' : 'flex';
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const { walletData, setWalletData } = useProfile();
-	const { getAuthorization } = useAuth();
+
 	const { icon, name } = walletData;
 	const {
 		isOpen: isOpenLoading,
 		onClose: onCloseLoading,
 		onOpen: onOpenLoading,
 	} = useDisclosure();
+
 	return (
 		<Flex>
 			<WalletsOptionsModal
