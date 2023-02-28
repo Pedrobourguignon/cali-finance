@@ -18,6 +18,7 @@ import useTranslation from 'next-translate/useTranslation';
 import { BlackButton, NetworkTooltip } from 'components';
 import { useSession } from 'next-auth/react';
 import { useMutation } from 'react-query';
+import { IPostCompany } from 'types/interfaces/main-server/ICompany';
 
 export interface ICompany {
 	id?: number;
@@ -33,7 +34,7 @@ export interface ICompany {
 }
 
 interface ICreateCompanyComponent {
-	control: Control<ICreateCompany>;
+	control: Control<IPostCompany>;
 	errors: Partial<
 		FieldErrorsImpl<{
 			name: string;
@@ -98,12 +99,22 @@ export const CreateCompanyComponent: React.FC<ICreateCompanyComponent> = ({
 		{ value: 'e-commerce', label: 'e-commerce' },
 	];
 
-	const company = {
-		name: 'Prisco Company',
+	const company: IPostCompany = {
+		name: 'Fodase Company',
 		contactEmail: 'company22@email.com',
-		isPublic: true,
+		isPublic: 1,
 		color: '#aaaaaa',
 		logo: 'no-logo.png',
+		description: 'We are trozorba company',
+		network: 1,
+		type: 'dao',
+		socialMedia: {
+			website: 'teste.com',
+			instagram: 'company/insta',
+			twitter: 'company/twitter',
+			telegram: 'company/telegram',
+			medium: 'company/medium',
+		},
 	};
 
 	const { mutate } = useMutation(() => createCompany(company), {

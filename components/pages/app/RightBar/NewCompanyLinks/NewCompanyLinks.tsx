@@ -6,6 +6,7 @@ import { INewCompany, ISocialMediaInput, ICreateCompany } from 'types';
 import { Control } from 'react-hook-form';
 import useTranslation from 'next-translate/useTranslation';
 import { useSession } from 'next-auth/react';
+import { IPostCompany } from 'types/interfaces/main-server/ICompany';
 
 const socialLinks: ISocialMediaInput[] = [
 	{
@@ -60,7 +61,7 @@ const CompanyLogo: React.FC<{ org: INewCompany }> = ({ org }) => {
 };
 
 export const NewCompanyLinks: React.FC<{
-	control: Control<ICreateCompany>;
+	control: Control<IPostCompany>;
 }> = ({ control }) => {
 	const theme = usePicasso();
 	const { selectedCompany } = useCompanies();

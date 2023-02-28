@@ -20,7 +20,7 @@ import {
 } from 'types';
 import { historyNotifications } from 'components';
 import { mainClient } from 'utils';
-import { getCookie } from 'cookies-next';
+import { IPostCompany } from 'types/interfaces/main-server/ICompany';
 
 interface ICompanysContext {
 	companies: ICompany[];
@@ -46,6 +46,8 @@ interface ICompanysContext {
 	filteredNotifications: IHistoryNotification[];
 	setFilteredNotifications: Dispatch<SetStateAction<IHistoryNotification[]>>;
 	createCompany: (company: any) => Promise<void>;
+	createdCompanyData: IPostCompany | undefined;
+	setCreatedCompanyData: Dispatch<SetStateAction<IPostCompany | undefined>>;
 }
 
 export const CompaniesContext = createContext({} as ICompanysContext);
@@ -293,8 +295,13 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 		showMissingFundsWarning();
 	}, []);
 
-	const createCompany = async (company: any) => {
-		await mainClient.post('/company/', company);
+	const [createdCompanyData, setCreatedCompanyData] = useState<IPostCompany>();
+
+	const createCompany = async (company: IPostCompany) => {
+		await mainClient.post(
+			'https://7023-187-73-24-131.sa.ngrok.io/company/',
+			createdCompanyData
+		);
 	};
 
 	const contextStates = useMemo(
@@ -322,6 +329,8 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 			filteredNotifications,
 			setFilteredNotifications,
 			createCompany,
+			createdCompanyData,
+			setCreatedCompanyData,
 		}),
 		[
 			selectedCompany,
@@ -347,6 +356,8 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 			filteredNotifications,
 			setFilteredNotifications,
 			createCompany,
+			createdCompanyData,
+			setCreatedCompanyData,
 		]
 	);
 	return (

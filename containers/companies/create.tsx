@@ -13,7 +13,9 @@ import { CompaniesProvider } from 'contexts';
 import useTranslation from 'next-translate/useTranslation';
 import { useSession } from 'next-auth/react';
 import router from 'next/router';
-import { useSchema } from 'hooks';
+import { useCompanies, useSchema } from 'hooks';
+import { useMutation } from 'react-query';
+import { IPostCompany } from 'types/interfaces/main-server/ICompany';
 
 export const CreateCompany = () => {
 	const { createCompanySchema } = useSchema();
@@ -21,10 +23,11 @@ export const CreateCompany = () => {
 		handleSubmit,
 		control,
 		formState: { errors },
-	} = useForm<ICreateCompany>({
+	} = useForm<IPostCompany>({
 		resolver: yupResolver(createCompanySchema),
 	});
 	const { t: translate } = useTranslation('create-company');
+	const { setCreatedCompanyData, createdCompanyData } = useCompanies();
 	const { data: session } = useSession({
 		required: true,
 		onUnauthenticated() {
@@ -32,9 +35,19 @@ export const CreateCompany = () => {
 		},
 	});
 
-	const handleCreateCompany = (companyData: ICreateCompany) => {
+	const handleCreateCompany = (companyData: IPostCompany) => {
 		console.log(companyData);
+		setCreatedCompanyData({
+			name: companyData.name,
+			email: companyData.email,
+			description: companyData.description,
+			network: companyData.network.value,
+			type: companyData.type.value,
+			socialMedias: companyData.socialMedias,
+		});
 	};
+
+	console.log(createdCompanyData);
 
 	return (
 		<CompaniesProvider>
