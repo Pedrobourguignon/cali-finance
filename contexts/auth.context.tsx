@@ -22,7 +22,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 			signOut();
 		},
 	});
-	const { disconnect } = useDisconnect();
+	const { disconnectAsync } = useDisconnect();
 	const { data: session } = useSession();
 	const { toast } = useToasty();
 	const { signMessageAsync } = useSignMessage();
@@ -49,7 +49,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 					description: 'The signature was cancelled. Please try again.',
 					status: 'error',
 				});
-				disconnect();
+				await disconnectAsync();
 				return;
 			}
 			throw new Error(error);
@@ -72,8 +72,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 	// };
 
 	useEffect(() => {
-		if (!localStorage.getItem('cali-finance-authorization')) {
-			// localStorage.setItem('cali-finance-authorization', session!.user);
+		if (session) {
+			if (!localStorage.getItem('cali-finance-authorization')) {
+				// localStorage.setItem('cali-finance-authorization', session!.user); 	// please uncomment this line
+			}
 		}
 	}, [session]);
 

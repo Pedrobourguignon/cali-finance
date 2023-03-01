@@ -37,9 +37,8 @@ export const WalletsOptionsModal: React.FC<IWalletOptionsModal> = ({
 	const { getNonce, getSignature } = useAuth();
 	const { data: session } = useSession();
 	const { connectors, connectAsync, status } = useConnect({
-		async onSuccess(data) {
-			const { account } = data;
-			console.log(account);
+		async onSettled(data) {
+			const account = data?.account;
 			try {
 				const { nonce } = await getNonce(account);
 				const signature = await getSignature(nonce);
@@ -58,7 +57,7 @@ export const WalletsOptionsModal: React.FC<IWalletOptionsModal> = ({
 
 	const onTriggerLoadingModal = async (wallet: IWallet) => {
 		const { connector, icon, name } = wallet;
-		if (!isConnected) {
+		if (status !== 'success') {
 			setWalletData({ icon, name });
 			onClose();
 			await connectAsync({ connector });

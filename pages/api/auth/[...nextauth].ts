@@ -13,7 +13,6 @@ export default async function auth(req: NextApiRequest, res: NextApiResponse) {
 				signature: {},
 			},
 			async authorize(credentials) {
-				console.log(credentials);
 				if (!credentials?.signature && !credentials?.wallet) {
 					throw new Error('User not connected');
 				}
@@ -53,8 +52,7 @@ export default async function auth(req: NextApiRequest, res: NextApiResponse) {
 				return token;
 			},
 			async session({ session, token }) {
-				// Send properties to the client, like an access_token and user id from a provider.
-				// session.user = token.user;
+				// session.user = token.user; // please uncomment this line
 
 				return session;
 			},

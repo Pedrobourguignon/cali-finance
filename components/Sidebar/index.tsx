@@ -86,11 +86,7 @@ export const Sidebar: React.FC = () => {
 	const { address: walletAddress } = useAccount();
 	const { locale, asPath } = useRouter();
 	const { data: session } = useSession();
-	const { disconnect } = useDisconnect({
-		onSuccess(data) {
-			console.log(data);
-		},
-	});
+	const { disconnect } = useDisconnect();
 	const languages: ILanguage[] = ['en-US', 'pt-BR'];
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const {

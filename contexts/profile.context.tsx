@@ -1,4 +1,4 @@
-import React, { createContext, useState, useMemo } from 'react';
+import React, { createContext, useState, useMemo, useEffect } from 'react';
 import { IProfile, IWalletData } from 'types';
 import { useAccount } from 'wagmi';
 
