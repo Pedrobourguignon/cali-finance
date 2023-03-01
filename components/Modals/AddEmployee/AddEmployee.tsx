@@ -27,6 +27,7 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { IoIosArrowDown } from 'react-icons/io';
 import { navigationPaths } from 'utils';
+import NextLink from 'next/link';
 
 export const AddEmployee: React.FC<IAddEmployee> = ({
 	isOpen,
@@ -349,7 +350,7 @@ export const AddEmployee: React.FC<IAddEmployee> = ({
 									textAlign="center"
 								>
 									{translate('byAdding')}
-									<Link href={navigationPaths.termsAndConditions}>
+									<Link href={navigationPaths.termsAndConditions} as={NextLink}>
 										<Text as="u" fontWeight="semibold">
 											{translate('termsAndConditions')}
 										</Text>

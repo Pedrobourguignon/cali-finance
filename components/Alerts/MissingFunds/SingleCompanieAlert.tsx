@@ -2,6 +2,7 @@ import { Flex, Text, Link } from '@chakra-ui/react';
 import { useCompanies, usePicasso } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
 import React from 'react';
+import NextLink from 'next/link';
 
 interface ISingleCompanieAlert {
 	missingValue: number;
@@ -26,7 +27,7 @@ export const SingleCompanieAlert: React.FC<ISingleCompanieAlert> = ({
 				})}
 			</Text>
 
-			<Link href="/app/companies/1/funds">
+			<Link href="/app/companies/1/funds" as={NextLink}>
 				<Text
 					cursor="pointer"
 					fontSize={{ md: 'xs', xl: 'sm' }}

@@ -1,6 +1,6 @@
 export interface IProfile {
 	name: string;
 	email: string;
-	wallet: string;
+	wallet: `0x${string}` | undefined;
 	picture: string;
 }

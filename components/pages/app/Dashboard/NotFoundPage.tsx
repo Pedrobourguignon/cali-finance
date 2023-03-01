@@ -3,6 +3,7 @@ import { OffsetShadow } from 'components';
 import { usePicasso } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
 import React from 'react';
+import NextLink from 'next/link';
 
 export const NotFoundPage = () => {
 	const { t: translate } = useTranslation('dashboard');
@@ -35,7 +36,7 @@ export const NotFoundPage = () => {
 				<Text fontSize={{ base: 'xl', sm: '4xl' }} color={theme.text.black3}>
 					{translate('somethingWentWrong')}
 				</Text>
-				<Link href="/app">
+				<Link href="/app" as={NextLink}>
 					<OffsetShadow borderColor="black" top="0.5rem" left="0.375rem">
 						<Button
 							_hover={{}}

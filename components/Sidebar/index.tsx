@@ -2,7 +2,6 @@
 import {
 	Box,
 	Button,
-	Collapse,
 	Flex,
 	Icon,
 	Img,
@@ -26,12 +25,12 @@ import {
 	ConnectWalletButton,
 	ChangeNetworkButton,
 	NetworkModal,
-	LogoutButton,
 } from 'components';
-import { navigationPaths, socialMediaLinks } from 'utils';
+import { navigationPaths, socialMediaLinks, truncateWallet } from 'utils';
 import { INetwork } from 'types';
 import useTranslation from 'next-translate/useTranslation';
 import { useSession, signOut } from 'next-auth/react';
+import NextLink from 'next/link';
 
 interface IMenuItem {
 	icon: typeof Icon;
@@ -146,7 +145,7 @@ export const Sidebar: React.FC = () => {
 						align="center"
 						pb="2"
 					>
-						<Link href={navigationPaths.dashboard.home} pb="6">
+						<Link as={NextLink} href={navigationPaths.dashboard.home} pb="6">
 							<Img src="/images/cali-logo.svg" h="8" w="20" cursor="pointer" />
 						</Link>
 						{!session ? (
@@ -194,7 +193,7 @@ export const Sidebar: React.FC = () => {
 												fontWeight="medium"
 												fontSize={{ md: 'xs', xl: 'sm' }}
 											>
-												{userProfile?.wallet}
+												{truncateWallet(userProfile.wallet)}
 											</Text>
 										</Flex>
 									</MenuButton>
@@ -242,6 +241,7 @@ export const Sidebar: React.FC = () => {
 							const comparedPath = isSamePath(item.route);
 							return (
 								<Link
+									as={NextLink}
 									href={item.route}
 									key={+index}
 									display="flex"
@@ -326,6 +326,7 @@ export const Sidebar: React.FC = () => {
 							))}
 						</Flex>
 						<Link
+							as={NextLink}
 							fontSize="sm"
 							href={navigationPaths.help}
 							_hover={{
@@ -337,6 +338,7 @@ export const Sidebar: React.FC = () => {
 							{translate('help')}
 						</Link>
 						<Link
+							as={NextLink}
 							fontSize="sm"
 							href={navigationPaths.docs}
 							_hover={{
@@ -354,7 +356,7 @@ export const Sidebar: React.FC = () => {
 							pl={{ md: '2', lg: '0' }}
 							pt="5"
 						>
-							<Link href={socialMediaLinks.discord} isExternal>
+							<Link href={socialMediaLinks.discord} isExternal as={NextLink}>
 								<Button bg="transparent" borderRadius="full" p="0">
 									<Icon
 										as={FaDiscord}
@@ -363,7 +365,7 @@ export const Sidebar: React.FC = () => {
 									/>
 								</Button>
 							</Link>
-							<Link href={socialMediaLinks.twitter} isExternal>
+							<Link href={socialMediaLinks.twitter} isExternal as={NextLink}>
 								<Button bg="transparent" borderRadius="full">
 									<Icon
 										as={FaTwitter}
