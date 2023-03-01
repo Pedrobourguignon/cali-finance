@@ -1,5 +1,6 @@
 import React, { createContext, useState, useMemo } from 'react';
 import { IProfile, IWalletData } from 'types';
+import { useAccount } from 'wagmi';
 
 interface IProfileContext {
 	isLoading: boolean;
@@ -19,11 +20,12 @@ export const ProfileProvider: React.FC<{ children: React.ReactNode }> = ({
 	children,
 }) => {
 	const [isConnected, setIsConnected] = useState(false);
+	const { address: walletAddress } = useAccount();
 	const [isLoading, setIsLoading] = useState(true);
 	const [userProfile, setUserProfile] = useState<IProfile>({
 		name: '',
 		email: '',
-		wallet: '0x6856...BF99',
+		wallet: walletAddress,
 		picture: '',
 	});
 	const [editedProfileInfo, setEditedProfileInfo] = useState<IProfile>({

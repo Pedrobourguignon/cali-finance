@@ -8,6 +8,7 @@ import {
 import { usePicasso } from 'hooks';
 import { useState } from 'react';
 import { INetwork, INotificationList } from 'types';
+import NextLink from 'next/link';
 
 const networks: INetwork[] = [
 	{
@@ -89,7 +90,7 @@ export const MobileHeader = () => {
 				setNetworkData={setNetworkData}
 			/>
 			<Flex>
-				<Link href="/dashboard">
+				<Link href="/dashboard" as={NextLink}>
 					<Img src="/images/cali-logo-mobile.png" h="6" />
 				</Link>
 			</Flex>

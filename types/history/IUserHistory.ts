@@ -1,6 +1,6 @@
 export interface IUserHistory {
 	icon: string;
-	wallet: string;
+	wallet: `0x${string}` | undefined;
 	team: string;
 	type: string;
 	date: string;
