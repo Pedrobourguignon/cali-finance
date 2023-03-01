@@ -22,7 +22,6 @@ import useTranslation from 'next-translate/useTranslation';
 import { BlackButton, NetworkTooltip } from 'components';
 import { useSession } from 'next-auth/react';
 import { useMutation } from 'react-query';
-import { IPostCompany } from 'types/interfaces/main-server/ICompany';
 import { ChevronDownIcon } from '@chakra-ui/icons';
 import { useState } from 'react';
 import { BiGame } from 'react-icons/bi';
@@ -113,7 +112,7 @@ export const CreateCompanyComponent: React.FC<ICreateCompanyComponent> = ({
 		{ value: 'e-commerce', label: 'e-commerce' },
 	];
 
-	const company: IPostCompany = {
+	const company = {
 		name: 'Fodase Company',
 		email: 'company22@email.com',
 		isPublic: true,

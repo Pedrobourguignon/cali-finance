@@ -15,7 +15,6 @@ import { useSession } from 'next-auth/react';
 import router from 'next/router';
 import { useCompanies, useSchema } from 'hooks';
 import { useMutation } from 'react-query';
-import { IPostCompany } from 'types/interfaces/main-server/ICompany';
 
 export const CreateCompany = () => {
 	const { createCompanySchema } = useSchema();

@@ -2,7 +2,6 @@ import { Img, Input, InputGroup, InputLeftElement } from '@chakra-ui/react';
 import { ISocialMediaInput, ICreateCompany } from 'types';
 import { Controller, Control } from 'react-hook-form';
 import { useSession } from 'next-auth/react';
-import { IPostCompany } from 'types/interfaces/main-server/ICompany';
 
 interface ISocialLink {
 	socialLink: ISocialMediaInput;
