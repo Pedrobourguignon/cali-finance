@@ -61,7 +61,7 @@ const CompanyLogo: React.FC<{ org: INewCompany }> = ({ org }) => {
 };
 
 export const NewCompanyLinks: React.FC<{
-	control: Control<IPostCompany>;
+	control: Control<ICreateCompany>;
 }> = ({ control }) => {
 	const theme = usePicasso();
 	const { selectedCompany } = useCompanies();

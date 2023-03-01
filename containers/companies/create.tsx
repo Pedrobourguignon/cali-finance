@@ -21,9 +21,10 @@ export const CreateCompany = () => {
 	const { createCompanySchema } = useSchema();
 	const {
 		handleSubmit,
+		register,
 		control,
 		formState: { errors },
-	} = useForm<IPostCompany>({
+	} = useForm<ICreateCompany>({
 		resolver: yupResolver(createCompanySchema),
 	});
 	const { t: translate } = useTranslation('create-company');
@@ -35,14 +36,14 @@ export const CreateCompany = () => {
 		},
 	});
 
-	const handleCreateCompany = (companyData: IPostCompany) => {
+	const handleCreateCompany = (companyData: ICreateCompany) => {
 		console.log(companyData);
 		setCreatedCompanyData({
 			name: companyData.name,
 			email: companyData.email,
 			description: companyData.description,
-			network: companyData.network.value,
-			type: companyData.type.value,
+			network: 1,
+			type: 'companyData.type.value',
 			socialMedias: companyData.socialMedias,
 		});
 	};

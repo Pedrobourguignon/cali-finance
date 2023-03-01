@@ -6,7 +6,7 @@ import { IPostCompany } from 'types/interfaces/main-server/ICompany';
 
 interface ISocialLink {
 	socialLink: ISocialMediaInput;
-	control: Control<IPostCompany>;
+	control: Control<ICreateCompany>;
 	defaultValue?: string;
 }
 export const SocialMediaInput: React.FC<ISocialLink> = ({

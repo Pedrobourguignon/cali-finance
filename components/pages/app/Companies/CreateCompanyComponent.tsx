@@ -4,6 +4,10 @@ import {
 	Icon,
 	Img,
 	Input,
+	Menu,
+	MenuButton,
+	MenuItem,
+	MenuList,
 	Text,
 	Textarea,
 	TextProps,
@@ -19,6 +23,9 @@ import { BlackButton, NetworkTooltip } from 'components';
 import { useSession } from 'next-auth/react';
 import { useMutation } from 'react-query';
 import { IPostCompany } from 'types/interfaces/main-server/ICompany';
+import { ChevronDownIcon } from '@chakra-ui/icons';
+import { useState } from 'react';
+import { BiGame } from 'react-icons/bi';
 
 export interface ICompany {
 	id?: number;
@@ -34,7 +41,7 @@ export interface ICompany {
 }
 
 interface ICreateCompanyComponent {
-	control: Control<IPostCompany>;
+	control: Control<ICreateCompany>;
 	errors: Partial<
 		FieldErrorsImpl<{
 			name: string;
@@ -92,6 +99,13 @@ export const CreateCompanyComponent: React.FC<ICreateCompanyComponent> = ({
 	const { t: translate } = useTranslation('create-company');
 	const { data: session } = useSession();
 	const { createCompany } = useCompanies();
+	const [selectedType, setSelectedType] = useState<string>(
+		translate('pleaseSelect')
+	);
+	const [selectedNetwork, setSelectedNetwork] = useState({
+		name: translate('pleaseSelect'),
+		icon: '',
+	});
 
 	const companiesType: IBasicSelect[] = [
 		{ value: 'DAO', label: 'DAO' },
@@ -101,14 +115,14 @@ export const CreateCompanyComponent: React.FC<ICreateCompanyComponent> = ({
 
 	const company: IPostCompany = {
 		name: 'Fodase Company',
-		contactEmail: 'company22@email.com',
-		isPublic: 1,
+		email: 'company22@email.com',
+		isPublic: true,
 		color: '#aaaaaa',
 		logo: 'no-logo.png',
 		description: 'We are trozorba company',
 		network: 1,
 		type: 'dao',
-		socialMedia: {
+		socialMedias: {
 			website: 'teste.com',
 			instagram: 'company/insta',
 			twitter: 'company/twitter',
@@ -132,7 +146,7 @@ export const CreateCompanyComponent: React.FC<ICreateCompanyComponent> = ({
 				<Text color="black" fontSize="xl" fontWeight="medium">
 					{translate('createCompany')}
 				</Text>
-				<Controller
+				{/* <Controller
 					render={({ field }) => (
 						<Input
 							{...field}
@@ -154,7 +168,7 @@ export const CreateCompanyComponent: React.FC<ICreateCompanyComponent> = ({
 					)}
 					name="name"
 					control={control}
-				/>
+				/> */}
 				<Text fontSize="xs" color="red" position="absolute" top="100%">
 					{errors.name?.message}
 				</Text>
@@ -172,7 +186,7 @@ export const CreateCompanyComponent: React.FC<ICreateCompanyComponent> = ({
 								<Text {...labelStyle} mb="2">
 									Type *
 								</Text>
-								<Controller
+								{/* <Controller
 									name="type"
 									control={control}
 									render={({ field }) => (
@@ -211,7 +225,49 @@ export const CreateCompanyComponent: React.FC<ICreateCompanyComponent> = ({
 											options={companiesType}
 										/>
 									)}
-								/>
+								/> */}
+								<Menu>
+									<MenuButton
+										w={{ md: 'full', lg: '20rem' }}
+										border="1px solid black"
+										fontWeight="normal"
+										_hover={{}}
+										_active={{}}
+										_focus={{}}
+										isDisabled={!session}
+										h="8"
+										as={Button}
+										rightIcon={<ChevronDownIcon />}
+										bg="white"
+										fontSize="sm"
+										color={
+											selectedType === translate('pleaseSelect')
+												? 'blackAlpha.500'
+												: theme.text.primary
+										}
+									>
+										<Flex>{selectedType}</Flex>
+									</MenuButton>
+									<MenuList
+										bg="white"
+										boxShadow="none"
+										borderColor="#121212"
+										borderRadius="base"
+										w={{ md: 'inherit', lg: '20rem' }}
+									>
+										{companiesType.map((type, index) => (
+											<MenuItem
+												key={+index}
+												bg="transparent"
+												fontSize="sm"
+												_hover={{ bg: 'gray.50' }}
+												onClick={() => setSelectedType(type.value)}
+											>
+												{type.value}
+											</MenuItem>
+										))}
+									</MenuList>
+								</Menu>
 								<Text fontSize="xs" color="red">
 									{errors.type?.message}
 								</Text>
@@ -249,7 +305,7 @@ export const CreateCompanyComponent: React.FC<ICreateCompanyComponent> = ({
 										</span>
 									</Tooltip>
 								</Flex>
-								<Controller
+								{/* <Controller
 									name="network"
 									control={control}
 									render={({ field }) => (
@@ -296,7 +352,59 @@ export const CreateCompanyComponent: React.FC<ICreateCompanyComponent> = ({
 											)}
 										/>
 									)}
-								/>
+								/> */}
+								<Menu>
+									<MenuButton
+										w={{ md: 'full', lg: '11.438rem' }}
+										border="1px solid black"
+										fontWeight="normal"
+										_hover={{}}
+										_active={{}}
+										_focus={{}}
+										isDisabled={!session}
+										h="8"
+										as={Button}
+										rightIcon={<ChevronDownIcon />}
+										bg="white"
+										fontSize="sm"
+										color={
+											selectedNetwork.name === translate('pleaseSelect')
+												? 'blackAlpha.500'
+												: theme.text.primary
+										}
+									>
+										<Flex align="center" gap="2">
+											<Img src={selectedNetwork.icon} boxSize="4" />
+											{selectedNetwork.name}
+										</Flex>
+									</MenuButton>
+									<MenuList
+										bg="white"
+										boxShadow="none"
+										borderColor="#121212"
+										borderRadius="base"
+										w="120px"
+									>
+										{networksType.map((network, index) => (
+											<MenuItem
+												key={+index}
+												bg="transparent"
+												fontSize="sm"
+												_hover={{ bg: 'gray.50' }}
+												onClick={() =>
+													setSelectedNetwork({
+														name: network.value,
+														icon: network.icon,
+													})
+												}
+												gap="2"
+											>
+												<Img src={network.icon} boxSize="4" />
+												{network.value}
+											</MenuItem>
+										))}
+									</MenuList>
+								</Menu>
 								<Text fontSize="xs" color="red">
 									{errors.type?.message}
 								</Text>
@@ -306,7 +414,7 @@ export const CreateCompanyComponent: React.FC<ICreateCompanyComponent> = ({
 							<Text {...labelStyle} mb="2">
 								{translate('corporativeEmail')}
 							</Text>
-							<Controller
+							{/* <Controller
 								render={({ field }) => (
 									<Input
 										{...field}
@@ -325,7 +433,7 @@ export const CreateCompanyComponent: React.FC<ICreateCompanyComponent> = ({
 								)}
 								name="email"
 								control={control}
-							/>
+							/> */}
 							<Text fontSize="xs" color="red" position="absolute" top="100%">
 								{errors.email?.message}
 							</Text>
@@ -334,7 +442,7 @@ export const CreateCompanyComponent: React.FC<ICreateCompanyComponent> = ({
 							<Text {...labelStyle} mb="2">
 								{translate('description')}
 							</Text>
-							<Controller
+							{/* <Controller
 								render={({ field }) => (
 									<Textarea
 										{...field}
@@ -352,7 +460,7 @@ export const CreateCompanyComponent: React.FC<ICreateCompanyComponent> = ({
 								)}
 								name="description"
 								control={control}
-							/>
+							/> */}
 						</Flex>
 					</Flex>
 					<BlackButton
@@ -406,7 +514,7 @@ export const CreateCompanyComponent: React.FC<ICreateCompanyComponent> = ({
 							</span>
 						</Tooltip>
 					</Flex>
-					<Controller
+					{/* <Controller
 						name="network"
 						control={control}
 						render={({ field }) => (
@@ -452,7 +560,59 @@ export const CreateCompanyComponent: React.FC<ICreateCompanyComponent> = ({
 								)}
 							/>
 						)}
-					/>
+					/> */}
+					<Menu>
+						<MenuButton
+							w="11.438rem"
+							border="1px solid black"
+							fontWeight="normal"
+							_hover={{}}
+							_active={{}}
+							_focus={{}}
+							isDisabled={!session}
+							h="8"
+							as={Button}
+							rightIcon={<ChevronDownIcon />}
+							bg="white"
+							fontSize="sm"
+							color={
+								selectedNetwork.name === translate('pleaseSelect')
+									? 'blackAlpha.500'
+									: theme.text.primary
+							}
+						>
+							<Flex align="center" gap="2">
+								<Img src={selectedNetwork.icon} boxSize="4" />
+								{selectedNetwork.name}
+							</Flex>
+						</MenuButton>
+						<MenuList
+							bg="white"
+							boxShadow="none"
+							borderColor="#121212"
+							borderRadius="base"
+							w="120px"
+						>
+							{networksType.map((network, index) => (
+								<MenuItem
+									key={+index}
+									bg="transparent"
+									fontSize="sm"
+									_hover={{ bg: 'gray.50' }}
+									onClick={() =>
+										setSelectedNetwork({
+											name: network.value,
+											icon: network.icon,
+										})
+									}
+									gap="2"
+								>
+									<Img src={network.icon} boxSize="4" />
+									{network.value}
+								</MenuItem>
+							))}
+						</MenuList>
+					</Menu>
 					<Text fontSize="xs" color="red">
 						{errors.type?.message}
 					</Text>
