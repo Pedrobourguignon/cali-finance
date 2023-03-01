@@ -20,7 +20,6 @@ import {
 } from 'types';
 import { historyNotifications } from 'components';
 import { mainClient } from 'utils';
-import { IPostCompany } from 'types/interfaces/main-server/ICompany';
 
 interface ICompanysContext {
 	companies: ICompany[];
@@ -46,8 +45,8 @@ interface ICompanysContext {
 	filteredNotifications: IHistoryNotification[];
 	setFilteredNotifications: Dispatch<SetStateAction<IHistoryNotification[]>>;
 	createCompany: (company: any) => Promise<void>;
-	createdCompanyData: IPostCompany | undefined;
-	setCreatedCompanyData: Dispatch<SetStateAction<IPostCompany | undefined>>;
+	createdCompanyData: any | undefined;
+	setCreatedCompanyData: Dispatch<SetStateAction<any | undefined>>;
 }
 
 export const CompaniesContext = createContext({} as ICompanysContext);
@@ -295,9 +294,9 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 		showMissingFundsWarning();
 	}, []);
 
-	const [createdCompanyData, setCreatedCompanyData] = useState<IPostCompany>();
+	const [createdCompanyData, setCreatedCompanyData] = useState<any>();
 
-	const createCompany = async (company: IPostCompany) => {
+	const createCompany = async (company: any) => {
 		await mainClient.post(
 			'https://7023-187-73-24-131.sa.ngrok.io/company/',
 			createdCompanyData

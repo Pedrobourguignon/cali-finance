@@ -35,14 +35,14 @@ const useSchema = () => {
 			.required(translate('required'))
 			.matches(nameRegex, translate('nameDontAcceptNumber'))
 			.min(3),
-		email: yup
+		contactEmail: yup
 			.string()
 			.lowercase()
 			.required(translate('required'))
 			.email(translate('emailFormatInvalid'))
 			.matches(limitSpecialCharacterRegex, translate('emailContains')),
-		type: yup.object().required(translate('required')),
-		network: yup.object().required(translate('required')),
+		// type: yup.object().required(translate('required')),
+		// network: yup.object().required(translate('required')),
 	});
 
 	const editCompanySchema = yup.object().shape({

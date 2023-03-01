@@ -1,36 +1,38 @@
-import { Button, Flex, Img, Text } from '@chakra-ui/react';
+import { Flex, Img } from '@chakra-ui/react';
 import { useCompanies, usePicasso } from 'hooks';
 import { handleLogoImage } from 'utils';
 import { BlackButton, ImageUploader, SocialMediaInput } from 'components';
-import { INewCompany, ISocialMediaInput, ICreateCompany } from 'types';
-import { Control } from 'react-hook-form';
+import { INewCompany, ISocialMediaInput } from 'types';
 import useTranslation from 'next-translate/useTranslation';
 import { useSession } from 'next-auth/react';
-import { IPostCompany } from 'types/interfaces/main-server/ICompany';
+import { ICompany, ISocialMedia } from 'types/interfaces/main-server/ICompany';
+// eslint-disable-next-line import/no-unresolved
+import { UseFormRegister } from 'react-hook-form/dist/types';
+import { Dispatch, SetStateAction } from 'react';
 
 const socialLinks: ISocialMediaInput[] = [
 	{
-		name: 'socialMedias.website',
+		name: 'website',
 		imgSrc: '/icons/globe.svg',
 		placeHolder: 'website.io',
 	},
 	{
-		name: 'socialMedias.instagram',
+		name: 'instagram',
 		imgSrc: '/icons/instagram.svg',
 		placeHolder: 'instagram.com/company',
 	},
 	{
-		name: 'socialMedias.twitter',
+		name: 'twitter',
 		imgSrc: '/icons/twitter.svg',
 		placeHolder: 'twitter.com/company',
 	},
 	{
-		name: 'socialMedias.telegram',
+		name: 'telegram',
 		imgSrc: '/icons/telegram.svg',
 		placeHolder: 't.me/company',
 	},
 	{
-		name: 'socialMedias.medium',
+		name: 'medium',
 		imgSrc: '/icons/m-letter.svg',
 		placeHolder: 'Medium',
 	},
@@ -61,8 +63,8 @@ const CompanyLogo: React.FC<{ org: INewCompany }> = ({ org }) => {
 };
 
 export const NewCompanyLinks: React.FC<{
-	control: Control<ICreateCompany>;
-}> = ({ control }) => {
+	setSocialMediasData: Dispatch<SetStateAction<ISocialMedia[]>>;
+}> = ({ setSocialMediasData }) => {
 	const theme = usePicasso();
 	const { selectedCompany } = useCompanies();
 	const { t: translate } = useTranslation('create-company');
@@ -90,8 +92,8 @@ export const NewCompanyLinks: React.FC<{
 						{socialLinks.map((socialLink, index) => (
 							<SocialMediaInput
 								socialLink={socialLink}
+								setSocialMediasData={setSocialMediasData}
 								key={+index}
-								control={control}
 							/>
 						))}
 					</Flex>

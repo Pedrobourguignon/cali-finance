@@ -9,80 +9,54 @@ import {
 	MenuItem,
 	MenuList,
 	Text,
-	Textarea,
 	TextProps,
 	Tooltip,
 } from '@chakra-ui/react';
-import { useCompanies, usePicasso, useProfile } from 'hooks';
-import { Control, FieldErrorsImpl, Controller } from 'react-hook-form';
-import { Select } from 'chakra-react-select';
+import { useCompanies, usePicasso } from 'hooks';
 import { BsQuestionCircle } from 'react-icons/bs';
-import { ICreateCompany, ISocialMedia } from 'types';
 import useTranslation from 'next-translate/useTranslation';
 import { BlackButton, NetworkTooltip } from 'components';
 import { useSession } from 'next-auth/react';
 import { useMutation } from 'react-query';
-import { IPostCompany } from 'types/interfaces/main-server/ICompany';
 import { ChevronDownIcon } from '@chakra-ui/icons';
-import { useState } from 'react';
-import { BiGame } from 'react-icons/bi';
-
-export interface ICompany {
-	id?: number;
-	wallet?: string;
-	name?: string;
-	contactEmail?: string;
-	isPublic?: boolean;
-	color?: string;
-	logo?: string;
-	createdAt?: Date;
-	updatedAt?: Date;
-	socialMedia?: ISocialMedia[];
-}
+import { Dispatch, SetStateAction } from 'react';
+import { ICompany } from 'types/interfaces/main-server/ICompany';
+// eslint-disable-next-line import/no-unresolved
+import { FieldErrors, UseFormRegister } from 'react-hook-form/dist/types';
 
 interface ICreateCompanyComponent {
-	control: Control<ICreateCompany>;
-	errors: Partial<
-		FieldErrorsImpl<{
+	register: UseFormRegister<ICompany>;
+	errors: FieldErrors<ICompany>;
+	setSelectedType: Dispatch<SetStateAction<string>>;
+	selectedType: string;
+	selectedNetwork: {
+		name: string;
+		icon: string;
+		id: number;
+	};
+	setSelectedNetwork: Dispatch<
+		SetStateAction<{
 			name: string;
-			type: {
-				label: string;
-				value: string;
-			};
-			email: string;
-			network: {
-				label: string;
-				value: string;
-				icon: string;
-			};
-			description: string;
-			logo: string;
-			socialMedias: {
-				website: string;
-				instagram: string;
-				twitter: string;
-				telegram: string;
-				medium: string;
-			};
+			icon: string;
+			id: number;
 		}>
 	>;
 }
 
 interface INetworkSelect {
-	value: string;
-	label: string;
+	name: string;
+	id: number;
 	icon: string;
 }
 
 interface IBasicSelect {
 	value: string;
-	label: string;
 }
 
 const networksType: INetworkSelect[] = [
-	{ value: 'Ethereum', label: 'Ethereum', icon: '/images/eth.png' },
-	{ value: 'Polygon', label: 'Polygon', icon: '/images/polygon.png' },
-	{ value: 'BNB Chain', label: 'BNB Chain', icon: '/images/bnbchain.png' },
+	{ name: 'Ethereum', id: 1, icon: '/images/eth.png' },
+	{ name: 'Polygon', id: 137, icon: '/images/polygon.png' },
+	{ name: 'BNB Chain', id: 56, icon: '/images/bnbchain.png' },
 ];
 
 const labelStyle: TextProps = {
@@ -93,27 +67,24 @@ const labelStyle: TextProps = {
 
 export const CreateCompanyComponent: React.FC<ICreateCompanyComponent> = ({
 	errors,
-	control,
+	register,
+	selectedNetwork,
+	selectedType,
+	setSelectedNetwork,
+	setSelectedType,
 }) => {
 	const theme = usePicasso();
 	const { t: translate } = useTranslation('create-company');
 	const { data: session } = useSession();
 	const { createCompany } = useCompanies();
-	const [selectedType, setSelectedType] = useState<string>(
-		translate('pleaseSelect')
-	);
-	const [selectedNetwork, setSelectedNetwork] = useState({
-		name: translate('pleaseSelect'),
-		icon: '',
-	});
 
 	const companiesType: IBasicSelect[] = [
-		{ value: 'DAO', label: 'DAO' },
-		{ value: translate('financial'), label: translate('financial') },
-		{ value: 'e-commerce', label: 'e-commerce' },
+		{ value: 'DAO' },
+		{ value: translate('financial') },
+		{ value: 'e-commerce' },
 	];
 
-	const company: IPostCompany = {
+	const company = {
 		name: 'Fodase Company',
 		email: 'company22@email.com',
 		isPublic: true,
@@ -146,29 +117,23 @@ export const CreateCompanyComponent: React.FC<ICreateCompanyComponent> = ({
 				<Text color="black" fontSize="xl" fontWeight="medium">
 					{translate('createCompany')}
 				</Text>
-				{/* <Controller
-					render={({ field }) => (
-						<Input
-							{...field}
-							color="black"
-							placeholder={translate('companyName')}
-							borderBottomWidth="0,125rem"
-							borderBottomColor="black"
-							borderRadius="none"
-							disabled={!session}
-							px="1"
-							h="8"
-							fontSize="2xl"
-							_placeholder={{
-								color: 'blackAlpha.500',
-								fontSize: '2xl',
-							}}
-							_hover={{}}
-						/>
-					)}
-					name="name"
-					control={control}
-				/> */}
+				<Input
+					color="black"
+					placeholder={translate('companyName')}
+					borderBottomWidth="0,125rem"
+					borderBottomColor="black"
+					borderRadius="none"
+					disabled={!session}
+					px="1"
+					h="8"
+					fontSize="2xl"
+					_placeholder={{
+						color: 'blackAlpha.500',
+						fontSize: '2xl',
+					}}
+					_hover={{}}
+					{...register('name')}
+				/>
 				<Text fontSize="xs" color="red" position="absolute" top="100%">
 					{errors.name?.message}
 				</Text>
@@ -186,50 +151,13 @@ export const CreateCompanyComponent: React.FC<ICreateCompanyComponent> = ({
 								<Text {...labelStyle} mb="2">
 									Type *
 								</Text>
-								{/* <Controller
-									name="type"
-									control={control}
-									render={({ field }) => (
-										<Select
-											{...field}
-											placeholder={translate('pleaseSelect')}
-											size="sm"
-											isDisabled={!session}
-											chakraStyles={{
-												placeholder: base => ({
-													...base,
-													color: 'blackAlpha.500',
-													fontSize: 'sm',
-												}),
-												control: group => ({
-													...group,
-													bg: 'white',
-													minWidth: '48',
-													_hover: {},
-													borderRadius: 'base',
-													borderColor: errors.type ? 'red' : theme.bg.primary,
-													cursor: 'pointer',
-												}),
-												menuList: group => ({
-													...group,
-													bg: 'white',
-													boxShadow: 'none',
-													borderColor: '#121212',
-													borderRadius: 'base',
-												}),
-												option: (item, state) => ({
-													...item,
-													bg: state.isFocused ? 'gray.50' : 'none',
-												}),
-											}}
-											options={companiesType}
-										/>
-									)}
-								/> */}
+
 								<Menu>
 									<MenuButton
+										px="3"
 										w={{ md: 'full', lg: '20rem' }}
 										border="1px solid black"
+										borderColor={errors.type ? 'red' : theme.bg.primary}
 										fontWeight="normal"
 										_hover={{}}
 										_active={{}}
@@ -268,9 +196,6 @@ export const CreateCompanyComponent: React.FC<ICreateCompanyComponent> = ({
 										))}
 									</MenuList>
 								</Menu>
-								<Text fontSize="xs" color="red">
-									{errors.type?.message}
-								</Text>
 							</Flex>
 							<Flex
 								direction="column"
@@ -305,58 +230,12 @@ export const CreateCompanyComponent: React.FC<ICreateCompanyComponent> = ({
 										</span>
 									</Tooltip>
 								</Flex>
-								{/* <Controller
-									name="network"
-									control={control}
-									render={({ field }) => (
-										<Select
-											{...field}
-											placeholder="Please select "
-											size="sm"
-											isDisabled={!session}
-											chakraStyles={{
-												placeholder: base => ({
-													...base,
-													color: 'blackAlpha.500',
-													fontSize: 'sm',
-												}),
-												control: group => ({
-													...group,
-													bg: 'white',
-													borderRadius: 'base',
-													minWidth: '48',
-													borderColor: errors.network
-														? 'red'
-														: theme.bg.primary,
-													cursor: 'pointer',
-												}),
-												menuList: group => ({
-													...group,
-													boxShadow: 'none',
-													bg: 'white',
-													borderColor: '#121212',
-													borderRadius: 'base',
-												}),
-												option: (item, state) => ({
-													...item,
-													bg: state.isFocused ? 'gray.50' : 'none',
-												}),
-											}}
-											options={networksType}
-											// eslint-disable-next-line react/no-unstable-nested-components
-											formatOptionLabel={network => (
-												<Flex gap="2" align="center">
-													<Img src={network.icon} boxSize="5" />
-													<Text>{network.label}</Text>
-												</Flex>
-											)}
-										/>
-									)}
-								/> */}
+
 								<Menu>
 									<MenuButton
 										w={{ md: 'full', lg: '11.438rem' }}
 										border="1px solid black"
+										borderColor={errors.network ? 'red' : theme.bg.primary}
 										fontWeight="normal"
 										_hover={{}}
 										_active={{}}
@@ -393,14 +272,15 @@ export const CreateCompanyComponent: React.FC<ICreateCompanyComponent> = ({
 												_hover={{ bg: 'gray.50' }}
 												onClick={() =>
 													setSelectedNetwork({
-														name: network.value,
+														name: network.name,
 														icon: network.icon,
+														id: network.id,
 													})
 												}
 												gap="2"
 											>
 												<Img src={network.icon} boxSize="4" />
-												{network.value}
+												{network.name}
 											</MenuItem>
 										))}
 									</MenuList>
@@ -414,53 +294,47 @@ export const CreateCompanyComponent: React.FC<ICreateCompanyComponent> = ({
 							<Text {...labelStyle} mb="2">
 								{translate('corporativeEmail')}
 							</Text>
-							{/* <Controller
-								render={({ field }) => (
-									<Input
-										{...field}
-										disabled={!session}
-										placeholder={translate('exampleEmail')}
-										_placeholder={{
-											color: 'blackAlpha.500',
-											fontSize: 'sm',
-										}}
-										h="8"
-										bgColor="white"
-										borderRadius="base"
-										_hover={{}}
-										borderColor={errors.email ? 'red' : theme.bg.primary}
-									/>
-								)}
-								name="email"
-								control={control}
-							/> */}
+
+							<Input
+								px="3"
+								disabled={!session}
+								placeholder={translate('exampleEmail')}
+								_placeholder={{
+									color: 'blackAlpha.500',
+									fontSize: 'sm',
+								}}
+								h="8"
+								bgColor="white"
+								borderRadius="base"
+								_hover={{}}
+								borderColor={errors.contactEmail ? 'red' : theme.bg.primary}
+								{...register('contactEmail')}
+							/>
 							<Text fontSize="xs" color="red" position="absolute" top="100%">
-								{errors.email?.message}
+								{errors.contactEmail?.message}
 							</Text>
 						</Flex>
 						<Flex direction="column">
 							<Text {...labelStyle} mb="2">
 								{translate('description')}
 							</Text>
-							{/* <Controller
-								render={({ field }) => (
-									<Textarea
-										{...field}
-										disabled={!session}
-										borderColor={theme.bg.primary}
-										_placeholder={{
-											color: 'blackAlpha.500',
-											fontSize: 'sm',
-										}}
-										_hover={{}}
-										bgColor="white"
-										placeholder={translate('exampleDescription')}
-										minH="7.2rem"
-									/>
-								)}
-								name="description"
-								control={control}
-							/> */}
+
+							<Input
+								px="3"
+								disabled={!session}
+								_placeholder={{
+									color: 'blackAlpha.500',
+									fontSize: 'sm',
+								}}
+								_hover={{}}
+								bgColor="white"
+								placeholder={translate('exampleDescription')}
+								minH="7.2rem"
+								display="flex"
+								alignItems="flex-start"
+								borderColor={theme.bg.primary}
+								{...register('description')}
+							/>
 						</Flex>
 					</Flex>
 					<BlackButton
@@ -514,57 +388,11 @@ export const CreateCompanyComponent: React.FC<ICreateCompanyComponent> = ({
 							</span>
 						</Tooltip>
 					</Flex>
-					{/* <Controller
-						name="network"
-						control={control}
-						render={({ field }) => (
-							<Select
-								{...field}
-								isDisabled={!session}
-								placeholder={translate('pleaseSelect')}
-								size="sm"
-								chakraStyles={{
-									placeholder: base => ({
-										...base,
-										color: 'blackAlpha.500',
-										fontSize: 'sm',
-									}),
-									control: group => ({
-										...group,
-										bg: 'white',
-										minWidth: '48',
-										borderRadius: 'base',
-										borderColor: errors.network ? 'red' : theme.bg.primary,
-										cursor: 'pointer',
-										_hover: {},
-									}),
-									menuList: group => ({
-										...group,
-										bg: 'white',
-										boxShadow: 'none',
-										borderColor: '#121212',
-										borderRadius: 'base',
-									}),
-									option: (item, state) => ({
-										...item,
-										bg: state.isFocused ? 'gray.50' : 'none',
-									}),
-								}}
-								options={networksType}
-								// eslint-disable-next-line react/no-unstable-nested-components
-								formatOptionLabel={network => (
-									<Flex gap="2" align="center">
-										<Img src={network.icon} boxSize="5" />
-										<Text>{network.label}</Text>
-									</Flex>
-								)}
-							/>
-						)}
-					/> */}
 					<Menu>
 						<MenuButton
 							w="11.438rem"
 							border="1px solid black"
+							borderColor={errors.network ? 'red' : theme.bg.primary}
 							fontWeight="normal"
 							_hover={{}}
 							_active={{}}
@@ -601,14 +429,15 @@ export const CreateCompanyComponent: React.FC<ICreateCompanyComponent> = ({
 									_hover={{ bg: 'gray.50' }}
 									onClick={() =>
 										setSelectedNetwork({
-											name: network.value,
+											name: network.name,
 											icon: network.icon,
+											id: network.id,
 										})
 									}
 									gap="2"
 								>
 									<Img src={network.icon} boxSize="4" />
-									{network.value}
+									{network.name}
 								</MenuItem>
 							))}
 						</MenuList>

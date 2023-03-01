@@ -99,14 +99,15 @@ export const EditCompanyLink: React.FC<{
 				</Flex>
 				<Flex w="100%">
 					<Flex direction="column" gap="4" w="100%">
-						{socialLinks.map((socialLink, index) => (
+						{/* {socialLinks.map((socialLink, index) => (
 							<SocialMediaInput
+
 								socialLink={socialLink}
 								key={+index}
-								control={control}
+								// control={control}
 								defaultValue={socialLink.defaultValue}
 							/>
-						))}
+						))} */}
 					</Flex>
 				</Flex>
 			</Flex>
