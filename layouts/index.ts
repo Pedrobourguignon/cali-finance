@@ -1,4 +1,4 @@
-export * from './appLayout';
+export * from './AppLayout';
 export * from './CompaniesConnected';
 export * from './CompaniesNoConnected';
 export * from './CompanyWhiteBackground';

@@ -13,11 +13,11 @@ import {
 } from '@chakra-ui/react';
 import { OffsetShadow } from 'components';
 import { useAuth, usePicasso, useProfile } from 'hooks';
-import { signIn, useSession } from 'next-auth/react';
+import { signIn } from 'next-auth/react';
 import useTranslation from 'next-translate/useTranslation';
 import { IWalletOptionsModal } from 'types';
 import { navigationPaths } from 'utils';
-import { useAccount, useConnect, Connector } from 'wagmi';
+import { useConnect, Connector } from 'wagmi';
 import NextLink from 'next/link';
 import { useEffect } from 'react';
 
@@ -35,9 +35,8 @@ export const WalletsOptionsModal: React.FC<IWalletOptionsModal> = ({
 }) => {
 	const { t: translate } = useTranslation('sidebar');
 	const { getNonce, getSignature } = useAuth();
-	const { data: session } = useSession();
 	const { connectors, connectAsync, status } = useConnect({
-		async onSettled(data) {
+		async onSuccess(data) {
 			const account = data?.account;
 			try {
 				const { nonce } = await getNonce(account);
@@ -52,7 +51,6 @@ export const WalletsOptionsModal: React.FC<IWalletOptionsModal> = ({
 			}
 		},
 	});
-	const { isConnected } = useAccount();
 	const theme = usePicasso();
 
 	const onTriggerLoadingModal = async (wallet: IWallet) => {
