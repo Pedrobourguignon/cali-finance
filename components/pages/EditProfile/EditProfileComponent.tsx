@@ -65,8 +65,6 @@ export const EditProfileComponent = () => {
 		});
 	};
 
-	console.log(editedProfileInfo);
-
 	return (
 		<>
 			<ImageUploaderModal

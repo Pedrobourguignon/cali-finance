@@ -20,7 +20,7 @@ import { ISociaLinksInputValue } from 'types';
 
 export const CreateCompany = () => {
 	const { createCompanySchema } = useSchema();
-	const { createCompany, newCreatedCompanyId } = useCompanies();
+	const { createCompany } = useCompanies();
 	const { t: translate } = useTranslation('create-company');
 	const [selectedType, setSelectedType] = useState<string>(
 		translate('pleaseSelect')
@@ -93,11 +93,6 @@ export const CreateCompany = () => {
 			color: '#121212',
 			logo: newCompanyPicture.picture,
 		});
-		router.push(
-			navigationPaths.dashboard.companies.overview(
-				newCreatedCompanyId.toString()
-			)
-		);
 	};
 
 	return (

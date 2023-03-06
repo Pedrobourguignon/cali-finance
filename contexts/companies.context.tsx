@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import useTranslation from 'next-translate/useTranslation';
 import {
 	createContext,
@@ -48,7 +47,6 @@ interface ICompanysContext {
 	setSocialMediasData: Dispatch<SetStateAction<ISocialMedia[]>>;
 	createdCompanyPicture: string;
 	setCreatedCompanyPicture: Dispatch<SetStateAction<string>>;
-	newCreatedCompanyId: number;
 }
 
 export const CompaniesContext = createContext({} as ICompanysContext);
@@ -293,7 +291,6 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 	}, []);
 
 	const [createdCompanyPicture, setCreatedCompanyPicture] = useState('');
-	const [newCreatedCompanyId, setNewCreatedCompanyId] = useState(0);
 
 	const createCompany = async (company: ICompany) => {
 		await mainClient
@@ -332,7 +329,6 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 			setSocialMediasData,
 			createdCompanyPicture,
 			setCreatedCompanyPicture,
-			newCreatedCompanyId,
 		}),
 		[
 			selectedCompany,
@@ -355,12 +351,10 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 			selectedCompanyEmployees,
 			filteredNotifications,
 			setFilteredNotifications,
-			createCompany,
 			socialMediasData,
 			setSocialMediasData,
 			createdCompanyPicture,
 			setCreatedCompanyPicture,
-			newCreatedCompanyId,
 		]
 	);
 	return (

@@ -1,7 +1,6 @@
 import { Img, Input, InputGroup, InputLeftElement } from '@chakra-ui/react';
 import { ISociaLinksInputValue, ISocialMediaInput } from 'types';
 import { useSession } from 'next-auth/react';
-// eslint-disable-next-line import/no-unresolved
 import { Dispatch, SetStateAction } from 'react';
 
 interface ISocialLink {
