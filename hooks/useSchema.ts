@@ -41,13 +41,6 @@ const useSchema = () => {
 			.required(translate('required'))
 			.email(translate('emailFormatInvalid'))
 			.matches(limitSpecialCharacterRegex, translate('emailContains')),
-		// type: yup.object().required(translate('required')),
-		// network: yup.object().required(translate('required')),
-		// website: yup.string(),
-		// instagram: yup.string(),
-		// twitter: yup.string(),
-		// telegram: yup.string(),
-		// medium: yup.string(),
 	});
 
 	const editCompanySchema = yup.object().shape({
