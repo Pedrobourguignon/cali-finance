@@ -10,7 +10,7 @@ import {
 } from '@chakra-ui/react';
 import { useCompanies, usePicasso } from 'hooks';
 import { Control, FieldErrorsImpl, Controller } from 'react-hook-form';
-import { ICreateCompany, ICompany } from 'types';
+import { ICreateCompany, ICompanyTest } from 'types';
 import { Select } from 'chakra-react-select';
 import { BsQuestionCircle } from 'react-icons/bs';
 import useTranslation from 'next-translate/useTranslation';
@@ -44,7 +44,7 @@ interface IEditCompanyComponent {
 			};
 		}>
 	>;
-	company: ICompany;
+	company: ICompanyTest;
 }
 
 interface INetworkSelect {

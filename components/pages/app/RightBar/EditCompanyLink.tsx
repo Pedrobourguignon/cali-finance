@@ -4,7 +4,8 @@ import { useCompanies, usePicasso } from 'hooks';
 import { useSession } from 'next-auth/react';
 import useTranslation from 'next-translate/useTranslation';
 import { Control } from 'react-hook-form';
-import { ICreateCompany, ICompany, ISocialMediaInput } from 'types';
+import { ICompanyTest, ICreateCompany, ISocialMediaInput } from 'types';
+import { ICompany } from 'types/interfaces/main-server/ICompany';
 import { handleLogoImage } from 'utils';
 
 const CompanyLogo = () => {
@@ -34,7 +35,7 @@ const CompanyLogo = () => {
 
 export const EditCompanyLink: React.FC<{
 	control: Control<ICreateCompany>;
-	company: ICompany;
+	company: ICompanyTest;
 }> = ({ control, company }) => {
 	const { name, email, description, type, selectedNetwork } = company;
 	const theme = usePicasso();
@@ -99,14 +100,15 @@ export const EditCompanyLink: React.FC<{
 				</Flex>
 				<Flex w="100%">
 					<Flex direction="column" gap="4" w="100%">
-						{socialLinks.map((socialLink, index) => (
+						{/* {socialLinks.map((socialLink, index) => (
 							<SocialMediaInput
+
 								socialLink={socialLink}
 								key={+index}
-								control={control}
+								// control={control}
 								defaultValue={socialLink.defaultValue}
 							/>
-						))}
+						))} */}
 					</Flex>
 				</Flex>
 			</Flex>

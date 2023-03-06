@@ -7,13 +7,13 @@ import {
 	NotificationPopover,
 } from 'components';
 import useTranslation from 'next-translate/useTranslation';
-import { ICompany } from 'types';
+import { ICompanyTest } from 'types';
 import { useSession } from 'next-auth/react';
 import router from 'next/router';
 import NextLink from 'next/link';
 
 export const CompaniesHeader: React.FC<{
-	company: ICompany;
+	company: ICompanyTest;
 }> = ({ company }) => {
 	const theme = usePicasso();
 	const { isSamePath } = usePath();

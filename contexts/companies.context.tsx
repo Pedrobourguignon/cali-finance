@@ -4,13 +4,12 @@ import {
 	createContext,
 	Dispatch,
 	SetStateAction,
-	useContext,
 	useEffect,
 	useMemo,
 	useState,
 } from 'react';
 import {
-	ICompany,
+	ICompanyTest,
 	IActivities,
 	INotificationList,
 	IEditedCompany,
@@ -20,19 +19,20 @@ import {
 } from 'types';
 import { historyNotifications } from 'components';
 import { mainClient } from 'utils';
+import { ICompany } from 'types/interfaces/main-server/ICompany';
 
 interface ICompanysContext {
-	companies: ICompany[];
+	companies: ICompanyTest[];
 	activities: IActivities[];
 	totalFunds: string;
 	totalTeams: string;
 	totalMembers: string;
 	notificationsList: INotificationList[];
 	setNotificationsList: Dispatch<SetStateAction<INotificationList[]>>;
-	setSelectedCompany: Dispatch<SetStateAction<ICompany>>;
+	setSelectedCompany: Dispatch<SetStateAction<ICompanyTest>>;
 	setSelectedCompanyEmployees: Dispatch<SetStateAction<IEmployee[]>>;
 	selectedCompanyEmployees: IEmployee[];
-	selectedCompany: ICompany;
+	selectedCompany: ICompanyTest;
 	setSelectedCompanyLogo: Dispatch<SetStateAction<string>>;
 	selectedCompanyLogo: string;
 	setEditedInfo: Dispatch<SetStateAction<IEditedCompany>>;
@@ -41,12 +41,15 @@ interface ICompanysContext {
 	setDisplayMissingFundsWarning: Dispatch<SetStateAction<string>>;
 	displayNeedFundsCard: string;
 	setDisplayNeedFundsCard: Dispatch<SetStateAction<string>>;
-	companiesWithMissingFunds: ICompany[];
+	companiesWithMissingFunds: ICompanyTest[];
 	filteredNotifications: IHistoryNotification[];
 	setFilteredNotifications: Dispatch<SetStateAction<IHistoryNotification[]>>;
-	createCompany: (company: any) => Promise<void>;
-	createdCompanyData: any | undefined;
-	setCreatedCompanyData: Dispatch<SetStateAction<any | undefined>>;
+	createCompany: (company: ICompany) => Promise<void>;
+	socialMediasData: ISocialMedia[];
+	setSocialMediasData: Dispatch<SetStateAction<ISocialMedia[]>>;
+	createdCompanyPicture: string;
+	setCreatedCompanyPicture: Dispatch<SetStateAction<string>>;
+	newCreatedCompanyId: number;
 }
 
 export const CompaniesContext = createContext({} as ICompanysContext);
@@ -58,12 +61,14 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 	const [displayMissingFundsWarning, setDisplayMissingFundsWarning] =
 		useState('none');
 	const [displayNeedFundsCard, setDisplayNeedFundsCard] = useState('none');
-	const companiesWithMissingFunds: ICompany[] = [];
+	const [socialMediasData, setSocialMediasData] = useState<ISocialMedia[]>([]);
+
+	const companiesWithMissingFunds: ICompanyTest[] = [];
 
 	const [filteredNotifications, setFilteredNotifications] =
 		useState<IHistoryNotification[]>(historyNotifications);
 
-	const [companies, setCompanies] = useState<ICompany[]>([
+	const [companies, setCompanies] = useState<ICompanyTest[]>([
 		{
 			name: 'Kylie Cosmetics',
 			type: 'DAO',
@@ -169,7 +174,7 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 		},
 	]);
 
-	const [selectedCompany, setSelectedCompany] = useState<ICompany>({
+	const [selectedCompany, setSelectedCompany] = useState<ICompanyTest>({
 		name: 'kylie skin',
 		type: 'DAO',
 		email: 'kylieskin@gmail.com',
@@ -264,14 +269,17 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 	}, [selectedCompanyLogo, selectedCompanyEmployees]);
 
 	const totalFunds = companies
-		.reduce((total: number, org: ICompany) => total + org.funds, 0)
+		.reduce((total: number, org: ICompanyTest) => total + org.funds, 0)
 		.toLocaleString('en-US');
 
 	const totalTeams = companies
-		.reduce((total: number, org: ICompany) => total + Number(org.members), 0)
+		.reduce(
+			(total: number, org: ICompanyTest) => total + Number(org.members),
+			0
+		)
 		.toString();
 	const totalMembers = companies
-		.reduce((total: number, org: ICompany) => total + org.teams.length, 0)
+		.reduce((total: number, org: ICompanyTest) => total + org.teams.length, 0)
 		.toString();
 
 	// eslint-disable-next-line array-callback-return
@@ -294,13 +302,15 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 		showMissingFundsWarning();
 	}, []);
 
-	const [createdCompanyData, setCreatedCompanyData] = useState<any>();
+	const [createdCompanyPicture, setCreatedCompanyPicture] = useState('');
+	const [newCreatedCompanyId, setNewCreatedCompanyId] = useState(0);
 
-	const createCompany = async (company: any) => {
-		await mainClient.post(
-			'https://7023-187-73-24-131.sa.ngrok.io/company/',
-			createdCompanyData
-		);
+	const createCompany = async (company: ICompany) => {
+		await mainClient
+			.post('/company/', {
+				company,
+			})
+			.then(id => setNewCreatedCompanyId(id.data));
 	};
 
 	const contextStates = useMemo(
@@ -328,8 +338,11 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 			filteredNotifications,
 			setFilteredNotifications,
 			createCompany,
-			createdCompanyData,
-			setCreatedCompanyData,
+			socialMediasData,
+			setSocialMediasData,
+			createdCompanyPicture,
+			setCreatedCompanyPicture,
+			newCreatedCompanyId,
 		}),
 		[
 			selectedCompany,
@@ -355,8 +368,11 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 			filteredNotifications,
 			setFilteredNotifications,
 			createCompany,
-			createdCompanyData,
-			setCreatedCompanyData,
+			socialMediasData,
+			setSocialMediasData,
+			createdCompanyPicture,
+			setCreatedCompanyPicture,
+			newCreatedCompanyId,
 		]
 	);
 	return (

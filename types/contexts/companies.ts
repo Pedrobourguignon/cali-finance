@@ -1,6 +1,6 @@
 import { IEmployee, ISocialMedia } from 'types';
 
-export interface ICompany {
+export interface ICompanyTest {
 	name: string;
 	type: string;
 	funds: number;
