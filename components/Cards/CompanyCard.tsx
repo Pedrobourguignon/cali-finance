@@ -2,12 +2,12 @@ import { Flex, Img, Link, Text } from '@chakra-ui/react';
 import { usePicasso } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
 import React from 'react';
-import { ICompanyTest } from 'types';
+import { ICompanies } from 'types';
 import { handleLogoImage, navigationPaths } from 'utils';
 import NextLink from 'next/link';
 
 interface ICompanyCard {
-	team: ICompanyTest;
+	team: ICompanies;
 }
 
 export const CompanyCard: React.FC<ICompanyCard> = ({ team }) => {

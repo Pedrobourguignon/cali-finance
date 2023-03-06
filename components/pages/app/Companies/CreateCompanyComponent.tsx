@@ -13,7 +13,7 @@ import {
 	TextProps,
 	Tooltip,
 } from '@chakra-ui/react';
-import { useCompanies, usePicasso } from 'hooks';
+import { usePicasso } from 'hooks';
 import { BsQuestionCircle } from 'react-icons/bs';
 import useTranslation from 'next-translate/useTranslation';
 import { BlackButton, NetworkTooltip } from 'components';
@@ -74,7 +74,6 @@ export const CreateCompanyComponent: React.FC<ICreateCompanyComponent> = ({
 	const theme = usePicasso();
 	const { t: translate } = useTranslation('create-company');
 	const { data: session } = useSession();
-	const { selectedCompany } = useCompanies();
 
 	const companiesType: IBasicSelect[] = [
 		{ value: 'DAO' },

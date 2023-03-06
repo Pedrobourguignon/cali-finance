@@ -29,7 +29,6 @@ export const CreateCompany = () => {
 		picture: '',
 	});
 
-	console.log(newCompanyPicture.picture);
 	const [selectedNetwork, setSelectedNetwork] = useState({
 		name: translate('pleaseSelect'),
 		icon: '',
@@ -52,7 +51,7 @@ export const CreateCompany = () => {
 
 	const { mutate } = useMutation(
 		(createdCompanyData: ICompany) => createCompany(createdCompanyData),
-		{ onSuccess: () => console.log('done') }
+		{ onSuccess: () => console.log('Done') }
 	);
 
 	const [socialLinksInputValue, setSocialLinksInputValue] =

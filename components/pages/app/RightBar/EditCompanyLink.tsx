@@ -4,7 +4,7 @@ import { useCompanies, usePicasso } from 'hooks';
 import { useSession } from 'next-auth/react';
 import useTranslation from 'next-translate/useTranslation';
 import { Control } from 'react-hook-form';
-import { ICompanyTest, ICreateCompany, ISocialMediaInput } from 'types';
+import { ICompanies, ICreateCompany, ISocialMediaInput } from 'types';
 import { ICompany } from 'types/interfaces/main-server/ICompany';
 import { handleLogoImage } from 'utils';
 
@@ -37,7 +37,7 @@ const CompanyLogo = () => {
 
 export const EditCompanyLink: React.FC<{
 	control: Control<ICreateCompany>;
-	company: ICompanyTest;
+	company: ICompanies;
 }> = ({ control, company }) => {
 	const { name, email, description, type, selectedNetwork } = company;
 	const theme = usePicasso();
