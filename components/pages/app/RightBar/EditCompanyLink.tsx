@@ -13,8 +13,10 @@ const CompanyLogo = () => {
 
 	const theme = usePicasso();
 
-	if (selectedCompany.logo) {
-		return <Img src={selectedCompany.logo} boxSize="20" borderRadius="base" />;
+	if (selectedCompany.picture) {
+		return (
+			<Img src={selectedCompany.picture} boxSize="20" borderRadius="base" />
+		);
 	}
 	if (selectedCompany.name)
 		return (
@@ -39,7 +41,7 @@ export const EditCompanyLink: React.FC<{
 }> = ({ control, company }) => {
 	const { name, email, description, type, selectedNetwork } = company;
 	const theme = usePicasso();
-	const { selectedCompany, editedInfo, selectedCompanyLogo } = useCompanies();
+	const { selectedCompany, editedInfo } = useCompanies();
 	const { t: translate } = useTranslation('create-company');
 	const { data: session } = useSession();
 
@@ -96,7 +98,7 @@ export const EditCompanyLink: React.FC<{
 			>
 				<Flex direction="column" align="center" gap="4" w="100%">
 					<CompanyLogo />
-					<ImageUploader />
+					{/* <ImageUploader /> */}
 				</Flex>
 				<Flex w="100%">
 					<Flex direction="column" gap="4" w="100%">
@@ -121,7 +123,7 @@ export const EditCompanyLink: React.FC<{
 				py="2.5"
 				display={{ md: 'flex', lg: 'none' }}
 				disabled={
-					(editedInfo.logo === selectedCompanyLogo &&
+					(editedInfo.picture === selectedCompany.picture &&
 						editedInfo.name === name &&
 						editedInfo.email === email &&
 						editedInfo.description === description &&

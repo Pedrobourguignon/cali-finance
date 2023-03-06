@@ -20,12 +20,16 @@ import { ISociaLinksInputValue } from 'types';
 
 export const CreateCompany = () => {
 	const { createCompanySchema } = useSchema();
-	const { createCompany, createdCompanyPicture, newCreatedCompanyId } =
-		useCompanies();
+	const { createCompany, newCreatedCompanyId } = useCompanies();
 	const { t: translate } = useTranslation('create-company');
 	const [selectedType, setSelectedType] = useState<string>(
 		translate('pleaseSelect')
 	);
+	const [newCompanyPicture, setNewCompanyPicture] = useState({
+		picture: '',
+	});
+
+	console.log(newCompanyPicture.picture);
 	const [selectedNetwork, setSelectedNetwork] = useState({
 		name: translate('pleaseSelect'),
 		icon: '',
@@ -88,7 +92,7 @@ export const CreateCompany = () => {
 			],
 			isPublic: false,
 			color: '#121212',
-			logo: createdCompanyPicture,
+			logo: newCompanyPicture.picture,
 		});
 		router.push(
 			navigationPaths.dashboard.companies.overview(
@@ -104,6 +108,8 @@ export const CreateCompany = () => {
 					<AppLayout
 						right={
 							<NewCompanyLinks
+								newCompanyPicture={newCompanyPicture}
+								setNewCompanyPicture={setNewCompanyPicture}
 								setSocialLinksInputValue={setSocialLinksInputValue}
 							/>
 						}

@@ -57,7 +57,7 @@ export const CompaniesHeader: React.FC<{
 			</Flex>
 			<Flex w="100%" justify="space-between" align="center">
 				<Flex gap="3" align="center">
-					{!company.logo ? (
+					{!company.picture ? (
 						<Flex
 							boxSize="20"
 							borderRadius="base"
@@ -70,7 +70,7 @@ export const CompaniesHeader: React.FC<{
 							{handleLogoImage(company.name)}
 						</Flex>
 					) : (
-						<Img src={company.logo} boxSize="20" />
+						<Img src={company.picture} boxSize="20" />
 					)}
 					<Text
 						maxW={{ md: '40', xl: '56' }}

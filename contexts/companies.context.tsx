@@ -33,8 +33,6 @@ interface ICompanysContext {
 	setSelectedCompanyEmployees: Dispatch<SetStateAction<IEmployee[]>>;
 	selectedCompanyEmployees: IEmployee[];
 	selectedCompany: ICompanyTest;
-	setSelectedCompanyLogo: Dispatch<SetStateAction<string>>;
-	selectedCompanyLogo: string;
 	setEditedInfo: Dispatch<SetStateAction<IEditedCompany>>;
 	editedInfo: IEditedCompany;
 	displayMissingFundsWarning: string;
@@ -77,7 +75,7 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 			teams: ['marketing'],
 			description: 'Hello',
 			selectedNetwork: 'Ethereum',
-			logo: '',
+			picture: '',
 			socialMedias: {
 				instagram: '@kyliecosmetics',
 				telegram: 't/kyliecosmetics',
@@ -95,7 +93,7 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 			teams: ['marketing'],
 			description: 'Hello',
 			selectedNetwork: 'Ethereum',
-			logo: '',
+			picture: '',
 			socialMedias: {
 				instagram: '@kylieskin',
 				telegram: 't/kylieskin',
@@ -113,7 +111,7 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 			teams: ['marketing'],
 			description: 'Hello',
 			selectedNetwork: 'Ethereum',
-			logo: '',
+			picture: '',
 			socialMedias: {
 				instagram: '@kyliebaby',
 				telegram: 't/kyliebaby',
@@ -124,10 +122,6 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 			neededFunds: 1,
 		},
 	]);
-
-	const [selectedCompanyLogo, setSelectedCompanyLogo] = useState(
-		'/images/kylie-cosmetics-logo.png'
-	);
 
 	const [selectedCompanyEmployees, setSelectedCompanyEmployees] = useState<
 		IEmployee[]
@@ -183,7 +177,7 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 		teams: ['marketing'],
 		description: 'Hello',
 		selectedNetwork: 'Ethereum',
-		logo: selectedCompanyLogo,
+		picture: '/images/kylie-cosmetics-logo.png',
 		socialMedias: {
 			instagram: '@kylieskin',
 			telegram: 't/kylieskin',
@@ -191,7 +185,6 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 			website: 'kylieskin.net',
 		},
 		neededFunds: 2235,
-
 		employees: selectedCompanyEmployees,
 	});
 
@@ -263,10 +256,9 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 	useEffect(() => {
 		setSelectedCompany(prevState => ({
 			...prevState,
-			logo: selectedCompanyLogo,
 			employees: selectedCompanyEmployees,
 		}));
-	}, [selectedCompanyLogo, selectedCompanyEmployees]);
+	}, [selectedCompanyEmployees]);
 
 	const totalFunds = companies
 		.reduce((total: number, org: ICompanyTest) => total + org.funds, 0)
@@ -324,8 +316,6 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 			setNotificationsList,
 			setSelectedCompany,
 			selectedCompany,
-			setSelectedCompanyLogo,
-			selectedCompanyLogo,
 			setEditedInfo,
 			editedInfo,
 			displayMissingFundsWarning,
@@ -354,8 +344,6 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 			notificationsList,
 			setSelectedCompany,
 			setNotificationsList,
-			setSelectedCompanyLogo,
-			selectedCompanyLogo,
 			setEditedInfo,
 			editedInfo,
 			displayMissingFundsWarning,

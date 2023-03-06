@@ -10,13 +10,13 @@ import {
 	ModalOverlay,
 	Text,
 } from '@chakra-ui/react';
-import { useCompanies, usePicasso, useProfile } from 'hooks';
+import { usePicasso } from 'hooks';
 import { IBasicModal } from 'types';
 import { BlackButton, DragDrop } from 'components';
 import { useState } from 'react';
 
 interface IImageUploader extends IBasicModal {
-	sendImage: React.Dispatch<React.SetStateAction<string>>;
+	sendImage: React.Dispatch<React.SetStateAction<any>>;
 }
 
 export const ImageUploaderModal: React.FC<IImageUploader> = ({
@@ -26,19 +26,14 @@ export const ImageUploaderModal: React.FC<IImageUploader> = ({
 }) => {
 	const theme = usePicasso();
 	const [picture, setPicture] = useState('');
-	const { setUserProfile, setEditedProfileInfo } = useProfile();
-	const { setCreatedCompanyPicture, createdCompanyPicture } = useCompanies();
 
 	const handleUploadFile = () => {
-		sendImage(picture);
-		setEditedProfileInfo(prevState => ({
+		sendImage((prevState: any) => ({
 			...prevState,
 			picture,
 		}));
 		onClose();
 	};
-
-	console.log(createdCompanyPicture);
 
 	return (
 		<Modal isOpen={isOpen} onClose={onClose} size="sm">

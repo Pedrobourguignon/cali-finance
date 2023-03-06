@@ -31,8 +31,8 @@ export const CompanyCard: React.FC<ICompanyCard> = ({ team }) => {
 		>
 			<Flex direction="column" pt="2.5" pl="4" color={theme.text.primary}>
 				<Flex align="center" gap={{ md: '1', xl: '2' }}>
-					{team.logo ? (
-						<Img src={team.logo} boxSize="6" borderRadius="base" />
+					{team.picture ? (
+						<Img src={team.picture} boxSize="6" borderRadius="base" />
 					) : (
 						<Flex
 							boxSize="6"

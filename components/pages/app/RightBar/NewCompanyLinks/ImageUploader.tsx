@@ -1,15 +1,17 @@
 import { Button, Flex, useDisclosure } from '@chakra-ui/react';
 import { ImageUploaderModal } from 'components';
-import { CompaniesProvider } from 'contexts';
-import { useCompanies, usePicasso } from 'hooks';
+import { usePicasso } from 'hooks';
 import { useSession } from 'next-auth/react';
 import useTranslation from 'next-translate/useTranslation';
 
-export const ImageUploader = () => {
+interface IImageUploader {
+	sendImage: React.Dispatch<React.SetStateAction<any>>;
+}
+
+export const ImageUploader: React.FC<IImageUploader> = ({ sendImage }) => {
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const theme = usePicasso();
 	const { t: translate } = useTranslation('create-company');
-	const { setSelectedCompanyLogo, setCreatedCompanyPicture } = useCompanies();
 	const { data: session } = useSession();
 
 	return (
@@ -29,7 +31,7 @@ export const ImageUploader = () => {
 			<ImageUploaderModal
 				isOpen={isOpen}
 				onClose={onClose}
-				sendImage={setCreatedCompanyPicture}
+				sendImage={sendImage}
 			/>
 		</Flex>
 	);

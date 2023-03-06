@@ -81,19 +81,20 @@ export const EditCompanyComponent: React.FC<IEditCompanyComponent> = ({
 		description,
 		type,
 		selectedNetwork,
-		logo,
+		picture,
 		socialMedias,
 	} = company;
 	const theme = usePicasso();
 	const { t: translate } = useTranslation('create-company');
-	const { selectedCompanyLogo, setEditedInfo, editedInfo } = useCompanies();
+	const { setEditedInfo, editedInfo, selectedCompany } = useCompanies();
 	const { data: session } = useSession();
 
 	useEffect(() => {
 		setEditedInfo({
 			name,
 			email,
-			logo,
+
+			picture,
 			description,
 			type,
 			selectedNetwork,
@@ -392,7 +393,7 @@ export const EditCompanyComponent: React.FC<IEditCompanyComponent> = ({
 						py="2.5"
 						display={{ md: 'none', lg: 'flex' }}
 						disabled={
-							(editedInfo.logo === selectedCompanyLogo &&
+							(editedInfo.picture === selectedCompany.picture &&
 								editedInfo.name === name &&
 								editedInfo.email === email &&
 								editedInfo.description === description &&
