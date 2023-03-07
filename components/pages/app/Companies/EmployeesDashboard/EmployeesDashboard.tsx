@@ -1,8 +1,10 @@
-import { Flex, Link, Text, useDisclosure, Button } from '@chakra-ui/react';
+import { Flex, Text, useDisclosure, Button } from '@chakra-ui/react';
 
 import { AddEmployee, BlackButton, EmployeeData } from 'components';
 import { useCompanies, usePicasso } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
+import { useRouter } from 'next/router';
+import { useQuery } from 'react-query';
 
 interface IEmployeeDashboard {
 	isGeneral: boolean;
@@ -13,11 +15,21 @@ export const EmployeesDashboard: React.FC<IEmployeeDashboard> = ({
 }) => {
 	const theme = usePicasso();
 	const { t: translate } = useTranslation('company-overall');
-	const { selectedCompany } = useCompanies();
-	const { employees } = selectedCompany;
+	const { getAllCompanyEmployees } = useCompanies();
+	const { query } = useRouter();
 
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const { isOpen: isFullList, onToggle: toggleListView } = useDisclosure();
+
+	const {
+		data: employees,
+		isLoading: isLoadingEmployees,
+		error,
+	} = useQuery('all-company-employees', () =>
+		getAllCompanyEmployees(Number(query.id))
+	);
+
+	console.log(error);
 
 	return (
 		<Flex w="100%" direction="column" gap="4" color={theme.text.primary}>
