@@ -8,6 +8,8 @@ import {
 	useDisclosure,
 	useToast,
 	useClipboard,
+	SkeletonCircle,
+	Skeleton,
 } from '@chakra-ui/react';
 import { MdContentCopy } from 'react-icons/md';
 import { IEmployee } from 'types';

@@ -1,9 +1,15 @@
 import { Flex, Text, useDisclosure, Button } from '@chakra-ui/react';
 
-import { AddEmployee, BlackButton, EmployeeData } from 'components';
+import {
+	AddEmployee,
+	BlackButton,
+	EmployeeData,
+	NoEmployeeSkeleton,
+} from 'components';
 import { useCompanies, usePicasso } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
-import { useRouter } from 'next/router';
+import router, { useRouter } from 'next/router';
+import { useEffect } from 'react';
 import { useQuery } from 'react-query';
 
 interface IEmployeeDashboard {
@@ -29,7 +35,11 @@ export const EmployeesDashboard: React.FC<IEmployeeDashboard> = ({
 		getAllCompanyEmployees(Number(query.id))
 	);
 
-	console.log(error);
+	useEffect(() => {
+		if (error) {
+			router.push('/404');
+		}
+	}, [error]);
 
 	return (
 		<Flex w="100%" direction="column" gap="4" color={theme.text.primary}>
@@ -67,15 +77,23 @@ export const EmployeesDashboard: React.FC<IEmployeeDashboard> = ({
 					<Text w="24">{translate('amount')}</Text>
 				</Flex>
 				<Flex direction="column" gap="2">
-					{employees
-						?.slice(0, isFullList ? employees.length : 3)
-						.map((employee, index) => (
-							<EmployeeData
-								key={+index}
-								employee={employee}
-								isGeneral={isGeneral}
-							/>
-						))}
+					{isLoadingEmployees ? (
+						<>
+							<NoEmployeeSkeleton />
+							<NoEmployeeSkeleton />
+							<NoEmployeeSkeleton />
+						</>
+					) : (
+						employees
+							?.slice(0, isFullList ? employees.length : 3)
+							.map((employee, index) => (
+								<EmployeeData
+									key={+index}
+									employee={employee}
+									isGeneral={isGeneral}
+								/>
+							))
+					)}
 				</Flex>
 			</Flex>
 		</Flex>
