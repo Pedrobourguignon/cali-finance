@@ -51,7 +51,9 @@ export const CreateCompany = () => {
 
 	const { mutate } = useMutation(
 		(createdCompanyData: ICompany) => createCompany(createdCompanyData),
-		{ onSuccess: () => console.log('Done') }
+		{
+			onSuccess: () => console.log('done'),
+		}
 	);
 
 	const [socialLinksInputValue, setSocialLinksInputValue] =

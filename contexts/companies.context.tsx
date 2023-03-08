@@ -45,8 +45,7 @@ interface ICompanysContext {
 	createCompany: (company: ICompany) => Promise<void>;
 	socialMediasData: ISocialMedia[];
 	setSocialMediasData: Dispatch<SetStateAction<ISocialMedia[]>>;
-	createdCompanyPicture: string;
-	setCreatedCompanyPicture: Dispatch<SetStateAction<string>>;
+	getCompanyById: (id: number) => Promise<ICompany>;
 }
 
 export const CompaniesContext = createContext({} as ICompanysContext);
@@ -290,7 +289,10 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 		showMissingFundsWarning();
 	}, []);
 
-	const [createdCompanyPicture, setCreatedCompanyPicture] = useState('');
+	const getCompanyById = async (id: number) => {
+		const response = await mainClient.get(`/company/${id}`);
+		return response.data;
+	};
 
 	const createCompany = async (company: ICompany) => {
 		await mainClient
@@ -298,7 +300,9 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 				company,
 			})
 			.then(id =>
-				router.push(navigationPaths.dashboard.companies.overview(id.data.id))
+				router.push(
+					navigationPaths.dashboard.companies.overview(id.data.id.toString())
+				)
 			);
 	};
 
@@ -327,8 +331,7 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 			createCompany,
 			socialMediasData,
 			setSocialMediasData,
-			createdCompanyPicture,
-			setCreatedCompanyPicture,
+			getCompanyById,
 		}),
 		[
 			selectedCompany,
@@ -353,8 +356,6 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 			setFilteredNotifications,
 			socialMediasData,
 			setSocialMediasData,
-			createdCompanyPicture,
-			setCreatedCompanyPicture,
 		]
 	);
 	return (
