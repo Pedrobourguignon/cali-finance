@@ -21,7 +21,7 @@ export const EmployeesDashboard: React.FC<IEmployeeDashboard> = ({
 }) => {
 	const theme = usePicasso();
 	const { t: translate } = useTranslation('company-overall');
-	const { getAllCompanyEmployees } = useCompanies();
+	const { getAllCompanyEmployees, getAllCompanyTeams } = useCompanies();
 	const { query } = useRouter();
 
 	const { isOpen, onOpen, onClose } = useDisclosure();

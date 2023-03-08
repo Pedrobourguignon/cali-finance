@@ -108,31 +108,7 @@ export const AddEmployee: React.FC<IAddEmployee> = ({
 	};
 
 	const handleAddEmployee = (newEmployeeData: IAddEmployeeForm) => {
-		if (setEmployees) {
-			setEmployees(prevState =>
-				prevState.concat([
-					{
-						name: 'Azeitona',
-						wallet: newEmployeeData.walletAddress,
-						picture: '/images/avatar.png',
-						amount: newEmployeeData.amount,
-						coin: 'USDT',
-					},
-				])
-			);
-		} else {
-			setSelectedCompanyEmployees(prevState =>
-				prevState.concat([
-					{
-						name: 'Azeitona',
-						wallet: newEmployeeData.walletAddress,
-						picture: '/images/avatar.png',
-						amount: newEmployeeData.amount,
-						coin: 'USDT',
-					},
-				])
-			);
-		}
+		console.log(newEmployeeData);
 		handleResetFormInputs();
 	};
 
@@ -290,13 +266,13 @@ export const AddEmployee: React.FC<IAddEmployee> = ({
 											onChange={amount => {
 												setAddedEmployeeData(prevState => ({
 													...prevState,
-													amount: parseInt(amount.target.value, 10),
+													amount: Number(amount.target.value),
 												}));
 												converterToDollar(
 													parseInt(amount.currentTarget.value, 10)
 												);
 												return (
-													amount.currentTarget.value &&
+													!amount.currentTarget.value &&
 													setAddedEmployeeData(prevState => ({
 														...prevState,
 														amountInDollar: 0,

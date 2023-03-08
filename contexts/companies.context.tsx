@@ -49,6 +49,7 @@ interface ICompanysContext {
 	createdCompanyPicture: string;
 	setCreatedCompanyPicture: Dispatch<SetStateAction<string>>;
 	getAllCompanyEmployees: (id: number) => Promise<IEmployee[]>;
+	getAllCompanyTeams: (id: number) => Promise<any>;
 }
 
 export const CompaniesContext = createContext({} as ICompanysContext);
@@ -309,6 +310,11 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 		return response.data;
 	};
 
+	const getAllCompanyTeams = async (id: number) => {
+		const response = await mainClient.get(`/company/${id}/teams`);
+		return response.data;
+	};
+
 	const contextStates = useMemo(
 		() => ({
 			companies,
@@ -337,6 +343,7 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 			createdCompanyPicture,
 			setCreatedCompanyPicture,
 			getAllCompanyEmployees,
+			getAllCompanyTeams,
 		}),
 		[
 			selectedCompany,
