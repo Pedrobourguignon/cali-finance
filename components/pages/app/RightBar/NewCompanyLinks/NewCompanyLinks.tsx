@@ -34,30 +34,17 @@ const socialLinks: ISocialMediaInput[] = [
 ];
 
 const CompanyLogo: React.FC<{
-	logo: {
-		picture: string;
-	};
+	logo: string;
 }> = ({ logo }) => {
-	if (logo.picture)
-		return <Img src={logo.picture} boxSize="20" borderRadius="base" />;
+	if (logo) return <Img src={logo} boxSize="20" borderRadius="base" />;
 	return <Img src="/images/work.png" boxSize="20" borderRadius="base" />;
 };
 
 export const NewCompanyLinks: React.FC<{
+	handleNewPicture: (picture: string) => void;
 	setSocialLinksInputValue: Dispatch<SetStateAction<ISociaLinksInputValue>>;
-	setNewCompanyPicture: Dispatch<
-		SetStateAction<{
-			picture: string;
-		}>
-	>;
-	newCompanyPicture: {
-		picture: string;
-	};
-}> = ({
-	setSocialLinksInputValue,
-	newCompanyPicture,
-	setNewCompanyPicture,
-}) => {
+	newCompanyPicture: string;
+}> = ({ setSocialLinksInputValue, newCompanyPicture, handleNewPicture }) => {
 	const theme = usePicasso();
 	const { t: translate } = useTranslation('create-company');
 
@@ -76,7 +63,7 @@ export const NewCompanyLinks: React.FC<{
 			>
 				<Flex direction="column" align="center" gap="4" w="100%">
 					<CompanyLogo logo={newCompanyPicture} />
-					<ImageUploader sendImage={setNewCompanyPicture} />
+					<ImageUploader sendImage={handleNewPicture} />
 				</Flex>
 				<Flex w="100%">
 					<Flex direction="column" gap="4" w="100%">

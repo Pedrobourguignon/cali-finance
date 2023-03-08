@@ -14,6 +14,7 @@ import {
 	NotificationPopover,
 } from 'components';
 import useTranslation from 'next-translate/useTranslation';
+import { IMockCompany } from 'types';
 import { useSession } from 'next-auth/react';
 import router, { useRouter } from 'next/router';
 import NextLink from 'next/link';

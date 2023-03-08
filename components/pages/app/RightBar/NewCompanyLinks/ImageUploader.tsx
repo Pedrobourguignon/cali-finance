@@ -5,7 +5,7 @@ import { useSession } from 'next-auth/react';
 import useTranslation from 'next-translate/useTranslation';
 
 interface IImageUploader {
-	sendImage: React.Dispatch<React.SetStateAction<any>>;
+	sendImage: (picture: string) => void;
 }
 
 export const ImageUploader: React.FC<IImageUploader> = ({ sendImage }) => {

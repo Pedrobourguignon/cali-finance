@@ -1,9 +1,9 @@
-import { CreateCompany } from 'containers';
+import { CreateCompanyContainer } from 'containers';
 import { CompaniesProvider } from 'contexts';
 
-export const Create = () => (
+export const CreateCompany = () => (
 	<CompaniesProvider>
-		<CreateCompany />
+		<CreateCompanyContainer />
 	</CompaniesProvider>
 );
-export default Create;
+export default CreateCompany;

@@ -28,10 +28,7 @@ export const ImageUploaderModal: React.FC<IImageUploader> = ({
 	const [picture, setPicture] = useState('');
 
 	const handleUploadFile = () => {
-		sendImage((prevState: any) => ({
-			...prevState,
-			picture,
-		}));
+		sendImage(picture);
 		onClose();
 	};
 

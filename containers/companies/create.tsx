@@ -18,18 +18,24 @@ import { useState } from 'react';
 import { useMutation } from 'react-query';
 import { ISociaLinksInputValue } from 'types';
 
-export const CreateCompany = () => {
+interface ISelectedNetwork {
+	name: string;
+	icon: string;
+	id: number;
+}
+
+export const CreateCompanyContainer = () => {
 	const { createCompanySchema } = useSchema();
 	const { createCompany } = useCompanies();
 	const { t: translate } = useTranslation('create-company');
 	const [selectedType, setSelectedType] = useState<string>(
 		translate('pleaseSelect')
 	);
-	const [newCompanyPicture, setNewCompanyPicture] = useState({
-		picture: '',
-	});
+	const [newCompanyPicture, setNewCompanyPicture] = useState('');
+	const [socialLinksInputValue, setSocialLinksInputValue] =
+		useState<ISociaLinksInputValue>({} as ISociaLinksInputValue);
 
-	const [selectedNetwork, setSelectedNetwork] = useState({
+	const [selectedNetwork, setSelectedNetwork] = useState<ISelectedNetwork>({
 		name: translate('pleaseSelect'),
 		icon: '',
 		id: 0,
@@ -56,12 +62,13 @@ export const CreateCompany = () => {
 		}
 	);
 
-	const [socialLinksInputValue, setSocialLinksInputValue] =
-		useState<ISociaLinksInputValue>({} as ISociaLinksInputValue);
+	const handleNewPicture = (picture: string) => {
+		setNewCompanyPicture(picture);
+	};
 
 	const handleCreateCompany = (companyData: ICompany) => {
 		const { name, contactEmail, description } = companyData;
-		const { website, instagram, twitter, telegram, medium } =
+		const { websiteURL, instagramURL, twitterURL, telegramURL, mediumURL } =
 			socialLinksInputValue;
 		mutate({
 			name,
@@ -72,28 +79,28 @@ export const CreateCompany = () => {
 			socialMedia: [
 				{
 					name: 'website',
-					url: website,
+					url: websiteURL,
 				},
 				{
 					name: 'instagram',
-					url: instagram,
+					url: instagramURL,
 				},
 				{
 					name: 'twitter',
-					url: twitter,
+					url: twitterURL,
 				},
 				{
 					name: 'telegram',
-					url: telegram,
+					url: telegramURL,
 				},
 				{
 					name: 'medium',
-					url: medium,
+					url: mediumURL,
 				},
 			],
 			isPublic: false,
 			color: '#121212',
-			logo: newCompanyPicture.picture,
+			logo: newCompanyPicture,
 		});
 	};
 
@@ -105,7 +112,7 @@ export const CreateCompany = () => {
 						right={
 							<NewCompanyLinks
 								newCompanyPicture={newCompanyPicture}
-								setNewCompanyPicture={setNewCompanyPicture}
+								handleNewPicture={handleNewPicture}
 								setSocialLinksInputValue={setSocialLinksInputValue}
 							/>
 						}

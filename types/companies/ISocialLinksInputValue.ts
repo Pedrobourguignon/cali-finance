@@ -1,7 +1,7 @@
 export interface ISociaLinksInputValue {
-	['website']: string;
-	['instagram']: string;
-	['twitter']: string;
-	['telegram']: string;
-	['medium']: string;
+	['websiteURL']: string;
+	['instagramURL']: string;
+	['twitterURL']: string;
+	['telegramURL']: string;
+	['mediumURL']: string;
 }
