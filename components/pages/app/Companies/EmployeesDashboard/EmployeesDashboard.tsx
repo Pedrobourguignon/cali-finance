@@ -10,7 +10,8 @@ import { useCompanies, usePicasso } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
 import router, { useRouter } from 'next/router';
 import { useEffect } from 'react';
-import { useQuery } from 'react-query';
+import { useMutation, useQuery } from 'react-query';
+import { IUser } from 'types/interfaces/auth-srv/IUser';
 
 interface IEmployeeDashboard {
 	isGeneral: boolean;
@@ -21,7 +22,7 @@ export const EmployeesDashboard: React.FC<IEmployeeDashboard> = ({
 }) => {
 	const theme = usePicasso();
 	const { t: translate } = useTranslation('company-overall');
-	const { getAllCompanyEmployees, getAllCompanyTeams } = useCompanies();
+	const { getAllCompanyEmployees } = useCompanies();
 	const { query } = useRouter();
 
 	const { isOpen, onOpen, onClose } = useDisclosure();

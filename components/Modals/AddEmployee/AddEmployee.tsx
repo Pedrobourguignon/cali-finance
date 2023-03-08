@@ -28,6 +28,8 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { IoIosArrowDown } from 'react-icons/io';
 import { navigationPaths } from 'utils';
 import NextLink from 'next/link';
+import { useMutation } from 'react-query';
+import { IUser } from 'types/interfaces/main-server/IUser';
 
 export const AddEmployee: React.FC<IAddEmployee> = ({
 	isOpen,
@@ -50,7 +52,8 @@ export const AddEmployee: React.FC<IAddEmployee> = ({
 	} as ISelectedCoin);
 	const bitcoinPrice = 87.586;
 	const { addEmployeeSchema } = useSchema();
-	const { setSelectedCompanyEmployees, selectedCompany } = useCompanies();
+	const { setSelectedCompanyEmployees, selectedCompany, addEmployeeToTeam } =
+		useCompanies();
 
 	const theme = usePicasso();
 	const {
@@ -97,6 +100,11 @@ export const AddEmployee: React.FC<IAddEmployee> = ({
 		resolver: yupResolver(addEmployeeSchema),
 	});
 
+	const { mutate } = useMutation(
+		(employee: IUser) => addEmployeeToTeam(employee),
+		{ onSuccess: () => console.log('Done') }
+	);
+
 	const handleResetFormInputs = () => {
 		reset();
 		onClose();
@@ -108,7 +116,9 @@ export const AddEmployee: React.FC<IAddEmployee> = ({
 	};
 
 	const handleAddEmployee = (newEmployeeData: IAddEmployeeForm) => {
-		console.log(newEmployeeData);
+		mutate({
+			wallet: newEmployeeData.walletAddress,
+		});
 		handleResetFormInputs();
 	};
 

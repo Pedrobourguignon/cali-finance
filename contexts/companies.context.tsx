@@ -19,8 +19,9 @@ import {
 import { historyNotifications } from 'components';
 import { mainClient, navigationPaths } from 'utils';
 import { ICompany } from 'types/interfaces/main-server/ICompany';
-import router from 'next/router';
+import router, { useRouter } from 'next/router';
 import { useQuery } from 'react-query';
+import { IUser } from 'types/interfaces/auth-srv/IUser';
 
 interface ICompanysContext {
 	companies: IMockCompany[];
@@ -49,7 +50,7 @@ interface ICompanysContext {
 	createdCompanyPicture: string;
 	setCreatedCompanyPicture: Dispatch<SetStateAction<string>>;
 	getAllCompanyEmployees: (id: number) => Promise<IEmployee[]>;
-	getAllCompanyTeams: (id: number) => Promise<any>;
+	addEmployeeToTeam: (employee: IUser) => Promise<void>;
 }
 
 export const CompaniesContext = createContext({} as ICompanysContext);
@@ -317,6 +318,18 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 		const response = await mainClient.get(`/company/${id}/teams`);
 		return response.data;
 	};
+	const { query } = useRouter();
+	const { data: teams } = useQuery('all-company-teams', () =>
+		getAllCompanyTeams(Number(query.id))
+	);
+
+	const addEmployeeToTeam = async (employee: IUser) => {
+		const id = Number(query.id);
+		const groupId = teams[0].id;
+		await mainClient.post(`/team/${id}/${groupId}/user`, {
+			employee,
+		});
+	};
 
 	const contextStates = useMemo(
 		() => ({
@@ -346,7 +359,7 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 			createdCompanyPicture,
 			setCreatedCompanyPicture,
 			getAllCompanyEmployees,
-			getAllCompanyTeams,
+			addEmployeeToTeam,
 		}),
 		[
 			selectedCompany,
