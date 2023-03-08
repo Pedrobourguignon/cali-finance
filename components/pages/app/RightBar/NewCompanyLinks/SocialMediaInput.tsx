@@ -1,4 +1,10 @@
-import { Img, Input, InputGroup, InputLeftElement } from '@chakra-ui/react';
+import {
+	Flex,
+	Img,
+	Input,
+	InputGroup,
+	InputLeftElement,
+} from '@chakra-ui/react';
 import { ISociaLinksInputValue, ISocialMediaInput } from 'types';
 import { useSession } from 'next-auth/react';
 import { Dispatch, SetStateAction } from 'react';
@@ -40,7 +46,7 @@ export const SocialMediaInput: React.FC<ISocialLink> = ({
 				onChange={url =>
 					setSocialLinksInputValue(prevState => ({
 						...prevState,
-						[`${socialLink.name}`]: url.target.value,
+						[`${socialLink.name}URL`]: url.target.value,
 					}))
 				}
 				borderColor="rgba(255, 255, 255, 0.08)"
