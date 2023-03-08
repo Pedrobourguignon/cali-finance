@@ -11,13 +11,10 @@ import React from 'react';
 import { IRecentActivitiesList } from 'types';
 import useTranslation from 'next-translate/useTranslation';
 import { useSession } from 'next-auth/react';
-import { useCompanies } from 'hooks';
 
 export const DashboardComponent: React.FC = () => {
 	const { t: translate } = useTranslation('dashboard');
 	const { data: session } = useSession();
-	const { isLoadingCompanies } = useCompanies();
-	const { isOpen, onClose } = useDisclosure();
 
 	const recentActivitiesList: IRecentActivitiesList[] = [
 		{

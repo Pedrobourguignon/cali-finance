@@ -1,19 +1,32 @@
 import { Box, Flex, Text } from '@chakra-ui/react';
 import Slider from 'react-slick';
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { CompanyCard, CompanyCardSkeleton, Paginator } from 'components';
 import { useCompanies, usePicasso } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
+import { useQuery } from 'react-query';
+import { ICompany } from 'types/interfaces/main-server/ICompany';
 
 export const CompaniesList = () => {
 	const ref = useRef<HTMLDivElement>(null);
 	const { t: translate } = useTranslation('dashboard');
 	const [slider, setSlider] = React.useState<Slider | null>(null);
-	const { backEndCompanies } = useCompanies();
 	const [actualPage, setActualPage] = useState(1);
-	const maxPage = backEndCompanies.length - 2;
+	const [fetchCompanies, setFetchCompanies] = useState<ICompany[]>([]);
+
 	const theme = usePicasso();
-	const { isLoadingCompanies } = useCompanies();
+
+	const { getAllUserCompanies } = useCompanies();
+
+	const {
+		data: companies,
+		isLoading: isLoadingCompanies,
+		error,
+	} = useQuery('all-companies', getAllUserCompanies);
+
+	useEffect(() => {
+		setFetchCompanies(companies!);
+	}, [companies]);
 
 	const previousPage = () => {
 		setActualPage(actualPage - 1);
@@ -40,7 +53,7 @@ export const CompaniesList = () => {
 				</Text>
 				<Paginator
 					actualPage={actualPage}
-					maxPage={maxPage}
+					maxPage={companies ? companies!.length - 2 : 0}
 					previous={previousPage}
 					next={nextPage}
 				/>
@@ -54,8 +67,13 @@ export const CompaniesList = () => {
 						className="slider"
 					>
 						{isLoadingCompanies && <CompanyCardSkeleton />}
-						{backEndCompanies.map((companie, index) => (
-							<CompanyCard key={+index} companie={companie} />
+						{companies?.map((companie, index) => (
+							<CompanyCard
+								key={+index}
+								companie={companie}
+								members={17}
+								userCompanies={fetchCompanies}
+							/>
 						))}
 					</Slider>
 				</Flex>

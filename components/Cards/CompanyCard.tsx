@@ -1,22 +1,33 @@
-import { Flex, Img, Link, Text } from '@chakra-ui/react';
-import { useCompanies, usePicasso } from 'hooks';
+import {
+	Flex,
+	Img,
+	Link,
+	Skeleton,
+	Text,
+	useDisclosure,
+} from '@chakra-ui/react';
+import { usePicasso } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
-import React, { useState } from 'react';
+import React from 'react';
 import { handleLogoImage, navigationPaths } from 'utils';
 import NextLink from 'next/link';
+import { ICompany } from 'types/interfaces/main-server/ICompany';
+import { WithdrawModal } from 'components/Modals';
 
-interface ITestCompany {
-	name: string;
-	logo: string;
-	id: number;
-}
 interface ICompanyCard {
-	companie: ITestCompany;
+	companie: ICompany;
+	members: number;
+	userCompanies: ICompany[];
 }
 
-export const CompanyCard: React.FC<ICompanyCard> = ({ companie }) => {
+export const CompanyCard: React.FC<ICompanyCard> = ({
+	companie,
+	members,
+	userCompanies,
+}) => {
 	const theme = usePicasso();
 	const { t: translate } = useTranslation('companies');
+	const { isOpen, onOpen, onClose } = useDisclosure();
 
 	return (
 		<Flex
@@ -32,6 +43,11 @@ export const CompanyCard: React.FC<ICompanyCard> = ({ companie }) => {
 			}}
 			h="8.375rem"
 		>
+			<WithdrawModal
+				isOpen={isOpen}
+				onClose={onClose}
+				userCompanies={userCompanies}
+			/>
 			<Flex direction="column" pt="2.5" pl="4" color={theme.text.primary}>
 				<Flex align="center" gap={{ md: '1', xl: '2' }}>
 					{companie.logo ? (
@@ -46,54 +62,70 @@ export const CompanyCard: React.FC<ICompanyCard> = ({ companie }) => {
 							fontWeight="bold"
 							bg={theme.bg.white2}
 						>
-							{handleLogoImage(companie.name)}
+							{handleLogoImage(companie.name!)}
 						</Flex>
 					)}
 					<Text fontSize={{ md: 'xs', xl: 'md' }} fontWeight="bold">
-						{companie.name.split(' ')[0]} {companie.name.split(' ')[1]}
+						{companie.name!.split(' ')[0]} {companie.name!.split(' ')[1]}
 					</Text>
 				</Flex>
 				<Flex pt={{ md: '1', xl: '3' }} justify="space-between" pr="6">
 					<Flex direction="column">
 						<Text fontSize={{ md: 'xs', xl: 'sm' }} color="gray.500">
-							{translate('funds')}
+							{companie.isAdmin
+								? translate('funds')
+								: translate('availableToWithdraw')}
 						</Text>
-						<Text fontSize={{ md: 'xs', xl: 'sm' }}>
-							{/* ${companie.funds.toLocaleString('en-US')} */}
-							1234
-						</Text>
+						{!companie.funds ? (
+							<Skeleton w="8" h="4" />
+						) : (
+							<Text fontSize={{ md: 'xs', xl: 'sm' }}>
+								${companie.funds!.toLocaleString('en-US')}
+							</Text>
+						)}
 					</Flex>
-					<Flex direction="column">
-						<Text fontSize={{ md: 'xs', xl: 'sm' }} color="gray.500">
-							{translate('members')}
-						</Text>
-						<Text fontSize={{ md: 'xs', xl: 'sm' }}>
-							{/* {companie.members} */}
-							17
-						</Text>
-					</Flex>
+					{companie.isAdmin ? (
+						<Flex direction="column">
+							<Text fontSize={{ md: 'xs', xl: 'sm' }} color="gray.500">
+								{translate('members')}
+							</Text>
+							<Text fontSize={{ md: 'xs', xl: 'sm' }}>{members}</Text>
+						</Flex>
+					) : (
+						<Flex />
+					)}
 				</Flex>
 			</Flex>
 			<Flex w="100%" align="center" justify="center" pb={{ lg: '2', xl: '4' }}>
-				<Link
-					href={navigationPaths.dashboard.companies.overview(
-						companie.id.toString()
-					)}
-					as={NextLink}
-				>
+				{companie.isAdmin ? (
+					<Link
+						href={navigationPaths.dashboard.companies.overview(
+							companie.id!.toString()
+						)}
+						as={NextLink}
+					>
+						<Text
+							color={theme.branding.blue}
+							bg="none"
+							fontSize={{ md: 'xs' }}
+							fontWeight="medium"
+							cursor="pointer"
+						>
+							{translate('manage')}
+						</Text>
+					</Link>
+				) : (
 					<Text
 						color={theme.branding.blue}
 						bg="none"
 						fontSize={{ md: 'xs' }}
 						fontWeight="medium"
 						cursor="pointer"
-						onClick={() =>
-							localStorage.setItem('selectedCompanyId', companie.id.toString())
-						}
+						onClick={onOpen}
 					>
-						{translate('manage')}
+						{translate('withdraw')}
 					</Text>
-				</Link>
+				)}
 			</Flex>
 		</Flex>
 	);

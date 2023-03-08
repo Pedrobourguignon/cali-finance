@@ -7,16 +7,17 @@ import {
 	NotificationPopover,
 } from 'components';
 import useTranslation from 'next-translate/useTranslation';
-import { ICompany } from 'types';
+import { IMockCompany } from 'types';
 import { useSession } from 'next-auth/react';
-import router from 'next/router';
+import router, { useRouter } from 'next/router';
 import NextLink from 'next/link';
 
 export const CompaniesHeader: React.FC<{
-	company: ICompany;
+	company: IMockCompany;
 }> = ({ company }) => {
 	const theme = usePicasso();
 	const { isSamePath } = usePath();
+	const { query } = useRouter();
 	const { setNotificationsList, notificationsList } = useCompanies();
 	const { onClose, isOpen, onOpen } = useDisclosure();
 	const { t: translate } = useTranslation('company-overall');
@@ -30,15 +31,11 @@ export const CompaniesHeader: React.FC<{
 	const menuOptions = [
 		{
 			name: translate('overview'),
-			route: navigationPaths.dashboard.companies.overview(
-				localStorage.getItem('selectedCompanyId')
-			),
+			route: navigationPaths.dashboard.companies.overview(query.id!.toString()),
 		},
 		{
 			name: translate('funds'),
-			route: navigationPaths.dashboard.companies.funds(
-				localStorage.getItem('selectedCompanyId')
-			),
+			route: navigationPaths.dashboard.companies.funds(query.id!.toString()),
 		},
 	];
 
@@ -91,7 +88,7 @@ export const CompaniesHeader: React.FC<{
 				</Flex>
 				<Link
 					href={navigationPaths.dashboard.companies.editOrg(
-						localStorage.getItem('selectedCompanyId')
+						query.id!.toString()
 					)}
 					as={NextLink}
 				>

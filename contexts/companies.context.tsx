@@ -9,17 +9,18 @@ import {
 	useState,
 } from 'react';
 import {
-	ICompany,
 	IActivities,
 	INotificationList,
 	IEditedCompany,
 	IEmployee,
 	IHistoryNotification,
+	IMockCompany,
 } from 'types';
 import { historyNotifications } from 'components';
 import { mainClient } from 'utils';
 import { useQuery } from 'react-query';
 import { useAccount } from 'wagmi';
+import { ICompany } from 'types/interfaces/main-server/ICompany';
 
 interface ITestCompany {
 	name: string;
@@ -28,17 +29,17 @@ interface ITestCompany {
 }
 
 interface ICompanysContext {
-	companies: ICompany[];
+	companies: IMockCompany[];
 	activities: IActivities[];
 	totalFunds: string;
 	totalTeams: string;
 	totalMembers: string;
 	notificationsList: INotificationList[];
 	setNotificationsList: Dispatch<SetStateAction<INotificationList[]>>;
-	setSelectedCompany: Dispatch<SetStateAction<ICompany>>;
+	setSelectedCompany: Dispatch<SetStateAction<IMockCompany>>;
 	setSelectedCompanyEmployees: Dispatch<SetStateAction<IEmployee[]>>;
 	selectedCompanyEmployees: IEmployee[];
-	selectedCompany: ICompany;
+	selectedCompany: IMockCompany;
 	setSelectedCompanyLogo: Dispatch<SetStateAction<string>>;
 	selectedCompanyLogo: string;
 	setEditedInfo: Dispatch<SetStateAction<IEditedCompany>>;
@@ -47,11 +48,10 @@ interface ICompanysContext {
 	setDisplayMissingFundsWarning: Dispatch<SetStateAction<string>>;
 	displayNeedFundsCard: string;
 	setDisplayNeedFundsCard: Dispatch<SetStateAction<string>>;
-	companiesWithMissingFunds: ICompany[];
+	companiesWithMissingFunds: IMockCompany[];
 	filteredNotifications: IHistoryNotification[];
 	setFilteredNotifications: Dispatch<SetStateAction<IHistoryNotification[]>>;
-	backEndCompanies: ITestCompany[];
-	isLoadingCompanies: boolean;
+	getAllUserCompanies: () => Promise<ICompany[]>;
 }
 
 export const CompaniesContext = createContext({} as ICompanysContext);
@@ -65,12 +65,12 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 		useState('none');
 	const [displayNeedFundsCard, setDisplayNeedFundsCard] = useState('none');
 
-	const companiesWithMissingFunds: ICompany[] = useMemo(() => [], []);
+	const companiesWithMissingFunds: IMockCompany[] = useMemo(() => [], []);
 
 	const [filteredNotifications, setFilteredNotifications] =
 		useState<IHistoryNotification[]>(historyNotifications);
 
-	const [companies, setCompanies] = useState<ICompany[]>([
+	const [companies, setCompanies] = useState<IMockCompany[]>([
 		{
 			name: 'Kylie Cosmetics',
 			type: 'DAO',
@@ -176,7 +176,7 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 		},
 	]);
 
-	const [selectedCompany, setSelectedCompany] = useState<ICompany>({
+	const [selectedCompany, setSelectedCompany] = useState<IMockCompany>({
 		name: 'kylie skin',
 		type: 'DAO',
 		email: 'kylieskin@gmail.com',
@@ -197,8 +197,8 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 		employees: selectedCompanyEmployees,
 	});
 
-	const [selectedCardCompany, setSelectedCardCompany] = useState<ICompany>(
-		{} as ICompany
+	const [selectedCardCompany, setSelectedCardCompany] = useState<IMockCompany>(
+		{} as IMockCompany
 	);
 
 	const [notificationsList, setNotificationsList] = useState<
@@ -275,14 +275,17 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 	}, [selectedCompanyLogo, selectedCompanyEmployees]);
 
 	const totalFunds = companies
-		.reduce((total: number, org: ICompany) => total + org.funds, 0)
+		.reduce((total: number, org: IMockCompany) => total + org.funds, 0)
 		.toLocaleString('en-US');
 
 	const totalTeams = companies
-		.reduce((total: number, org: ICompany) => total + Number(org.members), 0)
+		.reduce(
+			(total: number, org: IMockCompany) => total + Number(org.members),
+			0
+		)
 		.toString();
 	const totalMembers = companies
-		.reduce((total: number, org: ICompany) => total + org.teams.length, 0)
+		.reduce((total: number, org: IMockCompany) => total + org.teams.length, 0)
 		.toString();
 
 	// eslint-disable-next-line array-callback-return
@@ -305,24 +308,10 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 		showMissingFundsWarning();
 	}, []);
 
-	const [backEndCompanies, setBackEndCompanies] = useState<ITestCompany[]>([]);
-
-	const getCompanies = async () => {
-		const response = await mainClient.get(
-			`http://localhost:3001/user/${wallet}/company`
-			// `http://localhost:3001/company/`
-		);
-		setBackEndCompanies(response.data);
+	const getAllUserCompanies = async () => {
+		const response = await mainClient.get(`/user/${wallet}/company`);
 		return response.data;
 	};
-
-	console.log(backEndCompanies);
-
-	const {
-		data,
-		isLoading: isLoadingCompanies,
-		error,
-	} = useQuery('all-companies', getCompanies);
 
 	const contextStates = useMemo(
 		() => ({
@@ -348,8 +337,7 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 			selectedCompanyEmployees,
 			filteredNotifications,
 			setFilteredNotifications,
-			backEndCompanies,
-			isLoadingCompanies,
+			getAllUserCompanies,
 		}),
 		[
 			selectedCompany,
@@ -374,8 +362,6 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 			selectedCompanyEmployees,
 			filteredNotifications,
 			setFilteredNotifications,
-			backEndCompanies,
-			isLoadingCompanies,
 		]
 	);
 	return (
