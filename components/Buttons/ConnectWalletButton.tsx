@@ -66,8 +66,8 @@ export const ConnectWalletButton = () => {
 						transform: 'translateY(0.5rem) translateX(0.375rem)',
 					}}
 					// onClick={() => connect()}
-					// onClick={onOpen}
-					onClick={getAuthorization}
+					onClick={onOpen}
+					// onClick={getAuthorization}
 					display={shouldDisplay}
 				>
 					<Text px="8" display={shouldDisplay}>

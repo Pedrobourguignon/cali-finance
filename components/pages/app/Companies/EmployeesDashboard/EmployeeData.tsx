@@ -103,10 +103,17 @@ export const EmployeeData: React.FC<IEmployeeData> = ({
 				)}
 			</Flex>
 			<Flex direction="column" align="end">
-				<Flex gap="1" fontSize="xs">
-					{/* <Text>{employee.amount.toLocaleString('en-US')}</Text> */}
-					{/* <Text>{employee.coin}</Text> */}
-				</Flex>
+				{employee.amount ? (
+					<Flex gap="1" fontSize="xs">
+						<Text>{employee.amount.toLocaleString('en-US')}</Text>
+						<Text>{employee.coin}</Text>
+					</Flex>
+				) : (
+					<Flex gap="1">
+						<Skeleton width="16" height="3" />
+						<Skeleton width="8" height="3" />
+					</Flex>
+				)}
 				<Button
 					color="gray.500"
 					fontSize="xs"
