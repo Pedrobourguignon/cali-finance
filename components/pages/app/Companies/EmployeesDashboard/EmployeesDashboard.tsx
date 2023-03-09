@@ -10,8 +10,7 @@ import { useCompanies, usePicasso } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
 import router, { useRouter } from 'next/router';
 import { useEffect } from 'react';
-import { useMutation, useQuery } from 'react-query';
-import { IUser } from 'types/interfaces/auth-srv/IUser';
+import { useQuery } from 'react-query';
 
 interface IEmployeeDashboard {
 	isGeneral: boolean;

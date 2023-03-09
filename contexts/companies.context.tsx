@@ -15,6 +15,7 @@ import {
 	IEmployee,
 	IHistoryNotification,
 	ISocialMedia,
+	INewEmployee,
 } from 'types';
 import { historyNotifications } from 'components';
 import { mainClient, navigationPaths } from 'utils';
@@ -22,6 +23,7 @@ import { ICompany } from 'types/interfaces/main-server/ICompany';
 import router, { useRouter } from 'next/router';
 import { useQuery } from 'react-query';
 import { IUser } from 'types/interfaces/auth-srv/IUser';
+import { GetCompanyUsersRes } from 'types/interfaces/main-server/IUser';
 
 interface ICompanysContext {
 	companies: IMockCompany[];
@@ -50,7 +52,10 @@ interface ICompanysContext {
 	createdCompanyPicture: string;
 	setCreatedCompanyPicture: Dispatch<SetStateAction<string>>;
 	getAllCompanyEmployees: (id: number) => Promise<IEmployee[]>;
-	addEmployeeToTeam: (employee: IUser) => Promise<void>;
+	addEmployeeToTeam: (employee: INewEmployee) => Promise<void>;
+	addEmployeeCsv: (
+		employee: string | undefined | null | ArrayBuffer
+	) => Promise<void>;
 }
 
 export const CompaniesContext = createContext({} as ICompanysContext);
@@ -323,11 +328,19 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 		getAllCompanyTeams(Number(query.id))
 	);
 
-	const addEmployeeToTeam = async (employee: IUser) => {
-		const id = Number(query.id);
-		const groupId = teams[0].id;
-		await mainClient.post(`/team/${id}/${groupId}/user`, {
-			employee,
+	const addEmployeeToTeam = async (employee: INewEmployee) => {
+		const { id } = teams[0];
+		const groupId = 1;
+		await mainClient.post(`/team/${id}/${groupId}/user`, employee);
+	};
+
+	const addEmployeeCsv = async (
+		employee: string | undefined | null | ArrayBuffer
+	) => {
+		const { id } = teams[0];
+		const groupId = 1;
+		await mainClient.post(`/team/${id}/${groupId}/users`, employee, {
+			headers: { 'Content-Type': 'text/plain' },
 		});
 	};
 
@@ -360,6 +373,7 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 			setCreatedCompanyPicture,
 			getAllCompanyEmployees,
 			addEmployeeToTeam,
+			addEmployeeCsv,
 		}),
 		[
 			selectedCompany,

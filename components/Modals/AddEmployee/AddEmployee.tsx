@@ -21,15 +21,21 @@ import { BlackButton, TokenSelector, UploadCsv } from 'components';
 import { useCompanies, usePicasso, useSchema } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
 import React, { useState } from 'react';
-import { IAddEmployee, IAddEmployeeForm, ISelectedCoin } from 'types';
+import {
+	IAddEmployee,
+	IAddEmployeeForm,
+	INewEmployee,
+	ISelectedCoin,
+} from 'types';
 import { IoPersonAddOutline } from 'react-icons/io5';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { IoIosArrowDown } from 'react-icons/io';
 import { navigationPaths } from 'utils';
 import NextLink from 'next/link';
-import { useMutation } from 'react-query';
+import { useMutation, useQueryClient } from 'react-query';
 import { IUser } from 'types/interfaces/main-server/IUser';
+import { GetUserCompaniesRes } from 'types/interfaces/main-server/ICompany';
 
 export const AddEmployee: React.FC<IAddEmployee> = ({
 	isOpen,
@@ -54,6 +60,7 @@ export const AddEmployee: React.FC<IAddEmployee> = ({
 	const { addEmployeeSchema } = useSchema();
 	const { setSelectedCompanyEmployees, selectedCompany, addEmployeeToTeam } =
 		useCompanies();
+	const queryClient = useQueryClient();
 
 	const theme = usePicasso();
 	const {
@@ -101,8 +108,11 @@ export const AddEmployee: React.FC<IAddEmployee> = ({
 	});
 
 	const { mutate } = useMutation(
-		(employee: IUser) => addEmployeeToTeam(employee),
-		{ onSuccess: () => console.log('Done') }
+		(employee: INewEmployee) => addEmployeeToTeam(employee),
+		{
+			onSuccess: () =>
+				queryClient.invalidateQueries({ queryKey: ['all-company-employees'] }),
+		}
 	);
 
 	const handleResetFormInputs = () => {
@@ -117,7 +127,9 @@ export const AddEmployee: React.FC<IAddEmployee> = ({
 
 	const handleAddEmployee = (newEmployeeData: IAddEmployeeForm) => {
 		mutate({
-			wallet: newEmployeeData.walletAddress,
+			userAddress: newEmployeeData.walletAddress,
+			revenue: newEmployeeData.amount,
+			asset: token.symbol,
 		});
 		handleResetFormInputs();
 	};
