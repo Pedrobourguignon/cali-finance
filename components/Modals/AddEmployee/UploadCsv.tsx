@@ -1,10 +1,11 @@
 import { Flex, Icon, Text } from '@chakra-ui/react';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { BsArrowUp } from 'react-icons/bs';
 import { BlackButton, DragAndDropCsv } from 'components';
-import { useCompanies, usePicasso } from 'hooks';
+import { useCompanies, usePicasso, useToasty } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
 import { useMutation, useQueryClient } from 'react-query';
+import { AxiosError } from 'axios';
 
 export const UploadCsv = () => {
 	const { t: translate } = useTranslation('create-team');
@@ -13,10 +14,11 @@ export const UploadCsv = () => {
 	const [uploadedFileData, setUploadedFileData] = useState<
 		string | undefined | null | ArrayBuffer
 	>('');
+	const { toast } = useToasty();
 	const { addEmployeeCsv } = useCompanies();
 	const queryClient = useQueryClient();
 
-	const { mutate } = useMutation(
+	const { mutate, error } = useMutation(
 		(employee: string | undefined | null | ArrayBuffer) =>
 			addEmployeeCsv(employee),
 		{
@@ -28,6 +30,31 @@ export const UploadCsv = () => {
 	const handleUploadCsv = () => {
 		mutate(uploadedFileData);
 	};
+
+	useEffect(() => {
+		if (error instanceof AxiosError) {
+			// eslint-disable-next-line array-callback-return
+			error.response?.data.errors.map((item: string | string[]) => {
+				if (item.includes('Error adding user undefined')) {
+					toast({
+						title: 'Error',
+						description: 'Csv content different from the default',
+						status: 'error',
+					});
+					setUploadedFileData('');
+					return;
+				}
+				if (item.includes('Error adding user')) {
+					toast({
+						title: 'Error',
+						description: 'User already exists in this company',
+						status: 'error',
+					});
+					setUploadedFileData('');
+				}
+			});
+		}
+	}, [error]);
 
 	return (
 		<Flex direction="column" w="full">

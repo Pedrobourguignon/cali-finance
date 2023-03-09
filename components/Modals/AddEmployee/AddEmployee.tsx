@@ -18,9 +18,9 @@ import {
 	Link,
 } from '@chakra-ui/react';
 import { BlackButton, TokenSelector, UploadCsv } from 'components';
-import { useCompanies, usePicasso, useSchema } from 'hooks';
+import { useCompanies, usePicasso, useSchema, useToasty } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
 	IAddEmployee,
 	IAddEmployeeForm,
@@ -36,6 +36,7 @@ import NextLink from 'next/link';
 import { useMutation, useQueryClient } from 'react-query';
 import { IUser } from 'types/interfaces/main-server/IUser';
 import { GetUserCompaniesRes } from 'types/interfaces/main-server/ICompany';
+import { AxiosError } from 'axios';
 
 export const AddEmployee: React.FC<IAddEmployee> = ({
 	isOpen,
@@ -61,6 +62,7 @@ export const AddEmployee: React.FC<IAddEmployee> = ({
 	const { setSelectedCompanyEmployees, selectedCompany, addEmployeeToTeam } =
 		useCompanies();
 	const queryClient = useQueryClient();
+	const { toast } = useToasty();
 
 	const theme = usePicasso();
 	const {
@@ -107,7 +109,7 @@ export const AddEmployee: React.FC<IAddEmployee> = ({
 		resolver: yupResolver(addEmployeeSchema),
 	});
 
-	const { mutate } = useMutation(
+	const { mutate, error } = useMutation(
 		(employee: INewEmployee) => addEmployeeToTeam(employee),
 		{
 			onSuccess: () =>
@@ -124,6 +126,31 @@ export const AddEmployee: React.FC<IAddEmployee> = ({
 			walletAddress: '',
 		}));
 	};
+
+	useEffect(() => {
+		if (error instanceof AxiosError) {
+			if (error.response?.status === 409) {
+				toast({
+					title: 'Error',
+					description: 'Unregistered user',
+					status: 'error',
+				});
+			}
+			if (error.response?.status === 422) {
+				toast({
+					title: 'Error',
+					description: 'User already exists in this company',
+					status: 'error',
+				});
+			} else {
+				toast({
+					title: 'Error',
+					description: 'We are working to solve this problem',
+					status: 'error',
+				});
+			}
+		}
+	}, [error]);
 
 	const handleAddEmployee = (newEmployeeData: IAddEmployeeForm) => {
 		mutate({
