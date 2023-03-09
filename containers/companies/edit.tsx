@@ -12,16 +12,22 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useCompanies, useSchema } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
 import { useSession } from 'next-auth/react';
-import router from 'next/router';
+import router, { useRouter } from 'next/router';
+import { CompaniesProvider } from 'contexts';
+import { useQuery } from 'react-query';
+import { ICompany } from 'types/interfaces/main-server/ICompany';
 
 export const EditCompany = () => {
+	const { query } = useRouter();
+	const { selectedCompany, getCompanyById } = useCompanies();
 	const { t: translate } = useTranslation('create-company');
 	const { editCompanySchema } = useSchema();
 	const {
 		handleSubmit,
+		register,
 		control,
 		formState: { errors },
-	} = useForm<IEditCompany>({
+	} = useForm<ICompany>({
 		resolver: yupResolver(editCompanySchema),
 	});
 	const { data: session } = useSession({
@@ -31,35 +37,36 @@ export const EditCompany = () => {
 		},
 	});
 
-	const handleEditCompany = (editedCompanyData: IEditCompany) => {
+	const { data, isLoading, error } = useQuery('created-company-overview', () =>
+		getCompanyById(Number(query.id))
+	);
+
+	const handleEditCompany = (editedCompanyData: ICompany) => {
 		console.log(editedCompanyData);
 	};
-	const { selectedCompany } = useCompanies();
 	return (
-		<form onSubmit={handleSubmit(handleEditCompany)}>
-			<FormControl>
-				<AppLayout
-					right={
-						<EditCompanyLink control={control} company={selectedCompany} />
-					}
-				>
-					<CompanyWhiteBackground />
-					<Flex direction="column" gap="10" zIndex="docked" pt="6" w="100%">
-						<Flex w="100%">
-							<NavigationBack
-								href={navigationPaths.dashboard.companies.overview('1')}
-							>
-								{translate('backToCompany')}
-							</NavigationBack>
+		<CompaniesProvider>
+			<form onSubmit={handleSubmit(handleEditCompany)}>
+				<FormControl>
+					<AppLayout right={<EditCompanyLink company={data} />}>
+						<CompanyWhiteBackground />
+						<Flex direction="column" gap="10" zIndex="docked" pt="6" w="100%">
+							<Flex w="100%">
+								<NavigationBack
+									href={navigationPaths.dashboard.companies.overview('1')}
+								>
+									{translate('backToCompany')}
+								</NavigationBack>
+							</Flex>
+							<EditCompanyComponent
+								errors={errors}
+								register={register}
+								company={data}
+							/>
 						</Flex>
-						<EditCompanyComponent
-							errors={errors}
-							control={control}
-							company={selectedCompany}
-						/>
-					</Flex>
-				</AppLayout>
-			</FormControl>
-		</form>
+					</AppLayout>
+				</FormControl>
+			</form>
+		</CompaniesProvider>
 	);
 };

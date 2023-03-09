@@ -36,10 +36,9 @@ const CompanyLogo = () => {
 };
 
 export const EditCompanyLink: React.FC<{
-	control: Control<ICreateCompany>;
-	company: IMockCompany;
-}> = ({ control, company }) => {
-	const { name, email, description, type, selectedNetwork } = company;
+	company: ICompany | undefined;
+}> = ({ company }) => {
+	// const { name, email, description, type, selectedNetwork } = company;
 	const theme = usePicasso();
 	const { selectedCompany, editedInfo } = useCompanies();
 	const { t: translate } = useTranslation('create-company');
@@ -50,29 +49,29 @@ export const EditCompanyLink: React.FC<{
 			name: 'socialMedias.website',
 			imgSrc: '/icons/globe.svg',
 			placeHolder: 'website.io',
-			link: selectedCompany.socialMedias.website,
-			defaultValue: selectedCompany.socialMedias.website,
+			link: 'company?.socialMedia![0].url',
+			defaultValue: 'company?.socialMedia![0].url',
 		},
 		{
 			name: 'socialMedias.instagram',
 			imgSrc: '/icons/instagram.svg',
 			placeHolder: 'instagram.com/company',
-			link: selectedCompany.socialMedias.instagram,
-			defaultValue: selectedCompany.socialMedias.instagram,
+			link: 'company?.socialMedia![0].url',
+			defaultValue: 'company?.socialMedia![0].url',
 		},
 		{
 			name: 'socialMedias.twitter',
 			imgSrc: '/icons/twitter.svg',
 			placeHolder: 'twitter.com/company',
-			link: selectedCompany.socialMedias.twitter,
-			defaultValue: selectedCompany.socialMedias.twitter,
+			link: 'company?.socialMedia![0].url',
+			defaultValue: 'company?.socialMedia![0].url',
 		},
 		{
 			name: 'socialMedias.telegram',
 			imgSrc: '/icons/telegram.svg',
 			placeHolder: 't.me/company',
-			link: selectedCompany.socialMedias.telegram,
-			defaultValue: selectedCompany.socialMedias.telegram,
+			link: 'company.socialMedia![0].url',
+			defaultValue: 'company?.socialMedia![0].url',
 		},
 		{
 			name: 'socialMedias.medium',
@@ -100,19 +99,18 @@ export const EditCompanyLink: React.FC<{
 					<CompanyLogo />
 					{/* <ImageUploader /> */}
 				</Flex>
-				<Flex w="100%">
+				{/* <Flex w="100%">
 					<Flex direction="column" gap="4" w="100%">
-						{/* {socialLinks.map((socialLink, index) => (
+						{socialLinks.map((socialLink, index) => (
 							<SocialMediaInput
-
 								socialLink={socialLink}
 								key={+index}
 								// control={control}
 								defaultValue={socialLink.defaultValue}
 							/>
-						))} */}
+						))}
 					</Flex>
-				</Flex>
+				</Flex> */}
 			</Flex>
 			<BlackButton
 				type="submit"
@@ -123,12 +121,12 @@ export const EditCompanyLink: React.FC<{
 				py="2.5"
 				display={{ md: 'flex', lg: 'none' }}
 				disabled={
-					(editedInfo.picture === selectedCompany.picture &&
-						editedInfo.name === name &&
-						editedInfo.email === email &&
-						editedInfo.description === description &&
-						editedInfo.type === type &&
-						editedInfo.selectedNetwork === selectedNetwork) ||
+					(editedInfo.logo === company?.logo &&
+						editedInfo.name === company?.name &&
+						editedInfo.contactEmail === company?.contactEmail &&
+						editedInfo.description === company?.description &&
+						editedInfo.type === company?.type &&
+						editedInfo.network === company?.network) ||
 					!session
 				}
 			>

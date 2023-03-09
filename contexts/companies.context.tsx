@@ -33,8 +33,8 @@ interface ICompanysContext {
 	setSelectedCompanyEmployees: Dispatch<SetStateAction<IEmployee[]>>;
 	selectedCompanyEmployees: IEmployee[];
 	selectedCompany: IMockCompany;
-	setEditedInfo: Dispatch<SetStateAction<IEditedCompany>>;
-	editedInfo: IEditedCompany;
+	setEditedInfo: Dispatch<SetStateAction<ICompany>>;
+	editedInfo: ICompany;
 	displayMissingFundsWarning: string;
 	setDisplayMissingFundsWarning: Dispatch<SetStateAction<string>>;
 	displayNeedFundsCard: string;
@@ -247,9 +247,7 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 		},
 	]);
 
-	const [editedInfo, setEditedInfo] = useState<IEditedCompany>(
-		{} as IEditedCompany
-	);
+	const [editedInfo, setEditedInfo] = useState<ICompany>({} as ICompany);
 
 	useEffect(() => {
 		setSelectedCompany(prevState => ({

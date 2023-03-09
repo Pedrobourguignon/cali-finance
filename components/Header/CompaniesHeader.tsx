@@ -49,6 +49,8 @@ export const CompaniesHeader = () => {
 		}
 	}, [error]);
 
+	console.log(data);
+
 	const menuOptions = [
 		{
 			name: translate('overview'),
@@ -118,7 +120,9 @@ export const CompaniesHeader = () => {
 					<Text fontSize="sm">{translate('totalFunds')}</Text>
 				</Flex>
 				<Link
-					href={navigationPaths.dashboard.companies.editOrg('1')}
+					href={navigationPaths.dashboard.companies.editOrg(
+						query.id!.toString()
+					)}
 					as={NextLink}
 				>
 					<Text
