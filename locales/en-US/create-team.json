@@ -22,5 +22,5 @@
 	"teamPlaceholder": "Select or Insert name to Create Team",
 	"dragAndDrop": "Drag 'n' drop your .csv or Select and upload your .csv file.",
 	"loadCsv": "Load CSV list",
-	"yourCsvMustHave": "Your .csv file  must have the columns 'userAddress', 'revenue', 'asset'."
+	"yourCsvMustHave": "Your .csv file  must have the columns 'address', 'revenue', 'asset'."
 }

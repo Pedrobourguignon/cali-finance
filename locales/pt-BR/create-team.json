@@ -22,5 +22,5 @@
 	"teamPlaceholder": "Selecione ou insira o nome para criar equipe",
 	"dragAndDrop": "Arraste e solte seu arquivo .csv ou selecione e carregue seu arquivo .csv.",
 	"loadCsv": "Carregar lista CSV",
-	"yourCsvMustHave": "Seu arquivo .csv deve ter as colunas 'userAddress' (endereço do usuário), 'revenue' (valor), 'asset' (moeda)."
+	"yourCsvMustHave": "Seu arquivo .csv deve ter as colunas 'address' (endereço do usuário), 'revenue' (valor), 'asset' (moeda)."
 }
