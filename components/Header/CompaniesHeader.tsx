@@ -49,7 +49,7 @@ export const CompaniesHeader = () => {
 		}
 	}, [error]);
 
-	console.log(data);
+	// console.log(data);
 
 	const menuOptions = [
 		{

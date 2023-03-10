@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { Img, Input, InputGroup, InputLeftElement } from '@chakra-ui/react';
 import { ISociaLinksInputValue, ISocialMediaInput } from 'types';
 import { useSession } from 'next-auth/react';
@@ -6,13 +7,15 @@ import { Dispatch, SetStateAction } from 'react';
 interface ISocialLink {
 	socialLink: ISocialMediaInput;
 	defaultValue?: string;
-	setSocialLinksInputValue: Dispatch<SetStateAction<ISociaLinksInputValue>>;
+	setEditedSocialLinksInputValue?: Dispatch<
+		SetStateAction<ISociaLinksInputValue>
+	>;
 }
 
-export const SocialMediaInput: React.FC<ISocialLink> = ({
+export const EditPageSocialMediaInput: React.FC<ISocialLink> = ({
 	socialLink,
 	defaultValue,
-	setSocialLinksInputValue,
+	setEditedSocialLinksInputValue,
 }) => {
 	const { data: session } = useSession();
 
@@ -38,7 +41,7 @@ export const SocialMediaInput: React.FC<ISocialLink> = ({
 				paddingInline="12"
 				_hover={{}}
 				onChange={url => {
-					setSocialLinksInputValue(prevState => ({
+					setEditedSocialLinksInputValue!(prevState => ({
 						...prevState,
 						[`${socialLink.name}URL`]: url.target.value,
 					}));

@@ -100,7 +100,7 @@ export const CreateCompanyContainer = () => {
 			],
 			isPublic: false,
 			color: '#121212',
-			logo: newCompanyPicture,
+			logo: '',
 		});
 	};
 

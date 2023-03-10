@@ -11,7 +11,6 @@ import {
 	IMockCompany,
 	IActivities,
 	INotificationList,
-	IEditedCompany,
 	IEmployee,
 	IHistoryNotification,
 	ISocialMedia,
@@ -19,7 +18,7 @@ import {
 import { historyNotifications } from 'components';
 import { mainClient, navigationPaths } from 'utils';
 import { ICompany } from 'types/interfaces/main-server/ICompany';
-import router from 'next/router';
+import router, { useRouter } from 'next/router';
 
 interface ICompanysContext {
 	companies: IMockCompany[];
@@ -46,6 +45,7 @@ interface ICompanysContext {
 	socialMediasData: ISocialMedia[];
 	setSocialMediasData: Dispatch<SetStateAction<ISocialMedia[]>>;
 	getCompanyById: (id: number) => Promise<ICompany>;
+	updateCompany: (company: ICompany) => Promise<void>;
 }
 
 export const CompaniesContext = createContext({} as ICompanysContext);
@@ -58,6 +58,7 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 		useState('none');
 	const [displayNeedFundsCard, setDisplayNeedFundsCard] = useState('none');
 	const [socialMediasData, setSocialMediasData] = useState<ISocialMedia[]>([]);
+	const { query } = useRouter();
 
 	const companiesWithMissingFunds: IMockCompany[] = [];
 
@@ -307,6 +308,18 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 			);
 	};
 
+	const handleTest = () => {
+		router.push(navigationPaths.dashboard.companies.overview(query.id));
+	};
+
+	const updateCompany = async (company: ICompany) => {
+		await mainClient
+			.put(`/company/${Number(query.id)}`, {
+				company,
+			})
+			.then(handleTest);
+	};
+
 	const contextStates = useMemo(
 		() => ({
 			companies,
@@ -333,6 +346,7 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 			socialMediasData,
 			setSocialMediasData,
 			getCompanyById,
+			updateCompany,
 		}),
 		[
 			selectedCompany,

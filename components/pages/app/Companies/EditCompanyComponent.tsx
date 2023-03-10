@@ -13,15 +13,8 @@ import {
 	TextProps,
 	Tooltip,
 } from '@chakra-ui/react';
-import { useCompanies, usePicasso } from 'hooks';
-import {
-	Control,
-	FieldErrors,
-	Controller,
-	UseFormRegister,
-} from 'react-hook-form';
-import { ICreateCompany, IMockCompany } from 'types';
-import { Select } from 'chakra-react-select';
+import { usePicasso } from 'hooks';
+import { FieldErrors, UseFormRegister } from 'react-hook-form';
 import { BsQuestionCircle } from 'react-icons/bs';
 import useTranslation from 'next-translate/useTranslation';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
@@ -30,49 +23,31 @@ import { useSession } from 'next-auth/react';
 import { ChevronDownIcon } from '@chakra-ui/icons';
 import { ICompany } from 'types/interfaces/main-server/ICompany';
 import { networkInfos } from 'utils';
-// eslint-disable-next-line import/no-unresolved
-// import { FieldErrors, UseFormRegister } from 'react-hook-form/dist/types';
 
 interface IEditCompanyComponent {
 	register: UseFormRegister<ICompany>;
 	errors: FieldErrors<ICompany>;
-	// errors: Partial<
-	// 	FieldErrorsImpl<{
-	// 		name: string;
-	// 		type: {
-	// 			label: string;
-	// 			value: string;
-	// 		};
-	// 		email: string;
-	// 		network: {
-	// 			label: string;
-	// 			value: string;
-	// 			icon: string;
-	// 		};
-	// 		description: string;
-	// 		logo: string;
-	// 		socialMedias: {
-	// 			website: string;
-	// 			instagram: string;
-	// 			twitter: string;
-	// 			telegram: string;
-	// 			medium: string;
-	// 		};
-	// 	}>
-	// >;
+	setSelectedType: Dispatch<SetStateAction<string | undefined>>;
+	selectedType: string | undefined;
+	selectedNetwork: {
+		name: string;
+		icon: string;
+		id: number | undefined;
+	};
+	setSelectedNetwork: Dispatch<
+		SetStateAction<{
+			name: string;
+			icon: string;
+			id: number | undefined;
+		}>
+	>;
+
 	company: ICompany | undefined;
 }
-
 interface INetworkSelect {
 	name: string;
 	id: number;
 	icon: string;
-}
-
-interface ISelectedNetwork {
-	name: string;
-	icon: string;
-	id: number | undefined;
 }
 
 const networksType: INetworkSelect[] = [
@@ -91,24 +66,15 @@ export const EditCompanyComponent: React.FC<IEditCompanyComponent> = ({
 	errors,
 	company,
 	register,
+	setSelectedNetwork,
+	selectedNetwork,
+	selectedType,
+	setSelectedType,
 }) => {
-	// const {
-	// 	name,
-	// 	email,
-	// 	description,
-	// 	type,
-	// 	selectedNetwork,
-	// 	picture,
-	// 	socialMedias,
-	// } = company;
+	const [editedInfo, setEditedInfo] = useState<ICompany>({} as ICompany);
 	const theme = usePicasso();
 	const { t: translate } = useTranslation('create-company');
-	const { selectedCompany } = useCompanies();
-	const [editedInfo, setEditedInfo] = useState<ICompany>({} as ICompany);
-
 	const { data: session } = useSession();
-
-	console.log(company);
 
 	useEffect(() => {
 		setEditedInfo({
@@ -121,30 +87,20 @@ export const EditCompanyComponent: React.FC<IEditCompanyComponent> = ({
 		});
 	}, [company]);
 
-	// console.log(editedInfo);
-
 	const companiesType = [
 		{ value: 'DAO' },
 		{ value: translate('financial') },
 		{ value: 'e-commerce' },
 	];
 
-	// const indexOfCompanyType = companiesType.findIndex(
-	// 	index => index.value === company?.type
-	// );
-	// const indexOfCompanyNetwork = networksType.findIndex(
-	// 	index => index.id === company?.network
-	// );
-
-	const [selectedType, setSelectedType] = useState<string | undefined>(
-		company?.type
-	);
-
-	const [selectedNetwork, setSelectedNetwork] = useState<ISelectedNetwork>({
-		name: networkInfos(company?.network).name,
-		icon: networkInfos(company?.network).icon,
-		id: company?.network,
-	});
+	useEffect(() => {
+		setSelectedType(company?.type);
+		setSelectedNetwork({
+			name: networkInfos(company?.network).name,
+			icon: networkInfos(company?.network).icon,
+			id: company?.network,
+		});
+	}, [company]);
 
 	return (
 		<Flex direction="column" minW="24.2rem">
@@ -157,36 +113,6 @@ export const EditCompanyComponent: React.FC<IEditCompanyComponent> = ({
 				<Text color="black" fontSize="xl" fontWeight="medium">
 					{translate('editCompany')}
 				</Text>
-				{/* <Controller
-					render={({ field }) => (
-						<Input
-							{...field}
-							color="black"
-							defaultValue={name}
-							placeholder="Company Name *"
-							borderBottomWidth="0,125rem"
-							borderBottomColor="black"
-							borderRadius="none"
-							h="8"
-							px="1"
-							fontSize="2xl"
-							isDisabled={!session}
-							_placeholder={{
-								color: 'blackAlpha.500',
-								fontSize: { md: 'xl', xl: '2xl' },
-							}}
-							_hover={{}}
-							onChange={editedName =>
-								setEditedInfo(prevState => ({
-									...prevState,
-									name: editedName.target.value,
-								}))
-							}
-						/>
-					)}
-					name="name"
-					control={control}
-				/> */}
 				<Input
 					{...register('name')}
 					defaultValue={company?.name}
@@ -228,54 +154,6 @@ export const EditCompanyComponent: React.FC<IEditCompanyComponent> = ({
 								<Text {...labelStyle} mb="2">
 									{translate('type')}
 								</Text>
-								{/* <Controller
-									name="type"
-									control={control}
-									render={({ field }) => (
-										<Select
-											{...field}
-											placeholder={translate('pleaseSelect')}
-											size="sm"
-											onChange={editedType =>
-												setEditedInfo(prevState => ({
-													...prevState,
-													type: editedType!.label,
-												}))
-											}
-											chakraStyles={{
-												placeholder: base => ({
-													...base,
-													color: 'blackAlpha.500',
-													fontSize: 'sm',
-												}),
-												control: group => ({
-													...group,
-													bg: 'white',
-													minWidth: '48',
-													borderRadius: 'base',
-													borderColor: errors.network
-														? 'red'
-														: theme.bg.primary,
-													cursor: 'pointer',
-													_hover: {},
-												}),
-												menuList: group => ({
-													...group,
-													bg: 'white',
-													borderColor: '#121212',
-													borderRadius: 'base',
-												}),
-												option: (item, state) => ({
-													...item,
-													bg: state.isFocused ? 'gray.50' : 'none',
-												}),
-											}}
-											options={companiesType}
-											defaultValue={companiesType[indexOfCompanyType]}
-											isDisabled={!session}
-										/>
-									)}
-								/> */}
 								<Menu>
 									<MenuButton
 										px="3"
@@ -292,11 +170,6 @@ export const EditCompanyComponent: React.FC<IEditCompanyComponent> = ({
 										rightIcon={<ChevronDownIcon />}
 										bg="white"
 										fontSize="sm"
-										// color={
-										// 	selectedType === translate('pleaseSelect')
-										// 		? 'blackAlpha.500'
-										// 		: theme.text.primary
-										// }
 									>
 										<Flex>{selectedType}</Flex>
 									</MenuButton>
@@ -307,27 +180,21 @@ export const EditCompanyComponent: React.FC<IEditCompanyComponent> = ({
 										borderRadius="base"
 										w={{ md: '33.75rem', lg: '20rem' }}
 									>
-										{companiesType.map((typee, index) => (
+										{companiesType.map((type, index) => (
 											<MenuItem
 												key={+index}
 												bg="transparent"
 												fontSize="sm"
 												_hover={{ bg: 'gray.50' }}
-												// onClick={() => {
-												// 	setEditedInfo(prevState => ({
-												// 		...prevState,
-												// 		type: typee!.label,
-												// 	}));
-												// }}
 												onClick={() => {
-													setSelectedType(typee.value);
+													setSelectedType(type.value);
 													setEditedInfo(prevState => ({
 														...prevState,
-														type: typee.value,
+														type: type.value,
 													}));
 												}}
 											>
-												{typee.value}
+												{type.value}
 											</MenuItem>
 										))}
 									</MenuList>
@@ -344,7 +211,6 @@ export const EditCompanyComponent: React.FC<IEditCompanyComponent> = ({
 							>
 								<Flex gap="2" mb="2" align="center">
 									<Text {...labelStyle}>Network *</Text>
-
 									<Tooltip
 										label={
 											<NetworkTooltip>
@@ -366,61 +232,6 @@ export const EditCompanyComponent: React.FC<IEditCompanyComponent> = ({
 									</Tooltip>
 								</Flex>
 
-								{/* <Controller
-									name="network"
-									control={control}
-									render={({ field }) => (
-										<Select
-											{...field}
-											placeholder="Please select"
-											size="sm"
-											onChange={editedNetwork =>
-												setEditedInfo(prevState => ({
-													...prevState,
-													network: editedNetwork!.value,
-												}))
-											}
-											chakraStyles={{
-												placeholder: base => ({
-													...base,
-													color: 'blackAlpha.500',
-													fontSize: 'sm',
-												}),
-												control: group => ({
-													...group,
-													bg: 'white',
-													minWidth: '48',
-													borderRadius: 'base',
-													borderColor: errors.network
-														? 'red'
-														: theme.bg.primary,
-													cursor: 'pointer',
-													_hover: {},
-												}),
-												menuList: group => ({
-													...group,
-													bg: 'white',
-													borderColor: '#121212',
-													borderRadius: 'base',
-												}),
-												option: (item, state) => ({
-													...item,
-													bg: state.isSelected ? 'gray.50' : 'none',
-												}),
-											}}
-											options={networksType}
-											defaultValue={networksType[indexOfCompanyNetwork]}
-											isDisabled={!session}
-											// eslint-disable-next-line react/no-unstable-nested-components
-											formatOptionLabel={network => (
-												<Flex gap="2" align="center">
-													<Img src={network.icon} boxSize="5" />
-													<Text>{network.label}</Text>
-												</Flex>
-											)}
-										/>
-									)}
-								/> */}
 								<Menu>
 									<MenuButton
 										w={{ md: 'full', lg: '11.438rem' }}
@@ -442,20 +253,7 @@ export const EditCompanyComponent: React.FC<IEditCompanyComponent> = ({
 												: theme.text.primary
 										}
 									>
-										<Flex
-											display={
-												selectedNetwork.icon.length > 1 ? 'none' : 'flex'
-											}
-										>
-											{selectedNetwork.name}
-										</Flex>
-										<Flex
-											align="center"
-											gap="2"
-											display={
-												selectedNetwork.icon.length > 1 ? 'flex' : 'none'
-											}
-										>
+										<Flex align="center" gap="2">
 											<Img src={selectedNetwork.icon} boxSize="4" />
 											{selectedNetwork.name}
 										</Flex>
@@ -497,34 +295,6 @@ export const EditCompanyComponent: React.FC<IEditCompanyComponent> = ({
 							<Text {...labelStyle} mb="2">
 								{translate('corporativeEmail')}
 							</Text>
-							{/* <Controller
-								render={({ field }) => (
-									<Input
-										{...field}
-										placeholder={translate('exampleEmail')}
-										_placeholder={{
-											color: 'blackAlpha.500',
-											fontSize: 'sm',
-										}}
-										h="8"
-										fontSize="sm"
-										bgColor="white"
-										borderRadius="base"
-										_hover={{}}
-										borderColor={theme.bg.primary}
-										defaultValue={email}
-										disabled={!session}
-										onChange={editedEmail =>
-											setEditedInfo(prevState => ({
-												...prevState,
-												email: editedEmail.target.value,
-											}))
-										}
-									/>
-								)}
-								name="email"
-								control={control}
-							/> */}
 							<Input
 								px="3"
 								{...register('contactEmail')}
@@ -555,33 +325,6 @@ export const EditCompanyComponent: React.FC<IEditCompanyComponent> = ({
 							<Text {...labelStyle} mb="2">
 								{translate('description')}
 							</Text>
-							{/* <Controller
-								render={({ field }) => (
-									<Textarea
-										{...field}
-										fontSize="sm"
-										borderColor={theme.bg.primary}
-										_placeholder={{
-											color: 'blackAlpha.500',
-											fontSize: 'sm',
-										}}
-										defaultValue={description}
-										_hover={{}}
-										bgColor="white"
-										placeholder={translate('exampleDescription')}
-										minH="110"
-										disabled={!session}
-										onChange={editedDescription =>
-											setEditedInfo(prevState => ({
-												...prevState,
-												description: editedDescription.target.value,
-											}))
-										}
-									/>
-								)}
-								name="description"
-								control={control}
-							/> */}
 							<Textarea
 								defaultValue={company?.description}
 								{...register('description')}
@@ -606,7 +349,6 @@ export const EditCompanyComponent: React.FC<IEditCompanyComponent> = ({
 							/>
 						</Flex>
 					</Flex>
-
 					<BlackButton
 						type="submit"
 						lineHeight="6"
@@ -656,66 +398,8 @@ export const EditCompanyComponent: React.FC<IEditCompanyComponent> = ({
 							</span>
 						</Tooltip>
 					</Flex>
-					{/* <Controller
-						name="network"
-						control={control}
-						render={({ field }) => (
-							<Select
-								{...field}
-								placeholder={translate('pleaseSelect')}
-								size="sm"
-								onChange={editedNetwork =>
-									setEditedInfo(prevState => ({
-										...prevState,
-										network: {
-											label: editedNetwork!.label,
-											value: editedNetwork!.value,
-											icon: editedNetwork!.icon,
-										},
-									}))
-								}
-								chakraStyles={{
-									placeholder: base => ({
-										...base,
-										color: 'blackAlpha.500',
-										fontSize: 'sm',
-									}),
-									control: group => ({
-										...group,
-										bg: 'white',
-										borderRadius: 'base',
-										minWidth: '48',
-										borderColor: errors.network ? 'red' : theme.bg.primary,
-										cursor: 'pointer',
-										_hover: {},
-									}),
-									menuList: group => ({
-										...group,
-										bg: 'white',
-										borderColor: '#121212',
-										borderRadius: 'base',
-									}),
-									option: (item, state) => ({
-										...item,
-										bg: state.isSelected ? 'gray.50' : 'none',
-									}),
-								}}
-								options={networksType}
-								defaultValue={networksType[indexOfCompanyNetwork]}
-								isDisabled={!session}
-								// eslint-disable-next-line react/no-unstable-nested-components
-								formatOptionLabel={network => (
-									<Flex gap="2" align="center">
-										<Img src={network.icon} boxSize="5" />
-										<Text>{network.label}</Text>
-									</Flex>
-								)}
-							/>
-						)}
-					/> */}
 					<Menu>
 						<MenuButton
-							// defaultValue={networksType[indexOfCompanyNetwork]}
 							defaultValue="dasds"
 							pl="3"
 							w={{ md: '11.438rem' }}
@@ -737,14 +421,7 @@ export const EditCompanyComponent: React.FC<IEditCompanyComponent> = ({
 									: theme.text.primary
 							}
 						>
-							<Flex display={selectedNetwork.icon.length > 1 ? 'none' : 'flex'}>
-								{selectedNetwork.name}
-							</Flex>
-							<Flex
-								align="center"
-								gap="2"
-								display={selectedNetwork.icon.length > 1 ? 'flex' : 'none'}
-							>
+							<Flex align="center" gap="2">
 								<Img src={selectedNetwork.icon} boxSize="4" />
 								{selectedNetwork.name}
 							</Flex>
