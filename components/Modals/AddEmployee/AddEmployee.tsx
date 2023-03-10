@@ -16,9 +16,10 @@ import {
 	Img,
 	useDisclosure,
 	Link,
+	useToast,
 } from '@chakra-ui/react';
-import { BlackButton, TokenSelector, UploadCsv } from 'components';
-import { useCompanies, usePicasso, useSchema, useToasty } from 'hooks';
+import { AlertToast, BlackButton, TokenSelector, UploadCsv } from 'components';
+import { useCompanies, usePicasso, useSchema } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
 import React, { useEffect, useState } from 'react';
 import {
@@ -34,8 +35,6 @@ import { IoIosArrowDown } from 'react-icons/io';
 import { navigationPaths } from 'utils';
 import NextLink from 'next/link';
 import { useMutation, useQueryClient } from 'react-query';
-import { IUser } from 'types/interfaces/main-server/IUser';
-import { GetUserCompaniesRes } from 'types/interfaces/main-server/ICompany';
 import { AxiosError } from 'axios';
 
 export const AddEmployee: React.FC<IAddEmployee> = ({
@@ -62,8 +61,8 @@ export const AddEmployee: React.FC<IAddEmployee> = ({
 	const { setSelectedCompanyEmployees, selectedCompany, addEmployeeToTeam } =
 		useCompanies();
 	const queryClient = useQueryClient();
-	const { toast } = useToasty();
 
+	const toast = useToast();
 	const theme = usePicasso();
 	const {
 		isOpen: isOpenTokenSelector,
@@ -112,8 +111,19 @@ export const AddEmployee: React.FC<IAddEmployee> = ({
 	const { mutate, error } = useMutation(
 		(employee: INewEmployee) => addEmployeeToTeam(employee),
 		{
-			onSuccess: () =>
-				queryClient.invalidateQueries({ queryKey: ['all-company-employees'] }),
+			onSuccess: () => {
+				queryClient.invalidateQueries({ queryKey: ['all-company-employees'] });
+				toast({
+					position: 'top',
+					render: () => (
+						<AlertToast
+							onClick={toast.closeAll}
+							text="employeeAdded"
+							type="success"
+						/>
+					),
+				});
+			},
 		}
 	);
 
@@ -131,22 +141,25 @@ export const AddEmployee: React.FC<IAddEmployee> = ({
 		if (error instanceof AxiosError) {
 			if (error.response?.status === 409) {
 				toast({
-					title: 'Error',
-					description: 'Unregistered user',
-					status: 'error',
-				});
-			}
-			if (error.response?.status === 422) {
-				toast({
-					title: 'Error',
-					description: 'User already exists in this company',
-					status: 'error',
+					position: 'top',
+					render: () => (
+						<AlertToast
+							onClick={toast.closeAll}
+							text="userAlreadyExists"
+							type="error"
+						/>
+					),
 				});
 			} else {
 				toast({
-					title: 'Error',
-					description: 'We are working to solve this problem',
-					status: 'error',
+					position: 'top',
+					render: () => (
+						<AlertToast
+							onClick={toast.closeAll}
+							text="weAreWorkingToSolve"
+							type="error"
+						/>
+					),
 				});
 			}
 		}
@@ -386,7 +399,7 @@ export const AddEmployee: React.FC<IAddEmployee> = ({
 					</form>
 
 					<Flex display={shouldntDisplay}>
-						<UploadCsv />
+						<UploadCsv onClose={onClose} />
 					</Flex>
 				</Flex>
 			</ModalContent>

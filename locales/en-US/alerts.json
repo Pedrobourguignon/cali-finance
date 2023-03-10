@@ -5,5 +5,12 @@
 	"needingFunds": "Needing Funds! Please deposit now",
 	"yourCompanies": "Your companies are missing needed funds.",
 	"depositFunds": "Deposit funds",
-	"companiesPage": "at the companies page."
+	"companiesPage": "at the companies page.",
+	"addressCopiedSuccessfully": "Address copied successfully",
+	"changesMadeWithSuccessfully": "Changes made with successfully",
+	"employeeAdded": "Added employee",
+	"employeesAdded": "Added employees",
+	"theContentOfTheCsv": "The contents of the CSV file don't conform to the required specifications.",
+	"weAreWorkingToSolve": "We are working to solve this problem",
+	"userAlreadyExists": "User already exists in this company"
 }

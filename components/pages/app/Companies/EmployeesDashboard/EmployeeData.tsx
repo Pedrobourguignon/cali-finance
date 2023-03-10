@@ -13,8 +13,9 @@ import {
 import { MdContentCopy } from 'react-icons/md';
 import { truncateWallet } from 'utils';
 import useTranslation from 'next-translate/useTranslation';
-import { CopyAddressToast, EditEmployee } from 'components';
+import { AlertToast, EditEmployee } from 'components';
 import { GetCompanyUsersRes } from 'types/interfaces/main-server/IUser';
+import { AiFillCheckCircle } from 'react-icons/ai';
 
 const teams = ['General', 'Marketing', 'Finance', 'Trozorba'];
 interface IEmployeeData {
@@ -36,7 +37,13 @@ export const EmployeeData: React.FC<IEmployeeData> = ({
 		onCopy();
 		toast({
 			position: 'top-right',
-			render: () => <CopyAddressToast onClick={toast.closeAll} />,
+			render: () => (
+				<AlertToast
+					onClick={toast.closeAll}
+					text="addressCopiedSuccessfully"
+					type="success"
+				/>
+			),
 		});
 	};
 	return (
