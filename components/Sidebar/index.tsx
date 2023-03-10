@@ -31,6 +31,8 @@ import { INetwork } from 'types';
 import useTranslation from 'next-translate/useTranslation';
 import { useSession, signOut } from 'next-auth/react';
 import NextLink from 'next/link';
+import { useQuery } from 'react-query';
+import { useAccount } from 'wagmi';
 
 interface IMenuItem {
 	icon: typeof Icon;
@@ -81,8 +83,9 @@ export const Sidebar: React.FC = () => {
 	];
 	const theme = usePicasso();
 	const { isSamePath } = usePath();
-	const { userProfile } = useProfile();
+	const { address: walletAddress } = useAccount();
 	const { data: session } = useSession();
+	const { getProfileData } = useProfile();
 	const { locale, asPath } = useRouter();
 	const languages: ILanguage[] = ['en-US', 'pt-BR'];
 	const { isOpen, onOpen, onClose } = useDisclosure();
@@ -110,6 +113,8 @@ export const Sidebar: React.FC = () => {
 	useEffect(() => {
 		changeLanguage(localStorage.getItem('language')!);
 	}, [locale]);
+
+	const { data: profileData } = useQuery('profile-data', getProfileData);
 
 	return (
 		<>
@@ -181,9 +186,9 @@ export const Sidebar: React.FC = () => {
 										<Flex align="center" gap="2" justify="center">
 											<Img
 												src={
-													userProfile.picture === ''
+													profileData?.picture === ''
 														? '/images/editImage.png'
-														: userProfile.picture
+														: profileData?.picture
 												}
 												borderRadius="full"
 												boxSize="6"
@@ -193,7 +198,7 @@ export const Sidebar: React.FC = () => {
 												fontWeight="medium"
 												fontSize={{ md: 'xs', xl: 'sm' }}
 											>
-												{truncateWallet(userProfile.wallet)}
+												{truncateWallet(walletAddress)}
 											</Text>
 										</Flex>
 									</MenuButton>
