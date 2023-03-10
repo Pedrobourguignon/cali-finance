@@ -25,6 +25,7 @@ import { ICompany } from 'types/interfaces/main-server/ICompany';
 import { networkInfos } from 'utils';
 
 interface IEditCompanyComponent {
+	editedCompanyPicture: string | undefined;
 	register: UseFormRegister<ICompany>;
 	errors: FieldErrors<ICompany>;
 	setSelectedType: Dispatch<SetStateAction<string | undefined>>;
@@ -70,6 +71,7 @@ export const EditCompanyComponent: React.FC<IEditCompanyComponent> = ({
 	selectedNetwork,
 	selectedType,
 	setSelectedType,
+	editedCompanyPicture,
 }) => {
 	const [editedInfo, setEditedInfo] = useState<ICompany>({} as ICompany);
 	const theme = usePicasso();
@@ -84,6 +86,10 @@ export const EditCompanyComponent: React.FC<IEditCompanyComponent> = ({
 			network: company?.network,
 			description: company?.description,
 			logo: company?.logo,
+			color: company?.color,
+			isPublic: company?.isPublic,
+			socialMedia: company?.socialMedia,
+			totalFundsUsd: company?.totalFundsUsd,
 		});
 	}, [company]);
 
@@ -358,6 +364,7 @@ export const EditCompanyComponent: React.FC<IEditCompanyComponent> = ({
 						display={{ md: 'none', lg: 'flex' }}
 						isDisabled={
 							(editedInfo.logo === company?.logo &&
+								editedInfo.logo === editedCompanyPicture &&
 								editedInfo.name === company?.name &&
 								editedInfo.contactEmail === company?.contactEmail &&
 								editedInfo.description === company?.description &&
@@ -365,6 +372,7 @@ export const EditCompanyComponent: React.FC<IEditCompanyComponent> = ({
 								editedInfo.network === selectedNetwork.id) ||
 							!session
 						}
+						_disabled={{ opacity: '50%', cursor: 'not-allowed' }}
 					>
 						{translate('saveChanges')}
 					</BlackButton>

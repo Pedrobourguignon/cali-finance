@@ -1,15 +1,16 @@
-import { Flex, FormControl } from '@chakra-ui/react';
+import { Flex, FormControl, useToast } from '@chakra-ui/react';
 import {
 	NavigationBack,
 	EditCompanyComponent,
 	EditCompanyLink,
+	SaveChangesToast,
 } from 'components';
 import { AppLayout, CompanyWhiteBackground } from 'layouts';
 import { navigationPaths } from 'utils';
 import { ISociaLinksInputValue } from 'types';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useCompanies, useSchema } from 'hooks';
+import { useCompanies, useSchema, useToasty } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
 import { useSession } from 'next-auth/react';
 import router, { useRouter } from 'next/router';
@@ -25,11 +26,12 @@ interface ISelectedNetwork {
 }
 
 export const EditCompany = () => {
+	const { t: translate } = useTranslation('create-company');
+	const toast = useToast();
 	const { query } = useRouter();
+	const { editCompanySchema } = useSchema();
 	const { getCompanyById, updateCompany } = useCompanies();
 	const [selectedType, setSelectedType] = useState<string | undefined>('');
-	const { t: translate } = useTranslation('create-company');
-	const { editCompanySchema } = useSchema();
 	const [editedSocialLinksInputValue, setEditedSocialLinksInputValue] =
 		useState<ISociaLinksInputValue>({} as ISociaLinksInputValue);
 
@@ -74,6 +76,10 @@ export const EditCompany = () => {
 	};
 
 	const handleEditCompany = (editedCompanyData: ICompany) => {
+		toast({
+			position: 'top-right',
+			render: () => <SaveChangesToast onClick={toast.closeAll} />,
+		});
 		const { name, contactEmail, description } = editedCompanyData;
 		const { websiteURL, instagramURL, twitterURL, telegramURL, mediumURL } =
 			editedSocialLinksInputValue;
@@ -118,7 +124,6 @@ export const EditCompany = () => {
 					<AppLayout
 						right={
 							<EditCompanyLink
-								editedCompanyPicture={editedCompanyPicture}
 								setEditedSocialLinksInputValue={setEditedSocialLinksInputValue}
 								company={companyToBeEdited}
 								handleEditedPicture={handleEditedPicture}
@@ -129,12 +134,13 @@ export const EditCompany = () => {
 						<Flex direction="column" gap="10" zIndex="docked" pt="6" w="100%">
 							<Flex w="100%">
 								<NavigationBack
-									href={navigationPaths.dashboard.companies.overview('1')}
+									href={navigationPaths.dashboard.companies.overview(query.id)}
 								>
 									{translate('backToCompany')}
 								</NavigationBack>
 							</Flex>
 							<EditCompanyComponent
+								editedCompanyPicture={editedCompanyPicture}
 								setSelectedNetwork={setSelectedNetwork}
 								setSelectedType={setSelectedType}
 								selectedNetwork={selectedNetwork}

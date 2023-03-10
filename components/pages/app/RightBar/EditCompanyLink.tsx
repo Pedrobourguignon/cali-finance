@@ -8,24 +8,21 @@ import {
 import { useCompanies, usePicasso } from 'hooks';
 import { useSession } from 'next-auth/react';
 import useTranslation from 'next-translate/useTranslation';
-import { Dispatch, SetStateAction } from 'react';
+import { Dispatch, SetStateAction, useEffect } from 'react';
 import { ISocialMediaInput, ISociaLinksInputValue } from 'types';
 import { ICompany } from 'types/interfaces/main-server/ICompany';
 import { handleLogoImage } from 'utils';
 
 interface ICompanyLogo {
 	company: ICompany | undefined;
-	editedCompanyPicture: string | undefined;
 }
 
-const CompanyLogo: React.FC<ICompanyLogo> = ({
-	company,
-	editedCompanyPicture,
-}) => {
+const CompanyLogo: React.FC<ICompanyLogo> = ({ company }) => {
 	const theme = usePicasso();
+	console.log(company?.logo);
 
-	if (editedCompanyPicture) {
-		return <Img src={editedCompanyPicture} boxSize="20" borderRadius="base" />;
+	if (company?.logo) {
+		return <Img src={company?.logo} boxSize="20" borderRadius="base" />;
 	}
 	if (company?.name)
 		return (
@@ -45,18 +42,12 @@ const CompanyLogo: React.FC<ICompanyLogo> = ({
 };
 
 export const EditCompanyLink: React.FC<{
-	editedCompanyPicture: string | undefined;
 	company: ICompany | undefined;
 	handleEditedPicture: (picture: string) => void;
 	setEditedSocialLinksInputValue: Dispatch<
 		SetStateAction<ISociaLinksInputValue>
 	>;
-}> = ({
-	company,
-	setEditedSocialLinksInputValue,
-	handleEditedPicture,
-	editedCompanyPicture,
-}) => {
+}> = ({ company, setEditedSocialLinksInputValue, handleEditedPicture }) => {
 	const theme = usePicasso();
 	const { editedInfo } = useCompanies();
 	const { t: translate } = useTranslation('create-company');
@@ -110,10 +101,7 @@ export const EditCompanyLink: React.FC<{
 				zIndex="docked"
 			>
 				<Flex direction="column" align="center" gap="4" w="100%">
-					<CompanyLogo
-						company={company}
-						editedCompanyPicture={editedCompanyPicture}
-					/>
+					<CompanyLogo company={company} />
 					<ImageUploader sendImage={handleEditedPicture} />
 				</Flex>
 				<Flex w="100%">
