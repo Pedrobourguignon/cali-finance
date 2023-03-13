@@ -7,13 +7,13 @@ import {
 	NotificationPopover,
 } from 'components';
 import useTranslation from 'next-translate/useTranslation';
-import { ICompany } from 'types';
+import { IMockCompany } from 'types';
 import { useSession } from 'next-auth/react';
 import router from 'next/router';
 import NextLink from 'next/link';
 
 export const CompaniesHeader: React.FC<{
-	company: ICompany;
+	company: IMockCompany;
 }> = ({ company }) => {
 	const theme = usePicasso();
 	const { isSamePath } = usePath();
@@ -57,7 +57,7 @@ export const CompaniesHeader: React.FC<{
 			</Flex>
 			<Flex w="100%" justify="space-between" align="center">
 				<Flex gap="3" align="center">
-					{!company.logo ? (
+					{!company.picture ? (
 						<Flex
 							boxSize="20"
 							borderRadius="base"
@@ -70,7 +70,7 @@ export const CompaniesHeader: React.FC<{
 							{handleLogoImage(company.name)}
 						</Flex>
 					) : (
-						<Img src={company.logo} boxSize="20" />
+						<Img src={company.picture} boxSize="20" />
 					)}
 					<Text
 						maxW={{ md: '40', xl: '56' }}

@@ -1,12 +1,12 @@
 import { IEmployee, ISocialMedia } from 'types';
 
-export interface ICompany {
+export interface IMockCompany {
 	name: string;
 	type: string;
 	funds: number;
 	email: string;
 	members: number;
-	logo: string;
+	picture: string;
 	description?: string;
 	socialMedias: ISocialMedia;
 	teams: [string];

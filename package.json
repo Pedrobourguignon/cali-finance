@@ -20,6 +20,7 @@
 		"@types/lodash.debounce": "^4.0.7",
 		"axios": "^0.27.2",
 		"chakra-react-select": "^4.4.0",
+		"cookies-next": "^2.1.1",
 		"ethers": "5",
 		"fastify": "^4.10.2",
 		"framer-motion": "7",

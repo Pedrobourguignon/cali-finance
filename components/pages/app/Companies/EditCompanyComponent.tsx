@@ -10,7 +10,7 @@ import {
 } from '@chakra-ui/react';
 import { useCompanies, usePicasso } from 'hooks';
 import { Control, FieldErrorsImpl, Controller } from 'react-hook-form';
-import { ICreateCompany, ICompany } from 'types';
+import { ICreateCompany, IMockCompany } from 'types';
 import { Select } from 'chakra-react-select';
 import { BsQuestionCircle } from 'react-icons/bs';
 import useTranslation from 'next-translate/useTranslation';
@@ -44,7 +44,7 @@ interface IEditCompanyComponent {
 			};
 		}>
 	>;
-	company: ICompany;
+	company: IMockCompany;
 }
 
 interface INetworkSelect {
@@ -81,19 +81,20 @@ export const EditCompanyComponent: React.FC<IEditCompanyComponent> = ({
 		description,
 		type,
 		selectedNetwork,
-		logo,
+		picture,
 		socialMedias,
 	} = company;
 	const theme = usePicasso();
 	const { t: translate } = useTranslation('create-company');
-	const { selectedCompanyLogo, setEditedInfo, editedInfo } = useCompanies();
+	const { setEditedInfo, editedInfo, selectedCompany } = useCompanies();
 	const { data: session } = useSession();
 
 	useEffect(() => {
 		setEditedInfo({
 			name,
 			email,
-			logo,
+
+			picture,
 			description,
 			type,
 			selectedNetwork,
@@ -392,7 +393,7 @@ export const EditCompanyComponent: React.FC<IEditCompanyComponent> = ({
 						py="2.5"
 						display={{ md: 'none', lg: 'flex' }}
 						disabled={
-							(editedInfo.logo === selectedCompanyLogo &&
+							(editedInfo.picture === selectedCompany.picture &&
 								editedInfo.name === name &&
 								editedInfo.email === email &&
 								editedInfo.description === description &&
