@@ -50,8 +50,6 @@ interface ICompanysContext {
 	socialMediasData: ISocialMedia[];
 	setSocialMediasData: Dispatch<SetStateAction<ISocialMedia[]>>;
 	getCompanyById: (id: number) => Promise<ICompany>;
-	createdCompanyPicture: string;
-	setCreatedCompanyPicture: Dispatch<SetStateAction<string>>;
 	getAllCompanyEmployees: (id: number) => Promise<IEmployee[]>;
 	addEmployeeToTeam: (employee: INewEmployee) => Promise<void>;
 	addEmployeeCsv: (
@@ -376,8 +374,6 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 			socialMediasData,
 			setSocialMediasData,
 			getCompanyById,
-			createdCompanyPicture,
-			setCreatedCompanyPicture,
 			getAllCompanyEmployees,
 			addEmployeeToTeam,
 			addEmployeeCsv,
