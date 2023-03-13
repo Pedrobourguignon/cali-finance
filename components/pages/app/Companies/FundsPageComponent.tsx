@@ -70,7 +70,7 @@ export const FundsPageComponent = () => {
 				direction="column"
 				align="start"
 			>
-				<CompaniesHeader company={selectedCompany} />
+				<CompaniesHeader />
 			</Flex>
 			<Flex color={theme.text.primary} py="12" direction="column" gap="10">
 				<Flex direction="column" gap="4">
