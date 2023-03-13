@@ -114,7 +114,7 @@ export const AddEmployee: React.FC<IAddEmployee> = ({
 					{
 						name: 'Azeitona',
 						wallet: newEmployeeData.walletAddress,
-						photo: '/images/avatar.png',
+						picture: '/images/avatar.png',
 						amount: newEmployeeData.amount,
 						coin: 'USDT',
 					},
@@ -126,7 +126,7 @@ export const AddEmployee: React.FC<IAddEmployee> = ({
 					{
 						name: 'Azeitona',
 						wallet: newEmployeeData.walletAddress,
-						photo: '/images/avatar.png',
+						picture: '/images/avatar.png',
 						amount: newEmployeeData.amount,
 						coin: 'USDT',
 					},
@@ -334,7 +334,7 @@ export const AddEmployee: React.FC<IAddEmployee> = ({
 									gap="3"
 									borderRadius="sm"
 									onClick={() => handleAddEmployee}
-									disabled={
+									isDisabled={
 										!addedEmployeeData.walletAddress ||
 										!addedEmployeeData.amount
 									}

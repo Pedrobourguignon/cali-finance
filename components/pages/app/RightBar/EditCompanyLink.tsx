@@ -15,14 +15,15 @@ import { handleLogoImage } from 'utils';
 
 interface ICompanyLogo {
 	company: ICompany | undefined;
+	logo: string | undefined;
 }
 
-const CompanyLogo: React.FC<ICompanyLogo> = ({ company }) => {
+const CompanyLogo: React.FC<ICompanyLogo> = ({ company, logo }) => {
 	const theme = usePicasso();
 	console.log(company?.logo);
 
-	if (company?.logo) {
-		return <Img src={company?.logo} boxSize="20" borderRadius="base" />;
+	if (logo) {
+		return <Img src={logo} boxSize="20" borderRadius="base" />;
 	}
 	if (company?.name)
 		return (
@@ -43,11 +44,17 @@ const CompanyLogo: React.FC<ICompanyLogo> = ({ company }) => {
 
 export const EditCompanyLink: React.FC<{
 	company: ICompany | undefined;
+	logo: string | undefined;
 	handleEditedPicture: (picture: string) => void;
 	setEditedSocialLinksInputValue: Dispatch<
 		SetStateAction<ISociaLinksInputValue>
 	>;
-}> = ({ company, setEditedSocialLinksInputValue, handleEditedPicture }) => {
+}> = ({
+	company,
+	setEditedSocialLinksInputValue,
+	handleEditedPicture,
+	logo,
+}) => {
 	const theme = usePicasso();
 	const { editedInfo } = useCompanies();
 	const { t: translate } = useTranslation('create-company');
@@ -101,7 +108,7 @@ export const EditCompanyLink: React.FC<{
 				zIndex="docked"
 			>
 				<Flex direction="column" align="center" gap="4" w="100%">
-					<CompanyLogo company={company} />
+					<CompanyLogo company={company} logo={logo} />
 					<ImageUploader sendImage={handleEditedPicture} />
 				</Flex>
 				<Flex w="100%">

@@ -25,6 +25,7 @@ export const BlackButton: React.FC<IBlackButton> = ({
 			isDisabled={!session || isDisabled}
 			_active={{}}
 			_focus={{}}
+			_disabled={{ opacity: '50%', cursor: 'not-allowed' }}
 			{...rest}
 		>
 			{children}

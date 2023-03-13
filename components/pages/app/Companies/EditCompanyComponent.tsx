@@ -79,19 +79,10 @@ export const EditCompanyComponent: React.FC<IEditCompanyComponent> = ({
 	const { data: session } = useSession();
 
 	useEffect(() => {
-		setEditedInfo({
-			name: company?.name,
-			contactEmail: company?.contactEmail,
-			type: company?.type,
-			network: company?.network,
-			description: company?.description,
-			logo: company?.logo,
-			color: company?.color,
-			isPublic: company?.isPublic,
-			socialMedia: company?.socialMedia,
-			totalFundsUsd: company?.totalFundsUsd,
-		});
+		setEditedInfo(company!);
 	}, [company]);
+
+	console.log(company?.logo);
 
 	const companiesType = [
 		{ value: 'DAO' },
@@ -363,13 +354,13 @@ export const EditCompanyComponent: React.FC<IEditCompanyComponent> = ({
 						py="2.5"
 						display={{ md: 'none', lg: 'flex' }}
 						isDisabled={
-							(editedInfo.logo === company?.logo &&
-								editedInfo.logo === editedCompanyPicture &&
-								editedInfo.name === company?.name &&
-								editedInfo.contactEmail === company?.contactEmail &&
-								editedInfo.description === company?.description &&
-								editedInfo.type === company?.type &&
-								editedInfo.network === selectedNetwork.id) ||
+							(editedInfo?.logo === company?.logo &&
+								editedInfo?.logo === editedCompanyPicture &&
+								editedInfo?.name === company?.name &&
+								editedInfo?.contactEmail === company?.contactEmail &&
+								editedInfo?.description === company?.description &&
+								editedInfo?.type === company?.type &&
+								editedInfo?.network === selectedNetwork.id) ||
 							!session
 						}
 						_disabled={{ opacity: '50%', cursor: 'not-allowed' }}
@@ -408,7 +399,6 @@ export const EditCompanyComponent: React.FC<IEditCompanyComponent> = ({
 					</Flex>
 					<Menu>
 						<MenuButton
-							defaultValue="dasds"
 							pl="3"
 							w={{ md: '11.438rem' }}
 							border="1px solid black"

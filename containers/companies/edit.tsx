@@ -124,6 +124,7 @@ export const EditCompany = () => {
 					<AppLayout
 						right={
 							<EditCompanyLink
+								logo={editedCompanyPicture}
 								setEditedSocialLinksInputValue={setEditedSocialLinksInputValue}
 								company={companyToBeEdited}
 								handleEditedPicture={handleEditedPicture}
