@@ -8,6 +8,8 @@ import {
 	useDisclosure,
 	useToast,
 	useClipboard,
+	SkeletonCircle,
+	Skeleton,
 } from '@chakra-ui/react';
 import { MdContentCopy } from 'react-icons/md';
 import { IEmployee } from 'types';
@@ -51,7 +53,14 @@ export const EmployeeData: React.FC<IEmployeeData> = ({
 		>
 			<EditEmployee isOpen={isOpen} onClose={onClose} employee={employee} />
 			<Flex justify="center" align="center" gap="3">
-				<Img src={employee.photo} boxSize="6" />
+				<Img
+					src={
+						employee.picture === 'no-picture.png'
+							? '/images/editImage.png'
+							: employee.picture
+					}
+					boxSize="6"
+				/>
 				<Flex direction="column" justifyItems="center">
 					<Text fontSize="sm">{employee.name}</Text>
 					<Flex align="center">
@@ -94,10 +103,17 @@ export const EmployeeData: React.FC<IEmployeeData> = ({
 				)}
 			</Flex>
 			<Flex direction="column" align="end">
-				<Flex gap="1" fontSize="xs">
-					<Text>{employee.amount.toLocaleString('en-US')}</Text>
-					<Text>{employee.coin}</Text>
-				</Flex>
+				{employee.amount ? (
+					<Flex gap="1" fontSize="xs">
+						<Text>{employee.amount.toLocaleString('en-US')}</Text>
+						<Text>{employee.coin}</Text>
+					</Flex>
+				) : (
+					<Flex gap="1">
+						<Skeleton width="16" height="3" />
+						<Skeleton width="8" height="3" />
+					</Flex>
+				)}
 				<Button
 					color="gray.500"
 					fontSize="xs"

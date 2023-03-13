@@ -20,6 +20,7 @@ import { historyNotifications } from 'components';
 import { mainClient, navigationPaths } from 'utils';
 import { ICompany } from 'types/interfaces/main-server/ICompany';
 import router from 'next/router';
+import { useQuery } from 'react-query';
 
 interface ICompanysContext {
 	companies: IMockCompany[];
@@ -45,8 +46,10 @@ interface ICompanysContext {
 	createCompany: (company: ICompany) => Promise<void>;
 	socialMediasData: ISocialMedia[];
 	setSocialMediasData: Dispatch<SetStateAction<ISocialMedia[]>>;
+	getCompanyById: (id: number) => Promise<ICompany>;
 	createdCompanyPicture: string;
 	setCreatedCompanyPicture: Dispatch<SetStateAction<string>>;
+	getAllCompanyEmployees: (id: number) => Promise<IEmployee[]>;
 }
 
 export const CompaniesContext = createContext({} as ICompanysContext);
@@ -128,7 +131,7 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 		{
 			name: 'Kim Kardashian',
 			wallet: '0x7E48CA2BD05EC61C2FA83CF34B066A8FF36B4CFE',
-			photo: '/images/avatar.png',
+			picture: '/images/avatar.png',
 			amount: 10000,
 			coin: 'USDT',
 			team: 'General',
@@ -136,7 +139,7 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 		{
 			name: 'Kylie Jenner',
 			wallet: '0x7E48CA2BD05EC61C2FA83CF34B066A8FF36Z9EXD',
-			photo: '/images/avatar.png',
+			picture: '/images/avatar.png',
 			amount: 1000,
 			coin: 'USDT',
 			team: 'Marketing',
@@ -144,7 +147,7 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 		{
 			name: 'Kloe Kardashian',
 			wallet: '0x7E48CA2BD05EC61C2FA83CF34B066A8FF36C3QER',
-			photo: '/images/avatar.png',
+			picture: '/images/avatar.png',
 			amount: 800,
 			coin: 'USDT',
 			team: 'Finance',
@@ -152,7 +155,7 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 		{
 			name: 'Kloe Kardashian',
 			wallet: '0x7E48CA2BD05EC61C2FA83CF34B066A8FF36C3QER',
-			photo: '/images/avatar.png',
+			picture: '/images/avatar.png',
 			amount: 800,
 			coin: 'USDT',
 			team: 'Finance',
@@ -160,7 +163,7 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 		{
 			name: 'Kloe Kardashian',
 			wallet: '0x7E48CA2BD05EC61C2FA83CF34B066A8FF36C3QER',
-			photo: '/images/avatar.png',
+			picture: '/images/avatar.png',
 			amount: 8030,
 			coin: 'USDT',
 			team: 'Finance',
@@ -293,7 +296,10 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 		showMissingFundsWarning();
 	}, []);
 
-	const [createdCompanyPicture, setCreatedCompanyPicture] = useState('');
+	const getCompanyById = async (id: number) => {
+		const response = await mainClient.get(`/company/${id}`);
+		return response.data;
+	};
 
 	const createCompany = async (company: ICompany) => {
 		await mainClient
@@ -301,8 +307,15 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 				company,
 			})
 			.then(id =>
-				router.push(navigationPaths.dashboard.companies.overview(id.data.id))
+				router.push(
+					navigationPaths.dashboard.companies.overview(id.data.id.toString())
+				)
 			);
+	};
+
+	const getAllCompanyEmployees = async (id: number) => {
+		const response = await mainClient.get(`/company/${id}/users`);
+		return response.data;
 	};
 
 	const contextStates = useMemo(
@@ -330,8 +343,10 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 			createCompany,
 			socialMediasData,
 			setSocialMediasData,
+			getCompanyById,
 			createdCompanyPicture,
 			setCreatedCompanyPicture,
+			getAllCompanyEmployees,
 		}),
 		[
 			selectedCompany,
@@ -356,8 +371,6 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 			setFilteredNotifications,
 			socialMediasData,
 			setSocialMediasData,
-			createdCompanyPicture,
-			setCreatedCompanyPicture,
 		]
 	);
 	return (
