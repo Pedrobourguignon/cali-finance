@@ -57,7 +57,9 @@ export const CreateCompanyContainer = () => {
 
 	const { mutate } = useMutation(
 		(createdCompanyData: ICompany) => createCompany(createdCompanyData),
-		{ onSuccess: () => console.log('Done') }
+		{
+			onSuccess: () => console.log('done'),
+		}
 	);
 
 	const handleNewPicture = (picture: string) => {
