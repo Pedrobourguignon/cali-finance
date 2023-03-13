@@ -11,13 +11,13 @@ import useTranslation from 'next-translate/useTranslation';
 import React from 'react';
 import { handleLogoImage, navigationPaths } from 'utils';
 import NextLink from 'next/link';
-import { ICompany } from 'types/interfaces/main-server/ICompany';
+import { GetUserCompaniesRes } from 'types/interfaces/main-server/ICompany';
 import { WithdrawModal } from 'components/Modals';
 
 interface ICompanyCard {
-	companie: ICompany;
+	companie: GetUserCompaniesRes;
 	members: number;
-	userCompanies: ICompany[];
+	userCompanies: GetUserCompaniesRes[];
 }
 
 export const CompanyCard: React.FC<ICompanyCard> = ({
@@ -60,9 +60,8 @@ export const CompanyCard: React.FC<ICompanyCard> = ({
 							justify="center"
 							fontSize="xs"
 							fontWeight="bold"
-							bg={theme.bg.white2}
 						>
-							{handleLogoImage(companie.name!)}
+							<Text whiteSpace="nowrap">{handleLogoImage(companie.name!)}</Text>
 						</Flex>
 					)}
 					<Text fontSize={{ md: 'xs', xl: 'md' }} fontWeight="bold">
@@ -76,11 +75,11 @@ export const CompanyCard: React.FC<ICompanyCard> = ({
 								? translate('funds')
 								: translate('availableToWithdraw')}
 						</Text>
-						{!companie.funds ? (
+						{!companie.revenue ? (
 							<Skeleton w="8" h="4" />
 						) : (
 							<Text fontSize={{ md: 'xs', xl: 'sm' }}>
-								${companie.funds!.toLocaleString('en-US')}
+								${companie.revenue!.toLocaleString('en-US')}
 							</Text>
 						)}
 					</Flex>

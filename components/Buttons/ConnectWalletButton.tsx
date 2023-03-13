@@ -18,9 +18,10 @@ export const ConnectWalletButton = () => {
 	const shouldDisplay = isConnected === true ? 'none' : 'flex';
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const { walletData, setWalletData } = useProfile();
+	const { icon, name } = walletData;
 	const { getAuthorization } = useAuth();
 	const { connect } = useConnect({ connector: new InjectedConnector() });
-	const { icon, name } = walletData;
+
 	const {
 		isOpen: isOpenLoading,
 		onClose: onCloseLoading,

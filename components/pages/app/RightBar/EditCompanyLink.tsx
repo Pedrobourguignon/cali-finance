@@ -4,16 +4,21 @@ import { useCompanies, usePicasso } from 'hooks';
 import { useSession } from 'next-auth/react';
 import useTranslation from 'next-translate/useTranslation';
 import { Control } from 'react-hook-form';
-import { ICreateCompany, IMockCompany, ISocialMediaInput } from 'types';
-import { handleLogoImage } from 'utils';
+import { IMockCompany, ICreateCompany, ISocialMediaInput } from 'types';
+import { ICompany } from 'types/interfaces/main-server/ICompany';
+import { chainList, handleLogoImage } from 'utils';
 
 const CompanyLogo = () => {
-	const { selectedCompany } = useCompanies();
-
 	const theme = usePicasso();
+	const selectedCompany = {
+		picture: 'no-logo.png',
+		name: 'fazuele',
+	};
 
-	if (selectedCompany.logo) {
-		return <Img src={selectedCompany.logo} boxSize="20" borderRadius="base" />;
+	if (selectedCompany.picture) {
+		return (
+			<Img src={selectedCompany.picture} boxSize="20" borderRadius="base" />
+		);
 	}
 	if (selectedCompany.name)
 		return (
@@ -34,50 +39,54 @@ const CompanyLogo = () => {
 
 export const EditCompanyLink: React.FC<{
 	control: Control<ICreateCompany>;
-	company: IMockCompany;
+	company: ICompany;
 }> = ({ control, company }) => {
-	const { name, email, description, type, selectedNetwork } = company;
+	const { name, contactEmail, description, type, network } = company;
 	const theme = usePicasso();
-	const { selectedCompany, editedInfo, selectedCompanyLogo } = useCompanies();
+	const { editedInfo } = useCompanies();
 	const { t: translate } = useTranslation('create-company');
 	const { data: session } = useSession();
+	const selectedCompany = {
+		picture: 'no-logo.png',
+		name: 'fazuele',
+	};
 
-	const socialLinks: ISocialMediaInput[] = [
-		{
-			name: 'socialMedias.website',
-			imgSrc: '/icons/globe.svg',
-			placeHolder: 'website.io',
-			link: selectedCompany.socialMedias.website,
-			defaultValue: selectedCompany.socialMedias.website,
-		},
-		{
-			name: 'socialMedias.instagram',
-			imgSrc: '/icons/instagram.svg',
-			placeHolder: 'instagram.com/company',
-			link: selectedCompany.socialMedias.instagram,
-			defaultValue: selectedCompany.socialMedias.instagram,
-		},
-		{
-			name: 'socialMedias.twitter',
-			imgSrc: '/icons/twitter.svg',
-			placeHolder: 'twitter.com/company',
-			link: selectedCompany.socialMedias.twitter,
-			defaultValue: selectedCompany.socialMedias.twitter,
-		},
-		{
-			name: 'socialMedias.telegram',
-			imgSrc: '/icons/telegram.svg',
-			placeHolder: 't.me/company',
-			link: selectedCompany.socialMedias.telegram,
-			defaultValue: selectedCompany.socialMedias.telegram,
-		},
-		{
-			name: 'socialMedias.medium',
-			imgSrc: '/icons/m-letter.svg',
-			placeHolder: 'Medium',
-			link: '',
-		},
-	];
+	// const socialLinks: ISocialMediaInput[] = [
+	// 	{
+	// 		name: 'socialMedias.website',
+	// 		imgSrc: '/icons/globe.svg',
+	// 		placeHolder: 'website.io',
+	// 		link: selectedCompany.socialMedias.website,
+	// 		defaultValue: selectedCompany.socialMedias.website,
+	// 	},
+	// 	{
+	// 		name: 'socialMedias.instagram',
+	// 		imgSrc: '/icons/instagram.svg',
+	// 		placeHolder: 'instagram.com/company',
+	// 		link: selectedCompany.socialMedias.instagram,
+	// 		defaultValue: selectedCompany.socialMedias.instagram,
+	// 	},
+	// 	{
+	// 		name: 'socialMedias.twitter',
+	// 		imgSrc: '/icons/twitter.svg',
+	// 		placeHolder: 'twitter.com/company',
+	// 		link: selectedCompany.socialMedias.twitter,
+	// 		defaultValue: selectedCompany.socialMedias.twitter,
+	// 	},
+	// 	{
+	// 		name: 'socialMedias.telegram',
+	// 		imgSrc: '/icons/telegram.svg',
+	// 		placeHolder: 't.me/company',
+	// 		link: selectedCompany.socialMedias.telegram,
+	// 		defaultValue: selectedCompany.socialMedias.telegram,
+	// 	},
+	// 	{
+	// 		name: 'socialMedias.medium',
+	// 		imgSrc: '/icons/m-letter.svg',
+	// 		placeHolder: 'Medium',
+	// 		link: '',
+	// 	},
+	// ];
 
 	return (
 		<Flex direction="column" w="100%" align="center" gap="8">
@@ -95,18 +104,19 @@ export const EditCompanyLink: React.FC<{
 			>
 				<Flex direction="column" align="center" gap="4" w="100%">
 					<CompanyLogo />
-					<ImageUploader />
+					{/* <ImageUploader /> */}
 				</Flex>
 				<Flex w="100%">
 					<Flex direction="column" gap="4" w="100%">
-						{socialLinks.map((socialLink, index) => (
+						{/* {socialLinks.map((socialLink, index) => (
 							<SocialMediaInput
+
 								socialLink={socialLink}
 								key={+index}
-								control={control}
+								// control={control}
 								defaultValue={socialLink.defaultValue}
 							/>
-						))}
+						))} */}
 					</Flex>
 				</Flex>
 			</Flex>
@@ -119,12 +129,12 @@ export const EditCompanyLink: React.FC<{
 				py="2.5"
 				display={{ md: 'flex', lg: 'none' }}
 				disabled={
-					(editedInfo.logo === selectedCompanyLogo &&
+					(editedInfo.logo === selectedCompany.picture &&
 						editedInfo.name === name &&
-						editedInfo.email === email &&
+						editedInfo.contactEmail === contactEmail &&
 						editedInfo.description === description &&
 						editedInfo.type === type &&
-						editedInfo.selectedNetwork === selectedNetwork) ||
+						editedInfo.network === network) ||
 					!session
 				}
 			>

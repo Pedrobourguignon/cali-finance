@@ -3,14 +3,14 @@ import { OffsetButton } from 'components';
 import { usePicasso } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
 
-interface ICompaniesDashboard {
-	companiesCount: number;
-	teams: string;
-	members: string;
-	totalFunds: string;
+interface IMockCompanyDashboard {
+	companiesCount: number | undefined;
+	teams: number;
+	members: number;
+	totalFunds: number;
 }
 
-export const CompaniesDashboard: React.FC<ICompaniesDashboard> = ({
+export const CompaniesDashboard: React.FC<IMockCompanyDashboard> = ({
 	members,
 	companiesCount,
 	teams,
@@ -57,7 +57,7 @@ export const CompaniesDashboard: React.FC<ICompaniesDashboard> = ({
 					fontWeight="medium"
 					minW={{ md: '20', lg: '24' }}
 				>
-					${totalFunds}
+					${totalFunds.toLocaleString('EN-us')}
 				</Text>
 				<Text fontSize={{ md: 'xs', xl: 'sm' }} fontWeight="normal">
 					{translate('totalFunds')}

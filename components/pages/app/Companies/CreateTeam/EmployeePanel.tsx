@@ -25,7 +25,7 @@ export const EmployeePanel: React.FC<IEmployeePanel> = ({
 			<AddEmployee
 				isOpen={isOpen}
 				onClose={onClose}
-				company={companyName}
+				// company={companyName}
 				setEmployees={setEmployees}
 			/>
 			<Flex justify="space-between" w="full" align="center">
@@ -60,7 +60,7 @@ export const EmployeePanel: React.FC<IEmployeePanel> = ({
 						{translate('amount')}
 					</Text>
 				</Flex>
-				<NoEmployeeSkeleton display={employees.length > 0 ? 'none' : 'flex'} />
+				<NoEmployeeSkeleton />
 				<Flex direction="column" gap="2">
 					{employees.slice(0, 3).map((employee, index) => (
 						<EmployeeData key={+index} employee={employee} display="none" />

@@ -2,6 +2,6 @@ import { ISocialMedia } from 'types';
 
 export interface INewCompany {
 	name: string;
-	logo: string;
+	picture: string;
 	socialMedias: ISocialMedia;
 }

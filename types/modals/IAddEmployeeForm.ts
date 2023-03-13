@@ -1,4 +1,4 @@
 export interface IAddEmployeeForm {
-	walletAddress: string;
+	walletAddress: `0x${string}` | undefined;
 	amount: number;
 }

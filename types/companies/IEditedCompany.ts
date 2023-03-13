@@ -6,6 +6,6 @@ export interface IEditedCompany {
 	email: string;
 	logo: string;
 	description?: string;
-	socialMedias: ISocialMedia;
+	socialMedia: ISocialMedia;
 	selectedNetwork: string;
 }

@@ -10,6 +10,7 @@ interface IBlackButton extends ButtonProps {
 export const BlackButton: React.FC<IBlackButton> = ({
 	children,
 	disabled,
+	isDisabled,
 	...rest
 }) => {
 	const theme = usePicasso();
@@ -21,8 +22,10 @@ export const BlackButton: React.FC<IBlackButton> = ({
 			h="max-content"
 			_hover={{ opacity: '80%' }}
 			disabled={!session || disabled}
+			isDisabled={!session || isDisabled}
 			_active={{}}
 			_focus={{}}
+			_disabled={{ opacity: '50%', cursor: 'not-allowed' }}
 			{...rest}
 		>
 			{children}

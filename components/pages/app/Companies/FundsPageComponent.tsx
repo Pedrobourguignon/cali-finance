@@ -1,5 +1,5 @@
 import { Flex, Text } from '@chakra-ui/react';
-import { useCompanies, usePicasso } from 'hooks';
+import { usePicasso } from 'hooks';
 import { AppLayout } from 'layouts';
 import {
 	CoinCard,
@@ -58,7 +58,6 @@ const coinCard: ICoin[] = [
 export const FundsPageComponent = () => {
 	const theme = usePicasso();
 	const { t: translate } = useTranslation('company-overall');
-	const { selectedCompany } = useCompanies();
 
 	return (
 		<AppLayout right={<DepositOrWithdrawBanner />}>
@@ -70,7 +69,7 @@ export const FundsPageComponent = () => {
 				direction="column"
 				align="start"
 			>
-				<CompaniesHeader company={selectedCompany} />
+				<CompaniesHeader />
 			</Flex>
 			<Flex color={theme.text.primary} py="12" direction="column" gap="10">
 				<Flex direction="column" gap="4">

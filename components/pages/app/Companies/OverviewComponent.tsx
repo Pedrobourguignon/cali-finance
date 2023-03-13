@@ -19,11 +19,14 @@ export const OverviewComponent = () => {
 				direction="column"
 				align="start"
 			>
-				<CompaniesHeader company={selectedCompany} />
+				<CompaniesHeader />
 			</Flex>
 			<Flex py="6" direction="column" gap="9">
 				<Flex pt="6">
-					<EmployeesDashboard isGeneral={false} />
+					<EmployeesDashboard
+						isGeneral={false}
+						selectedCompany={selectedCompany}
+					/>
 				</Flex>
 				<RecentActivities />
 			</Flex>

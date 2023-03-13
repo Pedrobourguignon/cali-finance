@@ -2,12 +2,19 @@ import { Box, Flex, Text } from '@chakra-ui/react';
 import Slider from 'react-slick';
 import React, { useState, useRef, useEffect } from 'react';
 import { CompanyCard, CompanyCardSkeleton, Paginator } from 'components';
-import { useCompanies, usePicasso } from 'hooks';
+import { usePicasso } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
-import { useQuery } from 'react-query';
 import { ICompany } from 'types/interfaces/main-server/ICompany';
 
-export const CompaniesList = () => {
+interface ICompaniesList {
+	companies: ICompany[] | undefined;
+	isLoading: boolean;
+}
+
+export const CompaniesList: React.FC<ICompaniesList> = ({
+	companies,
+	isLoading,
+}) => {
 	const ref = useRef<HTMLDivElement>(null);
 	const { t: translate } = useTranslation('dashboard');
 	const [slider, setSlider] = React.useState<Slider | null>(null);
@@ -15,14 +22,6 @@ export const CompaniesList = () => {
 	const [fetchCompanies, setFetchCompanies] = useState<ICompany[]>([]);
 
 	const theme = usePicasso();
-
-	const { getAllUserCompanies } = useCompanies();
-
-	const {
-		data: companies,
-		isLoading: isLoadingCompanies,
-		error,
-	} = useQuery('all-companies', getAllUserCompanies);
 
 	useEffect(() => {
 		setFetchCompanies(companies!);
@@ -66,7 +65,7 @@ export const CompaniesList = () => {
 						arrows={false}
 						className="slider"
 					>
-						{isLoadingCompanies && <CompanyCardSkeleton />}
+						{isLoading && <CompanyCardSkeleton />}
 						{companies?.map((companie, index) => (
 							<CompanyCard
 								key={+index}

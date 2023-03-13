@@ -6,7 +6,7 @@ export interface IMockCompany {
 	funds: number;
 	email: string;
 	members: number;
-	logo: string;
+	picture: string;
 	description?: string;
 	socialMedias: ISocialMedia;
 	teams: [string];

@@ -4,31 +4,43 @@ import {
 	CreateCompanyCard,
 	RecentActivities,
 	CompaniesDashboard,
-	YourCompanies,
 	CompaniesRightBar,
 	CompaniesList,
 } from 'components';
 import { AppLayout } from 'layouts';
 import { useCompanies } from 'hooks';
+import { useQuery } from 'react-query';
 
 export const CompaniesConnected: React.FC = () => {
-	const { companies, activities, totalFunds, totalMembers, totalTeams } =
-		useCompanies();
+	const { activities, getAllUserCompanies } = useCompanies();
+
+	const {
+		data: companies,
+		isLoading: isLoadingCompanies,
+		error,
+	} = useQuery('all-companies', getAllUserCompanies);
 
 	return (
 		<AppLayout right={<CompaniesRightBar />}>
-			<Flex direction="column" gap="2.75rem" pt="6" w="100%">
+			<Flex direction="column" pt="6" w="100%">
 				<Flex direction="column">
 					<DashboardHeader />
 					<CompaniesDashboard
-						members={totalMembers}
-						companiesCount={companies.length}
-						teams={totalTeams}
-						totalFunds={totalFunds}
+						members={17}
+						companiesCount={companies?.length}
+						teams={1}
+						totalFunds={67900}
 					/>
 				</Flex>
 				<Flex w="full" flexDir="column" gap="8">
-					{companies.length ? <CompaniesList /> : <CreateCompanyCard />}
+					{companies?.length ? (
+						<CompaniesList
+							companies={companies}
+							isLoading={isLoadingCompanies}
+						/>
+					) : (
+						<CreateCompanyCard />
+					)}
 					{activities && <RecentActivities />}
 				</Flex>
 			</Flex>

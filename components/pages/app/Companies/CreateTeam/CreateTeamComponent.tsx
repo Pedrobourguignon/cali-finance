@@ -36,7 +36,6 @@ export const CreateTeamComponent: React.FC<ICreateTeamComponent> = ({
 	const [newTeamPicture, setNewTeamPicture] = useState('');
 	const theme = usePicasso();
 	const { isOpen, onOpen, onClose } = useDisclosure();
-	const { selectedCompany } = useCompanies();
 	const {
 		register,
 		handleSubmit,
@@ -148,7 +147,7 @@ export const CreateTeamComponent: React.FC<ICreateTeamComponent> = ({
 							/>
 						</Flex>
 						<EmployeePanel
-							companyName={selectedCompany.name}
+							// companyName={selectedCompany.name}
 							setEmployees={setEmployees}
 							employees={employees}
 						/>

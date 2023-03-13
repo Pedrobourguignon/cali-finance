@@ -17,6 +17,8 @@ import useTranslation from 'next-translate/useTranslation';
 import { useEffect } from 'react';
 import { BlackButton, NetworkTooltip } from 'components';
 import { useSession } from 'next-auth/react';
+import { ICompany } from 'types/interfaces/main-server/ICompany';
+import { chainList } from 'utils';
 
 interface IEditCompanyComponent {
 	control: Control<ICreateCompany>;
@@ -44,7 +46,7 @@ interface IEditCompanyComponent {
 			};
 		}>
 	>;
-	company: IMockCompany;
+	company: ICompany;
 }
 
 interface INetworkSelect {
@@ -75,29 +77,22 @@ export const EditCompanyComponent: React.FC<IEditCompanyComponent> = ({
 	control,
 	company,
 }) => {
-	const {
-		name,
-		email,
-		description,
-		type,
-		selectedNetwork,
-		logo,
-		socialMedias,
-	} = company;
+	const { name, contactEmail, description, type, network, logo, socialMedia } =
+		company;
 	const theme = usePicasso();
 	const { t: translate } = useTranslation('create-company');
-	const { selectedCompanyLogo, setEditedInfo, editedInfo } = useCompanies();
+	const { setEditedInfo, editedInfo, selectedCompany } = useCompanies();
 	const { data: session } = useSession();
 
 	useEffect(() => {
 		setEditedInfo({
 			name,
-			email,
+			contactEmail,
 			logo,
 			description,
 			type,
-			selectedNetwork,
-			socialMedias,
+			network,
+			socialMedia,
 		});
 	}, []);
 
@@ -111,7 +106,7 @@ export const EditCompanyComponent: React.FC<IEditCompanyComponent> = ({
 		index => index.value === type
 	);
 	const indexOfCompanyNetwork = networksType.findIndex(
-		index => index.value === selectedNetwork
+		index => index.value === chainList(network!)
 	);
 
 	return (
@@ -262,12 +257,12 @@ export const EditCompanyComponent: React.FC<IEditCompanyComponent> = ({
 											{...field}
 											placeholder="Please select"
 											size="sm"
-											onChange={editedNetwork =>
-												setEditedInfo(prevState => ({
-													...prevState,
-													network: editedNetwork!.value,
-												}))
-											}
+											// onChange={editedNetwork =>
+											// 	setEditedInfo(prevState => ({
+											// 		...prevState,
+											// 		network: editedNetwork!.value,
+											// 	}))
+											// }
 											chakraStyles={{
 												placeholder: base => ({
 													...base,
@@ -300,10 +295,10 @@ export const EditCompanyComponent: React.FC<IEditCompanyComponent> = ({
 											defaultValue={networksType[indexOfCompanyNetwork]}
 											isDisabled={!session}
 											// eslint-disable-next-line react/no-unstable-nested-components
-											formatOptionLabel={network => (
+											formatOptionLabel={networks => (
 												<Flex gap="2" align="center">
-													<Img src={network.icon} boxSize="5" />
-													<Text>{network.label}</Text>
+													<Img src={networks.icon} boxSize="5" />
+													<Text>{networks.label}</Text>
 												</Flex>
 											)}
 										/>
@@ -333,7 +328,7 @@ export const EditCompanyComponent: React.FC<IEditCompanyComponent> = ({
 										borderRadius="base"
 										_hover={{}}
 										borderColor={theme.bg.primary}
-										defaultValue={email}
+										defaultValue={contactEmail}
 										disabled={!session}
 										onChange={editedEmail =>
 											setEditedInfo(prevState => ({
@@ -392,12 +387,12 @@ export const EditCompanyComponent: React.FC<IEditCompanyComponent> = ({
 						py="2.5"
 						display={{ md: 'none', lg: 'flex' }}
 						disabled={
-							(editedInfo.logo === selectedCompanyLogo &&
+							(editedInfo.logo === selectedCompany.logo &&
 								editedInfo.name === name &&
-								editedInfo.email === email &&
+								editedInfo.contactEmail === contactEmail &&
 								editedInfo.description === description &&
 								editedInfo.type === type &&
-								editedInfo.selectedNetwork === selectedNetwork) ||
+								editedInfo.network === network) ||
 							!session
 						}
 					>
@@ -441,16 +436,16 @@ export const EditCompanyComponent: React.FC<IEditCompanyComponent> = ({
 								{...field}
 								placeholder={translate('pleaseSelect')}
 								size="sm"
-								onChange={editedNetwork =>
-									setEditedInfo(prevState => ({
-										...prevState,
-										network: {
-											label: editedNetwork!.label,
-											value: editedNetwork!.value,
-											icon: editedNetwork!.icon,
-										},
-									}))
-								}
+								// onChange={editedNetwork =>
+								// 	setEditedInfo(prevState => ({
+								// 		...prevState,
+								// 		network: {
+								// 			label: editedNetwork!.label,
+								// 			value: editedNetwork!.value,
+								// 			icon: editedNetwork!.icon,
+								// 		},
+								// 	}))
+								// }
 								chakraStyles={{
 									placeholder: base => ({
 										...base,
@@ -481,10 +476,10 @@ export const EditCompanyComponent: React.FC<IEditCompanyComponent> = ({
 								defaultValue={networksType[indexOfCompanyNetwork]}
 								isDisabled={!session}
 								// eslint-disable-next-line react/no-unstable-nested-components
-								formatOptionLabel={network => (
+								formatOptionLabel={networks => (
 									<Flex gap="2" align="center">
-										<Img src={network.icon} boxSize="5" />
-										<Text>{network.label}</Text>
+										<Img src={networks.icon} boxSize="5" />
+										<Text>{networks.label}</Text>
 									</Flex>
 								)}
 							/>
