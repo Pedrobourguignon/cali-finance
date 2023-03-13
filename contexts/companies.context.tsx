@@ -20,6 +20,7 @@ import { historyNotifications } from 'components';
 import { mainClient, navigationPaths } from 'utils';
 import { ICompany } from 'types/interfaces/main-server/ICompany';
 import router from 'next/router';
+import { useQuery } from 'react-query';
 
 interface ICompanysContext {
 	companies: IMockCompany[];
@@ -47,6 +48,7 @@ interface ICompanysContext {
 	setSocialMediasData: Dispatch<SetStateAction<ISocialMedia[]>>;
 	createdCompanyPicture: string;
 	setCreatedCompanyPicture: Dispatch<SetStateAction<string>>;
+	getAllCompanyEmployees: (id: number) => Promise<IEmployee[]>;
 }
 
 export const CompaniesContext = createContext({} as ICompanysContext);
@@ -128,7 +130,7 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 		{
 			name: 'Kim Kardashian',
 			wallet: '0x7E48CA2BD05EC61C2FA83CF34B066A8FF36B4CFE',
-			photo: '/images/avatar.png',
+			picture: '/images/avatar.png',
 			amount: 10000,
 			coin: 'USDT',
 			team: 'General',
@@ -136,7 +138,7 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 		{
 			name: 'Kylie Jenner',
 			wallet: '0x7E48CA2BD05EC61C2FA83CF34B066A8FF36Z9EXD',
-			photo: '/images/avatar.png',
+			picture: '/images/avatar.png',
 			amount: 1000,
 			coin: 'USDT',
 			team: 'Marketing',
@@ -144,7 +146,7 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 		{
 			name: 'Kloe Kardashian',
 			wallet: '0x7E48CA2BD05EC61C2FA83CF34B066A8FF36C3QER',
-			photo: '/images/avatar.png',
+			picture: '/images/avatar.png',
 			amount: 800,
 			coin: 'USDT',
 			team: 'Finance',
@@ -152,7 +154,7 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 		{
 			name: 'Kloe Kardashian',
 			wallet: '0x7E48CA2BD05EC61C2FA83CF34B066A8FF36C3QER',
-			photo: '/images/avatar.png',
+			picture: '/images/avatar.png',
 			amount: 800,
 			coin: 'USDT',
 			team: 'Finance',
@@ -160,7 +162,7 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 		{
 			name: 'Kloe Kardashian',
 			wallet: '0x7E48CA2BD05EC61C2FA83CF34B066A8FF36C3QER',
-			photo: '/images/avatar.png',
+			picture: '/images/avatar.png',
 			amount: 8030,
 			coin: 'USDT',
 			team: 'Finance',
@@ -305,6 +307,11 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 			);
 	};
 
+	const getAllCompanyEmployees = async (id: number) => {
+		const response = await mainClient.get(`/company/${id}/users`);
+		return response.data;
+	};
+
 	const contextStates = useMemo(
 		() => ({
 			companies,
@@ -332,6 +339,7 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 			setSocialMediasData,
 			createdCompanyPicture,
 			setCreatedCompanyPicture,
+			getAllCompanyEmployees,
 		}),
 		[
 			selectedCompany,

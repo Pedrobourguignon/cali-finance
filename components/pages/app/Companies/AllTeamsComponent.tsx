@@ -13,7 +13,7 @@ const AllEmployees: IEmployee[] = [
 	{
 		name: 'Kim Kardashian',
 		wallet: '0x7E48CA2BD05EC61C2FA83CF34B066A8FF36B4CFE',
-		photo: '/images/avatar.png',
+		picture: '/images/avatar.png',
 		amount: 10.0,
 		coin: 'USDT',
 		team: 'General',
@@ -21,7 +21,7 @@ const AllEmployees: IEmployee[] = [
 	{
 		name: 'Kylie Jenner',
 		wallet: '0x7E48CA2BD05EC61C2FA83CF34B066A8FF36Z9EXD',
-		photo: '/images/avatar.png',
+		picture: '/images/avatar.png',
 		amount: 100.0,
 		coin: 'USDT',
 		team: 'Marketing',
@@ -29,7 +29,7 @@ const AllEmployees: IEmployee[] = [
 	{
 		name: 'Kloe Kardashian',
 		wallet: '0x7E48CA2BD05EC61C2FA83CF34B066A8FF36C3QER',
-		photo: '/images/avatar.png',
+		picture: '/images/avatar.png',
 		amount: 80.0,
 		coin: 'USDT',
 		team: 'Finance',
@@ -37,7 +37,7 @@ const AllEmployees: IEmployee[] = [
 	{
 		name: 'Kloe Kardashian',
 		wallet: '0x7E48CA2BD05EC61C2FA83CF34B066A8FF36C3QER',
-		photo: '/images/avatar.png',
+		picture: '/images/avatar.png',
 		amount: 80.0,
 		coin: 'USDT',
 		team: 'Finance',
@@ -45,7 +45,7 @@ const AllEmployees: IEmployee[] = [
 	{
 		name: 'Kloe Kardashian',
 		wallet: '0x7E48CA2BD05EC61C2FA83CF34B066A8FF36C3QER',
-		photo: '/images/avatar.png',
+		picture: '/images/avatar.png',
 		amount: 80.0,
 		coin: 'USDT',
 		team: 'Finance',
