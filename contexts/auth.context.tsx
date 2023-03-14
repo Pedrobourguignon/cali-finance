@@ -49,7 +49,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 					description: 'The signature was cancelled. Please try again.',
 					status: 'error',
 				});
-				await disconnectAsync();
 				return;
 			}
 			throw new Error(error);

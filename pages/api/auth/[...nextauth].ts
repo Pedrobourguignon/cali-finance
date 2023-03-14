@@ -13,12 +13,11 @@ export default async function auth(req: NextApiRequest, res: NextApiResponse) {
 				signature: {},
 			},
 			async authorize(credentials) {
-				if (!credentials?.signature && !credentials?.wallet) {
+				if (!credentials?.signature || !credentials?.wallet) {
 					throw new Error('User not connected');
 				}
 				try {
-					const wallet = credentials?.wallet;
-					const signature = await credentials?.signature;
+					const { signature, wallet } = credentials;
 					const { data } = await authClient.post(
 						AUTH_SERVICE_ROUTES.signature,
 						{

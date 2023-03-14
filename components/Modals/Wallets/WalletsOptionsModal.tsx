@@ -17,7 +17,7 @@ import { signIn } from 'next-auth/react';
 import useTranslation from 'next-translate/useTranslation';
 import { IWalletOptionsModal } from 'types';
 import { navigationPaths } from 'utils';
-import { useConnect, Connector } from 'wagmi';
+import { useConnect, Connector, useAccount } from 'wagmi';
 import NextLink from 'next/link';
 import { useEffect } from 'react';
 
@@ -35,6 +35,7 @@ export const WalletsOptionsModal: React.FC<IWalletOptionsModal> = ({
 }) => {
 	const { t: translate } = useTranslation('sidebar');
 	const { getNonce, getSignature } = useAuth();
+	const { isConnected, address } = useAccount();
 	const { connectors, connectAsync, status } = useConnect({
 		async onSuccess(data) {
 			const account = data?.account;
@@ -51,6 +52,7 @@ export const WalletsOptionsModal: React.FC<IWalletOptionsModal> = ({
 			}
 		},
 	});
+
 	const theme = usePicasso();
 
 	const onTriggerLoadingModal = async (wallet: IWallet) => {
@@ -58,7 +60,21 @@ export const WalletsOptionsModal: React.FC<IWalletOptionsModal> = ({
 		if (status !== 'success') {
 			setWalletData({ icon, name });
 			onClose();
-			await connectAsync({ connector });
+			if (!isConnected) {
+				await connectAsync({ connector });
+				return;
+			}
+			try {
+				const { nonce } = await getNonce(address);
+				const signature = await getSignature(nonce);
+				signIn('credentials', {
+					redirect: false,
+					wallet: address,
+					message: signature,
+				});
+			} catch (error: any) {
+				throw new Error(error);
+			}
 		}
 	};
 
