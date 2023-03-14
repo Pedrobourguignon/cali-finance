@@ -4,7 +4,8 @@ import { useCompanies, usePicasso } from 'hooks';
 import { useSession } from 'next-auth/react';
 import useTranslation from 'next-translate/useTranslation';
 import { Control } from 'react-hook-form';
-import { ICreateCompany, ICompany, ISocialMediaInput } from 'types';
+import { IMockCompany, ICreateCompany, ISocialMediaInput } from 'types';
+import { ICompany } from 'types/interfaces/main-server/ICompany';
 import { handleLogoImage } from 'utils';
 
 const CompanyLogo = () => {
@@ -12,8 +13,10 @@ const CompanyLogo = () => {
 
 	const theme = usePicasso();
 
-	if (selectedCompany.logo) {
-		return <Img src={selectedCompany.logo} boxSize="20" borderRadius="base" />;
+	if (selectedCompany.picture) {
+		return (
+			<Img src={selectedCompany.picture} boxSize="20" borderRadius="base" />
+		);
 	}
 	if (selectedCompany.name)
 		return (
@@ -34,11 +37,11 @@ const CompanyLogo = () => {
 
 export const EditCompanyLink: React.FC<{
 	control: Control<ICreateCompany>;
-	company: ICompany;
+	company: IMockCompany;
 }> = ({ control, company }) => {
 	const { name, email, description, type, selectedNetwork } = company;
 	const theme = usePicasso();
-	const { selectedCompany, editedInfo, selectedCompanyLogo } = useCompanies();
+	const { selectedCompany, editedInfo } = useCompanies();
 	const { t: translate } = useTranslation('create-company');
 	const { data: session } = useSession();
 
@@ -95,18 +98,19 @@ export const EditCompanyLink: React.FC<{
 			>
 				<Flex direction="column" align="center" gap="4" w="100%">
 					<CompanyLogo />
-					<ImageUploader />
+					{/* <ImageUploader /> */}
 				</Flex>
 				<Flex w="100%">
 					<Flex direction="column" gap="4" w="100%">
-						{socialLinks.map((socialLink, index) => (
+						{/* {socialLinks.map((socialLink, index) => (
 							<SocialMediaInput
+
 								socialLink={socialLink}
 								key={+index}
-								control={control}
+								// control={control}
 								defaultValue={socialLink.defaultValue}
 							/>
-						))}
+						))} */}
 					</Flex>
 				</Flex>
 			</Flex>
@@ -119,7 +123,7 @@ export const EditCompanyLink: React.FC<{
 				py="2.5"
 				display={{ md: 'flex', lg: 'none' }}
 				disabled={
-					(editedInfo.logo === selectedCompanyLogo &&
+					(editedInfo.picture === selectedCompany.picture &&
 						editedInfo.name === name &&
 						editedInfo.email === email &&
 						editedInfo.description === description &&

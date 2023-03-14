@@ -27,7 +27,7 @@ export const UploadCsv = () => {
 					gap="2.5"
 					width="full"
 					borderRadius="sm"
-					disabled={uploadedFileData.ext !== 'csv'}
+					isDisabled={uploadedFileData.ext !== 'csv'}
 				>
 					<Icon as={BsArrowUp} />
 					{translate('loadCsv')}

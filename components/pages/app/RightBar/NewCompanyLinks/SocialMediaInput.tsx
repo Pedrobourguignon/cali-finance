@@ -1,50 +1,58 @@
-import { Img, Input, InputGroup, InputLeftElement } from '@chakra-ui/react';
-import { ISocialMediaInput, ICreateCompany } from 'types';
-import { Controller, Control } from 'react-hook-form';
+import {
+	Flex,
+	Img,
+	Input,
+	InputGroup,
+	InputLeftElement,
+} from '@chakra-ui/react';
+import { ISociaLinksInputValue, ISocialMediaInput } from 'types';
 import { useSession } from 'next-auth/react';
+import { Dispatch, SetStateAction } from 'react';
 
 interface ISocialLink {
 	socialLink: ISocialMediaInput;
-	control: Control<ICreateCompany>;
 	defaultValue?: string;
+	setSocialLinksInputValue: Dispatch<SetStateAction<ISociaLinksInputValue>>;
 }
+
 export const SocialMediaInput: React.FC<ISocialLink> = ({
 	socialLink,
-	control,
 	defaultValue,
+	setSocialLinksInputValue,
 }) => {
 	const { data: session } = useSession();
+
 	return (
-		<Controller
-			render={({ field }) => (
-				<InputGroup {...field} bg="whiteAlpha.200" h="8">
-					<InputLeftElement
-						h="8"
-						pointerEvents="none"
-						borderRightColor="whiteAlpha.200"
-						borderRightWidth="0.1rem"
-					>
-						<Img src={socialLink.imgSrc} boxSize="6" />
-					</InputLeftElement>
-					<Input
-						h="8"
-						placeholder={socialLink.placeHolder}
-						_placeholder={{
-							color: 'whiteAlpha.300	',
-							fontSize: 'sm',
-						}}
-						fontSize="sm"
-						bgColor="whiteAlpha.200"
-						paddingInline="12"
-						_hover={{}}
-						borderColor="rgba(255, 255, 255, 0.08)"
-						defaultValue={defaultValue}
-						disabled={!session}
-					/>
-				</InputGroup>
-			)}
-			name={socialLink.name}
-			control={control}
-		/>
+		<InputGroup bg="whiteAlpha.200" h="8">
+			<InputLeftElement
+				h="8"
+				pointerEvents="none"
+				borderRightColor="whiteAlpha.200"
+				borderRightWidth="0.1rem"
+			>
+				<Img src={socialLink.imgSrc} boxSize="6" />
+			</InputLeftElement>
+			<Input
+				h="8"
+				placeholder={socialLink.placeHolder}
+				_placeholder={{
+					color: 'whiteAlpha.300	',
+					fontSize: 'sm',
+				}}
+				fontSize="sm"
+				bgColor="whiteAlpha.200"
+				paddingInline="12"
+				_hover={{}}
+				onChange={url =>
+					setSocialLinksInputValue(prevState => ({
+						...prevState,
+						[`${socialLink.name}URL`]: url.target.value,
+					}))
+				}
+				borderColor="rgba(255, 255, 255, 0.08)"
+				defaultValue={defaultValue}
+				disabled={!session}
+			/>
+		</InputGroup>
 	);
 };

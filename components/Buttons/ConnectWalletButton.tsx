@@ -19,6 +19,7 @@ export const ConnectWalletButton = () => {
 	const { walletData, setWalletData } = useProfile();
 
 	const { icon, name } = walletData;
+
 	const {
 		isOpen: isOpenLoading,
 		onClose: onCloseLoading,

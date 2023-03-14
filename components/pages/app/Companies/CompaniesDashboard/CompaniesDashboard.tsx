@@ -3,14 +3,14 @@ import { OffsetButton } from 'components';
 import { usePicasso } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
 
-interface ICompaniesDashboard {
+interface IMockCompanyDashboard {
 	companiesCount: number;
 	teams: string;
 	members: string;
 	totalFunds: string;
 }
 
-export const CompaniesDashboard: React.FC<ICompaniesDashboard> = ({
+export const CompaniesDashboard: React.FC<IMockCompanyDashboard> = ({
 	members,
 	companiesCount,
 	teams,

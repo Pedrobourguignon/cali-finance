@@ -51,9 +51,6 @@ export const EditProfileComponent = () => {
 		editedProfileInfo,
 		setEditedProfileInfo,
 	} = useProfile();
-	const [editProfilePicture, setEditProfilePicture] = useState(
-		userProfile.picture || ''
-	);
 
 	const handleEditProfile = () => {
 		setUserProfile({
@@ -73,7 +70,7 @@ export const EditProfileComponent = () => {
 			<ImageUploaderModal
 				isOpen={isOpen}
 				onClose={onClose}
-				sendImage={setEditProfilePicture}
+				sendImage={setEditedProfileInfo}
 			/>
 			<Flex direction="column">
 				<Text

@@ -3,44 +3,51 @@ import {
 	createContext,
 	Dispatch,
 	SetStateAction,
-	useContext,
 	useEffect,
 	useMemo,
 	useState,
 } from 'react';
 import {
-	ICompany,
+	IMockCompany,
 	IActivities,
 	INotificationList,
 	IEditedCompany,
 	IEmployee,
 	IHistoryNotification,
+	ISocialMedia,
 } from 'types';
 import { historyNotifications } from 'components';
+import { mainClient, navigationPaths } from 'utils';
+import { ICompany } from 'types/interfaces/main-server/ICompany';
+import router from 'next/router';
+import { useQuery } from 'react-query';
 
 interface ICompanysContext {
-	companies: ICompany[];
+	companies: IMockCompany[];
 	activities: IActivities[];
 	totalFunds: string;
 	totalTeams: string;
 	totalMembers: string;
 	notificationsList: INotificationList[];
 	setNotificationsList: Dispatch<SetStateAction<INotificationList[]>>;
-	setSelectedCompany: Dispatch<SetStateAction<ICompany>>;
+	setSelectedCompany: Dispatch<SetStateAction<IMockCompany>>;
 	setSelectedCompanyEmployees: Dispatch<SetStateAction<IEmployee[]>>;
 	selectedCompanyEmployees: IEmployee[];
-	selectedCompany: ICompany;
-	setSelectedCompanyLogo: Dispatch<SetStateAction<string>>;
-	selectedCompanyLogo: string;
+	selectedCompany: IMockCompany;
 	setEditedInfo: Dispatch<SetStateAction<IEditedCompany>>;
 	editedInfo: IEditedCompany;
 	displayMissingFundsWarning: string;
 	setDisplayMissingFundsWarning: Dispatch<SetStateAction<string>>;
 	displayNeedFundsCard: string;
 	setDisplayNeedFundsCard: Dispatch<SetStateAction<string>>;
-	companiesWithMissingFunds: ICompany[];
+	companiesWithMissingFunds: IMockCompany[];
 	filteredNotifications: IHistoryNotification[];
 	setFilteredNotifications: Dispatch<SetStateAction<IHistoryNotification[]>>;
+	createCompany: (company: ICompany) => Promise<void>;
+	socialMediasData: ISocialMedia[];
+	setSocialMediasData: Dispatch<SetStateAction<ISocialMedia[]>>;
+	getCompanyById: (id: number) => Promise<ICompany>;
+	getAllCompanyEmployees: (id: number) => Promise<IEmployee[]>;
 }
 
 export const CompaniesContext = createContext({} as ICompanysContext);
@@ -52,12 +59,14 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 	const [displayMissingFundsWarning, setDisplayMissingFundsWarning] =
 		useState('none');
 	const [displayNeedFundsCard, setDisplayNeedFundsCard] = useState('none');
-	const companiesWithMissingFunds: ICompany[] = [];
+	const [socialMediasData, setSocialMediasData] = useState<ISocialMedia[]>([]);
+
+	const companiesWithMissingFunds: IMockCompany[] = [];
 
 	const [filteredNotifications, setFilteredNotifications] =
 		useState<IHistoryNotification[]>(historyNotifications);
 
-	const [companies, setCompanies] = useState<ICompany[]>([
+	const [companies, setCompanies] = useState<IMockCompany[]>([
 		{
 			name: 'Kylie Cosmetics',
 			type: 'DAO',
@@ -66,7 +75,7 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 			teams: ['marketing'],
 			description: 'Hello',
 			selectedNetwork: 'Ethereum',
-			logo: '',
+			picture: '',
 			socialMedias: {
 				instagram: '@kyliecosmetics',
 				telegram: 't/kyliecosmetics',
@@ -84,7 +93,7 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 			teams: ['marketing'],
 			description: 'Hello',
 			selectedNetwork: 'Ethereum',
-			logo: '',
+			picture: '',
 			socialMedias: {
 				instagram: '@kylieskin',
 				telegram: 't/kylieskin',
@@ -102,7 +111,7 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 			teams: ['marketing'],
 			description: 'Hello',
 			selectedNetwork: 'Ethereum',
-			logo: '',
+			picture: '',
 			socialMedias: {
 				instagram: '@kyliebaby',
 				telegram: 't/kyliebaby',
@@ -114,17 +123,13 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 		},
 	]);
 
-	const [selectedCompanyLogo, setSelectedCompanyLogo] = useState(
-		'/images/kylie-cosmetics-logo.png'
-	);
-
 	const [selectedCompanyEmployees, setSelectedCompanyEmployees] = useState<
 		IEmployee[]
 	>([
 		{
 			name: 'Kim Kardashian',
 			wallet: '0x7E48CA2BD05EC61C2FA83CF34B066A8FF36B4CFE',
-			photo: '/images/avatar.png',
+			picture: '/images/avatar.png',
 			amount: 10000,
 			coin: 'USDT',
 			team: 'General',
@@ -132,7 +137,7 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 		{
 			name: 'Kylie Jenner',
 			wallet: '0x7E48CA2BD05EC61C2FA83CF34B066A8FF36Z9EXD',
-			photo: '/images/avatar.png',
+			picture: '/images/avatar.png',
 			amount: 1000,
 			coin: 'USDT',
 			team: 'Marketing',
@@ -140,7 +145,7 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 		{
 			name: 'Kloe Kardashian',
 			wallet: '0x7E48CA2BD05EC61C2FA83CF34B066A8FF36C3QER',
-			photo: '/images/avatar.png',
+			picture: '/images/avatar.png',
 			amount: 800,
 			coin: 'USDT',
 			team: 'Finance',
@@ -148,7 +153,7 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 		{
 			name: 'Kloe Kardashian',
 			wallet: '0x7E48CA2BD05EC61C2FA83CF34B066A8FF36C3QER',
-			photo: '/images/avatar.png',
+			picture: '/images/avatar.png',
 			amount: 800,
 			coin: 'USDT',
 			team: 'Finance',
@@ -156,14 +161,14 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 		{
 			name: 'Kloe Kardashian',
 			wallet: '0x7E48CA2BD05EC61C2FA83CF34B066A8FF36C3QER',
-			photo: '/images/avatar.png',
+			picture: '/images/avatar.png',
 			amount: 8030,
 			coin: 'USDT',
 			team: 'Finance',
 		},
 	]);
 
-	const [selectedCompany, setSelectedCompany] = useState<ICompany>({
+	const [selectedCompany, setSelectedCompany] = useState<IMockCompany>({
 		name: 'kylie skin',
 		type: 'DAO',
 		email: 'kylieskin@gmail.com',
@@ -172,7 +177,7 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 		teams: ['marketing'],
 		description: 'Hello',
 		selectedNetwork: 'Ethereum',
-		logo: selectedCompanyLogo,
+		picture: '/images/kylie-cosmetics-logo.png',
 		socialMedias: {
 			instagram: '@kylieskin',
 			telegram: 't/kylieskin',
@@ -180,7 +185,6 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 			website: 'kylieskin.net',
 		},
 		neededFunds: 2235,
-
 		employees: selectedCompanyEmployees,
 	});
 
@@ -252,20 +256,22 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 	useEffect(() => {
 		setSelectedCompany(prevState => ({
 			...prevState,
-			logo: selectedCompanyLogo,
 			employees: selectedCompanyEmployees,
 		}));
-	}, [selectedCompanyLogo, selectedCompanyEmployees]);
+	}, [selectedCompanyEmployees]);
 
 	const totalFunds = companies
-		.reduce((total: number, org: ICompany) => total + org.funds, 0)
+		.reduce((total: number, org: IMockCompany) => total + org.funds, 0)
 		.toLocaleString('en-US');
 
 	const totalTeams = companies
-		.reduce((total: number, org: ICompany) => total + Number(org.members), 0)
+		.reduce(
+			(total: number, org: IMockCompany) => total + Number(org.members),
+			0
+		)
 		.toString();
 	const totalMembers = companies
-		.reduce((total: number, org: ICompany) => total + org.teams.length, 0)
+		.reduce((total: number, org: IMockCompany) => total + org.teams.length, 0)
 		.toString();
 
 	// eslint-disable-next-line array-callback-return
@@ -288,6 +294,28 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 		showMissingFundsWarning();
 	}, []);
 
+	const getCompanyById = async (id: number) => {
+		const response = await mainClient.get(`/company/${id}`);
+		return response.data;
+	};
+
+	const createCompany = async (company: ICompany) => {
+		await mainClient
+			.post('/company/', {
+				company,
+			})
+			.then(id =>
+				router.push(
+					navigationPaths.dashboard.companies.overview(id.data.id.toString())
+				)
+			);
+	};
+
+	const getAllCompanyEmployees = async (id: number) => {
+		const response = await mainClient.get(`/company/${id}/users`);
+		return response.data;
+	};
+
 	const contextStates = useMemo(
 		() => ({
 			companies,
@@ -299,8 +327,6 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 			setNotificationsList,
 			setSelectedCompany,
 			selectedCompany,
-			setSelectedCompanyLogo,
-			selectedCompanyLogo,
 			setEditedInfo,
 			editedInfo,
 			displayMissingFundsWarning,
@@ -312,6 +338,11 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 			selectedCompanyEmployees,
 			filteredNotifications,
 			setFilteredNotifications,
+			createCompany,
+			socialMediasData,
+			setSocialMediasData,
+			getCompanyById,
+			getAllCompanyEmployees,
 		}),
 		[
 			selectedCompany,
@@ -323,8 +354,6 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 			notificationsList,
 			setSelectedCompany,
 			setNotificationsList,
-			setSelectedCompanyLogo,
-			selectedCompanyLogo,
 			setEditedInfo,
 			editedInfo,
 			displayMissingFundsWarning,
@@ -336,6 +365,8 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 			selectedCompanyEmployees,
 			filteredNotifications,
 			setFilteredNotifications,
+			socialMediasData,
+			setSocialMediasData,
 		]
 	);
 	return (
