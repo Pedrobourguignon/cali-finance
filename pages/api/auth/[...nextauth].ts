@@ -46,12 +46,13 @@ export default async function auth(req: NextApiRequest, res: NextApiResponse) {
 			async jwt({ token, user }) {
 				if (user) {
 					// eslint-disable-next-line no-param-reassign
-					token.user = user;
+					token.idToken = user;
 				}
 				return token;
 			},
 			async session({ session, token }) {
-				// session.user = token.user; // please uncomment this line
+				// eslint-disable-next-line no-param-reassign
+				session.user = token.idToken;
 
 				return session;
 			},

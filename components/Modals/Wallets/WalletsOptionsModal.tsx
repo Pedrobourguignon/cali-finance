@@ -12,8 +12,7 @@ import {
 	Text,
 } from '@chakra-ui/react';
 import { OffsetShadow } from 'components';
-import { useAuth, usePicasso, useProfile } from 'hooks';
-import { signIn } from 'next-auth/react';
+import { useAuth, usePicasso, useToasty } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
 import { IWalletOptionsModal } from 'types';
 import { navigationPaths } from 'utils';
@@ -32,24 +31,17 @@ export const WalletsOptionsModal: React.FC<IWalletOptionsModal> = ({
 	onClose,
 	openLoadingWalletModal,
 	setWalletData,
+	onCloseLoading,
 }) => {
 	const { t: translate } = useTranslation('sidebar');
-	const { getNonce, getSignature } = useAuth();
+	const { handleSignIn } = useAuth();
 	const { isConnected, address } = useAccount();
+	const { toast } = useToasty();
 	const { connectors, connectAsync, status } = useConnect({
 		async onSuccess(data) {
 			const account = data?.account;
-			try {
-				const { nonce } = await getNonce(account);
-				const signature = await getSignature(nonce);
-				signIn('credentials', {
-					redirect: false,
-					wallet: account,
-					message: signature,
-				});
-			} catch (error: any) {
-				throw new Error(error);
-			}
+			await handleSignIn(account);
+			onCloseLoading();
 		},
 	});
 
@@ -57,24 +49,28 @@ export const WalletsOptionsModal: React.FC<IWalletOptionsModal> = ({
 
 	const onTriggerLoadingModal = async (wallet: IWallet) => {
 		const { connector, icon, name } = wallet;
-		if (status !== 'success') {
-			setWalletData({ icon, name });
-			onClose();
-			if (!isConnected) {
-				await connectAsync({ connector });
-				return;
+		try {
+			if (status !== 'success') {
+				setWalletData({ icon, name });
+				onClose();
+				if (!isConnected) {
+					await connectAsync({ connector });
+					return;
+				}
+				handleSignIn(address);
+			} else {
+				onClose();
+				openLoadingWalletModal();
+				await handleSignIn(address);
+				onCloseLoading();
 			}
-			try {
-				const { nonce } = await getNonce(address);
-				const signature = await getSignature(nonce);
-				signIn('credentials', {
-					redirect: false,
-					wallet: address,
-					message: signature,
-				});
-			} catch (error: any) {
-				throw new Error(error);
-			}
+		} catch (error: any) {
+			onCloseLoading();
+			toast({
+				title: 'Error',
+				description: 'The request was rejected. Please try again.',
+				status: 'error',
+			});
 		}
 	};
 

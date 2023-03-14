@@ -33,6 +33,7 @@ export const ConnectWalletButton = () => {
 				isOpen={isOpen}
 				onClose={onClose}
 				openLoadingWalletModal={onOpenLoading}
+				onCloseLoading={onCloseLoading}
 			/>
 			<LoadingWalletConnectModal
 				walletIcon={icon}
