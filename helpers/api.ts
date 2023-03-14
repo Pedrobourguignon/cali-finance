@@ -3,7 +3,7 @@ const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 export const API_URLS = {
 	auth: `${BASE_URL}/auth`,
 	main: `${BASE_URL}`,
-	coin: `${BASE_URL}/coin`,
+	coin: `https://6339-187-73-24-131.sa.ngrok.io`,
 };
 
 function path(root: string, sublink: string) {

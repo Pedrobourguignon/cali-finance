@@ -2,6 +2,7 @@ import debounce from 'lodash.debounce';
 import React, { createContext, useEffect, useMemo, useState } from 'react';
 import { OneInchService, CoingeckoService } from 'services';
 import { ISelectedCoin, ISwapTokenSelector, IToken } from 'types';
+import { coinClient } from 'utils';
 
 interface ITokensContext {
 	setFilteredTokens: (tokens: IToken[]) => void;
@@ -14,6 +15,7 @@ interface ITokensContext {
 	setSwapTokenSelector: React.Dispatch<
 		React.SetStateAction<ISwapTokenSelector>
 	>;
+	getCoinServiceTokens: (symbols: string) => Promise<void>;
 }
 export const TokensContext = createContext({} as ITokensContext);
 
@@ -90,6 +92,14 @@ export const TokensProvider: React.FC<{ children: React.ReactNode }> = ({
 		250
 	);
 
+	const getCoinServiceTokens = async (symbols: string) => {
+		console.log(symbols);
+		if (symbols) {
+			const response = await coinClient.get(`coin?symbols=${symbols}`);
+			console.log(response);
+		}
+	};
+
 	const contextStates = useMemo(
 		() => ({
 			setFilteredTokens,
@@ -100,6 +110,7 @@ export const TokensProvider: React.FC<{ children: React.ReactNode }> = ({
 			chosenToken,
 			swapTokenSelector,
 			setSwapTokenSelector,
+			getCoinServiceTokens,
 		}),
 		[
 			setFilteredTokens,

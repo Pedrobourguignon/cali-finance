@@ -1,9 +1,10 @@
-import { Flex, Text } from '@chakra-ui/react';
-import { NewCoinButton, CoinCard } from 'components';
-import React from 'react';
-import { ICoin } from 'types';
+import { Flex, list, Text, useDisclosure } from '@chakra-ui/react';
+import { NewCoinButton, CoinCard, TokenSelector } from 'components';
+import React, { useEffect, useState } from 'react';
+import { ICoin, ISelectedCoin } from 'types';
 import useTranslation from 'next-translate/useTranslation';
-import { usePicasso } from 'hooks';
+import { usePicasso, useTokens } from 'hooks';
+import { useMutation, useQuery } from 'react-query';
 
 const coinCard: ICoin[] = [
 	{
@@ -29,6 +30,31 @@ const coinCard: ICoin[] = [
 export const Coins = () => {
 	const { t: translate } = useTranslation('dashboard');
 	const theme = usePicasso();
+	const { getCoinServiceTokens } = useTokens();
+	const { isOpen, onClose, onOpen } = useDisclosure();
+	const [selectedToken, setSelectedToken] = useState<ISelectedCoin>(
+		{} as ISelectedCoin
+	);
+	const [listOfTokens, setListOfTokens] = useState<ISelectedCoin[]>([]);
+	const symbols: string[] = [];
+	console.log(listOfTokens);
+
+	const { data, isLoading, error } = useQuery('get-coin-data', () =>
+		getCoinServiceTokens(symbols.toString())
+	);
+	console.log(data);
+
+	useEffect(() => {
+		if (Object.keys(selectedToken).length !== 0) {
+			setListOfTokens(prevState => prevState.concat(selectedToken));
+		}
+	}, [selectedToken]);
+
+	useEffect(() => {
+		if (listOfTokens.length !== 0) {
+			listOfTokens.forEach(item => symbols.push(item.symbol));
+		}
+	}, [listOfTokens]);
 	return (
 		<Flex
 			justify="space-between"
@@ -40,6 +66,11 @@ export const Coins = () => {
 			minW={{ md: '33.713rem', '2xl': '43.5rem' }}
 			minH={{ md: '5rem', lg: '6.44rem' }}
 		>
+			<TokenSelector
+				setToken={setSelectedToken}
+				isOpen={isOpen}
+				onClose={onClose}
+			/>
 			<Flex direction="column" gap={{ md: '1', xl: '1.5' }}>
 				<Text
 					fontSize={{ md: 'sm', xl: 'md' }}
@@ -76,7 +107,7 @@ export const Coins = () => {
 				))}
 			</Flex>
 			<Flex>
-				<NewCoinButton />
+				<NewCoinButton onOpen={onOpen} />
 			</Flex>
 		</Flex>
 	);

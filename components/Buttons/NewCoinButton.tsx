@@ -1,11 +1,15 @@
-import { Button, Icon } from '@chakra-ui/react';
+import { Button, FlexProps, Icon } from '@chakra-ui/react';
 import { OffsetShadow } from 'components/OffsetShadow';
 import useTranslation from 'next-translate/useTranslation';
 import { useRouter } from 'next/router';
 import React from 'react';
 import { AiOutlinePlus } from 'react-icons/ai';
 
-export const NewCoinButton = () => {
+interface INewCoinButton {
+	onOpen: () => void;
+}
+
+export const NewCoinButton: React.FC<INewCoinButton> = ({ onOpen }) => {
 	const { t: translate } = useTranslation('dashboard');
 	const { locale } = useRouter();
 	return (
@@ -38,6 +42,7 @@ export const NewCoinButton = () => {
 				lineHeight="5"
 				gap="1.5"
 				alignContent="center"
+				onClick={onOpen}
 			>
 				<Icon as={AiOutlinePlus} />
 				{translate('newCoin')}
