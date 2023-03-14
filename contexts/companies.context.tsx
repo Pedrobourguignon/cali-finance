@@ -350,8 +350,8 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 			socialMediasData,
 			setSocialMediasData,
 			getCompanyById,
-			updateCompany,
 			getAllCompanyEmployees,
+			updateCompany,
 		}),
 		[
 			selectedCompany,
@@ -376,6 +376,7 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 			setFilteredNotifications,
 			socialMediasData,
 			setSocialMediasData,
+			updateCompany,
 		]
 	);
 	return (
