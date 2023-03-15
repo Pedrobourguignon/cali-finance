@@ -54,7 +54,7 @@ export const DashboardComponent: React.FC = () => {
 					<Coins />
 				</Flex>
 				<Flex direction="column" gap="9" pt={!session ? '4' : 0}>
-					{/* {session ? <CompaniesList /> : <CreateCompanyCard />} */}
+					{session ? <CompaniesList /> : <CreateCompanyCard />}
 					{session && (
 						<Flex justify="space-between" w="full" gap="6">
 							<Flex w="full" flex="5.5">

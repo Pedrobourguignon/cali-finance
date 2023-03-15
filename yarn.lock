@@ -8605,6 +8605,13 @@ range-parser@~1.2.1:
   resolved "https://registry.yarnpkg.com/range-parser/-/range-parser-1.2.1.tgz#3cf37023d199e1c24d1a55b84800c2f3e6468031"
   integrity sha512-Hrgsx+orqoygnmhFbKaHE6c296J+HTAQXoxEF6gNupROmmGJRoyzfG3ccAveqCBrwr/2yxQ5BVd/GTl5agOwSg==
 
+react-alice-carousel@^2.7.0:
+  version "2.7.0"
+  resolved "https://registry.yarnpkg.com/react-alice-carousel/-/react-alice-carousel-2.7.0.tgz#d4bd2280cf39429042ddb15a1040fe2166f58afd"
+  integrity sha512-0QeqmBiGisvOk2UNCJoXQurX9beguhX2BbYwS540WxL7pbBzEXWV2tS7Al2tkWJyS4u6YTlQdwAV81Fk/PaTSg==
+  dependencies:
+    vanilla-swipe "^2.4.1"
+
 react-clientside-effect@^1.2.6:
   version "1.2.6"
   resolved "https://registry.yarnpkg.com/react-clientside-effect/-/react-clientside-effect-1.2.6.tgz#29f9b14e944a376b03fb650eed2a754dd128ea3a"
@@ -10154,6 +10161,11 @@ valtio@1.9.0:
   dependencies:
     proxy-compare "2.4.0"
     use-sync-external-store "1.2.0"
+
+vanilla-swipe@^2.4.1:
+  version "2.4.1"
+  resolved "https://registry.yarnpkg.com/vanilla-swipe/-/vanilla-swipe-2.4.1.tgz#697d58bde3729db3c80fd3de488a54a8eae05664"
+  integrity sha512-o6pfI0dipet88ZnPLV4Jx04Ia+U3xANh14vhROW2TOe/mrwk2JGG68+Z0BPoD1YUcQQEnK4SZBXkqFe+K1l7/w==
 
 vary@~1.1.2:
   version "1.1.2"
