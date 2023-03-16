@@ -16,14 +16,21 @@ import {
 	Img,
 	useDisclosure,
 } from '@chakra-ui/react';
-import { usePicasso, useSchema } from 'hooks';
+import { useCompanies, usePicasso, useSchema } from 'hooks';
 import React, { useState } from 'react';
 import { IoIosArrowDown } from 'react-icons/io';
-import { IEditEmployee, IEditEmployeeForm, ISelectedCoin } from 'types';
+import {
+	IEditedEmployeeInfo,
+	IEditEmployee,
+	IEditEmployeeForm,
+	ISelectedCoin,
+} from 'types';
 import { BlackButton, EditProfileIcon, TokenSelector } from 'components';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { truncateWallet } from 'utils';
+import { useRouter } from 'next/router';
+import { useMutation, useQueryClient } from 'react-query';
 
 export const EditEmployee: React.FC<IEditEmployee> = ({
 	isOpen,
@@ -31,6 +38,10 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 	employee,
 }) => {
 	const theme = usePicasso();
+	const queryClient = useQueryClient();
+	const { editEmployeeSchema } = useSchema();
+	const { updateEmployee } = useCompanies();
+	const { query } = useRouter();
 	const [editedEmployeeData, setEditedEmployeeData] = useState({
 		amount: 0,
 		amountInDollar: 0,
@@ -40,7 +51,6 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 		symbol: 'BTC',
 	} as ISelectedCoin);
 	const bitcoinPrice = 87586;
-	const { editEmployeeSchema } = useSchema();
 
 	const {
 		isOpen: isOpenTokenSelector,
@@ -66,13 +76,12 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 			amountInDollar: amountInDollar * bitcoinPrice,
 		}));
 	};
-
 	const {
-		register,
 		handleSubmit,
+		register,
 		reset,
 		formState: { errors },
-	} = useForm<IEditEmployeeForm>({
+	} = useForm<IEditedEmployeeInfo>({
 		resolver: yupResolver(editEmployeeSchema),
 	});
 
@@ -85,8 +94,21 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 		}));
 	};
 
-	const handleEditEmployee = (editedEmployeeFormData: IEditEmployeeForm) => {
-		console.log(editedEmployeeFormData);
+	const { mutate } = useMutation(
+		(editedEmployeeDataa: IEditedEmployeeInfo) =>
+			updateEmployee(editedEmployeeDataa, query.id),
+		{
+			onSuccess: () =>
+				queryClient.invalidateQueries({ queryKey: ['all-company-employees'] }),
+		}
+	);
+
+	const handleEditEmployee = () => {
+		mutate({
+			asset: token.symbol,
+			revenue: editedEmployeeData.amount,
+			userAddress: employee.wallet,
+		});
 		handleResetFormInputs();
 	};
 
@@ -148,10 +170,10 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 											type="number"
 											h="max-content"
 											py="1"
-											{...register('amount')}
+											{...register('revenue')}
 											_placeholder={{ ...placeholderStyle }}
 											placeholder="0.00"
-											borderColor={errors.amount ? 'red' : theme.bg.primary}
+											borderColor={errors.revenue ? 'red' : theme.bg.primary}
 											flex="3"
 											borderRightRadius="none"
 											_hover={{}}
@@ -187,14 +209,14 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 											<Flex gap="2" align="center">
 												<Img boxSize="4" src={token.logo} />
 												<Text fontSize="sm" width="8" lineHeight="5">
-													{token.symbol}
+													{token.symbol.toUpperCase()}
 												</Text>
 												<Icon boxSize="4" as={IoIosArrowDown} />
 											</Flex>
 										</Button>
 									</InputGroup>
 									<Text fontSize="xs" color="red">
-										{errors.amount?.message}
+										{errors.revenue?.message}
 									</Text>
 									<Flex
 										bg="blue.50"
@@ -226,7 +248,7 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 									gap="3"
 									borderRadius="sm"
 									mb="4"
-									disabled={!editedEmployeeData.amount}
+									isDisabled={!editedEmployeeData.amount}
 								>
 									<Text>+</Text>
 									Update Employee&apos;s Data

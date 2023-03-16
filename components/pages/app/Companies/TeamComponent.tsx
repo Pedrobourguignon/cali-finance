@@ -80,7 +80,7 @@ export const TeamComponent = () => {
 		<AppLayout right={<ActiveTeamsBar />}>
 			<CompanyWhiteBackground />
 			<Flex pt="6" zIndex="docked" direction="column" align="start">
-				<CompaniesHeader company={selectedCompany} />
+				<CompaniesHeader />
 			</Flex>
 			<form onChange={handleSubmit(handleEditTeam)}>
 				<FormControl>

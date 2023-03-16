@@ -5,4 +5,5 @@ export interface IWalletOptionsModal {
 	onClose: () => void;
 	openLoadingWalletModal: () => void;
 	setWalletData: (wallet: IWalletData) => void;
+	onCloseLoading: () => void;
 }

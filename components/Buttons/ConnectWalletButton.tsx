@@ -6,27 +6,26 @@ import {
 	WalletsOptionsModal,
 	OffsetShadow,
 } from 'components';
-import { useProfile, useAuth } from 'hooks';
+import { useProfile } from 'hooks';
 import { useRouter } from 'next/router';
-import { useConnect } from 'wagmi';
-import { InjectedConnector } from 'wagmi/connectors/injected';
+import { useSession } from 'next-auth/react';
 
 export const ConnectWalletButton = () => {
 	const { t: translate } = useTranslation('sidebar');
-	const { isConnected } = useProfile();
+	const { data: session } = useSession();
 	const { locale } = useRouter();
-	const shouldDisplay = isConnected === true ? 'none' : 'flex';
+	const shouldDisplay = session ? 'none' : 'flex';
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const { walletData, setWalletData } = useProfile();
+
 	const { icon, name } = walletData;
-	const { connect } = useConnect({ connector: new InjectedConnector() });
-	const { getAuthorization } = useAuth();
 
 	const {
 		isOpen: isOpenLoading,
 		onClose: onCloseLoading,
 		onOpen: onOpenLoading,
 	} = useDisclosure();
+
 	return (
 		<Flex>
 			<WalletsOptionsModal
@@ -34,6 +33,7 @@ export const ConnectWalletButton = () => {
 				isOpen={isOpen}
 				onClose={onClose}
 				openLoadingWalletModal={onOpenLoading}
+				onCloseLoading={onCloseLoading}
 			/>
 			<LoadingWalletConnectModal
 				walletIcon={icon}

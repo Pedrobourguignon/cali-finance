@@ -1,6 +1,13 @@
-import { Flex, Img, Text, useDisclosure, Link } from '@chakra-ui/react';
+import {
+	Flex,
+	Img,
+	Text,
+	useDisclosure,
+	Link,
+	Skeleton,
+} from '@chakra-ui/react';
 import { useCompanies, usePath, usePicasso } from 'hooks';
-import { chainLogo, handleLogoImage, navigationPaths } from 'utils';
+import { handleLogoImage, navigationPaths, networkInfos } from 'utils';
 import {
 	NavigationBack,
 	NeedFundsCompaniesHeader,
@@ -9,12 +16,12 @@ import {
 import useTranslation from 'next-translate/useTranslation';
 import { IMockCompany } from 'types';
 import { useSession } from 'next-auth/react';
-import router from 'next/router';
+import router, { useRouter } from 'next/router';
 import NextLink from 'next/link';
+import { useQuery } from 'react-query';
+import { useEffect } from 'react';
 
-export const CompaniesHeader: React.FC<{
-	company: IMockCompany;
-}> = ({ company }) => {
+export const CompaniesHeader = () => {
 	const theme = usePicasso();
 	const { isSamePath } = usePath();
 	const { setNotificationsList, notificationsList } = useCompanies();
@@ -27,14 +34,29 @@ export const CompaniesHeader: React.FC<{
 		},
 	});
 
+	const amount = null;
+
+	const { query } = useRouter();
+	const { getCompanyById } = useCompanies();
+
+	const { data, isLoading, error } = useQuery('created-company-overview', () =>
+		getCompanyById(Number(query.id))
+	);
+
+	useEffect(() => {
+		if (error) {
+			router.push('/404');
+		}
+	}, [error]);
+
 	const menuOptions = [
 		{
 			name: translate('overview'),
-			route: navigationPaths.dashboard.companies.overview('1'),
+			route: navigationPaths.dashboard.companies.overview(query.id!.toString()),
 		},
 		{
 			name: translate('funds'),
-			route: navigationPaths.dashboard.companies.funds('1'),
+			route: navigationPaths.dashboard.companies.funds(query.id!.toString()),
 		},
 	];
 
@@ -57,7 +79,7 @@ export const CompaniesHeader: React.FC<{
 			</Flex>
 			<Flex w="100%" justify="space-between" align="center">
 				<Flex gap="3" align="center">
-					{!company.picture ? (
+					{data?.logo === '' ? (
 						<Flex
 							boxSize="20"
 							borderRadius="base"
@@ -67,22 +89,32 @@ export const CompaniesHeader: React.FC<{
 							fontWeight="bold"
 							bg={theme.bg.white2}
 						>
-							{handleLogoImage(company.name)}
+							{handleLogoImage(data.name!)}
 						</Flex>
 					) : (
-						<Img src={company.picture} boxSize="20" />
+						<Img src={data?.logo} boxSize="20" />
 					)}
-					<Text
-						maxW={{ md: '40', xl: '56' }}
-						maxH="20"
-						overflow="hidden"
-						fontSize="2xl"
-					>
-						{company.name}
-					</Text>
+					{isLoading ? (
+						<Skeleton w="44" h="4" />
+					) : (
+						<Text
+							maxW={{ md: '40', xl: '56' }}
+							maxH="20"
+							overflow="hidden"
+							fontSize="2xl"
+						>
+							{data?.name}
+						</Text>
+					)}
+					{}
 				</Flex>
 				<Flex direction="column" maxW="28">
-					<Text fontSize="xl">${company.funds.toLocaleString('en-US')}</Text>
+					{!amount ? (
+						<Skeleton w="14" h="4" />
+					) : (
+						<Text fontSize="xl">$123</Text>
+					)}
+
 					<Text fontSize="sm">{translate('totalFunds')}</Text>
 				</Flex>
 				<Link
@@ -144,8 +176,8 @@ export const CompaniesHeader: React.FC<{
 					gap="2"
 					h="6"
 				>
-					<Img src={chainLogo(company.selectedNetwork!)} boxSize="4" />
-					<Text fontSize="xs">{company.selectedNetwork}</Text>
+					<Img src={networkInfos(data?.network).icon} boxSize="4" />
+					<Text fontSize="xs">{networkInfos(data?.network).name}</Text>
 				</Flex>
 			</Flex>
 		</Flex>

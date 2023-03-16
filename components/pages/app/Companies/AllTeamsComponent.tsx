@@ -70,7 +70,7 @@ export const AllTeamsComponent: React.FC<IAllTeamsComponent> = ({
 		<AppLayout right={<ActiveTeamsBar />}>
 			<CompanyWhiteBackground />
 			<Flex pt="6" zIndex="docked" direction="column" align="start">
-				<CompaniesHeader company={selectedCompany} />
+				<CompaniesHeader />
 			</Flex>
 			<Flex
 				color={theme.text.primary}

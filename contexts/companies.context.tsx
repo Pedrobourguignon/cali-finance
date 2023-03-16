@@ -16,6 +16,7 @@ import {
 	IHistoryNotification,
 	ISocialMedia,
 	INewEmployee,
+	IEditedEmployeeInfo,
 } from 'types';
 import { historyNotifications } from 'components';
 import { mainClient, navigationPaths } from 'utils';
@@ -49,12 +50,15 @@ interface ICompanysContext {
 	createCompany: (company: ICompany) => Promise<void>;
 	socialMediasData: ISocialMedia[];
 	setSocialMediasData: Dispatch<SetStateAction<ISocialMedia[]>>;
-	createdCompanyPicture: string;
-	setCreatedCompanyPicture: Dispatch<SetStateAction<string>>;
+	getCompanyById: (id: number) => Promise<ICompany>;
 	getAllCompanyEmployees: (id: number) => Promise<IEmployee[]>;
 	addEmployeeToTeam: (employee: INewEmployee) => Promise<void>;
 	addEmployeeCsv: (
 		employee: string | undefined | null | ArrayBuffer
+	) => Promise<void>;
+	updateEmployee: (
+		editedEmployeeInfo: IEditedEmployeeInfo,
+		id: string | string[] | undefined
 	) => Promise<void>;
 }
 
@@ -302,7 +306,10 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 		showMissingFundsWarning();
 	}, []);
 
-	const [createdCompanyPicture, setCreatedCompanyPicture] = useState('');
+	const getCompanyById = async (id: number) => {
+		const response = await mainClient.get(`/company/${id}`);
+		return response.data;
+	};
 
 	const createCompany = async (company: ICompany) => {
 		await mainClient
@@ -310,7 +317,9 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 				company,
 			})
 			.then(id =>
-				router.push(navigationPaths.dashboard.companies.overview(id.data.id))
+				router.push(
+					navigationPaths.dashboard.companies.overview(id.data.id.toString())
+				)
 			);
 	};
 
@@ -344,6 +353,13 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 		});
 	};
 
+	const updateEmployee = async (
+		editedEmployeeInfo: IEditedEmployeeInfo,
+		id: string | string[] | undefined
+	) => {
+		await mainClient.put(`/team/2439/user`, editedEmployeeInfo);
+	};
+
 	const contextStates = useMemo(
 		() => ({
 			companies,
@@ -369,11 +385,11 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 			createCompany,
 			socialMediasData,
 			setSocialMediasData,
-			createdCompanyPicture,
-			setCreatedCompanyPicture,
+			getCompanyById,
 			getAllCompanyEmployees,
 			addEmployeeToTeam,
 			addEmployeeCsv,
+			updateEmployee,
 		}),
 		[
 			selectedCompany,
@@ -398,8 +414,6 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 			setFilteredNotifications,
 			socialMediasData,
 			setSocialMediasData,
-			createdCompanyPicture,
-			setCreatedCompanyPicture,
 		]
 	);
 	return (

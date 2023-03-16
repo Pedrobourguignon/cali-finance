@@ -41,7 +41,6 @@ export const AddEmployee: React.FC<IAddEmployee> = ({
 	isOpen,
 	onClose,
 	company,
-	setEmployees,
 }) => {
 	const { t: translate } = useTranslation('create-team');
 	const [selectedTab, setSelectedTab] = useState<string>(
@@ -58,8 +57,7 @@ export const AddEmployee: React.FC<IAddEmployee> = ({
 	} as ISelectedCoin);
 	const bitcoinPrice = 87.586;
 	const { addEmployeeSchema } = useSchema();
-	const { setSelectedCompanyEmployees, selectedCompany, addEmployeeToTeam } =
-		useCompanies();
+	const { selectedCompany, addEmployeeToTeam } = useCompanies();
 	const queryClient = useQueryClient();
 
 	const toast = useToast();
