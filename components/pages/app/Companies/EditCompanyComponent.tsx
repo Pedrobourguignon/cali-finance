@@ -82,8 +82,6 @@ export const EditCompanyComponent: React.FC<IEditCompanyComponent> = ({
 		setEditedInfo(company!);
 	}, [company]);
 
-	console.log(company?.logo);
-
 	const companiesType = [
 		{ value: 'DAO' },
 		{ value: translate('financial') },

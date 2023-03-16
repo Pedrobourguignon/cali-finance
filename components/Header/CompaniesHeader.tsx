@@ -49,8 +49,6 @@ export const CompaniesHeader = () => {
 		}
 	}, [error]);
 
-	// console.log(data);
-
 	const menuOptions = [
 		{
 			name: translate('overview'),

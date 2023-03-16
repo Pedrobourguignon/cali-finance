@@ -54,8 +54,6 @@ const useSchema = () => {
 			.lowercase()
 			.email(translate('emailFormatInvalid'))
 			.matches(limitSpecialCharacterRegex, translate('emailContains')),
-		// type: yup.object().required(translate('required')),
-		// network: yup.object().required(translate('required')),
 	});
 
 	const transactionSchema = yup.object().shape({

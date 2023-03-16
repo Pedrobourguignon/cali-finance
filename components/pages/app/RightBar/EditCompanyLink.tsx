@@ -20,7 +20,6 @@ interface ICompanyLogo {
 
 const CompanyLogo: React.FC<ICompanyLogo> = ({ company, logo }) => {
 	const theme = usePicasso();
-	console.log(company?.logo);
 
 	if (logo) {
 		return <Img src={logo} boxSize="20" borderRadius="base" />;

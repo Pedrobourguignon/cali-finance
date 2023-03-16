@@ -4,6 +4,7 @@ import { useSession } from 'next-auth/react';
 import { Dispatch, SetStateAction } from 'react';
 
 interface ISocialLink {
+	setSocialMediasInput: (name: string[], url: string) => void;
 	socialLink: ISocialMediaInput;
 	defaultValue?: string;
 	setSocialLinksInputValue: Dispatch<SetStateAction<ISociaLinksInputValue>>;
@@ -12,7 +13,7 @@ interface ISocialLink {
 export const SocialMediaInput: React.FC<ISocialLink> = ({
 	socialLink,
 	defaultValue,
-	setSocialLinksInputValue,
+	setSocialMediasInput,
 }) => {
 	const { data: session } = useSession();
 
@@ -38,10 +39,7 @@ export const SocialMediaInput: React.FC<ISocialLink> = ({
 				paddingInline="12"
 				_hover={{}}
 				onChange={url => {
-					setSocialLinksInputValue(prevState => ({
-						...prevState,
-						[`${socialLink.name}URL`]: url.target.value,
-					}));
+					setSocialMediasInput([`${socialLink.name}URL`], url.target.value);
 				}}
 				borderColor="rgba(255, 255, 255, 0.08)"
 				defaultValue={defaultValue}
