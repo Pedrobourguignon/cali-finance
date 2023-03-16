@@ -1,7 +1,7 @@
-import React, { createContext, useState, useMemo } from 'react';
 import { IWalletData } from 'types';
 import { IUser } from 'types/interfaces/main-server/IUser';
 import { mainClient } from 'utils';
+import React, { createContext, useState, useMemo, useEffect } from 'react';
 import { useAccount } from 'wagmi';
 
 interface IProfileContext {
@@ -42,6 +42,7 @@ export const ProfileProvider: React.FC<{ children: React.ReactNode }> = ({
 			isLoading,
 			isConnected,
 			setIsConnected,
+
 			walletData,
 			setWalletData,
 			updateProfile,
