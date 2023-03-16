@@ -31,6 +31,7 @@ import { INetwork } from 'types';
 import useTranslation from 'next-translate/useTranslation';
 import { useSession, signOut } from 'next-auth/react';
 import NextLink from 'next/link';
+import { useAccount, useDisconnect } from 'wagmi';
 
 interface IMenuItem {
 	icon: typeof Icon;
@@ -82,8 +83,10 @@ export const Sidebar: React.FC = () => {
 	const theme = usePicasso();
 	const { isSamePath } = usePath();
 	const { userProfile } = useProfile();
-	const { data: session } = useSession();
+	const { address: walletAddress } = useAccount();
 	const { locale, asPath } = useRouter();
+	const { data: session } = useSession();
+	const { disconnect } = useDisconnect();
 	const languages: ILanguage[] = ['en-US', 'pt-BR'];
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const {
@@ -110,6 +113,11 @@ export const Sidebar: React.FC = () => {
 	useEffect(() => {
 		changeLanguage(localStorage.getItem('language')!);
 	}, [locale]);
+
+	const handleSignOut = () => {
+		disconnect();
+		signOut();
+	};
 
 	return (
 		<>
@@ -148,9 +156,7 @@ export const Sidebar: React.FC = () => {
 						<Link as={NextLink} href={navigationPaths.dashboard.home} pb="6">
 							<Img src="/images/cali-logo.svg" h="8" w="20" cursor="pointer" />
 						</Link>
-						{!session ? (
-							<ConnectWalletButton />
-						) : (
+						{session ? (
 							<Flex direction="column" gap="2">
 								<Menu
 									gutter={0}
@@ -193,7 +199,7 @@ export const Sidebar: React.FC = () => {
 												fontWeight="medium"
 												fontSize={{ md: 'xs', xl: 'sm' }}
 											>
-												{truncateWallet(userProfile.wallet)}
+												{truncateWallet(walletAddress)}
 											</Text>
 										</Flex>
 									</MenuButton>
@@ -213,7 +219,7 @@ export const Sidebar: React.FC = () => {
 											fontSize="sm"
 											borderBottomRadius="base"
 											_active={{}}
-											onClick={() => signOut()}
+											onClick={handleSignOut}
 											_focus={{}}
 										>
 											{translate('logOut')}
@@ -228,6 +234,8 @@ export const Sidebar: React.FC = () => {
 									/>
 								)}
 							</Flex>
+						) : (
+							<ConnectWalletButton />
 						)}
 					</Flex>
 					<Flex
@@ -235,7 +243,7 @@ export const Sidebar: React.FC = () => {
 						gap="3"
 						w="full"
 						pb="6.4rem"
-						pt={!session ? '16' : '6'}
+						pt={session ? '6' : '16'}
 					>
 						{menuOptions.map((item, index) => {
 							const comparedPath = isSamePath(item.route);

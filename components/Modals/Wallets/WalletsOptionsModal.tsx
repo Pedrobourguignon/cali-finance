@@ -12,32 +12,73 @@ import {
 	Text,
 } from '@chakra-ui/react';
 import { OffsetShadow } from 'components';
-import { usePicasso } from 'hooks';
-import { signIn } from 'next-auth/react';
+import { useAuth, usePicasso, useToasty } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
 import { IWalletOptionsModal } from 'types';
 import { navigationPaths } from 'utils';
+import { useConnect, Connector, useAccount } from 'wagmi';
 import NextLink from 'next/link';
-import { useConnect } from 'wagmi';
+import { useEffect } from 'react';
+
+interface IWallet {
+	name: string;
+	icon: string;
+	connector?: Connector<any, any, any>;
+}
 
 export const WalletsOptionsModal: React.FC<IWalletOptionsModal> = ({
 	isOpen,
 	onClose,
 	openLoadingWalletModal,
 	setWalletData,
+	onCloseLoading,
 }) => {
 	const { t: translate } = useTranslation('sidebar');
-	const { connectors } = useConnect();
+	const { handleSignIn } = useAuth();
+	const { isConnected, address } = useAccount();
+	const { toast } = useToasty();
+	const { connectors, connectAsync, status } = useConnect({
+		async onSuccess(data) {
+			const account = data?.account;
+			await handleSignIn(account);
+			onCloseLoading();
+		},
+	});
+
 	const theme = usePicasso();
-	const onTriggerLoadingModal = async (icon: string, name: string) => {
-		setWalletData({
-			icon,
-			name,
-		});
-		signIn('credentials', {});
-		openLoadingWalletModal();
-		onClose();
+
+	const onTriggerLoadingModal = async (wallet: IWallet) => {
+		const { connector, icon, name } = wallet;
+		try {
+			if (status !== 'success') {
+				setWalletData({ icon, name });
+				onClose();
+				if (!isConnected) {
+					await connectAsync({ connector });
+					return;
+				}
+				handleSignIn(address);
+			} else {
+				onClose();
+				openLoadingWalletModal();
+				await handleSignIn(address);
+				onCloseLoading();
+			}
+		} catch (error: any) {
+			onCloseLoading();
+			toast({
+				title: 'Error',
+				description: 'The request was rejected. Please try again.',
+				status: 'error',
+			});
+		}
 	};
+
+	useEffect(() => {
+		if (status === 'loading') {
+			openLoadingWalletModal();
+		}
+	}, [status]);
 
 	const walletsOptions = [
 		{
@@ -48,14 +89,17 @@ export const WalletsOptionsModal: React.FC<IWalletOptionsModal> = ({
 		{
 			name: 'Coinbase Wallet',
 			icon: '/icons/coinbase.svg',
+			connector: connectors[1],
 		},
 		{
 			name: 'WalletConnect',
 			icon: '/icons/walletConnect.svg',
+			connector: connectors[2],
 		},
 		{
 			name: 'Binance Wallet',
 			icon: '/icons/binance.svg',
+			connector: connectors[4],
 		},
 		{
 			name: 'More',
@@ -118,9 +162,7 @@ export const WalletsOptionsModal: React.FC<IWalletOptionsModal> = ({
 										color: 'white',
 										bg: 'black',
 									}}
-									onClick={() =>
-										onTriggerLoadingModal(wallet.icon, wallet.name)
-									}
+									onClick={() => onTriggerLoadingModal(wallet)}
 									color={theme.text.mono}
 									transition="all 0.1s ease-in-out"
 									borderRadius="base"
