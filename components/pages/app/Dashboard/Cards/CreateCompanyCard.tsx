@@ -1,6 +1,7 @@
 import { Flex, Text, Icon } from '@chakra-ui/react';
 import { BlackButton, CompanyIcon } from 'components';
 import { usePicasso } from 'hooks';
+import { useSession } from 'next-auth/react';
 import useTranslation from 'next-translate/useTranslation';
 import React from 'react';
 import { AiOutlinePlus } from 'react-icons/ai';
@@ -8,6 +9,7 @@ import { AiOutlinePlus } from 'react-icons/ai';
 export const CreateCompanyCard = () => {
 	const theme = usePicasso();
 	const { t: translate } = useTranslation('dashboard');
+	const { data: session } = useSession();
 	return (
 		<Flex
 			boxShadow="base"
