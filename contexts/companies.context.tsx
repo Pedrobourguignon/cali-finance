@@ -10,7 +10,6 @@ import {
 import {
 	IActivities,
 	INotificationList,
-	IEditedCompany,
 	IEmployee,
 	IHistoryNotification,
 	ISocialMedia,
@@ -22,19 +21,19 @@ import {
 	GetUserCompaniesRes,
 	ICompany,
 } from 'types/interfaces/main-server/ICompany';
-import router from 'next/router';
+import router, { useRouter } from 'next/router';
 
 interface ICompanyContext {
 	activities: IActivities[];
 	notificationsList: INotificationList[];
 	setNotificationsList: Dispatch<SetStateAction<INotificationList[]>>;
+	setSelectedCompany: Dispatch<SetStateAction<ICompany>>;
 	setEditedInfo: Dispatch<SetStateAction<ICompany>>;
 	editedInfo: ICompany;
 	displayMissingFundsWarning: string;
 	setDisplayMissingFundsWarning: Dispatch<SetStateAction<string>>;
 	displayNeedFundsCard: string;
 	setDisplayNeedFundsCard: Dispatch<SetStateAction<string>>;
-	companiesWithMissingFunds: GetUserCompaniesRes[];
 	filteredNotifications: IHistoryNotification[];
 	setFilteredNotifications: Dispatch<SetStateAction<IHistoryNotification[]>>;
 	getAllUserCompanies: () => Promise<ICompany[]>;
@@ -42,9 +41,11 @@ interface ICompanyContext {
 	socialMediasData: ISocialMedia[];
 	setSocialMediasData: Dispatch<SetStateAction<ISocialMedia[]>>;
 	getCompanyById: (id: number) => Promise<ICompany>;
+	updateCompany: (company: ICompany) => Promise<void>;
 	getAllCompanyEmployees: (id: number) => Promise<IEmployee[]>;
 	allUserCompanies: GetUserCompaniesRes[];
 	selectedCompany: ICompany;
+	companiesWithMissingFunds: GetUserCompaniesRes[];
 }
 
 export const CompaniesContext = createContext({} as ICompanyContext);
@@ -64,7 +65,8 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 	const [selectedCompany, setSelectedCompany] = useState<ICompany>(
 		{} as ICompany
 	);
-	const neededFunds = 10000;
+	const neededFunds = 0;
+	const { query } = useRouter();
 
 	const [companiesWithMissingFunds, setCompaniesWithMissingFunds] = useState<
 		GetUserCompaniesRes[]
@@ -185,6 +187,15 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 			);
 	};
 
+	const updateCompany = async (company: ICompany) => {
+		await mainClient
+			.put(`/company/${Number(query.id)}`, {
+				company,
+			})
+			.then(id =>
+				router.push(navigationPaths.dashboard.companies.overview(id.data.id))
+			);
+	};
 	const getAllCompanyEmployees = async (id: number) => {
 		const response = await mainClient.get(`/company/${id}/users`);
 		return response.data;
@@ -209,9 +220,11 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 			socialMediasData,
 			setSocialMediasData,
 			getCompanyById,
+			setSelectedCompany,
 			getAllCompanyEmployees,
 			allUserCompanies,
 			selectedCompany,
+			updateCompany,
 		}),
 		[
 			selectedCompany,
@@ -224,6 +237,8 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 			filteredNotifications,
 			socialMediasData,
 			allUserCompanies,
+			setSocialMediasData,
+			updateCompany,
 		]
 	);
 

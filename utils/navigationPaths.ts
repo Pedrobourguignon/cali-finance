@@ -12,11 +12,15 @@ export const navigationPaths = {
 		companies: {
 			home: '/app/companies',
 			createOrg: '/app/companies/create',
-			overview: (companyId: string | null) => `/app/companies/${companyId}`,
-			teams: (companyId: string | null) => `/app/companies/${companyId}/teams`,
-			funds: (companyId: string | null) => `/app/companies/${companyId}/funds`,
-			editOrg: (companyId: string | null) => `/app/companies/${companyId}/edit`,
-			team: (companyId: string | null, teamId: string | null) =>
+			overview: (companyId: string | string[] | undefined) =>
+				`/app/companies/${companyId}`,
+			teams: (companyId: string | string[] | undefined) =>
+				`/app/companies/${companyId}/teams`,
+			funds: (companyId: string | string[] | undefined) =>
+				`/app/companies/${companyId}/funds`,
+			editOrg: (companyId: string | string[] | undefined) =>
+				`/app/companies/${companyId}/edit`,
+			team: (companyId: string | string[] | undefined, teamId: string) =>
 				`/app/companies/${companyId}/teams/${teamId}`,
 		},
 	},

@@ -9,10 +9,10 @@ import {
 import { usePicasso } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
 import React from 'react';
-import { handleLogoImage, navigationPaths } from 'utils';
+import { getLogo, handleLogoImage, navigationPaths } from 'utils';
 import NextLink from 'next/link';
 import { GetUserCompaniesRes } from 'types/interfaces/main-server/ICompany';
-import { WithdrawModal } from 'components/Modals';
+import { WithdrawModal } from 'components';
 
 interface ICompanyCard {
 	companie: GetUserCompaniesRes;
@@ -51,7 +51,7 @@ export const CompanyCard: React.FC<ICompanyCard> = ({
 			<Flex direction="column" pt="2.5" pl="4" color={theme.text.primary}>
 				<Flex align="center" gap={{ md: '1', xl: '2' }}>
 					{companie.logo ? (
-						<Img src={companie.logo} boxSize="6" borderRadius="base" />
+						<Img src={getLogo(companie.logo)} boxSize="6" borderRadius="base" />
 					) : (
 						<Flex
 							boxSize="6"
@@ -61,11 +61,16 @@ export const CompanyCard: React.FC<ICompanyCard> = ({
 							fontSize="xs"
 							fontWeight="bold"
 						>
-							<Text whiteSpace="nowrap">{handleLogoImage(companie.name!)}</Text>
+							<Text whiteSpace="nowrap">{handleLogoImage(companie.name)}</Text>
 						</Flex>
 					)}
-					<Text fontSize={{ md: 'xs', xl: 'md' }} fontWeight="bold">
-						{companie.name!.split(' ')[0]} {companie.name!.split(' ')[1]}
+					<Text
+						fontSize={{ md: 'xs', xl: 'md' }}
+						fontWeight="bold"
+						whiteSpace="nowrap"
+						overflow="hidden"
+					>
+						{companie.name}
 					</Text>
 				</Flex>
 				<Flex pt={{ md: '1', xl: '3' }} justify="space-between" pr="6">

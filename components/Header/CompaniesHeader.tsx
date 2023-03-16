@@ -7,7 +7,7 @@ import {
 	Skeleton,
 } from '@chakra-ui/react';
 import { useCompanies, usePath, usePicasso } from 'hooks';
-import { handleLogoImage, navigationPaths, networkInfos } from 'utils';
+import { getLogo, handleLogoImage, navigationPaths, networkInfos } from 'utils';
 import {
 	NavigationBack,
 	NeedFundsCompaniesHeader,
@@ -51,16 +51,16 @@ export const CompaniesHeader = () => {
 	const {
 		data: selectedCompany,
 		isLoading: isLoadingSelectedCompany,
-		error,
+		error: selectedCompanyError,
 	} = useQuery('created-company-overview', () =>
 		getCompanyById(Number(query.id))
 	);
 
 	useEffect(() => {
-		if (error) {
+		if (selectedCompanyError) {
 			router.push('/404');
 		}
-	}, [error]);
+	}, [selectedCompanyError]);
 
 	return (
 		<Flex direction="column" color={theme.text.primary} w="100%" gap="7">
@@ -81,7 +81,7 @@ export const CompaniesHeader = () => {
 			</Flex>
 			<Flex w="100%" justify="space-between" align="center">
 				<Flex gap="3" align="center">
-					{selectedCompany?.logo === '' ? (
+					{!selectedCompany?.logo ? (
 						<Flex
 							boxSize="20"
 							borderRadius="base"
@@ -91,10 +91,10 @@ export const CompaniesHeader = () => {
 							fontWeight="bold"
 							bg={theme.bg.white2}
 						>
-							{handleLogoImage(selectedCompany.name!)}
+							{handleLogoImage(selectedCompany?.name)}
 						</Flex>
 					) : (
-						<Img src={selectedCompany?.logo} boxSize="20" />
+						<Img src={getLogo(selectedCompany.logo)} boxSize="20" />
 					)}
 					{isLoadingSelectedCompany ? (
 						<Skeleton w="44" h="4" />
