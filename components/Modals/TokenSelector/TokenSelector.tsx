@@ -18,6 +18,8 @@ import { usePicasso, useTokens } from 'hooks';
 import { IBasicModal, ISelectedCoin } from 'types';
 import { TokenOptions } from 'components';
 import { IoIosSearch, IoMdArrowDown } from 'react-icons/io';
+import { useRef, useState } from 'react';
+import InfiniteScroll from 'react-infinite-scroll-component';
 
 interface ITokenSelector extends IBasicModal {
 	setToken: React.Dispatch<React.SetStateAction<ISelectedCoin>>;
@@ -29,6 +31,8 @@ export const TokenSelector: React.FC<ITokenSelector> = ({
 	setToken,
 }) => {
 	const theme = usePicasso();
+	const ref = useRef(null);
+	const [page, setPage] = useState(0);
 	const { setFilteredTokens, filteredTokens, handleSearchToken, listOfTokens } =
 		useTokens();
 
@@ -82,7 +86,8 @@ export const TokenSelector: React.FC<ITokenSelector> = ({
 					</Flex>
 					<Flex
 						direction="column"
-						h="xl"
+						id="scrollableDiv"
+						h="40"
 						overflow="auto"
 						gap="2"
 						sx={{
@@ -99,15 +104,23 @@ export const TokenSelector: React.FC<ITokenSelector> = ({
 							px: '1',
 						}}
 					>
-						{filteredTokens.map((token, index) => (
-							<TokenOptions
-								key={+index}
-								token={token}
-								onClick={() =>
-									handleOnClick(token.symbol.toLowerCase(), token.logoURI)
-								}
-							/>
-						))}
+						<InfiniteScroll
+							dataLength={1}
+							next={() => console.log('foi')}
+							hasMore
+							loader={<h4>Loading...</h4>}
+							scrollableTarget="scrollableDiv"
+						>
+							{filteredTokens.map((token, index) => (
+								<TokenOptions
+									key={+index}
+									token={token}
+									onClick={() =>
+										handleOnClick(token.symbol.toLowerCase(), token.logoURI)
+									}
+								/>
+							))}
+						</InfiniteScroll>
 					</Flex>
 				</ModalBody>
 				<ModalFooter>
