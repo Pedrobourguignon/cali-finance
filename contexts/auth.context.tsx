@@ -3,6 +3,7 @@ import { AUTH_SERVICE_ROUTES } from 'helpers';
 import { useSignMessage } from 'wagmi';
 import { useToasty } from 'hooks';
 import { signIn, useSession } from 'next-auth/react';
+import { getCookie, setCookie, setCookies } from 'cookies-next';
 
 interface IAuthContext {
 	getSignature: (nonce: string) => Promise<`0x${string}` | undefined>;
@@ -68,8 +69,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 
 	useEffect(() => {
 		if (session) {
+			setCookie('cali-finance-authorization', session.user);
 			if (!localStorage.getItem('cali-finance-authorization')) {
-				localStorage.setItem('cali-finance-authorization', session.user); // please uncomment this line
+				localStorage.setItem('cali-finance-authorization', session.user);
 			}
 		}
 	}, [session]);
