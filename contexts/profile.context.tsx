@@ -1,11 +1,9 @@
-import React, { createContext, useState, useMemo } from 'react';
+import React, { createContext, useState, useMemo, useEffect } from 'react';
 import { IProfile, IWalletData } from 'types';
 import { useAccount } from 'wagmi';
 
 interface IProfileContext {
 	isLoading: boolean;
-	isConnected: boolean;
-	setIsConnected: React.Dispatch<React.SetStateAction<boolean>>;
 	userProfile: IProfile;
 	setUserProfile: React.Dispatch<React.SetStateAction<IProfile>>;
 	editedProfileInfo: IProfile;
@@ -42,8 +40,6 @@ export const ProfileProvider: React.FC<{ children: React.ReactNode }> = ({
 	const contextStates = useMemo(
 		() => ({
 			isLoading,
-			isConnected,
-			setIsConnected,
 			userProfile,
 			setUserProfile,
 			editedProfileInfo,
@@ -53,8 +49,6 @@ export const ProfileProvider: React.FC<{ children: React.ReactNode }> = ({
 		}),
 		[
 			isLoading,
-			isConnected,
-			setIsConnected,
 			userProfile,
 			setUserProfile,
 			editedProfileInfo,
