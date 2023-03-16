@@ -15,10 +15,10 @@ import {
 	Text,
 } from '@chakra-ui/react';
 import { usePicasso, useTokens } from 'hooks';
-import { IBasicModal, ISelectedCoin } from 'types';
+import { IBasicModal, ISelectedCoin, IToken } from 'types';
 import { TokenOptions } from 'components';
 import { IoIosSearch, IoMdArrowDown } from 'react-icons/io';
-import { useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
 interface ITokenSelector extends IBasicModal {
@@ -31,13 +31,20 @@ export const TokenSelector: React.FC<ITokenSelector> = ({
 	setToken,
 }) => {
 	const theme = usePicasso();
-	const ref = useRef(null);
-	const [page, setPage] = useState(0);
 	const { setFilteredTokens, filteredTokens, handleSearchToken, listOfTokens } =
 		useTokens();
 
+	const perPage = 20;
+	const [lastObjectPosition, setLastObjectPosition] = useState(20);
+	const [loadedTokens, setLoadedTokens] = useState<IToken[]>([]);
+
+	useEffect(() => {
+		setLoadedTokens(filteredTokens.slice(0, 20));
+	}, [filteredTokens]);
+
 	const handleOnClose = () => {
 		setFilteredTokens(listOfTokens);
+		setLoadedTokens(filteredTokens.slice(0, 20));
 		onClose();
 	};
 
@@ -50,8 +57,17 @@ export const TokenSelector: React.FC<ITokenSelector> = ({
 		handleOnClose();
 	};
 
+	const loadMoreTokens = () => {
+		setLoadedTokens(prevState =>
+			prevState.concat(
+				filteredTokens.slice(lastObjectPosition, lastObjectPosition + perPage)
+			)
+		);
+		setLastObjectPosition(lastObjectPosition + perPage);
+	};
+
 	return (
-		<Modal isOpen={isOpen} onClose={onClose}>
+		<Modal isOpen={isOpen} onClose={handleOnClose}>
 			<ModalOverlay />
 			<ModalContent
 				bg="white"
@@ -87,7 +103,7 @@ export const TokenSelector: React.FC<ITokenSelector> = ({
 					<Flex
 						direction="column"
 						id="scrollableDiv"
-						h="40"
+						h="xs"
 						overflow="auto"
 						gap="2"
 						sx={{
@@ -105,13 +121,13 @@ export const TokenSelector: React.FC<ITokenSelector> = ({
 						}}
 					>
 						<InfiniteScroll
-							dataLength={1}
-							next={() => console.log('foi')}
-							hasMore
+							dataLength={loadedTokens.length}
+							next={() => loadMoreTokens()}
+							hasMore={lastObjectPosition < listOfTokens.length}
 							loader={<h4>Loading...</h4>}
 							scrollableTarget="scrollableDiv"
 						>
-							{filteredTokens.map((token, index) => (
+							{loadedTokens.map((token, index) => (
 								<TokenOptions
 									key={+index}
 									token={token}
