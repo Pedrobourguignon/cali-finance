@@ -1,6 +1,6 @@
 export interface ICoin {
-	icon: string;
-	name: string;
-	value: string;
-	variation: number;
+	icon?: string;
+	symbol?: string;
+	value?: number;
+	variation?: number;
 }

@@ -4,28 +4,12 @@ import React, { useEffect, useState } from 'react';
 import { ICoin, ISelectedCoin } from 'types';
 import useTranslation from 'next-translate/useTranslation';
 import { usePicasso, useTokens } from 'hooks';
-import { useMutation, useQuery } from 'react-query';
+import { useQuery } from 'react-query';
 
-const coinCard: ICoin[] = [
-	{
-		icon: '/icons/tether.svg',
-		name: 'USDT',
-		value: '$1,00',
-		variation: -0.6,
-	},
-	{
-		icon: '/icons/tether.svg',
-		name: 'USDT',
-		value: '$1,00',
-		variation: 0,
-	},
-	{
-		icon: '/icons/tether.svg',
-		name: 'USDT',
-		value: '$1,00',
-		variation: 0.6,
-	},
-];
+const result = {
+	btc: { value: 1000, change: 10 },
+	eth: { value: 2000, change: 30 },
+};
 
 export const Coins = () => {
 	const { t: translate } = useTranslation('dashboard');
@@ -35,14 +19,16 @@ export const Coins = () => {
 	const [selectedToken, setSelectedToken] = useState<ISelectedCoin>(
 		{} as ISelectedCoin
 	);
-	const [listOfTokens, setListOfTokens] = useState<ISelectedCoin[]>([]);
+	const [listOfTokens, setListOfTokens] = useState<ICoin[]>([]);
 	const symbols: string[] = [];
-	console.log(listOfTokens);
+	const [cardItens, setCardItens] = useState<ICoin[]>([]);
 
-	const { data, isLoading, error } = useQuery('get-coin-data', () =>
-		getCoinServiceTokens(symbols.toString())
-	);
-	console.log(data);
+	const {
+		data: coinServiceTokens,
+		isLoading,
+		error,
+		refetch,
+	} = useQuery('get-coin-data', () => getCoinServiceTokens(symbols.toString()));
 
 	useEffect(() => {
 		if (Object.keys(selectedToken).length !== 0) {
@@ -52,9 +38,15 @@ export const Coins = () => {
 
 	useEffect(() => {
 		if (listOfTokens.length !== 0) {
-			listOfTokens.forEach(item => symbols.push(item.symbol));
+			listOfTokens.forEach(item => symbols.push(item.symbol!));
+			refetch();
 		}
 	}, [listOfTokens]);
+	console.log(coinServiceTokens);
+
+	// useEffect(() => {
+	// 	coinServiceTokens!.map((item, index) => console.log(item));
+	// }, [coinServiceTokens]);
 	return (
 		<Flex
 			justify="space-between"
@@ -96,7 +88,7 @@ export const Coins = () => {
 				</Text>
 			</Flex>
 			<Flex justify="flex-start" mx="4" flex="1" gap={{ md: '4', '2xl': '4' }}>
-				{coinCard.map((card, index) => (
+				{/* {coinCard.map((card, index) => (
 					<CoinCard
 						coin={card}
 						borderColor="gray.50"
@@ -104,7 +96,7 @@ export const Coins = () => {
 						pr={{ md: '2', xl: '9' }}
 						key={+index}
 					/>
-				))}
+				))} */}
 			</Flex>
 			<Flex>
 				<NewCoinButton onOpen={onOpen} />

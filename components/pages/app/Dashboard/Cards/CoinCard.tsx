@@ -13,7 +13,7 @@ export const CoinCard: React.FC<ICoinCard> = ({
 	color,
 }) => {
 	const colorVariance = () => {
-		if (coin.variation > 0) return 'green.400';
+		if (coin.variation! > 0) return 'green.400';
 		if (!coin.variation) return color;
 		return 'red.500';
 	};
@@ -37,7 +37,7 @@ export const CoinCard: React.FC<ICoinCard> = ({
 					<Img src={coin.icon} boxSize={{ md: '5', xl: '6' }} />
 					<Flex direction="column">
 						<Text fontSize="xs" color={color}>
-							{coin.name}
+							{coin.symbol}
 						</Text>
 						<Text fontSize="xs" color={color}>
 							{coin.value}
@@ -45,7 +45,7 @@ export const CoinCard: React.FC<ICoinCard> = ({
 					</Flex>
 				</Flex>
 				<Text fontSize="xs" color={colorVariance()}>
-					{coin.variation > 0 && '+'}
+					{coin.variation! > 0 && '+'}
 					{coin.variation}%
 				</Text>
 			</Flex>

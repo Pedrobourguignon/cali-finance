@@ -13,44 +13,44 @@ import useTranslation from 'next-translate/useTranslation';
 const coinCard: ICoin[] = [
 	{
 		icon: '/icons/tether.svg',
-		name: 'USDT',
-		value: '$1,00',
+		symbol: 'USDT',
+		value: 1,
 		variation: 0.6,
 	},
 	{
 		icon: '/icons/tether.svg',
-		name: 'USDT',
-		value: '$1,00',
+		symbol: 'USDT',
+		value: 1,
 		variation: 0,
 	},
 	{
 		icon: '/icons/tether.svg',
-		name: 'USDT',
-		value: '$1,00',
+		symbol: 'USDT',
+		value: 1,
 		variation: 0.6,
 	},
 	{
 		icon: '/icons/tether.svg',
-		name: 'USDT',
-		value: '$1,00',
+		symbol: 'USDT',
+		value: 1,
 		variation: 0.6,
 	},
 	{
 		icon: '/icons/tether.svg',
-		name: 'USDT',
-		value: '$1,00',
+		symbol: 'USDT',
+		value: 1,
 		variation: 0.6,
 	},
 	{
 		icon: '/icons/tether.svg',
-		name: 'USDT',
-		value: '$1,00',
+		symbol: 'USDT',
+		value: 1,
 		variation: -0.6,
 	},
 	{
 		icon: '/icons/tether.svg',
-		name: 'USDT',
-		value: '$1,00',
+		symbol: 'USDT',
+		value: 1,
 		variation: 0,
 	},
 ];
@@ -79,7 +79,7 @@ export const FundsPageComponent = () => {
 					</Flex>
 
 					<Flex gap="4" w="full" justify="flex-start" flexWrap="wrap">
-						{coinCard.map((coin, index) => (
+						{/* {coinCard.map((coin, index) => (
 							<CoinCard
 								coin={coin}
 								borderColor="gray.400"
@@ -88,7 +88,7 @@ export const FundsPageComponent = () => {
 								color={theme.text.primary}
 								key={+index}
 							/>
-						))}
+						))} */}
 					</Flex>
 				</Flex>
 				<HistoryDashboard />

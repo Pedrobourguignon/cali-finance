@@ -15,7 +15,9 @@ interface ITokensContext {
 	setSwapTokenSelector: React.Dispatch<
 		React.SetStateAction<ISwapTokenSelector>
 	>;
-	getCoinServiceTokens: (symbols: string) => Promise<void>;
+	getCoinServiceTokens: (
+		symbols: string
+	) => Promise<{ value: number; change: number }>;
 }
 export const TokensContext = createContext({} as ITokensContext);
 
@@ -92,11 +94,11 @@ export const TokensProvider: React.FC<{ children: React.ReactNode }> = ({
 		250
 	);
 
+	// eslint-disable-next-line consistent-return
 	const getCoinServiceTokens = async (symbols: string) => {
-		console.log(symbols);
 		if (symbols) {
 			const response = await coinClient.get(`coin?symbols=${symbols}`);
-			console.log(response);
+			return response.data;
 		}
 	};
 
