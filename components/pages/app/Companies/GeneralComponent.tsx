@@ -6,6 +6,7 @@ import React from 'react';
 
 export const GeneralComponent = () => {
 	const { data: session } = useSession();
+
 	return (
 		<CompaniesProvider>
 			<Flex>

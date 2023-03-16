@@ -31,6 +31,7 @@ export const CreateAccountBanner = () => {
 				isOpen={isOpen}
 				onClose={onClose}
 				openLoadingWalletModal={onOpenLoading}
+				onCloseLoading={onCloseLoading}
 			/>
 			<LoadingWalletConnectModal
 				walletIcon={walletData.icon}

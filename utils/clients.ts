@@ -3,7 +3,7 @@ import { API_URLS } from 'helpers';
 import { getCookie } from 'cookies-next';
 
 export const checkJwt = () => {
-	const jwt = getCookie('jwt');
+	const jwt = getCookie('cali-finance-authorization');
 	return jwt ? `Bearer ${jwt}` : false;
 };
 

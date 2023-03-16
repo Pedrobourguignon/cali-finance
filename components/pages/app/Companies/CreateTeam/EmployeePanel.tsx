@@ -25,7 +25,6 @@ export const EmployeePanel: React.FC<IEmployeePanel> = ({
 			<AddEmployee
 				isOpen={isOpen}
 				onClose={onClose}
-				// company={companyName}
 				setEmployees={setEmployees}
 			/>
 			<Flex justify="space-between" w="full" align="center">

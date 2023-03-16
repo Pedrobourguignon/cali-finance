@@ -1,3 +1,4 @@
+export * from './auth.context';
 export * from './companies.context';
 export * from './profile.context';
 export * from './teams.context';

@@ -11,7 +11,8 @@ export const WithdrawButton = () => {
 			w="100%"
 			bg={theme.bg.primary}
 			_hover={{}}
-			h="8"
+			h="full"
+			maxH="8"
 			py={{ lg: '1', xl: '1.5' }}
 		>
 			<Text fontSize="sm">{translate('withdraw')}</Text>

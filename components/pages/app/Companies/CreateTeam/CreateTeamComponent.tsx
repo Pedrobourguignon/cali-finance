@@ -146,11 +146,7 @@ export const CreateTeamComponent: React.FC<ICreateTeamComponent> = ({
 								{...register('description')}
 							/>
 						</Flex>
-						<EmployeePanel
-							// companyName={selectedCompany.name}
-							setEmployees={setEmployees}
-							employees={employees}
-						/>
+						<EmployeePanel setEmployees={setEmployees} employees={employees} />
 						<Button
 							fontWeight="medium"
 							color="white"

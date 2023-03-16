@@ -64,9 +64,11 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 	const [selectedCompany, setSelectedCompany] = useState<ICompany>(
 		{} as ICompany
 	);
-	const neededFunds = 0;
+	const neededFunds = 10000;
 
-	const companiesWithMissingFunds: GetUserCompaniesRes[] = [];
+	const [companiesWithMissingFunds, setCompaniesWithMissingFunds] = useState<
+		GetUserCompaniesRes[]
+	>([]);
 
 	const [filteredNotifications, setFilteredNotifications] =
 		useState<IHistoryNotification[]>(historyNotifications);
@@ -140,12 +142,16 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 		return response.data;
 	};
 
-	// eslint-disable-next-line array-callback-return
-	allUserCompanies.map(companie => {
-		if (companie.revenue! < neededFunds) {
-			companiesWithMissingFunds.push(companie);
-		}
-	});
+	const handleMissingFunds = () => {
+		allUserCompanies.forEach(companie => {
+			if (companie.revenue! < neededFunds) {
+				setCompaniesWithMissingFunds(prevState => prevState.concat(companie));
+			}
+		});
+	};
+	useEffect(() => {
+		handleMissingFunds();
+	}, [allUserCompanies]);
 
 	useEffect(() => {
 		if (companiesWithMissingFunds.length) {
