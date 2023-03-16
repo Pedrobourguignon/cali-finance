@@ -121,7 +121,6 @@ export const CreateCompanyContainer = () => {
 								setSocialMediasInput={setSocialMediasInput}
 								newCompanyPicture={newCompanyPicture}
 								handleNewPicture={handleNewPicture}
-								setSocialLinksInputValue={setSocialLinksInputValue}
 							/>
 						}
 					>

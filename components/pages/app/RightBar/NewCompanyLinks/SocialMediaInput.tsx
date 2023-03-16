@@ -7,7 +7,6 @@ interface ISocialLink {
 	setSocialMediasInput: (name: string[], url: string) => void;
 	socialLink: ISocialMediaInput;
 	defaultValue?: string;
-	setSocialLinksInputValue: Dispatch<SetStateAction<ISociaLinksInputValue>>;
 }
 
 export const SocialMediaInput: React.FC<ISocialLink> = ({
