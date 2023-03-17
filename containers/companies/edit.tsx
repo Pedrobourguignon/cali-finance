@@ -115,6 +115,7 @@ export const EditCompany = () => {
 			color: '#121212',
 			logo: editedCompanyPicture,
 		});
+
 	};
 
 	return (

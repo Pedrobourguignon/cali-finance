@@ -311,13 +311,9 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 	};
 
 	const updateCompany = async (company: ICompany) => {
-		await mainClient
-			.put(`/company/${Number(query.id)}`, {
-				company,
-			})
-			.then(id =>
-				router.push(navigationPaths.dashboard.companies.overview(id.data.id))
-			);
+		await mainClient.put(`/company/${Number(query.id)}`, {
+			company,
+		});
 	};
 	const getAllCompanyEmployees = async (id: number) => {
 		const response = await mainClient.get(`/company/${id}/users`);
@@ -376,7 +372,6 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 			setFilteredNotifications,
 			socialMediasData,
 			setSocialMediasData,
-			updateCompany,
 		]
 	);
 	return (
