@@ -63,7 +63,11 @@ export const EditCompany = () => {
 	const { mutate } = useMutation(
 		(editedCompanyData: ICompany) => updateCompany(editedCompanyData),
 		{
-			onSuccess: () => console.log('done'),
+			onSuccess: () => {
+				router.push(
+					navigationPaths.dashboard.companies.overview(query.id?.toString())
+				);
+			},
 		}
 	);
 
@@ -115,7 +119,6 @@ export const EditCompany = () => {
 			color: '#121212',
 			logo: editedCompanyPicture,
 		});
-
 	};
 
 	return (
