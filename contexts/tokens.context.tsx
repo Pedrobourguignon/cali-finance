@@ -17,7 +17,9 @@ interface ITokensContext {
 	>;
 	getCoinServiceTokens: (
 		symbols: string
-	) => Promise<{ value: number; change: number }>;
+	) => Promise<
+		Record<string, { value: number; change: number; symbol: string }>
+	>;
 }
 export const TokensContext = createContext({} as ITokensContext);
 

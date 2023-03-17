@@ -12,46 +12,46 @@ import useTranslation from 'next-translate/useTranslation';
 
 const coinCard: ICoin[] = [
 	{
-		icon: '/icons/tether.svg',
+		logo: '/icons/tether.svg',
 		symbol: 'USDT',
 		value: 1,
-		variation: 0.6,
+		change: 0.6,
 	},
 	{
-		icon: '/icons/tether.svg',
+		logo: '/icons/tether.svg',
 		symbol: 'USDT',
 		value: 1,
-		variation: 0,
+		change: 0,
 	},
 	{
-		icon: '/icons/tether.svg',
+		logo: '/icons/tether.svg',
 		symbol: 'USDT',
 		value: 1,
-		variation: 0.6,
+		change: 0.6,
 	},
 	{
-		icon: '/icons/tether.svg',
+		logo: '/icons/tether.svg',
 		symbol: 'USDT',
 		value: 1,
-		variation: 0.6,
+		change: 0.6,
 	},
 	{
-		icon: '/icons/tether.svg',
+		logo: '/icons/tether.svg',
 		symbol: 'USDT',
 		value: 1,
-		variation: 0.6,
+		change: 0.6,
 	},
 	{
-		icon: '/icons/tether.svg',
+		logo: '/icons/tether.svg',
 		symbol: 'USDT',
 		value: 1,
-		variation: -0.6,
+		change: -0.6,
 	},
 	{
-		icon: '/icons/tether.svg',
+		logo: '/icons/tether.svg',
 		symbol: 'USDT',
 		value: 1,
-		variation: 0,
+		change: 0,
 	},
 ];
 

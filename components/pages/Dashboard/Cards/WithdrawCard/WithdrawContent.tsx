@@ -13,7 +13,7 @@ import useTranslation from 'next-translate/useTranslation';
 import { IoIosArrowDown } from 'react-icons/io';
 
 interface ISelectedCoin {
-	coin: { logo: string; symbol: string };
+	coin: { logo?: string; symbol: string };
 	onOpen: () => void;
 }
 

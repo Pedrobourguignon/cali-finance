@@ -1,15 +1,10 @@
-import { Flex, list, Text, useDisclosure } from '@chakra-ui/react';
+import { Flex, Text, useDisclosure } from '@chakra-ui/react';
 import { NewCoinButton, CoinCard, TokenSelector } from 'components';
 import React, { useEffect, useState } from 'react';
 import { ICoin, ISelectedCoin } from 'types';
 import useTranslation from 'next-translate/useTranslation';
 import { usePicasso, useTokens } from 'hooks';
 import { useQuery } from 'react-query';
-
-const result = {
-	btc: { value: 1000, change: 10 },
-	eth: { value: 2000, change: 30 },
-};
 
 export const Coins = () => {
 	const { t: translate } = useTranslation('dashboard');
@@ -21,7 +16,7 @@ export const Coins = () => {
 	);
 	const [listOfTokens, setListOfTokens] = useState<ICoin[]>([]);
 	const symbols: string[] = [];
-	const [cardItens, setCardItens] = useState<ICoin[]>([]);
+	const [cardItems, setCardItems] = useState<ICoin[]>([]);
 
 	const {
 		data: coinServiceTokens,
@@ -38,15 +33,30 @@ export const Coins = () => {
 
 	useEffect(() => {
 		if (listOfTokens.length !== 0) {
-			listOfTokens.forEach(item => symbols.push(item.symbol!));
+			listOfTokens.forEach(item => symbols.push(item.symbol));
 			refetch();
 		}
 	}, [listOfTokens]);
-	console.log(coinServiceTokens);
 
-	// useEffect(() => {
-	// 	coinServiceTokens!.map((item, index) => console.log(item));
-	// }, [coinServiceTokens]);
+	useEffect(() => {
+		if (coinServiceTokens) {
+			const tokens = Object.values(coinServiceTokens).reduce((acc, item) => {
+				if (
+					!cardItems.find(
+						coin => coin.symbol.toLowerCase() === item.symbol.toLowerCase()
+					)
+				) {
+					const logo = listOfTokens.find(
+						token => token.symbol.toLowerCase() === item.symbol.toLowerCase()
+					);
+					acc.push({ ...item, ...logo });
+				}
+				return acc;
+			}, [] as ICoin[]);
+			setCardItems(cardItems.concat(tokens));
+		}
+	}, [coinServiceTokens]);
+
 	return (
 		<Flex
 			justify="space-between"
@@ -88,7 +98,7 @@ export const Coins = () => {
 				</Text>
 			</Flex>
 			<Flex justify="flex-start" mx="4" flex="1" gap={{ md: '4', '2xl': '4' }}>
-				{/* {coinCard.map((card, index) => (
+				{cardItems.map((card, index) => (
 					<CoinCard
 						coin={card}
 						borderColor="gray.50"
@@ -96,7 +106,7 @@ export const Coins = () => {
 						pr={{ md: '2', xl: '9' }}
 						key={+index}
 					/>
-				))} */}
+				))}
 			</Flex>
 			<Flex>
 				<NewCoinButton onOpen={onOpen} />
