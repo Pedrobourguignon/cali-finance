@@ -26,7 +26,12 @@ import {
 	ChangeNetworkButton,
 	NetworkModal,
 } from 'components';
-import { navigationPaths, socialMediaLinks, truncateWallet } from 'utils';
+import {
+	getLogo,
+	navigationPaths,
+	socialMediaLinks,
+	truncateWallet,
+} from 'utils';
 import { INetwork } from 'types';
 import useTranslation from 'next-translate/useTranslation';
 import { useSession, signOut } from 'next-auth/react';
@@ -189,9 +194,9 @@ export const Sidebar: React.FC = () => {
 										<Flex align="center" gap="2" justify="center">
 											<Img
 												src={
-													profileData?.picture === ''
+													!profileData?.picture
 														? '/images/editImage.png'
-														: profileData?.picture
+														: getLogo(profileData?.picture)
 												}
 												borderRadius="full"
 												boxSize="6"
