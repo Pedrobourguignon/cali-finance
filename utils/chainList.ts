@@ -1,7 +1,7 @@
 import { IChainDictionary } from 'types';
 
-export const chainList: IChainDictionary = {
-	1: 'ethereum',
-	137: 'polygon-pos',
-	56: 'binance-smart-chain',
+export const chainList = (chainId: number) => {
+	if (chainId === 1) return 'ethereum';
+	if (chainId === 137) return 'polygon-pos';
+	return 'binance-smart-chain';
 };

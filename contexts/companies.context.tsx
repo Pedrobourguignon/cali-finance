@@ -8,10 +8,8 @@ import {
 	useState,
 } from 'react';
 import {
-	IMockCompany,
 	IActivities,
 	INotificationList,
-	IEditedCompany,
 	IEmployee,
 	IHistoryNotification,
 	ISocialMedia,
@@ -20,38 +18,39 @@ import {
 } from 'types';
 import { historyNotifications } from 'components';
 import { mainClient, navigationPaths } from 'utils';
-import { ICompany } from 'types/interfaces/main-server/ICompany';
-import router, { useRouter } from 'next/router';
 import { useQuery } from 'react-query';
 import { IUser } from 'types/interfaces/auth-srv/IUser';
 import { GetCompanyUsersRes } from 'types/interfaces/main-server/IUser';
+import { useAccount } from 'wagmi';
+import {
+	GetUserCompaniesRes,
+	ICompany,
+} from 'types/interfaces/main-server/ICompany';
+import router, { useRouter } from 'next/router';
 
-interface ICompanysContext {
-	companies: IMockCompany[];
+interface ICompanyContext {
 	activities: IActivities[];
-	totalFunds: string;
-	totalTeams: string;
-	totalMembers: string;
 	notificationsList: INotificationList[];
 	setNotificationsList: Dispatch<SetStateAction<INotificationList[]>>;
-	setSelectedCompany: Dispatch<SetStateAction<IMockCompany>>;
-	setSelectedCompanyEmployees: Dispatch<SetStateAction<IEmployee[]>>;
-	selectedCompanyEmployees: IEmployee[];
-	selectedCompany: IMockCompany;
-	setEditedInfo: Dispatch<SetStateAction<IEditedCompany>>;
-	editedInfo: IEditedCompany;
+	setSelectedCompany: Dispatch<SetStateAction<ICompany>>;
+	setEditedInfo: Dispatch<SetStateAction<ICompany>>;
+	editedInfo: ICompany;
 	displayMissingFundsWarning: string;
 	setDisplayMissingFundsWarning: Dispatch<SetStateAction<string>>;
 	displayNeedFundsCard: string;
 	setDisplayNeedFundsCard: Dispatch<SetStateAction<string>>;
-	companiesWithMissingFunds: IMockCompany[];
 	filteredNotifications: IHistoryNotification[];
 	setFilteredNotifications: Dispatch<SetStateAction<IHistoryNotification[]>>;
+	getAllUserCompanies: () => Promise<ICompany[]>;
 	createCompany: (company: ICompany) => Promise<void>;
 	socialMediasData: ISocialMedia[];
 	setSocialMediasData: Dispatch<SetStateAction<ISocialMedia[]>>;
 	getCompanyById: (id: number) => Promise<ICompany>;
+	updateCompany: (company: ICompany) => Promise<void>;
 	getAllCompanyEmployees: (id: number) => Promise<IEmployee[]>;
+	allUserCompanies: GetUserCompaniesRes[];
+	selectedCompany: ICompany;
+	companiesWithMissingFunds: GetUserCompaniesRes[];
 	addEmployeeToTeam: (employee: INewEmployee) => Promise<void>;
 	addEmployeeCsv: (
 		employee: string | undefined | null | ArrayBuffer
@@ -62,143 +61,32 @@ interface ICompanysContext {
 	) => Promise<void>;
 }
 
-export const CompaniesContext = createContext({} as ICompanysContext);
+export const CompaniesContext = createContext({} as ICompanyContext);
 
 export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 	children,
 }) => {
+	const { query } = useRouter();
 	const { t: translate } = useTranslation('companies');
+	const { address: wallet } = useAccount();
 	const [displayMissingFundsWarning, setDisplayMissingFundsWarning] =
 		useState('none');
 	const [displayNeedFundsCard, setDisplayNeedFundsCard] = useState('none');
 	const [socialMediasData, setSocialMediasData] = useState<ISocialMedia[]>([]);
+	const [allUserCompanies, setAllUserCompanies] = useState<
+		GetUserCompaniesRes[]
+	>([]);
+	const [selectedCompany, setSelectedCompany] = useState<ICompany>(
+		{} as ICompany
+	);
+	const neededFunds = 0;
 
-	const companiesWithMissingFunds: IMockCompany[] = [];
+	const [companiesWithMissingFunds, setCompaniesWithMissingFunds] = useState<
+		GetUserCompaniesRes[]
+	>([]);
 
 	const [filteredNotifications, setFilteredNotifications] =
 		useState<IHistoryNotification[]>(historyNotifications);
-
-	const [companies, setCompanies] = useState<IMockCompany[]>([
-		{
-			name: 'Kylie Cosmetics',
-			type: 'DAO',
-			email: 'kyliecosmetics@gmail.com',
-			members: 2,
-			teams: ['marketing'],
-			description: 'Hello',
-			selectedNetwork: 'Ethereum',
-			picture: '',
-			socialMedias: {
-				instagram: '@kyliecosmetics',
-				telegram: 't/kyliecosmetics',
-				twitter: 'twitter.com/kyliecosmetics',
-				website: 'kyliecosmetics.net',
-			},
-			funds: 999,
-			neededFunds: 2,
-		},
-		{
-			name: 'Kylie Skin',
-			type: 'DAO',
-			email: 'kylieskin@gmail.com',
-			members: 170,
-			teams: ['marketing'],
-			description: 'Hello',
-			selectedNetwork: 'Ethereum',
-			picture: '',
-			socialMedias: {
-				instagram: '@kylieskin',
-				telegram: 't/kylieskin',
-				twitter: 'twitter.com/kylieskin',
-				website: 'kylieskin.net',
-			},
-			funds: 999,
-			neededFunds: 2,
-		},
-		{
-			name: 'Kylie Baby',
-			type: 'DAO',
-			email: 'kyliebaby@gmail.com',
-			members: 13,
-			teams: ['marketing'],
-			description: 'Hello',
-			selectedNetwork: 'Ethereum',
-			picture: '',
-			socialMedias: {
-				instagram: '@kyliebaby',
-				telegram: 't/kyliebaby',
-				twitter: 'twitter.com/kyliebaby',
-				website: 'kyliebaby.net',
-			},
-			funds: 5234.11,
-			neededFunds: 1,
-		},
-	]);
-
-	const [selectedCompanyEmployees, setSelectedCompanyEmployees] = useState<
-		IEmployee[]
-	>([
-		{
-			name: 'Kim Kardashian',
-			wallet: '0x7E48CA2BD05EC61C2FA83CF34B066A8FF36B4CFE',
-			picture: '/images/avatar.png',
-			amount: 10000,
-			coin: 'USDT',
-			team: 'General',
-		},
-		{
-			name: 'Kylie Jenner',
-			wallet: '0x7E48CA2BD05EC61C2FA83CF34B066A8FF36Z9EXD',
-			picture: '/images/avatar.png',
-			amount: 1000,
-			coin: 'USDT',
-			team: 'Marketing',
-		},
-		{
-			name: 'Kloe Kardashian',
-			wallet: '0x7E48CA2BD05EC61C2FA83CF34B066A8FF36C3QER',
-			picture: '/images/avatar.png',
-			amount: 800,
-			coin: 'USDT',
-			team: 'Finance',
-		},
-		{
-			name: 'Kloe Kardashian',
-			wallet: '0x7E48CA2BD05EC61C2FA83CF34B066A8FF36C3QER',
-			picture: '/images/avatar.png',
-			amount: 800,
-			coin: 'USDT',
-			team: 'Finance',
-		},
-		{
-			name: 'Kloe Kardashian',
-			wallet: '0x7E48CA2BD05EC61C2FA83CF34B066A8FF36C3QER',
-			picture: '/images/avatar.png',
-			amount: 8030,
-			coin: 'USDT',
-			team: 'Finance',
-		},
-	]);
-
-	const [selectedCompany, setSelectedCompany] = useState<IMockCompany>({
-		name: 'kylie skin',
-		type: 'DAO',
-		email: 'kylieskin@gmail.com',
-		funds: 67986.09,
-		members: 170,
-		teams: ['marketing'],
-		description: 'Hello',
-		selectedNetwork: 'Ethereum',
-		picture: '/images/kylie-cosmetics-logo.png',
-		socialMedias: {
-			instagram: '@kylieskin',
-			telegram: 't/kylieskin',
-			twitter: 'twitter.com/kylieskin',
-			website: 'kylieskin.net',
-		},
-		neededFunds: 2235,
-		employees: selectedCompanyEmployees,
-	});
 
 	const [notificationsList, setNotificationsList] = useState<
 		INotificationList[]
@@ -261,55 +149,44 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 		},
 	]);
 
-	const [editedInfo, setEditedInfo] = useState<IEditedCompany>(
-		{} as IEditedCompany
-	);
+	const [editedInfo, setEditedInfo] = useState<ICompany>({} as ICompany);
 
-	useEffect(() => {
-		setSelectedCompany(prevState => ({
-			...prevState,
-			employees: selectedCompanyEmployees,
-		}));
-	}, [selectedCompanyEmployees]);
+	const getAllUserCompanies = async () => {
+		const response = await mainClient.get(`/user/${wallet}/company`);
+		setAllUserCompanies(response.data);
+		return response.data;
+	};
 
-	const totalFunds = companies
-		.reduce((total: number, org: IMockCompany) => total + org.funds, 0)
-		.toLocaleString('en-US');
-
-	const totalTeams = companies
-		.reduce(
-			(total: number, org: IMockCompany) => total + Number(org.members),
-			0
-		)
-		.toString();
-	const totalMembers = companies
-		.reduce((total: number, org: IMockCompany) => total + org.teams.length, 0)
-		.toString();
-
-	// eslint-disable-next-line array-callback-return
-	companies.map(companie => {
-		if (companie.funds < companie.neededFunds) {
-			companiesWithMissingFunds.push(companie);
-		}
-	});
-
-	const showMissingFundsWarning = () => {
-		if (companiesWithMissingFunds.length) {
-			setDisplayMissingFundsWarning('flex');
-			setDisplayNeedFundsCard('flex');
-		} else {
-			setDisplayMissingFundsWarning('none');
-			setDisplayNeedFundsCard('none');
-		}
+	const handleMissingFunds = () => {
+		allUserCompanies.forEach(companie => {
+			if (companie.revenue! < neededFunds) {
+				setCompaniesWithMissingFunds(prevState => prevState.concat(companie));
+			}
+		});
 	};
 	useEffect(() => {
-		showMissingFundsWarning();
-	}, []);
+		handleMissingFunds();
+	}, [allUserCompanies]);
+
+	useEffect(() => {
+		if (companiesWithMissingFunds.length) {
+			setDisplayMissingFundsWarning('flex');
+		} else {
+			setDisplayMissingFundsWarning('none');
+		}
+	}, [companiesWithMissingFunds]);
 
 	const getCompanyById = async (id: number) => {
 		const response = await mainClient.get(`/company/${id}`);
+		setSelectedCompany(response.data);
 		return response.data;
 	};
+
+	useEffect(() => {
+		if (selectedCompany.totalFundsUsd! < neededFunds) {
+			setDisplayNeedFundsCard('flex');
+		} else setDisplayNeedFundsCard('none');
+	}, [selectedCompany]);
 
 	const createCompany = async (company: ICompany) => {
 		await mainClient
@@ -323,6 +200,15 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 			);
 	};
 
+	const updateCompany = async (company: ICompany) => {
+		await mainClient
+			.put(`/company/${Number(query.id)}`, {
+				company,
+			})
+			.then(id =>
+				router.push(navigationPaths.dashboard.companies.overview(id.data.id))
+			);
+	};
 	const getAllCompanyEmployees = async (id: number) => {
 		const response = await mainClient.get(`/company/${id}/users`);
 		return response.data;
@@ -332,7 +218,6 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 		const response = await mainClient.get(`/company/${id}/teams`);
 		return response.data;
 	};
-	const { query } = useRouter();
 	const { data: teams } = useQuery('all-company-teams', () =>
 		getAllCompanyTeams(Number(query.id))
 	);
@@ -362,15 +247,9 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 
 	const contextStates = useMemo(
 		() => ({
-			companies,
 			activities,
-			totalFunds,
-			totalTeams,
-			totalMembers,
 			notificationsList,
 			setNotificationsList,
-			setSelectedCompany,
-			selectedCompany,
 			setEditedInfo,
 			editedInfo,
 			displayMissingFundsWarning,
@@ -378,44 +257,38 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 			displayNeedFundsCard,
 			setDisplayNeedFundsCard,
 			companiesWithMissingFunds,
-			setSelectedCompanyEmployees,
-			selectedCompanyEmployees,
 			filteredNotifications,
 			setFilteredNotifications,
+			getAllUserCompanies,
 			createCompany,
 			socialMediasData,
 			setSocialMediasData,
 			getCompanyById,
+			setSelectedCompany,
 			getAllCompanyEmployees,
 			addEmployeeToTeam,
 			addEmployeeCsv,
 			updateEmployee,
+			allUserCompanies,
+			selectedCompany,
+			updateCompany,
 		}),
 		[
 			selectedCompany,
-			companies,
 			activities,
-			totalFunds,
-			totalTeams,
-			totalMembers,
 			notificationsList,
-			setSelectedCompany,
-			setNotificationsList,
-			setEditedInfo,
 			editedInfo,
 			displayMissingFundsWarning,
-			setDisplayMissingFundsWarning,
 			displayNeedFundsCard,
-			setDisplayNeedFundsCard,
 			companiesWithMissingFunds,
-			setSelectedCompanyEmployees,
-			selectedCompanyEmployees,
 			filteredNotifications,
-			setFilteredNotifications,
 			socialMediasData,
+			allUserCompanies,
 			setSocialMediasData,
+			updateCompany,
 		]
 	);
+
 	return (
 		<CompaniesContext.Provider value={contextStates}>
 			{children}

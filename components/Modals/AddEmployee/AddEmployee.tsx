@@ -40,7 +40,8 @@ import { AxiosError } from 'axios';
 export const AddEmployee: React.FC<IAddEmployee> = ({
 	isOpen,
 	onClose,
-	company,
+	selectedCompany,
+	setEmployees,
 }) => {
 	const { t: translate } = useTranslation('create-team');
 	const [selectedTab, setSelectedTab] = useState<string>(
@@ -57,7 +58,7 @@ export const AddEmployee: React.FC<IAddEmployee> = ({
 	} as ISelectedCoin);
 	const bitcoinPrice = 87.586;
 	const { addEmployeeSchema } = useSchema();
-	const { selectedCompany, addEmployeeToTeam } = useCompanies();
+	const { addEmployeeToTeam } = useCompanies();
 	const queryClient = useQueryClient();
 
 	const toast = useToast();
@@ -135,41 +136,20 @@ export const AddEmployee: React.FC<IAddEmployee> = ({
 		}));
 	};
 
-	useEffect(() => {
-		if (error instanceof AxiosError) {
-			if (error.response?.status === 409) {
-				toast({
-					position: 'top',
-					render: () => (
-						<AlertToast
-							onClick={toast.closeAll}
-							text="userAlreadyExists"
-							type="error"
-						/>
-					),
-				});
-			} else {
-				toast({
-					position: 'top',
-					render: () => (
-						<AlertToast
-							onClick={toast.closeAll}
-							text="weAreWorkingToSolve"
-							type="error"
-						/>
-					),
-				});
-			}
-		}
-	}, [error]);
-
 	const handleAddEmployee = (newEmployeeData: IAddEmployeeForm) => {
-		mutate({
-			userAddress: newEmployeeData.walletAddress,
-			revenue: newEmployeeData.amount,
-			asset: token.symbol,
-		});
-		handleResetFormInputs();
+		if (setEmployees) {
+			setEmployees(prevState =>
+				prevState.concat([
+					{
+						name: 'Azeitona',
+						wallet: newEmployeeData.walletAddress,
+						picture: '/images/avatar.png',
+						amount: newEmployeeData.amount,
+						coin: 'USDT',
+					},
+				])
+			);
+		}
 	};
 
 	return (
@@ -209,7 +189,7 @@ export const AddEmployee: React.FC<IAddEmployee> = ({
 									{translate('addEmployee')}
 								</Text>
 								<Text color="gray.500" fontWeight="normal" fontSize="sm">
-									{`${translate('to')} ${company || selectedCompany.name}`}
+									{`${translate('to')} ${selectedCompany?.name}`}
 								</Text>
 							</Flex>
 							<ModalCloseButton

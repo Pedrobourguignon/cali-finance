@@ -5,6 +5,7 @@
 	"totalFunds": "Total de fundos",
 	"yourCompanies": "Suas organizações",
 	"funds": "Fundos",
+	"availableToWithdraw": "Disponivel para Retirada",
 	"manage": "Gerenciar",
 	"recentActivities": "Atividades Recentes",
 	"seeAll": "Ver tudo",
@@ -13,5 +14,7 @@
 	"processing": "Processando",
 	"createCompany": "Criar Organização",
 	"withdrawal": "Retirada",
-	"teamCreated": "Time criado"
+	"teamCreated": "Time criado",
+	"withdraw": "Retirar",
+	"addressCopiedSuccessfully": "Endereço copiado com sucesso"
 }
