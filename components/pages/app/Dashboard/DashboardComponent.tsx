@@ -1,4 +1,4 @@
-import { Flex, useDisclosure } from '@chakra-ui/react';
+import { Flex } from '@chakra-ui/react';
 import {
 	DashboardHeader,
 	Coins,
@@ -6,18 +6,18 @@ import {
 	RecentActivitiesDashboard,
 	MyAssets,
 	CompaniesList,
-	WithdrawModal,
 } from 'components';
 import React from 'react';
 import { IRecentActivitiesList } from 'types';
 import useTranslation from 'next-translate/useTranslation';
 import { useSession } from 'next-auth/react';
-import { NotFoundContainer } from 'containers';
+import { useQuery } from 'react-query';
+import { useCompanies } from 'hooks';
 
 export const DashboardComponent: React.FC = () => {
 	const { t: translate } = useTranslation('dashboard');
 	const { data: session } = useSession();
-	const { isOpen, onClose } = useDisclosure();
+	const { getAllUserCompanies } = useCompanies();
 
 	const recentActivitiesList: IRecentActivitiesList[] = [
 		{
@@ -46,6 +46,12 @@ export const DashboardComponent: React.FC = () => {
 		},
 	];
 
+	const {
+		data: companies,
+		isLoading: isLoadingCompanies,
+		error,
+	} = useQuery('all-companies', getAllUserCompanies);
+
 	return (
 		<Flex w="full">
 			<Flex direction="column" w="full">
@@ -54,7 +60,14 @@ export const DashboardComponent: React.FC = () => {
 					<Coins />
 				</Flex>
 				<Flex direction="column" gap="9" pt={!session ? '4' : 0}>
-					{/* {session ? <CompaniesList /> : <CreateCompanyCard />} */}
+					{session ? (
+						<CompaniesList
+							companies={companies}
+							isLoading={isLoadingCompanies}
+						/>
+					) : (
+						<CreateCompanyCard />
+					)}
 					{session && (
 						<Flex justify="space-between" w="full" gap="6">
 							<Flex w="full" flex="5.5">

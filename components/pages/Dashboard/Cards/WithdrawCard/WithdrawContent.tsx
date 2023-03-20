@@ -11,17 +11,21 @@ import {
 import { usePicasso } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
 import { IoIosArrowDown } from 'react-icons/io';
+import { ICompany } from 'types/interfaces/main-server/ICompany';
 
 interface ISelectedCoin {
 	coin: { logo?: string; symbol: string };
 	onOpen: () => void;
+	userCompanies: ICompany[];
 }
 
-export const WithdrawContent: React.FC<ISelectedCoin> = ({ coin, onOpen }) => {
+export const WithdrawContent: React.FC<ISelectedCoin> = ({
+	coin,
+	onOpen,
+	userCompanies,
+}) => {
 	const theme = usePicasso();
 	const { t: translate } = useTranslation('dashboard');
-
-	const orgs = ['Kylie Cosmetics', 'Kylie Skin', 'Kylie Baby'];
 
 	return (
 		<Flex direction="column" gap="4">
@@ -35,14 +39,18 @@ export const WithdrawContent: React.FC<ISelectedCoin> = ({ coin, onOpen }) => {
 					borderColor={theme.bg.primary}
 					color="blackAlpha.500"
 					_hover={{}}
-					h="max-content"
+					h="8"
 				>
 					<option disabled selected style={{ background: 'white' }}>
 						{translate('selectAOrg')}
 					</option>
-					{orgs.map((org, index) => (
-						<option style={{ background: 'white' }} key={+index} color="black">
-							{org}
+					{userCompanies?.map((org, index) => (
+						<option
+							style={{ background: 'white', color: theme.text.primary }}
+							key={+index}
+							color="black"
+						>
+							{org.name}
 						</option>
 					))}
 				</Select>
@@ -64,7 +72,7 @@ export const WithdrawContent: React.FC<ISelectedCoin> = ({ coin, onOpen }) => {
 						_hover={{}}
 						color="blackAlpha.500"
 						type="number"
-						h="max-content"
+						h="8"
 					/>
 					<Button
 						p="0"
@@ -75,7 +83,7 @@ export const WithdrawContent: React.FC<ISelectedCoin> = ({ coin, onOpen }) => {
 						_focus={{}}
 						onClick={onOpen}
 						w={{ lg: '50%', xl: '40%' }}
-						h="max-content"
+						h="8"
 					>
 						<Flex gap="2" align="center">
 							<Img boxSize={{ lg: '4' }} src={coin.logo} />

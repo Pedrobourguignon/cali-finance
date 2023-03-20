@@ -34,7 +34,6 @@ export const WithdrawCard = () => {
 					$ {translate('withdraw')}
 				</Text>
 			</Flex>
-			<WithdrawContent coin={token} onOpen={onOpen} />
 			<WithdrawButton />
 		</Flex>
 	);
