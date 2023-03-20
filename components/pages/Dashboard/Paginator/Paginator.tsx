@@ -39,7 +39,7 @@ export const Paginator: FC<IPaginatorProps> = ({
 	return (
 		<Flex justifyContent="space-between" align="center" gap="2">
 			<PaginatorButton
-				disabled={actualPage === 1}
+				isDisabled={actualPage === 1}
 				onClick={previous}
 				previous={previous}
 				next={next}
@@ -58,7 +58,7 @@ export const Paginator: FC<IPaginatorProps> = ({
 				{`${actualPage} ${translate('of')} ${maxPage}`}
 			</Text>
 			<PaginatorButton
-				disabled={actualPage === maxPage}
+				isDisabled={actualPage === maxPage}
 				onClick={next}
 				previous={previous}
 				next={next}

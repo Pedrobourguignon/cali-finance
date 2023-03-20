@@ -4,10 +4,10 @@ import { usePicasso } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
 
 interface IMockCompanyDashboard {
-	companiesCount: number;
-	teams: string;
-	members: string;
-	totalFunds: string;
+	companiesCount: number | undefined;
+	teams: number;
+	members: number;
+	totalFunds: number;
 }
 
 export const CompaniesDashboard: React.FC<IMockCompanyDashboard> = ({
@@ -57,7 +57,7 @@ export const CompaniesDashboard: React.FC<IMockCompanyDashboard> = ({
 					fontWeight="medium"
 					minW={{ md: '20', lg: '24' }}
 				>
-					${totalFunds}
+					${totalFunds.toLocaleString('EN-us')}
 				</Text>
 				<Text fontSize={{ md: 'xs', xl: 'sm' }} fontWeight="normal">
 					{translate('totalFunds')}

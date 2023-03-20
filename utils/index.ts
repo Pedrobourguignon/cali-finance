@@ -2,6 +2,7 @@ export * from './chainList';
 export * from './chainLogo';
 export * from './clients';
 export * from './ColorHandler';
+export * from './getLogo';
 export * from './logoHandler';
 export * from './navigationPaths';
 export * from './networkInfos';
