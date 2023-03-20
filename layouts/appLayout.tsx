@@ -1,7 +1,7 @@
 import { Flex } from '@chakra-ui/react';
 import { MissingFundsWarning, Sidebar } from 'components';
-import { AuthProvider, CompaniesProvider, ProfileProvider } from 'contexts';
-import { useCompanies, usePicasso } from 'hooks';
+import { AuthProvider, ProfileProvider } from 'contexts';
+import { usePicasso } from 'hooks';
 
 interface ILanding {
 	children: React.ReactNode;
@@ -17,52 +17,49 @@ export const AppLayout: React.FC<ILanding> = ({
 	bgColor,
 }) => {
 	const theme = usePicasso();
-	const { displayMissingFundsWarning } = useCompanies();
 	return (
 		<AuthProvider>
 			<ProfileProvider>
-				<CompaniesProvider>
-					<Flex minH="100vh" w="full" direction="column">
-						<MissingFundsWarning display={displayMissingFundsWarning} />
+				<Flex minH="100vh" w="full" direction="column">
+					<MissingFundsWarning />
+					<Flex
+						bg={theme.bg.primary}
+						py="6"
+						minH="100vh"
+						w="full"
+						className="flex-bg"
+					>
+						<Sidebar />
 						<Flex
-							bg={theme.bg.primary}
-							py="6"
-							minH="100vh"
+							bg={bgColor || 'white'}
 							w="full"
-							className="flex-bg"
+							borderLeft="0.25rem solid"
+							borderColor={theme.branding.blue}
+							borderLeftRadius="sm"
+							position="relative"
+							flex="7"
 						>
-							<Sidebar />
 							<Flex
-								bg={bgColor || 'white'}
+								bg={bgColor || theme.bg.gray2}
 								w="full"
-								borderLeft="0.25rem solid"
-								borderColor={theme.branding.blue}
-								borderLeftRadius="sm"
+								bgImage={hasBg ? '/images/calipattern.png' : 'none'}
+								bgRepeat="no-repeat"
+								bgPosition="right bottom"
 								position="relative"
-								flex="7"
+								px="6"
+								gap="4"
+								flexWrap={{ md: 'wrap', lg: 'nowrap' }}
 							>
-								<Flex
-									bg={bgColor || theme.bg.gray2}
-									w="full"
-									bgImage={hasBg ? '/images/calipattern.png' : 'none'}
-									bgRepeat="no-repeat"
-									bgPosition="right bottom"
-									position="relative"
-									px="6"
-									gap="4"
-									flexWrap={{ md: 'wrap', lg: 'nowrap' }}
-								>
-									<Flex direction="column" flex="7">
-										{children}
-									</Flex>
-									<Flex py="6" maxW={{ base: '100%', lg: '18.5rem' }} w="100%">
-										{right}
-									</Flex>
+								<Flex direction="column" flex="7">
+									{children}
+								</Flex>
+								<Flex py="6" maxW={{ base: '100%', lg: '18.5rem' }} w="100%">
+									{right}
 								</Flex>
 							</Flex>
 						</Flex>
 					</Flex>
-				</CompaniesProvider>
+				</Flex>
 			</ProfileProvider>
 		</AuthProvider>
 	);

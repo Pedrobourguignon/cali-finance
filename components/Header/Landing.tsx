@@ -55,10 +55,11 @@ export const LandingHeader: React.FC = () => {
 				})}
 			</Flex>
 			<Link
-				href={navigationPaths.dashboard.home}
+				href="https://califinance.ck.page/6455cc2350"
 				textDecoration="none"
 				_hover={{ textDecoration: 'none' }}
 				as={NextLink}
+				target="_blank"
 			>
 				<Button
 					_hover={{ bg: 'white', textDecor: 'none' }}
