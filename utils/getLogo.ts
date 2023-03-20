@@ -1,1 +1,2 @@
-export const getLogo = (logo: string) => `https://api.cali.finance/${logo}`;
+export const getLogo = (logo: string | undefined) =>
+	`https://api.cali.finance/${logo}`;
