@@ -65,12 +65,11 @@ export const AllTeamsComponent: React.FC<IAllTeamsComponent> = ({
 }) => {
 	const theme = usePicasso();
 	const { teams } = useTeams();
-	const { selectedCompany } = useCompanies();
 	return (
 		<AppLayout right={<ActiveTeamsBar />}>
 			<CompanyWhiteBackground />
 			<Flex pt="6" zIndex="docked" direction="column" align="start">
-				<CompaniesHeader />
+				{/* <CompaniesHeader /> */}
 			</Flex>
 			<Flex
 				color={theme.text.primary}
@@ -112,7 +111,7 @@ export const AllTeamsComponent: React.FC<IAllTeamsComponent> = ({
 					</Grid>
 				</Flex>
 
-				<EmployeesDashboard isGeneral />
+				{/* <EmployeesDashboard isGeneral /> */}
 			</Flex>
 			<Flex px="6" pt="10">
 				{children}
