@@ -4,8 +4,8 @@ export interface IEditedCompany {
 	name: string;
 	type: string;
 	email: string;
-	picture: string;
+	logo: string;
 	description?: string;
-	socialMedias: ISocialMedia;
+	socialMedia: ISocialMedia;
 	selectedNetwork: string;
 }

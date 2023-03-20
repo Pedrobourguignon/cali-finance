@@ -19,8 +19,17 @@ import { usePicasso } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
 import { IBasicModal, ISelectedCoin, IToken } from 'types';
 import { useState } from 'react';
+import { ICompany } from 'types/interfaces/main-server/ICompany';
 
-export const WithdrawModal: React.FC<IBasicModal> = ({ isOpen, onClose }) => {
+interface IWithdrawModal extends IBasicModal {
+	userCompanies: ICompany[];
+}
+
+export const WithdrawModal: React.FC<IWithdrawModal> = ({
+	isOpen,
+	onClose,
+	userCompanies,
+}) => {
 	const theme = usePicasso();
 	const [token, setToken] = useState<ISelectedCoin>({
 		logo: 'https://assets.coingecko.com/coins/images/1/thumb/bitcoin.png?1547033579',
@@ -57,7 +66,11 @@ export const WithdrawModal: React.FC<IBasicModal> = ({ isOpen, onClose }) => {
 						</ModalHeader>
 						<ModalCloseButton color="gray.400" />
 						<ModalBody>
-							<WithdrawContent coin={token} onOpen={onOpenSelector} />
+							<WithdrawContent
+								coin={token}
+								onOpen={onOpenSelector}
+								userCompanies={userCompanies}
+							/>
 						</ModalBody>
 
 						<ModalFooter>

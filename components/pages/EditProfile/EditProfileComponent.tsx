@@ -54,7 +54,13 @@ export const EditProfileComponent = () => {
 	const { mutate } = useMutation(
 		(editedProfileData: IUser) => updateProfile(editedProfileData),
 		{
-			onSuccess: () => queryClient.invalidateQueries('profile-data'),
+			onSuccess: () => {
+				toast({
+					position: 'top-right',
+					render: () => <SaveChangesToast onClick={toast.closeAll} />,
+				});
+				queryClient.invalidateQueries('profile-data');
+			},
 		}
 	);
 
@@ -76,10 +82,6 @@ export const EditProfileComponent = () => {
 	}, [profileData]);
 
 	const handleEditProfile = (editedProfileData: IUser) => {
-		toast({
-			position: 'top-right',
-			render: () => <SaveChangesToast onClick={toast.closeAll} />,
-		});
 		mutate({
 			name: editedProfileData.name,
 			email: editedProfileData.email,
