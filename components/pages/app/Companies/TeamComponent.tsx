@@ -223,8 +223,6 @@ export const TeamComponent = () => {
 							</Flex>
 						</Flex>
 						<Flex direction="column" gap="12">
-							<EmployeesDashboard isGeneral={false} />
-
 							<Button
 								color={theme.text.primary}
 								borderWidth="1px"

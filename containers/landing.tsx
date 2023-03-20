@@ -96,8 +96,11 @@ export const LandingContainer: React.FC = () => {
 									fontSize="md"
 									px="12"
 									py="3"
+									onClick={() =>
+										window.open('https://califinance.ck.page/6455cc2350')
+									}
 								>
-									Book a Demo
+									Join our Waitlist
 								</Button>
 							</OffsetShadow>
 						</Flex>

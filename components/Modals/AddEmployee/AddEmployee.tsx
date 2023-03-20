@@ -37,12 +37,7 @@ import NextLink from 'next/link';
 import { useMutation, useQueryClient } from 'react-query';
 import { AxiosError } from 'axios';
 
-export const AddEmployee: React.FC<IAddEmployee> = ({
-	isOpen,
-	onClose,
-	company,
-	setEmployees,
-}) => {
+export const AddEmployee: React.FC<IAddEmployee> = ({ isOpen, onClose }) => {
 	const { t: translate } = useTranslation('create-team');
 	const [selectedTab, setSelectedTab] = useState<string>(
 		translate('addIndividually')
@@ -58,8 +53,7 @@ export const AddEmployee: React.FC<IAddEmployee> = ({
 	} as ISelectedCoin);
 	const bitcoinPrice = 87.586;
 	const { addEmployeeSchema } = useSchema();
-	const { setSelectedCompanyEmployees, selectedCompany, addEmployeeToTeam } =
-		useCompanies();
+	const { selectedCompany, addEmployeeToTeam } = useCompanies();
 	const queryClient = useQueryClient();
 
 	const toast = useToast();
@@ -211,7 +205,7 @@ export const AddEmployee: React.FC<IAddEmployee> = ({
 									{translate('addEmployee')}
 								</Text>
 								<Text color="gray.500" fontWeight="normal" fontSize="sm">
-									{`${translate('to')} ${company || selectedCompany.name}`}
+									{`${translate('to')} ${selectedCompany?.name}`}
 								</Text>
 							</Flex>
 							<ModalCloseButton

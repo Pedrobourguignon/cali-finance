@@ -5,6 +5,7 @@
 	"totalFunds": "Total Funds",
 	"yourCompanies": "Your companies",
 	"funds": "Funds",
+	"availableToWithdraw": "Available to Withdraw",
 	"manage": "Manage",
 	"recentActivities": "Recent Activities",
 	"seeAll": "See All",
@@ -13,5 +14,7 @@
 	"processing": "Processing",
 	"createCompany": "Create Company",
 	"withdrawal": "Withdrawal",
-	"teamCreated": "Team created"
+	"withdraw": "Withdraw",
+	"teamCreated": "Team created",
+	"addressCopiedSuccessfully": "Address copied successfully"
 }

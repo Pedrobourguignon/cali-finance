@@ -3,11 +3,7 @@ import { useCompanies, usePicasso } from 'hooks';
 import React from 'react';
 import { MultipleCompaniesAlert, SingleCompanieAlert } from 'components';
 
-interface IMissingFunds {
-	display: string;
-}
-
-export const MissingFundsWarning: React.FC<IMissingFunds> = () => {
+export const MissingFundsWarning = () => {
 	const theme = usePicasso();
 	const {
 		setDisplayMissingFundsWarning,

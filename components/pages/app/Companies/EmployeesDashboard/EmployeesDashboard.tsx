@@ -11,13 +11,16 @@ import useTranslation from 'next-translate/useTranslation';
 import router, { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { useQuery } from 'react-query';
+import { ICompany } from 'types/interfaces/main-server/ICompany';
 
 interface IEmployeeDashboard {
 	isGeneral: boolean;
+	selectedCompany: ICompany | undefined;
 }
 
 export const EmployeesDashboard: React.FC<IEmployeeDashboard> = ({
 	isGeneral,
+	selectedCompany,
 }) => {
 	const theme = usePicasso();
 	const { t: translate } = useTranslation('company-overall');
@@ -43,7 +46,11 @@ export const EmployeesDashboard: React.FC<IEmployeeDashboard> = ({
 
 	return (
 		<Flex w="100%" direction="column" gap="4" color={theme.text.primary}>
-			<AddEmployee isOpen={isOpen} onClose={onClose} />
+			<AddEmployee
+				isOpen={isOpen}
+				onClose={onClose}
+				selectedCompany={selectedCompany}
+			/>
 			<Flex justify="space-between" w="100%" align="center">
 				<Flex fontWeight="medium" gap="1">
 					<Text>{employees?.length}</Text>
