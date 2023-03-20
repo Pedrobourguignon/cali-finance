@@ -35,16 +35,16 @@ export const TokenSelector: React.FC<ITokenSelector> = ({
 		useTokens();
 
 	const perPage = 20;
-	const [lastObjectPosition, setLastObjectPosition] = useState(20);
+	const [lastObjectPosition, setLastObjectPosition] = useState(perPage);
 	const [loadedTokens, setLoadedTokens] = useState<IToken[]>([]);
 
 	useEffect(() => {
-		setLoadedTokens(filteredTokens.slice(0, 20));
+		setLoadedTokens(filteredTokens.slice(0, perPage));
 	}, [filteredTokens]);
 
 	const handleOnClose = () => {
 		setFilteredTokens(listOfTokens);
-		setLoadedTokens(filteredTokens.slice(0, 20));
+		setLoadedTokens(filteredTokens.slice(0, perPage));
 		onClose();
 	};
 
