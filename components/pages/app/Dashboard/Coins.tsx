@@ -1,10 +1,10 @@
-import { Flex, Text, useDisclosure } from '@chakra-ui/react';
+import { Flex, list, Text, useDisclosure } from '@chakra-ui/react';
 import { NewCoinButton, CoinCard, TokenSelector } from 'components';
 import React, { useEffect, useState } from 'react';
 import { ICoin, ISelectedCoin } from 'types';
 import useTranslation from 'next-translate/useTranslation';
-import { usePicasso, useTokens } from 'hooks';
-import { useQuery } from 'react-query';
+import { usePicasso, useProfile, useTokens } from 'hooks';
+import { useMutation, useQuery } from 'react-query';
 
 export const Coins = () => {
 	const { t: translate } = useTranslation('dashboard');
@@ -14,43 +14,77 @@ export const Coins = () => {
 	const [selectedToken, setSelectedToken] = useState<ISelectedCoin>(
 		{} as ISelectedCoin
 	);
-	const [listOfTokens, setListOfTokens] = useState<ICoin[]>([]);
-	const symbols: string[] = [];
+	const { updateUserSettings, getProfileData } = useProfile();
+
 	const [cardItems, setCardItems] = useState<ICoin[]>([]);
+
+	const {
+		data: userData,
+		isLoading: isLoadingUserData,
+		error: errorUserData,
+		refetch: refetchUserData,
+	} = useQuery('get-user-data', () => getProfileData());
+	const favoriteCoins = userData?.settings?.coin;
+
+	const [listOfTokens, setListOfTokens] = useState<ICoin[]>([]);
+
+	const symbols: ICoin[] = [];
+
+	const { mutate } = useMutation(
+		(settings: { coin: ICoin[] }) => updateUserSettings(settings),
+		{
+			onSuccess: () => console.log('done'),
+		}
+	);
 
 	const {
 		data: coinServiceTokens,
 		isLoading,
 		error,
-		refetch,
+		refetch: refetchCoinServiceTokens,
 	} = useQuery('get-coin-data', () => getCoinServiceTokens(symbols.toString()));
 
 	useEffect(() => {
 		if (Object.keys(selectedToken).length !== 0) {
-			setListOfTokens(prevState => prevState.concat(selectedToken));
+			if (
+				!listOfTokens!.find(
+					coin =>
+						coin.symbol.toLowerCase() === selectedToken.symbol.toLowerCase()
+				)
+			)
+				setListOfTokens(listOfTokens!.concat(selectedToken));
 		}
 	}, [selectedToken]);
 
 	useEffect(() => {
-		if (listOfTokens.length !== 0) {
-			listOfTokens.forEach(item => symbols.push(item.symbol));
-			refetch();
+		if (listOfTokens!.length !== 0) {
+			mutate({ coin: listOfTokens });
+			refetchUserData();
 		}
 	}, [listOfTokens]);
 
 	useEffect(() => {
+		// if (favoriteCoins)
+		// 	Object.values(favoriteCoins).forEach(item => {
+		// 		symbols.push(item.symbol);
+		// 	});
+		refetchCoinServiceTokens();
+	}, [favoriteCoins]);
+
+	useEffect(() => {
 		if (coinServiceTokens) {
 			const tokens = Object.values(coinServiceTokens).reduce((acc, item) => {
-				if (
-					!cardItems.find(
-						coin => coin.symbol.toLowerCase() === item.symbol.toLowerCase()
-					)
-				) {
-					const logo = listOfTokens.find(
-						token => token.symbol.toLowerCase() === item.symbol.toLowerCase()
-					);
-					acc.push({ ...item, ...logo });
-				}
+				if (item && favoriteCoins)
+					if (
+						!cardItems.find(
+							coin => coin.symbol.toLowerCase() === item.symbol.toLowerCase()
+						)
+					) {
+						// const logo = Object.values(favoriteCoins).find(
+						// 	token => token.symbol.toLowerCase() === item.symbol.toLowerCase()
+						// );
+						// acc.push({ ...item, ...logo });
+					}
 				return acc;
 			}, [] as ICoin[]);
 			setCardItems(cardItems.concat(tokens));
