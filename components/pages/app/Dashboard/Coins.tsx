@@ -1,4 +1,4 @@
-import { Flex, list, Text, useDisclosure } from '@chakra-ui/react';
+import { Flex, Text, useDisclosure } from '@chakra-ui/react';
 import { NewCoinButton, CoinCard, TokenSelector } from 'components';
 import React, { useEffect, useState } from 'react';
 import { ICoin, ISelectedCoin } from 'types';
@@ -18,17 +18,15 @@ export const Coins = () => {
 
 	const [cardItems, setCardItems] = useState<ICoin[]>([]);
 
-	const {
-		data: userData,
-		isLoading: isLoadingUserData,
-		error: errorUserData,
-		refetch: refetchUserData,
-	} = useQuery('get-user-data', () => getProfileData());
-	const favoriteCoins = userData?.settings?.coin;
+	const { data: userData, refetch: refetchUserData } = useQuery(
+		'get-user-data',
+		() => getProfileData()
+	);
+	const favoriteCoins = userData?.settings?.coin as ICoin[];
 
 	const [listOfTokens, setListOfTokens] = useState<ICoin[]>([]);
 
-	const symbols: ICoin[] = [];
+	const symbols: string[] = [];
 
 	const { mutate } = useMutation(
 		(settings: { coin: ICoin[] }) => updateUserSettings(settings),
@@ -37,53 +35,56 @@ export const Coins = () => {
 		}
 	);
 
-	const {
-		data: coinServiceTokens,
-		isLoading,
-		error,
-		refetch: refetchCoinServiceTokens,
-	} = useQuery('get-coin-data', () => getCoinServiceTokens(symbols.toString()));
+	const { data: coinServiceTokens, refetch: refetchCoinServiceTokens } =
+		useQuery('get-coin-data', () => getCoinServiceTokens(symbols.toString()));
 
 	useEffect(() => {
 		if (Object.keys(selectedToken).length !== 0) {
 			if (
-				!listOfTokens!.find(
+				!listOfTokens.find(
 					coin =>
 						coin.symbol.toLowerCase() === selectedToken.symbol.toLowerCase()
 				)
 			)
-				setListOfTokens(listOfTokens!.concat(selectedToken));
+				setListOfTokens(listOfTokens.concat(selectedToken));
 		}
 	}, [selectedToken]);
 
 	useEffect(() => {
-		if (listOfTokens!.length !== 0) {
+		if (listOfTokens.length !== 0) {
 			mutate({ coin: listOfTokens });
 			refetchUserData();
 		}
 	}, [listOfTokens]);
 
 	useEffect(() => {
-		// if (favoriteCoins)
-		// 	Object.values(favoriteCoins).forEach(item => {
-		// 		symbols.push(item.symbol);
-		// 	});
-		refetchCoinServiceTokens();
+		if (favoriteCoins) {
+			Object.values(favoriteCoins).forEach(item => {
+				symbols.push(item.symbol);
+				if (
+					!listOfTokens.find(
+						coin => coin.symbol.toLowerCase() === item.symbol.toLowerCase()
+					)
+				)
+					setListOfTokens(listOfTokens.concat(favoriteCoins));
+			});
+			refetchCoinServiceTokens();
+		}
 	}, [favoriteCoins]);
 
 	useEffect(() => {
 		if (coinServiceTokens) {
 			const tokens = Object.values(coinServiceTokens).reduce((acc, item) => {
-				if (item && favoriteCoins)
+				if (item)
 					if (
 						!cardItems.find(
 							coin => coin.symbol.toLowerCase() === item.symbol.toLowerCase()
 						)
 					) {
-						// const logo = Object.values(favoriteCoins).find(
-						// 	token => token.symbol.toLowerCase() === item.symbol.toLowerCase()
-						// );
-						// acc.push({ ...item, ...logo });
+						const logo = Object.values(favoriteCoins).find(
+							token => token.symbol.toLowerCase() === item.symbol.toLowerCase()
+						);
+						acc.push({ ...item, ...logo });
 					}
 				return acc;
 			}, [] as ICoin[]);
@@ -132,7 +133,7 @@ export const Coins = () => {
 				</Text>
 			</Flex>
 			<Flex justify="flex-start" mx="4" flex="1" gap={{ md: '4', '2xl': '4' }}>
-				{cardItems.map((card, index) => (
+				{cardItems.slice(0, 3).map((card, index) => (
 					<CoinCard
 						coin={card}
 						borderColor="gray.50"
