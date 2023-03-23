@@ -51,7 +51,7 @@ export const CreateCompanyContainer = () => {
 	const { data: session } = useSession({
 		required: true,
 		onUnauthenticated() {
-			router.push('/app/companies');
+			router.push(navigationPaths.dashboard.companies.home);
 		},
 	});
 
@@ -104,6 +104,13 @@ export const CreateCompanyContainer = () => {
 		});
 	};
 
+	const setSocialMediasInput = (name: string[], url: string) => {
+		setSocialLinksInputValue(prevState => ({
+			...prevState,
+			[`${name}`]: url,
+		}));
+	};
+
 	return (
 		<form onSubmit={handleSubmit(handleCreateCompany)}>
 			<CompaniesProvider>
@@ -111,9 +118,9 @@ export const CreateCompanyContainer = () => {
 					<AppLayout
 						right={
 							<NewCompanyLinks
+								setSocialMediasInput={setSocialMediasInput}
 								newCompanyPicture={newCompanyPicture}
 								handleNewPicture={handleNewPicture}
-								setSocialLinksInputValue={setSocialLinksInputValue}
 							/>
 						}
 					>

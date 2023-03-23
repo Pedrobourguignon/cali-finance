@@ -18,7 +18,7 @@ import {
 	Link,
 } from '@chakra-ui/react';
 import { BlackButton, TokenSelector, UploadCsv } from 'components';
-import { useCompanies, usePicasso, useSchema } from 'hooks';
+import { usePicasso, useSchema } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
 import React, { useState } from 'react';
 import { IAddEmployee, IAddEmployeeForm, ISelectedCoin } from 'types';
@@ -32,7 +32,7 @@ import NextLink from 'next/link';
 export const AddEmployee: React.FC<IAddEmployee> = ({
 	isOpen,
 	onClose,
-	company,
+	selectedCompany,
 	setEmployees,
 }) => {
 	const { t: translate } = useTranslation('create-team');
@@ -50,7 +50,6 @@ export const AddEmployee: React.FC<IAddEmployee> = ({
 	} as ISelectedCoin);
 	const bitcoinPrice = 87.586;
 	const { addEmployeeSchema } = useSchema();
-	const { setSelectedCompanyEmployees, selectedCompany } = useCompanies();
 
 	const theme = usePicasso();
 	const {
@@ -120,20 +119,7 @@ export const AddEmployee: React.FC<IAddEmployee> = ({
 					},
 				])
 			);
-		} else {
-			setSelectedCompanyEmployees(prevState =>
-				prevState.concat([
-					{
-						name: 'Azeitona',
-						wallet: newEmployeeData.walletAddress,
-						picture: '/images/avatar.png',
-						amount: newEmployeeData.amount,
-						coin: 'USDT',
-					},
-				])
-			);
 		}
-		handleResetFormInputs();
 	};
 
 	return (
@@ -173,7 +159,7 @@ export const AddEmployee: React.FC<IAddEmployee> = ({
 									{translate('addEmployee')}
 								</Text>
 								<Text color="gray.500" fontWeight="normal" fontSize="sm">
-									{`${translate('to')} ${company || selectedCompany.name}`}
+									{`${translate('to')} ${selectedCompany?.name}`}
 								</Text>
 							</Flex>
 							<ModalCloseButton

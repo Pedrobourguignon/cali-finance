@@ -1,7 +1,6 @@
 export interface ISocialMediaInput {
-	name: string;
-	imgSrc: string;
-	placeHolder: string;
-	link?: string;
-	defaultValue?: string;
+	name: string | undefined;
+	imgSrc: string | undefined;
+	placeHolder: string | undefined;
+	url?: string | undefined;
 }

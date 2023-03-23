@@ -1,10 +1,9 @@
 import { Flex, Text } from '@chakra-ui/react';
-import { CompanyCard } from 'components';
+import { CompaniesList } from 'components';
 import { useCompanies, usePicasso } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
 
 export const YourCompanies = () => {
-	const { companies } = useCompanies();
 	const { t: translate } = useTranslation('companies');
 	const theme = usePicasso();
 
@@ -17,11 +16,7 @@ export const YourCompanies = () => {
 			>
 				{translate('yourCompanies')}
 			</Text>
-			<Flex gap="4" w="full">
-				{companies.map((team, index) => (
-					<CompanyCard key={+index} team={team} />
-				))}
-			</Flex>
+			{/* <CompaniesList /> */}
 		</Flex>
 	);
 };

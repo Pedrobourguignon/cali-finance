@@ -1,14 +1,9 @@
 import { Flex, Img, Text } from '@chakra-ui/react';
-import { useCompanies, usePicasso } from 'hooks';
+import { useCompanies } from 'hooks';
 import React from 'react';
 import { MultipleCompaniesAlert, SingleCompanieAlert } from 'components';
 
-interface IMissingFunds {
-	display: string;
-}
-
-export const MissingFundsWarning: React.FC<IMissingFunds> = () => {
-	const theme = usePicasso();
+export const MissingFundsWarning = () => {
 	const {
 		setDisplayMissingFundsWarning,
 		displayMissingFundsWarning,

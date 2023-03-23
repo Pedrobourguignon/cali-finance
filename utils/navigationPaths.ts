@@ -6,18 +6,24 @@ export const navigationPaths = {
 	help: '/help',
 	termsAndConditions: '/terms-and-conditions',
 	dashboard: {
-		home: '/app',
-		editProfile: '/app/edit-profile',
-		history: '/app/history',
+		home: '/dashboard',
+		editProfile: '/edit-profile',
+		history: '/history',
 		companies: {
-			home: '/app/companies',
-			createOrg: '/app/companies/create',
-			overview: (companyId: string) => `/app/companies/${companyId}`,
-			teams: (companyId: string) => `/app/companies/${companyId}/teams`,
-			funds: (companyId: string) => `/app/companies/${companyId}/funds`,
-			editOrg: (companyId: string) => `/app/companies/${companyId}/edit`,
-			team: (companyId: string, teamId: string) =>
-				`/app/companies/${companyId}/teams/${teamId}`,
+			home: '/companies',
+			createOrg: '/companies/create',
+			overview: (companyId: string | string[] | undefined) =>
+				`/companies/${companyId}`,
+			teams: (companyId: string | string[] | undefined) =>
+				`/companies/${companyId}/teams`,
+			funds: (companyId: string | string[] | undefined) =>
+				`/companies/${companyId}/funds`,
+			editOrg: (companyId: string | string[] | undefined) =>
+				`/companies/${companyId}/edit`,
+			team: (
+				companyId: string | string[] | undefined,
+				teamId: string | string[] | undefined
+			) => `/companies/${companyId}/teams/${teamId}`,
 		},
 	},
 };
