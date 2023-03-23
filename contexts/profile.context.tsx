@@ -1,5 +1,5 @@
-import React, { createContext, useState, useMemo, useEffect } from 'react';
-import { ICoin, IProfile, IWalletData } from 'types';
+import React, { createContext, useState, useMemo } from 'react';
+import { IProfile, IWalletData } from 'types';
 import { IUser } from 'types/interfaces/main-server/IUser';
 import { mainClient } from 'utils';
 import { useAccount } from 'wagmi';
@@ -13,7 +13,7 @@ interface IProfileContext {
 	walletData: IWalletData;
 	setWalletData: React.Dispatch<React.SetStateAction<IWalletData>>;
 	updateUserSettings: (settings: {
-		[setting: string]: ICoin[];
+		[setting: string]: unknown;
 	}) => Promise<void>;
 	getProfileData: () => Promise<IUser>;
 }
@@ -48,7 +48,7 @@ export const ProfileProvider: React.FC<{ children: React.ReactNode }> = ({
 	};
 
 	const updateUserSettings = async (settings: {
-		[setting: string]: ICoin[];
+		[setting: string]: unknown;
 	}) => {
 		await mainClient.put(`/user/${walletAddress}/settings`, { settings });
 	};

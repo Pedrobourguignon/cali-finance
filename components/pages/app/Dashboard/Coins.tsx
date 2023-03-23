@@ -31,7 +31,7 @@ export const Coins = () => {
 	const { mutate } = useMutation(
 		(settings: { coin: ICoin[] }) => updateUserSettings(settings),
 		{
-			onSuccess: () => console.log('done'),
+			onSuccess: () => refetchUserData(),
 		}
 	);
 
@@ -53,12 +53,26 @@ export const Coins = () => {
 	useEffect(() => {
 		if (listOfTokens.length !== 0) {
 			mutate({ coin: listOfTokens });
-			refetchUserData();
 		}
 	}, [listOfTokens]);
 
 	useEffect(() => {
-		if (favoriteCoins) {
+		if (!favoriteCoins) {
+			setListOfTokens([
+				{
+					symbol: 'eth',
+					logo: 'https://tokens.1inch.io/0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee.png',
+				},
+				{
+					symbol: 'busd',
+					logo: 'https://tokens.1inch.io/0x4fabb145d64652a948d72533023f6e7a623c7c53.png',
+				},
+				{
+					symbol: 'usdc',
+					logo: 'https://tokens.1inch.io/0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48.png',
+				},
+			]);
+		} else {
 			Object.values(favoriteCoins).forEach(item => {
 				symbols.push(item.symbol);
 				if (
