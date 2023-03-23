@@ -126,8 +126,6 @@ export const Sidebar: React.FC = () => {
 		signOut();
 	};
 
-	console.log(profileData?.picture);
-
 	return (
 		<>
 			<NetworkModal
