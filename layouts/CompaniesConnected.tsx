@@ -10,18 +10,22 @@ import {
 import { AppLayout } from 'layouts';
 import { useCompanies, usePicasso } from 'hooks';
 import { useQuery } from 'react-query';
+import { useAccount } from 'wagmi';
 import useTranslation from 'next-translate/useTranslation';
 
 export const CompaniesConnected: React.FC = () => {
 	const { activities, getAllUserCompanies } = useCompanies();
-	const theme = usePicasso();
+	const { isConnected } = useAccount();
 	const { t: translate } = useTranslation('dashboard');
+	const theme = usePicasso();
 
 	const {
 		data: companies,
 		isLoading: isLoadingCompanies,
 		error,
-	} = useQuery('all-companies', getAllUserCompanies);
+	} = useQuery('all-companies', getAllUserCompanies, {
+		enabled: !!isConnected,
+	});
 
 	return (
 		<AppLayout right={<CompaniesRightBar />}>

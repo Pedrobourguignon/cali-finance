@@ -49,7 +49,7 @@ export const DepositOrWithdrawCard: React.FC<IDepositOrWithdrawCard> = ({
 
 	const [token, setToken] = useState<ISelectedCoin>({
 		logo: 'https://assets.coingecko.com/coins/images/1/thumb/bitcoin.png?1547033579',
-		symbol: 'BTC',
+		symbol: 'bitcoin',
 	} as ISelectedCoin);
 
 	const handleSelectedButton = (btnName: string) => {
