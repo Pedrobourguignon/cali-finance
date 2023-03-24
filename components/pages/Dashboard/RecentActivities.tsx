@@ -32,7 +32,7 @@ export const RecentActivities: React.FC<IRecentActivitiesComponent> = ({
 				<Flex
 					key={+index}
 					justify="space-between"
-					bg="gray.50"
+					bg="gray.100"
 					color="white"
 					px="4"
 					w="max-content"

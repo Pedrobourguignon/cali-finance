@@ -170,6 +170,7 @@ export const Sidebar: React.FC = () => {
 									autoSelect={false}
 									isOpen={isOpenMenu}
 									onClose={onCloseMenu}
+									placement="bottom"
 								>
 									<MenuButton
 										h="max-content"

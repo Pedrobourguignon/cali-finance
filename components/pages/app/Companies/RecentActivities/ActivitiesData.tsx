@@ -45,7 +45,7 @@ export const ActivitiesData: React.FC<IActivitiesData> = ({ activities }) => {
 			align="center"
 			px={{ md: '2', lg: '3' }}
 			py="1"
-			bg="gray.50"
+			bg="gray.100"
 			borderRadius="base"
 			justify="space-between"
 		>

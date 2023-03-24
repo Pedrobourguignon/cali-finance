@@ -85,7 +85,7 @@ export const EditCompanyComponent: React.FC<IEditCompanyComponent> = ({
 	const companiesType = [
 		{ value: 'DAO' },
 		{ value: translate('financial') },
-		{ value: 'e-commerce' },
+		{ value: 'E-commerce' },
 	];
 
 	useEffect(() => {
@@ -180,7 +180,7 @@ export const EditCompanyComponent: React.FC<IEditCompanyComponent> = ({
 												key={+index}
 												bg="transparent"
 												fontSize="sm"
-												_hover={{ bg: 'gray.50' }}
+												_hover={{ bg: 'gray.100' }}
 												onClick={() => {
 													setSelectedType(type.value);
 													setEditedInfo(prevState => ({
@@ -265,7 +265,7 @@ export const EditCompanyComponent: React.FC<IEditCompanyComponent> = ({
 												key={+index}
 												bg="transparent"
 												fontSize="sm"
-												_hover={{ bg: 'gray.50' }}
+												_hover={{ bg: 'gray.100' }}
 												onClick={() => {
 													setSelectedNetwork({
 														name: network.name,
@@ -434,7 +434,7 @@ export const EditCompanyComponent: React.FC<IEditCompanyComponent> = ({
 									key={+index}
 									bg="transparent"
 									fontSize="sm"
-									_hover={{ bg: 'gray.50' }}
+									_hover={{ bg: 'gray.100' }}
 									onClick={() => {
 										setSelectedNetwork({
 											name: network.name,
