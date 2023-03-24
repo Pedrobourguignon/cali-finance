@@ -19,17 +19,17 @@ import { useQuery } from 'react-query';
 import { ISelectedCoin } from 'types';
 
 export const FeeCalculator = () => {
-	const theme = usePicasso();
-	const { getCoinServiceTokens } = useTokens();
 	const [amount, setAmount] = useState(0);
 	const [feePrice, setFeePrice] = useState(0);
 	const [amountToCompare, setAmountToCompare] = useState(999);
-	const { t: translate } = useTranslation('landing');
 	const [token, setToken] = useState<ISelectedCoin>({
 		logo: 'https://assets.coingecko.com/coins/images/1/thumb/bitcoin.png?1547033579',
 		symbol: 'BTC',
 	} as ISelectedCoin);
+	const { getCoinServiceTokens } = useTokens();
+	const { t: translate } = useTranslation('landing');
 	const { isOpen, onOpen, onClose } = useDisclosure();
+	const theme = usePicasso();
 
 	const { data: coinServiceTokens } = useQuery('get-coin-data', () =>
 		getCoinServiceTokens(token.symbol)
@@ -56,7 +56,7 @@ export const FeeCalculator = () => {
 			<TokenSelector setToken={setToken} isOpen={isOpen} onClose={onClose} />
 			<Flex
 				borderRadius="xl"
-				bg={theme.bg.white2}
+				bg={theme.bg.white}
 				w={{ md: '22.125rem', '2xl': '35rem' }}
 				h="13.813rem"
 			>
@@ -111,7 +111,6 @@ export const FeeCalculator = () => {
 							</Flex>
 						</Button>
 					</InputGroup>
-
 					<Flex pb="5" justify="space-between" direction="column">
 						<Flex justify="space-between" w="full">
 							<Text
@@ -127,21 +126,15 @@ export const FeeCalculator = () => {
 									: `${feePrice} ${token.symbol.toUpperCase()}`}
 							</Text>
 						</Flex>
-						<Flex justify="space-between" w="full">
-							<Text
-								fontWeight="medium"
-								fontSize="sm"
-								color={theme.text.primary}
-							>
-								Fee price in Dolar
-							</Text>
-							<Text fontSize="sm" color={theme.text.primary}>
+
+						<Flex justify="end" w="full">
+							<Text fontSize="xs" color="blackAlpha.700">
 								{amountToCompare === 999
 									? '0'
-									: `US$ ${(
+									: ` ${(
 											((feeInDolarPrice! * 0.5) / 100) *
 											amount
-									  ).toLocaleString()}`}
+									  ).toLocaleString()} US$`}
 							</Text>
 						</Flex>
 					</Flex>

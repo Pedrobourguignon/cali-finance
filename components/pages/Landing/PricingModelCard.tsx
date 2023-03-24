@@ -3,9 +3,11 @@ import { usePicasso } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
 import React from 'react';
 import { FeeCalculator } from 'components';
+import { useRouter } from 'next/router';
 
 export const PricingModelCard = () => {
 	const theme = usePicasso();
+	const { locale } = useRouter();
 	const { t: translate } = useTranslation('landing');
 
 	return (
@@ -45,7 +47,11 @@ export const PricingModelCard = () => {
 					justify="space-between"
 					w="full"
 					align="center"
-					gap={{ md: '10', lg: '2', xl: '0' }}
+					gap={
+						locale === 'pt-BR'
+							? { md: '6', lg: '8', xl: '0' }
+							: { md: '1', lg: '2', xl: '0' }
+					}
 				>
 					<Flex
 						direction="column"

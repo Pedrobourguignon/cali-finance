@@ -30,6 +30,7 @@ const usePicasso = () => {
 			red: '0px 0px 10px rgba(232, 49, 81, 0.5)',
 		},
 		bg: {
+			white: '#FFFFFF',
 			white2: '#F7FAFC',
 			primary: '#121212',
 			secondary: useColorModeValue('gray.200', '#100F12'),

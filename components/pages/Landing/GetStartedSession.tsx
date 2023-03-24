@@ -10,6 +10,7 @@ export const GetStartedSession = () => {
 	const { t: translate } = useTranslation('landing');
 	return (
 		<Flex
+			// bg="red"
 			w="full"
 			justify={{
 				md: 'space-around',
@@ -19,6 +20,10 @@ export const GetStartedSession = () => {
 			}}
 			align="center"
 			gap={{ lg: '14', xl: '20' }}
+			backgroundImage="url('/images/circular-blur.svg')"
+			backgroundRepeat="no-repeat"
+			bgPosition="bottom left"
+			bgSize={{ lg: '34.375rem', xl: '37.5rem' }}
 		>
 			<Flex>
 				<Img

@@ -19,9 +19,9 @@ export const NewLandingContainer: React.FC = () => {
 		<Flex
 			minH="100vh"
 			maxW="100%"
-			bg={theme.bg.gray2}
+			bg={theme.bg.white}
 			direction="column"
-			backgroundImage={{ lg: "url('/images/strips.svg')" }}
+			backgroundImage="url('/images/stripss.svg')"
 			backgroundRepeat="no-repeat"
 			bgPosition="top right"
 			bgSize={{ lg: '34.375rem', xl: '37.5rem' }}

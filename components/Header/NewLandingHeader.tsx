@@ -14,38 +14,41 @@ import { usePath, usePicasso } from 'hooks';
 import { navigationPaths } from 'utils';
 import NextLink from 'next/link';
 import { HamburgerIcon } from '@chakra-ui/icons';
+import useTranslation from 'next-translate/useTranslation';
 
 interface IMenu {
 	name: string;
 	route: string;
 }
 
-const menuOptions: IMenu[] = [
-	{
-		name: 'About',
-		route: '/',
-	},
-	{
-		name: 'Pricing',
-		route: navigationPaths.faq,
-	},
-	{
-		name: 'FAQ',
-		route: navigationPaths.faq,
-	},
-	{
-		name: 'Contact Us',
-		route: navigationPaths.docs,
-	},
-	{
-		name: 'Docs',
-		route: navigationPaths.docs,
-	},
-];
-
 export const NewLandingHeader: React.FC = () => {
 	const theme = usePicasso();
+	const { t: translate } = useTranslation('landing');
 	const { isSamePath } = usePath();
+
+	const menuOptions: IMenu[] = [
+		{
+			name: translate('about'),
+			route: '/',
+		},
+		{
+			name: translate('pricing'),
+			route: navigationPaths.faq,
+		},
+		{
+			name: translate('faq'),
+			route: navigationPaths.faq,
+		},
+		{
+			name: translate('contactUs'),
+			route: navigationPaths.docs,
+		},
+		{
+			name: translate('docs'),
+			route: navigationPaths.docs,
+		},
+	];
+
 	return (
 		<Flex
 			pt="4"
