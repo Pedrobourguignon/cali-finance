@@ -1,8 +1,9 @@
-import { Flex, FormControl } from '@chakra-ui/react';
+import { Flex, FormControl, useToast } from '@chakra-ui/react';
 import {
 	NewCompanyLinks,
 	NavigationBack,
 	CreateCompanyComponent,
+	AlertToast,
 } from 'components';
 import { AppLayout, CompanyWhiteBackground } from 'layouts';
 import { navigationPaths } from 'utils';
@@ -17,6 +18,7 @@ import { ICompany } from 'types/interfaces/main-server/ICompany';
 import { useState } from 'react';
 import { useMutation } from 'react-query';
 import { ISociaLinksInputValue } from 'types';
+import { AxiosError } from 'axios';
 
 interface ISelectedNetwork {
 	name: string;
@@ -26,6 +28,7 @@ interface ISelectedNetwork {
 
 export const CreateCompanyContainer = () => {
 	const { createCompanySchema } = useSchema();
+	const toast = useToast();
 	const { createCompany } = useCompanies();
 	const { t: translate } = useTranslation('create-company');
 	const [selectedType, setSelectedType] = useState<string>(
@@ -55,10 +58,48 @@ export const CreateCompanyContainer = () => {
 		},
 	});
 
-	const { mutate } = useMutation(
+	const { mutate, error } = useMutation(
 		(createdCompanyData: ICompany) => createCompany(createdCompanyData),
 		{
-			onSuccess: () => console.log('done'),
+			onSuccess: () => {
+				toast({
+					position: 'top',
+					render: () => (
+						<AlertToast
+							onClick={toast.closeAll}
+							text="companyCreatedWithSuccess"
+							type="success"
+						/>
+					),
+				});
+			},
+			onError: () => {
+				if (error instanceof AxiosError) {
+					if (error.response?.data.message === 'Unique company name') {
+						toast({
+							position: 'top',
+							render: () => (
+								<AlertToast
+									onClick={toast.closeAll}
+									text="companyNameAlreadyExists"
+									type="error"
+								/>
+							),
+						});
+					} else {
+						toast({
+							position: 'top',
+							render: () => (
+								<AlertToast
+									onClick={toast.closeAll}
+									text="weAreWorkingToSolve"
+									type="error"
+								/>
+							),
+						});
+					}
+				}
+			},
 		}
 	);
 
@@ -100,7 +141,7 @@ export const CreateCompanyContainer = () => {
 			],
 			isPublic: false,
 			color: '#121212',
-			logo: newCompanyPicture,
+			logo: newCompanyPicture === '' ? undefined : newCompanyPicture,
 		});
 	};
 

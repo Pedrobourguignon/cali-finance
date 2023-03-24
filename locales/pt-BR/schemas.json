@@ -5,7 +5,7 @@
 	"required": "Obrigatório",
 	"emailContains": "E-mail contém _ - @ .",
 	"nameMin": "Nome deve possuir pelo menos 3 caracteres",
-	"nameDontAcceptNumber": "Nome não pode conter número(s)",
+	"nameDontAcceptNumber": "Nome não pode conter número(s) ou caracteres especiais",
 	"walletNotExist": "Esta carteira não existe",
 	"thisFileIsTooLarge": "Este arquivo é muito grande"
 }

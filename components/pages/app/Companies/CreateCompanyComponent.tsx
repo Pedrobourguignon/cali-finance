@@ -19,7 +19,7 @@ import useTranslation from 'next-translate/useTranslation';
 import { BlackButton, NetworkTooltip } from 'components';
 import { useSession } from 'next-auth/react';
 import { ChevronDownIcon } from '@chakra-ui/icons';
-import { Dispatch, SetStateAction } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { ICompany } from 'types/interfaces/main-server/ICompany';
 // eslint-disable-next-line import/no-unresolved
 import { FieldErrors, UseFormRegister } from 'react-hook-form/dist/types';
