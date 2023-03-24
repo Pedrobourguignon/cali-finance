@@ -3,6 +3,7 @@ import React from 'react';
 
 interface IOffsetShadow extends FlexProps {
 	children: JSX.Element | JSX.Element[];
+	bgGradient?: string;
 }
 
 export const OffsetShadow: React.FC<IOffsetShadow> = ({
@@ -15,6 +16,7 @@ export const OffsetShadow: React.FC<IOffsetShadow> = ({
 	left = '0rem',
 	borderRadius = 'base',
 	display,
+	bgGradient,
 }) => (
 	<Flex
 		position="relative"
@@ -26,6 +28,7 @@ export const OffsetShadow: React.FC<IOffsetShadow> = ({
 			position="absolute"
 			left={left}
 			bg={bg}
+			bgGradient={bgGradient}
 			top={`calc(${top} - 1px)`}
 			zIndex="0"
 			border="1px solid"

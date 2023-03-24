@@ -1,7 +1,19 @@
-import { Button, Flex, Img, Link, Text } from '@chakra-ui/react';
+import {
+	Button,
+	Flex,
+	IconButton,
+	Img,
+	Link,
+	Menu,
+	MenuButton,
+	MenuItem,
+	MenuList,
+	Text,
+} from '@chakra-ui/react';
 import { usePath, usePicasso } from 'hooks';
 import { navigationPaths } from 'utils';
 import NextLink from 'next/link';
+import { HamburgerIcon } from '@chakra-ui/icons';
 
 interface IMenu {
 	name: string;
@@ -11,7 +23,7 @@ interface IMenu {
 const menuOptions: IMenu[] = [
 	{
 		name: 'About',
-		route: navigationPaths.about,
+		route: '/',
 	},
 	{
 		name: 'Pricing',
@@ -19,7 +31,7 @@ const menuOptions: IMenu[] = [
 	},
 	{
 		name: 'FAQ',
-		route: navigationPaths.docs,
+		route: navigationPaths.faq,
 	},
 	{
 		name: 'Contact Us',
@@ -30,15 +42,15 @@ const menuOptions: IMenu[] = [
 		route: navigationPaths.docs,
 	},
 ];
+
 export const NewLandingHeader: React.FC = () => {
 	const theme = usePicasso();
 	const { isSamePath } = usePath();
 	return (
 		<Flex
 			pt="4"
-			pb="30"
-			w="100%"
-			justify={{ base: 'center', md: 'space-between' }}
+			w="full"
+			justify="space-between"
 			align="center"
 			bg="transparent"
 			px="24"
@@ -46,13 +58,39 @@ export const NewLandingHeader: React.FC = () => {
 			<Link href={navigationPaths.landing} as={NextLink}>
 				<Img minH="7" src="/images/logo-cali.svg" />
 			</Link>
+			<Flex display={{ base: 'flex', lg: 'none' }}>
+				<Menu>
+					<MenuButton
+						as={IconButton}
+						aria-label="Options"
+						icon={<HamburgerIcon />}
+						variant="outline"
+						color="black"
+					/>
+					<MenuList bg={theme.bg.gray2} px="2">
+						{menuOptions.map((item, index) => (
+							<MenuItem
+								key={+index}
+								bg="transparent"
+								_hover={{ bg: theme.text.primary, color: theme.text.white }}
+							>
+								<Link href={item.route} as={NextLink}>
+									<Text color={theme.text.primary} cursor="pointer">
+										{item.name}
+									</Text>
+								</Link>
+							</MenuItem>
+						))}
+					</MenuList>
+				</Menu>
+			</Flex>
 			<Flex display={{ base: 'none', lg: 'flex' }} gap="6">
 				{menuOptions.map((item, index) => {
 					const comparedPath = isSamePath(item.route);
 					return (
 						<Link key={+index} href={item.route} as={NextLink}>
 							<Text
-								color={theme.text.black}
+								color={theme.text.primary}
 								fontWeight={comparedPath ? 'medium' : 'normal'}
 								borderBottomColor={comparedPath ? theme.text.black : 'none'}
 								borderBottomWidth={comparedPath ? '0.125rem' : 'none'}
@@ -72,23 +110,22 @@ export const NewLandingHeader: React.FC = () => {
 				target="_blank"
 			>
 				<Button
-					_hover={{ bg: 'white', textDecor: 'none' }}
+					_hover={{ opacity: '80%' }}
 					_focus={{
-						border: '2px solid white',
+						border: '0.125rem solid white',
 						color: 'white',
 						bgColor: 'transparent',
 					}}
 					_active={{ color: 'black' }}
 					_focusVisible={{}}
 					_focusWithin={{}}
-					display={{ base: 'none', md: 'flex' }}
 					borderRadius="base"
 					bg={theme.text.black}
-					border="2px solid"
+					border="0.125rem solid"
 					borderColor="transparent"
 					color={theme.text.white}
-					px="12"
-					py="3"
+					px="9"
+					h="2.75rem"
 					fontSize="md"
 					fontWeight="normal"
 					textDecoration="none"

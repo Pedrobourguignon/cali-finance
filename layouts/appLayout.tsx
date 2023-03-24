@@ -21,7 +21,7 @@ export const AppLayout: React.FC<ILanding> = ({
 		<AuthProvider>
 			<ProfileProvider>
 				<Flex minH="100vh" w="full" direction="column">
-					<MissingFundsWarning />
+					{/* <MissingFundsWarning /> */}
 					<Flex
 						bg={theme.bg.primary}
 						py="6"

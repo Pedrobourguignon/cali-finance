@@ -18,7 +18,8 @@
 			"company-overall",
 			"create-team",
 			"alerts",
-			"schemas"
+			"schemas",
+			"landing"
 		],
 		"/": ["home", "example"],
 		"/dashboard": [
@@ -34,7 +35,8 @@
 			"company-overall",
 			"create-team",
 			"alerts",
-			"schemas"
+			"schemas",
+			"landing"
 		]
 	}
 }

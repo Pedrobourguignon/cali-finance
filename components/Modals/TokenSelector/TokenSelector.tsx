@@ -99,7 +99,7 @@ export const TokenSelector: React.FC<ITokenSelector> = ({
 							px: '1',
 						}}
 					>
-						{filteredTokens.map((token, index) => (
+						{filteredTokens?.map((token, index) => (
 							<TokenOptions
 								key={+index}
 								token={token}
