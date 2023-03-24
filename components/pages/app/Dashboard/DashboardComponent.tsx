@@ -59,8 +59,8 @@ export const DashboardComponent: React.FC = () => {
 					<DashboardHeader />
 					<Coins />
 				</Flex>
-				<Flex direction="column" gap="9" pt={!session ? '4' : 0}>
-					{session ? (
+				<Flex direction="column" gap="9" pt="4">
+					{session && companies ? (
 						<CompaniesList
 							companies={companies}
 							isLoading={isLoadingCompanies}

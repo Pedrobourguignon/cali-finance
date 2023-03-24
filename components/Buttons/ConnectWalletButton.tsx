@@ -62,7 +62,7 @@ export const ConnectWalletButton = () => {
 					_focus={{ background: 'white' }}
 					_active={{
 						background: 'white',
-						transform: 'translateY(0.5rem) translateX(0.375rem)',
+						transform: 'translateY(0.435rem) translateX(0.32rem)',
 					}}
 					onClick={onOpen}
 					display={shouldDisplay}

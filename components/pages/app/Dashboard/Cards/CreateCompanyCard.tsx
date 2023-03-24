@@ -5,6 +5,7 @@ import { useSession } from 'next-auth/react';
 import useTranslation from 'next-translate/useTranslation';
 import React from 'react';
 import { AiOutlinePlus } from 'react-icons/ai';
+import router from 'next/router';
 
 export const CreateCompanyCard = () => {
 	const theme = usePicasso();
@@ -49,6 +50,7 @@ export const CreateCompanyCard = () => {
 				fontWeight="medium"
 				color="white"
 				borderRadius="sm"
+				onClick={() => router.push('/companies/create')}
 			>
 				<Icon as={AiOutlinePlus} />
 				{translate('createCompany')}

@@ -29,7 +29,7 @@ export const CompaniesDashboard: React.FC<IMockCompanyDashboard> = ({
 		>
 			<Flex direction="column" justify="space-between">
 				<Text fontSize={{ md: 'sm', lg: 'xl', xl: '2xl' }} fontWeight="medium">
-					{companiesCount}
+					{!companiesCount ? '0' : companiesCount}
 				</Text>
 				<Text fontSize={{ md: 'xs', xl: 'sm' }} fontWeight="normal">
 					{translate('companies')}

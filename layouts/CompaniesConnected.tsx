@@ -1,4 +1,4 @@
-import { Flex } from '@chakra-ui/react';
+import { Flex, Text } from '@chakra-ui/react';
 import {
 	DashboardHeader,
 	CreateCompanyCard,
@@ -8,11 +8,14 @@ import {
 	CompaniesList,
 } from 'components';
 import { AppLayout } from 'layouts';
-import { useCompanies } from 'hooks';
+import { useCompanies, usePicasso } from 'hooks';
 import { useQuery } from 'react-query';
+import useTranslation from 'next-translate/useTranslation';
 
 export const CompaniesConnected: React.FC = () => {
 	const { activities, getAllUserCompanies } = useCompanies();
+	const theme = usePicasso();
+	const { t: translate } = useTranslation('dashboard');
 
 	const {
 		data: companies,
@@ -32,14 +35,23 @@ export const CompaniesConnected: React.FC = () => {
 						totalFunds={67900}
 					/>
 				</Flex>
-				<Flex w="full" flexDir="column" gap="8">
+				<Flex w="full" flexDir="column" gap="8" pt="10">
 					{companies?.length ? (
 						<CompaniesList
 							companies={companies}
 							isLoading={isLoadingCompanies}
 						/>
 					) : (
-						<CreateCompanyCard />
+						<Flex direction="column" gap="4">
+							<Text
+								fontSize="md"
+								fontWeight="medium"
+								color={theme.text.primary}
+							>
+								{translate('yourCompanies')}
+							</Text>
+							<CreateCompanyCard />
+						</Flex>
 					)}
 					{activities && <RecentActivities />}
 				</Flex>
