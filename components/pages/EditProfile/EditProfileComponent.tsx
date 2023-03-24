@@ -84,7 +84,7 @@ export const EditProfileComponent = () => {
 
 	const handleEditProfile = (editedProfileData: IUser) => {
 		mutate({
-			name: editedProfileData.name,
+			name: editedProfileData.name?.length === 0 ? '' : editedProfileData.name,
 			email: editedProfileData.email,
 			picture: editedProfilePicture,
 		});
