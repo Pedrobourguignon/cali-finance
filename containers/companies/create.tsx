@@ -58,7 +58,7 @@ export const CreateCompanyContainer = () => {
 		},
 	});
 
-	const { mutate, error } = useMutation(
+	const { mutate } = useMutation(
 		(createdCompanyData: ICompany) => createCompany(createdCompanyData),
 		{
 			onSuccess: () => {
@@ -73,7 +73,7 @@ export const CreateCompanyContainer = () => {
 					),
 				});
 			},
-			onError: () => {
+			onError: error => {
 				if (error instanceof AxiosError) {
 					if (error.response?.data.message === 'Unique company name') {
 						toast({
@@ -82,6 +82,17 @@ export const CreateCompanyContainer = () => {
 								<AlertToast
 									onClick={toast.closeAll}
 									text="companyNameAlreadyExists"
+									type="error"
+								/>
+							),
+						});
+					} else if (error.response?.data.message === 'Unauthorized') {
+						toast({
+							position: 'top',
+							render: () => (
+								<AlertToast
+									onClick={toast.closeAll}
+									text="unauthorized"
 									type="error"
 								/>
 							),
