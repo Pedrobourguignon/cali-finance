@@ -31,7 +31,7 @@ export const CompaniesHeader = () => {
 	const { data: session } = useSession({
 		required: true,
 		onUnauthenticated() {
-			router.push('/app/companies');
+			router.push(navigationPaths.dashboard.companies.home);
 		},
 	});
 

@@ -81,7 +81,7 @@ export const Sidebar: React.FC = () => {
 		},
 	];
 	const theme = usePicasso();
-	const { isSamePath } = usePath();
+	const { includesPath } = usePath();
 	const { userProfile } = useProfile();
 	const { address: walletAddress } = useAccount();
 	const { locale, asPath } = useRouter();
@@ -246,7 +246,7 @@ export const Sidebar: React.FC = () => {
 						pt={session ? '6' : '16'}
 					>
 						{menuOptions.map((item, index) => {
-							const comparedPath = isSamePath(item.route);
+							const comparedPath = includesPath(item.route);
 							return (
 								<Link
 									as={NextLink}
