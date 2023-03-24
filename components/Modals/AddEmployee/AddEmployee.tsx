@@ -118,6 +118,33 @@ export const AddEmployee: React.FC<IAddEmployee> = ({ isOpen, onClose }) => {
 					),
 				});
 			},
+			onError: () => {
+				if (error instanceof AxiosError) {
+					if (error.response?.status === 409) {
+						toast({
+							position: 'top',
+							render: () => (
+								<AlertToast
+									onClick={toast.closeAll}
+									text="userAlreadyExists"
+									type="error"
+								/>
+							),
+						});
+					} else {
+						toast({
+							position: 'top',
+							render: () => (
+								<AlertToast
+									onClick={toast.closeAll}
+									text="weAreWorkingToSolve"
+									type="error"
+								/>
+							),
+						});
+					}
+				}
+			},
 		}
 	);
 
@@ -130,34 +157,6 @@ export const AddEmployee: React.FC<IAddEmployee> = ({ isOpen, onClose }) => {
 			walletAddress: '',
 		}));
 	};
-
-	useEffect(() => {
-		if (error instanceof AxiosError) {
-			if (error.response?.status === 409) {
-				toast({
-					position: 'top',
-					render: () => (
-						<AlertToast
-							onClick={toast.closeAll}
-							text="userAlreadyExists"
-							type="error"
-						/>
-					),
-				});
-			} else {
-				toast({
-					position: 'top',
-					render: () => (
-						<AlertToast
-							onClick={toast.closeAll}
-							text="weAreWorkingToSolve"
-							type="error"
-						/>
-					),
-				});
-			}
-		}
-	}, [error]);
 
 	const handleAddEmployee = (newEmployeeData: IAddEmployeeForm) => {
 		mutate({
