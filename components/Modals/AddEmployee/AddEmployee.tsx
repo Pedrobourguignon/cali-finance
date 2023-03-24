@@ -21,7 +21,7 @@ import {
 import { AlertToast, BlackButton, TokenSelector, UploadCsv } from 'components';
 import { useCompanies, usePicasso, useSchema } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import {
 	IAddEmployee,
 	IAddEmployeeForm,
@@ -102,7 +102,7 @@ export const AddEmployee: React.FC<IAddEmployee> = ({ isOpen, onClose }) => {
 		resolver: yupResolver(addEmployeeSchema),
 	});
 
-	const { mutate, error } = useMutation(
+	const { mutate } = useMutation(
 		(employee: INewEmployee) => addEmployeeToTeam(employee),
 		{
 			onSuccess: () => {
@@ -118,7 +118,7 @@ export const AddEmployee: React.FC<IAddEmployee> = ({ isOpen, onClose }) => {
 					),
 				});
 			},
-			onError: () => {
+			onError: error => {
 				if (error instanceof AxiosError) {
 					if (error.response?.status === 409) {
 						toast({
