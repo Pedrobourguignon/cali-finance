@@ -18,6 +18,7 @@ import { useForm } from 'react-hook-form';
 import { useSession } from 'next-auth/react';
 import { IUser } from 'types/interfaces/main-server/IUser';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
+import { getLogo } from 'utils';
 
 interface IEditedInfo {
 	name: string | undefined;
@@ -128,9 +129,9 @@ export const EditProfileComponent = () => {
 				>
 					<Img
 						src={
-							editedProfileInfo.picture === ''
+							!profileData?.picture
 								? '/images/editImage.png'
-								: editedProfilePicture
+								: getLogo(profileData.picture)
 						}
 						boxSize="24"
 						borderRadius="full"
