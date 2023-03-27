@@ -70,7 +70,7 @@ export const EditProfileComponent = () => {
 	);
 
 	const [editedProfilePicture, setEditedProfilePicture] = useState(
-		profileData?.picture
+		'/images/editImage.png'
 	);
 
 	useEffect(() => {
@@ -79,7 +79,10 @@ export const EditProfileComponent = () => {
 			email: profileData?.email,
 			picture: profileData?.picture,
 		});
-		setEditedProfilePicture(profileData?.picture);
+		if (profileData?.picture) {
+			const logo = getLogo(profileData.picture);
+			setEditedProfilePicture(logo);
+		}
 	}, [profileData]);
 
 	const handleEditProfile = (editedProfileData: IUser) => {
@@ -128,11 +131,7 @@ export const EditProfileComponent = () => {
 					zIndex="docked"
 				>
 					<Img
-						src={
-							!profileData?.picture
-								? '/images/editImage.png'
-								: getLogo(profileData.picture)
-						}
+						src={editedProfilePicture}
 						boxSize="24"
 						borderRadius="full"
 						objectFit="cover"
