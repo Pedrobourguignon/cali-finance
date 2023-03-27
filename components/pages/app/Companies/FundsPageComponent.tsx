@@ -78,7 +78,7 @@ export const FundsPageComponent = () => {
 						<Text>{translate('coins')}</Text>
 					</Flex>
 
-					<Flex gap="4" w="full" justify="flex-start" flexWrap="wrap">
+					<Flex w="full" justify="flex-start" flexWrap="wrap">
 						{coinCard.map((coin, index) => (
 							<CoinCard
 								coin={coin}

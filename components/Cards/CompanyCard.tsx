@@ -21,13 +21,13 @@ export const CompanyCard: React.FC<ICompanyCard> = ({ team }) => {
 			borderRadius="base"
 			direction="column"
 			gap={{ md: '1', lg: '2', xl: '4' }}
-			// minW={{
-			// 	md: '8.288rem',
-			// 	lg: '10.5rem',
-			// 	xl: '13.813rem',
-			// 	'2xl': '16.575rem',
-			// }}
-			w="221px"
+			minW={{
+				md: '10.55rem',
+				lg: '10.5rem',
+				xl: '13.813rem',
+				'2xl': '13.1rem',
+			}}
+			// w="221px"
 			h="8.375rem"
 		>
 			<Flex direction="column" pt="2.5" pl="4" color={theme.text.primary}>
@@ -51,7 +51,7 @@ export const CompanyCard: React.FC<ICompanyCard> = ({ team }) => {
 						{team.name}
 					</Text>
 				</Flex>
-				<Flex pt={{ md: '1', xl: '3' }} justify="space-between" pr="6">
+				<Flex pt={{ md: '3', xl: '3' }} justify="space-between" pr="6">
 					<Flex direction="column">
 						<Text fontSize={{ md: 'xs', xl: 'sm' }} color="gray.500">
 							{translate('funds')}
@@ -68,7 +68,13 @@ export const CompanyCard: React.FC<ICompanyCard> = ({ team }) => {
 					</Flex>
 				</Flex>
 			</Flex>
-			<Flex w="100%" align="center" justify="center" pb={{ lg: '2', xl: '4' }}>
+			<Flex
+				w="100%"
+				align="center"
+				justify="center"
+				pb={{ lg: '2', xl: '4' }}
+				pt={{ md: '3', xl: '0' }}
+			>
 				<Link
 					href={navigationPaths.dashboard.companies.overview('1')}
 					as={NextLink}
