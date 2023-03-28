@@ -17,13 +17,15 @@ export const GetStartedSession = () => {
 				xl: 'center',
 			}}
 			align="center"
-			gap={{ lg: '14', xl: '20' }}
-			backgroundImage="url('/images/circular-blur.svg')"
-			backgroundRepeat="no-repeat"
-			bgPosition="bottom left"
+			gap={{ md: '6', lg: '14', xl: '20', '2xl': '64' }}
 			bgSize={{ lg: '34.375rem', xl: '37.5rem' }}
 		>
-			<Flex>
+			<Flex
+				backgroundImage="url('/images/circular-blur.svg')"
+				backgroundRepeat="no-repeat"
+				bgPosition="left"
+				bgSize="contain"
+			>
 				<Img
 					src="/images/3d-mockups.svg"
 					h={{ md: '18.75rem', lg: '27.5rem' }}

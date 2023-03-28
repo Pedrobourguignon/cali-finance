@@ -56,7 +56,6 @@ export const NewLandingHeader: React.FC = () => {
 			justify="space-between"
 			align="center"
 			bg="transparent"
-			px="24"
 		>
 			<Link href={navigationPaths.landing} as={NextLink}>
 				<Img minH="7" src="/images/logo-cali.svg" />

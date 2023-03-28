@@ -67,6 +67,7 @@ export const LandingFooter = () => {
 			>
 				<Text color={theme.text.white}>© CALI {currentYear}</Text>
 				<Text
+					cursor="pointer"
 					color={theme.text.white}
 					onClick={() => window.open('https://www.instagram.com/cali.finance/')}
 				>

@@ -44,9 +44,9 @@ export const FrequentlyQuestions = () => {
 	const theme = usePicasso();
 	return (
 		<Flex
-			justify={{ md: 'space-evenly', lg: 'center', '2xl': 'space-evenly' }}
+			justify={{ md: 'space-evenly', lg: 'center', '2xl': 'center' }}
 			w="full"
-			gap={{ lg: '12', xl: '40' }}
+			gap={{ md: '3', lg: '12', xl: '40', '2xl': '52' }}
 		>
 			<Flex
 				direction="column"
@@ -54,6 +54,7 @@ export const FrequentlyQuestions = () => {
 				gap="6"
 			>
 				<Text
+					maxW={{ md: '14.375rem', lg: 'full' }}
 					fontWeight="bold"
 					fontSize="3xl"
 					lineHeight="9"
