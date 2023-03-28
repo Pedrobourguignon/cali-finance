@@ -12,9 +12,11 @@ import {
 import { usePicasso, useProfile, useSchema } from 'hooks';
 import React, { useEffect, useState } from 'react';
 import useTranslation from 'next-translate/useTranslation';
-import { BlackButton, ImageUploaderModal, SaveChangesToast } from 'components';
+import { AlertToast, BlackButton, ImageUploaderModal } from 'components';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
+import { AiFillCheckCircle } from 'react-icons/ai';
+
 import { useSession } from 'next-auth/react';
 import { IUser } from 'types/interfaces/main-server/IUser';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
@@ -58,7 +60,13 @@ export const EditProfileComponent = () => {
 			onSuccess: () => {
 				toast({
 					position: 'top-right',
-					render: () => <SaveChangesToast onClick={toast.closeAll} />,
+					render: () => (
+						<AlertToast
+							type="success"
+							text="changesMadeWithSuccessfully"
+							onClick={toast.closeAll}
+						/>
+					),
 				});
 				queryClient.invalidateQueries('profile-data');
 			},

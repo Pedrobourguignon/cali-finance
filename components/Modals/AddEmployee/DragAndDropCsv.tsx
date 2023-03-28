@@ -3,7 +3,6 @@ import { usePicasso } from 'hooks';
 import React, { useState } from 'react';
 import { FileUploader } from 'react-drag-drop-files';
 import { GrDocumentUpload } from 'react-icons/gr';
-import { IUploadedFile } from 'types';
 
 const fileTypes = ['CSV'];
 
@@ -14,10 +13,12 @@ interface IFileDrag extends Blob {
 }
 
 interface IDragAndDrop {
-	setUploadedFileData: React.Dispatch<React.SetStateAction<IUploadedFile>>;
+	setUploadedFileData: React.Dispatch<
+		React.SetStateAction<string | undefined | null | ArrayBuffer>
+	>;
 }
 
-export const DragAndDrop: React.FC<IDragAndDrop> = ({
+export const DragAndDropCsv: React.FC<IDragAndDrop> = ({
 	setUploadedFileData,
 }) => {
 	const theme = usePicasso();
@@ -25,28 +26,24 @@ export const DragAndDrop: React.FC<IDragAndDrop> = ({
 
 	const loadFile = (file: IFileDrag) => {
 		const newFile = new FileReader();
-		const size = file?.size;
-		if (!size || size > 5000000) {
-			setSizeIsValid(false);
-			return;
-		}
-		const fileData = file?.name.split('.');
-		const ext = fileData?.[fileData.length - 1];
-		setSizeIsValid(true);
-		newFile.readAsDataURL(file);
-
-		newFile.onload = event => {
-			const base64File = {
-				file: event.target?.result,
-				ext,
+		newFile.readAsText(file);
+		if (file) {
+			newFile.onload = event => {
+				setUploadedFileData(event.target?.result);
 			};
-			setUploadedFileData(base64File);
-		};
+		}
 	};
 
 	return (
 		<Flex direction="column" align="center" gap="4">
-			<FileUploader handleChange={loadFile} name="file" types={fileTypes}>
+			<FileUploader
+				handleChange={loadFile}
+				name="file"
+				types={fileTypes}
+				onChange={(event: { target: { file: IFileDrag } }) =>
+					loadFile(event.target.file)
+				}
+			>
 				<Flex
 					cursor="pointer"
 					borderRadius="base"

@@ -4,6 +4,7 @@ export * from './IEditCompany';
 export * from './IEditedCompany';
 export * from './IEmployee';
 export * from './INewCompany';
+export * from './INewEmployee';
 export * from './INewTeam';
 export * from './ISocialLinksInputValue';
 export * from './ISocialMedia';

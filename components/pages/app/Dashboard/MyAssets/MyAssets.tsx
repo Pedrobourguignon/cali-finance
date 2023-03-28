@@ -16,7 +16,7 @@ const assetsOptions: IAssetsOptions[] = [
 	},
 	{
 		name: 'Bitcoin',
-		initials: 'BTC',
+		initials: 'bitcoin',
 		units: '0.001234',
 		value: 5666.99,
 		icon: '/icons/bitcoin.svg',

@@ -37,7 +37,7 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 	});
 	const [token, setToken] = useState<ISelectedCoin>({
 		logo: 'https://assets.coingecko.com/coins/images/1/thumb/bitcoin.png?1547033579',
-		symbol: 'BTC',
+		symbol: 'bitcoin',
 	} as ISelectedCoin);
 	const bitcoinPrice = 87586;
 	const { editEmployeeSchema } = useSchema();
@@ -127,7 +127,7 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 									Edit Employee
 								</Text>
 								<Text color={theme.text.primary} fontSize="sm">
-									{employee.name} - {truncateWallet(employee.wallet)}
+									{employee.name} - {truncateWallet(employee?.wallet)}
 								</Text>
 							</Flex>
 							<ModalCloseButton color="gray.400" py="7" />
