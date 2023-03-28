@@ -5,5 +5,12 @@
 	"needingFunds": "Precisando de Fundos! Por favor, deposite agora",
 	"yourCompanies": "Suas organizações estão faltando fundos.",
 	"depositFunds": "Deposite fundos",
-	"companiesPage": "na página de organizações."
+	"companiesPage": "na página de organizações.",
+	"addressCopiedSuccessfully": "Endereço copiado com sucesso",
+	"changesMadeWithSuccessfully": "Alterações feitas com sucesso",
+	"employeeAdded": "Funcionário adicionado",
+	"employeesAdded": "Funcionários adicionados",
+	"theContentOfTheCsv": "O conteúdo do arquivo CSV não está em conformidade com as especificações exigidas.",
+	"weAreWorkingToSolve": "Estamos trabalhando para resolver este problema",
+	"userAlreadyExists": "O usuário já existe nesta empresa"
 }

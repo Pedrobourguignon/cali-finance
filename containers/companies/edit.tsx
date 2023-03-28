@@ -3,7 +3,7 @@ import {
 	NavigationBack,
 	EditCompanyComponent,
 	EditCompanyLink,
-	SaveChangesToast,
+	AlertToast,
 } from 'components';
 import { AppLayout, CompanyWhiteBackground } from 'layouts';
 import { navigationPaths } from 'utils';
@@ -78,7 +78,13 @@ export const EditCompany = () => {
 	const handleEditCompany = (editedCompanyData: ICompany) => {
 		toast({
 			position: 'top-right',
-			render: () => <SaveChangesToast onClick={toast.closeAll} />,
+			render: () => (
+				<AlertToast
+					onClick={toast.closeAll}
+					type="success"
+					text="company edited sucessfully"
+				/>
+			),
 		});
 		const { name, contactEmail, description } = editedCompanyData;
 		const { websiteURL, instagramURL, twitterURL, telegramURL, mediumURL } =

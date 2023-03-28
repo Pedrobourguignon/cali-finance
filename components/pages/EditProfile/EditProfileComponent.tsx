@@ -10,11 +10,13 @@ import {
 	useToast,
 } from '@chakra-ui/react';
 import { usePicasso, useProfile, useSchema } from 'hooks';
-import React, { useState } from 'react';
+import React from 'react';
 import useTranslation from 'next-translate/useTranslation';
-import { BlackButton, ImageUploaderModal, SaveChangesToast } from 'components';
+import { AlertToast, BlackButton, ImageUploaderModal } from 'components';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
+import { AiFillCheckCircle } from 'react-icons/ai';
+
 import { useSession } from 'next-auth/react';
 
 interface IEditProfile {
@@ -61,7 +63,13 @@ export const EditProfileComponent = () => {
 		});
 		toast({
 			position: 'top-right',
-			render: () => <SaveChangesToast onClick={toast.closeAll} />,
+			render: () => (
+				<AlertToast
+					onClick={toast.closeAll}
+					text="changesMadeWithSuccessfully"
+					type="success"
+				/>
+			),
 		});
 	};
 
