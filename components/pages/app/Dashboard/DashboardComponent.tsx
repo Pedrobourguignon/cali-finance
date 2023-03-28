@@ -1,24 +1,20 @@
-import { Flex, useDisclosure } from '@chakra-ui/react';
+import { Flex } from '@chakra-ui/react';
 import {
 	DashboardHeader,
 	Coins,
 	CreateCompanyCard,
 	RecentActivitiesDashboard,
 	MyAssets,
-	CompaniesList,
-	WithdrawModal,
 	CompaniesListFixed,
 } from 'components';
 import React from 'react';
 import { IRecentActivitiesList } from 'types';
 import useTranslation from 'next-translate/useTranslation';
 import { useSession } from 'next-auth/react';
-import { NotFoundContainer } from 'containers';
 
 export const DashboardComponent: React.FC = () => {
 	const { t: translate } = useTranslation('dashboard');
 	const { data: session } = useSession();
-	const { isOpen, onClose } = useDisclosure();
 
 	const recentActivitiesList: IRecentActivitiesList[] = [
 		{
@@ -55,7 +51,6 @@ export const DashboardComponent: React.FC = () => {
 					<Coins />
 				</Flex>
 				<Flex direction="column" gap="9" pt={!session ? '4' : 0}>
-					{/* {session ? <CompaniesList /> : <CreateCompanyCard />} */}
 					{session ? <CompaniesListFixed /> : <CreateCompanyCard />}
 					{session && (
 						<Flex justify="space-between" w="full" gap="6">
