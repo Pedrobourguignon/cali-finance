@@ -27,7 +27,7 @@ export const NewLandingContainer: React.FC = () => {
 			bgSize={{ lg: '34.375rem', xl: '37.5rem' }}
 		>
 			<NewLandingHeader />
-			<Flex justify="space-between">
+			<Flex justify={{ md: 'space-between', '2xl': 'center' }}>
 				<Flex direction="column" gap="6" px="24" pt="28">
 					<Flex direction="column" maxW={{ xl: '36.875rem', '2xl': '50rem' }}>
 						<Text
@@ -79,7 +79,7 @@ export const NewLandingContainer: React.FC = () => {
 			</Flex>
 			<Flex
 				h={{ md: 'full', '2xl': '53.125rem' }}
-				px="24"
+				px={{ md: '24', '2xl': '56' }}
 				direction="column"
 				backgroundImage="url('/images/curve-strip.svg')"
 				backgroundRepeat="no-repeat"
@@ -112,8 +112,8 @@ export const NewLandingContainer: React.FC = () => {
 					/>
 				</Flex>
 			</Flex>
-			<Flex px="24" pt={{ md: '10' }}>
-				<PricingModelCard />
+			<Flex px="24" pt={{ md: '10' }} justify="center">
+				{/* <PricingModelCard /> */}
 			</Flex>
 			<Flex pt="20">
 				<GetStartedSession />

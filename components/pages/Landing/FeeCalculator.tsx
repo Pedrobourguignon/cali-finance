@@ -46,7 +46,7 @@ export const FeeCalculator = () => {
 	return (
 		<OffsetShadow
 			borderRadius="xl"
-			width={{ md: '22.125rem', '2xl': '35rem' }}
+			width="22.125rem"
 			height="13.813rem"
 			borderColor={theme.bg.primary}
 			top="0.5rem"

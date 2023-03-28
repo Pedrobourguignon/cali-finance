@@ -10,13 +10,11 @@ export const GetStartedSession = () => {
 	const { t: translate } = useTranslation('landing');
 	return (
 		<Flex
-			// bg="red"
 			w="full"
 			justify={{
 				md: 'space-around',
 				lg: 'center',
 				xl: 'center',
-				'2xl': 'space-evenly',
 			}}
 			align="center"
 			gap={{ lg: '14', xl: '20' }}

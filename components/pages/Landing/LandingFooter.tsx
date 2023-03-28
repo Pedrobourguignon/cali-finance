@@ -4,7 +4,7 @@ import React from 'react';
 import { SocialMediaFooter } from 'components';
 import { ISocialMediaFooter } from 'types';
 import { AiFillTwitterCircle } from 'react-icons/ai';
-import { FaLinkedinIn } from 'react-icons/fa';
+import { FaDiscord, FaLinkedinIn } from 'react-icons/fa';
 import { TiSocialInstagramCircular } from 'react-icons/ti';
 import useTranslation from 'next-translate/useTranslation';
 import { socialMediaLinks } from 'utils';
@@ -25,11 +25,17 @@ const socialMedias: ISocialMediaFooter[] = [
 		icon: TiSocialInstagramCircular,
 		url: socialMediaLinks.instagram,
 	},
+	{
+		name: '/discord',
+		icon: FaDiscord,
+		url: socialMediaLinks.discord,
+	},
 ];
 
 export const LandingFooter = () => {
 	const theme = usePicasso();
 	const { t: translate } = useTranslation('landing');
+	const currentYear = new Date().getFullYear();
 
 	return (
 		<Flex
@@ -59,7 +65,7 @@ export const LandingFooter = () => {
 				position="absolute"
 				bottom="0"
 			>
-				<Text color={theme.text.white}>© CALI 2023</Text>
+				<Text color={theme.text.white}>© CALI {currentYear}</Text>
 				<Text
 					color={theme.text.white}
 					onClick={() => window.open('https://www.instagram.com/cali.finance/')}
