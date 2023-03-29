@@ -24,7 +24,7 @@ export const TokensProvider: React.FC<{ children: React.ReactNode }> = ({
 	const [filteredTokens, setFilteredTokens] = useState<IToken[]>([]);
 	const [chosenToken, setChosenToken] = useState<ISelectedCoin>({
 		logo: 'https://assets.coingecko.com/coins/images/1/thumb/bitcoin.png?1547033579',
-		symbol: 'bitcoin',
+		symbol: 'BTC',
 	} as ISelectedCoin);
 	const [swapTokenSelector, setSwapTokenSelector] =
 		useState<ISwapTokenSelector>({
@@ -65,10 +65,6 @@ export const TokensProvider: React.FC<{ children: React.ReactNode }> = ({
 			console.error(error);
 		}
 	};
-
-	useEffect(() => {
-		getTokenDataById();
-	}, [chosenToken]);
 
 	const handleSearchToken = debounce(
 		(searchValue: string, tokens: IToken[]) => {

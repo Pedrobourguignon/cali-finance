@@ -15,7 +15,6 @@ import { truncateWallet } from 'utils';
 import useTranslation from 'next-translate/useTranslation';
 import { AlertToast, EditEmployee } from 'components';
 import { GetCompanyUsersRes } from 'types/interfaces/main-server/IUser';
-import { AiFillCheckCircle } from 'react-icons/ai';
 
 const teams = ['General', 'Marketing', 'Finance', 'Trozorba'];
 interface IEmployeeData {
@@ -61,14 +60,16 @@ export const EmployeeData: React.FC<IEmployeeData> = ({
 			<Flex justify="center" align="center" gap="3">
 				<Img
 					src={
-						employee.picture === 'no-picture.png'
+						employee.picture === null
 							? '/images/editImage.png'
 							: employee.picture
 					}
 					boxSize="6"
 				/>
 				<Flex direction="column" justifyItems="center">
-					<Text fontSize="sm">{employee.name}</Text>
+					<Text fontSize="sm">
+						{!employee.name ? employee.wallet : employee.name}
+					</Text>
 					<Flex align="center">
 						<Text fontSize="xs" color="gray.500">
 							{truncateWallet(employee.wallet)}

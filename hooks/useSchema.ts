@@ -16,18 +16,6 @@ const useSchema = () => {
 			.typeError(translate('amountMustBeANumber'))
 			.positive(translate('amountMustBeAPositive')),
 	});
-	const addEmployeeSchema = yup.object().shape({
-		walletAddress: yup
-			.string()
-			.required(translate('required'))
-			.matches(ethAddressRegex, translate('walletNotExist'))
-			.min(40),
-		amount: yup
-			.number()
-			.required(translate('required'))
-			.positive(translate('amountMustBeAPositive'))
-			.typeError(translate('amountMustBeANumber')),
-	});
 
 	const createCompanySchema = yup.object().shape({
 		name: yup
@@ -86,7 +74,6 @@ const useSchema = () => {
 	return {
 		editProfileSchema,
 		editEmployeeSchema,
-		addEmployeeSchema,
 		createCompanySchema,
 		editCompanySchema,
 		transactionSchema,

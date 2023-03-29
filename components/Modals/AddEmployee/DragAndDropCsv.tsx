@@ -1,8 +1,9 @@
-import { Flex, Icon, Text } from '@chakra-ui/react';
+import { Flex, Icon, Img, Text } from '@chakra-ui/react';
 import { usePicasso } from 'hooks';
 import React, { useState } from 'react';
 import { FileUploader } from 'react-drag-drop-files';
 import { GrDocumentUpload } from 'react-icons/gr';
+import { SiGooglesheets } from 'react-icons/si';
 
 const fileTypes = ['CSV'];
 
@@ -22,9 +23,10 @@ export const DragAndDropCsv: React.FC<IDragAndDrop> = ({
 	setUploadedFileData,
 }) => {
 	const theme = usePicasso();
-	const [sizeIsValid, setSizeIsValid] = useState(true);
+	const [csvName, setCsvName] = useState('');
 
 	const loadFile = (file: IFileDrag) => {
+		setCsvName(file.name);
 		const newFile = new FileReader();
 		newFile.readAsText(file);
 		if (file) {
@@ -47,24 +49,31 @@ export const DragAndDropCsv: React.FC<IDragAndDrop> = ({
 				<Flex
 					cursor="pointer"
 					borderRadius="base"
-					p="14"
+					p="12"
 					border="1px solid"
 					borderColor="blackAlpha.200"
 					bg="gray.50"
+					boxSize="40"
+					align="center"
+					justify="center"
 				>
-					<Icon as={GrDocumentUpload} boxSize="10" />
+					{csvName ? (
+						<Flex direction="column" align="center" justify="center" gap="2">
+							<Img src="/images/Sheets.svg" boxSize="10" />
+							<Text
+								w="28"
+								color={theme.text.primary}
+								overflow="clip"
+								fontSize="xs"
+							>
+								{csvName}
+							</Text>
+						</Flex>
+					) : (
+						<Icon as={GrDocumentUpload} boxSize="10" />
+					)}
 				</Flex>
 			</FileUploader>
-			{!sizeIsValid && (
-				<Flex bg="red.100" w="100%" py="2" pl="2.5" borderRadius="base">
-					<Text color={theme.text.primary} fontWeight="semibold" fontSize="sm">
-						The file is too large.
-						<Text as="span" fontWeight="normal" ml="2">
-							Please upload another image up to 5mb.
-						</Text>
-					</Text>
-				</Flex>
-			)}
 		</Flex>
 	);
 };

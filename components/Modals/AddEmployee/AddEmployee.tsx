@@ -21,7 +21,7 @@ import {
 import { AlertToast, BlackButton, TokenSelector, UploadCsv } from 'components';
 import { useCompanies, usePicasso, useSchema } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
 	IAddEmployee,
 	IAddEmployeeForm,
@@ -32,10 +32,11 @@ import { IoPersonAddOutline } from 'react-icons/io5';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { IoIosArrowDown } from 'react-icons/io';
-import { navigationPaths } from 'utils';
+import { ethAddressRegex, navigationPaths } from 'utils';
 import NextLink from 'next/link';
 import { useMutation, useQueryClient } from 'react-query';
 import { AxiosError } from 'axios';
+import * as yup from 'yup';
 
 export const AddEmployee: React.FC<IAddEmployee> = ({ isOpen, onClose }) => {
 	const { t: translate } = useTranslation('create-team');
@@ -49,10 +50,9 @@ export const AddEmployee: React.FC<IAddEmployee> = ({ isOpen, onClose }) => {
 	});
 	const [token, setToken] = useState<ISelectedCoin>({
 		logo: 'https://assets.coingecko.com/coins/images/1/thumb/bitcoin.png?1547033579',
-		symbol: 'bitcoin',
+		symbol: 'BTC',
 	} as ISelectedCoin);
 	const bitcoinPrice = 87.586;
-	const { addEmployeeSchema } = useSchema();
 	const { selectedCompany, addEmployeeToTeam } = useCompanies();
 	const queryClient = useQueryClient();
 
@@ -93,14 +93,36 @@ export const AddEmployee: React.FC<IAddEmployee> = ({ isOpen, onClose }) => {
 		}));
 	};
 
+	const addEmployeeSchema = yup.object().shape({
+		walletAddress: yup
+			.string()
+			.required(translate('required'))
+			.matches(ethAddressRegex, translate('walletNotExist'))
+			.min(40),
+		amount: yup
+			.number()
+			.when('asset', {
+				is: (value: string) => console.log(value),
+				then: yup.number().max(4),
+				otherwise: yup.number().max(5),
+			})
+			.required(translate('required'))
+			.positive(translate('amountMustBeAPositive'))
+			.typeError(translate('amountMustBeANumber')),
+	});
+
 	const {
 		register,
 		handleSubmit,
 		reset,
-		formState: { errors },
+		formState: { errors, isValid },
 	} = useForm<IAddEmployeeForm>({
 		resolver: yupResolver(addEmployeeSchema),
 	});
+
+	useEffect(() => {
+		addEmployeeSchema.isValidSync(token);
+	}, [token]);
 
 	const { mutate } = useMutation(
 		(employee: INewEmployee) => addEmployeeToTeam(employee),
@@ -302,7 +324,9 @@ export const AddEmployee: React.FC<IAddEmployee> = ({ isOpen, onClose }) => {
 									<Flex align="center" justify="space-between">
 										<Text {...labelStyle}>{translate('amountPerMonth')}</Text>
 										<Text fontWeight="normal" fontSize="xs" color="gray.500">
-											US${addedEmployeeData.amountInDollar}
+											{!addedEmployeeData.amountInDollar
+												? ''
+												: `US$ ${addedEmployeeData.amountInDollar}`}
 										</Text>
 									</Flex>
 									<InputGroup>
@@ -324,7 +348,7 @@ export const AddEmployee: React.FC<IAddEmployee> = ({ isOpen, onClose }) => {
 													amount: Number(amount.target.value),
 												}));
 												converterToDollar(
-													parseInt(amount.currentTarget.value, 10)
+													parseFloat(amount.currentTarget.value)
 												);
 												return (
 													!amount.currentTarget.value &&
