@@ -84,7 +84,7 @@ export const Sidebar: React.FC = () => {
 	const { includesPath } = usePath();
 	const { userProfile } = useProfile();
 	const { address: walletAddress } = useAccount();
-	const { locale, asPath } = useRouter();
+	const { locale, asPath, pathname } = useRouter();
 	const { data: session } = useSession();
 	const { disconnect } = useDisconnect();
 	const languages: ILanguage[] = ['en-US', 'pt-BR'];
@@ -106,12 +106,14 @@ export const Sidebar: React.FC = () => {
 	}, []);
 
 	const changeLanguage = (lang: string) => {
-		router.push(`/${asPath}`, `/${asPath}`, { locale: lang });
+		router.push(`${asPath}`, `${asPath}`, { locale: lang });
 		localStorage.setItem('language', lang);
 	};
 
 	useEffect(() => {
-		changeLanguage(localStorage.getItem('language')!);
+		if (!pathname.includes('404')) {
+			changeLanguage(localStorage.getItem('language')!);
+		}
 	}, [locale]);
 
 	const handleSignOut = () => {
