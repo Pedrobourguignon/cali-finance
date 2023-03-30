@@ -1,16 +1,18 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { Flex, FormControl, useToast } from '@chakra-ui/react';
 import {
 	NavigationBack,
 	EditCompanyComponent,
 	EditCompanyLink,
 	SaveChangesToast,
+	AlertToast,
 } from 'components';
 import { AppLayout, CompanyWhiteBackground } from 'layouts';
 import { navigationPaths } from 'utils';
 import { ISociaLinksInputValue } from 'types';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useCompanies, useSchema, useToasty } from 'hooks';
+import { useCompanies, useSchema } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
 import { useSession } from 'next-auth/react';
 import router, { useRouter } from 'next/router';
@@ -18,6 +20,7 @@ import { CompaniesProvider } from 'contexts';
 import { useMutation, useQuery } from 'react-query';
 import { ICompany } from 'types/interfaces/main-server/ICompany';
 import { useState } from 'react';
+import { AxiosError } from 'axios';
 
 interface ISelectedNetwork {
 	name: string;
@@ -26,8 +29,8 @@ interface ISelectedNetwork {
 }
 
 export const EditCompany = () => {
-	const { t: translate } = useTranslation('create-company');
 	const toast = useToast();
+	const { t: translate } = useTranslation('create-company');
 	const { query } = useRouter();
 	const { editCompanySchema } = useSchema();
 	const { getCompanyById, updateCompany } = useCompanies();
@@ -63,23 +66,52 @@ export const EditCompany = () => {
 	const { mutate } = useMutation(
 		(editedCompanyData: ICompany) => updateCompany(editedCompanyData),
 		{
-			onSuccess: () => console.log('done'),
+			onSuccess: () => {
+				toast({
+					position: 'top-right',
+					render: () => <SaveChangesToast onClick={toast.closeAll} />,
+				});
+			},
+			onError: error => {
+				if (error instanceof AxiosError) {
+					if (error.response?.data.message === 'Unauthorized') {
+						toast({
+							position: 'top',
+							render: () => (
+								<AlertToast
+									onClick={toast.closeAll}
+									text="unauthorized"
+									type="error"
+								/>
+							),
+						});
+					} else {
+						toast({
+							position: 'top',
+							render: () => (
+								<AlertToast
+									onClick={toast.closeAll}
+									text="weAreWorkingToSolve"
+									type="error"
+								/>
+							),
+						});
+					}
+				}
+			},
 		}
 	);
 
-	const [editedCompanyPicture, setEditedCompanyPicture] = useState(
+	const [editedCompanyPicture] = useState(companyToBeEdited?.logo);
+	const [displayedEditedPicture, setDisplayedEditedPicture] = useState(
 		companyToBeEdited?.logo
 	);
 
 	const handleEditedPicture = (picture: string) => {
-		setEditedCompanyPicture(picture);
+		setDisplayedEditedPicture(picture);
 	};
 
 	const handleEditCompany = (editedCompanyData: ICompany) => {
-		toast({
-			position: 'top-right',
-			render: () => <SaveChangesToast onClick={toast.closeAll} />,
-		});
 		const { name, contactEmail, description } = editedCompanyData;
 		const { websiteURL, instagramURL, twitterURL, telegramURL, mediumURL } =
 			editedSocialLinksInputValue;
@@ -92,28 +124,28 @@ export const EditCompany = () => {
 			socialMedia: [
 				{
 					name: 'website',
-					url: websiteURL,
+					url: websiteURL!,
 				},
 				{
 					name: 'instagram',
-					url: instagramURL,
+					url: instagramURL!,
 				},
 				{
 					name: 'twitter',
-					url: twitterURL,
+					url: twitterURL!,
 				},
 				{
 					name: 'telegram',
-					url: telegramURL,
+					url: telegramURL!,
 				},
 				{
 					name: 'medium',
-					url: mediumURL,
+					url: mediumURL!,
 				},
 			],
 			isPublic: false,
 			color: '#121212',
-			logo: editedCompanyPicture,
+			logo: displayedEditedPicture,
 		});
 	};
 
@@ -124,6 +156,8 @@ export const EditCompany = () => {
 					<AppLayout
 						right={
 							<EditCompanyLink
+								displayedEditedPicture={displayedEditedPicture}
+								editedCompanyPicture={editedCompanyPicture}
 								logo={editedCompanyPicture}
 								setEditedSocialLinksInputValue={setEditedSocialLinksInputValue}
 								company={companyToBeEdited}
@@ -141,7 +175,9 @@ export const EditCompany = () => {
 								</NavigationBack>
 							</Flex>
 							<EditCompanyComponent
-								editedCompanyPicture={editedCompanyPicture}
+								setEditedSocialLinksInputValue={setEditedSocialLinksInputValue}
+								editedSocialLinksInputValue={editedSocialLinksInputValue}
+								editedCompanyPicture={displayedEditedPicture}
 								setSelectedNetwork={setSelectedNetwork}
 								setSelectedType={setSelectedType}
 								selectedNetwork={selectedNetwork}

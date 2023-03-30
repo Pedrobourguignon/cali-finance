@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { Flex, FormControl, useToast } from '@chakra-ui/react';
 import {
 	NewCompanyLinks,
@@ -131,23 +132,23 @@ export const CreateCompanyContainer = () => {
 			socialMedia: [
 				{
 					name: 'website',
-					url: websiteURL,
+					url: websiteURL!,
 				},
 				{
 					name: 'instagram',
-					url: instagramURL,
+					url: instagramURL!,
 				},
 				{
 					name: 'twitter',
-					url: twitterURL,
+					url: twitterURL!,
 				},
 				{
 					name: 'telegram',
-					url: telegramURL,
+					url: telegramURL!,
 				},
 				{
 					name: 'medium',
-					url: mediumURL,
+					url: mediumURL!,
 				},
 			],
 			isPublic: false,

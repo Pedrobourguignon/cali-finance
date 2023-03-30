@@ -193,7 +193,7 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 				company,
 			})
 			.then(id =>
-				router.push(navigationPaths.dashboard.companies.overview(id.data.id))
+				router.push(navigationPaths.dashboard.companies.overview(query.id))
 			);
 	};
 	const getAllCompanyEmployees = async (id: number) => {
