@@ -238,7 +238,6 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 			socialMediasData,
 			allUserCompanies,
 			setSocialMediasData,
-			updateCompany,
 		]
 	);
 
