@@ -4,7 +4,6 @@ import {
 	NavigationBack,
 	EditCompanyComponent,
 	EditCompanyLink,
-	SaveChangesToast,
 	AlertToast,
 } from 'components';
 import { AppLayout, CompanyWhiteBackground } from 'layouts';
@@ -69,7 +68,13 @@ export const EditCompany = () => {
 			onSuccess: () => {
 				toast({
 					position: 'top-right',
-					render: () => <SaveChangesToast onClick={toast.closeAll} />,
+					render: () => (
+						<AlertToast
+							onClick={toast.closeAll}
+							text="changesMadeWithSuccessfully"
+							type="success"
+						/>
+					),
 				});
 			},
 			onError: error => {

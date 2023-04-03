@@ -13,15 +13,17 @@ import {
 	IEmployee,
 	IHistoryNotification,
 	ISocialMedia,
+	INewEmployee,
 } from 'types';
 import { historyNotifications } from 'components';
 import { mainClient, navigationPaths } from 'utils';
-import { useAccount } from 'wagmi';
 import {
 	GetUserCompaniesRes,
 	ICompany,
 } from 'types/interfaces/main-server/ICompany';
 import router, { useRouter } from 'next/router';
+import { useQuery } from 'react-query';
+import { useAccount } from 'wagmi';
 
 interface ICompanyContext {
 	activities: IActivities[];
@@ -43,6 +45,10 @@ interface ICompanyContext {
 	getCompanyById: (id: number) => Promise<ICompany>;
 	updateCompany: (company: ICompany) => Promise<void>;
 	getAllCompanyEmployees: (id: number) => Promise<IEmployee[]>;
+	addEmployeeToTeam: (employee: INewEmployee) => Promise<void>;
+	addEmployeeCsv: (
+		employee: string | undefined | null | ArrayBuffer
+	) => Promise<void>;
 	allUserCompanies: GetUserCompaniesRes[];
 	selectedCompany: ICompany;
 	companiesWithMissingFunds: GetUserCompaniesRes[];
@@ -201,6 +207,31 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 		return response.data;
 	};
 
+	const getAllCompanyTeams = async (id: number) => {
+		const response = await mainClient.get(`/company/${id}/teams`);
+		return response.data;
+	};
+
+	const { data: teams } = useQuery('all-company-teams', () =>
+		getAllCompanyTeams(Number(query.id))
+	);
+
+	const addEmployeeToTeam = async (employee: INewEmployee) => {
+		const { id } = teams[0];
+		const groupId = 1;
+		await mainClient.post(`/team/${id}/${groupId}/user`, employee);
+	};
+
+	const addEmployeeCsv = async (
+		employee: string | undefined | null | ArrayBuffer
+	) => {
+		const { id } = teams[0];
+		const groupId = 1;
+		await mainClient.post(`/team/${id}/${groupId}/users`, employee, {
+			headers: { 'Content-Type': 'text/plain' },
+		});
+	};
+
 	const contextStates = useMemo(
 		() => ({
 			activities,
@@ -222,6 +253,8 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 			getCompanyById,
 			setSelectedCompany,
 			getAllCompanyEmployees,
+			addEmployeeToTeam,
+			addEmployeeCsv,
 			allUserCompanies,
 			selectedCompany,
 			updateCompany,

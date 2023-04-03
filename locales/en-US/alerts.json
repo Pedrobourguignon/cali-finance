@@ -9,5 +9,11 @@
 	"companyCreatedWithSuccess": "Company created with success",
 	"companyNameAlreadyExists": "Already exists a company with this name",
 	"unauthorized": "Unauthorized",
-	"weAreWorkingToSolve": "Error: we are working to solve"
+	"weAreWorkingToSolve": "Error: we are working to solve",
+	"addressCopiedSuccessfully": "Address copied successfully",
+	"changesMadeWithSuccessfully": "Changes made with successfully",
+	"employeeAdded": "Added employee",
+	"employeesAdded": "Added employees",
+	"theContentOfTheCsv": "The contents of the CSV file don't conform to the required specifications.",
+	"userAlreadyExists": "User already exists in this company"
 }
