@@ -2,7 +2,7 @@ import { Flex, FlexProps } from '@chakra-ui/react';
 import React from 'react';
 
 interface IOffsetShadow extends FlexProps {
-	children: JSX.Element | JSX.Element[];
+	children: JSX.Element;
 }
 
 export const OffsetShadow: React.FC<IOffsetShadow> = ({

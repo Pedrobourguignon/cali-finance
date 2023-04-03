@@ -7,5 +7,6 @@
 	"nameMin": "Nome deve possuir pelo menos 3 caracteres",
 	"nameDontAcceptNumber": "Nome não pode conter número(s)",
 	"walletNotExist": "Esta carteira não existe",
-	"thisFileIsTooLarge": "Este arquivo é muito grande"
+	"thisFileIsTooLarge": "Este arquivo é muito grande",
+	"sixDigits": "A quantia deve ter no máximo seis dígitos após a vírgula"
 }

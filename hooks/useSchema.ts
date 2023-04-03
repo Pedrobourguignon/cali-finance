@@ -1,7 +1,10 @@
 import useTranslation from 'next-translate/useTranslation';
 import * as yup from 'yup';
 import { limitSpecialCharacterRegex, nameRegex } from 'utils';
-import { ethAddressRegex } from '../utils/Validations/regex';
+import {
+	ethAddressRegex,
+	sixDigisAfterComma,
+} from '../utils/Validations/regex';
 
 const useSchema = () => {
 	const { t: translate } = useTranslation('schemas');
@@ -9,9 +12,28 @@ const useSchema = () => {
 		name: yup.string().matches(nameRegex, translate('nameDontAcceptNumber')),
 		email: yup.string().lowercase().email(translate('emailFormatInvalid')),
 	});
+
+	const addEmployeeSchema = yup.object().shape({
+		walletAddress: yup
+			.string()
+			.required(translate('required'))
+			.matches(ethAddressRegex, translate('walletNotExist'))
+			.min(40),
+		amount: yup
+			.number()
+			.test('is-decimal', translate('sixDigits'), (val: any) =>
+				sixDigisAfterComma.test(val)
+			)
+			.required(translate('required'))
+			.positive(translate('amountMustBeAPositive'))
+			.typeError(translate('amountMustBeANumber')),
+	});
 	const editEmployeeSchema = yup.object().shape({
 		amount: yup
 			.number()
+			.test('is-decimal', translate('sixDigits'), (val: any) =>
+				sixDigisAfterComma.test(val)
+			)
 			.required(translate('required'))
 			.typeError(translate('amountMustBeANumber'))
 			.positive(translate('amountMustBeAPositive')),
@@ -78,6 +100,7 @@ const useSchema = () => {
 		editCompanySchema,
 		transactionSchema,
 		uploadCsvSchema,
+		addEmployeeSchema,
 		socialMediaLinksSchema,
 	};
 };

@@ -22,7 +22,7 @@ import { BlackButton, NetworkTooltip } from 'components';
 import { useSession } from 'next-auth/react';
 import { ChevronDownIcon } from '@chakra-ui/icons';
 import { ICompany } from 'types/interfaces/main-server/ICompany';
-import { networkInfos, chainList } from 'utils';
+import { networkInfos } from 'utils';
 
 interface IEditCompanyComponent {
 	editedCompanyPicture: string | undefined;
@@ -205,12 +205,11 @@ export const EditCompanyComponent: React.FC<IEditCompanyComponent> = ({
 								display={{ md: 'flex', lg: 'none' }}
 							>
 								<Flex gap="2" mb="2" align="center">
-									<Text {...labelStyle}>Network *</Text>
+									<Text {...labelStyle}>{translate('network')}</Text>
 									<Tooltip
 										label={
 											<NetworkTooltip>
-												Choose the most suitable network for paying your staff
-												efficiently.
+												{translate('choseTheMostSuitableNetwork')}
 											</NetworkTooltip>
 										}
 										placement="top"
@@ -373,13 +372,12 @@ export const EditCompanyComponent: React.FC<IEditCompanyComponent> = ({
 					display={{ md: 'none', lg: 'flex' }}
 				>
 					<Flex gap="2" mb="2" align="center">
-						<Text {...labelStyle}>Network *</Text>
+						<Text {...labelStyle}>{translate('network')}</Text>
 
 						<Tooltip
 							label={
 								<NetworkTooltip>
-									Choose the most suitable network for paying your staff
-									efficiently.
+									{translate('choseTheMostSuitableNetwork')}
 								</NetworkTooltip>
 							}
 							placement="top"

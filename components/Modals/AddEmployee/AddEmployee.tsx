@@ -21,7 +21,7 @@ import {
 import { AlertToast, BlackButton, TokenSelector, UploadCsv } from 'components';
 import { useCompanies, usePicasso, useSchema } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import {
 	IAddEmployee,
 	IAddEmployeeForm,
@@ -32,11 +32,10 @@ import { IoPersonAddOutline } from 'react-icons/io5';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { IoIosArrowDown } from 'react-icons/io';
-import { ethAddressRegex, navigationPaths } from 'utils';
+import { navigationPaths } from 'utils';
 import NextLink from 'next/link';
 import { useMutation, useQueryClient } from 'react-query';
 import { AxiosError } from 'axios';
-import * as yup from 'yup';
 
 export const AddEmployee: React.FC<IAddEmployee> = ({ isOpen, onClose }) => {
 	const { t: translate } = useTranslation('create-team');
@@ -54,6 +53,7 @@ export const AddEmployee: React.FC<IAddEmployee> = ({ isOpen, onClose }) => {
 	} as ISelectedCoin);
 	const bitcoinPrice = 87.586;
 	const { selectedCompany, addEmployeeToTeam } = useCompanies();
+	const { addEmployeeSchema } = useSchema();
 	const queryClient = useQueryClient();
 
 	const toast = useToast();
@@ -93,24 +93,6 @@ export const AddEmployee: React.FC<IAddEmployee> = ({ isOpen, onClose }) => {
 		}));
 	};
 
-	const addEmployeeSchema = yup.object().shape({
-		walletAddress: yup
-			.string()
-			.required(translate('required'))
-			.matches(ethAddressRegex, translate('walletNotExist'))
-			.min(40),
-		amount: yup
-			.number()
-			.when('asset', {
-				is: (value: string) => console.log(value),
-				then: yup.number().max(4),
-				otherwise: yup.number().max(5),
-			})
-			.required(translate('required'))
-			.positive(translate('amountMustBeAPositive'))
-			.typeError(translate('amountMustBeANumber')),
-	});
-
 	const {
 		register,
 		handleSubmit,
@@ -119,10 +101,6 @@ export const AddEmployee: React.FC<IAddEmployee> = ({ isOpen, onClose }) => {
 	} = useForm<IAddEmployeeForm>({
 		resolver: yupResolver(addEmployeeSchema),
 	});
-
-	useEffect(() => {
-		addEmployeeSchema.isValidSync(token);
-	}, [token]);
 
 	const { mutate } = useMutation(
 		(employee: INewEmployee) => addEmployeeToTeam(employee),

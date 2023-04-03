@@ -180,12 +180,11 @@ export const CreateCompanyComponent: React.FC<ICreateCompanyComponent> = ({
 								display={{ md: 'flex', lg: 'none' }}
 							>
 								<Flex gap="2" mb="2" align="center">
-									<Text {...labelStyle}>Network *</Text>
+									<Text {...labelStyle}>{translate('network')}</Text>
 									<Tooltip
 										label={
 											<NetworkTooltip>
-												Choose the most suitable network for paying your staff
-												efficiently.
+												{translate('choseTheMostSuitableNetwork')}
 											</NetworkTooltip>
 										}
 										placement="top"
@@ -355,8 +354,7 @@ export const CreateCompanyComponent: React.FC<ICreateCompanyComponent> = ({
 						<Tooltip
 							label={
 								<NetworkTooltip>
-									Choose the most suitable network for paying your staff
-									efficiently.
+									{translate('choseTheMostSuitableNetwork')}
 								</NetworkTooltip>
 							}
 							placement="top"
