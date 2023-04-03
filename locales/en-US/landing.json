@@ -6,7 +6,7 @@
 	"docs": "Docs",
 	"launchApp": "Launch App",
 	"revolutionize": "Revolutionize your business with real-time payroll payments",
-	"withOur": "With our pay-per-second technology, you can ensure that your employees get paid exactly when they've earned it. Try it out now and experience the power of blockchain-based payroll automation.",
+	"withOur": "With our streaming technology, employees receive their salary per second, exactly when they earn it.",
 	"joinWaitlist": "Join our Waitlist",
 	"payPerSecond": "Pay-per-second payment processing",
 	"noMoreWaiting": "No more waiting for payday - CALI ensures that your team is always paid for the work they do, improving employee morale and satisfaction",
@@ -34,5 +34,15 @@
 	"checkTheLibrary": "Check the tutorial library",
 	"weAreHere": "We are here to help you!",
 	"getInTouch": "Get in touch with our team",
-	"privacyPolicy": "Privacy Policy"
+	"privacyPolicy": "Privacy Policy",
+	"howDoes": "How does your payroll automation service work?",
+	"ourSaasPlataform": "Our SaaS platform streamlines the payroll process by automating cryptocurrency payments. Employers add funds to a smart contract, and the platform distributes these funds proportionally to employees' wallets based on their worked hours. This enables employees to access their earnings in real-time, providing them with the flexibility to withdraw funds whenever necessary.",
+	"whatCryptocurrencies": "What cryptocurrencies are supported for payroll automation?",
+	"ourPlataform": "Our platform currently supports a variety of cryptocurrencies to accommodate different user preferences. We continually work on expanding our list of supported cryptocurrencies. If you require a specific cryptocurrency, please schedule a call or send a message through our Discord channel so we can incorporate it into our platform.",
+	"howCalculateFees": "How are fees calculated for your payroll automation service?",
+	"ourFee": "Our fee structure is based on the total amount of money sent via our platform. A percentage-based fee is applied to each transaction, ensuring that you only pay for the actual usage of our services. You can calculate the fees using our fee calculator here (link to the calculator).",
+	"isMyCompany": "Is my company's and employees' data secure on your platform?",
+	"wePrioritize": "We prioritize the security and privacy of our clients' data. Our platform utilizes advanced encryption and security protocols to safeguard all data from unauthorized access. Furthermore, we adhere to stringent data privacy regulations and never share your information with third parties without your explicit consent. The only public information consists of the wallets and the payment amounts, but names and other personal data are not stored on the blockchain.",
+	"howDoIGetStarted": "How do I get started with your payroll automation service?",
+	"toBegin": "To begin, simply connect your wallet on our website and follow the step-by-step instructions provided. You'll be able to set up your organization, add employees, and fund the smart contract swiftly. If you need further assistance or have any questions, our dedicated support team is available to help guide you through the process on Discord."
 }

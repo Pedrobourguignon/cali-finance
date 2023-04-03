@@ -18,30 +18,33 @@ import {
 	AiOutlineArrowUp,
 } from 'react-icons/ai';
 
-const questions = [
-	{
-		title: 'Question one?',
-		answer: 'lorem lorem lorem',
-	},
-	{
-		title: 'Second question here?',
-		answer:
-			'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Eleifend sagittis, eget pellentesque eu sodales venenatis. Aliquam faucibus a quis at et quis pellentesque. Eget nulla purus aliquet placerat. Tristique diam, tincidunt ornare rutrum non. Habitasse commodo lobortis viverra lectus. Fermentum, tincidunt elit tellus euismod. Adipiscing sed lacus, nunc sed lectus blandit. Malesuada morbi urna, rhoncus diam integer eu mollis. Vestibulum diam et curabitur ipsum varius sollicitudin justo, scelerisque lorem. Sed scelerisque amet erat mauris viverra at sagittis vel.',
-	},
-	{
-		title:
-			'Another question but Super Extra Long to fit into 2 lines here etc?',
-		answer: 'lorem lorem lorem lorem lorem',
-	},
-	{
-		title: 'Some question here?',
-		answer: 'prisco',
-	},
-];
-
 export const FrequentlyQuestions = () => {
 	const { t: translate } = useTranslation('landing');
 	const theme = usePicasso();
+
+	const questions = [
+		{
+			title: translate('howDoes'),
+			answer: translate('ourSaasPlataform'),
+		},
+		{
+			title: translate('whatCryptocurrencies'),
+			answer: translate('ourPlataform'),
+		},
+		{
+			title: translate('howCalculateFees'),
+			answer: translate('ourFee'),
+		},
+		{
+			title: translate('isMyCompany'),
+			answer: translate('wePrioritize'),
+		},
+		{
+			title: translate('howDoIGetStarted'),
+			answer: translate('toBegin'),
+		},
+	];
+
 	return (
 		<Flex
 			justify={{ md: 'space-evenly', lg: 'center', '2xl': 'center' }}
