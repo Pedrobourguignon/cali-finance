@@ -1,10 +1,9 @@
 import { Flex, Img, Text } from '@chakra-ui/react';
-import { useCompanies, usePicasso } from 'hooks';
+import { useCompanies } from 'hooks';
 import React from 'react';
 import { MultipleCompaniesAlert, SingleCompanieAlert } from 'components';
 
 export const MissingFundsWarning = () => {
-	const theme = usePicasso();
 	const {
 		setDisplayMissingFundsWarning,
 		displayMissingFundsWarning,
@@ -23,7 +22,7 @@ export const MissingFundsWarning = () => {
 		>
 			<Flex w="full" justify="center">
 				<Img src="/images/alert.png" boxSize="5" />
-				{companiesWithMissingFunds.length > 1 ? (
+				{companiesWithMissingFunds?.length > 1 ? (
 					<MultipleCompaniesAlert />
 				) : (
 					<SingleCompanieAlert missingValue={missingValue} />

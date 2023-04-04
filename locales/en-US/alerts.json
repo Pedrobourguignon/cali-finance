@@ -6,11 +6,14 @@
 	"yourCompanies": "Your companies are missing needed funds.",
 	"depositFunds": "Deposit funds",
 	"companiesPage": "at the companies page.",
+	"companyCreatedWithSuccess": "Company created with success",
+	"companyNameAlreadyExists": "Already exists a company with this name",
+	"unauthorized": "Unauthorized",
+	"weAreWorkingToSolve": "Error: we are working to solve",
 	"addressCopiedSuccessfully": "Address copied successfully",
 	"changesMadeWithSuccessfully": "Changes made with successfully",
 	"employeeAdded": "Added employee",
 	"employeesAdded": "Added employees",
 	"theContentOfTheCsv": "The contents of the CSV file don't conform to the required specifications.",
-	"weAreWorkingToSolve": "We are working to solve this problem",
 	"userAlreadyExists": "User already exists in this company"
 }

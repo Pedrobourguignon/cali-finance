@@ -60,7 +60,6 @@ export const EmployeesDashboard: React.FC<IEmployeeDashboard> = ({
 							{isFullList ? translate('seeLess') : translate('seeAll')}
 						</Text>
 					</Button>
-
 					<BlackButton
 						px="3"
 						onClick={onOpen}

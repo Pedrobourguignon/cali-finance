@@ -329,7 +329,8 @@ export const CreateCompanyComponent: React.FC<ICreateCompanyComponent> = ({
 						gap="2.5"
 						isDisabled={
 							selectedType === translate('pleaseSelect') ||
-							selectedNetwork.id === 0
+							selectedNetwork.id === 0 ||
+							errors?.name?.message === `Name can't have specials characters`
 						}
 						fontWeight="medium"
 						fontSize="md"

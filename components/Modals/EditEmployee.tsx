@@ -15,22 +15,24 @@ import {
 	InputGroup,
 	Img,
 	useDisclosure,
+	useToast,
 } from '@chakra-ui/react';
 import { useCompanies, usePicasso, useSchema } from 'hooks';
+import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 import { IoIosArrowDown } from 'react-icons/io';
+import { IEditedEmployeeInfo, IEditEmployee, ISelectedCoin } from 'types';
 import {
-	IEditedEmployeeInfo,
-	IEditEmployee,
-	IEditEmployeeForm,
-	ISelectedCoin,
-} from 'types';
-import { BlackButton, EditProfileIcon, TokenSelector } from 'components';
+	BlackButton,
+	EditProfileIcon,
+	TokenSelector,
+	AlertToast,
+} from 'components';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { truncateWallet } from 'utils';
-import { useRouter } from 'next/router';
-import { useMutation, useQueryClient } from 'react-query';
+import { mainClient, truncateWallet } from 'utils';
+import { useMutation, useQuery, useQueryClient } from 'react-query';
+import { AxiosError } from 'axios';
 
 export const EditEmployee: React.FC<IEditEmployee> = ({
 	isOpen,
@@ -38,17 +40,18 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 	employee,
 }) => {
 	const theme = usePicasso();
+	const { query } = useRouter();
 	const queryClient = useQueryClient();
+	const toast = useToast();
 	const { editEmployeeSchema } = useSchema();
 	const { updateEmployee } = useCompanies();
-	const { query } = useRouter();
 	const [editedEmployeeData, setEditedEmployeeData] = useState({
 		amount: 0,
 		amountInDollar: 0,
 	});
 	const [token, setToken] = useState<ISelectedCoin>({
 		logo: 'https://assets.coingecko.com/coins/images/1/thumb/bitcoin.png?1547033579',
-		symbol: 'BTC',
+		symbol: 'bitcoin',
 	} as ISelectedCoin);
 	const bitcoinPrice = 87586;
 
@@ -94,12 +97,50 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 		}));
 	};
 
+	const getSelectedCompanyTeams = async (id: number) => {
+		const response = await mainClient.get(`/company/${id}/teams`);
+		return response.data;
+	};
+
+	const { data: teams } = useQuery('all-company-teams', () =>
+		getSelectedCompanyTeams(Number(query.id))
+	);
+
 	const { mutate } = useMutation(
-		(editedEmployeeDataa: IEditedEmployeeInfo) =>
-			updateEmployee(editedEmployeeDataa, query.id),
+		(newDataOfEmployee: IEditedEmployeeInfo) =>
+			updateEmployee(newDataOfEmployee, teams[0].id),
 		{
-			onSuccess: () =>
-				queryClient.invalidateQueries({ queryKey: ['all-company-employees'] }),
+			onSuccess: () => {
+				queryClient.invalidateQueries('all-company-employees');
+				handleResetFormInputs();
+			},
+			onError: error => {
+				if (error instanceof AxiosError) {
+					if (error.response?.data.message === 'Unauthorized') {
+						toast({
+							position: 'top',
+							render: () => (
+								<AlertToast
+									onClick={toast.closeAll}
+									text="unauthorized"
+									type="error"
+								/>
+							),
+						});
+					} else {
+						toast({
+							position: 'top',
+							render: () => (
+								<AlertToast
+									onClick={toast.closeAll}
+									text="weAreWorkingToSolve"
+									type="error"
+								/>
+							),
+						});
+					}
+				}
+			},
 		}
 	);
 
@@ -109,7 +150,6 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 			revenue: editedEmployeeData.amount,
 			userAddress: employee.wallet,
 		});
-		handleResetFormInputs();
 	};
 
 	return (
@@ -149,7 +189,7 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 									Edit Employee
 								</Text>
 								<Text color={theme.text.primary} fontSize="sm">
-									{employee.name} - {truncateWallet(employee.wallet)}
+									{employee.name} - {truncateWallet(employee?.wallet)}
 								</Text>
 							</Flex>
 							<ModalCloseButton color="gray.400" py="7" />

@@ -48,17 +48,17 @@ interface ICompanyContext {
 	getCompanyById: (id: number) => Promise<ICompany>;
 	updateCompany: (company: ICompany) => Promise<void>;
 	getAllCompanyEmployees: (id: number) => Promise<IEmployee[]>;
-	allUserCompanies: GetUserCompaniesRes[];
-	selectedCompany: ICompany;
-	companiesWithMissingFunds: GetUserCompaniesRes[];
 	addEmployeeToTeam: (employee: INewEmployee) => Promise<void>;
 	addEmployeeCsv: (
 		employee: string | undefined | null | ArrayBuffer
 	) => Promise<void>;
 	updateEmployee: (
 		editedEmployeeInfo: IEditedEmployeeInfo,
-		id: string | string[] | undefined
+		teamId: number
 	) => Promise<void>;
+	allUserCompanies: GetUserCompaniesRes[];
+	selectedCompany: ICompany;
+	companiesWithMissingFunds: GetUserCompaniesRes[];
 }
 
 export const CompaniesContext = createContext({} as ICompanyContext);
@@ -206,7 +206,7 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 				company,
 			})
 			.then(id =>
-				router.push(navigationPaths.dashboard.companies.overview(id.data.id))
+				router.push(navigationPaths.dashboard.companies.overview(query.id))
 			);
 	};
 	const getAllCompanyEmployees = async (id: number) => {
@@ -218,6 +218,7 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 		const response = await mainClient.get(`/company/${id}/teams`);
 		return response.data;
 	};
+
 	const { data: teams } = useQuery('all-company-teams', () =>
 		getAllCompanyTeams(Number(query.id))
 	);
@@ -240,9 +241,9 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 
 	const updateEmployee = async (
 		editedEmployeeInfo: IEditedEmployeeInfo,
-		id: string | string[] | undefined
+		teamId: number
 	) => {
-		await mainClient.put(`/team/2439/user`, editedEmployeeInfo);
+		await mainClient.put(`/team/${teamId}/user`, editedEmployeeInfo);
 	};
 
 	const contextStates = useMemo(
@@ -285,7 +286,6 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 			socialMediasData,
 			allUserCompanies,
 			setSocialMediasData,
-			updateCompany,
 		]
 	);
 

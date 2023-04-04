@@ -3,6 +3,7 @@ import { useCompanies, usePicasso } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
 import React from 'react';
 import NextLink from 'next/link';
+import { navigationPaths } from 'utils';
 
 interface ISingleCompanieAlert {
 	missingValue: number;
@@ -27,7 +28,7 @@ export const SingleCompanieAlert: React.FC<ISingleCompanieAlert> = ({
 				})}
 			</Text>
 
-			<Link href="/app/companies/1/funds" as={NextLink}>
+			<Link href={navigationPaths.dashboard.companies.funds('1')} as={NextLink}>
 				<Text
 					cursor="pointer"
 					fontSize={{ md: 'xs', xl: 'sm' }}

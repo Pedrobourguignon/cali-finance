@@ -21,7 +21,7 @@ import {
 import { AlertToast, BlackButton, TokenSelector, UploadCsv } from 'components';
 import { useCompanies, usePicasso, useSchema } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import {
 	IAddEmployee,
 	IAddEmployeeForm,
@@ -37,12 +37,7 @@ import NextLink from 'next/link';
 import { useMutation, useQueryClient } from 'react-query';
 import { AxiosError } from 'axios';
 
-export const AddEmployee: React.FC<IAddEmployee> = ({
-	isOpen,
-	onClose,
-	selectedCompany,
-	setEmployees,
-}) => {
+export const AddEmployee: React.FC<IAddEmployee> = ({ isOpen, onClose }) => {
 	const { t: translate } = useTranslation('create-team');
 	const [selectedTab, setSelectedTab] = useState<string>(
 		translate('addIndividually')
@@ -54,11 +49,11 @@ export const AddEmployee: React.FC<IAddEmployee> = ({
 	});
 	const [token, setToken] = useState<ISelectedCoin>({
 		logo: 'https://assets.coingecko.com/coins/images/1/thumb/bitcoin.png?1547033579',
-		symbol: 'BTC',
+		symbol: 'bitcoin',
 	} as ISelectedCoin);
 	const bitcoinPrice = 87.586;
 	const { addEmployeeSchema } = useSchema();
-	const { addEmployeeToTeam } = useCompanies();
+	const { selectedCompany, addEmployeeToTeam } = useCompanies();
 	const queryClient = useQueryClient();
 
 	const toast = useToast();
@@ -107,7 +102,7 @@ export const AddEmployee: React.FC<IAddEmployee> = ({
 		resolver: yupResolver(addEmployeeSchema),
 	});
 
-	const { mutate, error } = useMutation(
+	const { mutate } = useMutation(
 		(employee: INewEmployee) => addEmployeeToTeam(employee),
 		{
 			onSuccess: () => {
@@ -123,6 +118,33 @@ export const AddEmployee: React.FC<IAddEmployee> = ({
 					),
 				});
 			},
+			onError: error => {
+				if (error instanceof AxiosError) {
+					if (error.response?.status === 409) {
+						toast({
+							position: 'top',
+							render: () => (
+								<AlertToast
+									onClick={toast.closeAll}
+									text="userAlreadyExists"
+									type="error"
+								/>
+							),
+						});
+					} else {
+						toast({
+							position: 'top',
+							render: () => (
+								<AlertToast
+									onClick={toast.closeAll}
+									text="weAreWorkingToSolve"
+									type="error"
+								/>
+							),
+						});
+					}
+				}
+			},
 		}
 	);
 
@@ -137,19 +159,12 @@ export const AddEmployee: React.FC<IAddEmployee> = ({
 	};
 
 	const handleAddEmployee = (newEmployeeData: IAddEmployeeForm) => {
-		if (setEmployees) {
-			setEmployees(prevState =>
-				prevState.concat([
-					{
-						name: 'Azeitona',
-						wallet: newEmployeeData.walletAddress,
-						picture: '/images/avatar.png',
-						amount: newEmployeeData.amount,
-						coin: 'USDT',
-					},
-				])
-			);
-		}
+		mutate({
+			userAddress: newEmployeeData.walletAddress,
+			revenue: newEmployeeData.amount,
+			asset: token.symbol,
+		});
+		handleResetFormInputs();
 	};
 
 	return (
