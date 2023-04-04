@@ -102,8 +102,10 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 		return response.data;
 	};
 
-	const { data: teams } = useQuery('all-company-teams', () =>
-		getSelectedCompanyTeams(Number(query.id))
+	const { data: teams } = useQuery(
+		'all-company-teams',
+		() => getSelectedCompanyTeams(Number(query.id)),
+		{ enabled: false }
 	);
 
 	const { mutate } = useMutation(
@@ -113,6 +115,16 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 			onSuccess: () => {
 				queryClient.invalidateQueries('all-company-employees');
 				handleResetFormInputs();
+				toast({
+					position: 'top',
+					render: () => (
+						<AlertToast
+							onClick={toast.closeAll}
+							text="employeeDataChangedWithSuccessfully"
+							type="success"
+						/>
+					),
+				});
 			},
 			onError: error => {
 				if (error instanceof AxiosError) {
