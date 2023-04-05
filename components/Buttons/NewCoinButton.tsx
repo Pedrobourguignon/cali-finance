@@ -5,7 +5,11 @@ import { useRouter } from 'next/router';
 import React from 'react';
 import { AiOutlinePlus } from 'react-icons/ai';
 
-export const NewCoinButton = () => {
+interface ICoinButton {
+	onOpen: () => void;
+}
+
+export const NewCoinButton: React.FC<ICoinButton> = ({ onOpen }) => {
 	const { t: translate } = useTranslation('dashboard');
 	const { locale } = useRouter();
 	return (
@@ -38,6 +42,7 @@ export const NewCoinButton = () => {
 				lineHeight="5"
 				gap="1.5"
 				alignContent="center"
+				onClick={onOpen}
 			>
 				<Icon as={AiOutlinePlus} />
 				{translate('newCoin')}

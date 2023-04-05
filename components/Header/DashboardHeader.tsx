@@ -3,16 +3,19 @@ import { NotificationPopover } from 'components';
 import { INotificationList } from 'types';
 import { useState, useMemo } from 'react';
 import useTranslation from 'next-translate/useTranslation';
-import { usePicasso } from 'hooks';
+import { usePicasso, useProfile } from 'hooks';
 import { useSession } from 'next-auth/react';
+import { useQuery } from 'react-query';
 
 export const DashboardHeader: React.FC = () => {
 	const { onClose, isOpen, onOpen } = useDisclosure();
 	const { t: translate } = useTranslation('app-header');
 	const { data: session } = useSession();
+	const { getProfileData } = useProfile();
 	const percentage = 0;
-	const name = 'Bradley';
 	const theme = usePicasso();
+
+	const { data: profileData } = useQuery('profile-data', getProfileData);
 
 	const greetingMessage = useMemo(() => {
 		const hour = new Date().getHours();
@@ -75,7 +78,7 @@ export const DashboardHeader: React.FC = () => {
 						lineHeight="8"
 						fontStyle="normal"
 					>
-						{greetingMessage} {session && name}
+						{greetingMessage} {session && profileData?.name}
 					</Text>
 				</Flex>
 				<Flex display={{ base: 'none', md: 'flex' }} h="8" align="center">

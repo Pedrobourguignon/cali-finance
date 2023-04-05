@@ -14,7 +14,7 @@ export const TokenOptions: React.FC<ITokenOption> = ({ onClick, token }) => {
 	const quantity = 1.356;
 
 	const handleColor = useMemo(
-		() => (favoriteCoins.includes(token.symbol) ? 'gray.50' : 'white'),
+		() => (favoriteCoins.includes(token.symbol) ? 'gray.100' : 'white'),
 		[token.symbol]
 	);
 

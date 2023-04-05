@@ -3,7 +3,7 @@ import { AUTH_SERVICE_ROUTES } from 'helpers';
 import { useSignMessage } from 'wagmi';
 import { useToasty } from 'hooks';
 import { signIn, useSession } from 'next-auth/react';
-import { getCookie, setCookie, setCookies } from 'cookies-next';
+import { setCookie } from 'cookies-next';
 
 interface IAuthContext {
 	getSignature: (nonce: string) => Promise<`0x${string}` | undefined>;

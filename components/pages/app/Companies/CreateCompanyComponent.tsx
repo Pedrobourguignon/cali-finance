@@ -78,7 +78,8 @@ export const CreateCompanyComponent: React.FC<ICreateCompanyComponent> = ({
 	const companiesType: IBasicSelect[] = [
 		{ value: 'DAO' },
 		{ value: translate('financial') },
-		{ value: 'e-commerce' },
+		{ value: 'E-commerce' },
+		{ value: translate('others') },
 	];
 
 	return (
@@ -162,7 +163,7 @@ export const CreateCompanyComponent: React.FC<ICreateCompanyComponent> = ({
 												key={+index}
 												bg="transparent"
 												fontSize="sm"
-												_hover={{ bg: 'gray.50' }}
+												_hover={{ bg: 'gray.100' }}
 												onClick={() => {
 													setSelectedType(type.value);
 												}}
@@ -258,7 +259,7 @@ export const CreateCompanyComponent: React.FC<ICreateCompanyComponent> = ({
 												key={+index}
 												bg="transparent"
 												fontSize="sm"
-												_hover={{ bg: 'gray.50' }}
+												_hover={{ bg: 'gray.100' }}
 												onClick={() => {
 													setSelectedNetwork({
 														name: network.name,
@@ -330,7 +331,7 @@ export const CreateCompanyComponent: React.FC<ICreateCompanyComponent> = ({
 						isDisabled={
 							selectedType === translate('pleaseSelect') ||
 							selectedNetwork.id === 0 ||
-							errors?.name?.message === `Name can't have specials characters`
+							!!errors?.name
 						}
 						fontWeight="medium"
 						fontSize="md"
@@ -424,7 +425,7 @@ export const CreateCompanyComponent: React.FC<ICreateCompanyComponent> = ({
 									key={+index}
 									bg="transparent"
 									fontSize="sm"
-									_hover={{ bg: 'gray.50' }}
+									_hover={{ bg: 'gray.100' }}
 									onClick={() => {
 										setSelectedNetwork({
 											name: network.name,

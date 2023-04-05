@@ -19,7 +19,7 @@ export const TeamsCard: React.FC<ITeamsCard> = ({ team }) => {
 			borderWidth="0.1rem"
 			borderRadius="base"
 			direction="column"
-			bgColor="gray.50"
+			bgColor="gray.100"
 			w="100%"
 		>
 			<Flex
