@@ -50,7 +50,7 @@ export const DragAndDropCsv: React.FC<IDragAndDrop> = ({
 					p="14"
 					border="1px solid"
 					borderColor="blackAlpha.200"
-					bg="gray.50"
+					bg="gray.100"
 				>
 					<Icon as={GrDocumentUpload} boxSize="10" />
 				</Flex>

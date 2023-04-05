@@ -11,6 +11,8 @@ import React from 'react';
 import { IRecentActivitiesList } from 'types';
 import useTranslation from 'next-translate/useTranslation';
 import { useSession } from 'next-auth/react';
+import { NotFoundContainer } from 'containers';
+import { ProfileProvider } from 'contexts';
 import { useQuery } from 'react-query';
 import { useCompanies } from 'hooks';
 import { useAccount } from 'wagmi';
