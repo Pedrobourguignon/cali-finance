@@ -21,9 +21,9 @@ import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { getLogo } from 'utils';
 
 interface IEditedInfo {
-	name: string | undefined;
-	email: string | undefined;
-	picture: string | undefined;
+	name?: string;
+	email?: string;
+	picture?: string;
 }
 
 export const EditProfileComponent = () => {
