@@ -88,15 +88,14 @@ export const EditProfileComponent = () => {
 			picture: profileData?.picture,
 		});
 		if (profileData?.picture) {
-			const logo = getLogo(profileData.picture);
-			setEditedProfilePicture(logo);
+			setEditedProfilePicture(profileData.picture);
 		}
 	}, [profileData]);
 
-	const handleEditProfile = (editedProfileData: IUser) => {
+	const handleEditProfile = () => {
 		mutate({
-			name: !profileData?.name ? editedProfileData.name : profileData.name,
-			email: !profileData?.email ? editedProfileData.email : profileData.email,
+			name: editedProfileInfo.name,
+			email: editedProfileInfo.email,
 			picture: editedProfilePicture,
 		});
 	};
@@ -139,7 +138,11 @@ export const EditProfileComponent = () => {
 					zIndex="docked"
 				>
 					<Img
-						src={editedProfilePicture}
+						src={
+							editedProfilePicture === profileData?.picture
+								? getLogo(editedProfilePicture)
+								: editedProfilePicture
+						}
 						boxSize="24"
 						borderRadius="full"
 						objectFit="cover"
@@ -236,7 +239,7 @@ export const EditProfileComponent = () => {
 									editedProfileInfo.email === profileData?.email &&
 									editedProfileInfo.name === profileData?.name &&
 									editedProfileInfo.picture === profileData?.picture &&
-									editedProfileInfo.picture === editedProfilePicture.slice(25)
+									editedProfileInfo.picture === editedProfilePicture
 								}
 								_disabled={{ opacity: '50%', cursor: 'not-allowed' }}
 							>
