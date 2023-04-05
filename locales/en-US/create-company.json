@@ -16,5 +16,6 @@
 	"editLogoImage": "Edit logo image",
 	"website": "website.io",
 	"company": "company",
-	"saveChanges": "Save changes"
+	"saveChanges": "Save changes",
+	"deleteImage": "Delete image"
 }

@@ -330,7 +330,8 @@ export const CreateCompanyComponent: React.FC<ICreateCompanyComponent> = ({
 						gap="2.5"
 						isDisabled={
 							selectedType === translate('pleaseSelect') ||
-							selectedNetwork.id === 0
+							selectedNetwork.id === 0 ||
+							!!errors?.name
 						}
 						fontWeight="medium"
 						fontSize="md"

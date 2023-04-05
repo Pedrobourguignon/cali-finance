@@ -22,7 +22,7 @@ export const MissingFundsWarning = () => {
 		>
 			<Flex w="full" justify="center">
 				<Img src="/images/alert.png" boxSize="5" />
-				{companiesWithMissingFunds.length > 1 ? (
+				{companiesWithMissingFunds?.length > 1 ? (
 					<MultipleCompaniesAlert />
 				) : (
 					<SingleCompanieAlert missingValue={missingValue} />
