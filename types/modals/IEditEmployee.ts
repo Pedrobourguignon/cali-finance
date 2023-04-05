@@ -1,7 +1,7 @@
-import { IEmployee } from 'types';
+import { GetCompanyUsersRes } from 'types/interfaces/main-server/IUser';
 
 export interface IEditEmployee {
-	employee: IEmployee;
+	employee: GetCompanyUsersRes;
 	isOpen: boolean;
 	onClose: () => void;
 }

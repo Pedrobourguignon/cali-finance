@@ -16,25 +16,28 @@ import {
 	Img,
 	useDisclosure,
 	Link,
+	useToast,
 } from '@chakra-ui/react';
-import { BlackButton, TokenSelector, UploadCsv } from 'components';
-import { usePicasso, useSchema } from 'hooks';
+import { AlertToast, BlackButton, TokenSelector, UploadCsv } from 'components';
+import { useCompanies, usePicasso, useSchema } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
 import React, { useState } from 'react';
-import { IAddEmployee, IAddEmployeeForm, ISelectedCoin } from 'types';
+import {
+	IAddEmployee,
+	IAddEmployeeForm,
+	INewEmployee,
+	ISelectedCoin,
+} from 'types';
 import { IoPersonAddOutline } from 'react-icons/io5';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { IoIosArrowDown } from 'react-icons/io';
 import { navigationPaths } from 'utils';
 import NextLink from 'next/link';
+import { useMutation, useQueryClient } from 'react-query';
+import { AxiosError } from 'axios';
 
-export const AddEmployee: React.FC<IAddEmployee> = ({
-	isOpen,
-	onClose,
-	selectedCompany,
-	setEmployees,
-}) => {
+export const AddEmployee: React.FC<IAddEmployee> = ({ isOpen, onClose }) => {
 	const { t: translate } = useTranslation('create-team');
 	const [selectedTab, setSelectedTab] = useState<string>(
 		translate('addIndividually')
@@ -50,7 +53,10 @@ export const AddEmployee: React.FC<IAddEmployee> = ({
 	} as ISelectedCoin);
 	const bitcoinPrice = 87.586;
 	const { addEmployeeSchema } = useSchema();
+	const { selectedCompany, addEmployeeToTeam } = useCompanies();
+	const queryClient = useQueryClient();
 
+	const toast = useToast();
 	const theme = usePicasso();
 	const {
 		isOpen: isOpenTokenSelector,
@@ -96,6 +102,52 @@ export const AddEmployee: React.FC<IAddEmployee> = ({
 		resolver: yupResolver(addEmployeeSchema),
 	});
 
+	const { mutate } = useMutation(
+		(employee: INewEmployee) => addEmployeeToTeam(employee),
+		{
+			onSuccess: () => {
+				queryClient.invalidateQueries({ queryKey: ['all-company-employees'] });
+				toast({
+					position: 'top',
+					render: () => (
+						<AlertToast
+							onClick={toast.closeAll}
+							text="employeeAdded"
+							type="success"
+						/>
+					),
+				});
+			},
+			onError: error => {
+				if (error instanceof AxiosError) {
+					if (error.response?.status === 409) {
+						toast({
+							position: 'top',
+							render: () => (
+								<AlertToast
+									onClick={toast.closeAll}
+									text="userAlreadyExists"
+									type="error"
+								/>
+							),
+						});
+					} else {
+						toast({
+							position: 'top',
+							render: () => (
+								<AlertToast
+									onClick={toast.closeAll}
+									text="weAreWorkingToSolve"
+									type="error"
+								/>
+							),
+						});
+					}
+				}
+			},
+		}
+	);
+
 	const handleResetFormInputs = () => {
 		reset();
 		onClose();
@@ -107,19 +159,12 @@ export const AddEmployee: React.FC<IAddEmployee> = ({
 	};
 
 	const handleAddEmployee = (newEmployeeData: IAddEmployeeForm) => {
-		if (setEmployees) {
-			setEmployees(prevState =>
-				prevState.concat([
-					{
-						name: 'Azeitona',
-						wallet: newEmployeeData.walletAddress,
-						picture: '/images/avatar.png',
-						amount: newEmployeeData.amount,
-						coin: 'USDT',
-					},
-				])
-			);
-		}
+		mutate({
+			userAddress: newEmployeeData.walletAddress,
+			revenue: newEmployeeData.amount,
+			asset: token.symbol,
+		});
+		handleResetFormInputs();
 	};
 
 	return (
@@ -276,13 +321,13 @@ export const AddEmployee: React.FC<IAddEmployee> = ({
 											onChange={amount => {
 												setAddedEmployeeData(prevState => ({
 													...prevState,
-													amount: parseInt(amount.target.value, 10),
+													amount: Number(amount.target.value),
 												}));
 												converterToDollar(
 													parseInt(amount.currentTarget.value, 10)
 												);
 												return (
-													amount.currentTarget.value &&
+													!amount.currentTarget.value &&
 													setAddedEmployeeData(prevState => ({
 														...prevState,
 														amountInDollar: 0,
@@ -347,7 +392,7 @@ export const AddEmployee: React.FC<IAddEmployee> = ({
 					</form>
 
 					<Flex display={shouldntDisplay}>
-						<UploadCsv />
+						<UploadCsv onClose={onClose} />
 					</Flex>
 				</Flex>
 			</ModalContent>
