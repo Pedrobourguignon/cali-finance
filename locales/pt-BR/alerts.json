@@ -6,6 +6,10 @@
 	"yourCompanies": "Suas organizações estão faltando fundos.",
 	"depositFunds": "Deposite fundos",
 	"companiesPage": "na página de organizações.",
+	"companyCreatedWithSuccess": "Empresa criada com sucesso",
+	"companyNameAlreadyExists": "Já existe uma empresa com esse nome",
+	"unauthorized": "Sem autorização",
+	"weAreWorkingToSolve": "Erro: estamos trabalhando para resolver"
 	"addressCopiedSuccessfully": "Endereço copiado com sucesso",
 	"changesMadeWithSuccessfully": "Alterações feitas com sucesso",
 	"employeeAdded": "Funcionário adicionado",
