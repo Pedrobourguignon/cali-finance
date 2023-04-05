@@ -33,7 +33,7 @@ export const WithdrawModal: React.FC<IWithdrawModal> = ({
 	const theme = usePicasso();
 	const [token, setToken] = useState<ISelectedCoin>({
 		logo: 'https://assets.coingecko.com/coins/images/1/thumb/bitcoin.png?1547033579',
-		symbol: 'BTC',
+		symbol: 'bitcoin',
 	} as ISelectedCoin);
 	const { t: translate } = useTranslation('dashboard');
 	const {

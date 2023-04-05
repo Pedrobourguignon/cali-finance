@@ -8,18 +8,18 @@ import {
 	useDisclosure,
 	useToast,
 	useClipboard,
-	SkeletonCircle,
 	Skeleton,
 } from '@chakra-ui/react';
 import { MdContentCopy } from 'react-icons/md';
-import { IEmployee } from 'types';
 import { truncateWallet } from 'utils';
 import useTranslation from 'next-translate/useTranslation';
-import { CopyAddressToast, EditEmployee } from 'components';
+import { AlertToast, EditEmployee } from 'components';
+import { GetCompanyUsersRes } from 'types/interfaces/main-server/IUser';
+import { AiFillCheckCircle } from 'react-icons/ai';
 
 const teams = ['General', 'Marketing', 'Finance', 'Trozorba'];
 interface IEmployeeData {
-	employee: IEmployee;
+	employee: GetCompanyUsersRes;
 	display?: string;
 	isGeneral?: boolean;
 }
@@ -37,7 +37,13 @@ export const EmployeeData: React.FC<IEmployeeData> = ({
 		onCopy();
 		toast({
 			position: 'top-right',
-			render: () => <CopyAddressToast onClick={toast.closeAll} />,
+			render: () => (
+				<AlertToast
+					onClick={toast.closeAll}
+					text="addressCopiedSuccessfully"
+					type="success"
+				/>
+			),
 		});
 	};
 	return (
@@ -91,11 +97,7 @@ export const EmployeeData: React.FC<IEmployeeData> = ({
 						display={display}
 					>
 						{teams.map((item, index) => (
-							<option
-								style={{ background: 'white' }}
-								selected={item === employee.team}
-								key={+index}
-							>
+							<option style={{ background: 'white' }} key={+index}>
 								{item}
 							</option>
 						))}
@@ -103,10 +105,10 @@ export const EmployeeData: React.FC<IEmployeeData> = ({
 				)}
 			</Flex>
 			<Flex direction="column" align="end">
-				{employee.amount ? (
+				{employee.revenue ? (
 					<Flex gap="1" fontSize="xs">
-						<Text>{employee.amount.toLocaleString('en-US')}</Text>
-						<Text>{employee.coin}</Text>
+						<Text>{employee.revenue.toLocaleString('en-US')}</Text>
+						<Text>{employee.asset}</Text>
 					</Flex>
 				) : (
 					<Flex gap="1">

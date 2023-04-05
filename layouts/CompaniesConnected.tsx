@@ -10,15 +10,19 @@ import {
 import { AppLayout } from 'layouts';
 import { useCompanies } from 'hooks';
 import { useQuery } from 'react-query';
+import { useAccount } from 'wagmi';
 
 export const CompaniesConnected: React.FC = () => {
 	const { activities, getAllUserCompanies } = useCompanies();
+	const { isConnected } = useAccount();
 
 	const {
 		data: companies,
 		isLoading: isLoadingCompanies,
 		error,
-	} = useQuery('all-companies', getAllUserCompanies);
+	} = useQuery('all-companies', getAllUserCompanies, {
+		enabled: !!isConnected,
+	});
 
 	return (
 		<AppLayout right={<CompaniesRightBar />}>
