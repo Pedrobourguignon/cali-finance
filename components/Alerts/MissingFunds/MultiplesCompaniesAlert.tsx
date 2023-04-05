@@ -3,6 +3,7 @@ import { usePicasso } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
 import React from 'react';
 import NextLink from 'next/link';
+import { navigationPaths } from 'utils';
 
 export const MultipleCompaniesAlert = () => {
 	const theme = usePicasso();
@@ -17,7 +18,7 @@ export const MultipleCompaniesAlert = () => {
 			>
 				{translate('yourCompanies')}
 			</Text>
-			<Link href="/app/companies" as={NextLink}>
+			<Link href={navigationPaths.dashboard.companies.home} as={NextLink}>
 				<Text
 					cursor="pointer"
 					fontSize={{ md: 'xs', xl: 'sm' }}

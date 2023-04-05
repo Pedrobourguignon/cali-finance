@@ -150,7 +150,7 @@ export const Coins = () => {
 				{cardItems.slice(0, 3).map((card, index) => (
 					<CoinCard
 						coin={card}
-						borderColor="gray.50"
+						borderColor="gray.100"
 						color="white"
 						pr={{ md: '2', xl: '9' }}
 						key={+index}

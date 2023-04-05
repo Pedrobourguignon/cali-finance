@@ -68,7 +68,7 @@ export const LandingHeader: React.FC = () => {
 						color: 'white',
 						bgColor: 'transparent',
 					}}
-					_active={{ color: 'black' }}
+					_active={{ color: 'white' }}
 					_focusVisible={{}}
 					_focusWithin={{}}
 					display={{ base: 'none', md: 'flex' }}

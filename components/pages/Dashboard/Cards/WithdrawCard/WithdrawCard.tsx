@@ -11,7 +11,7 @@ export const WithdrawCard = () => {
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const [token, setToken] = useState<ISelectedCoin>({
 		logo: 'https://assets.coingecko.com/coins/images/1/thumb/bitcoin.png?1547033579',
-		symbol: 'BTC',
+		symbol: 'bitcoin',
 	} as ISelectedCoin);
 
 	return (

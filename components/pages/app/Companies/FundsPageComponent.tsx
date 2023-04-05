@@ -78,7 +78,7 @@ export const FundsPageComponent = () => {
 					</Flex>
 
 					<Flex gap="4" w="full" justify="flex-start" flexWrap="wrap">
-						{/* {coinCard.map((coin, index) => (
+						{coinCard.map((coin, index) => (
 							<CoinCard
 								coin={coin}
 								borderColor="gray.400"
@@ -87,7 +87,7 @@ export const FundsPageComponent = () => {
 								color={theme.text.primary}
 								key={+index}
 							/>
-						))} */}
+						))}
 					</Flex>
 				</Flex>
 				<HistoryDashboard />
