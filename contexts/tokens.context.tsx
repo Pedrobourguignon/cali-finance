@@ -24,7 +24,7 @@ export const TokensProvider: React.FC<{ children: React.ReactNode }> = ({
 	const [filteredTokens, setFilteredTokens] = useState<IToken[]>([]);
 	const [chosenToken, setChosenToken] = useState<ISelectedCoin>({
 		logo: 'https://assets.coingecko.com/coins/images/1/thumb/bitcoin.png?1547033579',
-		symbol: 'BTC',
+		symbol: 'bitcoin',
 	} as ISelectedCoin);
 	const [swapTokenSelector, setSwapTokenSelector] =
 		useState<ISwapTokenSelector>({
@@ -34,6 +34,7 @@ export const TokensProvider: React.FC<{ children: React.ReactNode }> = ({
 			receivedToken: '',
 		} as ISwapTokenSelector);
 
+	// eslint-disable-next-line consistent-return
 	const getOneInchTokens = async () => {
 		try {
 			const allTokens = await OneInchService.allTokensData();
@@ -47,6 +48,7 @@ export const TokensProvider: React.FC<{ children: React.ReactNode }> = ({
 			);
 			setListOfTokens(oneInchResult);
 			setFilteredTokens(oneInchResult);
+			return listOfTokens;
 		} catch (error) {
 			console.error(error);
 		}

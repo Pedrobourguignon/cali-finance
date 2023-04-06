@@ -1,7 +1,7 @@
-import { Flex, Text } from '@chakra-ui/react';
-import { NewCoinButton, CoinCard } from 'components';
-import React from 'react';
-import { ICoin } from 'types';
+import { Flex, Text, useDisclosure } from '@chakra-ui/react';
+import { NewCoinButton, CoinCard, TokenSelector } from 'components';
+import React, { useState } from 'react';
+import { ICoin, ISelectedCoin } from 'types';
 import useTranslation from 'next-translate/useTranslation';
 import { usePicasso } from 'hooks';
 
@@ -28,7 +28,11 @@ const coinCard: ICoin[] = [
 
 export const Coins = () => {
 	const { t: translate } = useTranslation('dashboard');
+	const [selectedToken, setSelectedToken] = useState<ISelectedCoin>(
+		{} as ISelectedCoin
+	);
 	const theme = usePicasso();
+	const { onOpen, isOpen, onClose } = useDisclosure();
 	return (
 		<Flex
 			justify="space-between"
@@ -40,6 +44,11 @@ export const Coins = () => {
 			minW={{ md: '33.713rem', '2xl': '43.5rem' }}
 			minH={{ md: '5rem', lg: '6.44rem' }}
 		>
+			<TokenSelector
+				isOpen={isOpen}
+				onClose={onClose}
+				setToken={setSelectedToken}
+			/>
 			<Flex direction="column" gap={{ md: '1', xl: '1.5' }}>
 				<Text
 					fontSize={{ md: 'sm', xl: 'md' }}
@@ -68,7 +77,7 @@ export const Coins = () => {
 				{coinCard.map((card, index) => (
 					<CoinCard
 						coin={card}
-						borderColor="gray.50"
+						borderColor="gray.100"
 						color="white"
 						pr={{ md: '2', xl: '9' }}
 						key={+index}
@@ -76,7 +85,7 @@ export const Coins = () => {
 				))}
 			</Flex>
 			<Flex>
-				<NewCoinButton />
+				<NewCoinButton onOpen={onOpen} />
 			</Flex>
 		</Flex>
 	);

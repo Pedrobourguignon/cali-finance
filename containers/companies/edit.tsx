@@ -1,65 +1,165 @@
-import { Flex, FormControl } from '@chakra-ui/react';
+import { Flex, FormControl, useToast } from '@chakra-ui/react';
 import {
 	NavigationBack,
 	EditCompanyComponent,
 	EditCompanyLink,
+	AlertToast,
 } from 'components';
 import { AppLayout, CompanyWhiteBackground } from 'layouts';
 import { navigationPaths } from 'utils';
-import { IEditCompany } from 'types';
+import { ISociaLinksInputValue } from 'types';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useCompanies, useSchema } from 'hooks';
+import { useCompanies, useSchema, useToasty } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
 import { useSession } from 'next-auth/react';
-import router from 'next/router';
+import router, { useRouter } from 'next/router';
+import { CompaniesProvider } from 'contexts';
+import { useMutation, useQuery } from 'react-query';
+import { ICompany } from 'types/interfaces/main-server/ICompany';
+import { useState } from 'react';
+
+interface ISelectedNetwork {
+	name: string;
+	icon: string;
+	id: number | undefined;
+}
 
 export const EditCompany = () => {
 	const { t: translate } = useTranslation('create-company');
+	const toast = useToast();
+	const { query } = useRouter();
 	const { editCompanySchema } = useSchema();
+	const { getCompanyById, updateCompany } = useCompanies();
+	const [selectedType, setSelectedType] = useState<string | undefined>('');
+	const [editedSocialLinksInputValue, setEditedSocialLinksInputValue] =
+		useState<ISociaLinksInputValue>({} as ISociaLinksInputValue);
+
+	const { data: companyToBeEdited } = useQuery('created-company-overview', () =>
+		getCompanyById(Number(query.id))
+	);
+
 	const {
 		handleSubmit,
-		control,
+		register,
 		formState: { errors },
-	} = useForm<IEditCompany>({
+	} = useForm<ICompany>({
 		resolver: yupResolver(editCompanySchema),
 	});
+
 	const { data: session } = useSession({
 		required: true,
 		onUnauthenticated() {
-			router.push('/app/companies');
+			router.push(navigationPaths.dashboard.companies.home);
 		},
 	});
 
-	const handleEditCompany = (editedCompanyData: IEditCompany) => {
-		console.log(editedCompanyData);
+	const [selectedNetwork, setSelectedNetwork] = useState<ISelectedNetwork>({
+		name: companyToBeEdited?.name,
+		icon: '',
+		id: 0,
+	} as ISelectedNetwork);
+
+	const { mutate } = useMutation(
+		(editedCompanyData: ICompany) => updateCompany(editedCompanyData),
+		{
+			onSuccess: () => console.log('done'),
+		}
+	);
+
+	const [editedCompanyPicture, setEditedCompanyPicture] = useState(
+		companyToBeEdited?.logo
+	);
+
+	const handleEditedPicture = (picture: string) => {
+		setEditedCompanyPicture(picture);
 	};
-	const { selectedCompany } = useCompanies();
+
+	const handleEditCompany = (editedCompanyData: ICompany) => {
+		toast({
+			position: 'top-right',
+			render: () => (
+				<AlertToast
+					onClick={toast.closeAll}
+					type="success"
+					text="company edited sucessfully"
+				/>
+			),
+		});
+		const { name, contactEmail, description } = editedCompanyData;
+		const { websiteURL, instagramURL, twitterURL, telegramURL, mediumURL } =
+			editedSocialLinksInputValue;
+		mutate({
+			name,
+			contactEmail,
+			description,
+			network: selectedNetwork.id,
+			type: selectedType,
+			socialMedia: [
+				{
+					name: 'website',
+					url: websiteURL,
+				},
+				{
+					name: 'instagram',
+					url: instagramURL,
+				},
+				{
+					name: 'twitter',
+					url: twitterURL,
+				},
+				{
+					name: 'telegram',
+					url: telegramURL,
+				},
+				{
+					name: 'medium',
+					url: mediumURL,
+				},
+			],
+			isPublic: false,
+			color: '#121212',
+			logo: editedCompanyPicture,
+		});
+	};
+
 	return (
-		<form onSubmit={handleSubmit(handleEditCompany)}>
-			<FormControl>
-				<AppLayout
-					right={
-						<EditCompanyLink control={control} company={selectedCompany} />
-					}
-				>
-					<CompanyWhiteBackground />
-					<Flex direction="column" gap="10" zIndex="docked" pt="6" w="100%">
-						<Flex w="100%">
-							<NavigationBack
-								href={navigationPaths.dashboard.companies.overview('1')}
-							>
-								{translate('backToCompany')}
-							</NavigationBack>
+		<CompaniesProvider>
+			<form onSubmit={handleSubmit(handleEditCompany)}>
+				<FormControl>
+					<AppLayout
+						right={
+							<EditCompanyLink
+								logo={editedCompanyPicture}
+								setEditedSocialLinksInputValue={setEditedSocialLinksInputValue}
+								company={companyToBeEdited}
+								handleEditedPicture={handleEditedPicture}
+							/>
+						}
+					>
+						<CompanyWhiteBackground />
+						<Flex direction="column" gap="10" zIndex="docked" pt="6" w="100%">
+							<Flex w="100%">
+								<NavigationBack
+									href={navigationPaths.dashboard.companies.overview(query.id)}
+								>
+									{translate('backToCompany')}
+								</NavigationBack>
+							</Flex>
+							<EditCompanyComponent
+								editedCompanyPicture={editedCompanyPicture}
+								setSelectedNetwork={setSelectedNetwork}
+								setSelectedType={setSelectedType}
+								selectedNetwork={selectedNetwork}
+								selectedType={selectedType}
+								errors={errors}
+								register={register}
+								company={companyToBeEdited}
+							/>
 						</Flex>
-						<EditCompanyComponent
-							errors={errors}
-							control={control}
-							company={selectedCompany}
-						/>
-					</Flex>
-				</AppLayout>
-			</FormControl>
-		</form>
+					</AppLayout>
+				</FormControl>
+			</form>
+		</CompaniesProvider>
 	);
 };

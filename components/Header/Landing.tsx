@@ -55,10 +55,11 @@ export const LandingHeader: React.FC = () => {
 				})}
 			</Flex>
 			<Link
-				href={navigationPaths.dashboard.home}
+				href="https://califinance.ck.page/6455cc2350"
 				textDecoration="none"
 				_hover={{ textDecoration: 'none' }}
 				as={NextLink}
+				target="_blank"
 			>
 				<Button
 					_hover={{ bg: 'white', textDecor: 'none' }}
@@ -67,7 +68,7 @@ export const LandingHeader: React.FC = () => {
 						color: 'white',
 						bgColor: 'transparent',
 					}}
-					_active={{ color: 'black' }}
+					_active={{ color: 'white' }}
 					_focusVisible={{}}
 					_focusWithin={{}}
 					display={{ base: 'none', md: 'flex' }}

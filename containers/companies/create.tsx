@@ -1,8 +1,9 @@
-import { Flex, FormControl } from '@chakra-ui/react';
+import { Flex, FormControl, useToast } from '@chakra-ui/react';
 import {
 	NewCompanyLinks,
 	NavigationBack,
 	CreateCompanyComponent,
+	AlertToast,
 } from 'components';
 import { AppLayout, CompanyWhiteBackground } from 'layouts';
 import { navigationPaths } from 'utils';
@@ -17,6 +18,7 @@ import { ICompany } from 'types/interfaces/main-server/ICompany';
 import { useState } from 'react';
 import { useMutation } from 'react-query';
 import { ISociaLinksInputValue } from 'types';
+import { AxiosError } from 'axios';
 
 interface ISelectedNetwork {
 	name: string;
@@ -26,6 +28,7 @@ interface ISelectedNetwork {
 
 export const CreateCompanyContainer = () => {
 	const { createCompanySchema } = useSchema();
+	const toast = useToast();
 	const { createCompany } = useCompanies();
 	const { t: translate } = useTranslation('create-company');
 	const [selectedType, setSelectedType] = useState<string>(
@@ -51,14 +54,63 @@ export const CreateCompanyContainer = () => {
 	const { data: session } = useSession({
 		required: true,
 		onUnauthenticated() {
-			router.push('/app/companies');
+			router.push(navigationPaths.dashboard.companies.home);
 		},
 	});
 
 	const { mutate } = useMutation(
 		(createdCompanyData: ICompany) => createCompany(createdCompanyData),
 		{
-			onSuccess: () => console.log('done'),
+			onSuccess: () => {
+				toast({
+					position: 'top',
+					render: () => (
+						<AlertToast
+							onClick={toast.closeAll}
+							text="companyCreatedWithSuccess"
+							type="success"
+						/>
+					),
+				});
+			},
+			onError: error => {
+				if (error instanceof AxiosError) {
+					if (error.response?.data.message === 'Unique company name') {
+						toast({
+							position: 'top',
+							render: () => (
+								<AlertToast
+									onClick={toast.closeAll}
+									text="companyNameAlreadyExists"
+									type="error"
+								/>
+							),
+						});
+					} else if (error.response?.status === 401) {
+						toast({
+							position: 'top',
+							render: () => (
+								<AlertToast
+									onClick={toast.closeAll}
+									text="unauthorized"
+									type="error"
+								/>
+							),
+						});
+					} else {
+						toast({
+							position: 'top',
+							render: () => (
+								<AlertToast
+									onClick={toast.closeAll}
+									text="weAreWorkingToSolve"
+									type="error"
+								/>
+							),
+						});
+					}
+				}
+			},
 		}
 	);
 
@@ -100,8 +152,15 @@ export const CreateCompanyContainer = () => {
 			],
 			isPublic: false,
 			color: '#121212',
-			logo: newCompanyPicture,
+			logo: newCompanyPicture === '' ? undefined : newCompanyPicture,
 		});
+	};
+
+	const setSocialMediasInput = (name: string[], url: string) => {
+		setSocialLinksInputValue(prevState => ({
+			...prevState,
+			[`${name}`]: url,
+		}));
 	};
 
 	return (
@@ -111,9 +170,9 @@ export const CreateCompanyContainer = () => {
 					<AppLayout
 						right={
 							<NewCompanyLinks
+								setSocialMediasInput={setSocialMediasInput}
 								newCompanyPicture={newCompanyPicture}
 								handleNewPicture={handleNewPicture}
-								setSocialLinksInputValue={setSocialLinksInputValue}
 							/>
 						}
 					>

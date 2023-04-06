@@ -7,14 +7,13 @@ import {
 	Skeleton,
 } from '@chakra-ui/react';
 import { useCompanies, usePath, usePicasso } from 'hooks';
-import { handleLogoImage, navigationPaths, networkInfos } from 'utils';
+import { getLogo, handleLogoImage, navigationPaths, networkInfos } from 'utils';
 import {
 	NavigationBack,
 	NeedFundsCompaniesHeader,
 	NotificationPopover,
 } from 'components';
 import useTranslation from 'next-translate/useTranslation';
-import { IMockCompany } from 'types';
 import { useSession } from 'next-auth/react';
 import router, { useRouter } from 'next/router';
 import NextLink from 'next/link';
@@ -24,30 +23,19 @@ import { useEffect } from 'react';
 export const CompaniesHeader = () => {
 	const theme = usePicasso();
 	const { isSamePath } = usePath();
-	const { setNotificationsList, notificationsList } = useCompanies();
+	const { query } = useRouter();
+	const { setNotificationsList, notificationsList, getCompanyById } =
+		useCompanies();
 	const { onClose, isOpen, onOpen } = useDisclosure();
 	const { t: translate } = useTranslation('company-overall');
 	const { data: session } = useSession({
 		required: true,
 		onUnauthenticated() {
-			router.push('/app/companies');
+			router.push(navigationPaths.dashboard.companies.home);
 		},
 	});
 
 	const amount = null;
-
-	const { query } = useRouter();
-	const { getCompanyById } = useCompanies();
-
-	const { data, isLoading, error } = useQuery('created-company-overview', () =>
-		getCompanyById(Number(query.id))
-	);
-
-	useEffect(() => {
-		if (error) {
-			router.push('/404');
-		}
-	}, [error]);
 
 	const menuOptions = [
 		{
@@ -59,6 +47,20 @@ export const CompaniesHeader = () => {
 			route: navigationPaths.dashboard.companies.funds(query.id!.toString()),
 		},
 	];
+
+	const {
+		data: selectedCompany,
+		isLoading: isLoadingSelectedCompany,
+		error: selectedCompanyError,
+	} = useQuery('created-company-overview', () =>
+		getCompanyById(Number(query.id))
+	);
+
+	useEffect(() => {
+		if (selectedCompanyError) {
+			router.push('/404');
+		}
+	}, [selectedCompanyError]);
 
 	return (
 		<Flex direction="column" color={theme.text.primary} w="100%" gap="7">
@@ -79,7 +81,7 @@ export const CompaniesHeader = () => {
 			</Flex>
 			<Flex w="100%" justify="space-between" align="center">
 				<Flex gap="3" align="center">
-					{data?.logo === '' ? (
+					{!selectedCompany?.logo ? (
 						<Flex
 							boxSize="20"
 							borderRadius="base"
@@ -89,12 +91,12 @@ export const CompaniesHeader = () => {
 							fontWeight="bold"
 							bg={theme.bg.white2}
 						>
-							{handleLogoImage(data.name!)}
+							{handleLogoImage(selectedCompany?.name)}
 						</Flex>
 					) : (
-						<Img src={data?.logo} boxSize="20" />
+						<Img src={getLogo(selectedCompany.logo)} boxSize="20" />
 					)}
-					{isLoading ? (
+					{isLoadingSelectedCompany ? (
 						<Skeleton w="44" h="4" />
 					) : (
 						<Text
@@ -103,7 +105,7 @@ export const CompaniesHeader = () => {
 							overflow="hidden"
 							fontSize="2xl"
 						>
-							{data?.name}
+							{selectedCompany?.name}
 						</Text>
 					)}
 					{}
@@ -112,20 +114,22 @@ export const CompaniesHeader = () => {
 					{!amount ? (
 						<Skeleton w="14" h="4" />
 					) : (
-						<Text fontSize="xl">$123</Text>
+						<Text fontSize="xl">{selectedCompany?.totalFundsUsd}</Text>
 					)}
 
 					<Text fontSize="sm">{translate('totalFunds')}</Text>
 				</Flex>
 				<Link
-					href={navigationPaths.dashboard.companies.editOrg('1')}
+					href={navigationPaths.dashboard.companies.editOrg(
+						query.id!.toString()
+					)}
 					as={NextLink}
 				>
 					<Text
 						borderRadius="base"
 						px="5"
 						py="1.5"
-						bg="gray.50"
+						bg="gray.100"
 						fontSize="sm"
 						fontWeight="medium"
 						cursor="pointer"
@@ -176,8 +180,10 @@ export const CompaniesHeader = () => {
 					gap="2"
 					h="6"
 				>
-					<Img src={networkInfos(data?.network).icon} boxSize="4" />
-					<Text fontSize="xs">{networkInfos(data?.network).name}</Text>
+					<Img src={networkInfos(selectedCompany?.network).icon} boxSize="4" />
+					<Text fontSize="xs">
+						{networkInfos(selectedCompany?.network).name}
+					</Text>
 				</Flex>
 			</Flex>
 		</Flex>

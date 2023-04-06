@@ -32,7 +32,16 @@ export const CompaniesListFixed = () => {
 				>
 					{translateDashboard('yourCompanies')}
 				</Text>
-				<Button h="max-content" onClick={() => toggleListView()}>
+				<Button
+					h="max-content"
+					onClick={() => toggleListView()}
+					p="0"
+					isDisabled={
+						(window.innerWidth < 1281 && companies.length === 3) ||
+						(window.innerWidth > 1536 && companies.length === 4) ||
+						(window.innerWidth > 1768 && companies.length === 5)
+					}
+				>
 					<Text fontSize="xs" color="gray.500" fontWeight="medium">
 						{isFullList ? translate('seeLess') : translate('seeAll')}
 					</Text>

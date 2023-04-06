@@ -41,10 +41,10 @@ const CompanyLogo: React.FC<{
 };
 
 export const NewCompanyLinks: React.FC<{
+	setSocialMediasInput: (name: string[], url: string) => void;
 	handleNewPicture: (picture: string) => void;
-	setSocialLinksInputValue: Dispatch<SetStateAction<ISociaLinksInputValue>>;
 	newCompanyPicture: string;
-}> = ({ setSocialLinksInputValue, newCompanyPicture, handleNewPicture }) => {
+}> = ({ newCompanyPicture, handleNewPicture, setSocialMediasInput }) => {
 	const theme = usePicasso();
 	const { t: translate } = useTranslation('create-company');
 
@@ -63,14 +63,18 @@ export const NewCompanyLinks: React.FC<{
 			>
 				<Flex direction="column" align="center" gap="4" w="100%">
 					<CompanyLogo logo={newCompanyPicture} />
-					<ImageUploader sendImage={handleNewPicture} />
+					<ImageUploader
+						sendImage={handleNewPicture}
+						handleNewPicture={handleNewPicture}
+						newCompanyPicture={newCompanyPicture}
+					/>
 				</Flex>
 				<Flex w="100%">
 					<Flex direction="column" gap="4" w="100%">
 						{socialLinks.map((socialLink, index) => (
 							<SocialMediaInput
+								setSocialMediasInput={setSocialMediasInput}
 								socialLink={socialLink}
-								setSocialLinksInputValue={setSocialLinksInputValue}
 								key={+index}
 							/>
 						))}

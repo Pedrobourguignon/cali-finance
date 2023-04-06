@@ -11,10 +11,16 @@ import React from 'react';
 import { IRecentActivitiesList } from 'types';
 import useTranslation from 'next-translate/useTranslation';
 import { useSession } from 'next-auth/react';
+import { useAccount } from 'wagmi';
+import { useQuery } from 'react-query';
+import { useCompanies } from 'hooks';
+import { NotFoundContainer } from 'containers';
+import { ProfileProvider } from 'contexts';
 
 export const DashboardComponent: React.FC = () => {
 	const { t: translate } = useTranslation('dashboard');
 	const { data: session } = useSession();
+	const { getAllUserCompanies } = useCompanies();
 
 	const recentActivitiesList: IRecentActivitiesList[] = [
 		{
@@ -42,6 +48,16 @@ export const DashboardComponent: React.FC = () => {
 			status: translate('completed'),
 		},
 	];
+
+	const { isConnected } = useAccount();
+
+	const {
+		data: companies,
+		isLoading: isLoadingCompanies,
+		error,
+	} = useQuery('all-companies', getAllUserCompanies, {
+		enabled: !!isConnected,
+	});
 
 	return (
 		<Flex w="full">

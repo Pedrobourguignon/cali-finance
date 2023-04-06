@@ -1,6 +1,5 @@
 export * from './Cards';
 export * from './Coins';
-export * from './CompaniesList';
 export * from './CompaniesListFixed';
 export * from './DashboardComponent';
 export * from './MyAssets';

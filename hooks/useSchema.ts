@@ -1,7 +1,7 @@
 import useTranslation from 'next-translate/useTranslation';
 import * as yup from 'yup';
 import { limitSpecialCharacterRegex, nameRegex } from 'utils';
-import { ethAddressRegex } from '../utils/Validations/regex';
+import { companyNameRegex, ethAddressRegex } from '../utils/Validations/regex';
 
 const useSchema = () => {
 	const { t: translate } = useTranslation('schemas');
@@ -33,7 +33,7 @@ const useSchema = () => {
 		name: yup
 			.string()
 			.required(translate('required'))
-			.matches(nameRegex, translate('nameDontAcceptNumber'))
+			.matches(companyNameRegex, translate('nameDontAcceptNumber'))
 			.min(3),
 		contactEmail: yup
 			.string()
@@ -49,13 +49,11 @@ const useSchema = () => {
 			.required(translate('required'))
 			.matches(nameRegex, translate('nameDontAcceptNumber'))
 			.min(3),
-		email: yup
+		contactEmail: yup
 			.string()
 			.lowercase()
 			.email(translate('emailFormatInvalid'))
 			.matches(limitSpecialCharacterRegex, translate('emailContains')),
-		type: yup.object().required(translate('required')),
-		network: yup.object().required(translate('required')),
 	});
 
 	const transactionSchema = yup.object().shape({
