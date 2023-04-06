@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 import {
 	Button,
 	Flex,
@@ -90,13 +91,21 @@ export const EditProfileComponent = () => {
 		if (profileData?.picture) {
 			setEditedProfilePicture(profileData.picture);
 		}
+		// eslint-disable-next-line no-unused-expressions
 	}, [profileData]);
+
+	console.log(profileData);
+	console.log(editedProfileInfo);
+	console.log(editedProfilePicture);
 
 	const handleEditProfile = () => {
 		mutate({
 			name: editedProfileInfo.name,
 			email: editedProfileInfo.email,
-			picture: editedProfilePicture,
+			picture:
+				editedProfilePicture === '/images/editImage.png'
+					? ''
+					: editedProfilePicture,
 		});
 	};
 
@@ -148,21 +157,41 @@ export const EditProfileComponent = () => {
 						objectFit="cover"
 					/>
 				</Flex>
-				<Button
-					mt="4"
-					fontSize={{ md: 'xs', '2xl': 'sm' }}
-					bg={theme.text.primary}
-					borderRadius="sm"
-					px={{ md: '2', '2xl': '6' }}
-					h="max-content"
-					py="1"
-					_hover={{}}
-					_focus={{ bg: theme.text.primary }}
-					onClick={onOpen}
-					disabled={!session}
-				>
-					{translate('editProfileImage')}
-				</Button>
+				<Flex gap="4">
+					<Button
+						mt="4"
+						fontSize={{ md: 'xs', '2xl': 'sm' }}
+						bg={theme.text.primary}
+						borderRadius="sm"
+						px={{ md: '2', '2xl': '6' }}
+						h="max-content"
+						py="1"
+						_hover={{}}
+						_focus={{ bg: theme.text.primary }}
+						onClick={onOpen}
+						disabled={!session}
+					>
+						{translate('editProfileImage')}
+					</Button>
+					<Button
+						mt="4"
+						fontSize={{ md: 'xs', '2xl': 'sm' }}
+						bg={theme.text.primary}
+						borderRadius="sm"
+						px={{ md: '2', '2xl': '6' }}
+						h="max-content"
+						py="1"
+						_hover={{}}
+						_focus={{ bg: theme.text.primary }}
+						// onClick={() => setNoPicture('/images/editImage.png')}
+						onClick={() => setEditedProfilePicture('/images/editImage.png')}
+						isDisabled={
+							!session || editedProfilePicture === '/images/editImage.png'
+						}
+					>
+						{translate('deleteImage')}
+					</Button>
+				</Flex>
 			</Flex>
 			<Flex direction="column" align="center" h="full" pt="6">
 				<form onSubmit={handleSubmit(handleEditProfile)}>
@@ -240,7 +269,17 @@ export const EditProfileComponent = () => {
 									editedProfileInfo.name === profileData?.name &&
 									editedProfileInfo.picture === profileData?.picture &&
 									editedProfileInfo.picture === editedProfilePicture
+									// editedProfileInfo.picture === null &&
+									// (editedProfilePicture === '/images/editImage.png' ||
+									// 	editedProfilePicture === null)
 								}
+								// isDisabled={
+								// 	editedProfileInfo.email === profileData?.email &&
+								// 	editedProfileInfo.name === profileData?.name &&
+								// 	editedProfileInfo.picture === profileData?.picture &&
+								// 	editedProfileInfo.picture === editedProfilePicture &&
+								// 	editedProfilePicture === '/images/editImage.png'
+								// }
 								_disabled={{ opacity: '50%', cursor: 'not-allowed' }}
 							>
 								{translate('saveChanges')}
