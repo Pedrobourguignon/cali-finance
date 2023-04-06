@@ -1,4 +1,4 @@
-/* eslint-disable no-nested-ternary */
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import {
 	Button,
 	Flex,
@@ -16,8 +16,6 @@ import useTranslation from 'next-translate/useTranslation';
 import { AlertToast, BlackButton, ImageUploaderModal } from 'components';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
-import { AiFillCheckCircle } from 'react-icons/ai';
-
 import { useSession } from 'next-auth/react';
 import { IUser } from 'types/interfaces/main-server/IUser';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
@@ -78,9 +76,9 @@ export const EditProfileComponent = () => {
 		{} as IEditedInfo
 	);
 
-	const [editedProfilePicture, setEditedProfilePicture] = useState(
-		'/images/editImage.png'
-	);
+	const [editedProfilePicture, setEditedProfilePicture] = useState<
+		string | null
+	>('/images/editImage.png');
 
 	useEffect(() => {
 		setEditedProfileInfo({
@@ -91,22 +89,27 @@ export const EditProfileComponent = () => {
 		if (profileData?.picture) {
 			setEditedProfilePicture(profileData.picture);
 		}
-		// eslint-disable-next-line no-unused-expressions
 	}, [profileData]);
-
-	console.log(profileData);
-	console.log(editedProfileInfo);
-	console.log(editedProfilePicture);
 
 	const handleEditProfile = () => {
 		mutate({
 			name: editedProfileInfo.name,
 			email: editedProfileInfo.email,
 			picture:
-				editedProfilePicture === '/images/editImage.png'
+				editedProfilePicture! === '/images/editImage.png'
 					? ''
-					: editedProfilePicture,
+					: editedProfilePicture!,
 		});
+	};
+
+	const handleProfileImage = () => {
+		if (editedProfilePicture === null) {
+			return '/images/editImage.png';
+		}
+		if (editedProfilePicture === profileData?.picture) {
+			return getLogo(editedProfilePicture);
+		}
+		return editedProfilePicture;
 	};
 
 	return (
@@ -147,11 +150,7 @@ export const EditProfileComponent = () => {
 					zIndex="docked"
 				>
 					<Img
-						src={
-							editedProfilePicture === profileData?.picture
-								? getLogo(editedProfilePicture)
-								: editedProfilePicture
-						}
+						src={handleProfileImage()}
 						boxSize="24"
 						borderRadius="full"
 						objectFit="cover"
@@ -184,7 +183,7 @@ export const EditProfileComponent = () => {
 						_hover={{}}
 						_focus={{ bg: theme.text.primary }}
 						// onClick={() => setNoPicture('/images/editImage.png')}
-						onClick={() => setEditedProfilePicture('/images/editImage.png')}
+						onClick={() => setEditedProfilePicture(null)}
 						isDisabled={
 							!session || editedProfilePicture === '/images/editImage.png'
 						}
@@ -269,9 +268,6 @@ export const EditProfileComponent = () => {
 									editedProfileInfo.name === profileData?.name &&
 									editedProfileInfo.picture === profileData?.picture &&
 									editedProfileInfo.picture === editedProfilePicture
-									// editedProfileInfo.picture === null &&
-									// (editedProfilePicture === '/images/editImage.png' ||
-									// 	editedProfilePicture === null)
 								}
 								// isDisabled={
 								// 	editedProfileInfo.email === profileData?.email &&
