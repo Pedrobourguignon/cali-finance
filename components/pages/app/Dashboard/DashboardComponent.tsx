@@ -11,8 +11,11 @@ import React from 'react';
 import { IRecentActivitiesList } from 'types';
 import useTranslation from 'next-translate/useTranslation';
 import { useSession } from 'next-auth/react';
+import { NotFoundContainer } from 'containers';
+import { ProfileProvider } from 'contexts';
 import { useQuery } from 'react-query';
 import { useCompanies } from 'hooks';
+import { useAccount } from 'wagmi';
 
 export const DashboardComponent: React.FC = () => {
 	const { t: translate } = useTranslation('dashboard');
@@ -46,11 +49,15 @@ export const DashboardComponent: React.FC = () => {
 		},
 	];
 
+	const { isConnected } = useAccount();
+
 	const {
 		data: companies,
 		isLoading: isLoadingCompanies,
 		error,
-	} = useQuery('all-companies', getAllUserCompanies);
+	} = useQuery('all-companies', getAllUserCompanies, {
+		enabled: !!isConnected,
+	});
 
 	return (
 		<Flex w="full">
@@ -59,8 +66,8 @@ export const DashboardComponent: React.FC = () => {
 					<DashboardHeader />
 					<Coins />
 				</Flex>
-				<Flex direction="column" gap="9" pt={!session ? '4' : 0}>
-					{session ? (
+				<Flex direction="column" gap="9" pt="4">
+					{session && companies ? (
 						<CompaniesList
 							companies={companies}
 							isLoading={isLoadingCompanies}

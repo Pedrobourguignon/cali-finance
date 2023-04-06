@@ -48,7 +48,7 @@ export const RecentActivitiesDashboard: React.FC<
 						w="full"
 						key={+index}
 						justify="space-between"
-						bg="gray.50"
+						bg="gray.100"
 						color="white"
 						borderRadius="base"
 						align="center"
