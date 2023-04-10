@@ -27,7 +27,6 @@ export const CompanyCard: React.FC<ICompanyCard> = ({ team }) => {
 				xl: '13.813rem',
 				'2xl': '13.1rem',
 			}}
-			// w="221px"
 			h="8.375rem"
 		>
 			<Flex direction="column" pt="2.5" pl="4" color={theme.text.primary}>

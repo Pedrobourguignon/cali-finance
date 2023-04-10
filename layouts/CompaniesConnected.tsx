@@ -5,6 +5,7 @@ import {
 	RecentActivities,
 	CompaniesDashboard,
 	CompaniesRightBar,
+	CompaniesListFixed,
 } from 'components';
 import { AppLayout } from 'layouts';
 import { useCompanies, usePicasso } from 'hooks';
@@ -40,11 +41,7 @@ export const CompaniesConnected: React.FC = () => {
 				</Flex>
 				<Flex w="full" flexDir="column" gap="8" pt="10">
 					{companies?.length ? (
-						// <CompaniesList
-						// 	companies={companies}
-						// 	isLoading={isLoadingCompanies}
-						// />
-						''
+						<CompaniesListFixed />
 					) : (
 						<Flex direction="column" gap="4">
 							<Text
