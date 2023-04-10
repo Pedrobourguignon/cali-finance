@@ -4,6 +4,7 @@ import { usePicasso } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
 import React from 'react';
 import { BsCheckCircleFill } from 'react-icons/bs';
+import { usefulLinks } from 'utils';
 
 export const GetStartedSession = () => {
 	const theme = usePicasso();
@@ -99,9 +100,7 @@ export const GetStartedSession = () => {
 								w="full"
 								py="5"
 								h="2.75rem"
-								onClick={() =>
-									window.open('https://califinance.ck.page/6455cc2350')
-								}
+								onClick={() => window.open(usefulLinks.joinOurWaitlist)}
 							>
 								{translate('bookADemo')}
 							</Button>

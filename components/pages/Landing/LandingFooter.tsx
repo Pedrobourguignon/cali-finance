@@ -7,7 +7,7 @@ import { AiFillTwitterCircle } from 'react-icons/ai';
 import { FaDiscord, FaLinkedinIn } from 'react-icons/fa';
 import { TiSocialInstagramCircular } from 'react-icons/ti';
 import useTranslation from 'next-translate/useTranslation';
-import { socialMediaLinks } from 'utils';
+import { socialMediaLinks, usefulLinks } from 'utils';
 
 const socialMedias: ISocialMediaFooter[] = [
 	{
@@ -69,7 +69,7 @@ export const LandingFooter = () => {
 				<Text
 					cursor="pointer"
 					color={theme.text.white}
-					onClick={() => window.open('https://www.instagram.com/cali.finance/')}
+					onClick={() => window.open(usefulLinks.privacyPolicy)}
 				>
 					{translate('privacyPolicy')}
 				</Text>

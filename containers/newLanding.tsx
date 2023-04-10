@@ -11,6 +11,7 @@ import {
 import { NewLandingHeader } from 'components/Header';
 import { usePicasso } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
+import { usefulLinks } from 'utils';
 
 export const NewLandingContainer: React.FC = () => {
 	const theme = usePicasso();
@@ -88,9 +89,7 @@ export const NewLandingContainer: React.FC = () => {
 									fontWeight="medium"
 									fontSize="md"
 									px="12"
-									onClick={() =>
-										window.open('https://califinance.ck.page/6455cc2350')
-									}
+									onClick={() => window.open(usefulLinks.joinOurWaitlist)}
 								>
 									{translate('joinWaitlist')}
 								</Button>
