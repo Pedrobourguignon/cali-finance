@@ -11,7 +11,7 @@ import {
 	Text,
 } from '@chakra-ui/react';
 import { usePath, usePicasso } from 'hooks';
-import { navigationPaths } from 'utils';
+import { navigationPaths, usefulLinks } from 'utils';
 import NextLink from 'next/link';
 import { HamburgerIcon } from '@chakra-ui/icons';
 import useTranslation from 'next-translate/useTranslation';
@@ -105,7 +105,7 @@ export const NewLandingHeader: React.FC = () => {
 				})}
 			</Flex>
 			<Link
-				href="https://califinance.ck.page/6455cc2350"
+				href={usefulLinks.joinOurWaitlist}
 				textDecoration="none"
 				_hover={{ textDecoration: 'none' }}
 				as={NextLink}
