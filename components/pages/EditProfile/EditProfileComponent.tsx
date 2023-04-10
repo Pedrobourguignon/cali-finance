@@ -10,7 +10,7 @@ import {
 	useToast,
 } from '@chakra-ui/react';
 import { usePicasso, useProfile, useSchema } from 'hooks';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import useTranslation from 'next-translate/useTranslation';
 import { AlertToast, BlackButton, ImageUploaderModal } from 'components';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -18,21 +18,25 @@ import { useForm } from 'react-hook-form';
 import { AiFillCheckCircle } from 'react-icons/ai';
 
 import { useSession } from 'next-auth/react';
+import { IUser } from 'types/interfaces/main-server/IUser';
+import { useMutation, useQuery, useQueryClient } from 'react-query';
+import { getLogo } from 'utils';
 
-interface IEditProfile {
-	name: string;
-	email: string;
-	picture: string;
+interface IEditedInfo {
+	name?: string;
+	email?: string;
+	picture?: string;
 }
 
 export const EditProfileComponent = () => {
-	const theme = usePicasso();
 	const { t: translate } = useTranslation('edit-profile');
-	const { isOpen, onOpen, onClose } = useDisclosure();
-	const toast = useToast();
-
 	const { data: session } = useSession();
+	const { updateProfile, getProfileData } = useProfile();
+	const { isOpen, onOpen, onClose } = useDisclosure();
 	const { editProfileSchema } = useSchema();
+	const theme = usePicasso();
+	const queryClient = useQueryClient();
+	const toast = useToast();
 
 	const labelStyle: TextProps = {
 		color: theme.text.primary,
@@ -44,32 +48,56 @@ export const EditProfileComponent = () => {
 		register,
 		handleSubmit,
 		formState: { errors },
-	} = useForm<IEditProfile>({
+	} = useForm<IUser>({
 		resolver: yupResolver(editProfileSchema),
 	});
-	const {
-		userProfile,
-		setUserProfile,
-		editedProfileInfo,
-		setEditedProfileInfo,
-	} = useProfile();
 
-	const handleEditProfile = () => {
-		setUserProfile({
-			name: editedProfileInfo.name,
-			email: editedProfileInfo.email,
-			picture: editedProfileInfo.picture,
-			wallet: '0x6856...BF99',
+	const { data: profileData } = useQuery('profile-data', getProfileData);
+
+	const { mutate } = useMutation(
+		(editedProfileData: IUser) => updateProfile(editedProfileData),
+		{
+			onSuccess: () => {
+				toast({
+					position: 'top-right',
+					render: () => (
+						<AlertToast
+							type="success"
+							text="changesMadeWithSuccessfully"
+							onClick={toast.closeAll}
+						/>
+					),
+				});
+				queryClient.invalidateQueries('profile-data');
+			},
+		}
+	);
+
+	const [editedProfileInfo, setEditedProfileInfo] = useState<IEditedInfo>(
+		{} as IEditedInfo
+	);
+
+	const [editedProfilePicture, setEditedProfilePicture] = useState(
+		'/images/editImage.png'
+	);
+
+	useEffect(() => {
+		setEditedProfileInfo({
+			name: profileData?.name,
+			email: profileData?.email,
+			picture: profileData?.picture,
 		});
-		toast({
-			position: 'top-right',
-			render: () => (
-				<AlertToast
-					onClick={toast.closeAll}
-					text="changesMadeWithSuccessfully"
-					type="success"
-				/>
-			),
+		if (profileData?.picture) {
+			const logo = getLogo(profileData.picture);
+			setEditedProfilePicture(logo);
+		}
+	}, [profileData]);
+
+	const handleEditProfile = (editedProfileData: IUser) => {
+		mutate({
+			name: !profileData?.name ? editedProfileData.name : profileData.name,
+			email: !profileData?.email ? editedProfileData.email : profileData.email,
+			picture: editedProfilePicture,
 		});
 	};
 
@@ -78,7 +106,7 @@ export const EditProfileComponent = () => {
 			<ImageUploaderModal
 				isOpen={isOpen}
 				onClose={onClose}
-				sendImage={setEditedProfileInfo}
+				sendImage={setEditedProfilePicture}
 			/>
 			<Flex direction="column">
 				<Text
@@ -111,11 +139,7 @@ export const EditProfileComponent = () => {
 					zIndex="docked"
 				>
 					<Img
-						src={
-							editedProfileInfo.picture === ''
-								? '/images/editImage.png'
-								: editedProfileInfo.picture
-						}
+						src={editedProfilePicture}
 						boxSize="24"
 						borderRadius="full"
 						objectFit="cover"
@@ -145,8 +169,8 @@ export const EditProfileComponent = () => {
 								<Flex direction="column" gap="2">
 									<Text {...labelStyle}>{translate('name')}</Text>
 									<Input
+										defaultValue={profileData?.name}
 										type="text"
-										defaultValue={userProfile.name}
 										borderRadius="base"
 										placeholder={translate('insertHere')}
 										borderColor={errors.name ? 'red' : theme.bg.primary}
@@ -175,7 +199,7 @@ export const EditProfileComponent = () => {
 								<Flex direction="column" gap="2">
 									<Text {...labelStyle}>{translate('yourBestEmail')}</Text>
 									<Input
-										defaultValue={userProfile.email}
+										defaultValue={profileData?.email}
 										placeholder={translate('exampleEmail')}
 										_placeholder={{
 											color: 'blackAlpha.500',
@@ -208,11 +232,13 @@ export const EditProfileComponent = () => {
 								fontSize="md"
 								py="2.5"
 								borderRadius="sm"
-								disabled={
-									editedProfileInfo.email === userProfile.email &&
-									editedProfileInfo.name === userProfile.name &&
-									editedProfileInfo.picture === userProfile.picture
+								isDisabled={
+									editedProfileInfo.email === profileData?.email &&
+									editedProfileInfo.name === profileData?.name &&
+									editedProfileInfo.picture === profileData?.picture &&
+									editedProfileInfo.picture === editedProfilePicture.slice(25)
 								}
+								_disabled={{ opacity: '50%', cursor: 'not-allowed' }}
 							>
 								{translate('saveChanges')}
 							</BlackButton>

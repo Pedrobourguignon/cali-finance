@@ -1,10 +1,12 @@
 import useTranslation from 'next-translate/useTranslation';
 import * as yup from 'yup';
-import { limitSpecialCharacterRegex, nameRegex } from 'utils';
 import {
+	limitSpecialCharacterRegex,
+	nameRegex,
 	ethAddressRegex,
 	sixDigisAfterComma,
-} from '../utils/Validations/regex';
+	companyNameRegex,
+} from 'utils';
 
 const useSchema = () => {
 	const { t: translate } = useTranslation('schemas');
@@ -43,7 +45,7 @@ const useSchema = () => {
 		name: yup
 			.string()
 			.required(translate('required'))
-			.matches(nameRegex, translate('nameDontAcceptNumber'))
+			.matches(companyNameRegex, translate('nameDontAcceptNumber'))
 			.min(3),
 		contactEmail: yup
 			.string()

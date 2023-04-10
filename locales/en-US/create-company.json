@@ -7,14 +7,16 @@
 	"type": "Type *",
 	"pleaseSelect": "Please select",
 	"financial": "financial",
+	"others": "Others",
 	"corporativeEmail": "Corporative e-mail *",
 	"exampleEmail": "example@company.io",
 	"description": "Description",
-	"exampleDescription": "Hello Org is an company that...",
+	"exampleDescription": "Hi, our company is a startup build to change the world...",
 	"network": "Network *",
 	"editLogoImage": "Edit logo image",
 	"website": "website.io",
 	"company": "company",
 	"saveChanges": "Save changes",
-	"choseTheMostSuitableNetwork": "Choose the most suitable network for paying your staff efficiently."
+	"choseTheMostSuitableNetwork": "Choose the most suitable network for paying your staff efficiently.",
+	"deleteImage": "Delete image"
 }

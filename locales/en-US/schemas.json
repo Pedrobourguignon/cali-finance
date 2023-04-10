@@ -5,7 +5,7 @@
 	"required": "Required",
 	"emailContains": "Your email may contain _ - @ .",
 	"nameMin": "Name should be at least 3 characters",
-	"nameDontAcceptNumber": "Name can't have number",
+	"nameDontAcceptNumber": "Name can't have specials characters",
 	"walletNotExist": "This wallet does not exist",
 	"thisFileIsTooLarge": "The file is too large,",
 	"sixDigits": "The amount should have a maximum of six digits after the comma"

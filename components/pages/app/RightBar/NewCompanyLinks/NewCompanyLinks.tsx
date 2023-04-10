@@ -63,7 +63,11 @@ export const NewCompanyLinks: React.FC<{
 			>
 				<Flex direction="column" align="center" gap="4" w="100%">
 					<CompanyLogo logo={newCompanyPicture} />
-					<ImageUploader sendImage={handleNewPicture} />
+					<ImageUploader
+						sendImage={handleNewPicture}
+						handleNewPicture={handleNewPicture}
+						newCompanyPicture={newCompanyPicture}
+					/>
 				</Flex>
 				<Flex w="100%">
 					<Flex direction="column" gap="4" w="100%">

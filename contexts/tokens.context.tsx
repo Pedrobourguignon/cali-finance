@@ -34,6 +34,7 @@ export const TokensProvider: React.FC<{ children: React.ReactNode }> = ({
 			receivedToken: '',
 		} as ISwapTokenSelector);
 
+	// eslint-disable-next-line consistent-return
 	const getOneInchTokens = async () => {
 		try {
 			const allTokens = await OneInchService.allTokensData();
@@ -47,6 +48,7 @@ export const TokensProvider: React.FC<{ children: React.ReactNode }> = ({
 			);
 			setListOfTokens(oneInchResult);
 			setFilteredTokens(oneInchResult);
+			return listOfTokens;
 		} catch (error) {
 			console.error(error);
 		}
