@@ -4,7 +4,7 @@ import {
 	limitSpecialCharacterRegex,
 	nameRegex,
 	ethAddressRegex,
-	sixDigisAfterComma,
+	sixDigitsAfterComma,
 	companyNameRegex,
 } from 'utils';
 
@@ -24,7 +24,7 @@ const useSchema = () => {
 		amount: yup
 			.number()
 			.test('is-decimal', translate('sixDigits'), (val: any) =>
-				sixDigisAfterComma.test(val)
+				sixDigitsAfterComma.test(val)
 			)
 			.required(translate('required'))
 			.positive(translate('amountMustBeAPositive'))
@@ -34,7 +34,7 @@ const useSchema = () => {
 		amount: yup
 			.number()
 			.test('is-decimal', translate('sixDigits'), (val: any) =>
-				sixDigisAfterComma.test(val)
+				sixDigitsAfterComma.test(val)
 			)
 			.required(translate('required'))
 			.typeError(translate('amountMustBeANumber'))
