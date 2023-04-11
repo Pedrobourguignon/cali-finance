@@ -15,6 +15,7 @@ import {
 	ISocialMedia,
 	INewEmployee,
 	IEditedEmployeeInfo,
+	IMockCompany,
 } from 'types';
 import { historyNotifications } from 'components';
 import { mainClient, navigationPaths } from 'utils';
@@ -27,6 +28,7 @@ import {
 	ICompany,
 } from 'types/interfaces/main-server/ICompany';
 import router, { useRouter } from 'next/router';
+import { MAIN_SERVICE_ROUTES } from 'helpers';
 
 interface ICompanyContext {
 	activities: IActivities[];
@@ -59,6 +61,7 @@ interface ICompanyContext {
 	allUserCompanies: GetUserCompaniesRes[];
 	selectedCompany: ICompany;
 	companiesWithMissingFunds: GetUserCompaniesRes[];
+	companies: IMockCompany[];
 }
 
 export const CompaniesContext = createContext({} as ICompanyContext);
@@ -87,6 +90,99 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 
 	const [filteredNotifications, setFilteredNotifications] =
 		useState<IHistoryNotification[]>(historyNotifications);
+
+	const [companies, setCompanies] = useState<IMockCompany[]>([
+		{
+			name: 'Kylie Cosmetics',
+			type: 'DAO',
+			email: 'kyliecosmetics@gmail.com',
+			members: 2,
+			teams: ['marketing'],
+			description: 'Hello',
+			selectedNetwork: 'Ethereum',
+			picture: '',
+			socialMedias: {
+				instagram: '@kyliecosmetics',
+				telegram: 't/kyliecosmetics',
+				twitter: 'twitter.com/kyliecosmetics',
+				website: 'kyliecosmetics.net',
+			},
+			funds: 999,
+			neededFunds: 2,
+		},
+		{
+			name: 'Kylie Skin',
+			type: 'DAO',
+			email: 'kylieskin@gmail.com',
+			members: 170,
+			teams: ['marketing'],
+			description: 'Hello',
+			selectedNetwork: 'Ethereum',
+			picture: '',
+			socialMedias: {
+				instagram: '@kylieskin',
+				telegram: 't/kylieskin',
+				twitter: 'twitter.com/kylieskin',
+				website: 'kylieskin.net',
+			},
+			funds: 999,
+			neededFunds: 2,
+		},
+		{
+			name: 'Kylie Baby',
+			type: 'DAO',
+			email: 'kyliebaby@gmail.com',
+			members: 13,
+			teams: ['marketing'],
+			description: 'Hello',
+			selectedNetwork: 'Ethereum',
+			picture: '',
+			socialMedias: {
+				instagram: '@kyliebaby',
+				telegram: 't/kyliebaby',
+				twitter: 'twitter.com/kyliebaby',
+				website: 'kyliebaby.net',
+			},
+			funds: 5234.11,
+			neededFunds: 1,
+		},
+		{
+			name: 'Kylie Cosmetics',
+			type: 'DAO',
+			email: 'kyliecosmetics@gmail.com',
+			members: 2,
+			teams: ['marketing'],
+			description: 'Hello',
+			selectedNetwork: 'Ethereum',
+			picture: '',
+			socialMedias: {
+				instagram: '@kyliecosmetics',
+				telegram: 't/kyliecosmetics',
+				twitter: 'twitter.com/kyliecosmetics',
+				website: 'kyliecosmetics.net',
+			},
+			funds: 999,
+			neededFunds: 2,
+		},
+		{
+			name: 'Kylie Cosmetics',
+			type: 'DAO',
+			email: 'kyliecosmetics@gmail.com',
+			members: 2,
+			teams: ['marketing'],
+			description: 'Hello',
+			selectedNetwork: 'Ethereum',
+			picture: '',
+			socialMedias: {
+				instagram: '@kyliecosmetics',
+				telegram: 't/kyliecosmetics',
+				twitter: 'twitter.com/kyliecosmetics',
+				website: 'kyliecosmetics.net',
+			},
+			funds: 999,
+			neededFunds: 2,
+		},
+	]);
 
 	const [notificationsList, setNotificationsList] = useState<
 		INotificationList[]
@@ -152,7 +248,10 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 	const [editedInfo, setEditedInfo] = useState<ICompany>({} as ICompany);
 
 	const getAllUserCompanies = async () => {
-		const response = await mainClient.get(`/user/${wallet}/company`);
+		if (!wallet) throw new Error('User not connected');
+		const response = await mainClient.get(
+			MAIN_SERVICE_ROUTES.allUserCompanies(wallet)
+		);
 		setAllUserCompanies(response.data);
 		return response.data;
 	};
@@ -190,7 +289,7 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 
 	const createCompany = async (company: ICompany) => {
 		await mainClient
-			.post('/company/', {
+			.post(MAIN_SERVICE_ROUTES.createCompany, {
 				company,
 			})
 			.then(id =>
@@ -202,7 +301,7 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 
 	const updateCompany = async (company: ICompany) => {
 		await mainClient
-			.put(`/company/${Number(query.id)}`, {
+			.put(MAIN_SERVICE_ROUTES.updateCompany(Number(query.id)), {
 				company,
 			})
 			.then(id =>
@@ -210,23 +309,34 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 			);
 	};
 	const getAllCompanyEmployees = async (id: number) => {
-		const response = await mainClient.get(`/company/${id}/users`);
+		const response = await mainClient.get(
+			MAIN_SERVICE_ROUTES.allCompanyEmployees(id)
+		);
 		return response.data;
 	};
 
 	const getAllCompanyTeams = async (id: number) => {
-		const response = await mainClient.get(`/company/${id}/teams`);
+		const response = await mainClient.get(
+			MAIN_SERVICE_ROUTES.allCompanyTeams(id)
+		);
 		return response.data;
 	};
 
-	const { data: teams } = useQuery('all-company-teams', () =>
-		getAllCompanyTeams(Number(query.id))
+	const { data: teams } = useQuery(
+		'all-company-teams',
+		() => getAllCompanyTeams(Number(query.id)),
+		{
+			enabled: !!query.id,
+		}
 	);
 
 	const addEmployeeToTeam = async (employee: INewEmployee) => {
 		const { id } = teams[0];
 		const groupId = 1;
-		await mainClient.post(`/team/${id}/${groupId}/user`, employee);
+		await mainClient.post(
+			MAIN_SERVICE_ROUTES.addEmployee(id, groupId),
+			employee
+		);
 	};
 
 	const addEmployeeCsv = async (
@@ -234,9 +344,13 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 	) => {
 		const { id } = teams[0];
 		const groupId = 1;
-		await mainClient.post(`/team/${id}/${groupId}/users`, employee, {
-			headers: { 'Content-Type': 'text/plain' },
-		});
+		await mainClient.post(
+			MAIN_SERVICE_ROUTES.addCsvEmployee(id, groupId),
+			employee,
+			{
+				headers: { 'Content-Type': 'text/plain' },
+			}
+		);
 	};
 
 	const updateEmployee = async (
@@ -273,6 +387,7 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 			allUserCompanies,
 			selectedCompany,
 			updateCompany,
+			companies,
 		}),
 		[
 			selectedCompany,
@@ -286,6 +401,8 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 			socialMediasData,
 			allUserCompanies,
 			setSocialMediasData,
+			updateCompany,
+			companies,
 		]
 	);
 

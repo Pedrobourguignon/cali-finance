@@ -26,11 +26,17 @@ import {
 	ChangeNetworkButton,
 	NetworkModal,
 } from 'components';
-import { navigationPaths, socialMediaLinks, truncateWallet } from 'utils';
+import {
+	getLogo,
+	navigationPaths,
+	socialMediaLinks,
+	truncateWallet,
+} from 'utils';
 import { INetwork } from 'types';
 import useTranslation from 'next-translate/useTranslation';
 import { useSession, signOut } from 'next-auth/react';
 import NextLink from 'next/link';
+import { useQuery } from 'react-query';
 import { useAccount, useDisconnect } from 'wagmi';
 
 interface IMenuItem {
@@ -82,9 +88,9 @@ export const Sidebar: React.FC = () => {
 	];
 	const theme = usePicasso();
 	const { includesPath } = usePath();
-	const { userProfile } = useProfile();
+	const { getProfileData } = useProfile();
 	const { address: walletAddress } = useAccount();
-	const { locale, asPath } = useRouter();
+	const { locale, asPath, pathname } = useRouter();
 	const { data: session } = useSession();
 	const { disconnect } = useDisconnect();
 	const languages: ILanguage[] = ['en-US', 'pt-BR'];
@@ -106,14 +112,17 @@ export const Sidebar: React.FC = () => {
 	}, []);
 
 	const changeLanguage = (lang: string) => {
-		router.push(`/${asPath}`, `/${asPath}`, { locale: lang });
+		router.push(`${asPath}`, `${asPath}`, { locale: lang });
 		localStorage.setItem('language', lang);
 	};
 
 	useEffect(() => {
-		changeLanguage(localStorage.getItem('language')!);
+		if (!pathname.includes('404')) {
+			changeLanguage(localStorage.getItem('language')!);
+		}
 	}, [locale]);
 
+	const { data: profileData } = useQuery('profile-data', getProfileData);
 	const handleSignOut = () => {
 		disconnect();
 		signOut();
@@ -163,6 +172,7 @@ export const Sidebar: React.FC = () => {
 									autoSelect={false}
 									isOpen={isOpenMenu}
 									onClose={onCloseMenu}
+									placement="bottom"
 								>
 									<MenuButton
 										h="max-content"
@@ -187,9 +197,9 @@ export const Sidebar: React.FC = () => {
 										<Flex align="center" gap="2" justify="center">
 											<Img
 												src={
-													userProfile.picture === ''
+													!profileData?.picture
 														? '/images/editImage.png'
-														: userProfile.picture
+														: getLogo(profileData?.picture)
 												}
 												borderRadius="full"
 												boxSize="6"

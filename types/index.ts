@@ -6,5 +6,6 @@ export * from './IChainDictionary';
 export * from './ICoin';
 export * from './INetwork';
 export * from './IProfile';
+export * from './landing';
 export * from './modals';
 export * from './popover';

@@ -17,6 +17,7 @@ export const AppLayout: React.FC<ILanding> = ({
 	bgColor,
 }) => {
 	const theme = usePicasso();
+
 	return (
 		<AuthProvider>
 			<ProfileProvider>

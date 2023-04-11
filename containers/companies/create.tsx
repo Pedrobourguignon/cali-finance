@@ -87,7 +87,7 @@ export const CreateCompanyContainer = () => {
 								/>
 							),
 						});
-					} else if (error.response?.data.message === 'Unauthorized') {
+					} else if (error.response?.status === 401) {
 						toast({
 							position: 'top',
 							render: () => (

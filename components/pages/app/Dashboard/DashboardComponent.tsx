@@ -5,15 +5,17 @@ import {
 	CreateCompanyCard,
 	RecentActivitiesDashboard,
 	MyAssets,
-	CompaniesList,
+	CompaniesListFixed,
 } from 'components';
 import React from 'react';
 import { IRecentActivitiesList } from 'types';
 import useTranslation from 'next-translate/useTranslation';
 import { useSession } from 'next-auth/react';
+import { useAccount } from 'wagmi';
 import { useQuery } from 'react-query';
 import { useCompanies } from 'hooks';
-import { useAccount } from 'wagmi';
+import { NotFoundContainer } from 'containers';
+import { ProfileProvider } from 'contexts';
 
 export const DashboardComponent: React.FC = () => {
 	const { t: translate } = useTranslation('dashboard');
@@ -65,14 +67,7 @@ export const DashboardComponent: React.FC = () => {
 					<Coins />
 				</Flex>
 				<Flex direction="column" gap="9" pt={!session ? '4' : 0}>
-					{session ? (
-						<CompaniesList
-							companies={companies}
-							isLoading={isLoadingCompanies}
-						/>
-					) : (
-						<CreateCompanyCard />
-					)}
+					{session ? <CompaniesListFixed /> : <CreateCompanyCard />}
 					{session && (
 						<Flex justify="space-between" w="full" gap="6">
 							<Flex w="full" flex="5.5">

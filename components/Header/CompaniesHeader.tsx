@@ -130,7 +130,7 @@ export const CompaniesHeader = () => {
 						borderRadius="base"
 						px="5"
 						py="1.5"
-						bg="gray.50"
+						bg="gray.100"
 						fontSize="sm"
 						fontWeight="medium"
 						cursor="pointer"

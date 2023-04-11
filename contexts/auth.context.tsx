@@ -1,9 +1,9 @@
 import React, { createContext, useMemo, useEffect } from 'react';
 import { AUTH_SERVICE_ROUTES } from 'helpers';
-import { useSignMessage } from 'wagmi';
+import { useAccount, useSignMessage } from 'wagmi';
 import { useToasty } from 'hooks';
-import { signIn, useSession } from 'next-auth/react';
-import { getCookie, setCookie, setCookies } from 'cookies-next';
+import { signIn, signOut, useSession } from 'next-auth/react';
+import { setCookie } from 'cookies-next';
 
 interface IAuthContext {
 	getSignature: (nonce: string) => Promise<`0x${string}` | undefined>;
@@ -19,6 +19,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 	const { data: session } = useSession();
 	const { toast } = useToasty();
 	const { signMessageAsync } = useSignMessage();
+	const { isConnected } = useAccount();
 
 	const getNonce = async (walletNumber: `0x${string}` | undefined) => {
 		try {
@@ -66,6 +67,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 			throw new Error(error);
 		}
 	};
+
+	useEffect(() => {
+		if (!isConnected && session) {
+			signOut();
+		}
+	}, []);
 
 	useEffect(() => {
 		if (session) {
