@@ -25,6 +25,7 @@ import {
 import router, { useRouter } from 'next/router';
 import { useQuery } from 'react-query';
 import { useAccount } from 'wagmi';
+import { MAIN_SERVICE_ROUTES } from 'helpers';
 
 interface ICompanyContext {
 	activities: IActivities[];
@@ -240,7 +241,10 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 	const [editedInfo, setEditedInfo] = useState<ICompany>({} as ICompany);
 
 	const getAllUserCompanies = async () => {
-		const response = await mainClient.get(`/user/${wallet}/company`);
+		if (!wallet) throw new Error('User not connected');
+		const response = await mainClient.get(
+			MAIN_SERVICE_ROUTES.allUserCompanies(wallet)
+		);
 		setAllUserCompanies(response.data);
 		return response.data;
 	};
@@ -278,7 +282,7 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 
 	const createCompany = async (company: ICompany) => {
 		await mainClient
-			.post('/company/', {
+			.post(MAIN_SERVICE_ROUTES.createCompany, {
 				company,
 			})
 			.then(id =>
@@ -290,7 +294,7 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 
 	const updateCompany = async (company: ICompany) => {
 		await mainClient
-			.put(`/company/${Number(query.id)}`, {
+			.put(MAIN_SERVICE_ROUTES.updateCompany(Number(query.id)), {
 				company,
 			})
 			.then(id =>
@@ -298,23 +302,34 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 			);
 	};
 	const getAllCompanyEmployees = async (id: number) => {
-		const response = await mainClient.get(`/company/${id}/users`);
+		const response = await mainClient.get(
+			MAIN_SERVICE_ROUTES.allCompanyEmployees(id)
+		);
 		return response.data;
 	};
 
 	const getAllCompanyTeams = async (id: number) => {
-		const response = await mainClient.get(`/company/${id}/teams`);
+		const response = await mainClient.get(
+			MAIN_SERVICE_ROUTES.allCompanyTeams(id)
+		);
 		return response.data;
 	};
 
-	const { data: teams } = useQuery('all-company-teams', () =>
-		getAllCompanyTeams(Number(query.id))
+	const { data: teams } = useQuery(
+		'all-company-teams',
+		() => getAllCompanyTeams(Number(query.id)),
+		{
+			enabled: !!query.id,
+		}
 	);
 
 	const addEmployeeToTeam = async (employee: INewEmployee) => {
 		const { id } = teams[0];
 		const groupId = 1;
-		await mainClient.post(`/team/${id}/${groupId}/user`, employee);
+		await mainClient.post(
+			MAIN_SERVICE_ROUTES.addEmployee(id, groupId),
+			employee
+		);
 	};
 
 	const addEmployeeCsv = async (
@@ -322,9 +337,13 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 	) => {
 		const { id } = teams[0];
 		const groupId = 1;
-		await mainClient.post(`/team/${id}/${groupId}/users`, employee, {
-			headers: { 'Content-Type': 'text/plain' },
-		});
+		await mainClient.post(
+			MAIN_SERVICE_ROUTES.addCsvEmployee(id, groupId),
+			employee,
+			{
+				headers: { 'Content-Type': 'text/plain' },
+			}
+		);
 	};
 
 	const contextStates = useMemo(
