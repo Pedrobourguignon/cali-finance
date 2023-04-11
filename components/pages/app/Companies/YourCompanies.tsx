@@ -1,6 +1,5 @@
 import { Flex, Text } from '@chakra-ui/react';
-import { CompaniesList } from 'components';
-import { useCompanies, usePicasso } from 'hooks';
+import { usePicasso } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
 
 export const YourCompanies = () => {
@@ -16,7 +15,6 @@ export const YourCompanies = () => {
 			>
 				{translate('yourCompanies')}
 			</Text>
-			{/* <CompaniesList /> */}
 		</Flex>
 	);
 };

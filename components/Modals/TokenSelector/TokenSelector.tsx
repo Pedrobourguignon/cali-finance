@@ -121,6 +121,15 @@ export const TokenSelector: React.FC<ITokenSelector> = ({
 							px: '1',
 						}}
 					>
+						{filteredTokens?.map((token, index) => (
+							<TokenOptions
+								key={+index}
+								token={token}
+								onClick={() =>
+									handleOnClick(token.symbol.toLowerCase(), token.logoURI)
+								}
+							/>
+						))}
 						<InfiniteScroll
 							dataLength={loadedTokens.length}
 							next={() => loadMoreTokens()}

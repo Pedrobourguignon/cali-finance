@@ -104,6 +104,7 @@ export const TokensProvider: React.FC<{ children: React.ReactNode }> = ({
 			const response = await coinClient.get(`coin?symbols=${symbols}`);
 			return response.data;
 		}
+		return null;
 	};
 
 	const contextStates = useMemo(
