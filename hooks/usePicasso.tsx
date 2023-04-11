@@ -19,6 +19,7 @@ const usePicasso = () => {
 			cyan: '#02E4D1',
 			red: '#E83151',
 			royal: '#0B132B',
+			socialIcons: '#0EBEEE',
 		},
 		icon: {
 			theme: useColorModeValue(BsFillMoonFill, BsFillSunFill),
@@ -29,6 +30,7 @@ const usePicasso = () => {
 			red: '0px 0px 10px rgba(232, 49, 81, 0.5)',
 		},
 		bg: {
+			white: '#FFFFFF',
 			white2: '#F7FAFC',
 			primary: '#121212',
 			secondary: useColorModeValue('gray.200', '#100F12'),
@@ -44,6 +46,9 @@ const usePicasso = () => {
 		},
 		sizes: {
 			menuItem: '11.875rem',
+		},
+		gradients: {
+			landing: 'linear(to-r, #09CFD6, #1A94E1)',
 		},
 	};
 
