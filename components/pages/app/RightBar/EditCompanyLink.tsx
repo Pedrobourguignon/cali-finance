@@ -8,25 +8,46 @@ import {
 import { useCompanies, usePicasso } from 'hooks';
 import { useSession } from 'next-auth/react';
 import useTranslation from 'next-translate/useTranslation';
-import { Dispatch, SetStateAction, useEffect } from 'react';
+import { Dispatch, SetStateAction } from 'react';
 import { ISocialMediaInput, ISociaLinksInputValue } from 'types';
 import { ICompany } from 'types/interfaces/main-server/ICompany';
-import { chainList, handleLogoImage } from 'utils';
+import { getLogo, handleLogoImage } from 'utils';
 
 interface ICompanyLogo {
 	company: ICompany | undefined;
 	logo: string | undefined;
+	displayedEditedPicture: string | undefined;
 }
 
-const CompanyLogo: React.FC<ICompanyLogo> = ({ company, logo }) => {
+const CompanyLogo: React.FC<ICompanyLogo> = ({
+	company,
+	logo,
+	displayedEditedPicture,
+}) => {
 	const theme = usePicasso();
-	const selectedCompany = {
-		picture: 'no-logo.png',
-		name: 'fazuele',
-	};
 
+	if (displayedEditedPicture === '')
+		return (
+			<Flex
+				boxSize="20"
+				color="black"
+				bg={theme.bg.white2}
+				borderRadius="base"
+				align="center"
+				justify="center"
+				fontSize="4xl"
+			>
+				{handleLogoImage(company?.name)}
+			</Flex>
+		);
+
+	if (displayedEditedPicture !== logo) {
+		return (
+			<Img src={displayedEditedPicture} boxSize="20" borderRadius="base" />
+		);
+	}
 	if (logo) {
-		return <Img src={logo} boxSize="20" borderRadius="base" />;
+		return <Img src={getLogo(logo)} boxSize="20" borderRadius="base" />;
 	}
 	if (company?.name)
 		return (
@@ -46,6 +67,8 @@ const CompanyLogo: React.FC<ICompanyLogo> = ({ company, logo }) => {
 };
 
 export const EditCompanyLink: React.FC<{
+	displayedEditedPicture: string | undefined;
+	editedCompanyPicture: string | undefined;
 	company: ICompany | undefined;
 	logo: string | undefined;
 	handleEditedPicture: (picture: string) => void;
@@ -57,15 +80,13 @@ export const EditCompanyLink: React.FC<{
 	setEditedSocialLinksInputValue,
 	handleEditedPicture,
 	logo,
+	editedCompanyPicture,
+	displayedEditedPicture,
 }) => {
 	const theme = usePicasso();
 	const { editedInfo } = useCompanies();
 	const { t: translate } = useTranslation('create-company');
 	const { data: session } = useSession();
-	const selectedCompany = {
-		picture: 'no-logo.png',
-		name: 'fazuele',
-	};
 
 	const socialLinks: ISocialMediaInput[] = [
 		{
@@ -115,8 +136,17 @@ export const EditCompanyLink: React.FC<{
 				zIndex="docked"
 			>
 				<Flex direction="column" align="center" gap="4" w="100%">
-					<CompanyLogo company={company} logo={logo} />
-					<ImageUploader sendImage={handleEditedPicture} />
+					<CompanyLogo
+						company={company}
+						logo={logo}
+						displayedEditedPicture={displayedEditedPicture}
+					/>
+					<ImageUploader
+						displayedEditedPicture={displayedEditedPicture}
+						handleEditedPicture={handleEditedPicture}
+						sendImage={handleEditedPicture}
+						editedCompanyPicture={editedCompanyPicture}
+					/>
 				</Flex>
 				<Flex w="100%">
 					<Flex direction="column" gap="4" w="100%">

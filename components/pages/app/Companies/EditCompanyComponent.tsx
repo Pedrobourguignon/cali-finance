@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import {
 	Button,
 	Flex,
@@ -23,8 +24,13 @@ import { useSession } from 'next-auth/react';
 import { ChevronDownIcon } from '@chakra-ui/icons';
 import { ICompany } from 'types/interfaces/main-server/ICompany';
 import { networkInfos } from 'utils';
+import { ISociaLinksInputValue } from 'types';
 
 interface IEditCompanyComponent {
+	editedSocialLinksInputValue: ISociaLinksInputValue;
+	setEditedSocialLinksInputValue: Dispatch<
+		SetStateAction<ISociaLinksInputValue>
+	>;
 	editedCompanyPicture: string | undefined;
 	register: UseFormRegister<ICompany>;
 	errors: FieldErrors<ICompany>;
@@ -72,6 +78,8 @@ export const EditCompanyComponent: React.FC<IEditCompanyComponent> = ({
 	selectedType,
 	setSelectedType,
 	editedCompanyPicture,
+	editedSocialLinksInputValue,
+	setEditedSocialLinksInputValue,
 }) => {
 	const [editedInfo, setEditedInfo] = useState<ICompany>({} as ICompany);
 	const theme = usePicasso();
@@ -95,7 +103,19 @@ export const EditCompanyComponent: React.FC<IEditCompanyComponent> = ({
 			icon: networkInfos(company?.network).icon,
 			id: company?.network,
 		});
-	}, [company]);
+		setEditedSocialLinksInputValue({
+			websiteURL: company?.socialMedia![0].url,
+			instagramURL: company?.socialMedia![1].url,
+			twitterURL: company?.socialMedia![2].url,
+			telegramURL: company?.socialMedia![3].url,
+			mediumURL: company?.socialMedia![4].url,
+		});
+	}, [
+		company,
+		setEditedSocialLinksInputValue,
+		setSelectedNetwork,
+		setSelectedType,
+	]);
 
 	return (
 		<Flex direction="column" minW="24.2rem">
@@ -357,6 +377,16 @@ export const EditCompanyComponent: React.FC<IEditCompanyComponent> = ({
 								editedInfo?.contactEmail === company?.contactEmail &&
 								editedInfo?.description === company?.description &&
 								editedInfo?.type === company?.type &&
+								editedSocialLinksInputValue.websiteURL ===
+									company?.socialMedia![0].url &&
+								editedSocialLinksInputValue.instagramURL ===
+									company?.socialMedia![1].url &&
+								editedSocialLinksInputValue.twitterURL ===
+									company?.socialMedia![2].url &&
+								editedSocialLinksInputValue.telegramURL ===
+									company?.socialMedia![3].url &&
+								editedSocialLinksInputValue.mediumURL ===
+									company?.socialMedia![4].url &&
 								editedInfo?.network === selectedNetwork.id) ||
 							!session
 						}

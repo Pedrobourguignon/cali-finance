@@ -59,7 +59,7 @@ const useSchema = () => {
 		name: yup
 			.string()
 			.required(translate('required'))
-			.matches(nameRegex, translate('nameDontAcceptNumber'))
+			.matches(companyNameRegex, translate('nameDontAcceptNumber'))
 			.min(3),
 		contactEmail: yup
 			.string()

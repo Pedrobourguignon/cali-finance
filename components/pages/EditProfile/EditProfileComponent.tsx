@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import {
 	Button,
 	Flex,
@@ -15,8 +16,6 @@ import useTranslation from 'next-translate/useTranslation';
 import { AlertToast, BlackButton, ImageUploaderModal } from 'components';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
-import { AiFillCheckCircle } from 'react-icons/ai';
-
 import { useSession } from 'next-auth/react';
 import { IUser } from 'types/interfaces/main-server/IUser';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
@@ -77,9 +76,9 @@ export const EditProfileComponent = () => {
 		{} as IEditedInfo
 	);
 
-	const [editedProfilePicture, setEditedProfilePicture] = useState(
-		'/images/editImage.png'
-	);
+	const [editedProfilePicture, setEditedProfilePicture] = useState<
+		string | null
+	>('/images/editImage.png');
 
 	useEffect(() => {
 		setEditedProfileInfo({
@@ -88,17 +87,29 @@ export const EditProfileComponent = () => {
 			picture: profileData?.picture,
 		});
 		if (profileData?.picture) {
-			const logo = getLogo(profileData.picture);
-			setEditedProfilePicture(logo);
+			setEditedProfilePicture(profileData.picture);
 		}
 	}, [profileData]);
 
-	const handleEditProfile = (editedProfileData: IUser) => {
+	const handleEditProfile = () => {
 		mutate({
-			name: !profileData?.name ? editedProfileData.name : profileData.name,
-			email: !profileData?.email ? editedProfileData.email : profileData.email,
-			picture: editedProfilePicture,
+			name: editedProfileInfo.name,
+			email: editedProfileInfo.email,
+			picture:
+				editedProfilePicture! === '/images/editImage.png'
+					? ''
+					: editedProfilePicture!,
 		});
+	};
+
+	const handleProfileImage = () => {
+		if (editedProfilePicture === null) {
+			return '/images/editImage.png';
+		}
+		if (editedProfilePicture === profileData?.picture) {
+			return getLogo(editedProfilePicture);
+		}
+		return editedProfilePicture;
 	};
 
 	return (
@@ -139,27 +150,47 @@ export const EditProfileComponent = () => {
 					zIndex="docked"
 				>
 					<Img
-						src={editedProfilePicture}
+						src={handleProfileImage()}
 						boxSize="24"
 						borderRadius="full"
 						objectFit="cover"
 					/>
 				</Flex>
-				<Button
-					mt="4"
-					fontSize={{ md: 'xs', '2xl': 'sm' }}
-					bg={theme.text.primary}
-					borderRadius="sm"
-					px={{ md: '2', '2xl': '6' }}
-					h="max-content"
-					py="1"
-					_hover={{}}
-					_focus={{ bg: theme.text.primary }}
-					onClick={onOpen}
-					disabled={!session}
-				>
-					{translate('editProfileImage')}
-				</Button>
+				<Flex gap="4">
+					<Button
+						mt="4"
+						fontSize={{ md: 'xs', '2xl': 'sm' }}
+						bg={theme.text.primary}
+						borderRadius="sm"
+						px={{ md: '2', '2xl': '6' }}
+						h="max-content"
+						py="1"
+						_hover={{}}
+						_focus={{ bg: theme.text.primary }}
+						onClick={onOpen}
+						disabled={!session}
+					>
+						{translate('editProfileImage')}
+					</Button>
+					<Button
+						mt="4"
+						fontSize={{ md: 'xs', '2xl': 'sm' }}
+						bg={theme.text.primary}
+						borderRadius="sm"
+						px={{ md: '2', '2xl': '6' }}
+						h="max-content"
+						py="1"
+						_hover={{}}
+						_focus={{ bg: theme.text.primary }}
+						// onClick={() => setNoPicture('/images/editImage.png')}
+						onClick={() => setEditedProfilePicture(null)}
+						isDisabled={
+							!session || editedProfilePicture === '/images/editImage.png'
+						}
+					>
+						{translate('deleteImage')}
+					</Button>
+				</Flex>
 			</Flex>
 			<Flex direction="column" align="center" h="full" pt="6">
 				<form onSubmit={handleSubmit(handleEditProfile)}>
@@ -236,7 +267,7 @@ export const EditProfileComponent = () => {
 									editedProfileInfo.email === profileData?.email &&
 									editedProfileInfo.name === profileData?.name &&
 									editedProfileInfo.picture === profileData?.picture &&
-									editedProfileInfo.picture === editedProfilePicture.slice(25)
+									editedProfileInfo.picture === editedProfilePicture
 								}
 								_disabled={{ opacity: '50%', cursor: 'not-allowed' }}
 							>
