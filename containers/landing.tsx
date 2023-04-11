@@ -2,6 +2,7 @@ import { Button, Flex, Img, Text } from '@chakra-ui/react';
 import { LandingHeader, OffsetShadow } from 'components';
 import { usePicasso } from 'hooks';
 import { LandingPage } from 'layouts';
+import { usefulLinks } from 'utils';
 
 export const LandingContainer: React.FC = () => {
 	const theme = usePicasso();
@@ -96,9 +97,7 @@ export const LandingContainer: React.FC = () => {
 									fontSize="md"
 									px="12"
 									py="3"
-									onClick={() =>
-										window.open('https://califinance.ck.page/6455cc2350')
-									}
+									onClick={() => window.open(usefulLinks.joinOurWaitlist)}
 								>
 									Join our Waitlist
 								</Button>
