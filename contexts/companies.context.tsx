@@ -14,6 +14,7 @@ import {
 	IHistoryNotification,
 	ISocialMedia,
 	INewEmployee,
+	IMockCompany,
 } from 'types';
 import { historyNotifications } from 'components';
 import { mainClient, navigationPaths } from 'utils';
@@ -52,6 +53,7 @@ interface ICompanyContext {
 	allUserCompanies: GetUserCompaniesRes[];
 	selectedCompany: ICompany;
 	companiesWithMissingFunds: GetUserCompaniesRes[];
+	companies: IMockCompany[];
 }
 
 export const CompaniesContext = createContext({} as ICompanyContext);
@@ -80,6 +82,99 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 
 	const [filteredNotifications, setFilteredNotifications] =
 		useState<IHistoryNotification[]>(historyNotifications);
+
+	const [companies, setCompanies] = useState<IMockCompany[]>([
+		{
+			name: 'Kylie Cosmetics',
+			type: 'DAO',
+			email: 'kyliecosmetics@gmail.com',
+			members: 2,
+			teams: ['marketing'],
+			description: 'Hello',
+			selectedNetwork: 'Ethereum',
+			picture: '',
+			socialMedias: {
+				instagram: '@kyliecosmetics',
+				telegram: 't/kyliecosmetics',
+				twitter: 'twitter.com/kyliecosmetics',
+				website: 'kyliecosmetics.net',
+			},
+			funds: 999,
+			neededFunds: 2,
+		},
+		{
+			name: 'Kylie Skin',
+			type: 'DAO',
+			email: 'kylieskin@gmail.com',
+			members: 170,
+			teams: ['marketing'],
+			description: 'Hello',
+			selectedNetwork: 'Ethereum',
+			picture: '',
+			socialMedias: {
+				instagram: '@kylieskin',
+				telegram: 't/kylieskin',
+				twitter: 'twitter.com/kylieskin',
+				website: 'kylieskin.net',
+			},
+			funds: 999,
+			neededFunds: 2,
+		},
+		{
+			name: 'Kylie Baby',
+			type: 'DAO',
+			email: 'kyliebaby@gmail.com',
+			members: 13,
+			teams: ['marketing'],
+			description: 'Hello',
+			selectedNetwork: 'Ethereum',
+			picture: '',
+			socialMedias: {
+				instagram: '@kyliebaby',
+				telegram: 't/kyliebaby',
+				twitter: 'twitter.com/kyliebaby',
+				website: 'kyliebaby.net',
+			},
+			funds: 5234.11,
+			neededFunds: 1,
+		},
+		{
+			name: 'Kylie Cosmetics',
+			type: 'DAO',
+			email: 'kyliecosmetics@gmail.com',
+			members: 2,
+			teams: ['marketing'],
+			description: 'Hello',
+			selectedNetwork: 'Ethereum',
+			picture: '',
+			socialMedias: {
+				instagram: '@kyliecosmetics',
+				telegram: 't/kyliecosmetics',
+				twitter: 'twitter.com/kyliecosmetics',
+				website: 'kyliecosmetics.net',
+			},
+			funds: 999,
+			neededFunds: 2,
+		},
+		{
+			name: 'Kylie Cosmetics',
+			type: 'DAO',
+			email: 'kyliecosmetics@gmail.com',
+			members: 2,
+			teams: ['marketing'],
+			description: 'Hello',
+			selectedNetwork: 'Ethereum',
+			picture: '',
+			socialMedias: {
+				instagram: '@kyliecosmetics',
+				telegram: 't/kyliecosmetics',
+				twitter: 'twitter.com/kyliecosmetics',
+				website: 'kyliecosmetics.net',
+			},
+			funds: 999,
+			neededFunds: 2,
+		},
+	]);
 
 	const [notificationsList, setNotificationsList] = useState<
 		INotificationList[]
@@ -258,6 +353,7 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 			allUserCompanies,
 			selectedCompany,
 			updateCompany,
+			companies,
 		}),
 		[
 			selectedCompany,
@@ -271,6 +367,8 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 			socialMediasData,
 			allUserCompanies,
 			setSocialMediasData,
+			updateCompany,
+			companies,
 		]
 	);
 
