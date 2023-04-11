@@ -269,13 +269,6 @@ export const EditProfileComponent = () => {
 									editedProfileInfo.picture === profileData?.picture &&
 									editedProfileInfo.picture === editedProfilePicture
 								}
-								// isDisabled={
-								// 	editedProfileInfo.email === profileData?.email &&
-								// 	editedProfileInfo.name === profileData?.name &&
-								// 	editedProfileInfo.picture === profileData?.picture &&
-								// 	editedProfileInfo.picture === editedProfilePicture &&
-								// 	editedProfilePicture === '/images/editImage.png'
-								// }
 								_disabled={{ opacity: '50%', cursor: 'not-allowed' }}
 							>
 								{translate('saveChanges')}
