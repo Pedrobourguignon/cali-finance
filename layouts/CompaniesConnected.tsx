@@ -26,6 +26,7 @@ export const CompaniesConnected: React.FC = () => {
 	} = useQuery('all-companies', getAllUserCompanies, {
 		enabled: !!isConnected,
 	});
+	console.log(companies);
 
 	return (
 		<AppLayout right={<CompaniesRightBar />}>
@@ -39,11 +40,11 @@ export const CompaniesConnected: React.FC = () => {
 						totalFunds={67900}
 					/>
 				</Flex>
-				<Flex w="full" flexDir="column" gap="8" pt="10">
+				<Flex w="full" flexDir="column" gap="8">
 					{companies?.length ? (
-						<CompaniesListFixed />
+						<CompaniesListFixed companies={companies} />
 					) : (
-						<Flex direction="column" gap="4">
+						<Flex direction="column" gap="4" pt="10">
 							<Text
 								fontSize="md"
 								fontWeight="medium"

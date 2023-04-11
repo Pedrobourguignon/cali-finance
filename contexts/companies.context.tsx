@@ -40,7 +40,7 @@ interface ICompanyContext {
 	setDisplayNeedFundsCard: Dispatch<SetStateAction<string>>;
 	filteredNotifications: IHistoryNotification[];
 	setFilteredNotifications: Dispatch<SetStateAction<IHistoryNotification[]>>;
-	getAllUserCompanies: () => Promise<ICompany[]>;
+	getAllUserCompanies: () => Promise<GetUserCompaniesRes[]>;
 	createCompany: (company: ICompany) => Promise<void>;
 	socialMediasData: ISocialMedia[];
 	setSocialMediasData: Dispatch<SetStateAction<ISocialMedia[]>>;
