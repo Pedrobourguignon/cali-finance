@@ -42,6 +42,7 @@ export const CompanyCard: React.FC<ICompanyCard> = ({
 				xl: '13.813rem',
 				'2xl': '13.1rem',
 			}}
+			maxW={{ md: '10.55rem', lg: '10.5rem' }}
 			h="8.375rem"
 		>
 			<WithdrawModal

@@ -1,10 +1,6 @@
 import { Button, Flex, Text, useDisclosure } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
-import {
-	CompanyCard,
-	CompanyCardSkeleton,
-	CreateCompanyCard,
-} from 'components';
+import { CompanyCard, CreateCompanyCard } from 'components';
 import { usePicasso } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
 import { GetUserCompaniesRes } from 'types/interfaces/main-server/ICompany';
@@ -15,12 +11,23 @@ interface ICompaniesList {
 
 export const CompaniesListFixed: React.FC<ICompaniesList> = ({ companies }) => {
 	const theme = usePicasso();
-	const [flexWidth, setFlexWidth] = useState<number>();
+	const [flexWidth, setFlexWidth] = useState<number>(
+		window.innerWidth < 1281 ? 3 : 4
+	);
 	const { isOpen: isFullList, onToggle: toggleListView } = useDisclosure();
 	const { t: translate } = useTranslation('company-overall');
 	const { t: translateDashboard } = useTranslation('dashboard');
 
+	const setInitialWidth = () => {
+		if (window.innerWidth < 1281) {
+			setFlexWidth(3);
+		} else if (window.innerWidth > 1515 && window.innerWidth < 1768) {
+			setFlexWidth(4);
+		} else if (window.innerWidth > 1700) setFlexWidth(5);
+	};
+
 	useEffect(() => {
+		setInitialWidth();
 		window.onresize = () => {
 			if (window.innerWidth < 1281) setFlexWidth(3);
 			else if (window.innerWidth > 1515 && window.innerWidth < 1768)
