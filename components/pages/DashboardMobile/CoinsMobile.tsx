@@ -10,7 +10,7 @@ export const CoinsMobile = () => {
 	const { onOpen } = useDisclosure();
 
 	return (
-		<Flex w="full" h="245px" bg={theme.text.primary} borderRadius="base">
+		<Flex w="full" h="15.313rem" bg={theme.text.primary} borderRadius="base">
 			<Flex pl="4" pt="2.5" direction="column" gap="1.5">
 				<Text fontWeight="medium">{translate('coins')}</Text>
 				<Text fontSize="sm" lineHeight="5">

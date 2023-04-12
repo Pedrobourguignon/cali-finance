@@ -27,7 +27,6 @@ export const MobileLayout: React.FC<IMobileLayout> = ({ children }) => {
 					pt="4"
 					direction="column"
 				>
-					<DashboardHeader />
 					{children}
 				</Flex>
 			</Flex>
