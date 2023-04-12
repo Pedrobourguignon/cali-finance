@@ -4,4 +4,5 @@ export * from './CompaniesNoConnected';
 export * from './CompanyWhiteBackground';
 export * from './editProfileLayout';
 export * from './LandingPage';
+export * from './MobileLayout';
 export * from './MobileModalLayout';
