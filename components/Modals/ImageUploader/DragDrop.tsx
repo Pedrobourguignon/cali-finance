@@ -1,5 +1,6 @@
 import { Flex, Img, Text } from '@chakra-ui/react';
 import { usePicasso } from 'hooks';
+import useTranslation from 'next-translate/useTranslation';
 import React, { Dispatch, SetStateAction, useState } from 'react';
 import { FileUploader } from 'react-drag-drop-files';
 
@@ -19,6 +20,7 @@ export const DragDrop: React.FC<IDragDrop> = ({ setPicture }) => {
 	const theme = usePicasso();
 	const [sizeIsValid, setSizeIsValid] = useState(true);
 	const [fileLink, setFileLink] = useState('/images/add-image.png');
+	const { t: translate } = useTranslation('edit-profile');
 
 	const loadFile = (file: IFile) => {
 		const newFile = new FileReader();
