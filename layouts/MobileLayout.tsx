@@ -1,5 +1,5 @@
 import { Flex } from '@chakra-ui/react';
-import { DashboardHeader, MobileHeader } from 'components';
+import { BottomMenuMobile, MobileHeader } from 'components';
 import { ProfileProvider } from 'contexts';
 import { usePicasso } from 'hooks';
 import React from 'react';
@@ -29,6 +29,7 @@ export const MobileLayout: React.FC<IMobileLayout> = ({ children }) => {
 				>
 					{children}
 				</Flex>
+				<BottomMenuMobile />
 			</Flex>
 		</ProfileProvider>
 	);
