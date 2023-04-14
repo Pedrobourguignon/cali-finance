@@ -1,5 +1,5 @@
 import { Flex } from '@chakra-ui/react';
-import { DashboardHeader, MobileHeader } from 'components';
+import { MenuMobile, MobileHeader } from 'components';
 import { ProfileProvider } from 'contexts';
 import { usePicasso } from 'hooks';
 import React from 'react';
@@ -20,8 +20,8 @@ export const MobileLayout: React.FC<IMobileLayout> = ({ children }) => {
 				<MobileHeader />
 				<Flex
 					w="full"
-					h="100vh"
-					bg={theme.bg.white}
+					h="100%"
+					bg={theme.bg.gray2}
 					borderTopRadius="3xl"
 					px="4"
 					pt="4"
@@ -29,6 +29,7 @@ export const MobileLayout: React.FC<IMobileLayout> = ({ children }) => {
 				>
 					{children}
 				</Flex>
+				<MenuMobile />
 			</Flex>
 		</ProfileProvider>
 	);

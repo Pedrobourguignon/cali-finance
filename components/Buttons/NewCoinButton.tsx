@@ -28,7 +28,7 @@ export const NewCoinButton: React.FC<ICoinButton> = ({ onOpen }) => {
 				}}
 				h="full"
 				px={{ base: '5' }}
-				py={{ base: '2' }}
+				py={{ base: '1.5' }}
 				fontSize={{
 					md: locale === 'pt-BR' ? 'xs' : 'xs',
 					xl: locale === 'pt-BR' ? 'xs' : 'sm',
