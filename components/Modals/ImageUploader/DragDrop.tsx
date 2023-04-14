@@ -56,9 +56,9 @@ export const DragDrop: React.FC<IDragDrop> = ({ setPicture }) => {
 			{!sizeIsValid && (
 				<Flex bg="red.100" w="100%" py="2" pl="2.5" borderRadius="base">
 					<Text color={theme.text.primary} fontWeight="semibold" fontSize="sm">
-						The file is too large.
+						{translate('theFileIsTooLarge')}
 						<Text as="span" fontWeight="normal" ml="2">
-							Please upload another image up to 5mb.
+							{translate('pleaseUploadAnother')} 5mb.
 						</Text>
 					</Text>
 				</Flex>
