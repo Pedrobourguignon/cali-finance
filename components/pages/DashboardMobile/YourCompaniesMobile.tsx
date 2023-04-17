@@ -3,7 +3,7 @@ import { usePicasso } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
 import React from 'react';
 import { GetUserCompaniesRes } from 'types/interfaces/main-server/ICompany';
-import { CreateCompanyCard } from 'components';
+import { CreateCompanyCard, CompanyCard } from 'components';
 
 interface IYourCompaniesMobile {
 	companies: GetUserCompaniesRes[] | undefined;
@@ -30,10 +30,23 @@ export const YourCompaniesMobile: React.FC<IYourCompaniesMobile> = ({
 						},
 					}}
 				>
-					{companies && companies.length > 0 ? (
+					{/* {companies && companies.length > 0 ? (
 						companies.map((company, index) => (
 							<Flex key={+index}>
 								<CreateCompanyCard />
+							</Flex>
+						))
+					) : (
+						<CreateCompanyCard />
+					)} */}
+					{companies && companies.length > 0 ? (
+						companies.map((company, index) => (
+							<Flex key={+index}>
+								<CompanyCard
+									company={company}
+									companyMembers={1}
+									userCompanies={companies}
+								/>
 							</Flex>
 						))
 					) : (
