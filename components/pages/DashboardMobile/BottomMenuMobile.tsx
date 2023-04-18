@@ -79,7 +79,7 @@ export const BottomMenuMobile = () => {
 										height: '30px',
 										backgroundColor: 'transparent',
 										borderTopRightRadius: '20px',
-										boxShadow: '0px -18px 0 0 white',
+										boxShadow: '0px -18px 0 0 transparent',
 								  }
 								: {}
 						}
@@ -94,7 +94,7 @@ export const BottomMenuMobile = () => {
 										height: '30px',
 										backgroundColor: 'transparent',
 										borderTopLeftRadius: '20px',
-										boxShadow: '0px -18px 0 0 white',
+										boxShadow: '0px -18px 0 0 transparent',
 								  }
 								: {}
 						}
