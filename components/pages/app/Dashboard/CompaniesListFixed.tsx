@@ -9,14 +9,26 @@ import { useAccount } from 'wagmi';
 
 export const CompaniesListFixed = () => {
 	const theme = usePicasso();
-	const [flexWidth, setFlexWidth] = useState<number>();
+	const [flexWidth, setFlexWidth] = useState<number>(
+		window.innerWidth < 1281 ? 3 : 4
+	);
+
 	const { isOpen: isFullList, onToggle: toggleListView } = useDisclosure();
 	const { t: translate } = useTranslation('company-overall');
 	const { t: translateDashboard } = useTranslation('dashboard');
 	const { getAllUserCompanies } = useCompanies();
 	const { isConnected } = useAccount();
 
+	const setInitialWidth = () => {
+		if (window.innerWidth < 1281) {
+			setFlexWidth(3);
+		} else if (window.innerWidth > 1515 && window.innerWidth < 1768) {
+			setFlexWidth(4);
+		} else if (window.innerWidth > 1700) setFlexWidth(5);
+	};
+
 	useEffect(() => {
+		setInitialWidth();
 		window.onresize = () => {
 			if (window.innerWidth < 1281) setFlexWidth(3);
 			else if (window.innerWidth > 1515 && window.innerWidth < 1768)
@@ -60,17 +72,18 @@ export const CompaniesListFixed = () => {
 				wrap="wrap"
 				gap={{ md: '4', '2xl': '6' }}
 			>
-				{companies!
-					.slice(0, isFullList ? companies?.length : flexWidth)
-					.map((company, index) => (
-						<Flex key={+index}>
-							<CompanyCard
-								company={company}
-								companyMembers={1}
-								userCompanies={companies!}
-							/>
-						</Flex>
-					))}
+				{companies &&
+					companies!
+						.slice(0, isFullList ? companies?.length : flexWidth)
+						.map((company, index) => (
+							<Flex key={+index}>
+								<CompanyCard
+									company={company}
+									companyMembers={1}
+									userCompanies={companies!}
+								/>
+							</Flex>
+						))}
 			</Flex>
 		</Flex>
 	);
