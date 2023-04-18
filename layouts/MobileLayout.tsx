@@ -29,7 +29,9 @@ export const MobileLayout: React.FC<IMobileLayout> = ({ children }) => {
 				>
 					{children}
 				</Flex>
-				<BottomMenuMobile />
+				<Flex w="full" position="fixed" bottom="0">
+					<BottomMenuMobile />
+				</Flex>
 			</Flex>
 		</ProfileProvider>
 	);

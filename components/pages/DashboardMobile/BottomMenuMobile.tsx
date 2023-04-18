@@ -52,7 +52,6 @@ export const BottomMenuMobile = () => {
 			justify="space-between"
 			px="8"
 			align="center"
-			position="absolute"
 			top="100%"
 			bg={theme.bg.primary}
 		>
