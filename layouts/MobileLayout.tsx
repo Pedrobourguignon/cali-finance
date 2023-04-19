@@ -21,7 +21,7 @@ export const MobileLayout: React.FC<IMobileLayout> = ({ children }) => {
 				<Flex
 					w="full"
 					h="100vh"
-					bg={theme.bg.white}
+					bg={theme.bg.gray2}
 					borderTopRadius="3xl"
 					px="4"
 					pt="4"
