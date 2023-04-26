@@ -1,6 +1,7 @@
 import { Button, Flex, Text } from '@chakra-ui/react';
 import { usePicasso } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
+import router from 'next/router';
 
 interface IMockCompanyDashboard {
 	companiesCount: number | undefined;
@@ -85,6 +86,7 @@ export const CompaniesDashboardMobile: React.FC<IMockCompanyDashboard> = ({
 					_active={{}}
 					_focus={{}}
 					_hover={{ opacity: '80%' }}
+					onClick={() => router.push('/companies/create')}
 				>
 					{translate('createCompany')}
 				</Button>

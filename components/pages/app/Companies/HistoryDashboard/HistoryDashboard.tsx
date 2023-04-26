@@ -82,7 +82,7 @@ export const HistoryDashboard = () => {
 	];
 
 	return (
-		<Flex direction="column" gap="4">
+		<Flex direction="column" gap="4" w="full">
 			<Flex
 				w="100%"
 				justify="space-between"
@@ -93,7 +93,7 @@ export const HistoryDashboard = () => {
 				<Menu gutter={0} autoSelect={false}>
 					<MenuButton
 						h="max-content"
-						py="2"
+						py="1.5"
 						px="3"
 						w="11.875rem"
 						gap="32"

@@ -1,5 +1,10 @@
-import { FundsContainer } from 'containers';
+import { FundsContainer, FundsContainerMobile } from 'containers';
 
-export const Funds = () => <FundsContainer />;
+export const Funds = () => (
+	<>
+		<FundsContainer />
+		<FundsContainerMobile />
+	</>
+);
 
 export default Funds;

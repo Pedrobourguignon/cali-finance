@@ -13,7 +13,7 @@ import {
 import { MdContentCopy } from 'react-icons/md';
 import { truncateWallet } from 'utils';
 import useTranslation from 'next-translate/useTranslation';
-import { AlertToast, EditEmployee } from 'components';
+import { AlertToast, EditEmployee, EditEmployeeMobile } from 'components';
 import { GetCompanyUsersRes } from 'types/interfaces/main-server/IUser';
 import { AiFillCheckCircle } from 'react-icons/ai';
 
@@ -31,6 +31,11 @@ export const EmployeeData: React.FC<IEmployeeData> = ({
 	const toast = useToast();
 	const { t: translate } = useTranslation('create-team');
 	const { isOpen, onOpen, onClose } = useDisclosure();
+	const {
+		isOpen: isOpenMobile,
+		onOpen: onOpenMobile,
+		onClose: onCloseMobile,
+	} = useDisclosure();
 	const { onCopy } = useClipboard(employee.wallet!);
 
 	const handleCopyButton = () => {
@@ -58,6 +63,11 @@ export const EmployeeData: React.FC<IEmployeeData> = ({
 			borderRadius="base"
 		>
 			<EditEmployee isOpen={isOpen} onClose={onClose} employee={employee} />
+			<EditEmployeeMobile
+				isOpen={isOpenMobile}
+				onClose={onCloseMobile}
+				employee={employee}
+			/>
 			<Flex justify="center" align="center" gap="3">
 				<Img
 					src={
@@ -116,18 +126,34 @@ export const EmployeeData: React.FC<IEmployeeData> = ({
 						<Skeleton width="8" height="3" />
 					</Flex>
 				)}
-				<Button
-					color="gray.500"
-					fontSize="xs"
-					fontWeight="medium"
-					h="max-content"
-					px="0"
-					onClick={onOpen}
-				>
-					<Text w="100%" align="end">
-						{translate('edit')}
-					</Text>
-				</Button>
+				<Flex display={{ base: 'none', sm: 'flex' }}>
+					<Button
+						color="gray.500"
+						fontSize="xs"
+						fontWeight="medium"
+						h="max-content"
+						px="0"
+						onClick={onOpen}
+					>
+						<Text w="100%" align="end">
+							{translate('edit')}
+						</Text>
+					</Button>
+				</Flex>
+				<Flex display={{ base: 'flex', sm: 'none' }}>
+					<Button
+						color="gray.500"
+						fontSize="xs"
+						fontWeight="medium"
+						h="max-content"
+						px="0"
+						onClick={onOpenMobile}
+					>
+						<Text w="100%" align="end">
+							{translate('edit')}
+						</Text>
+					</Button>
+				</Flex>
 			</Flex>
 		</Flex>
 	);

@@ -1,14 +1,15 @@
 import { Flex, Text } from '@chakra-ui/react';
 import { usePicasso } from 'hooks';
-import { AppLayout } from 'layouts';
 import {
 	CoinCard,
-	DepositOrWithdrawBanner,
+	DepositOrWithdrawCard,
 	HistoryDashboard,
-	CompaniesHeader,
+	CompaniesHeaderMobile,
+	ConfirmTransaction,
 } from 'components';
-import { ICoin } from 'types';
+import { ICoin, ITransaction } from 'types';
 import useTranslation from 'next-translate/useTranslation';
+import { useState } from 'react';
 
 const coinCard: ICoin[] = [
 	{
@@ -55,28 +56,51 @@ const coinCard: ICoin[] = [
 	},
 ];
 
-export const FundsPageComponent = () => {
+export const FundsPageComponentMobile = () => {
 	const theme = usePicasso();
 	const { t: translate } = useTranslation('company-overall');
+	const [transaction, setTransaction] = useState<ITransaction>(
+		{} as ITransaction
+	);
+	const [confirm, setConfirm] = useState(false);
 
 	return (
-		<AppLayout right={<DepositOrWithdrawBanner />}>
-			<Flex w="100%" bg="white" position="absolute" h="14.4rem" left="0" />
-			<Flex
-				color="black"
-				pt="6"
-				zIndex="docked"
-				direction="column"
-				align="start"
-			>
-				<CompaniesHeader />
+		<>
+			<Flex color="black" zIndex="docked" direction="column" align="start">
+				<CompaniesHeaderMobile />
 			</Flex>
-			<Flex color={theme.text.primary} py="12" direction="column" gap="10">
-				<Flex direction="column" gap="4">
-					<Flex fontWeight="medium" gap="1">
-						<Text>{translate('coins')}</Text>
-					</Flex>
-					<Flex w="full" justify="flex-start" flexWrap="wrap" gap="4">
+			<Flex pt="8">
+				{confirm ? (
+					<ConfirmTransaction
+						setConfirm={setConfirm}
+						transaction={transaction}
+					/>
+				) : (
+					<DepositOrWithdrawCard
+						setTransaction={setTransaction}
+						setConfirm={setConfirm}
+					/>
+				)}
+			</Flex>
+			<Flex overflowX="hidden" direction="column" py="10">
+				<Text
+					fontSize="md"
+					fontWeight="medium"
+					color={theme.text.primary}
+					pb="4"
+				>
+					{translate('coins')}
+				</Text>
+				<Flex w="full" h="full" display="block">
+					<Flex
+						gap="4"
+						overflowX="scroll"
+						sx={{
+							'&::-webkit-scrollbar': {
+								display: 'none',
+							},
+						}}
+					>
 						{coinCard.map((coin, index) => (
 							<CoinCard
 								coin={coin}
@@ -89,8 +113,10 @@ export const FundsPageComponent = () => {
 						))}
 					</Flex>
 				</Flex>
+			</Flex>
+			<Flex w="full" pb="20">
 				<HistoryDashboard />
 			</Flex>
-		</AppLayout>
+		</>
 	);
 };

@@ -5,6 +5,7 @@ import {
 	BlackButton,
 	EmployeeData,
 	NoEmployeeSkeleton,
+	AddEmployeeMobile,
 } from 'components';
 import { useCompanies, usePicasso } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
@@ -28,6 +29,11 @@ export const EmployeesDashboard: React.FC<IEmployeeDashboard> = ({
 	const { query } = useRouter();
 
 	const { isOpen, onOpen, onClose } = useDisclosure();
+	const {
+		isOpen: isOpenMobile,
+		onOpen: onOpenMobile,
+		onClose: onCloseMobile,
+	} = useDisclosure();
 	const { isOpen: isFullList, onToggle: toggleListView } = useDisclosure();
 
 	const {
@@ -51,6 +57,11 @@ export const EmployeesDashboard: React.FC<IEmployeeDashboard> = ({
 				onClose={onClose}
 				selectedCompany={selectedCompany}
 			/>
+			<AddEmployeeMobile
+				isOpen={isOpenMobile}
+				onClose={onCloseMobile}
+				selectedCompany={selectedCompany}
+			/>
 			<Flex justify="space-between" w="100%" align="center">
 				<Flex fontWeight="medium" gap="1">
 					<Text>{employees?.length}</Text>
@@ -62,19 +73,34 @@ export const EmployeesDashboard: React.FC<IEmployeeDashboard> = ({
 							{isFullList ? translate('seeLess') : translate('seeAll')}
 						</Text>
 					</Button>
-
-					<BlackButton
-						px="3"
-						onClick={onOpen}
-						fontSize="xs"
-						gap="2.5"
-						fontWeight="medium"
-						py="1"
-						borderRadius="base"
-					>
-						<Text>+</Text>
-						<Text>{translate('addEmployee')}</Text>
-					</BlackButton>
+					<Flex display={{ base: 'none', sm: 'flex' }}>
+						<BlackButton
+							px="3"
+							onClick={onOpen}
+							fontSize="xs"
+							gap="2.5"
+							fontWeight="medium"
+							py="1"
+							borderRadius="base"
+						>
+							<Text>+</Text>
+							<Text>{translate('addEmployee')}</Text>
+						</BlackButton>
+					</Flex>
+					<Flex display={{ base: 'flex', sm: 'none' }}>
+						<BlackButton
+							px="3"
+							onClick={onOpenMobile}
+							fontSize="xs"
+							gap="2.5"
+							fontWeight="medium"
+							py="1"
+							borderRadius="base"
+						>
+							<Text>+</Text>
+							<Text>{translate('addEmployee')}</Text>
+						</BlackButton>
+					</Flex>
 				</Flex>
 			</Flex>
 			<Flex w="100%" direction="column" gap="2">

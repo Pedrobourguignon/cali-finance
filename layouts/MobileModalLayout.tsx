@@ -15,7 +15,7 @@ export const MobileModalLayout: React.FC<IMobileModalLayout> = ({
 	<Modal
 		isOpen={isOpen}
 		onClose={onClose}
-		size="sm"
+		size="md"
 		motionPreset="slideInBottom"
 	>
 		<ModalOverlay />

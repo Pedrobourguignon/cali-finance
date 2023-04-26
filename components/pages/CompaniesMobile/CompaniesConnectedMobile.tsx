@@ -19,7 +19,7 @@ export const CompaniesConnectedMobile: React.FC = () => {
 	return (
 		<MobileLayout>
 			<Flex direction="column" w="100%">
-				<Flex direction="column">
+				<Flex direction="column" pt="2">
 					<DashboardHeader />
 					<CompaniesDashboardMobile
 						members={17}
