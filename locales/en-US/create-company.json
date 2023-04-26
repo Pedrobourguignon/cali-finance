@@ -18,5 +18,7 @@
 	"company": "company",
 	"saveChanges": "Save changes",
 	"deleteImage": "Delete image",
-	"socialMediaLinks": "Social media links"
+	"socialMediaLinks": "Social media links",
+	"dragAndDrop": "Drag and drop to upload image",
+	"uploadImage": "Upload image"
 }

@@ -12,6 +12,7 @@ import { IBasicModal } from 'types';
 import { BlackButton, DragDrop } from 'components';
 import { useState } from 'react';
 import { MobileModalLayout } from 'layouts';
+import useTranslation from 'next-translate/useTranslation';
 
 interface IImageUploader extends IBasicModal {
 	sendImage: React.Dispatch<React.SetStateAction<any>>;
@@ -24,6 +25,7 @@ export const ImageUploaderModalMobile: React.FC<IImageUploader> = ({
 }) => {
 	const theme = usePicasso();
 	const [picture, setPicture] = useState('');
+	const { t: translate } = useTranslation('create-company');
 
 	const handleUploadFile = () => {
 		sendImage(picture);
@@ -39,7 +41,18 @@ export const ImageUploaderModalMobile: React.FC<IImageUploader> = ({
 				borderRadius="inherit"
 			>
 				<ModalHeader display="flex">
-					<Text color={theme.text.primary}>Drag and drop to upload image</Text>
+					<Text
+						color={theme.text.primary}
+						display={{ base: 'none', sm: 'flex' }}
+					>
+						{translate('dragAndDrop')}
+					</Text>
+					<Text
+						color={theme.text.primary}
+						display={{ base: 'flex', sm: 'none' }}
+					>
+						{translate('uploadImage')}
+					</Text>
 					<ModalCloseButton color="gray.400" py="6" />
 				</ModalHeader>
 				<ModalBody

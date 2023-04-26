@@ -17,5 +17,7 @@
 	"website": "site.io",
 	"company": "empresa",
 	"saveChanges": "Salvar alterações",
-	"deleteImage": "Remover imagem"
+	"deleteImage": "Remover imagem",
+	"dragAndDrop": "Solte e arraste para carregar a imagem",
+	"uploadImage": "Enviar imagem"
 }
