@@ -5,6 +5,8 @@ export * from './CompaniesDashboardMobile';
 export * from './CompaniesHeaderMobile';
 export * from './CompaniesNoConnectedMobile';
 export * from './CreateCompanyMobile';
+export * from './EditCompanyComponentMobile';
+export * from './EditCompanyLinksModal';
 export * from './EditEmployeeMobile';
 export * from './FundsPageComponentMobile';
 export * from './ImageUploaderMobile';

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import {
 	Button,
 	Flex,
@@ -15,49 +16,59 @@ import {
 	useDisclosure,
 } from '@chakra-ui/react';
 import { usePicasso } from 'hooks';
+import { FieldErrors, UseFormRegister } from 'react-hook-form';
 import { BsQuestionCircle } from 'react-icons/bs';
 import useTranslation from 'next-translate/useTranslation';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import {
 	BlackButton,
 	NetworkTooltip,
-	NewCompanyLinksModal,
+	EditCompanyLinkModal,
 	ImageUploaderModalMobile,
 } from 'components';
 import { useSession } from 'next-auth/react';
 import { ChevronDownIcon } from '@chakra-ui/icons';
-import { Dispatch, SetStateAction } from 'react';
 import { ICompany } from 'types/interfaces/main-server/ICompany';
-// eslint-disable-next-line import/no-unresolved
-import { FieldErrors, UseFormRegister } from 'react-hook-form/dist/types';
+import { getLogo, handleLogoImage, networkInfos } from 'utils';
+import { ISociaLinksInputValue } from 'types';
 
-interface ICreateCompanyComponent {
-	setSocialMediasInput: (name: string[], url: string) => void;
-	handleNewPicture: (picture: string) => void;
-	newCompanyPicture: string;
+interface ICompanyLogo {
+	company: ICompany | undefined;
+	logo: string | undefined;
+	displayedEditedPicture: string | undefined;
+}
+
+interface IEditCompanyComponent {
+	displayedEditedPicture: string | undefined;
+	handleEditedPicture: (picture: string) => void;
+	editedSocialLinksInputValue: ISociaLinksInputValue;
+	setEditedSocialLinksInputValue: Dispatch<
+		SetStateAction<ISociaLinksInputValue>
+	>;
+	editedCompanyPicture: string | undefined;
 	register: UseFormRegister<ICompany>;
 	errors: FieldErrors<ICompany>;
-	setSelectedType: Dispatch<SetStateAction<string>>;
-	selectedType: string;
+	setSelectedType: Dispatch<SetStateAction<string | undefined>>;
+	selectedType: string | undefined;
 	selectedNetwork: {
 		name: string;
 		icon: string;
-		id: number;
+		id: number | undefined;
 	};
 	setSelectedNetwork: Dispatch<
 		SetStateAction<{
 			name: string;
 			icon: string;
-			id: number;
+			id: number | undefined;
 		}>
 	>;
+
+	company: ICompany | undefined;
 }
 interface INetworkSelect {
 	name: string;
 	id: number;
 	icon: string;
-}
-interface IBasicSelect {
-	value: string;
 }
 
 const networksType: INetworkSelect[] = [
@@ -72,62 +83,127 @@ const labelStyle: TextProps = {
 	fontWeight: 'medium',
 };
 
-const CompanyLogo: React.FC<{
-	logo: string;
-	onClick: () => void;
-}> = ({ logo, onClick }) => {
-	if (logo)
-		return <Img src={logo} boxSize="6" borderRadius="base" onClick={onClick} />;
-	return (
-		<Img
-			src="/images/work.svg"
-			boxSize="6"
-			borderRadius="base"
-			onClick={onClick}
-		/>
-	);
+const CompanyLogo: React.FC<ICompanyLogo> = ({
+	company,
+	logo,
+	displayedEditedPicture,
+}) => {
+	const theme = usePicasso();
+
+	if (displayedEditedPicture === '')
+		return (
+			<Flex
+				boxSize="6"
+				color="black"
+				bg={theme.bg.white2}
+				borderRadius="base"
+				align="center"
+				justify="center"
+				fontSize="4xl"
+			>
+				{handleLogoImage(company?.name)}
+			</Flex>
+		);
+
+	if (displayedEditedPicture !== logo) {
+		return <Img src={displayedEditedPicture} boxSize="6" borderRadius="base" />;
+	}
+	if (logo) {
+		return <Img src={getLogo(logo)} boxSize="6" borderRadius="base" />;
+	}
+	if (company?.name)
+		return (
+			<Flex
+				boxSize="6"
+				color="black"
+				bg={theme.bg.white2}
+				borderRadius="base"
+				align="center"
+				justify="center"
+				fontSize="xl"
+			>
+				{handleLogoImage(company?.name)}
+			</Flex>
+		);
+	return <Img src="/images/work.svg" boxSize="6" borderRadius="base" />;
 };
 
-export const CreateCompanyMobile: React.FC<ICreateCompanyComponent> = ({
+export const EditCompanyComponentMobile: React.FC<IEditCompanyComponent> = ({
 	errors,
+	company,
+	displayedEditedPicture,
 	register,
+	setSelectedNetwork,
 	selectedNetwork,
 	selectedType,
-	setSelectedNetwork,
 	setSelectedType,
-	newCompanyPicture,
-	handleNewPicture,
-	setSocialMediasInput,
+	editedCompanyPicture,
+	editedSocialLinksInputValue,
+	setEditedSocialLinksInputValue,
+	handleEditedPicture,
 }) => {
+	const [editedInfo, setEditedInfo] = useState<ICompany>({} as ICompany);
 	const theme = usePicasso();
 	const { t: translate } = useTranslation('create-company');
 	const { data: session } = useSession();
-	const { isOpen, onOpen, onClose } = useDisclosure();
 	const {
 		isOpen: isOpenUploader,
 		onOpen: onOpenUploader,
 		onClose: onCloseUploader,
 	} = useDisclosure();
+	const {
+		isOpen: isOpenSocial,
+		onOpen: onOpenSocial,
+		onClose: onCloseSocial,
+	} = useDisclosure();
 
-	const companiesType: IBasicSelect[] = [
+	useEffect(() => {
+		setEditedInfo(company!);
+	}, [company]);
+
+	const companiesType = [
 		{ value: 'DAO' },
 		{ value: translate('financial') },
 		{ value: 'E-commerce' },
-		{ value: translate('others') },
 	];
 
+	useEffect(() => {
+		setSelectedType(company?.type);
+		setSelectedNetwork({
+			name: networkInfos(company?.network).name,
+			icon: networkInfos(company?.network).icon,
+			id: company?.network,
+		});
+		setEditedSocialLinksInputValue({
+			websiteURL: company?.socialMedia![0].url,
+			instagramURL: company?.socialMedia![1].url,
+			twitterURL: company?.socialMedia![2].url,
+			telegramURL: company?.socialMedia![3].url,
+			mediumURL: company?.socialMedia![4].url,
+		});
+	}, [
+		company,
+		setEditedSocialLinksInputValue,
+		setSelectedNetwork,
+		setSelectedType,
+	]);
+
 	return (
-		<Flex direction="column" w="full">
-			<NewCompanyLinksModal
-				isOpen={isOpen}
-				onClose={onClose}
-				setSocialMediasInput={setSocialMediasInput}
-				newCompanyPicture={newCompanyPicture}
+		<Flex direction="column">
+			<EditCompanyLinkModal
+				onClose={onCloseSocial}
+				isOpen={isOpenSocial}
+				displayedEditedPicture={displayedEditedPicture}
+				editedCompanyPicture={editedCompanyPicture}
+				logo={editedCompanyPicture}
+				setEditedSocialLinksInputValue={setEditedSocialLinksInputValue}
+				company={company}
+				handleEditedPicture={handleEditedPicture}
 			/>
 			<ImageUploaderModalMobile
 				isOpen={isOpenUploader}
 				onClose={onCloseUploader}
-				sendImage={handleNewPicture}
+				sendImage={handleEditedPicture}
 			/>
 			<Flex
 				direction="column"
@@ -135,10 +211,12 @@ export const CreateCompanyMobile: React.FC<ICreateCompanyComponent> = ({
 				mb={{ md: '8', lg: '10' }}
 				position="relative"
 			>
-				<Text color="black" fontSize="xl" fontWeight="medium" pt="8" pb="6">
-					{translate('createCompany')}
+				<Text color="black" fontSize="xl" fontWeight="medium" pb="6">
+					{translate('editCompany')}
 				</Text>
 				<Input
+					{...register('name')}
+					defaultValue={company?.name}
 					color="black"
 					placeholder={translate('companyName')}
 					borderBottomWidth="0,125rem"
@@ -153,21 +231,27 @@ export const CreateCompanyMobile: React.FC<ICreateCompanyComponent> = ({
 						fontSize: '2xl',
 					}}
 					_hover={{}}
-					{...register('name')}
+					onChange={editedName =>
+						setEditedInfo(prevState => ({
+							...prevState,
+							name: editedName.target.value,
+						}))
+					}
 				/>
 				<Text fontSize="xs" color="red" position="absolute" top="100%">
 					{errors.name?.message}
 				</Text>
 			</Flex>
-			<Flex py="16" justify="space-between">
-				<Flex direction="column" gap="8" w="100%">
-					<Flex direction="column" color="black" gap="6" w="full">
+			<Flex py="16" w="100%" justify="space-between">
+				<Flex direction="column" gap="8" w="100%" maxW={{ lg: '80' }}>
+					<Flex direction="column" color="black" gap="6">
 						<Flex justify="space-between" align="center" w="full">
 							<Flex w="full" justify="space-between" align="center">
 								<Flex gap="5">
 									<CompanyLogo
-										logo={newCompanyPicture}
-										onClick={onOpenUploader}
+										company={company}
+										logo={company?.logo}
+										displayedEditedPicture={displayedEditedPicture}
 									/>
 									<Button
 										h="max-content"
@@ -186,7 +270,7 @@ export const CreateCompanyMobile: React.FC<ICreateCompanyComponent> = ({
 									h="max-content"
 									px="3"
 									py="1"
-									onClick={onOpen}
+									onClick={onOpenSocial}
 									fontSize="xs"
 									border="1px solid black"
 									borderColor="black"
@@ -197,20 +281,20 @@ export const CreateCompanyMobile: React.FC<ICreateCompanyComponent> = ({
 							</Flex>
 						</Flex>
 						<Flex
+							direction="column"
 							justify="space-between"
 							w="100%"
 							flexWrap={{ md: 'wrap', lg: 'nowrap' }}
 							gap="8"
-							direction="column"
 						>
 							<Flex direction="column" w="100%">
 								<Text {...labelStyle} mb="2">
-									Type *
+									{translate('type')}
 								</Text>
 								<Menu>
 									<MenuButton
 										px="3"
-										w="full"
+										w={{ md: 'full', lg: '20rem' }}
 										border="1px solid black"
 										borderColor={errors.type ? 'red' : theme.bg.primary}
 										fontWeight="normal"
@@ -223,11 +307,6 @@ export const CreateCompanyMobile: React.FC<ICreateCompanyComponent> = ({
 										rightIcon={<ChevronDownIcon />}
 										bg="white"
 										fontSize="sm"
-										color={
-											selectedType === translate('pleaseSelect')
-												? 'blackAlpha.500'
-												: theme.text.primary
-										}
 									>
 										<Flex>{selectedType}</Flex>
 									</MenuButton>
@@ -236,6 +315,7 @@ export const CreateCompanyMobile: React.FC<ICreateCompanyComponent> = ({
 										boxShadow="none"
 										borderColor="#121212"
 										borderRadius="base"
+										w={{ md: '33.75rem', lg: '20rem' }}
 									>
 										{companiesType.map((type, index) => (
 											<MenuItem
@@ -245,6 +325,10 @@ export const CreateCompanyMobile: React.FC<ICreateCompanyComponent> = ({
 												_hover={{ bg: 'gray.100' }}
 												onClick={() => {
 													setSelectedType(type.value);
+													setEditedInfo(prevState => ({
+														...prevState,
+														type: type.value,
+													}));
 												}}
 											>
 												{type.value}
@@ -252,11 +336,14 @@ export const CreateCompanyMobile: React.FC<ICreateCompanyComponent> = ({
 										))}
 									</MenuList>
 								</Menu>
+								<Text fontSize="xs" color="red" position="absolute" pt="16">
+									{errors.type?.message}
+								</Text>
 							</Flex>
 							<Flex
 								direction="column"
-								color={theme.text.primary}
 								w="100%"
+								color={theme.text.primary}
 								display={{ md: 'flex', lg: 'none' }}
 							>
 								<Flex gap="2" mb="2" align="center">
@@ -280,8 +367,8 @@ export const CreateCompanyMobile: React.FC<ICreateCompanyComponent> = ({
 											<Icon
 												as={BsQuestionCircle}
 												color="gray.400"
-												boxSize="0.813rem"
 												mt="2"
+												boxSize="0.813rem"
 											/>
 										</span>
 									</Tooltip>
@@ -307,20 +394,7 @@ export const CreateCompanyMobile: React.FC<ICreateCompanyComponent> = ({
 												: theme.text.primary
 										}
 									>
-										<Flex
-											display={
-												selectedNetwork.icon.length > 1 ? 'none' : 'flex'
-											}
-										>
-											{selectedNetwork.name}
-										</Flex>
-										<Flex
-											align="center"
-											gap="2"
-											display={
-												selectedNetwork.icon.length > 1 ? 'flex' : 'none'
-											}
-										>
+										<Flex align="center" gap="2">
 											<Img src={selectedNetwork.icon} boxSize="4" />
 											{selectedNetwork.name}
 										</Flex>
@@ -361,9 +435,9 @@ export const CreateCompanyMobile: React.FC<ICreateCompanyComponent> = ({
 							<Text {...labelStyle} mb="2">
 								{translate('corporativeEmail')}
 							</Text>
-
 							<Input
 								px="3"
+								{...register('contactEmail')}
 								disabled={!session}
 								placeholder={translate('exampleEmail')}
 								_placeholder={{
@@ -374,8 +448,14 @@ export const CreateCompanyMobile: React.FC<ICreateCompanyComponent> = ({
 								bgColor="white"
 								borderRadius="base"
 								_hover={{}}
-								borderColor={errors.contactEmail ? 'red' : theme.bg.primary}
-								{...register('contactEmail')}
+								borderColor={theme.bg.primary}
+								defaultValue={company?.contactEmail}
+								onChange={editedEmail =>
+									setEditedInfo(prevState => ({
+										...prevState,
+										contactEmail: editedEmail.target.value,
+									}))
+								}
 							/>
 							<Text fontSize="xs" color="red" position="absolute" top="100%">
 								{errors.contactEmail?.message}
@@ -386,6 +466,8 @@ export const CreateCompanyMobile: React.FC<ICreateCompanyComponent> = ({
 								{translate('description')}
 							</Text>
 							<Textarea
+								defaultValue={company?.description}
+								{...register('description')}
 								px="3"
 								disabled={!session}
 								_placeholder={{
@@ -398,28 +480,47 @@ export const CreateCompanyMobile: React.FC<ICreateCompanyComponent> = ({
 								placeholder={translate('exampleDescription')}
 								minH="7.2rem"
 								borderColor={theme.bg.primary}
-								{...register('description')}
+								onChange={editedDescription =>
+									setEditedInfo(prevState => ({
+										...prevState,
+										description: editedDescription.target.value,
+									}))
+								}
 							/>
 						</Flex>
 					</Flex>
 					<Flex w="full" pb="6">
 						<BlackButton
 							type="submit"
-							w="full"
-							gap="2.5"
-							isDisabled={
-								selectedType === translate('pleaseSelect') ||
-								selectedNetwork.id === 0 ||
-								!!errors?.name
-							}
-							fontWeight="medium"
-							fontSize="md"
 							lineHeight="6"
-							py="2.5"
+							w="full"
+							fontSize="md"
 							borderRadius="sm"
+							py="2.5"
+							display={{ md: 'none', lg: 'flex' }}
+							isDisabled={
+								(editedInfo?.logo === company?.logo &&
+									editedInfo?.logo === editedCompanyPicture &&
+									editedInfo?.name === company?.name &&
+									editedInfo?.contactEmail === company?.contactEmail &&
+									editedInfo?.description === company?.description &&
+									editedInfo?.type === company?.type &&
+									editedSocialLinksInputValue.websiteURL ===
+										company?.socialMedia![0].url &&
+									editedSocialLinksInputValue.instagramURL ===
+										company?.socialMedia![1].url &&
+									editedSocialLinksInputValue.twitterURL ===
+										company?.socialMedia![2].url &&
+									editedSocialLinksInputValue.telegramURL ===
+										company?.socialMedia![3].url &&
+									editedSocialLinksInputValue.mediumURL ===
+										company?.socialMedia![4].url &&
+									editedInfo?.network === selectedNetwork.id) ||
+								!session
+							}
+							_disabled={{ opacity: '50%', cursor: 'not-allowed' }}
 						>
-							<Text>+</Text>
-							<Text>{translate('createCompany')}</Text>
+							{translate('saveChanges')}
 						</BlackButton>
 					</Flex>
 				</Flex>
@@ -427,3 +528,5 @@ export const CreateCompanyMobile: React.FC<ICreateCompanyComponent> = ({
 		</Flex>
 	);
 };
+
+export default EditCompanyComponentMobile;
