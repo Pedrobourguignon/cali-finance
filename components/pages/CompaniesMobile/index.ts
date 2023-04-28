@@ -2,6 +2,7 @@ export * from './ActivitiesDataMobile';
 export * from './AddEmployeeMobile';
 export * from './CompaniesConnectedMobile';
 export * from './CompaniesDashboardMobile';
+export * from './CompaniesDashNoConnectedMob';
 export * from './CompaniesHeaderMobile';
 export * from './CompaniesNoConnectedMobile';
 export * from './CreateCompanyMobile';
