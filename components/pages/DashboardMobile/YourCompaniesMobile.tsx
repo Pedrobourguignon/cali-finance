@@ -30,15 +30,6 @@ export const YourCompaniesMobile: React.FC<IYourCompaniesMobile> = ({
 						},
 					}}
 				>
-					{/* {companies && companies.length > 0 ? (
-						companies.map((company, index) => (
-							<Flex key={+index}>
-								<CreateCompanyCard />
-							</Flex>
-						))
-					) : (
-						<CreateCompanyCard />
-					)} */}
 					{companies && companies.length > 0 ? (
 						companies.map((company, index) => (
 							<Flex key={+index}>
