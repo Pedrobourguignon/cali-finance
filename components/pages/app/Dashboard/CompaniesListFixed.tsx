@@ -1,4 +1,10 @@
-import { Button, Flex, Text, useDisclosure } from '@chakra-ui/react';
+import {
+	Button,
+	Flex,
+	Text,
+	useDisclosure,
+	useMediaQuery,
+} from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 import { CompanyCard, CreateCompanyCard } from 'components';
 import { usePicasso } from 'hooks';
@@ -12,7 +18,7 @@ interface ICompaniesList {
 export const CompaniesListFixed: React.FC<ICompaniesList> = ({ companies }) => {
 	const theme = usePicasso();
 	const [flexWidth, setFlexWidth] = useState<number>(
-		window.innerWidth < 1281 ? 3 : 4
+		useMediaQuery('(max-width: 1280px)') ? 3 : 4
 	);
 	const { isOpen: isFullList, onToggle: toggleListView } = useDisclosure();
 	const { t: translate } = useTranslation('company-overall');

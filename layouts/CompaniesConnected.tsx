@@ -19,14 +19,9 @@ export const CompaniesConnected: React.FC = () => {
 	const { t: translate } = useTranslation('dashboard');
 	const theme = usePicasso();
 
-	const {
-		data: companies,
-		isLoading: isLoadingCompanies,
-		error,
-	} = useQuery('all-companies', getAllUserCompanies, {
+	const { data: companies } = useQuery('all-companies', getAllUserCompanies, {
 		enabled: !!isConnected,
 	});
-	console.log(companies);
 
 	return (
 		<AppLayout right={<CompaniesRightBar />}>
