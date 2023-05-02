@@ -9,7 +9,6 @@ import {
 } from 'react';
 import {
 	IActivities,
-	INotificationList,
 	IEmployee,
 	IHistoryNotification,
 	ISocialMedia,
@@ -29,8 +28,20 @@ import { MAIN_SERVICE_ROUTES } from 'helpers';
 
 interface ICompanyContext {
 	activities: IActivities[];
-	notificationsList: INotificationList[];
-	setNotificationsList: Dispatch<SetStateAction<INotificationList[]>>;
+	notificationsList: {
+		type: string;
+		date: string;
+		icon: string;
+	}[];
+	setNotificationsList: Dispatch<
+		SetStateAction<
+			{
+				type: string;
+				date: string;
+				icon: string;
+			}[]
+		>
+	>;
 	setSelectedCompany: Dispatch<SetStateAction<ICompany>>;
 	setEditedInfo: Dispatch<SetStateAction<ICompany>>;
 	editedInfo: ICompany;
@@ -177,9 +188,7 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 		},
 	]);
 
-	const [notificationsList, setNotificationsList] = useState<
-		INotificationList[]
-	>([
+	const [notificationsList, setNotificationsList] = useState([
 		{
 			type: 'You made a deposit of $23,456.02',
 			date: '08 Aug 22, 20:57',

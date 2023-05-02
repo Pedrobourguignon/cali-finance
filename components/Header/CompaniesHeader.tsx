@@ -71,13 +71,13 @@ export const CompaniesHeader = () => {
 				</NavigationBack>
 				<Flex align="center" gap="2">
 					<NeedFundsCompaniesHeader />
-					<NotificationPopover
+					{/* <NotificationPopover
 						setNotificationsList={setNotificationsList}
 						onClose={onClose}
 						isOpen={isOpen}
 						onOpen={onOpen}
 						notificationsList={notificationsList}
-					/>
+					/> */}
 				</Flex>
 			</Flex>
 			<Flex w="100%" justify="space-between" align="center">

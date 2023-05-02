@@ -1,11 +1,12 @@
 import { Flex, Text, useDisclosure } from '@chakra-ui/react';
 import { NotificationPopover } from 'components';
-import { INotificationList } from 'types';
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import useTranslation from 'next-translate/useTranslation';
 import { usePicasso, useProfile } from 'hooks';
 import { useSession } from 'next-auth/react';
 import { useQuery } from 'react-query';
+import { useAccount } from 'wagmi';
+import { INotificationList } from 'types';
 
 export const DashboardHeader: React.FC = () => {
 	const { onClose, isOpen, onOpen } = useDisclosure();
@@ -14,8 +15,24 @@ export const DashboardHeader: React.FC = () => {
 	const { getProfileData } = useProfile();
 	const percentage = 0;
 	const theme = usePicasso();
-
+	const { getUserActivities } = useProfile();
+	const { isConnected } = useAccount();
 	const { data: profileData } = useQuery('profile-data', getProfileData);
+	const [notificationsList, setNotificationsList] = useState<
+		INotificationList[]
+	>([]);
+
+	const {
+		data: recentActivities,
+		isLoading: isLoadingRecentActivities,
+		error: errorRecentActivities,
+	} = useQuery('recent-activities', getUserActivities, {
+		enabled: !!isConnected,
+	});
+
+	useEffect(() => {
+		if (recentActivities) setNotificationsList(recentActivities);
+	}, [recentActivities]);
 
 	const greetingMessage = useMemo(() => {
 		const hour = new Date().getHours();
@@ -32,40 +49,7 @@ export const DashboardHeader: React.FC = () => {
 		return { status: translate('bullish'), color: 'blue.500' };
 	};
 
-	const [notificationsList, setNotificationsList] = useState<
-		INotificationList[]
-	>([
-		{
-			type: 'You made a deposit of $23,456.02',
-			date: '08 Aug 22, 20:57',
-			icon: '/icons/deposit.svg',
-		},
-		{
-			type: 'You created Kylie Cosmetics',
-			date: '08 Aug 22, 20:57',
-			icon: '/icons/deposit.svg',
-		},
-		{
-			type: '0x6856...BF99 added to Kylie Baby',
-			date: '08 Aug 22, 20:57',
-			icon: '/icons/deposit.svg',
-		},
-		{
-			type: 'Marketing Team created Kylie Skin',
-			date: '08 Aug 22, 20:57',
-			icon: '/icons/deposit.svg',
-		},
-		{
-			type: 'Marketing Team created Kylie Skin',
-			date: '08 Aug 22, 20:57',
-			icon: '/icons/deposit.svg',
-		},
-		{
-			type: 'Marketing Team created Kylie Skin',
-			date: '08 Aug 22, 20:57',
-			icon: '/icons/deposit.svg',
-		},
-	]);
+	console.log(notificationsList);
 
 	return (
 		<Flex direction="column" pb="8">

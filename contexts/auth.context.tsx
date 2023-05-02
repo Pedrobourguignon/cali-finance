@@ -1,4 +1,4 @@
-import React, { createContext, useMemo, useEffect } from 'react';
+import React, { createContext, useMemo, useEffect, useState } from 'react';
 import { AUTH_SERVICE_ROUTES } from 'helpers';
 import { useAccount, useSignMessage } from 'wagmi';
 import { useToasty } from 'hooks';
@@ -72,7 +72,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 		if (!isConnected && session) {
 			signOut();
 		}
-	}, []);
+	}, [isConnected, session]);
 
 	useEffect(() => {
 		if (session) {

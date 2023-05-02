@@ -1,8 +1,9 @@
-import { IWalletData } from 'types';
+import { INotificationList, IWalletData } from 'types';
 import { IUser } from 'types/interfaces/main-server/IUser';
 import { mainClient } from 'utils';
-import React, { createContext, useState, useMemo, useEffect } from 'react';
+import React, { createContext, useState, useMemo } from 'react';
 import { useAccount } from 'wagmi';
+import { MAIN_SERVICE_ROUTES } from 'helpers';
 
 interface IProfileContext {
 	isLoading: boolean;
@@ -12,6 +13,7 @@ interface IProfileContext {
 	setWalletData: React.Dispatch<React.SetStateAction<IWalletData>>;
 	updateProfile: (profileData: IUser) => Promise<void>;
 	getProfileData: () => Promise<IUser>;
+	getUserActivities: () => Promise<INotificationList[]>;
 }
 
 export const ProfileContext = createContext({} as IProfileContext);
@@ -29,12 +31,31 @@ export const ProfileProvider: React.FC<{ children: React.ReactNode }> = ({
 	});
 
 	const getProfileData = async () => {
-		const response = await mainClient.get(`/user/${walletAddress}`);
+		if (!walletAddress) throw new Error('User not connected');
+		const response = await mainClient.get(
+			MAIN_SERVICE_ROUTES.profileData(walletAddress)
+		);
 		return response.data;
 	};
 
 	const updateProfile = async (profileData: IUser) => {
-		await mainClient.put(`/user/${walletAddress}`, profileData);
+		if (!walletAddress) throw new Error('User not connected');
+		await mainClient.put(
+			MAIN_SERVICE_ROUTES.profileData(walletAddress),
+			profileData
+		);
+	};
+
+	const getUserActivities = async () => {
+		const response = await mainClient.get(
+			MAIN_SERVICE_ROUTES.userRecentActivities,
+			{
+				params: {
+					pageLimit: 4,
+				},
+			}
+		);
+		return response.data;
 	};
 
 	const contextStates = useMemo(
@@ -47,6 +68,7 @@ export const ProfileProvider: React.FC<{ children: React.ReactNode }> = ({
 			setWalletData,
 			updateProfile,
 			getProfileData,
+			getUserActivities,
 		}),
 		[isLoading, isConnected, setIsConnected, walletData, setWalletData]
 	);

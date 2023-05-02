@@ -34,9 +34,7 @@ export const MobileHeader = () => {
 		onOpen: onOpenNetwork,
 	} = useDisclosure();
 
-	const [notificationsList, setNotificationsList] = useState<
-		INotificationList[]
-	>([
+	const [notificationsList, setNotificationsList] = useState([
 		{
 			type: 'You made a deposit of $23,456.02',
 			date: '08 Aug 22, 20:57',
@@ -101,13 +99,13 @@ export const MobileHeader = () => {
 				networkName={networkData.name}
 			/>
 
-			<NotificationPopover
+			{/* <NotificationPopover
 				setNotificationsList={setNotificationsList}
 				onClose={onClose}
 				isOpen={isOpen}
 				onOpen={onOpen}
 				notificationsList={notificationsList}
-			/>
+			/> */}
 		</Flex>
 	);
 };
