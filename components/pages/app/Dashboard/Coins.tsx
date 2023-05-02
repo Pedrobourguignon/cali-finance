@@ -56,6 +56,19 @@ export const Coins = () => {
 		}
 	}, [listOfTokens]);
 
+	// checking if the token is already in the favorites list
+	const checkingAlreadyFavorite = () => {
+		Object.values(favoriteCoins).forEach(item => {
+			symbols.push(item.symbol);
+			if (
+				!listOfTokens.find(
+					coin => coin.symbol.toLowerCase() === item.symbol.toLowerCase()
+				)
+			)
+				setListOfTokens(listOfTokens.concat(favoriteCoins));
+		});
+	};
+
 	useEffect(() => {
 		if (!favoriteCoins) {
 			setListOfTokens([
@@ -73,15 +86,7 @@ export const Coins = () => {
 				},
 			]);
 		} else {
-			Object.values(favoriteCoins).forEach(item => {
-				symbols.push(item.symbol);
-				if (
-					!listOfTokens.find(
-						coin => coin.symbol.toLowerCase() === item.symbol.toLowerCase()
-					)
-				)
-					setListOfTokens(listOfTokens.concat(favoriteCoins));
-			});
+			checkingAlreadyFavorite();
 			refetchCoinServiceTokens();
 		}
 	}, [favoriteCoins]);
