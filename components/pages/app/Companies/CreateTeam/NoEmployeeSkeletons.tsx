@@ -5,7 +5,7 @@ export const NoEmployeeSkeleton = () => (
 	<Flex
 		bg="white"
 		px="4"
-		py="2"
+		h="3.25rem"
 		align="center"
 		justify="space-between"
 		w="full"

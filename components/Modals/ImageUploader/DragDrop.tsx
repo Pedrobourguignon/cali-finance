@@ -1,5 +1,6 @@
 import { Flex, Img, Text } from '@chakra-ui/react';
 import { usePicasso } from 'hooks';
+import useTranslation from 'next-translate/useTranslation';
 import React, { Dispatch, SetStateAction, useState } from 'react';
 import { FileUploader } from 'react-drag-drop-files';
 
@@ -19,6 +20,7 @@ export const DragDrop: React.FC<IDragDrop> = ({ setPicture }) => {
 	const theme = usePicasso();
 	const [sizeIsValid, setSizeIsValid] = useState(true);
 	const [fileLink, setFileLink] = useState('/images/add-image.png');
+	const { t: translate } = useTranslation('edit-profile');
 
 	const loadFile = (file: IFile) => {
 		const newFile = new FileReader();
@@ -54,9 +56,9 @@ export const DragDrop: React.FC<IDragDrop> = ({ setPicture }) => {
 			{!sizeIsValid && (
 				<Flex bg="red.100" w="100%" py="2" pl="2.5" borderRadius="base">
 					<Text color={theme.text.primary} fontWeight="semibold" fontSize="sm">
-						The file is too large.
+						{translate('theFileIsTooLarge')}
 						<Text as="span" fontWeight="normal" ml="2">
-							Please upload another image up to 5mb.
+							{translate('pleaseUploadAnother')} 5mb.
 						</Text>
 					</Text>
 				</Flex>

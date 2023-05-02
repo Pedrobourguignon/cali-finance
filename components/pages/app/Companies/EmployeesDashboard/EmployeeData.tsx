@@ -53,7 +53,7 @@ export const EmployeeData: React.FC<IEmployeeData> = ({
 			bg="white"
 			color="black"
 			px="4"
-			py="2"
+			h="3.25rem"
 			borderRadius="base"
 		>
 			<EditEmployee isOpen={isOpen} onClose={onClose} employee={employee} />
@@ -109,7 +109,7 @@ export const EmployeeData: React.FC<IEmployeeData> = ({
 				{employee.revenue ? (
 					<Flex gap="1" fontSize="xs">
 						<Text>{employee.revenue.toLocaleString('en-US')}</Text>
-						<Text>{employee.asset}</Text>
+						<Text>{employee.asset?.toUpperCase()}</Text>
 					</Flex>
 				) : (
 					<Flex gap="1">

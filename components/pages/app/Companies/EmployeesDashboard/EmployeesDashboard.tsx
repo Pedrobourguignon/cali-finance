@@ -1,5 +1,4 @@
 import { Flex, Text, useDisclosure, Button } from '@chakra-ui/react';
-
 import {
 	AddEmployee,
 	BlackButton,
@@ -26,7 +25,6 @@ export const EmployeesDashboard: React.FC<IEmployeeDashboard> = ({
 	const { t: translate } = useTranslation('company-overall');
 	const { getAllCompanyEmployees } = useCompanies();
 	const { query } = useRouter();
-
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const { isOpen: isFullList, onToggle: toggleListView } = useDisclosure();
 
@@ -85,7 +83,7 @@ export const EmployeesDashboard: React.FC<IEmployeeDashboard> = ({
 					</BlackButton>
 				</Flex>
 			</Flex>
-			{employees && (
+			{isLoadingEmployees ? (
 				<Flex w="100%" direction="column" gap="2">
 					<Flex justify="space-between" fontSize="sm">
 						<Text>{translate('nameAddress')}</Text>
@@ -93,23 +91,30 @@ export const EmployeesDashboard: React.FC<IEmployeeDashboard> = ({
 						<Text w="24">{translate('amount')}</Text>
 					</Flex>
 					<Flex direction="column" gap="2">
-						{isLoadingEmployees ? (
-							<>
-								<NoEmployeeSkeleton />
-								<NoEmployeeSkeleton />
-								<NoEmployeeSkeleton />
-							</>
-						) : (
-							employees
-								?.slice(0, isFullList ? employees.length : 3)
-								.map((employee, index) => (
-									<EmployeeData
-										key={+index}
-										employee={employee}
-										isGeneral={isGeneral}
-									/>
-								))
-						)}
+						<>
+							<NoEmployeeSkeleton />
+							<NoEmployeeSkeleton />
+							<NoEmployeeSkeleton />
+						</>
+					</Flex>
+				</Flex>
+			) : (
+				<Flex w="100%" direction="column" gap="2">
+					<Flex justify="space-between" fontSize="sm">
+						<Text>{translate('nameAddress')}</Text>
+						{isGeneral && <Text>{translate('team')}</Text>}
+						<Text w="24">{translate('amount')}</Text>
+					</Flex>
+					<Flex direction="column" gap="2">
+						{employees
+							?.slice(0, isFullList ? employees.length : 3)
+							.map((employee, index) => (
+								<EmployeeData
+									key={+index}
+									employee={employee}
+									isGeneral={isGeneral}
+								/>
+							))}
 					</Flex>
 				</Flex>
 			)}

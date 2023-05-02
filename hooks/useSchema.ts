@@ -14,7 +14,6 @@ const useSchema = () => {
 		name: yup.string().matches(nameRegex, translate('nameDontAcceptNumber')),
 		email: yup.string().lowercase().email(translate('emailFormatInvalid')),
 	});
-
 	const addEmployeeSchema = yup.object().shape({
 		walletAddress: yup
 			.string()

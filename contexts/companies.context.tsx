@@ -14,17 +14,20 @@ import {
 	IHistoryNotification,
 	ISocialMedia,
 	INewEmployee,
+	IEditedEmployeeInfo,
 	IMockCompany,
 } from 'types';
 import { historyNotifications } from 'components';
 import { mainClient, navigationPaths } from 'utils';
+import { useQuery } from 'react-query';
+import { IUser } from 'types/interfaces/auth-srv/IUser';
+import { GetCompanyUsersRes } from 'types/interfaces/main-server/IUser';
+import { useAccount } from 'wagmi';
 import {
 	GetUserCompaniesRes,
 	ICompany,
 } from 'types/interfaces/main-server/ICompany';
 import router, { useRouter } from 'next/router';
-import { useQuery } from 'react-query';
-import { useAccount } from 'wagmi';
 import { MAIN_SERVICE_ROUTES } from 'helpers';
 
 interface ICompanyContext {
@@ -51,6 +54,10 @@ interface ICompanyContext {
 	addEmployeeCsv: (
 		employee: string | undefined | null | ArrayBuffer
 	) => Promise<void>;
+	updateEmployee: (
+		editedEmployeeInfo: IEditedEmployeeInfo,
+		teamId: number
+	) => Promise<void>;
 	allUserCompanies: GetUserCompaniesRes[];
 	selectedCompany: ICompany;
 	companiesWithMissingFunds: GetUserCompaniesRes[];
@@ -62,6 +69,7 @@ export const CompaniesContext = createContext({} as ICompanyContext);
 export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 	children,
 }) => {
+	const { query } = useRouter();
 	const { t: translate } = useTranslation('companies');
 	const { address: wallet } = useAccount();
 	const [displayMissingFundsWarning, setDisplayMissingFundsWarning] =
@@ -75,7 +83,6 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 		{} as ICompany
 	);
 	const neededFunds = 0;
-	const { query } = useRouter();
 
 	const [companiesWithMissingFunds, setCompaniesWithMissingFunds] = useState<
 		GetUserCompaniesRes[]
@@ -346,6 +353,13 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 		);
 	};
 
+	const updateEmployee = async (
+		editedEmployeeInfo: IEditedEmployeeInfo,
+		teamId: number
+	) => {
+		await mainClient.put(`/team/${teamId}/user`, editedEmployeeInfo);
+	};
+
 	const contextStates = useMemo(
 		() => ({
 			activities,
@@ -369,6 +383,7 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 			getAllCompanyEmployees,
 			addEmployeeToTeam,
 			addEmployeeCsv,
+			updateEmployee,
 			allUserCompanies,
 			selectedCompany,
 			updateCompany,

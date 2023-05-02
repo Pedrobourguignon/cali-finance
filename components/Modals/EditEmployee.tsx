@@ -15,15 +15,25 @@ import {
 	InputGroup,
 	Img,
 	useDisclosure,
+	useToast,
 } from '@chakra-ui/react';
-import { usePicasso, useSchema } from 'hooks';
+import { useCompanies, usePicasso, useSchema } from 'hooks';
+import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 import { IoIosArrowDown } from 'react-icons/io';
-import { IEditEmployee, IEditEmployeeForm, ISelectedCoin } from 'types';
-import { BlackButton, EditProfileIcon, TokenSelector } from 'components';
+import { IEditedEmployeeInfo, IEditEmployee, ISelectedCoin } from 'types';
+import {
+	BlackButton,
+	EditProfileIcon,
+	TokenSelector,
+	AlertToast,
+} from 'components';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { truncateWallet } from 'utils';
+import { mainClient, truncateWallet } from 'utils';
+import { useMutation, useQuery, useQueryClient } from 'react-query';
+import { AxiosError } from 'axios';
+import useTranslation from 'next-translate/useTranslation';
 
 export const EditEmployee: React.FC<IEditEmployee> = ({
 	isOpen,
@@ -31,6 +41,12 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 	employee,
 }) => {
 	const theme = usePicasso();
+	const { t: translate } = useTranslation('create-team');
+	const { query } = useRouter();
+	const queryClient = useQueryClient();
+	const toast = useToast();
+	const { editEmployeeSchema } = useSchema();
+	const { updateEmployee } = useCompanies();
 	const [editedEmployeeData, setEditedEmployeeData] = useState({
 		amount: 0,
 		amountInDollar: 0,
@@ -40,7 +56,6 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 		symbol: 'BTC',
 	} as ISelectedCoin);
 	const bitcoinPrice = 87586;
-	const { editEmployeeSchema } = useSchema();
 
 	const {
 		isOpen: isOpenTokenSelector,
@@ -58,7 +73,7 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 		color: 'blackAlpha.500',
 	};
 
-	const expenseCalculation = () => '30% more expenses.';
+	const expenseCalculation = () => `30% ${translate('more')}`;
 
 	const converterToDollar = (amountInDollar: number) => {
 		setEditedEmployeeData(prevState => ({
@@ -66,13 +81,12 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 			amountInDollar: amountInDollar * bitcoinPrice,
 		}));
 	};
-
 	const {
-		register,
 		handleSubmit,
+		register,
 		reset,
 		formState: { errors },
-	} = useForm<IEditEmployeeForm>({
+	} = useForm<IEditedEmployeeInfo>({
 		resolver: yupResolver(editEmployeeSchema),
 	});
 
@@ -85,9 +99,71 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 		}));
 	};
 
-	const handleEditEmployee = (editedEmployeeFormData: IEditEmployeeForm) => {
-		console.log(editedEmployeeFormData);
-		handleResetFormInputs();
+	const getSelectedCompanyTeams = async (id: number) => {
+		const response = await mainClient.get(`/company/${id}/teams`);
+		return response.data;
+	};
+
+	const { data: teams } = useQuery(
+		'all-company-teams',
+		() => getSelectedCompanyTeams(Number(query.id)),
+		{ enabled: false }
+	);
+
+	const { mutate } = useMutation(
+		(newDataOfEmployee: IEditedEmployeeInfo) =>
+			updateEmployee(newDataOfEmployee, teams[0].id),
+		{
+			onSuccess: () => {
+				queryClient.invalidateQueries('all-company-employees');
+				handleResetFormInputs();
+				toast({
+					position: 'top',
+					render: () => (
+						<AlertToast
+							onClick={toast.closeAll}
+							text="employeeDataChangedWithSuccessfully"
+							type="success"
+						/>
+					),
+				});
+			},
+			onError: error => {
+				if (error instanceof AxiosError) {
+					if (error.response?.data.message === 'Unauthorized') {
+						toast({
+							position: 'top',
+							render: () => (
+								<AlertToast
+									onClick={toast.closeAll}
+									text="unauthorized"
+									type="error"
+								/>
+							),
+						});
+					} else {
+						toast({
+							position: 'top',
+							render: () => (
+								<AlertToast
+									onClick={toast.closeAll}
+									text="weAreWorkingToSolve"
+									type="error"
+								/>
+							),
+						});
+					}
+				}
+			},
+		}
+	);
+
+	const handleEditEmployee = () => {
+		mutate({
+			asset: token.symbol,
+			revenue: editedEmployeeData.amount,
+			userAddress: employee.wallet,
+		});
 	};
 
 	return (
@@ -124,7 +200,7 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 									_active={{}}
 									_focus={{}}
 								>
-									Edit Employee
+									{translate('editEmployee')}
 								</Text>
 								<Text color={theme.text.primary} fontSize="sm">
 									{employee.name} - {truncateWallet(employee?.wallet)}
@@ -138,7 +214,9 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 							<ModalBody display="flex" flexDirection="column">
 								<Flex direction="column" gap="2" pb="8">
 									<Flex align="center" justify="space-between">
-										<Text {...labelStyle}>Amount (per month)*</Text>
+										<Text {...labelStyle}>
+											{translate('amount')} ({translate('perMonth')})*
+										</Text>
 										<Text fontSize="xs" color="gray.500">
 											US$&nbsp;{editedEmployeeData.amountInDollar}
 										</Text>
@@ -148,10 +226,10 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 											type="number"
 											h="max-content"
 											py="1"
-											{...register('amount')}
+											{...register('revenue')}
 											_placeholder={{ ...placeholderStyle }}
 											placeholder="0.00"
-											borderColor={errors.amount ? 'red' : theme.bg.primary}
+											borderColor={errors.revenue ? 'red' : theme.bg.primary}
 											flex="3"
 											borderRightRadius="none"
 											_hover={{}}
@@ -187,14 +265,14 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 											<Flex gap="2" align="center">
 												<Img boxSize="4" src={token.logo} />
 												<Text fontSize="sm" width="8" lineHeight="5">
-													{token.symbol}
+													{token.symbol.toUpperCase()}
 												</Text>
 												<Icon boxSize="4" as={IoIosArrowDown} />
 											</Flex>
 										</Button>
 									</InputGroup>
 									<Text fontSize="xs" color="red">
-										{errors.amount?.message}
+										{errors.revenue?.message}
 									</Text>
 									<Flex
 										bg="blue.50"
@@ -203,7 +281,7 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 										borderRadius="base"
 									>
 										<Text fontSize="sm" color={theme.text.primary}>
-											This change will cause
+											{translate('thisChange')}
 										</Text>
 										<Text
 											fontSize="sm"
@@ -213,10 +291,12 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 											&nbsp;
 											{expenseCalculation()}
 										</Text>
+										<Text fontSize="sm" color={theme.text.primary}>
+											{translate('expenses')}
+										</Text>
 									</Flex>
 									<Text fontSize="xs" color={theme.text.primary}>
-										Please note that you will have to deposit more 0.0002 BTC in
-										the companies’ funds.
+										{translate('pleaseNote')}
 									</Text>
 								</Flex>
 								<BlackButton
@@ -226,10 +306,10 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 									gap="3"
 									borderRadius="sm"
 									mb="4"
-									disabled={!editedEmployeeData.amount}
+									isDisabled={!editedEmployeeData.amount}
 								>
 									<Text>+</Text>
-									Update Employee&apos;s Data
+									{translate('updateEmployee')}
 								</BlackButton>
 							</ModalBody>
 						</FormControl>
