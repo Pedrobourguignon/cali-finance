@@ -69,6 +69,27 @@ export const Coins = () => {
 		});
 	};
 
+	// Put coin logo in object
+	const putLogoInCoin = () => {
+		if (coinServiceTokens) {
+			const tokens = Object.values(coinServiceTokens).reduce((acc, item) => {
+				if (item)
+					if (
+						!cardItems.find(
+							coin => coin.symbol.toLowerCase() === item.symbol.toLowerCase()
+						)
+					) {
+						const logo = Object.values(favoriteCoins).find(
+							token => token.symbol.toLowerCase() === item.symbol.toLowerCase()
+						);
+						acc.push({ ...item, ...logo });
+					}
+				return acc;
+			}, [] as ICoin[]);
+			setCardItems(cardItems.concat(tokens));
+		}
+	};
+
 	useEffect(() => {
 		if (!favoriteCoins) {
 			setListOfTokens([
@@ -92,23 +113,7 @@ export const Coins = () => {
 	}, [favoriteCoins]);
 
 	useEffect(() => {
-		if (coinServiceTokens) {
-			const tokens = Object.values(coinServiceTokens).reduce((acc, item) => {
-				if (item)
-					if (
-						!cardItems.find(
-							coin => coin.symbol.toLowerCase() === item.symbol.toLowerCase()
-						)
-					) {
-						const logo = Object.values(favoriteCoins).find(
-							token => token.symbol.toLowerCase() === item.symbol.toLowerCase()
-						);
-						acc.push({ ...item, ...logo });
-					}
-				return acc;
-			}, [] as ICoin[]);
-			setCardItems(cardItems.concat(tokens));
-		}
+		putLogoInCoin();
 	}, [coinServiceTokens]);
 
 	return (
