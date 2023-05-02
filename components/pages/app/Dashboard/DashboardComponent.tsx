@@ -14,8 +14,6 @@ import { useSession } from 'next-auth/react';
 import { useAccount } from 'wagmi';
 import { useQuery } from 'react-query';
 import { useCompanies } from 'hooks';
-import { NotFoundContainer } from 'containers';
-import { ProfileProvider } from 'contexts';
 
 export const DashboardComponent: React.FC = () => {
 	const { t: translate } = useTranslation('dashboard');

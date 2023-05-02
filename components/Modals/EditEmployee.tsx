@@ -24,6 +24,7 @@ import { BlackButton, EditProfileIcon, TokenSelector } from 'components';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { truncateWallet } from 'utils';
+import useTranslation from 'next-translate/useTranslation';
 
 export const EditEmployee: React.FC<IEditEmployee> = ({
 	isOpen,
@@ -31,6 +32,7 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 	employee,
 }) => {
 	const theme = usePicasso();
+	const { t: translate } = useTranslation('create-team');
 	const [editedEmployeeData, setEditedEmployeeData] = useState({
 		amount: 0,
 		amountInDollar: 0,
@@ -58,7 +60,7 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 		color: 'blackAlpha.500',
 	};
 
-	const expenseCalculation = () => '30% more expenses.';
+	const expenseCalculation = () => `30% ${translate('more')}`;
 
 	const converterToDollar = (amountInDollar: number) => {
 		setEditedEmployeeData(prevState => ({
@@ -124,7 +126,7 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 									_active={{}}
 									_focus={{}}
 								>
-									Edit Employee
+									{translate('editEmployee')}
 								</Text>
 								<Text color={theme.text.primary} fontSize="sm">
 									{employee.name} - {truncateWallet(employee?.wallet)}
@@ -138,7 +140,9 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 							<ModalBody display="flex" flexDirection="column">
 								<Flex direction="column" gap="2" pb="8">
 									<Flex align="center" justify="space-between">
-										<Text {...labelStyle}>Amount (per month)*</Text>
+										<Text {...labelStyle}>
+											{translate('amount')} ({translate('perMonth')})*
+										</Text>
 										<Text fontSize="xs" color="gray.500">
 											US$&nbsp;{editedEmployeeData.amountInDollar}
 										</Text>
@@ -203,7 +207,7 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 										borderRadius="base"
 									>
 										<Text fontSize="sm" color={theme.text.primary}>
-											This change will cause
+											{translate('thisChange')}
 										</Text>
 										<Text
 											fontSize="sm"
@@ -213,10 +217,12 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 											&nbsp;
 											{expenseCalculation()}
 										</Text>
+										<Text fontSize="sm" color={theme.text.primary}>
+											{translate('expenses')}
+										</Text>
 									</Flex>
 									<Text fontSize="xs" color={theme.text.primary}>
-										Please note that you will have to deposit more 0.0002 BTC in
-										the companies’ funds.
+										{translate('pleaseNote')}
 									</Text>
 								</Flex>
 								<BlackButton
@@ -229,7 +235,7 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 									disabled={!editedEmployeeData.amount}
 								>
 									<Text>+</Text>
-									Update Employee&apos;s Data
+									{translate('updateEmployee')}
 								</BlackButton>
 							</ModalBody>
 						</FormControl>

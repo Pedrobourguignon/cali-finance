@@ -17,7 +17,7 @@ import {
 } from 'components';
 import { usePicasso } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
-import { IBasicModal, ISelectedCoin, IToken } from 'types';
+import { IBasicModal, ISelectedCoin } from 'types';
 import { useState } from 'react';
 import { ICompany } from 'types/interfaces/main-server/ICompany';
 

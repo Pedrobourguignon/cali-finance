@@ -6,5 +6,11 @@
 	"insertHere": "Insira aqui",
 	"exampleEmail": "exemplo@exemplo.io",
 	"saveChanges": "Salvar alterações",
-	"deleteImage": "Remover imagem do perfil"
+	"deleteImage": "Remover imagem do perfil",
+	"dragAndDrop": "Arraste e solte para carregar a imagem",
+	"yourFileNoMustBe": "Seu arquivo não deve ter mais do que",
+	"uploadFile": "Subir arquivo",
+	"cancel": "Cancelar",
+	"theFileIsTooLarge": "O arquivo é muito grande.",
+	"pleaseUploadAnother": "Carregue outra imagem com até"
 }
