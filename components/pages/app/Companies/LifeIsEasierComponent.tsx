@@ -2,8 +2,28 @@ import { Flex, Icon, Text, Link } from '@chakra-ui/react';
 import { usePicasso } from 'hooks';
 import { socialMediaLinks } from 'utils';
 import { FiInstagram, FiLinkedin, FiTwitter } from 'react-icons/fi';
+import { RxDiscordLogo } from 'react-icons/rx';
 import useTranslation from 'next-translate/useTranslation';
 import NextLink from 'next/link';
+
+const socialMedias = [
+	{
+		icon: FiInstagram,
+		link: socialMediaLinks.instagram,
+	},
+	{
+		icon: FiLinkedin,
+		link: socialMediaLinks.linkedin,
+	},
+	{
+		icon: FiTwitter,
+		link: socialMediaLinks.twitter,
+	},
+	{
+		icon: RxDiscordLogo,
+		link: socialMediaLinks.discord,
+	},
+];
 
 export const LifeIsEasier = () => {
 	const theme = usePicasso();
@@ -16,15 +36,11 @@ export const LifeIsEasier = () => {
 				{translate('Efficiency')}
 			</Text>
 			<Flex gap="6">
-				<Link href={socialMediaLinks.instagram} as={NextLink}>
-					<Icon boxSize="5" color={theme.branding.cyan} as={FiInstagram} />
-				</Link>
-				<Link href={socialMediaLinks.linkedin} as={NextLink}>
-					<Icon boxSize="5" color={theme.branding.cyan} as={FiLinkedin} />
-				</Link>
-				<Link href={socialMediaLinks.twitter} as={NextLink}>
-					<Icon boxSize="5" color={theme.branding.cyan} as={FiTwitter} />
-				</Link>
+				{socialMedias.map((item, index) => (
+					<Link key={+index} href={item.link} as={NextLink}>
+						<Icon boxSize="5" color={theme.branding.cyan} as={item.icon} />
+					</Link>
+				))}
 			</Flex>
 		</Flex>
 	);

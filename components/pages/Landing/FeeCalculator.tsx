@@ -9,8 +9,7 @@ import {
 	useDisclosure,
 	Icon,
 } from '@chakra-ui/react';
-import { TokenSelector } from 'components';
-import { OffsetShadow } from 'components/OffsetShadow';
+import { TokenSelector, OffsetShadow } from 'components';
 import { usePicasso, useTokens } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
 import React, { useEffect, useState } from 'react';

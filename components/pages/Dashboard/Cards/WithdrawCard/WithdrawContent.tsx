@@ -14,7 +14,7 @@ import { IoIosArrowDown } from 'react-icons/io';
 import { ICompany } from 'types/interfaces/main-server/ICompany';
 
 interface ISelectedCoin {
-	coin: { logo: string; symbol: string };
+	coin: { logo?: string; symbol: string };
 	onOpen: () => void;
 	userCompanies: ICompany[];
 }
