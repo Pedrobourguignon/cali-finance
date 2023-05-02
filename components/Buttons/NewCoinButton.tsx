@@ -13,10 +13,16 @@ export const NewCoinButton: React.FC<ICoinButton> = ({ onOpen }) => {
 	const { t: translate } = useTranslation('dashboard');
 	const { locale } = useRouter();
 	return (
-		<OffsetShadow borderColor="white" top="0rem" left="0rem">
+		<OffsetShadow
+			borderColor="white"
+			top="0rem"
+			left="0rem"
+			width={{ base: 'full' }}
+		>
 			<Button
 				position="relative"
 				w={{
+					base: 'full',
 					md: locale === 'pt-BR' ? '6.938rem' : '5.625rem',
 					xl: locale === 'pt-BR' ? '7.813rem' : '6.938rem',
 				}}

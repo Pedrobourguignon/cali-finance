@@ -41,12 +41,13 @@ export const NotificationPopover: React.FC<INotificationPopover> = ({
 					onClick={onOpen}
 					h="6"
 					p="0"
+					minW="max-content"
 					disabled={!session}
 				>
 					<Icon
 						as={notificationsList.length > 0 ? VscBellDot : VscBell}
 						boxSize="6"
-						color="black"
+						color={{ base: 'white', sm: 'black' }}
 					/>
 				</Button>
 			</PopoverTrigger>
