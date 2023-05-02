@@ -112,8 +112,8 @@ export const CompaniesHeader = () => {
 					{}
 				</Flex>
 				<Flex direction="column" maxW="28">
-					{!amount ? (
-						<Skeleton w="14" h="4" />
+					{isLoadingSelectedCompany ? (
+						<Skeleton w="14" h="6" />
 					) : (
 						<Text fontSize="xl">{selectedCompany?.totalFundsUsd}</Text>
 					)}
@@ -172,20 +172,27 @@ export const CompaniesHeader = () => {
 						);
 					})}
 				</Flex>
-				<Flex
-					borderColor="gray.300"
-					borderWidth="0.1rem"
-					borderRadius="3xl"
-					px="3"
-					align="center"
-					gap="2"
-					h="6"
-				>
-					<Img src={networkInfos(selectedCompany?.network).icon} boxSize="4" />
-					<Text fontSize="xs">
-						{networkInfos(selectedCompany?.network).name}
-					</Text>
-				</Flex>
+				{isLoadingSelectedCompany ? (
+					<Skeleton w="24" h="6" rounded="xl" />
+				) : (
+					<Flex
+						borderColor="gray.300"
+						borderWidth="0.1rem"
+						borderRadius="3xl"
+						px="3"
+						align="center"
+						gap="2"
+						h="6"
+					>
+						<Img
+							src={networkInfos(selectedCompany?.network).icon}
+							boxSize="4"
+						/>
+						<Text fontSize="xs">
+							{networkInfos(selectedCompany?.network).name}
+						</Text>
+					</Flex>
+				)}
 			</Flex>
 		</Flex>
 	);

@@ -1,7 +1,9 @@
 const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
+const NGROK_URL = process.env.NEXT_PUBLIC_API_NGROK_URL;
 
 export const API_URLS = {
 	main: `${BASE_URL}`,
+	coin: `${NGROK_URL}`,
 };
 
 function path(base: string, url: string) {

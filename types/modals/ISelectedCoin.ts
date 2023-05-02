@@ -1,4 +1,4 @@
 export interface ISelectedCoin {
-	logo: string;
+	logo?: string;
 	symbol: string;
 }

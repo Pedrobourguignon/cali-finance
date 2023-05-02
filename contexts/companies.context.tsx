@@ -13,17 +13,21 @@ import {
 	IHistoryNotification,
 	ISocialMedia,
 	INewEmployee,
+	IEditedEmployeeInfo,
 	IMockCompany,
+	INotificationList,
 } from 'types';
 import { historyNotifications } from 'components';
 import { mainClient, navigationPaths } from 'utils';
+import { useQuery } from 'react-query';
+import { IUser } from 'types/interfaces/auth-srv/IUser';
+import { GetCompanyUsersRes } from 'types/interfaces/main-server/IUser';
+import { useAccount } from 'wagmi';
 import {
 	GetUserCompaniesRes,
 	ICompany,
 } from 'types/interfaces/main-server/ICompany';
 import router, { useRouter } from 'next/router';
-import { useQuery } from 'react-query';
-import { useAccount } from 'wagmi';
 import { MAIN_SERVICE_ROUTES } from 'helpers';
 
 interface ICompanyContext {
@@ -51,7 +55,7 @@ interface ICompanyContext {
 	setDisplayNeedFundsCard: Dispatch<SetStateAction<string>>;
 	filteredNotifications: IHistoryNotification[];
 	setFilteredNotifications: Dispatch<SetStateAction<IHistoryNotification[]>>;
-	getAllUserCompanies: () => Promise<ICompany[]>;
+	getAllUserCompanies: () => Promise<GetUserCompaniesRes[]>;
 	createCompany: (company: ICompany) => Promise<void>;
 	socialMediasData: ISocialMedia[];
 	setSocialMediasData: Dispatch<SetStateAction<ISocialMedia[]>>;
@@ -62,10 +66,13 @@ interface ICompanyContext {
 	addEmployeeCsv: (
 		employee: string | undefined | null | ArrayBuffer
 	) => Promise<void>;
+	updateEmployee: (
+		editedEmployeeInfo: IEditedEmployeeInfo,
+		teamId: number
+	) => Promise<void>;
 	allUserCompanies: GetUserCompaniesRes[];
 	selectedCompany: ICompany;
 	companiesWithMissingFunds: GetUserCompaniesRes[];
-	companies: IMockCompany[];
 }
 
 export const CompaniesContext = createContext({} as ICompanyContext);
@@ -73,6 +80,7 @@ export const CompaniesContext = createContext({} as ICompanyContext);
 export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 	children,
 }) => {
+	const { query } = useRouter();
 	const { t: translate } = useTranslation('companies');
 	const { address: wallet } = useAccount();
 	const [displayMissingFundsWarning, setDisplayMissingFundsWarning] =
@@ -86,7 +94,6 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 		{} as ICompany
 	);
 	const neededFunds = 0;
-	const { query } = useRouter();
 
 	const [companiesWithMissingFunds, setCompaniesWithMissingFunds] = useState<
 		GetUserCompaniesRes[]
@@ -94,99 +101,6 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 
 	const [filteredNotifications, setFilteredNotifications] =
 		useState<IHistoryNotification[]>(historyNotifications);
-
-	const [companies, setCompanies] = useState<IMockCompany[]>([
-		{
-			name: 'Kylie Cosmetics',
-			type: 'DAO',
-			email: 'kyliecosmetics@gmail.com',
-			members: 2,
-			teams: ['marketing'],
-			description: 'Hello',
-			selectedNetwork: 'Ethereum',
-			picture: '',
-			socialMedias: {
-				instagram: '@kyliecosmetics',
-				telegram: 't/kyliecosmetics',
-				twitter: 'twitter.com/kyliecosmetics',
-				website: 'kyliecosmetics.net',
-			},
-			funds: 999,
-			neededFunds: 2,
-		},
-		{
-			name: 'Kylie Skin',
-			type: 'DAO',
-			email: 'kylieskin@gmail.com',
-			members: 170,
-			teams: ['marketing'],
-			description: 'Hello',
-			selectedNetwork: 'Ethereum',
-			picture: '',
-			socialMedias: {
-				instagram: '@kylieskin',
-				telegram: 't/kylieskin',
-				twitter: 'twitter.com/kylieskin',
-				website: 'kylieskin.net',
-			},
-			funds: 999,
-			neededFunds: 2,
-		},
-		{
-			name: 'Kylie Baby',
-			type: 'DAO',
-			email: 'kyliebaby@gmail.com',
-			members: 13,
-			teams: ['marketing'],
-			description: 'Hello',
-			selectedNetwork: 'Ethereum',
-			picture: '',
-			socialMedias: {
-				instagram: '@kyliebaby',
-				telegram: 't/kyliebaby',
-				twitter: 'twitter.com/kyliebaby',
-				website: 'kyliebaby.net',
-			},
-			funds: 5234.11,
-			neededFunds: 1,
-		},
-		{
-			name: 'Kylie Cosmetics',
-			type: 'DAO',
-			email: 'kyliecosmetics@gmail.com',
-			members: 2,
-			teams: ['marketing'],
-			description: 'Hello',
-			selectedNetwork: 'Ethereum',
-			picture: '',
-			socialMedias: {
-				instagram: '@kyliecosmetics',
-				telegram: 't/kyliecosmetics',
-				twitter: 'twitter.com/kyliecosmetics',
-				website: 'kyliecosmetics.net',
-			},
-			funds: 999,
-			neededFunds: 2,
-		},
-		{
-			name: 'Kylie Cosmetics',
-			type: 'DAO',
-			email: 'kyliecosmetics@gmail.com',
-			members: 2,
-			teams: ['marketing'],
-			description: 'Hello',
-			selectedNetwork: 'Ethereum',
-			picture: '',
-			socialMedias: {
-				instagram: '@kyliecosmetics',
-				telegram: 't/kyliecosmetics',
-				twitter: 'twitter.com/kyliecosmetics',
-				website: 'kyliecosmetics.net',
-			},
-			funds: 999,
-			neededFunds: 2,
-		},
-	]);
 
 	const [notificationsList, setNotificationsList] = useState([
 		{
@@ -355,6 +269,13 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 		);
 	};
 
+	const updateEmployee = async (
+		editedEmployeeInfo: IEditedEmployeeInfo,
+		teamId: number
+	) => {
+		await mainClient.put(`/team/${teamId}/user`, editedEmployeeInfo);
+	};
+
 	const contextStates = useMemo(
 		() => ({
 			activities,
@@ -378,10 +299,10 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 			getAllCompanyEmployees,
 			addEmployeeToTeam,
 			addEmployeeCsv,
+			updateEmployee,
 			allUserCompanies,
 			selectedCompany,
 			updateCompany,
-			companies,
 		}),
 		[
 			selectedCompany,
@@ -396,7 +317,6 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 			allUserCompanies,
 			setSocialMediasData,
 			updateCompany,
-			companies,
 		]
 	);
 

@@ -1,9 +1,9 @@
 import React, { createContext, useMemo, useEffect, useState } from 'react';
-import { AUTH_SERVICE_ROUTES } from 'helpers';
 import { useAccount, useSignMessage } from 'wagmi';
 import { useToasty } from 'hooks';
 import { signIn, signOut, useSession } from 'next-auth/react';
 import { setCookie } from 'cookies-next';
+import { AUTH_SERVICE_ROUTES } from 'helpers';
 
 interface IAuthContext {
 	getSignature: (nonce: string) => Promise<`0x${string}` | undefined>;
@@ -54,6 +54,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 	const handleSignIn = async (account: `0x${string}` | undefined) => {
 		try {
 			const { nonce } = await getNonce(account);
+			console.log(nonce);
 			const signature = await getSignature(nonce);
 			if (signature) {
 				signIn('credentials', {

@@ -56,6 +56,7 @@ export const DashboardHeader: React.FC = () => {
 			<Flex justify="space-between">
 				<Flex>
 					<Text
+						display={{ base: 'none', md: 'flex' }}
 						color={theme.text.primary}
 						fontSize="2xl"
 						fontWeight="medium"
@@ -63,6 +64,16 @@ export const DashboardHeader: React.FC = () => {
 						fontStyle="normal"
 					>
 						{greetingMessage} {session && profileData?.name}
+					</Text>
+					<Text
+						display={{ base: 'flex', md: 'none' }}
+						color={theme.text.primary}
+						fontSize="2xl"
+						fontWeight="medium"
+						lineHeight="8"
+						fontStyle="normal"
+					>
+						{greetingMessage}
 					</Text>
 				</Flex>
 				<Flex display={{ base: 'none', md: 'flex' }} h="8" align="center">
@@ -75,7 +86,7 @@ export const DashboardHeader: React.FC = () => {
 					/>
 				</Flex>
 			</Flex>
-			<Flex>
+			<Flex display={{ base: 'none', md: 'flex' }}>
 				<Text fontSize="sm" color={theme.text.primary}>
 					{translate('assetInfo')}
 					<Text as="span" fontSize="sm" color={dynamicAssetInfo()?.color}>
@@ -84,10 +95,24 @@ export const DashboardHeader: React.FC = () => {
 						{'\u00A0'}
 					</Text>
 				</Text>
-
 				<Text fontSize="sm" color={theme.text.primary}>
 					{translate('increased')}
 					<Text as="span" fontSize="sm" color={dynamicAssetInfo()?.color}>
+						{'\u00A0'}
+						{translate('percentage', { percentage })}
+					</Text>
+				</Text>
+			</Flex>
+			<Flex display={{ base: 'flex', md: 'none' }}>
+				<Text fontSize="sm" color={theme.text.primary}>
+					{translate('assetInfo')}
+					<Text as="span" fontSize="sm" color={dynamicAssetInfo()?.color}>
+						{'\u00A0'}
+						{dynamicAssetInfo()?.status}
+						{'\u00A0'}
+						<Text as="span" color={theme.text.primary}>
+							{translate('increased')}
+						</Text>
 						{'\u00A0'}
 						{translate('percentage', { percentage })}
 					</Text>

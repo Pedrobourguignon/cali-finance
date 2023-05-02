@@ -21,7 +21,7 @@ export interface INotificationList {
 export interface INotificationPopover {
 	notificationsList: INotificationList[];
 	onClose: () => void;
-	onOpen: () => void;
+	onOpen?: () => void;
 	isOpen: boolean;
 	setNotificationsList: Dispatch<SetStateAction<INotificationList[]>>;
 }
