@@ -15,7 +15,6 @@ import { truncateWallet } from 'utils';
 import useTranslation from 'next-translate/useTranslation';
 import { AlertToast, EditEmployee } from 'components';
 import { GetCompanyUsersRes } from 'types/interfaces/main-server/IUser';
-import { AiFillCheckCircle } from 'react-icons/ai';
 
 const teams = ['General', 'Marketing', 'Finance', 'Trozorba'];
 interface IEmployeeData {
@@ -108,7 +107,7 @@ export const EmployeeData: React.FC<IEmployeeData> = ({
 				{employee.revenue ? (
 					<Flex gap="1" fontSize="xs">
 						<Text>{employee.revenue.toLocaleString('en-US')}</Text>
-						<Text>{employee.asset}</Text>
+						<Text>{employee.asset?.toUpperCase()}</Text>
 					</Flex>
 				) : (
 					<Flex gap="1">

@@ -1,5 +1,4 @@
 import { Flex, Text, useDisclosure, Button } from '@chakra-ui/react';
-
 import {
 	AddEmployee,
 	BlackButton,
@@ -26,7 +25,6 @@ export const EmployeesDashboard: React.FC<IEmployeeDashboard> = ({
 	const { t: translate } = useTranslation('company-overall');
 	const { getAllCompanyEmployees } = useCompanies();
 	const { query } = useRouter();
-
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const { isOpen: isFullList, onToggle: toggleListView } = useDisclosure();
 
@@ -62,7 +60,6 @@ export const EmployeesDashboard: React.FC<IEmployeeDashboard> = ({
 							{isFullList ? translate('seeLess') : translate('seeAll')}
 						</Text>
 					</Button>
-
 					<BlackButton
 						px="3"
 						onClick={onOpen}
