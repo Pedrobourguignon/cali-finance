@@ -53,21 +53,23 @@ export const EmployeeData: React.FC<IEmployeeData> = ({
 			bg="white"
 			color="black"
 			px="4"
-			py="2"
+			h="3.25rem"
 			borderRadius="base"
 		>
 			<EditEmployee isOpen={isOpen} onClose={onClose} employee={employee} />
 			<Flex justify="center" align="center" gap="3">
 				<Img
 					src={
-						employee.picture === 'no-picture.png'
+						employee.picture === null
 							? '/images/editImage.png'
 							: employee.picture
 					}
 					boxSize="6"
 				/>
 				<Flex direction="column" justifyItems="center">
-					<Text fontSize="sm">{employee.name}</Text>
+					<Text fontSize="sm">
+						{!employee.name ? employee.wallet : employee.name}
+					</Text>
 					<Flex align="center">
 						<Text fontSize="xs" color="gray.500">
 							{truncateWallet(employee.wallet)}
