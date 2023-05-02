@@ -10,7 +10,7 @@ const useSchema = () => {
 		email: yup.string().lowercase().email(translate('emailFormatInvalid')),
 	});
 	const editEmployeeSchema = yup.object().shape({
-		amount: yup
+		revenue: yup
 			.number()
 			.required(translate('required'))
 			.typeError(translate('amountMustBeANumber'))
