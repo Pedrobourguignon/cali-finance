@@ -13,12 +13,14 @@ export const MobileLayout: React.FC<IMobileLayout> = ({ children }) => {
 	return (
 		<ProfileProvider>
 			<Flex
+				w="full"
 				bg={theme.text.primary}
 				direction="column"
 				display={{ base: 'flex', sm: 'none' }}
 			>
 				<MobileHeader />
 				<Flex
+					minH="100vh"
 					w="full"
 					bg={theme.bg.gray2}
 					borderTopRadius="3xl"
