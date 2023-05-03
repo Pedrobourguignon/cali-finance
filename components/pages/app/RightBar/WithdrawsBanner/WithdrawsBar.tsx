@@ -50,9 +50,10 @@ export const WithdrawsBar = () => {
 							color={theme.text.primary}
 							bgColor={item === selectedOption ? 'gray.100' : 'none'}
 							borderRadius="full"
-							w="20"
+							px="2"
 							fontSize="xs"
 							fontWeight="bold"
+							lineHeight="4"
 							h="6"
 							_hover={{}}
 							_active={{}}
