@@ -19,5 +19,7 @@
 	"saveChanges": "Salvar alterações",
 	"deleteImage": "Remover imagem",
 	"dragAndDrop": "Solte e arraste para carregar a imagem",
-	"uploadImage": "Enviar imagem"
+	"uploadImage": "Enviar imagem",
+	"choseTheMostSuitableNetwork": "Escolha a rede mais adequada para pagar sua equipe com eficiência.",
+	"deleteImage": "Remover imagem"
 }

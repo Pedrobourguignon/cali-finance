@@ -22,5 +22,12 @@
 	"teamPlaceholder": "Select or Insert name to Create Team",
 	"dragAndDrop": "Drag 'n' drop your .csv or Select and upload your .csv file.",
 	"loadCsv": "Load CSV list",
-	"yourCsvMustHave": "Your .csv file  must have the columns 'address', 'revenue', 'asset'."
+	"yourCsvMustHave": "Your .csv file  must have the columns 'address', 'revenue', 'asset'.",
+	"editEmployee": "Edit Employee",
+	"perMonth": "per month",
+	"thisChange": "This change will cause",
+	"pleaseNote": "Please note that you will have to deposit more 0.0002 BTC in the companie’s funds.",
+	"updateEmployee": "Update Employee’s Data",
+	"more": "more",
+	"expenses": "expenses"
 }

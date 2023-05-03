@@ -34,5 +34,6 @@
 	"confirmTransaction": "Confirme {{transactionType}}",
 	"fee": "Taxa",
 	"totalTransaction": "Total {{transactionType}}",
-	"cancel": "Cancelar"
+	"cancel": "Cancelar",
+	"youDontHaveEmployee": "Você ainda não tem funcionários cadastrados"
 }

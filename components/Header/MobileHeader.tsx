@@ -17,7 +17,6 @@ import {
 import {
 	ConnectWalletMobile,
 	NotificationModalMobile,
-	NotificationPopover,
 	ChangeNetworkMobile,
 } from 'components';
 import { usePicasso, useProfile } from 'hooks';
@@ -53,7 +52,6 @@ export const MobileHeader = () => {
 	const { address: walletAddress } = useAccount();
 	const { data: session } = useSession();
 	const { disconnect } = useDisconnect();
-	const { onClose, isOpen, onOpen } = useDisclosure();
 	const {
 		isOpen: isOpenMenu,
 		onOpen: onOpenMenu,
@@ -278,13 +276,6 @@ export const MobileHeader = () => {
 					networkIcon={networkData.icon}
 					networkName={networkData.name}
 				/>
-				{/* <NotificationPopover
-					setNotificationsList={setNotificationsList}
-					onClose={onClose}
-					isOpen={isOpen}
-					onOpen={onOpen}
-					notificationsList={notificationsList}
-				/> */}
 				<NotificationModalMobile
 					isOpen={isOpenNotifications}
 					onClose={onCloseNotifications}

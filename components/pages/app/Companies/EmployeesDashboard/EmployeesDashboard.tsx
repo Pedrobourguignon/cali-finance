@@ -1,5 +1,4 @@
 import { Flex, Text, useDisclosure, Button } from '@chakra-ui/react';
-
 import {
 	AddEmployee,
 	BlackButton,
@@ -27,7 +26,6 @@ export const EmployeesDashboard: React.FC<IEmployeeDashboard> = ({
 	const { t: translate } = useTranslation('company-overall');
 	const { getAllCompanyEmployees } = useCompanies();
 	const { query } = useRouter();
-
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const {
 		isOpen: isOpenMobile,
@@ -63,61 +61,63 @@ export const EmployeesDashboard: React.FC<IEmployeeDashboard> = ({
 				selectedCompany={selectedCompany}
 			/>
 			<Flex justify="space-between" w="100%" align="center">
-				<Flex fontWeight="medium" gap="1">
-					<Text>{employees?.length}</Text>
-					<Text>{translate('employees')}</Text>
-				</Flex>
+				{!employees ? (
+					<Text color={theme.text.primary} fontWeight="medium">
+						{translate('youDontHaveEmployee')}
+					</Text>
+				) : (
+					<Flex fontWeight="medium" gap="1">
+						<Text>{employees?.length}</Text>
+						<Text>{translate('employees')}</Text>
+					</Flex>
+				)}
 				<Flex gap="8" align="center">
-					<Button h="max-content" onClick={() => toggleListView()}>
-						<Text fontSize="xs" color="gray.500" fontWeight="medium">
-							{isFullList ? translate('seeLess') : translate('seeAll')}
-						</Text>
-					</Button>
-					<Flex display={{ base: 'none', sm: 'flex' }}>
-						<BlackButton
-							px="3"
-							onClick={onOpen}
-							fontSize="xs"
-							gap="2.5"
-							fontWeight="medium"
-							py="1"
-							borderRadius="base"
-						>
-							<Text>+</Text>
-							<Text>{translate('addEmployee')}</Text>
-						</BlackButton>
-					</Flex>
-					<Flex display={{ base: 'flex', sm: 'none' }}>
-						<BlackButton
-							px="3"
-							onClick={onOpenMobile}
-							fontSize="xs"
-							gap="2.5"
-							fontWeight="medium"
-							py="1"
-							borderRadius="base"
-						>
-							<Text>+</Text>
-							<Text>{translate('addEmployee')}</Text>
-						</BlackButton>
-					</Flex>
+					{employees && (
+						<Button h="max-content" onClick={() => toggleListView()}>
+							<Text fontSize="xs" color="gray.500" fontWeight="medium">
+								{isFullList ? translate('seeLess') : translate('seeAll')}
+							</Text>
+						</Button>
+					)}
+
+					<BlackButton
+						px="3"
+						onClick={onOpen}
+						fontSize="xs"
+						gap="2.5"
+						fontWeight="medium"
+						py="1"
+						borderRadius="base"
+					>
+						<Text>+</Text>
+						<Text>{translate('addEmployee')}</Text>
+					</BlackButton>
 				</Flex>
 			</Flex>
-			<Flex w="100%" direction="column" gap="2">
-				<Flex justify="space-between" fontSize="sm">
-					<Text>{translate('nameAddress')}</Text>
-					{isGeneral && <Text>{translate('team')}</Text>}
-					<Text w="24">{translate('amount')}</Text>
-				</Flex>
-				<Flex direction="column" gap="2">
-					{isLoadingEmployees ? (
+			{isLoadingEmployees ? (
+				<Flex w="100%" direction="column" gap="2">
+					<Flex justify="space-between" fontSize="sm">
+						<Text>{translate('nameAddress')}</Text>
+						{isGeneral && <Text>{translate('team')}</Text>}
+						<Text w="24">{translate('amount')}</Text>
+					</Flex>
+					<Flex direction="column" gap="2">
 						<>
 							<NoEmployeeSkeleton />
 							<NoEmployeeSkeleton />
 							<NoEmployeeSkeleton />
 						</>
-					) : (
-						employees
+					</Flex>
+				</Flex>
+			) : (
+				<Flex w="100%" direction="column" gap="2">
+					<Flex justify="space-between" fontSize="sm">
+						<Text>{translate('nameAddress')}</Text>
+						{isGeneral && <Text>{translate('team')}</Text>}
+						<Text w="24">{translate('amount')}</Text>
+					</Flex>
+					<Flex direction="column" gap="2">
+						{employees
 							?.slice(0, isFullList ? employees.length : 3)
 							.map((employee, index) => (
 								<EmployeeData
@@ -125,10 +125,10 @@ export const EmployeesDashboard: React.FC<IEmployeeDashboard> = ({
 									employee={employee}
 									isGeneral={isGeneral}
 								/>
-							))
-					)}
+							))}
+					</Flex>
 				</Flex>
-			</Flex>
+			)}
 		</Flex>
 	);
 };

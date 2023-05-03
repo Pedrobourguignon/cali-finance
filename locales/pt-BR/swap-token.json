@@ -9,5 +9,10 @@
 	"swap": "Converter",
 	"select": "Selecione",
 	"waitingForConfirmation": "Aguardando confirmação...",
-	"pleaseConfirmTransaction": "Favor confirmar essa transação em sua carteira"
+	"pleaseConfirmTransaction": "Favor confirmar essa transação em sua carteira",
+	"selectACoin": "Selecione uma moeda",
+	"searchName": "Search name",
+	"tokenName": "Pesquisar nome",
+	"saveChanges": "Salvar alterações",
+	"loading": "Carregando"
 }

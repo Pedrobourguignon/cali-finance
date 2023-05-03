@@ -13,49 +13,48 @@ import { useState } from 'react';
 
 const coinCard: ICoin[] = [
 	{
-		icon: '/icons/tether.svg',
-		name: 'USDT',
-		value: '$1,00',
-		variation: 0.6,
+		logo: '/icons/tether.svg',
+		symbol: 'USDT',
+		value: 1,
+		change: 0.6,
 	},
 	{
-		icon: '/icons/tether.svg',
-		name: 'USDT',
-		value: '$1,00',
-		variation: 0,
+		logo: '/icons/tether.svg',
+		symbol: 'USDT',
+		value: 1,
+		change: 0,
 	},
 	{
-		icon: '/icons/tether.svg',
-		name: 'USDT',
-		value: '$1,00',
-		variation: 0.6,
+		logo: '/icons/tether.svg',
+		symbol: 'USDT',
+		value: 1,
+		change: 0.6,
 	},
 	{
-		icon: '/icons/tether.svg',
-		name: 'USDT',
-		value: '$1,00',
-		variation: 0.6,
+		logo: '/icons/tether.svg',
+		symbol: 'USDT',
+		value: 1,
+		change: 0.6,
 	},
 	{
-		icon: '/icons/tether.svg',
-		name: 'USDT',
-		value: '$1,00',
-		variation: 0.6,
+		logo: '/icons/tether.svg',
+		symbol: 'USDT',
+		value: 1,
+		change: 0.6,
 	},
 	{
-		icon: '/icons/tether.svg',
-		name: 'USDT',
-		value: '$1,00',
-		variation: -0.6,
+		logo: '/icons/tether.svg',
+		symbol: 'USDT',
+		value: 1,
+		change: -0.6,
 	},
 	{
-		icon: '/icons/tether.svg',
-		name: 'USDT',
-		value: '$1,00',
-		variation: 0,
+		logo: '/icons/tether.svg',
+		symbol: 'USDT',
+		value: 1,
+		change: 0,
 	},
 ];
-
 export const FundsPageComponentMobile = () => {
 	const theme = usePicasso();
 	const { t: translate } = useTranslation('company-overall');

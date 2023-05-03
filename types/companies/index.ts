@@ -2,6 +2,7 @@ export * from './IActivities';
 export * from './ICreateCompany';
 export * from './IEditCompany';
 export * from './IEditedCompany';
+export * from './IEditedEmployeeInfo';
 export * from './IEmployee';
 export * from './INewCompany';
 export * from './INewEmployee';

@@ -32,7 +32,7 @@ export const CompaniesConnectedMobile: React.FC = () => {
 					{activities && <RecentActivities />}
 				</Flex>
 			</Flex>
-			<Flex py="4">
+			<Flex pt="10" pb="24">
 				<HaveProblemCard />
 			</Flex>
 		</MobileLayout>

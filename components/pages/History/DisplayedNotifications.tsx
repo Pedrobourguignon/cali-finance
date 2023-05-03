@@ -2,13 +2,7 @@ import { Flex, Icon, Text } from '@chakra-ui/react';
 import { usePicasso } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
 import React from 'react';
-import { IHistoryNotification } from 'types';
-
-interface IDisplayedNotifications {
-	filteredNotifications: IHistoryNotification[];
-	pagesVisited: number;
-	notificationPerPage: number;
-}
+import { IDisplayedNotifications } from 'types';
 
 export const DisplayedNotifications: React.FC<IDisplayedNotifications> = ({
 	filteredNotifications,

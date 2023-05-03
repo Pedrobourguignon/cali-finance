@@ -12,12 +12,7 @@ export const MobileModalLayout: React.FC<IMobileModalLayout> = ({
 	isOpen,
 	onClose,
 }) => (
-	<Modal
-		isOpen={isOpen}
-		onClose={onClose}
-		size="md"
-		motionPreset="slideInBottom"
-	>
+	<Modal isOpen={isOpen} onClose={onClose} motionPreset="slideInBottom">
 		<ModalOverlay />
 		<ModalContent
 			borderTopRadius="2xl"
