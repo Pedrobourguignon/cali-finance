@@ -18,10 +18,11 @@ export const Coins = () => {
 
 	const [cardItems, setCardItems] = useState<ICoin[]>([]);
 
-	const { data: userData, refetch: refetchUserData } = useQuery(
-		'get-user-data',
-		() => getProfileData()
-	);
+	const {
+		data: userData,
+		refetch: refetchUserData,
+		isLoading: isLoadingUserData,
+	} = useQuery('get-user-data', () => getProfileData());
 	const favoriteCoins = userData?.settings?.coin as ICoin[];
 
 	const [listOfTokens, setListOfTokens] = useState<ICoin[]>([]);
@@ -40,6 +41,24 @@ export const Coins = () => {
 
 	const { data: coinServiceTokens, refetch: refetchCoinServiceTokens } =
 		useQuery('get-coin-data', () => getCoinServiceTokens(symbols.toString()));
+
+	const setInitialWidth = () => {
+		if (window.innerWidth < 1281) {
+			setFlexWidth(3);
+		} else if (window.innerWidth > 1515 && window.innerWidth < 1768) {
+			setFlexWidth(4);
+		} else if (window.innerWidth > 1700) setFlexWidth(5);
+	};
+
+	useEffect(() => {
+		setInitialWidth();
+		window.onresize = () => {
+			if (window.innerWidth < 1200) setFlexWidth(2);
+			else if (window.innerWidth > 1200 && window.innerWidth < 1514)
+				setFlexWidth(3);
+			else if (window.innerWidth > 1515) setFlexWidth(4);
+		};
+	}, []);
 
 	useEffect(() => {
 		if (Object.keys(selectedToken).length !== 0) {
@@ -61,15 +80,16 @@ export const Coins = () => {
 
 	// checking if the token is already in the favorites list
 	const checkingAlreadyFavorite = () => {
-		Object.values(favoriteCoins).forEach(item => {
-			symbols.push(item.symbol);
-			if (
-				!listOfTokens.find(
-					coin => coin.symbol.toLowerCase() === item.symbol.toLowerCase()
+		if (!isLoadingUserData)
+			Object.values(favoriteCoins).forEach(item => {
+				symbols.push(item.symbol);
+				if (
+					!listOfTokens.find(
+						coin => coin.symbol.toLowerCase() === item.symbol.toLowerCase()
+					)
 				)
-			)
-				setListOfTokens(listOfTokens.concat(favoriteCoins));
-		});
+					setListOfTokens(listOfTokens.concat(favoriteCoins));
+			});
 	};
 
 	// Put coin logo in object
@@ -94,7 +114,7 @@ export const Coins = () => {
 	};
 
 	useEffect(() => {
-		if (!favoriteCoins) {
+		if (isLoadingUserData === false && !favoriteCoins) {
 			setListOfTokens([
 				{
 					symbol: 'eth',
@@ -160,7 +180,7 @@ export const Coins = () => {
 				</Text>
 			</Flex>
 			<Flex justify="flex-start" mx="4" flex="1" gap={{ md: '4', '2xl': '4' }}>
-				{cardItems.slice(0, 3).map((card, index) => (
+				{cardItems.slice(0, flexWidth).map((card, index) => (
 					<CoinCard
 						coin={card}
 						borderColor="gray.100"
