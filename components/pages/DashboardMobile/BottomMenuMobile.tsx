@@ -5,6 +5,8 @@ import {
 	EditProfileIcon,
 	HistoryIcon,
 	MoreSquareIcon,
+	afterCssValues,
+	beforeCssValues,
 } from 'components';
 import { usePath, usePicasso } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
@@ -44,6 +46,7 @@ export const BottomMenuMobile = () => {
 			option: translate('history'),
 		},
 	];
+
 	return (
 		<Flex
 			display={{ base: 'flex', sm: 'none' }}
@@ -68,36 +71,8 @@ export const BottomMenuMobile = () => {
 						borderWidth={comparedPath ? '0.4rem' : '0'}
 						borderColor="white"
 						bg={theme.bg.primary}
-						_before={
-							comparedPath
-								? {
-										content: '""',
-										position: 'absolute',
-										top: '33%',
-										left: '-35px',
-										width: '30px',
-										height: '30px',
-										backgroundColor: 'transparent',
-										borderTopRightRadius: '20px',
-										boxShadow: '0px -18px 0 0 transparent',
-								  }
-								: {}
-						}
-						_after={
-							comparedPath
-								? {
-										content: '""',
-										position: 'absolute',
-										top: '33%',
-										right: '-35px',
-										width: '30px',
-										height: '30px',
-										backgroundColor: 'transparent',
-										borderTopLeftRadius: '20px',
-										boxShadow: '0px -18px 0 0 transparent',
-								  }
-								: {}
-						}
+						_before={comparedPath ? beforeCssValues : {}}
+						_after={comparedPath ? afterCssValues : {}}
 					>
 						<Link as={NextLink} href={menuOption.route}>
 							<Icon

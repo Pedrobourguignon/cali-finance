@@ -20,8 +20,8 @@ export const MobileLayout: React.FC<IMobileLayout> = ({ children }) => {
 			>
 				<MobileHeader />
 				<Flex
+					minH="100vh"
 					w="full"
-					h="100vh"
 					bg={theme.bg.gray2}
 					borderTopRadius="3xl"
 					px="4"

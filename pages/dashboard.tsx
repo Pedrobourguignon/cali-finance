@@ -1,10 +1,12 @@
 import { DashboardContainer } from 'containers';
-import { TokensProvider } from 'contexts';
+import { CompaniesProvider, TokensProvider } from 'contexts';
 import React from 'react';
 
 const Dashboard = () => (
 	<TokensProvider>
-		<DashboardContainer />
+		<CompaniesProvider>
+			<DashboardContainer />
+		</CompaniesProvider>
 	</TokensProvider>
 );
 

@@ -30,7 +30,7 @@ export const TokensProvider: React.FC<{ children: React.ReactNode }> = ({
 	const [filteredTokens, setFilteredTokens] = useState<IToken[]>([]);
 	const [chosenToken, setChosenToken] = useState<ISelectedCoin>({
 		logo: 'https://assets.coingecko.com/coins/images/1/thumb/bitcoin.png?1547033579',
-		symbol: 'bitcoin',
+		symbol: 'BTC',
 	} as ISelectedCoin);
 	const [swapTokenSelector, setSwapTokenSelector] =
 		useState<ISwapTokenSelector>({
@@ -74,10 +74,6 @@ export const TokensProvider: React.FC<{ children: React.ReactNode }> = ({
 		}
 	};
 
-	useEffect(() => {
-		getTokenDataById();
-	}, [chosenToken]);
-
 	const handleSearchToken = debounce(
 		(searchValue: string, tokens: IToken[]) => {
 			if (!searchValue) {
@@ -100,7 +96,7 @@ export const TokensProvider: React.FC<{ children: React.ReactNode }> = ({
 
 	const getCoinServiceTokens = async (symbols: string) => {
 		if (symbols) {
-			const response = await coinClient.get(`coin?symbols=${symbols}`);
+			const response = await coinClient.get(`/coin?symbols=${symbols}`);
 			return response.data;
 		}
 		return null;

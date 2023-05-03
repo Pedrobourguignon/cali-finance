@@ -1,5 +1,4 @@
 import { Flex, Text } from '@chakra-ui/react';
-import { OffsetShadow } from 'components/OffsetShadow';
 import { usePicasso } from 'hooks';
 
 interface INetworkTooltip {
@@ -9,26 +8,34 @@ interface INetworkTooltip {
 export const NetworkTooltip: React.FC<INetworkTooltip> = ({ children }) => {
 	const theme = usePicasso();
 	return (
-		<OffsetShadow
-			borderRadius="md"
-			top="-4px"
-			left="0.125rem"
-			borderColor={theme.branding.blue}
-			bg={theme.branding.blue}
-		>
+		<Flex position="relative" borderRadius="md" width="max-content">
 			<Flex
-				bg="white"
-				w="100%"
-				h="max-content"
-				borderWidth="1px"
+				bg={theme.branding.blue}
+				zIndex="0"
+				border="1px solid"
 				borderColor={theme.branding.blue}
-				borderRadius="md"
-				px="2"
-				py="2"
-				fontSize="sm"
+				borderRadius="inherit"
+				w="100%"
+				px="0"
+				py="0"
 			>
-				<Text>{children}</Text>
+				<Flex
+					position="relative"
+					right="0.5"
+					top="1"
+					bg="white"
+					w="100%"
+					h="max-content"
+					borderWidth="1px"
+					borderColor={theme.branding.blue}
+					borderRadius="md"
+					px="2"
+					py="2"
+					fontSize="sm"
+				>
+					<Text>{children}</Text>
+				</Flex>
 			</Flex>
-		</OffsetShadow>
+		</Flex>
 	);
 };

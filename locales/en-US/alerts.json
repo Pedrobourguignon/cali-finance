@@ -12,6 +12,7 @@
 	"weAreWorkingToSolve": "Error: we are working to solve",
 	"addressCopiedSuccessfully": "Address copied successfully",
 	"changesMadeWithSuccessfully": "Changes made with successfully",
+	"employeeDataChangedWithSuccessfully": "Employee data changed with successfully",
 	"employeeAdded": "Added employee",
 	"employeesAdded": "Added employees",
 	"theContentOfTheCsv": "The contents of the CSV file don't conform to the required specifications.",

@@ -1,6 +1,6 @@
 export interface ITransaction {
 	type: string;
 	symbol: string;
-	logo: string;
+	logo?: string;
 	amount: number;
 }

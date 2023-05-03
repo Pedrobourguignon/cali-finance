@@ -5,7 +5,7 @@ interface ICoinCard extends FlexProps {
 	coin: ICoin;
 }
 
-export const CoinCard: React.FC<ICoinCard> = ({
+export const CoinCardMobile: React.FC<ICoinCard> = ({
 	coin,
 	bg,
 	pr,
@@ -29,26 +29,26 @@ export const CoinCard: React.FC<ICoinCard> = ({
 			bg={bg}
 			borderColor={borderColor}
 			_hover={{ boxShadow: 'xl' }}
-			pl="2"
+			pl={{ md: '2', xl: '3' }}
 			pr={pr}
 			pt="2"
 			pb="1.5"
 			transition="all 0.1s ease-in-out"
-			w="28"
+			w="full"
 		>
-			<Flex direction="column" w="max-content">
-				<Flex align="center" gap="2">
-					<Img src={coin.logo} boxSize={{ md: '5', xl: '6' }} />
+			<Flex gap="5" bg="transparent" w="full" justify="space-between">
+				<Flex align="center" gap="2" pl="2">
+					<Img src={coin.logo} boxSize="6" />
 					<Flex direction="column">
 						<Text fontSize="xs" color={color}>
 							{coin.symbol?.toUpperCase()}
 						</Text>
-						<Text fontSize="xs" color={color} whiteSpace="nowrap" maxW="10">
+						<Text fontSize="xs" color={color}>
 							${coin.value?.toLocaleString('en-US')}
 						</Text>
 					</Flex>
 				</Flex>
-				<Text fontSize="xs" color={colorVariance().color}>
+				<Text fontSize="xs" pr="3" color={colorVariance().color}>
 					{colorVariance().variance}
 					{coin.change?.toFixed(2)}%
 				</Text>
@@ -57,4 +57,4 @@ export const CoinCard: React.FC<ICoinCard> = ({
 	);
 };
 
-export default CoinCard;
+export default CoinCardMobile;
