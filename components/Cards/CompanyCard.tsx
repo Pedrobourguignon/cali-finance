@@ -1,11 +1,4 @@
-import {
-	Flex,
-	Img,
-	Link,
-	Skeleton,
-	Text,
-	useDisclosure,
-} from '@chakra-ui/react';
+import { Flex, Img, Link, Text, useDisclosure } from '@chakra-ui/react';
 import { usePicasso } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
 import React from 'react';
@@ -37,12 +30,13 @@ export const CompanyCard: React.FC<ICompanyCard> = ({
 			direction="column"
 			gap={{ md: '1', lg: '2', xl: '4' }}
 			minW={{
+				base: '13.813rem',
 				md: '10.55rem',
 				lg: '10.5rem',
 				xl: '13.813rem',
 				'2xl': '13.1rem',
 			}}
-			maxW={{ md: '10.55rem', lg: '10.5rem' }}
+			maxW={{ base: '10.55rem', lg: '10.5rem' }}
 			h="8.375rem"
 		>
 			<WithdrawModal
@@ -51,7 +45,7 @@ export const CompanyCard: React.FC<ICompanyCard> = ({
 				userCompanies={userCompanies}
 			/>
 			<Flex direction="column" pt="2.5" pl="4" color={theme.text.primary}>
-				<Flex align="center" gap={{ md: '1', xl: '2' }}>
+				<Flex align="center" gap={{ base: '1', xl: '2' }}>
 					{company.logo ? (
 						<Img src={getLogo(company.logo)} boxSize="6" borderRadius="base" />
 					) : (
@@ -68,33 +62,41 @@ export const CompanyCard: React.FC<ICompanyCard> = ({
 						</Flex>
 					)}
 					<Text
-						fontSize={{ md: 'xs', xl: 'md' }}
+						fontSize={{ base: 'md', xl: 'md' }}
 						maxW="36"
 						whiteSpace="nowrap"
 						overflow="hidden"
 						fontWeight="bold"
 					>
-						{company.name}
+						{company?.name}
 					</Text>
 				</Flex>
-				<Flex pt={{ md: '3', xl: '3' }} justify="space-between" pr="6">
+				<Flex pt={{ base: '3', xl: '3' }} justify="space-between" pr="6">
 					<Flex direction="column">
-						<Text fontSize={{ md: 'xs', xl: 'sm' }} color="gray.500">
-							{company.isAdmin
+						<Text
+							fontSize={{ base: 'xs', md: 'xs', xl: 'sm' }}
+							color="gray.500"
+						>
+							{company?.isAdmin
 								? translate('funds')
 								: translate('availableToWithdraw')}
 						</Text>
 
-						<Text fontSize={{ md: 'xs', xl: 'sm' }}>
-							${company.revenue ? company.revenue.toLocaleString('en-US') : 0}
+						<Text fontSize={{ base: 'sm', md: 'xs', xl: 'sm' }}>
+							${company?.revenue ? company?.revenue.toLocaleString('en-US') : 0}
 						</Text>
 					</Flex>
-					{company.isAdmin ? (
+					{company?.isAdmin ? (
 						<Flex direction="column">
-							<Text fontSize={{ md: 'xs', xl: 'sm' }} color="gray.500">
+							<Text
+								fontSize={{ base: 'xs', md: 'xs', xl: 'sm' }}
+								color="gray.500"
+							>
 								{translate('members')}
 							</Text>
-							<Text fontSize={{ md: 'xs', xl: 'sm' }}>{companyMembers}</Text>
+							<Text fontSize={{ base: 'sm', md: 'xs', xl: 'sm' }}>
+								{companyMembers}
+							</Text>
 						</Flex>
 					) : (
 						<Flex />
@@ -106,9 +108,9 @@ export const CompanyCard: React.FC<ICompanyCard> = ({
 				align="center"
 				justify="center"
 				pb={{ lg: '2', xl: '4' }}
-				pt={{ md: '3', xl: '0' }}
+				pt={{ base: '3', xl: '0' }}
 			>
-				{company.isAdmin ? (
+				{company?.isAdmin ? (
 					<Link
 						href={navigationPaths.dashboard.companies.overview(
 							company.id!.toString()
@@ -118,7 +120,7 @@ export const CompanyCard: React.FC<ICompanyCard> = ({
 						<Text
 							color={theme.branding.blue}
 							bg="none"
-							fontSize={{ md: 'xs' }}
+							fontSize="xs"
 							fontWeight="medium"
 							cursor="pointer"
 						>
@@ -129,7 +131,7 @@ export const CompanyCard: React.FC<ICompanyCard> = ({
 					<Text
 						color={theme.branding.blue}
 						bg="none"
-						fontSize={{ md: 'xs' }}
+						fontSize="xs"
 						fontWeight="medium"
 						cursor="pointer"
 						onClick={onOpen}

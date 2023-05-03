@@ -68,7 +68,7 @@ export const DashboardHeader: React.FC = () => {
 	]);
 
 	return (
-		<Flex direction="column" pb="8">
+		<Flex direction="column" pb="6">
 			<Flex justify="space-between">
 				<Flex>
 					<Text
