@@ -13,7 +13,10 @@ export interface INotificationList {
 			teamId: number;
 			userId: number;
 		};
-		description: string;
+		description: {
+			enDescription: string;
+			ptDescription: string;
+		};
 	};
 	wallet: string;
 }

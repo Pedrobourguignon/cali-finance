@@ -1,46 +1,29 @@
 import { Flex, Img, Text } from '@chakra-ui/react';
-import { useCompanies, usePicasso } from 'hooks';
+import { usePicasso } from 'hooks';
 import { INotificationList } from 'types';
-import { useQuery, useQueryClient } from 'react-query';
-import { dateHandler, truncateWallet } from 'utils';
+import { dateHandler } from 'utils';
 import { useRouter } from 'next/router';
-import { useEffect } from 'react';
 
 export const NotificationComponent: React.FC<{
 	notification: INotificationList;
 }> = ({ notification }) => {
 	const theme = usePicasso();
-	const { getCompanyById } = useCompanies();
 	const { locale } = useRouter();
 
-	const queryClient = useQueryClient();
-	useEffect(() => {
-		queryClient.invalidateQueries('created-company-overview');
-	}, [notification]);
+	console.log(notification.meta.description.enDescription);
 
-	const { data: selectedCompany } = useQuery(
-		'created-company-overview',
-		() => getCompanyById(notification.meta.data.companyId),
-		{ retry: 10 }
-	);
-
-	console.log(notification.meta.data.companyId);
-	console.log(selectedCompany);
-
-	// eslint-disable-next-line consistent-return
 	const handleNotifications = () => {
 		if (notification.event.description === 'Added team member')
 			return {
 				icon: '/icons/add-user.svg',
-				text: `${truncateWallet(notification.wallet)} added to ${
-					selectedCompany?.name
-				}`,
+				text: notification.meta.description.enDescription,
 			};
 		if (notification.event.description === 'Created company')
 			return {
 				icon: '/icons/companies.svg',
-				text: `You created ${selectedCompany?.name}`,
+				text: notification.meta.description.enDescription,
 			};
+		return null;
 	};
 
 	return (
