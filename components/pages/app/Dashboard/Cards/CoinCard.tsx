@@ -29,12 +29,12 @@ export const CoinCard: React.FC<ICoinCard> = ({
 			bg={bg}
 			borderColor={borderColor}
 			_hover={{ boxShadow: 'xl' }}
-			pl={{ md: '2', xl: '3' }}
+			pl="2"
 			pr={pr}
 			pt="2"
 			pb="1.5"
 			transition="all 0.1s ease-in-out"
-			w="max-content"
+			w="28"
 		>
 			<Flex direction="column" w="max-content">
 				<Flex align="center" gap="2">
