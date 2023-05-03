@@ -18,7 +18,7 @@ export const MAIN_SERVICE_ROUTES = {
 	createCompany: path(API_URLS.main, '/company/'),
 	allUserCompanies: (wallet: string) =>
 		path(API_URLS.main, `user/${wallet}/company`),
-	updateCompany: (id: number) => path(API_URLS.main, `/company/${id}`),
+	updateCompany: (id: number) => path(API_URLS.main, `company/${id}`),
 	allCompanyEmployees: (id: number) =>
 		path(API_URLS.main, `company/${id}/users`),
 	allCompanyTeams: (id: number) => path(API_URLS.main, `/company/${id}/teams`),

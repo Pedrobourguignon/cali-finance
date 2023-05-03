@@ -1,7 +1,7 @@
 import { Flex, Icon, Text } from '@chakra-ui/react';
 import { usePicasso } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
-import React from 'react';
+import React, { useMemo } from 'react';
 import { IDisplayedNotifications } from 'types';
 
 export const DisplayedNotificationsMobile: React.FC<
@@ -10,9 +10,13 @@ export const DisplayedNotificationsMobile: React.FC<
 	const { t: translate } = useTranslation('history-page');
 	const theme = usePicasso();
 
-	const displayNotifications = filteredNotifications.slice(
-		pagesVisited,
-		pagesVisited + notificationPerPage
+	const displayNotifications = useMemo(
+		() =>
+			filteredNotifications.slice(
+				pagesVisited,
+				pagesVisited + notificationPerPage
+			),
+		[filteredNotifications, notificationPerPage, pagesVisited]
 	);
 
 	return (
