@@ -96,7 +96,7 @@ export const TokensProvider: React.FC<{ children: React.ReactNode }> = ({
 
 	const getCoinServiceTokens = async (symbols: string) => {
 		if (symbols) {
-			const response = await coinClient.get(`coin?symbols=${symbols}`);
+			const response = await coinClient.get(`/coin?symbols=${symbols}`);
 			return response.data;
 		}
 		return null;

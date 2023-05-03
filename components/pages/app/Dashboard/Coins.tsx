@@ -1,4 +1,4 @@
-import { Flex, Text, useDisclosure } from '@chakra-ui/react';
+import { Flex, Text, useDisclosure, useMediaQuery } from '@chakra-ui/react';
 import { NewCoinButton, CoinCard, TokenSelector } from 'components';
 import React, { useEffect, useState } from 'react';
 import { ICoin, ISelectedCoin } from 'types';
@@ -25,6 +25,9 @@ export const Coins = () => {
 	const favoriteCoins = userData?.settings?.coin as ICoin[];
 
 	const [listOfTokens, setListOfTokens] = useState<ICoin[]>([]);
+	const [flexWidth, setFlexWidth] = useState<number>(
+		useMediaQuery('(max-width: 1280px)') ? 3 : 4
+	);
 
 	const symbols: string[] = [];
 
