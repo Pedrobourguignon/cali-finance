@@ -38,9 +38,15 @@ export const RecentActivities = () => {
 				</Link>
 			</Flex>
 			<Flex gap="2" direction="column">
-				{activities.map((activity, index) => (
-					<ActivitiesData key={+index} activities={activity} />
-				))}
+				{!activities ? (
+					<Text color={theme.text.primary} fontSize="sm" lineHeight="5">
+						{translate('yourLatestActivities')}
+					</Text>
+				) : (
+					activities.map((activity, index) => (
+						<ActivitiesData key={+index} activities={activity} />
+					))
+				)}
 			</Flex>
 		</Flex>
 	);

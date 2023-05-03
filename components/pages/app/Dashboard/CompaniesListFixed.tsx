@@ -1,23 +1,28 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
-import { Button, Flex, Text, useDisclosure } from '@chakra-ui/react';
+import {
+	Button,
+	Flex,
+	Text,
+	useDisclosure,
+	useMediaQuery,
+} from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
-import { CompanyCard } from 'components';
-import { useCompanies, usePicasso } from 'hooks';
+import { CompanyCard, CreateCompanyCard } from 'components';
+import { usePicasso } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
-import { useQuery } from 'react-query';
-import { useAccount } from 'wagmi';
+import { GetUserCompaniesRes } from 'types/interfaces/main-server/ICompany';
 
-export const CompaniesListFixed = () => {
+interface ICompaniesList {
+	companies: GetUserCompaniesRes[] | undefined;
+}
+
+export const CompaniesListFixed: React.FC<ICompaniesList> = ({ companies }) => {
 	const theme = usePicasso();
 	const [flexWidth, setFlexWidth] = useState<number>(
-		window.innerWidth < 1281 ? 3 : 4
+		useMediaQuery('(max-width: 1280px)') ? 3 : 4
 	);
-
 	const { isOpen: isFullList, onToggle: toggleListView } = useDisclosure();
 	const { t: translate } = useTranslation('company-overall');
 	const { t: translateDashboard } = useTranslation('dashboard');
-	const { getAllUserCompanies } = useCompanies();
-	const { isConnected } = useAccount();
 
 	const setInitialWidth = () => {
 		if (window.innerWidth < 1281) {
@@ -37,12 +42,8 @@ export const CompaniesListFixed = () => {
 		};
 	}, []);
 
-	const { data: companies } = useQuery('all-companies', getAllUserCompanies, {
-		enabled: !!isConnected,
-	});
-
 	return (
-		<Flex direction="column" pt="10">
+		<Flex direction="column" pt="10" w="100%">
 			<Flex justify="space-between" align="center">
 				<Text
 					fontSize="md"
@@ -67,23 +68,22 @@ export const CompaniesListFixed = () => {
 					</Text>
 				</Button>
 			</Flex>
-			<Flex
-				justify={companies?.length === 2 ? 'space-between' : 'flex-start'}
-				wrap="wrap"
-				gap={{ md: '4', '2xl': '6' }}
-			>
-				{companies &&
-					companies!
+			<Flex justify="flex-start" wrap="wrap" gap={{ md: '4', '2xl': '6' }}>
+				{companies && companies.length > 0 ? (
+					companies
 						.slice(0, isFullList ? companies?.length : flexWidth)
 						.map((company, index) => (
 							<Flex key={+index}>
 								<CompanyCard
 									company={company}
-									companyMembers={1}
-									userCompanies={companies!}
+									userCompanies={companies}
+									companyMembers={0}
 								/>
 							</Flex>
-						))}
+						))
+				) : (
+					<CreateCompanyCard />
+				)}
 			</Flex>
 		</Flex>
 	);

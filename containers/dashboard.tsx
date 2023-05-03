@@ -84,7 +84,7 @@ export const DashboardContainer = () => {
 								recentActivitiesList={recentActivitiesList}
 							/>
 						</Flex>
-						<Flex py="10">
+						<Flex pt="10" pb="24">
 							<HaveProblemCard />
 						</Flex>
 					</MobileLayout>

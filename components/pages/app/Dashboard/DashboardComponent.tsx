@@ -6,6 +6,7 @@ import {
 	RecentActivitiesDashboard,
 	MyAssets,
 	CompaniesListFixed,
+	CompanyCardSkeleton,
 } from 'components';
 import React from 'react';
 import { IRecentActivitiesList } from 'types';
@@ -65,7 +66,11 @@ export const DashboardComponent: React.FC = () => {
 					<Coins />
 				</Flex>
 				<Flex direction="column" gap="9" pt={!session ? '4' : 0}>
-					{session ? <CompaniesListFixed /> : <CreateCompanyCard />}
+					{session ? (
+						<CompaniesListFixed companies={companies} />
+					) : (
+						<CreateCompanyCard />
+					)}
 					{session && (
 						<Flex justify="space-between" w="full" gap="6">
 							<Flex w="full" flex="5.5">

@@ -4,6 +4,7 @@ export * from './CoinsMobile';
 export * from './ConnectWalletMobile';
 export * from './LoadingWalletMobile';
 export * from './MenuMobile';
+export * from './mobileMenuCssValues';
 export * from './NotificationModalMobile';
 export * from './WalletOptionsMobile';
 export * from './YourCompaniesMobile';

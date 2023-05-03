@@ -1,11 +1,11 @@
 import { Flex, FlexProps, Img, Text } from '@chakra-ui/react';
 import { ICoin } from 'types';
 
-interface ICoinCardMobile extends FlexProps {
+interface ICoinCard extends FlexProps {
 	coin: ICoin;
 }
 
-export const CoinCardMobile: React.FC<ICoinCardMobile> = ({
+export const CoinCardMobile: React.FC<ICoinCard> = ({
 	coin,
 	bg,
 	pr,
@@ -13,9 +13,13 @@ export const CoinCardMobile: React.FC<ICoinCardMobile> = ({
 	color,
 }) => {
 	const colorVariance = () => {
-		if (coin.variation > 0) return 'green.400';
-		if (!coin.variation) return color;
-		return 'red.500';
+		if (Number(coin.change?.toFixed(2)) > 0)
+			return {
+				color: 'green.400',
+				variance: '+',
+			};
+		if (Number(coin.change?.toFixed(2)) === 0) return { color, variance: '' };
+		return { color: 'red.500', variance: '' };
 	};
 
 	return (
@@ -34,19 +38,19 @@ export const CoinCardMobile: React.FC<ICoinCardMobile> = ({
 		>
 			<Flex gap="5" bg="transparent" w="full" justify="space-between">
 				<Flex align="center" gap="2" pl="2">
-					<Img src={coin.icon} boxSize="6" />
+					<Img src={coin.logo} boxSize="6" />
 					<Flex direction="column">
 						<Text fontSize="xs" color={color}>
-							{coin.name}
+							{coin.symbol?.toUpperCase()}
 						</Text>
 						<Text fontSize="xs" color={color}>
-							{coin.value}
+							${coin.value?.toLocaleString('en-US')}
 						</Text>
 					</Flex>
 				</Flex>
-				<Text fontSize="xs" color={colorVariance()} pr="3">
-					{coin.variation > 0 && '+'}
-					{coin.variation}%
+				<Text fontSize="xs" pr="3" color={colorVariance().color}>
+					{colorVariance().variance}
+					{coin.change?.toFixed(2)}%
 				</Text>
 			</Flex>
 		</Flex>

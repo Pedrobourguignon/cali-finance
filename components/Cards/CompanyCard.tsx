@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { Flex, Img, Link, Text, useDisclosure } from '@chakra-ui/react';
 import { usePicasso } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
@@ -37,7 +36,7 @@ export const CompanyCard: React.FC<ICompanyCard> = ({
 				xl: '13.813rem',
 				'2xl': '13.1rem',
 			}}
-			maxW={{ md: '10.55rem', lg: '10.5rem' }}
+			maxW={{ base: '10.55rem', lg: '10.5rem' }}
 			h="8.375rem"
 		>
 			<WithdrawModal
@@ -46,8 +45,8 @@ export const CompanyCard: React.FC<ICompanyCard> = ({
 				userCompanies={userCompanies}
 			/>
 			<Flex direction="column" pt="2.5" pl="4" color={theme.text.primary}>
-				<Flex align="center" gap={{ base: '2', md: '1', xl: '2' }}>
-					{company?.logo ? (
+				<Flex align="center" gap={{ base: '1', xl: '2' }}>
+					{company.logo ? (
 						<Img src={getLogo(company.logo)} boxSize="6" borderRadius="base" />
 					) : (
 						<Flex
@@ -59,11 +58,11 @@ export const CompanyCard: React.FC<ICompanyCard> = ({
 							fontWeight="bold"
 							bg={theme.bg.white2}
 						>
-							{handleLogoImage(company?.name)}
+							{handleLogoImage(company.name)}
 						</Flex>
 					)}
 					<Text
-						fontSize="md"
+						fontSize={{ base: 'md', xl: 'md' }}
 						maxW="36"
 						whiteSpace="nowrap"
 						overflow="hidden"
@@ -75,7 +74,7 @@ export const CompanyCard: React.FC<ICompanyCard> = ({
 				<Flex pt={{ base: '3', xl: '3' }} justify="space-between" pr="6">
 					<Flex direction="column">
 						<Text
-							fontSize={{ base: 'sm', md: 'xs', xl: 'sm' }}
+							fontSize={{ base: 'xs', md: 'xs', xl: 'sm' }}
 							color="gray.500"
 						>
 							{company?.isAdmin
@@ -90,7 +89,7 @@ export const CompanyCard: React.FC<ICompanyCard> = ({
 					{company?.isAdmin ? (
 						<Flex direction="column">
 							<Text
-								fontSize={{ base: 'sm', md: 'xs', xl: 'sm' }}
+								fontSize={{ base: 'xs', md: 'xs', xl: 'sm' }}
 								color="gray.500"
 							>
 								{translate('members')}
@@ -121,7 +120,7 @@ export const CompanyCard: React.FC<ICompanyCard> = ({
 						<Text
 							color={theme.branding.blue}
 							bg="none"
-							fontSize={{ md: 'xs' }}
+							fontSize="xs"
 							fontWeight="medium"
 							cursor="pointer"
 						>
@@ -132,7 +131,7 @@ export const CompanyCard: React.FC<ICompanyCard> = ({
 					<Text
 						color={theme.branding.blue}
 						bg="none"
-						fontSize={{ md: 'xs' }}
+						fontSize="xs"
 						fontWeight="medium"
 						cursor="pointer"
 						onClick={onOpen}
