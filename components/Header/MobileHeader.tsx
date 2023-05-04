@@ -230,7 +230,7 @@ export const MobileHeader = () => {
 								_focus={{}}
 							>
 								<Flex align="center" gap="2" justify="center">
-									{/* <Img
+									<Img
 										src={
 											!profileData?.picture
 												? '/images/editImage.png'
@@ -239,7 +239,7 @@ export const MobileHeader = () => {
 										borderRadius="full"
 										boxSize="6"
 										objectFit="cover"
-									/> */}
+									/>
 									<Text fontWeight="medium" fontSize="sm">
 										{truncateWallet(walletAddress)}
 									</Text>

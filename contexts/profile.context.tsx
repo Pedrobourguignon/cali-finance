@@ -23,8 +23,8 @@ export const ProfileProvider: React.FC<{ children: React.ReactNode }> = ({
 	const { address: walletAddress } = useAccount();
 
 	const [walletData, setWalletData] = useState<IWalletData>({
-		name: 'antonio',
-		icon: 'xd',
+		name: '',
+		icon: '',
 	});
 
 	const getProfileData = async (wallet: `0x${string}` | undefined) => {
