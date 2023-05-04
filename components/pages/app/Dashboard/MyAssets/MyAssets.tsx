@@ -94,7 +94,7 @@ export const MyAssets = () => {
 								{translate('myAssets')}
 							</Text>
 							<Text
-								fontSize={{ md: 'xs', lg: 'sm' }}
+								fontSize={{ base: 'sm', md: 'xs', lg: 'sm' }}
 								color={theme.text.primary}
 							>
 								${totalAssetsValue.toLocaleString('en-US')}

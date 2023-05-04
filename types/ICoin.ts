@@ -1,6 +1,6 @@
-export interface ICoin {
-	icon: string;
-	name: string;
-	value: string;
-	variation: number;
+import { ISelectedCoin } from 'types';
+
+export interface ICoin extends ISelectedCoin {
+	value?: number;
+	change?: number;
 }

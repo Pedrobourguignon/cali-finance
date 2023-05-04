@@ -1,8 +1,5 @@
 import {
 	Flex,
-	Modal,
-	ModalOverlay,
-	ModalContent,
 	ModalHeader,
 	ModalBody,
 	ModalCloseButton,
@@ -25,6 +22,7 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { truncateWallet } from 'utils';
 import { MobileModalLayout } from 'layouts';
+import useTranslation from 'next-translate/useTranslation';
 
 export const EditEmployeeMobile: React.FC<IEditEmployee> = ({
 	isOpen,
@@ -32,6 +30,7 @@ export const EditEmployeeMobile: React.FC<IEditEmployee> = ({
 	employee,
 }) => {
 	const theme = usePicasso();
+	const { t: translate } = useTranslation('create-team');
 	const [editedEmployeeData, setEditedEmployeeData] = useState({
 		amount: 0,
 		amountInDollar: 0,
@@ -59,7 +58,11 @@ export const EditEmployeeMobile: React.FC<IEditEmployee> = ({
 		color: 'blackAlpha.500',
 	};
 
-	const expenseCalculation = () => '30% more expenses.';
+	const expenseValue = 30;
+	const expenseCalculation = () =>
+		`${translate('thisChange')} ${expenseValue}% ${translate(
+			'more'
+		)} ${translate('expenses')}`;
 
 	const converterToDollar = (amountInDollar: number) => {
 		setEditedEmployeeData(prevState => ({
@@ -86,8 +89,7 @@ export const EditEmployeeMobile: React.FC<IEditEmployee> = ({
 		}));
 	};
 
-	const handleEditEmployee = (editedEmployeeFormData: IEditEmployeeForm) => {
-		console.log(editedEmployeeFormData);
+	const handleEditEmployee = () => {
 		handleResetFormInputs();
 	};
 
@@ -117,7 +119,7 @@ export const EditEmployeeMobile: React.FC<IEditEmployee> = ({
 								_active={{}}
 								_focus={{}}
 							>
-								Edit Employee
+								{translate('editEmployee')}
 							</Text>
 							<Text color={theme.text.primary} fontSize="sm">
 								{employee.name} - {truncateWallet(employee?.wallet)}
@@ -131,7 +133,9 @@ export const EditEmployeeMobile: React.FC<IEditEmployee> = ({
 						<ModalBody display="flex" flexDirection="column">
 							<Flex direction="column" gap="2" pb="8">
 								<Flex align="center" justify="space-between">
-									<Text {...labelStyle}>Amount (per month)*</Text>
+									<Text {...labelStyle}>
+										{translate('amount')} ({translate('perMonth')})*
+									</Text>
 									<Text fontSize="xs" color="gray.500">
 										US$&nbsp;{editedEmployeeData.amountInDollar}
 									</Text>
@@ -151,13 +155,17 @@ export const EditEmployeeMobile: React.FC<IEditEmployee> = ({
 										_focusVisible={{}}
 										color={theme.text.primary}
 										onChange={amount => {
+											// set the new amount of the employee on the state
 											setEditedEmployeeData(prevState => ({
 												...prevState,
 												amount: parseInt(amount.target.value, 10),
 											}));
+											// converts the new amount of the selected currency to dollars
 											converterToDollar(
 												parseInt(amount.currentTarget.value, 10)
 											);
+											// if the amount input is empty, the dollar value goes back to zero and set the employee's amount back to zero
+											// this is for the case when the user clear the amount input after he already put something in the input
 											return (
 												!amount.currentTarget.value &&
 												setEditedEmployeeData(prevState => ({
@@ -190,9 +198,6 @@ export const EditEmployeeMobile: React.FC<IEditEmployee> = ({
 									{errors.amount?.message}
 								</Text>
 								<Flex bg="blue.50" py="2" justify="center" borderRadius="base">
-									<Text fontSize="sm" color={theme.text.primary}>
-										This change will cause
-									</Text>
 									<Text
 										fontSize="sm"
 										color={theme.text.primary}
@@ -203,8 +208,7 @@ export const EditEmployeeMobile: React.FC<IEditEmployee> = ({
 									</Text>
 								</Flex>
 								<Text fontSize="xs" color={theme.text.primary}>
-									Please note that you will have to deposit more 0.0002 BTC in
-									the companies’ funds.
+									{translate('pleaseNote')}
 								</Text>
 							</Flex>
 							<BlackButton
@@ -217,7 +221,7 @@ export const EditEmployeeMobile: React.FC<IEditEmployee> = ({
 								disabled={!editedEmployeeData.amount}
 							>
 								<Text>+</Text>
-								Update Employee&apos;s Data
+								{translate('updateEmployee')}
 							</BlackButton>
 						</ModalBody>
 					</FormControl>

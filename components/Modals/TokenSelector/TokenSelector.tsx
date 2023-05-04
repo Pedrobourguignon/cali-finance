@@ -1,3 +1,4 @@
+/* eslint-disable import/no-extraneous-dependencies */
 import {
 	Button,
 	Flex,
@@ -20,6 +21,7 @@ import { TokenOptions } from 'components';
 import { IoIosSearch, IoMdArrowDown } from 'react-icons/io';
 import { useEffect, useState } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
+import useTranslation from 'next-translate/useTranslation';
 
 interface ITokenSelector extends IBasicModal {
 	setToken: React.Dispatch<React.SetStateAction<ISelectedCoin>>;
@@ -31,6 +33,7 @@ export const TokenSelector: React.FC<ITokenSelector> = ({
 	setToken,
 }) => {
 	const theme = usePicasso();
+	const { t: translate } = useTranslation('swap-token');
 	const { setFilteredTokens, filteredTokens, handleSearchToken, listOfTokens } =
 		useTokens();
 
@@ -75,7 +78,9 @@ export const TokenSelector: React.FC<ITokenSelector> = ({
 				borderRadius="base"
 				borderWidth="0.1rem"
 			>
-				<ModalHeader color={theme.bg.primary}>Select a coin</ModalHeader>
+				<ModalHeader color={theme.bg.primary}>
+					{translate('selectACoin')}
+				</ModalHeader>
 				<Flex w="100%" justify="center" px="6">
 					<InputGroup>
 						<InputLeftElement>
@@ -89,7 +94,7 @@ export const TokenSelector: React.FC<ITokenSelector> = ({
 								handleSearchToken(event.target.value, listOfTokens)
 							}
 							_placeholder={{ color: 'gray.500' }}
-							placeholder="Search name "
+							placeholder={translate('searchName')}
 							w="100%"
 						/>
 					</InputGroup>
@@ -97,7 +102,7 @@ export const TokenSelector: React.FC<ITokenSelector> = ({
 				<ModalCloseButton color={theme.text.gray} />
 				<ModalBody>
 					<Flex align="center" gap="2">
-						<Text color={theme.bg.primary}>Token name</Text>
+						<Text color={theme.bg.primary}>{translate('tokenName')}</Text>
 						<Icon boxSize="5" color={theme.branding.blue} as={IoMdArrowDown} />
 					</Flex>
 					<Flex
@@ -133,7 +138,7 @@ export const TokenSelector: React.FC<ITokenSelector> = ({
 							dataLength={loadedTokens.length}
 							next={() => loadMoreTokens()}
 							hasMore={lastObjectPosition < listOfTokens.length}
-							loader={<h4>Loading...</h4>}
+							loader={<h4>{translate('loading')}...</h4>}
 							scrollableTarget="scrollableDiv"
 						>
 							{loadedTokens.map((token, index) => (
@@ -156,7 +161,7 @@ export const TokenSelector: React.FC<ITokenSelector> = ({
 						borderWidth="0.1rem"
 						borderRadius="none"
 					>
-						Save Changes
+						{translate('saveChanges')}
 					</Button>
 				</ModalFooter>
 			</ModalContent>

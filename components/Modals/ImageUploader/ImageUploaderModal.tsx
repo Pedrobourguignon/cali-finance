@@ -14,6 +14,7 @@ import { usePicasso } from 'hooks';
 import { IBasicModal } from 'types';
 import { BlackButton, DragDrop } from 'components';
 import { useState } from 'react';
+import useTranslation from 'next-translate/useTranslation';
 
 interface IImageUploader extends IBasicModal {
 	sendImage: React.Dispatch<React.SetStateAction<any>>;
@@ -26,6 +27,7 @@ export const ImageUploaderModal: React.FC<IImageUploader> = ({
 }) => {
 	const theme = usePicasso();
 	const [picture, setPicture] = useState('');
+	const { t: translate } = useTranslation('edit-profile');
 
 	const handleUploadFile = () => {
 		sendImage(picture);
@@ -50,9 +52,7 @@ export const ImageUploaderModal: React.FC<IImageUploader> = ({
 					borderRadius="base"
 				>
 					<ModalHeader display="flex">
-						<Text color={theme.text.primary}>
-							Drag and drop to upload image
-						</Text>
+						<Text color={theme.text.primary}>{translate('dragAndDrop')}</Text>
 						<ModalCloseButton color="gray.400" py="6" />
 					</ModalHeader>
 					<ModalBody
@@ -63,7 +63,7 @@ export const ImageUploaderModal: React.FC<IImageUploader> = ({
 					>
 						<Flex w="100%">
 							<Text fontSize="xs" color={theme.text.primary}>
-								Your file must be no more than 5MB
+								{translate('yourFileNoMustBe')} 5MB
 							</Text>
 						</Flex>
 						<Flex w="100%" justify="center">
@@ -78,17 +78,17 @@ export const ImageUploaderModal: React.FC<IImageUploader> = ({
 						color="black"
 						borderColor="black"
 						borderWidth="0.1rem"
-						px="12"
+						w="9.5rem"
 					>
-						Cancel
+						{translate('cancel')}
 					</Button>
 					<BlackButton
-						px="8"
+						w="9.5rem"
 						py="2.5"
 						onClick={handleUploadFile}
 						borderRadius="sm"
 					>
-						Upload File
+						{translate('uploadFile')}
 					</BlackButton>
 				</ModalFooter>
 			</ModalContent>

@@ -17,7 +17,7 @@ import {
 } from 'components';
 import { usePicasso } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
-import { IBasicModal, ISelectedCoin, IToken } from 'types';
+import { IBasicModal, ISelectedCoin } from 'types';
 import { useState } from 'react';
 import { ICompany } from 'types/interfaces/main-server/ICompany';
 
@@ -33,7 +33,7 @@ export const WithdrawModal: React.FC<IWithdrawModal> = ({
 	const theme = usePicasso();
 	const [token, setToken] = useState<ISelectedCoin>({
 		logo: 'https://assets.coingecko.com/coins/images/1/thumb/bitcoin.png?1547033579',
-		symbol: 'bitcoin',
+		symbol: 'BTC',
 	} as ISelectedCoin);
 	const { t: translate } = useTranslation('dashboard');
 	const {

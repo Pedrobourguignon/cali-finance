@@ -49,11 +49,11 @@ export const AddEmployee: React.FC<IAddEmployee> = ({ isOpen, onClose }) => {
 	});
 	const [token, setToken] = useState<ISelectedCoin>({
 		logo: 'https://assets.coingecko.com/coins/images/1/thumb/bitcoin.png?1547033579',
-		symbol: 'bitcoin',
+		symbol: 'BTC',
 	} as ISelectedCoin);
 	const bitcoinPrice = 87.586;
-	const { addEmployeeSchema } = useSchema();
 	const { selectedCompany, addEmployeeToTeam } = useCompanies();
+	const { addEmployeeSchema } = useSchema();
 	const queryClient = useQueryClient();
 
 	const toast = useToast();
@@ -97,7 +97,7 @@ export const AddEmployee: React.FC<IAddEmployee> = ({ isOpen, onClose }) => {
 		register,
 		handleSubmit,
 		reset,
-		formState: { errors },
+		formState: { errors, isValid },
 	} = useForm<IAddEmployeeForm>({
 		resolver: yupResolver(addEmployeeSchema),
 	});
@@ -302,7 +302,9 @@ export const AddEmployee: React.FC<IAddEmployee> = ({ isOpen, onClose }) => {
 									<Flex align="center" justify="space-between">
 										<Text {...labelStyle}>{translate('amountPerMonth')}</Text>
 										<Text fontWeight="normal" fontSize="xs" color="gray.500">
-											US${addedEmployeeData.amountInDollar}
+											{!addedEmployeeData.amountInDollar
+												? ''
+												: `US$ ${addedEmployeeData.amountInDollar}`}
 										</Text>
 									</Flex>
 									<InputGroup>
@@ -324,7 +326,7 @@ export const AddEmployee: React.FC<IAddEmployee> = ({ isOpen, onClose }) => {
 													amount: Number(amount.target.value),
 												}));
 												converterToDollar(
-													parseInt(amount.currentTarget.value, 10)
+													parseFloat(amount.currentTarget.value)
 												);
 												return (
 													!amount.currentTarget.value &&

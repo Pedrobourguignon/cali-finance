@@ -23,5 +23,12 @@
 	"dragAndDrop": "Arraste e solte seu arquivo .csv ou selecione e carregue seu arquivo .csv.",
 	"loadCsv": "Carregar lista CSV",
 	"yourCsvMustHave": "Seu arquivo .csv deve ter as colunas 'address' (endereço do usuário), 'revenue' (valor), 'asset' (moeda).",
-	"socialMediaLinks": "Links das redes sociais"
+	"socialMediaLinks": "Links das redes sociais",
+	"editEmployee": "Editar funcionário",
+	"perMonth": "por mês",
+	"thisChange": "Esta mudança causará",
+	"pleaseNote": "Observe que você terá que depositar mais 0,0002 BTC nos fundos da empresa.",
+	"updateEmployee": "Atualizar dados do funcionário",
+	"more": "a mais",
+	"expenses": "de despesas"
 }

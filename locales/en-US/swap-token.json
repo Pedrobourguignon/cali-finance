@@ -9,5 +9,10 @@
 	"swap": "Swap",
 	"select": "Select",
 	"waitingForConfirmation": "Waiting for confirmation...",
-	"pleaseConfirmTransaction": "Please confirm this transaction in your wallet"
+	"pleaseConfirmTransaction": "Please confirm this transaction in your wallet",
+	"selectACoin": "Select a coin",
+	"searchName": "Search name",
+	"tokenName": "Token name",
+	"saveChanges": "Save Changes",
+	"loading": "Loading"
 }

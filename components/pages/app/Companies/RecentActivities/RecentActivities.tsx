@@ -38,11 +38,6 @@ export const RecentActivities = () => {
 					</Text>
 				</Link>
 			</Flex>
-			<Flex gap="2" direction="column" display={{ base: 'none', sm: 'flex' }}>
-				{activities.map((activity, index) => (
-					<ActivitiesData key={+index} activities={activity} />
-				))}
-			</Flex>
 			<Flex gap="2" direction="column" display={{ base: 'flex', sm: 'none' }}>
 				{activities.map((activity, index) => (
 					<ActivitiesDataMobile key={+index} activities={activity} />

@@ -1,15 +1,13 @@
 import { Button, Flex, Text, useDisclosure } from '@chakra-ui/react';
 import React from 'react';
 import useTranslation from 'next-translate/useTranslation';
-import { LoadingWalletConnectModal, WalletsOptionsModal } from 'components';
+import { LoadingWalletMobile, WalletOptionsMobile } from 'components';
 import { useProfile } from 'hooks';
-import { useRouter } from 'next/router';
 import { useSession } from 'next-auth/react';
 
 export const ConnectWalletMobile = () => {
 	const { t: translate } = useTranslation('sidebar');
 	const { data: session } = useSession();
-	const { locale } = useRouter();
 	const shouldDisplay = session ? 'none' : 'flex';
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const { walletData, setWalletData } = useProfile();
@@ -24,14 +22,15 @@ export const ConnectWalletMobile = () => {
 
 	return (
 		<Flex>
-			<WalletsOptionsModal
+			<WalletOptionsMobile
 				setWalletData={setWalletData}
 				isOpen={isOpen}
 				onClose={onClose}
 				openLoadingWalletModal={onOpenLoading}
 				onCloseLoading={onCloseLoading}
 			/>
-			<LoadingWalletConnectModal
+
+			<LoadingWalletMobile
 				walletIcon={icon}
 				walletName={name}
 				isOpen={isOpenLoading}
@@ -40,8 +39,8 @@ export const ConnectWalletMobile = () => {
 			<Button
 				w={{ base: '8.5rem', xl: '40', '2xl': '52' }}
 				h="max-content"
-				py={{ base: locale === 'pt-BR' ? '2.5' : '2', xl: '2' }}
-				fontSize={{ base: locale === 'pt-BR' ? 'xs' : 'sm', xl: 'sm' }}
+				py="2"
+				fontSize={{ base: 'xs', xl: 'sm' }}
 				color="black"
 				borderRadius="base"
 				bg="white"
