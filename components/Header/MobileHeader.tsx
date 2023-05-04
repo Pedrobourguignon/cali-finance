@@ -49,7 +49,7 @@ export const MobileHeader = () => {
 	const theme = usePicasso();
 	const { t: translate } = useTranslation('sidebar');
 	const { getProfileData } = useProfile();
-	const { address: walletAddress } = useAccount();
+	const { address: walletAddress, isConnected } = useAccount();
 	const { data: session } = useSession();
 	const { disconnect } = useDisconnect();
 	const {
@@ -67,7 +67,13 @@ export const MobileHeader = () => {
 		onOpen: onOpenNetwork,
 		onClose: onCloseNetwork,
 	} = useDisclosure();
-	const { data: profileData } = useQuery(['profile-data'], getProfileData);
+	const { data: profileData } = useQuery(
+		['profile-data'],
+		() => getProfileData(walletAddress),
+		{
+			enabled: !!isConnected,
+		}
+	);
 
 	const [notificationsList, setNotificationsList] = useState<
 		INotificationList[]

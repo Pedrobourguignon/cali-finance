@@ -6,6 +6,7 @@ import useTranslation from 'next-translate/useTranslation';
 import { usePicasso, useProfile } from 'hooks';
 import { useSession } from 'next-auth/react';
 import { useQuery } from 'react-query';
+import { useAccount } from 'wagmi';
 
 export const DashboardHeader: React.FC = () => {
 	const { onClose, isOpen, onOpen } = useDisclosure();
@@ -14,8 +15,15 @@ export const DashboardHeader: React.FC = () => {
 	const { getProfileData } = useProfile();
 	const percentage = 0;
 	const theme = usePicasso();
+	const { isConnected, address } = useAccount();
 
-	const { data: profileData } = useQuery('profile-data', getProfileData);
+	const { data: profileData } = useQuery(
+		'profile-data',
+		() => getProfileData(address),
+		{
+			enabled: !!isConnected,
+		}
+	);
 
 	const greetingMessage = useMemo(() => {
 		const hour = new Date().getHours();

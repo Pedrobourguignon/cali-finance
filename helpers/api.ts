@@ -26,4 +26,7 @@ export const MAIN_SERVICE_ROUTES = {
 		path(API_URLS.main, `/team/${id}/${groupId}/user`),
 	addCsvEmployee: (id: number, groupId: number) =>
 		path(API_URLS.main, `/team/${id}/${groupId}/users`),
+	profileData: (wallet: string) => path(API_URLS.main, `/user/${wallet}`),
+	userSettings: (wallet: string) =>
+		path(API_URLS.main, `/user/${wallet}/settings`),
 };

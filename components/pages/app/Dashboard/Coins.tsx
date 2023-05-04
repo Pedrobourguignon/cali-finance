@@ -1,16 +1,18 @@
-import { Flex, Text, useDisclosure, useMediaQuery } from '@chakra-ui/react';
+import { Flex, Text, useDisclosure } from '@chakra-ui/react';
 import { NewCoinButton, CoinCard, TokenSelector } from 'components';
 import React, { useEffect, useState } from 'react';
 import { ICoin, ISelectedCoin } from 'types';
 import useTranslation from 'next-translate/useTranslation';
 import { usePicasso, useProfile, useTokens } from 'hooks';
 import { useMutation, useQuery } from 'react-query';
+import { useAccount } from 'wagmi';
 
 export const Coins = () => {
 	const { t: translate } = useTranslation('dashboard');
 	const theme = usePicasso();
 	const { getCoinServiceTokens } = useTokens();
 	const { isOpen, onClose, onOpen } = useDisclosure();
+	const { isConnected, address } = useAccount();
 	const [selectedToken, setSelectedToken] = useState<ISelectedCoin>(
 		{} as ISelectedCoin
 	);
@@ -22,13 +24,14 @@ export const Coins = () => {
 		data: userData,
 		refetch: refetchUserData,
 		isLoading: isLoadingUserData,
-	} = useQuery('get-user-data', () => getProfileData());
+	} = useQuery('get-user-data', () => getProfileData(address), {
+		enabled: !!isConnected,
+	});
+
 	const favoriteCoins = userData?.settings?.coin as ICoin[];
 
 	const [listOfTokens, setListOfTokens] = useState<ICoin[]>([]);
-	const [flexWidth, setFlexWidth] = useState<number>(
-		useMediaQuery('(max-width: 1280px)') ? 3 : 4
-	);
+	const [flexWidth, setFlexWidth] = useState<number>();
 
 	const symbols: string[] = [];
 
@@ -43,21 +46,37 @@ export const Coins = () => {
 		useQuery('get-coin-data', () => getCoinServiceTokens(symbols.toString()));
 
 	const setInitialWidth = () => {
-		if (window.innerWidth < 1281) {
+		if (window.innerWidth < 1200) setFlexWidth(2);
+		else if (window.innerWidth > 1200 && window.innerWidth < 1390)
 			setFlexWidth(3);
-		} else if (window.innerWidth > 1515 && window.innerWidth < 1768) {
+		else if (window.innerWidth > 1391 && window.innerWidth < 1560)
 			setFlexWidth(4);
-		} else if (window.innerWidth > 1700) setFlexWidth(5);
+		else if (window.innerWidth > 1561 && window.innerWidth < 1690)
+			setFlexWidth(5);
+		else if (window.innerWidth > 1691 && window.innerWidth < 1820)
+			setFlexWidth(6);
+		else if (window.innerWidth > 1821 && window.innerWidth < 1900)
+			setFlexWidth(7);
 	};
 
 	useEffect(() => {
-		setInitialWidth();
 		window.onresize = () => {
 			if (window.innerWidth < 1200) setFlexWidth(2);
-			else if (window.innerWidth > 1200 && window.innerWidth < 1514)
+			else if (window.innerWidth > 1200 && window.innerWidth < 1390)
 				setFlexWidth(3);
-			else if (window.innerWidth > 1515) setFlexWidth(4);
+			else if (window.innerWidth > 1391 && window.innerWidth < 1560)
+				setFlexWidth(4);
+			else if (window.innerWidth > 1561 && window.innerWidth < 1690)
+				setFlexWidth(5);
+			else if (window.innerWidth > 1691 && window.innerWidth < 1820)
+				setFlexWidth(6);
+			else if (window.innerWidth > 1821 && window.innerWidth < 1900)
+				setFlexWidth(7);
 		};
+	}, [() => window.onresize]);
+
+	useEffect(() => {
+		setInitialWidth();
 	}, []);
 
 	useEffect(() => {
@@ -73,7 +92,17 @@ export const Coins = () => {
 	}, [selectedToken]);
 
 	useEffect(() => {
-		if (listOfTokens.length !== 0) {
+		if (favoriteCoins) {
+			listOfTokens.forEach(item => {
+				if (
+					!favoriteCoins.find(
+						coin => coin.symbol.toLowerCase() === item.symbol.toLowerCase()
+					)
+				) {
+					mutate({ coin: listOfTokens });
+				}
+			});
+		} else {
 			mutate({ coin: listOfTokens });
 		}
 	}, [listOfTokens]);
@@ -133,7 +162,7 @@ export const Coins = () => {
 			checkingAlreadyFavorite();
 			refetchCoinServiceTokens();
 		}
-	}, [favoriteCoins]);
+	}, [favoriteCoins, isLoadingUserData]);
 
 	useEffect(() => {
 		putLogoInCoin();

@@ -20,6 +20,7 @@ import { useSession } from 'next-auth/react';
 import { IUser } from 'types/interfaces/main-server/IUser';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { getLogo } from 'utils';
+import { useAccount } from 'wagmi';
 
 interface IEditedInfo {
 	name?: string;
@@ -36,6 +37,7 @@ export const EditProfileComponent = () => {
 	const theme = usePicasso();
 	const queryClient = useQueryClient();
 	const toast = useToast();
+	const { isConnected, address } = useAccount();
 
 	const labelStyle: TextProps = {
 		color: theme.text.primary,
@@ -51,7 +53,13 @@ export const EditProfileComponent = () => {
 		resolver: yupResolver(editProfileSchema),
 	});
 
-	const { data: profileData } = useQuery('profile-data', getProfileData);
+	const { data: profileData } = useQuery(
+		'profile-data',
+		() => getProfileData(address),
+		{
+			enabled: !!isConnected,
+		}
+	);
 
 	const { mutate } = useMutation(
 		(editedProfileData: IUser) => updateProfile(editedProfileData),
