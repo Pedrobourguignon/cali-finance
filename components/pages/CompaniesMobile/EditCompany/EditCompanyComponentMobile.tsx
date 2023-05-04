@@ -95,11 +95,11 @@ const CompanyLogo: React.FC<ICompanyLogo> = ({
 			<Flex
 				boxSize="6"
 				color="black"
-				bg={theme.bg.white2}
+				bg="transparent"
 				borderRadius="base"
 				align="center"
 				justify="center"
-				fontSize="4xl"
+				fontSize="xl"
 			>
 				{handleLogoImage(company?.name)}
 			</Flex>
