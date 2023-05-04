@@ -25,18 +25,13 @@ import {
 	NetworkTooltip,
 	EditCompanyLinkModal,
 	ImageUploaderModalMobile,
+	CompanyLogoMobile,
 } from 'components';
 import { useSession } from 'next-auth/react';
 import { ChevronDownIcon } from '@chakra-ui/icons';
 import { ICompany } from 'types/interfaces/main-server/ICompany';
-import { getLogo, handleLogoImage, networkInfos } from 'utils';
+import { networkInfos } from 'utils';
 import { ISociaLinksInputValue } from 'types';
-
-interface ICompanyLogo {
-	company: ICompany | undefined;
-	logo: string | undefined;
-	displayedEditedPicture: string | undefined;
-}
 
 interface IEditCompanyComponent {
 	displayedEditedPicture: string | undefined;
@@ -81,51 +76,6 @@ const labelStyle: TextProps = {
 	color: 'black',
 	fontSize: 'sm',
 	fontWeight: 'medium',
-};
-
-const CompanyLogo: React.FC<ICompanyLogo> = ({
-	company,
-	logo,
-	displayedEditedPicture,
-}) => {
-	const theme = usePicasso();
-
-	if (displayedEditedPicture === '')
-		return (
-			<Flex
-				boxSize="6"
-				color="black"
-				bg="transparent"
-				borderRadius="base"
-				align="center"
-				justify="center"
-				fontSize="xl"
-			>
-				{handleLogoImage(company?.name)}
-			</Flex>
-		);
-
-	if (displayedEditedPicture !== logo) {
-		return <Img src={displayedEditedPicture} boxSize="6" borderRadius="base" />;
-	}
-	if (logo) {
-		return <Img src={getLogo(logo)} boxSize="6" borderRadius="base" />;
-	}
-	if (company?.name)
-		return (
-			<Flex
-				boxSize="6"
-				color="black"
-				bg={theme.bg.white2}
-				borderRadius="base"
-				align="center"
-				justify="center"
-				fontSize="xl"
-			>
-				{handleLogoImage(company?.name)}
-			</Flex>
-		);
-	return <Img src="/images/work.svg" boxSize="6" borderRadius="base" />;
 };
 
 export const EditCompanyComponentMobile: React.FC<IEditCompanyComponent> = ({
@@ -188,6 +138,31 @@ export const EditCompanyComponentMobile: React.FC<IEditCompanyComponent> = ({
 		setSelectedType,
 	]);
 
+	const disableSaveChangesButton = () => {
+		if (
+			(editedInfo?.logo === company?.logo &&
+				editedInfo?.logo === editedCompanyPicture &&
+				editedInfo?.name === company?.name &&
+				editedInfo?.contactEmail === company?.contactEmail &&
+				editedInfo?.description === company?.description &&
+				editedInfo?.type === company?.type &&
+				editedSocialLinksInputValue.websiteURL ===
+					company?.socialMedia![0].url &&
+				editedSocialLinksInputValue.instagramURL ===
+					company?.socialMedia![1].url &&
+				editedSocialLinksInputValue.twitterURL ===
+					company?.socialMedia![2].url &&
+				editedSocialLinksInputValue.telegramURL ===
+					company?.socialMedia![3].url &&
+				editedSocialLinksInputValue.mediumURL ===
+					company?.socialMedia![4].url &&
+				editedInfo?.network === selectedNetwork.id) ||
+			!session
+		)
+			return true;
+		return false;
+	};
+
 	return (
 		<Flex direction="column">
 			<EditCompanyLinkModal
@@ -248,7 +223,7 @@ export const EditCompanyComponentMobile: React.FC<IEditCompanyComponent> = ({
 						<Flex justify="space-between" align="center" w="full">
 							<Flex w="full" justify="space-between" align="center">
 								<Flex gap="5">
-									<CompanyLogo
+									<CompanyLogoMobile
 										company={company}
 										logo={company?.logo}
 										displayedEditedPicture={displayedEditedPicture}
@@ -351,8 +326,7 @@ export const EditCompanyComponentMobile: React.FC<IEditCompanyComponent> = ({
 									<Tooltip
 										label={
 											<NetworkTooltip>
-												Choose the most suitable network for paying your staff
-												efficiently.
+												{translate('choseTheMostSuitableNetwork')}
 											</NetworkTooltip>
 										}
 										placement="top"
@@ -498,26 +472,7 @@ export const EditCompanyComponentMobile: React.FC<IEditCompanyComponent> = ({
 							borderRadius="sm"
 							py="2.5"
 							display={{ md: 'none', lg: 'flex' }}
-							isDisabled={
-								(editedInfo?.logo === company?.logo &&
-									editedInfo?.logo === editedCompanyPicture &&
-									editedInfo?.name === company?.name &&
-									editedInfo?.contactEmail === company?.contactEmail &&
-									editedInfo?.description === company?.description &&
-									editedInfo?.type === company?.type &&
-									editedSocialLinksInputValue.websiteURL ===
-										company?.socialMedia![0].url &&
-									editedSocialLinksInputValue.instagramURL ===
-										company?.socialMedia![1].url &&
-									editedSocialLinksInputValue.twitterURL ===
-										company?.socialMedia![2].url &&
-									editedSocialLinksInputValue.telegramURL ===
-										company?.socialMedia![3].url &&
-									editedSocialLinksInputValue.mediumURL ===
-										company?.socialMedia![4].url &&
-									editedInfo?.network === selectedNetwork.id) ||
-								!session
-							}
+							isDisabled={disableSaveChangesButton()}
 							_disabled={{ opacity: '50%', cursor: 'not-allowed' }}
 						>
 							{translate('saveChanges')}
