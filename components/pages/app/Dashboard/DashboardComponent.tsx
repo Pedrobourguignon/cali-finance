@@ -1,11 +1,11 @@
 import { Flex } from '@chakra-ui/react';
 import {
-	DashboardHeader,
 	Coins,
 	CreateCompanyCard,
 	RecentActivitiesDashboard,
 	MyAssets,
 	CompaniesListFixed,
+	DashboardHeader,
 } from 'components';
 import React from 'react';
 import { IRecentActivitiesList } from 'types';

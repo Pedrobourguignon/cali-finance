@@ -89,7 +89,7 @@ export const Sidebar: React.FC = () => {
 	const theme = usePicasso();
 	const { includesPath } = usePath();
 	const { getProfileData } = useProfile();
-	const { address: walletAddress } = useAccount();
+	const { address: walletAddress, isConnected } = useAccount();
 	const { locale, asPath, pathname } = useRouter();
 	const { data: session } = useSession();
 	const { disconnect } = useDisconnect();
@@ -122,7 +122,13 @@ export const Sidebar: React.FC = () => {
 		}
 	}, [locale]);
 
-	const { data: profileData } = useQuery('profile-data', getProfileData);
+	const { data: profileData } = useQuery(
+		'profile-data',
+		() => getProfileData(walletAddress),
+		{
+			enabled: !!isConnected,
+		}
+	);
 	const handleSignOut = () => {
 		disconnect();
 		signOut();
