@@ -13,13 +13,20 @@ import {
 	Textarea,
 	TextProps,
 	Tooltip,
+	useDisclosure,
 } from '@chakra-ui/react';
 import { usePicasso } from 'hooks';
 import { FieldErrors, UseFormRegister } from 'react-hook-form';
 import { BsQuestionCircle } from 'react-icons/bs';
 import useTranslation from 'next-translate/useTranslation';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
-import { BlackButton, NetworkTooltip } from 'components';
+import {
+	BlackButton,
+	NetworkTooltip,
+	EditCompanyLinkModal,
+	ImageUploaderModalMobile,
+	CompanyLogoMobile,
+} from 'components';
 import { useSession } from 'next-auth/react';
 import { ChevronDownIcon } from '@chakra-ui/icons';
 import { ICompany } from 'types/interfaces/main-server/ICompany';
@@ -27,6 +34,8 @@ import { networkInfos } from 'utils';
 import { ISociaLinksInputValue } from 'types';
 
 interface IEditCompanyComponent {
+	displayedEditedPicture: string | undefined;
+	handleEditedPicture: (picture: string) => void;
 	editedSocialLinksInputValue: ISociaLinksInputValue;
 	setEditedSocialLinksInputValue: Dispatch<
 		SetStateAction<ISociaLinksInputValue>
@@ -69,9 +78,10 @@ const labelStyle: TextProps = {
 	fontWeight: 'medium',
 };
 
-export const EditCompanyComponent: React.FC<IEditCompanyComponent> = ({
+export const EditCompanyComponentMobile: React.FC<IEditCompanyComponent> = ({
 	errors,
 	company,
+	displayedEditedPicture,
 	register,
 	setSelectedNetwork,
 	selectedNetwork,
@@ -80,11 +90,22 @@ export const EditCompanyComponent: React.FC<IEditCompanyComponent> = ({
 	editedCompanyPicture,
 	editedSocialLinksInputValue,
 	setEditedSocialLinksInputValue,
+	handleEditedPicture,
 }) => {
 	const [editedInfo, setEditedInfo] = useState<ICompany>({} as ICompany);
 	const theme = usePicasso();
 	const { t: translate } = useTranslation('create-company');
 	const { data: session } = useSession();
+	const {
+		isOpen: isOpenUploader,
+		onOpen: onOpenUploader,
+		onClose: onCloseUploader,
+	} = useDisclosure();
+	const {
+		isOpen: isOpenSocial,
+		onOpen: onOpenSocial,
+		onClose: onCloseSocial,
+	} = useDisclosure();
 
 	useEffect(() => {
 		setEditedInfo(company!);
@@ -143,14 +164,29 @@ export const EditCompanyComponent: React.FC<IEditCompanyComponent> = ({
 	};
 
 	return (
-		<Flex direction="column" minW="24.2rem">
+		<Flex direction="column">
+			<EditCompanyLinkModal
+				onClose={onCloseSocial}
+				isOpen={isOpenSocial}
+				displayedEditedPicture={displayedEditedPicture}
+				editedCompanyPicture={editedCompanyPicture}
+				logo={editedCompanyPicture}
+				setEditedSocialLinksInputValue={setEditedSocialLinksInputValue}
+				company={company}
+				handleEditedPicture={handleEditedPicture}
+			/>
+			<ImageUploaderModalMobile
+				isOpen={isOpenUploader}
+				onClose={onCloseUploader}
+				sendImage={handleEditedPicture}
+			/>
 			<Flex
 				direction="column"
 				gap={{ md: '2', lg: '6' }}
 				mb={{ md: '8', lg: '10' }}
 				position="relative"
 			>
-				<Text color="black" fontSize="xl" fontWeight="medium">
+				<Text color="black" fontSize="xl" fontWeight="medium" pb="6">
 					{translate('editCompany')}
 				</Text>
 				<Input
@@ -162,7 +198,7 @@ export const EditCompanyComponent: React.FC<IEditCompanyComponent> = ({
 					borderBottomColor="black"
 					borderRadius="none"
 					disabled={!session}
-					px="1"
+					px="0"
 					h="8"
 					fontSize="2xl"
 					_placeholder={{
@@ -181,10 +217,46 @@ export const EditCompanyComponent: React.FC<IEditCompanyComponent> = ({
 					{errors.name?.message}
 				</Text>
 			</Flex>
-			<Flex py="6" w="100%" justify="space-between">
+			<Flex py="16" w="100%" justify="space-between">
 				<Flex direction="column" gap="8" w="100%" maxW={{ lg: '80' }}>
 					<Flex direction="column" color="black" gap="6">
+						<Flex justify="space-between" align="center" w="full">
+							<Flex w="full" justify="space-between" align="center">
+								<Flex gap="5">
+									<CompanyLogoMobile
+										company={company}
+										logo={company?.logo}
+										displayedEditedPicture={displayedEditedPicture}
+									/>
+									<Button
+										h="max-content"
+										px="3"
+										py="1"
+										onClick={onOpenUploader}
+										fontSize="xs"
+										border="1px solid black"
+										borderColor="black"
+										borderRadius="sm"
+									>
+										{translate('editLogoImage')}
+									</Button>
+								</Flex>
+								<Button
+									h="max-content"
+									px="3"
+									py="1"
+									onClick={onOpenSocial}
+									fontSize="xs"
+									border="1px solid black"
+									borderColor="black"
+									borderRadius="sm"
+								>
+									{translate('socialMediaLinks')}
+								</Button>
+							</Flex>
+						</Flex>
 						<Flex
+							direction="column"
 							justify="space-between"
 							w="100%"
 							flexWrap={{ md: 'wrap', lg: 'nowrap' }}
@@ -250,7 +322,7 @@ export const EditCompanyComponent: React.FC<IEditCompanyComponent> = ({
 								display={{ md: 'flex', lg: 'none' }}
 							>
 								<Flex gap="2" mb="2" align="center">
-									<Text {...labelStyle}>{translate('network')}</Text>
+									<Text {...labelStyle}>Network *</Text>
 									<Tooltip
 										label={
 											<NetworkTooltip>
@@ -266,14 +338,18 @@ export const EditCompanyComponent: React.FC<IEditCompanyComponent> = ({
 										shadow="none"
 									>
 										<span>
-											<Icon as={BsQuestionCircle} color="gray.400" />
+											<Icon
+												as={BsQuestionCircle}
+												color="gray.400"
+												mt="2"
+												boxSize="0.813rem"
+											/>
 										</span>
 									</Tooltip>
 								</Flex>
-
 								<Menu>
 									<MenuButton
-										w={{ md: 'full', lg: '11.438rem' }}
+										w="full"
 										border="1px solid black"
 										borderColor={errors.network ? 'red' : theme.bg.primary}
 										fontWeight="normal"
@@ -302,7 +378,6 @@ export const EditCompanyComponent: React.FC<IEditCompanyComponent> = ({
 										boxShadow="none"
 										borderColor="#121212"
 										borderRadius="base"
-										minW="33.75rem"
 									>
 										{networksType.map((network, index) => (
 											<MenuItem
@@ -388,109 +463,25 @@ export const EditCompanyComponent: React.FC<IEditCompanyComponent> = ({
 							/>
 						</Flex>
 					</Flex>
-					<BlackButton
-						type="submit"
-						lineHeight="6"
-						fontSize="md"
-						borderRadius="sm"
-						py="2.5"
-						display={{ md: 'none', lg: 'flex' }}
-						isDisabled={disableSaveChangesButton()}
-						_disabled={{ opacity: '50%', cursor: 'not-allowed' }}
-					>
-						{translate('saveChanges')}
-					</BlackButton>
-				</Flex>
-				<Flex
-					direction="column"
-					maxW="48"
-					color={theme.text.primary}
-					display={{ md: 'none', lg: 'flex' }}
-				>
-					<Flex gap="2" mb="2" align="center">
-						<Text {...labelStyle}>{translate('network')}</Text>
-
-						<Tooltip
-							label={
-								<NetworkTooltip>
-									{translate('choseTheMostSuitableNetwork')}
-								</NetworkTooltip>
-							}
-							placement="top"
-							hasArrow
-							arrowShadowColor={theme.branding.blue}
-							arrowPadding={10}
-							gutter={12}
-							bg="none"
-							shadow="none"
+					<Flex w="full" pb="6">
+						<BlackButton
+							type="submit"
+							lineHeight="6"
+							w="full"
+							fontSize="md"
+							borderRadius="sm"
+							py="2.5"
+							display={{ md: 'none', lg: 'flex' }}
+							isDisabled={disableSaveChangesButton()}
+							_disabled={{ opacity: '50%', cursor: 'not-allowed' }}
 						>
-							<span>
-								<Icon as={BsQuestionCircle} color="gray.400" />
-							</span>
-						</Tooltip>
+							{translate('saveChanges')}
+						</BlackButton>
 					</Flex>
-					<Menu>
-						<MenuButton
-							pl="3"
-							w={{ md: '11.438rem' }}
-							border="1px solid black"
-							borderColor={errors.network ? 'red' : theme.bg.primary}
-							fontWeight="normal"
-							_hover={{}}
-							_active={{}}
-							_focus={{}}
-							isDisabled={!session}
-							h="8"
-							as={Button}
-							rightIcon={<ChevronDownIcon />}
-							bg="white"
-							fontSize="sm"
-							color={
-								selectedNetwork.name === translate('pleaseSelect')
-									? 'blackAlpha.500'
-									: theme.text.primary
-							}
-						>
-							<Flex align="center" gap="2">
-								<Img src={selectedNetwork.icon} boxSize="4" />
-								{selectedNetwork.name}
-							</Flex>
-						</MenuButton>
-						<MenuList
-							bg="white"
-							boxShadow="none"
-							borderColor="#121212"
-							borderRadius="base"
-							minW="11.438rem"
-						>
-							{networksType.map((network, index) => (
-								<MenuItem
-									key={+index}
-									bg="transparent"
-									fontSize="sm"
-									_hover={{ bg: 'gray.100' }}
-									onClick={() => {
-										setSelectedNetwork({
-											name: network.name,
-											icon: network.icon,
-											id: network.id,
-										});
-									}}
-									gap="2"
-								>
-									<Img src={network.icon} boxSize="4" />
-									{network.name}
-								</MenuItem>
-							))}
-						</MenuList>
-					</Menu>
-					<Text fontSize="xs" color="red">
-						{errors.type?.message}
-					</Text>
 				</Flex>
 			</Flex>
 		</Flex>
 	);
 };
 
-export default EditCompanyComponent;
+export default EditCompanyComponentMobile;

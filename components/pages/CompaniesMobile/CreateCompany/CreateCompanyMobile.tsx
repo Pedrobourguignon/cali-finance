@@ -159,7 +159,7 @@ export const CreateCompanyMobile: React.FC<ICreateCompanyComponent> = ({
 					{errors.name?.message}
 				</Text>
 			</Flex>
-			<Flex py="14" justify="space-between">
+			<Flex py="16" justify="space-between">
 				<Flex direction="column" gap="8" w="100%">
 					<Flex direction="column" color="black" gap="6" w="full">
 						<Flex justify="space-between" align="center" w="full">
