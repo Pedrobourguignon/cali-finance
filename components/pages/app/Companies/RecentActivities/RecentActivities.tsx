@@ -1,5 +1,5 @@
 import { Flex, Text, Link } from '@chakra-ui/react';
-import { ActivitiesData } from 'components';
+import { ActivitiesData, ActivitiesDataMobile } from 'components';
 import { useCompanies, usePicasso } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
 import { navigationPaths } from 'utils';
@@ -12,6 +12,7 @@ export const RecentActivities = () => {
 
 	return (
 		<Flex
+			boxShadow="md"
 			direction="column"
 			bg="white"
 			px="4"
@@ -37,16 +38,10 @@ export const RecentActivities = () => {
 					</Text>
 				</Link>
 			</Flex>
-			<Flex gap="2" direction="column">
-				{!activities ? (
-					<Text color={theme.text.primary} fontSize="sm" lineHeight="5">
-						{translate('yourLatestActivities')}
-					</Text>
-				) : (
-					activities.map((activity, index) => (
-						<ActivitiesData key={+index} activities={activity} />
-					))
-				)}
+			<Flex gap="2" direction="column" display={{ base: 'flex', sm: 'none' }}>
+				{activities.map((activity, index) => (
+					<ActivitiesDataMobile key={+index} activities={activity} />
+				))}
 			</Flex>
 		</Flex>
 	);
