@@ -63,7 +63,7 @@ export const ImageUploaderModalMobile: React.FC<IImageUploader> = ({
 				>
 					<Flex w="100%">
 						<Text fontSize="xs" color={theme.text.primary}>
-							Your file must be no more than 5MB
+							{translate('yourFileMustBe')}
 						</Text>
 					</Flex>
 					<Flex w="100%" justify="center">
@@ -88,7 +88,7 @@ export const ImageUploaderModalMobile: React.FC<IImageUploader> = ({
 					onClick={handleUploadFile}
 					borderRadius="sm"
 				>
-					Upload File
+					{translate('uploadFile')}
 				</BlackButton>
 			</ModalFooter>
 		</MobileModalLayout>

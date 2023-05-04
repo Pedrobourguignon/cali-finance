@@ -205,7 +205,7 @@ export const CreateCompanyMobile: React.FC<ICreateCompanyComponent> = ({
 						>
 							<Flex direction="column" w="100%">
 								<Text {...labelStyle} mb="2">
-									Type *
+									{translate('type')}
 								</Text>
 								<Menu>
 									<MenuButton
@@ -264,8 +264,7 @@ export const CreateCompanyMobile: React.FC<ICreateCompanyComponent> = ({
 									<Tooltip
 										label={
 											<NetworkTooltip>
-												Choose the most suitable network for paying your staff
-												efficiently.
+												{translate('choseTheMostSuitableNetwork')}
 											</NetworkTooltip>
 										}
 										placement="top"

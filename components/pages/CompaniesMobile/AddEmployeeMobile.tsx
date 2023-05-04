@@ -303,13 +303,17 @@ export const AddEmployeeMobile: React.FC<IAddEmployee> = ({
 										_focusVisible={{}}
 										color={theme.text.primary}
 										onChange={amount => {
+											// set the new employee amount on the state
 											setAddedEmployeeData(prevState => ({
 												...prevState,
 												amount: Number(amount.target.value),
 											}));
+											// converts the amount of the selected currency to dollars
 											converterToDollar(
 												parseInt(amount.currentTarget.value, 10)
 											);
+											// if the amount input is empty, the dollar value goes back to zero and set the employee's amount back to zero
+											// this is for the case when the user clears the amount of input after he has already put something in the input
 											return (
 												!amount.currentTarget.value &&
 												setAddedEmployeeData(prevState => ({

@@ -22,5 +22,6 @@
 	"dragAndDrop": "Drag and drop to upload image",
 	"uploadImage": "Upload image",
 	"choseTheMostSuitableNetwork": "Choose the most suitable network for paying your staff efficiently.",
-	"deleteImage": "Delete image"
+	"uploadFile": "Upload file",
+	"yourFileMustBe": "Your file must be no more than 5MB"
 }
