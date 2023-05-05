@@ -17,10 +17,10 @@ export const AUTH_SERVICE_ROUTES = {
 export const MAIN_SERVICE_ROUTES = {
 	createCompany: path(API_URLS.main, '/company/'),
 	allUserCompanies: (wallet: string) =>
-		path(API_URLS.main, `user/${wallet}/company`),
-	updateCompany: (id: number) => path(API_URLS.main, `company/${id}`),
+		path(API_URLS.main, `/user/${wallet}/company`),
+	updateCompany: (id: number) => path(API_URLS.main, `/company/${id}`),
 	allCompanyEmployees: (id: number) =>
-		path(API_URLS.main, `company/${id}/users`),
+		path(API_URLS.main, `/company/${id}/users`),
 	allCompanyTeams: (id: number) => path(API_URLS.main, `/company/${id}/teams`),
 	addEmployee: (id: number, groupId: number) =>
 		path(API_URLS.main, `/team/${id}/${groupId}/user`),
