@@ -44,7 +44,7 @@ export const CoinCard: React.FC<ICoinCard> = ({
 							{coin.symbol?.toUpperCase()}
 						</Text>
 						<Text fontSize="xs" color={color} whiteSpace="nowrap" maxW="10">
-							${coin.value?.toLocaleString('en-US')}
+							${Number(coin.value?.toFixed(2)).toLocaleString('en-US')}
 						</Text>
 					</Flex>
 				</Flex>
