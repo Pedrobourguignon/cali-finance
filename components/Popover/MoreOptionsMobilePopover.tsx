@@ -37,7 +37,7 @@ export const MoreOptionsMobilePopover: React.FC<IMoreOptions> = ({
 	};
 
 	return (
-		<Popover isOpen={isOpen} onOpen={onOpen} onClose={onClose}>
+		<Popover isOpen={isOpen} onOpen={onOpen} onClose={onClose} strategy="fixed">
 			<PopoverTrigger>
 				<Button bg="none" p="0">
 					<Icon as={MoreSquareIcon} boxSize="6" />
@@ -48,8 +48,6 @@ export const MoreOptionsMobilePopover: React.FC<IMoreOptions> = ({
 				w="8.3rem"
 				h="15.6rem"
 				borderTopRadius="3xl"
-				top="5"
-				position="relative"
 			>
 				<PopoverBody color="black">
 					<Flex direction="column" h="15rem" justify="space-between">
@@ -71,7 +69,7 @@ export const MoreOptionsMobilePopover: React.FC<IMoreOptions> = ({
 							))}
 						</Flex>
 						<HelpAndDocsButton gap="10" />
-						<Flex pb="10">
+						<Flex>
 							<SocialMediasButtons justify="space-between" />
 						</Flex>
 					</Flex>

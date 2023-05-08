@@ -91,7 +91,7 @@ export const BottomMenuMobile = () => {
 				);
 			})}
 			<Flex
-				position="relative"
+				zIndex="100"
 				rounded={isOpen ? 'full' : 'none'}
 				boxSize={isOpen ? '16' : '6'}
 				transform={isOpen ? 'translateY(-30%)' : ''}
@@ -103,11 +103,13 @@ export const BottomMenuMobile = () => {
 				_before={isOpen ? beforeCssValues : {}}
 				_after={isOpen ? afterCssValues : {}}
 			>
-				<MoreOptionsMobilePopover
-					isOpen={isOpen}
-					onOpen={onOpen}
-					onClose={onClose}
-				/>
+				<Flex zIndex="10">
+					<MoreOptionsMobilePopover
+						isOpen={isOpen}
+						onOpen={onOpen}
+						onClose={onClose}
+					/>
+				</Flex>
 			</Flex>
 		</Flex>
 	);
