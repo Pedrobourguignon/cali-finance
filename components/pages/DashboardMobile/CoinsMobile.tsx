@@ -5,11 +5,13 @@ import { ICoin, ISelectedCoin } from 'types';
 import useTranslation from 'next-translate/useTranslation';
 import { usePicasso, useProfile, useTokens } from 'hooks';
 import { useMutation, useQuery } from 'react-query';
+import { useAccount } from 'wagmi';
 
 export const CoinsMobile = () => {
 	const { t: translate } = useTranslation('dashboard');
 	const theme = usePicasso();
 	const { getCoinServiceTokens } = useTokens();
+	const { address } = useAccount();
 	const { isOpen, onClose, onOpen } = useDisclosure();
 	const [selectedToken, setSelectedToken] = useState<ISelectedCoin>(
 		{} as ISelectedCoin
@@ -20,7 +22,7 @@ export const CoinsMobile = () => {
 
 	const { data: userData, refetch: refetchUserData } = useQuery(
 		'get-user-data',
-		() => getProfileData()
+		() => getProfileData(address)
 	);
 	const favoriteCoins = userData?.settings?.coin as ICoin[];
 
