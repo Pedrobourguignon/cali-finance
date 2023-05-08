@@ -1,49 +1,15 @@
 import { Flex, Text, useDisclosure } from '@chakra-ui/react';
 import { NewCoinButton, CoinCard, TokenSelector } from 'components';
 import React, { useEffect, useState } from 'react';
-import { ICoin, ISelectedCoin } from 'types';
 import useTranslation from 'next-translate/useTranslation';
-import { usePicasso, useProfile, useTokens } from 'hooks';
-import { useMutation, useQuery } from 'react-query';
-import { useAccount } from 'wagmi';
+import { usePicasso, useProfile } from 'hooks';
 
 export const Coins = () => {
 	const { t: translate } = useTranslation('dashboard');
 	const theme = usePicasso();
-	const { getCoinServiceTokens } = useTokens();
 	const { isOpen, onClose, onOpen } = useDisclosure();
-	const { isConnected, address } = useAccount();
-	const [selectedToken, setSelectedToken] = useState<ISelectedCoin>(
-		{} as ISelectedCoin
-	);
-	const { updateUserSettings, getProfileData } = useProfile();
-
-	const [cardItems, setCardItems] = useState<ICoin[]>([]);
-
-	const {
-		data: userData,
-		refetch: refetchUserData,
-		isLoading: isLoadingUserData,
-	} = useQuery('get-user-data', () => getProfileData(address), {
-		enabled: !!isConnected,
-	});
-
-	const favoriteCoins = userData?.settings?.coin as ICoin[];
-
-	const [listOfTokens, setListOfTokens] = useState<ICoin[]>([]);
 	const [flexWidth, setFlexWidth] = useState<number>();
-
-	const symbols: string[] = [];
-
-	const { mutate } = useMutation(
-		(settings: { coin: ICoin[] }) => updateUserSettings(settings),
-		{
-			onSuccess: () => refetchUserData(),
-		}
-	);
-
-	const { data: coinServiceTokens, refetch: refetchCoinServiceTokens } =
-		useQuery('get-coin-data', () => getCoinServiceTokens(symbols.toString()));
+	const { setSelectedToken, cardItems } = useProfile();
 
 	const setInitialWidth = () => {
 		if (window.innerWidth < 1200) setFlexWidth(2);
@@ -78,95 +44,6 @@ export const Coins = () => {
 	useEffect(() => {
 		setInitialWidth();
 	}, []);
-
-	useEffect(() => {
-		if (Object.keys(selectedToken).length !== 0) {
-			if (
-				!listOfTokens.find(
-					coin =>
-						coin.symbol.toLowerCase() === selectedToken.symbol.toLowerCase()
-				)
-			)
-				setListOfTokens(listOfTokens.concat(selectedToken));
-		}
-	}, [selectedToken]);
-
-	useEffect(() => {
-		if (favoriteCoins) {
-			listOfTokens.forEach(item => {
-				if (
-					!favoriteCoins.find(
-						coin => coin.symbol.toLowerCase() === item.symbol.toLowerCase()
-					)
-				) {
-					mutate({ coin: listOfTokens });
-				}
-			});
-		} else {
-			mutate({ coin: listOfTokens });
-		}
-	}, [listOfTokens]);
-
-	// checking if the token is already in the favorites list
-	const checkingAlreadyFavorite = () => {
-		if (!isLoadingUserData)
-			Object.values(favoriteCoins).forEach(item => {
-				symbols.push(item.symbol);
-				if (
-					!listOfTokens.find(
-						coin => coin.symbol.toLowerCase() === item.symbol.toLowerCase()
-					)
-				)
-					setListOfTokens(listOfTokens.concat(favoriteCoins));
-			});
-	};
-
-	// Put coin logo in object
-	const putLogoInCoin = () => {
-		if (coinServiceTokens) {
-			const tokens = Object.values(coinServiceTokens).reduce((acc, item) => {
-				if (item)
-					if (
-						!cardItems.find(
-							coin => coin.symbol.toLowerCase() === item.symbol.toLowerCase()
-						)
-					) {
-						const logo = Object.values(favoriteCoins).find(
-							token => token.symbol.toLowerCase() === item.symbol.toLowerCase()
-						);
-						acc.push({ ...item, ...logo });
-					}
-				return acc;
-			}, [] as ICoin[]);
-			setCardItems(cardItems.concat(tokens));
-		}
-	};
-
-	useEffect(() => {
-		if (isLoadingUserData === false && !favoriteCoins) {
-			setListOfTokens([
-				{
-					symbol: 'eth',
-					logo: 'https://tokens.1inch.io/0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee.png',
-				},
-				{
-					symbol: 'busd',
-					logo: 'https://tokens.1inch.io/0x4fabb145d64652a948d72533023f6e7a623c7c53.png',
-				},
-				{
-					symbol: 'usdc',
-					logo: 'https://tokens.1inch.io/0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48.png',
-				},
-			]);
-		} else {
-			checkingAlreadyFavorite();
-			refetchCoinServiceTokens();
-		}
-	}, [favoriteCoins, isLoadingUserData]);
-
-	useEffect(() => {
-		putLogoInCoin();
-	}, [coinServiceTokens]);
 
 	return (
 		<Flex
