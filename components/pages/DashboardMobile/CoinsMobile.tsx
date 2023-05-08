@@ -1,11 +1,11 @@
 import { Flex, Grid, Text, useDisclosure } from '@chakra-ui/react';
 import { NewCoinButton, TokenSelectorMobile, CoinCardMobile } from 'components';
 import React, { useEffect, useState } from 'react';
-import { ICoin, ISelectedCoin } from 'types';
 import useTranslation from 'next-translate/useTranslation';
 import { usePicasso, useProfile, useTokens } from 'hooks';
 import { useMutation, useQuery } from 'react-query';
 import { useAccount } from 'wagmi';
+import { ICoin, ISelectedCoin } from 'types';
 
 export const CoinsMobile = () => {
 	const { t: translate } = useTranslation('dashboard');
@@ -31,7 +31,7 @@ export const CoinsMobile = () => {
 	const symbols: string[] = [];
 
 	const { mutate } = useMutation(
-		(settings: { coin: ICoin[] }) => updateUserSettings(settings),
+		(settings: { coin: ICoin[] }) => updateUserSettings(settings, address),
 		{
 			onSuccess: () => refetchUserData(),
 		}
@@ -50,13 +50,13 @@ export const CoinsMobile = () => {
 			)
 				setListOfTokens(listOfTokens.concat(selectedToken));
 		}
-	}, [selectedToken]);
+	}, [listOfTokens, selectedToken]);
 
 	useEffect(() => {
 		if (listOfTokens.length !== 0) {
 			mutate({ coin: listOfTokens });
 		}
-	}, [listOfTokens]);
+	}, [listOfTokens, mutate]);
 
 	// checking if the token is already in the favorites list
 	const checkingAlreadyFavorite = () => {

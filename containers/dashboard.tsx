@@ -3,12 +3,12 @@ import {
 	DashboardComponent,
 	DashboardRightBar,
 	CreateAccountBanner,
-	CoinsMobile,
 	DashboardHeader,
 	HaveProblemCard,
 	MyAssets,
 	RecentActivitiesDashboard,
 	YourCompaniesMobile,
+	CoinsMobile,
 } from 'components';
 import { CompaniesProvider, ProfileProvider, TokensProvider } from 'contexts';
 import { useCompanies } from 'hooks';
