@@ -68,7 +68,11 @@ export const ContactOptionsModalMobile: React.FC<IBasicModal> = ({
 						borderColor="blackAlpha.200"
 					>
 						<Flex align="center" gap="4" pl="4">
-							<Icon as={FaDiscord} color="#5A69EA" boxSize="6" />
+							<Icon
+								as={FaDiscord}
+								color={theme.branding.discordIcon}
+								boxSize="6"
+							/>
 							<Text
 								fontSize="sm"
 								fontWeight="medium"
