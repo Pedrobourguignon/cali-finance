@@ -78,7 +78,11 @@ export const ContactOptionsModal: React.FC<IBasicModal> = ({
 									pl="4"
 									as={NextLink}
 								>
-									<Icon as={FaDiscord} color="#5A69EA" boxSize="6" />
+									<Icon
+										as={FaDiscord}
+										color={theme.branding.discordIcon}
+										boxSize="6"
+									/>
 									<Text
 										fontSize="sm"
 										fontWeight="medium"
