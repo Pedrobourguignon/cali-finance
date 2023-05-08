@@ -1,12 +1,12 @@
-import { Button, Flex, Icon, Link } from '@chakra-ui/react';
+import { Flex, Icon, Link, useDisclosure } from '@chakra-ui/react';
 import {
 	DashboardIcon,
 	CompanyIcon,
 	EditProfileIcon,
 	HistoryIcon,
-	MoreSquareIcon,
 	afterCssValues,
 	beforeCssValues,
+	MoreOptionsMobilePopover,
 } from 'components';
 import { usePath, usePicasso } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
@@ -14,13 +14,14 @@ import NextLink from 'next/link';
 import { navigationPaths } from 'utils';
 
 interface IMenuItem {
-	icon: typeof Icon;
+	icon?: typeof Icon;
 	route: string;
-	option: () => void;
+	option?: () => void;
 }
 
 export const BottomMenuMobile = () => {
 	const theme = usePicasso();
+	const { isOpen, onOpen, onClose } = useDisclosure();
 	const { t: translate } = useTranslation('sidebar');
 	const { isSamePath } = usePath();
 	const menuOptions: IMenuItem[] = [
@@ -60,19 +61,24 @@ export const BottomMenuMobile = () => {
 		>
 			{menuOptions.map((menuOption, index) => {
 				const comparedPath = isSamePath(menuOption.route);
+				const moreOptionsIsOpen = isOpen
+					? isSamePath('')
+					: isSamePath(menuOption.route);
 				return (
 					<Flex
 						key={+index}
-						rounded={comparedPath ? 'full' : 'none'}
-						boxSize={comparedPath ? '16' : '6'}
-						transform={comparedPath ? 'translateY(-30%)' : ''}
+						rounded={comparedPath && moreOptionsIsOpen ? 'full' : 'none'}
+						boxSize={comparedPath && moreOptionsIsOpen ? '16' : '6'}
+						transform={
+							comparedPath && moreOptionsIsOpen ? 'translateY(-30%)' : ''
+						}
 						align="center"
 						justify="center"
-						borderWidth={comparedPath ? '0.4rem' : '0'}
+						borderWidth={comparedPath && moreOptionsIsOpen ? '0.4rem' : '0'}
 						borderColor="white"
 						bg={theme.bg.primary}
-						_before={comparedPath ? beforeCssValues : {}}
-						_after={comparedPath ? afterCssValues : {}}
+						_before={comparedPath && moreOptionsIsOpen ? beforeCssValues : {}}
+						_after={comparedPath && moreOptionsIsOpen ? afterCssValues : {}}
 					>
 						<Link as={NextLink} href={menuOption.route}>
 							<Icon
@@ -84,9 +90,27 @@ export const BottomMenuMobile = () => {
 					</Flex>
 				);
 			})}
-			<Button bg="none" p="0">
-				<Icon as={MoreSquareIcon} boxSize="6" />
-			</Button>
+			<Flex
+				zIndex="100"
+				rounded={isOpen ? 'full' : 'none'}
+				boxSize={isOpen ? '16' : '6'}
+				transform={isOpen ? 'translateY(-30%)' : ''}
+				align="center"
+				justify="center"
+				borderWidth={isOpen ? '0.4rem' : '0'}
+				borderColor="white"
+				bg={theme.bg.primary}
+				_before={isOpen ? beforeCssValues : {}}
+				_after={isOpen ? afterCssValues : {}}
+			>
+				<Flex zIndex="10">
+					<MoreOptionsMobilePopover
+						isOpen={isOpen}
+						onOpen={onOpen}
+						onClose={onClose}
+					/>
+				</Flex>
+			</Flex>
 		</Flex>
 	);
 };

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable no-unused-expressions */
 import {
 	Box,
@@ -14,7 +15,6 @@ import {
 	useDisclosure,
 } from '@chakra-ui/react';
 import React, { useState, useEffect } from 'react';
-import { FaDiscord, FaTwitter } from 'react-icons/fa';
 import { usePath, usePicasso, useProfile } from 'hooks';
 import router, { useRouter } from 'next/router';
 import {
@@ -25,13 +25,10 @@ import {
 	ConnectWalletButton,
 	ChangeNetworkButton,
 	NetworkModal,
+	SocialMediasButtons,
+	HelpAndDocsButton,
 } from 'components';
-import {
-	getLogo,
-	navigationPaths,
-	socialMediaLinks,
-	truncateWallet,
-} from 'utils';
+import { getLogo, navigationPaths, truncateWallet } from 'utils';
 import { INetwork } from 'types';
 import useTranslation from 'next-translate/useTranslation';
 import { useSession, signOut } from 'next-auth/react';
@@ -349,56 +346,12 @@ export const Sidebar: React.FC = () => {
 								</Text>
 							))}
 						</Flex>
-						<Link
-							as={NextLink}
-							fontSize="sm"
-							href={navigationPaths.help}
-							_hover={{
-								textDecoration: 'none',
-								opacity: 0.8,
-							}}
-							pl={{ md: '4', lg: '2', xl: '2' }}
-						>
-							{translate('help')}
-						</Link>
-						<Link
-							as={NextLink}
-							fontSize="sm"
-							href={navigationPaths.docs}
-							_hover={{
-								textDecoration: 'none',
-								opacity: 0.8,
-							}}
-							pl={{ md: '4', lg: '2', xl: '2' }}
-						>
-							{translate('docs')}
-						</Link>
-						<Flex
-							flexDirection="row"
-							w="full"
-							alignItems="flex-start"
+						<HelpAndDocsButton gap="4" />
+						<SocialMediasButtons
 							pl={{ md: '2', lg: '0' }}
 							pt="5"
-						>
-							<Link href={socialMediaLinks.discord} isExternal as={NextLink}>
-								<Button bg="transparent" borderRadius="full" p="0">
-									<Icon
-										as={FaDiscord}
-										boxSize="6"
-										color={theme.branding.blue}
-									/>
-								</Button>
-							</Link>
-							<Link href={socialMediaLinks.twitter} isExternal as={NextLink}>
-								<Button bg="transparent" borderRadius="full">
-									<Icon
-										as={FaTwitter}
-										boxSize="6"
-										color={theme.branding.blue}
-									/>
-								</Button>
-							</Link>
-						</Flex>
+							align="flex-start"
+						/>
 					</Flex>
 				</Flex>
 			</Flex>
