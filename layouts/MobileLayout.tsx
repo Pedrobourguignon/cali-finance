@@ -13,14 +13,15 @@ export const MobileLayout: React.FC<IMobileLayout> = ({ children }) => {
 	return (
 		<ProfileProvider>
 			<Flex
+				w="full"
 				bg={theme.text.primary}
 				direction="column"
 				display={{ base: 'flex', sm: 'none' }}
 			>
 				<MobileHeader />
 				<Flex
+					minH="100vh"
 					w="full"
-					h="100vh"
 					bg={theme.bg.gray2}
 					borderTopRadius="3xl"
 					px="4"
@@ -29,8 +30,10 @@ export const MobileLayout: React.FC<IMobileLayout> = ({ children }) => {
 				>
 					{children}
 				</Flex>
-				<Flex w="full" position="fixed" bottom="0">
-					<BottomMenuMobile />
+				<Flex>
+					<Flex w="full" position="fixed" bottom="0" pt="10">
+						<BottomMenuMobile />
+					</Flex>
 				</Flex>
 			</Flex>
 		</ProfileProvider>

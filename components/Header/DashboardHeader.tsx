@@ -16,8 +16,10 @@ export const DashboardHeader: React.FC = () => {
 	const percentage = 0;
 	const theme = usePicasso();
 	const { getUserActivities } = useProfile();
-	const { isConnected } = useAccount();
-	const { data: profileData } = useQuery('profile-data', getProfileData);
+	const { isConnected, address } = useAccount();
+	const { data: profileData } = useQuery('profile-data', () =>
+		getProfileData(address)
+	);
 	const [notificationsList, setNotificationsList] = useState<
 		INotificationList[]
 	>([]);
@@ -52,7 +54,7 @@ export const DashboardHeader: React.FC = () => {
 	console.log(notificationsList);
 
 	return (
-		<Flex direction="column" pb="8">
+		<Flex direction="column" pb="6">
 			<Flex justify="space-between">
 				<Flex>
 					<Text

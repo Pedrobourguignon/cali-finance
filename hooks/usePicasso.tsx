@@ -20,6 +20,7 @@ const usePicasso = () => {
 			red: '#E83151',
 			royal: '#0B132B',
 			socialIcons: '#0EBEEE',
+			discordIcon: '#5A69EA',
 		},
 		icon: {
 			theme: useColorModeValue(BsFillMoonFill, BsFillSunFill),

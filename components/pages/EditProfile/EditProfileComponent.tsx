@@ -20,6 +20,7 @@ import { useSession } from 'next-auth/react';
 import { IUser } from 'types/interfaces/main-server/IUser';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { getLogo } from 'utils';
+import { useAccount } from 'wagmi';
 
 interface IEditedInfo {
 	name?: string;
@@ -36,6 +37,7 @@ export const EditProfileComponent = () => {
 	const theme = usePicasso();
 	const queryClient = useQueryClient();
 	const toast = useToast();
+	const { isConnected, address } = useAccount();
 
 	const labelStyle: TextProps = {
 		color: theme.text.primary,
@@ -51,7 +53,13 @@ export const EditProfileComponent = () => {
 		resolver: yupResolver(editProfileSchema),
 	});
 
-	const { data: profileData } = useQuery('profile-data', getProfileData);
+	const { data: profileData } = useQuery(
+		'profile-data',
+		() => getProfileData(address),
+		{
+			enabled: !!isConnected,
+		}
+	);
 
 	const { mutate } = useMutation(
 		(editedProfileData: IUser) => updateProfile(editedProfileData),
@@ -125,13 +133,20 @@ export const EditProfileComponent = () => {
 					color={theme.text.primary}
 					lineHeight="tall"
 					fontWeight="medium"
-					pl="7"
-					pt="6"
+					pl={{ base: '1', sm: '7' }}
+					pt={{ base: '2', sm: '6' }}
 					zIndex="docked"
 				>
 					{translate('editProfile')}
 				</Text>
-				<Flex w="100%" bg="white" position="absolute" h="64" left="0" />
+				<Flex
+					w="100%"
+					bg="white"
+					position="absolute"
+					h="64"
+					left="0"
+					display={{ base: 'none', sm: 'flex' }}
+				/>
 			</Flex>
 			<Flex
 				justify="center"
@@ -159,10 +174,10 @@ export const EditProfileComponent = () => {
 				<Flex gap="4">
 					<Button
 						mt="4"
-						fontSize={{ md: 'xs', '2xl': 'sm' }}
+						fontSize={{ base: 'xs', '2xl': 'sm' }}
 						bg={theme.text.primary}
 						borderRadius="sm"
-						px={{ md: '2', '2xl': '6' }}
+						px={{ base: '2', '2xl': '6' }}
 						h="max-content"
 						py="1"
 						_hover={{}}
@@ -174,15 +189,14 @@ export const EditProfileComponent = () => {
 					</Button>
 					<Button
 						mt="4"
-						fontSize={{ md: 'xs', '2xl': 'sm' }}
+						fontSize={{ base: 'xs', '2xl': 'sm' }}
 						bg={theme.text.primary}
 						borderRadius="sm"
-						px={{ md: '2', '2xl': '6' }}
+						px={{ base: '2', '2xl': '6' }}
 						h="max-content"
 						py="1"
 						_hover={{}}
 						_focus={{ bg: theme.text.primary }}
-						// onClick={() => setNoPicture('/images/editImage.png')}
 						onClick={() => setEditedProfilePicture(null)}
 						isDisabled={
 							!session || editedProfilePicture === '/images/editImage.png'
@@ -192,10 +206,16 @@ export const EditProfileComponent = () => {
 					</Button>
 				</Flex>
 			</Flex>
-			<Flex direction="column" align="center" h="full" pt="6">
+			<Flex
+				direction="column"
+				align={{ base: '', sm: 'center' }}
+				h="full"
+				pt="6"
+				px={{ base: '1', sm: '0' }}
+			>
 				<form onSubmit={handleSubmit(handleEditProfile)}>
 					<FormControl>
-						<Flex direction="column" gap="8" maxW="80">
+						<Flex direction="column" gap="8">
 							<Flex direction="column" gap="6">
 								<Flex direction="column" gap="2">
 									<Text {...labelStyle}>{translate('name')}</Text>
@@ -209,7 +229,7 @@ export const EditProfileComponent = () => {
 											color: 'blackAlpha.500',
 											fontSize: 'sm',
 										}}
-										bgColor="white"
+										bg="white"
 										_hover={{}}
 										{...register('name')}
 										color="black"

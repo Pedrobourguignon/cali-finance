@@ -117,6 +117,31 @@ export const EditCompanyComponent: React.FC<IEditCompanyComponent> = ({
 		setSelectedType,
 	]);
 
+	const disableSaveChangesButton = () => {
+		if (
+			(editedInfo?.logo === company?.logo &&
+				editedInfo?.logo === editedCompanyPicture &&
+				editedInfo?.name === company?.name &&
+				editedInfo?.contactEmail === company?.contactEmail &&
+				editedInfo?.description === company?.description &&
+				editedInfo?.type === company?.type &&
+				editedSocialLinksInputValue.websiteURL ===
+					company?.socialMedia![0].url &&
+				editedSocialLinksInputValue.instagramURL ===
+					company?.socialMedia![1].url &&
+				editedSocialLinksInputValue.twitterURL ===
+					company?.socialMedia![2].url &&
+				editedSocialLinksInputValue.telegramURL ===
+					company?.socialMedia![3].url &&
+				editedSocialLinksInputValue.mediumURL ===
+					company?.socialMedia![4].url &&
+				editedInfo?.network === selectedNetwork.id) ||
+			!session
+		)
+			return true;
+		return false;
+	};
+
 	return (
 		<Flex direction="column" minW="24.2rem">
 			<Flex
@@ -370,26 +395,7 @@ export const EditCompanyComponent: React.FC<IEditCompanyComponent> = ({
 						borderRadius="sm"
 						py="2.5"
 						display={{ md: 'none', lg: 'flex' }}
-						isDisabled={
-							(editedInfo?.logo === company?.logo &&
-								editedInfo?.logo === editedCompanyPicture &&
-								editedInfo?.name === company?.name &&
-								editedInfo?.contactEmail === company?.contactEmail &&
-								editedInfo?.description === company?.description &&
-								editedInfo?.type === company?.type &&
-								editedSocialLinksInputValue.websiteURL ===
-									company?.socialMedia![0].url &&
-								editedSocialLinksInputValue.instagramURL ===
-									company?.socialMedia![1].url &&
-								editedSocialLinksInputValue.twitterURL ===
-									company?.socialMedia![2].url &&
-								editedSocialLinksInputValue.telegramURL ===
-									company?.socialMedia![3].url &&
-								editedSocialLinksInputValue.mediumURL ===
-									company?.socialMedia![4].url &&
-								editedInfo?.network === selectedNetwork.id) ||
-							!session
-						}
+						isDisabled={disableSaveChangesButton()}
 						_disabled={{ opacity: '50%', cursor: 'not-allowed' }}
 					>
 						{translate('saveChanges')}

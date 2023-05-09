@@ -1,12 +1,11 @@
 import { Flex } from '@chakra-ui/react';
 import {
-	DashboardHeader,
 	Coins,
 	CreateCompanyCard,
 	RecentActivitiesDashboard,
 	MyAssets,
 	CompaniesListFixed,
-	CompanyCardSkeleton,
+	DashboardHeader,
 } from 'components';
 import React from 'react';
 import { IRecentActivitiesList } from 'types';
@@ -50,11 +49,7 @@ export const DashboardComponent: React.FC = () => {
 
 	const { isConnected } = useAccount();
 
-	const {
-		data: companies,
-		isLoading: isLoadingCompanies,
-		error,
-	} = useQuery('all-companies', getAllUserCompanies, {
+	const { data: companies } = useQuery('all-companies', getAllUserCompanies, {
 		enabled: !!isConnected,
 	});
 

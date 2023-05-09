@@ -4,6 +4,7 @@ import {
 	BlackButton,
 	EmployeeData,
 	NoEmployeeSkeleton,
+	AddEmployeeMobile,
 } from 'components';
 import { useCompanies, usePicasso } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
@@ -26,6 +27,11 @@ export const EmployeesDashboard: React.FC<IEmployeeDashboard> = ({
 	const { getAllCompanyEmployees } = useCompanies();
 	const { query } = useRouter();
 	const { isOpen, onOpen, onClose } = useDisclosure();
+	const {
+		isOpen: isOpenMobile,
+		onOpen: onOpenMobile,
+		onClose: onCloseMobile,
+	} = useDisclosure();
 	const { isOpen: isFullList, onToggle: toggleListView } = useDisclosure();
 
 	const {
@@ -47,6 +53,11 @@ export const EmployeesDashboard: React.FC<IEmployeeDashboard> = ({
 			<AddEmployee
 				isOpen={isOpen}
 				onClose={onClose}
+				selectedCompany={selectedCompany}
+			/>
+			<AddEmployeeMobile
+				isOpen={isOpenMobile}
+				onClose={onCloseMobile}
 				selectedCompany={selectedCompany}
 			/>
 			<Flex justify="space-between" w="100%" align="center">

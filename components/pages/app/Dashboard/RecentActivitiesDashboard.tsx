@@ -53,12 +53,12 @@ export const RecentActivitiesDashboard: React.FC<
 						borderRadius="base"
 						align="center"
 					>
-						<Flex gap={{ md: '2.5', '2xl': '4' }} align="center" p="0.5">
+						<Flex gap={{ base: '2.5', '2xl': '4' }} align="center" p="0.5">
 							<Img src="/icons/deposit.svg" boxSize="7" pl="3" />
 							<Flex direction="column" justify="center">
 								<Text
 									color={theme.text.primary}
-									fontSize={{ md: 'xs', lg: 'sm' }}
+									fontSize={{ base: 'sm', md: 'xs', lg: 'sm' }}
 									fontWeight="normal"
 								>
 									{activity.type}

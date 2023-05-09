@@ -1,9 +1,7 @@
 const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
-const NGROK_URL = process.env.NEXT_PUBLIC_API_NGROK_URL;
 
 export const API_URLS = {
 	main: `${BASE_URL}`,
-	coin: `${NGROK_URL}`,
 };
 
 function path(base: string, url: string) {
@@ -19,10 +17,10 @@ export const AUTH_SERVICE_ROUTES = {
 export const MAIN_SERVICE_ROUTES = {
 	createCompany: path(API_URLS.main, '/company/'),
 	allUserCompanies: (wallet: string) =>
-		path(API_URLS.main, `/user/${wallet}/company`),
-	updateCompany: (id: number) => path(API_URLS.main, `/company/${id}`),
+		path(API_URLS.main, `user/${wallet}/company`),
+	updateCompany: (id: number) => path(API_URLS.main, `company/${id}`),
 	allCompanyEmployees: (id: number) =>
-		path(API_URLS.main, `/company/${id}/users`),
+		path(API_URLS.main, `company/${id}/users`),
 	allCompanyTeams: (id: number) => path(API_URLS.main, `/company/${id}/teams`),
 	addEmployee: (id: number, groupId: number) =>
 		path(API_URLS.main, `/team/${id}/${groupId}/user`),
@@ -34,4 +32,6 @@ export const MAIN_SERVICE_ROUTES = {
 	companyRecentActivities: (companyId: number) =>
 		path(API_URLS.main, `/team/${companyId}/recent-activity`),
 	profileData: (wallet: string) => path(API_URLS.main, `/user/${wallet}`),
+	userSettings: (wallet: string) =>
+		path(API_URLS.main, `/user/${wallet}/settings`),
 };

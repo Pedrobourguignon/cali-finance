@@ -10,18 +10,24 @@ export const NotificationComponent: React.FC<{
 	const theme = usePicasso();
 	const { locale } = useRouter();
 
-	console.log(notification.meta.description.enDescription);
+	console.log(notification.meta.description);
 
 	const handleNotifications = () => {
 		if (notification.event.description === 'Added team member')
 			return {
 				icon: '/icons/add-user.svg',
-				text: notification.meta.description.enDescription,
+				text:
+					locale === 'en-US'
+						? notification.meta.description.enDescription
+						: notification.meta.description.ptDescription,
 			};
 		if (notification.event.description === 'Created company')
 			return {
 				icon: '/icons/companies.svg',
-				text: notification.meta.description.enDescription,
+				text:
+					locale === 'en-US'
+						? notification.meta.description.enDescription
+						: notification.meta.description.ptDescription,
 			};
 		return null;
 	};

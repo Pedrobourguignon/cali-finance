@@ -13,7 +13,7 @@ export const authClient = axios.create({
 });
 
 export const coinClient = axios.create({
-	baseURL: `${API_URLS.main}/coin`,
+	baseURL: API_URLS.main,
 	withCredentials: false,
 });
 

@@ -22,38 +22,85 @@ export const HistoryData: React.FC<IHistoryData> = ({ userHistory }) => {
 		return 'yellow.600';
 	};
 	return (
-		<Flex
-			bg="white"
-			borderRadius="base"
-			w="100%"
-			color={theme.text.primary}
-			justify="space-between"
-			px="3"
-			py="2"
-		>
-			<Flex align="center" gap="4">
-				<Img src="/images/avatar.png" boxSize="6" />
-				<Flex direction="column">
-					<Text fontSize="sm">{truncateWallet(userHistory.wallet)}</Text>
+		<Flex direction="column" gap="2">
+			<Flex
+				display={{ base: 'none', sm: 'flex' }}
+				bg="white"
+				borderRadius="base"
+				w="100%"
+				color={theme.text.primary}
+				justify="space-between"
+				px="3"
+				py="2"
+			>
+				<Flex align="center" gap="4">
+					<Img src="/images/avatar.png" boxSize="6" />
+					<Flex direction="column">
+						<Text fontSize="sm">{truncateWallet(userHistory.wallet)}</Text>
+					</Flex>
 				</Flex>
-			</Flex>
-			<Flex align="center" gap="4">
-				<Img src={handleIcon()} boxSize="4" />
-				<Flex direction="column">
-					<Text fontSize="sm">{userHistory.type}</Text>
-					<Text color="gray.500" fontSize="xs">
-						{userHistory.date}
+				<Flex align="center" gap="4">
+					<Img src={handleIcon()} boxSize="4" />
+					<Flex direction="column">
+						<Text fontSize="sm">{userHistory.type}</Text>
+						<Text color="gray.500" fontSize="xs">
+							{userHistory.date}
+						</Text>
+					</Flex>
+				</Flex>
+				<Flex direction="column" fontSize="xs">
+					<Flex gap="1">
+						<Text>{userHistory.amount.toLocaleString('en-US')}</Text>
+						<Text>{userHistory.coin}</Text>
+					</Flex>
+					<Text textAlign="end" color={getStatusColor()}>
+						{userHistory.status}
 					</Text>
 				</Flex>
 			</Flex>
-			<Flex direction="column" fontSize="xs">
-				<Flex gap="1">
-					<Text>{userHistory.amount.toLocaleString('en-US')}</Text>
-					<Text>{userHistory.coin}</Text>
+			<Flex
+				bg="white"
+				display={{ base: 'flex', sm: 'none' }}
+				borderRadius="base"
+				w="100%"
+				color={theme.text.primary}
+				justify="space-between"
+				px="3"
+				py="2"
+				align="end"
+			>
+				<Flex direction="column" gap="2">
+					<Flex align="center" gap="4">
+						<Flex
+							direction="column"
+							bg={theme.text.primary}
+							borderRadius="full"
+						>
+							<Text fontSize="2xs" color={theme.text.white} px="2">
+								{truncateWallet(userHistory.wallet)}
+							</Text>
+						</Flex>
+					</Flex>
+					<Flex align="center" gap="4">
+						<Img src={handleIcon()} boxSize="4" />
+						<Flex direction="column">
+							<Text fontSize="xs">{userHistory.type}</Text>
+							<Text color="gray.500" fontSize="xs">
+								{userHistory.date}
+							</Text>
+						</Flex>
+					</Flex>
 				</Flex>
-				<Text textAlign="end" color={getStatusColor()}>
-					{userHistory.status}
-				</Text>
+
+				<Flex direction="column" fontSize="xs">
+					<Flex gap="1">
+						<Text>{userHistory.amount.toLocaleString('en-US')}</Text>
+						<Text>{userHistory.coin}</Text>
+					</Flex>
+					<Text textAlign="end" color={getStatusColor()}>
+						{userHistory.status}
+					</Text>
+				</Flex>
 			</Flex>
 		</Flex>
 	);

@@ -1,9 +1,9 @@
+import { MAIN_SERVICE_ROUTES } from 'helpers';
 import React, { createContext, useState, useMemo } from 'react';
 import { IWalletData, INotificationList } from 'types';
 import { IUser } from 'types/interfaces/main-server/IUser';
 import { mainClient } from 'utils';
 import { useAccount } from 'wagmi';
-import { MAIN_SERVICE_ROUTES } from 'helpers';
 
 interface IProfileContext {
 	walletData: IWalletData;
@@ -12,7 +12,7 @@ interface IProfileContext {
 		[setting: string]: unknown;
 	}) => Promise<void>;
 	updateProfile: (profileData: IUser) => Promise<void>;
-	getProfileData: () => Promise<IUser>;
+	getProfileData: (wallet: `0x${string}` | undefined) => Promise<any>;
 	getUserActivities: () => Promise<INotificationList[]>;
 }
 
@@ -28,10 +28,10 @@ export const ProfileProvider: React.FC<{ children: React.ReactNode }> = ({
 		icon: '',
 	});
 
-	const getProfileData = async () => {
-		if (!walletAddress) throw new Error('User not connected');
+	const getProfileData = async (wallet: `0x${string}` | undefined) => {
+		if (!wallet) throw new Error('User not connected');
 		const response = await mainClient.get(
-			MAIN_SERVICE_ROUTES.profileData(walletAddress)
+			MAIN_SERVICE_ROUTES.profileData(wallet)
 		);
 		return response.data;
 	};
@@ -39,7 +39,10 @@ export const ProfileProvider: React.FC<{ children: React.ReactNode }> = ({
 	const updateUserSettings = async (settings: {
 		[setting: string]: unknown;
 	}) => {
-		await mainClient.put(`/user/${walletAddress}/settings`, { settings });
+		if (!walletAddress) throw new Error('User not connected');
+		await mainClient.put(MAIN_SERVICE_ROUTES.userSettings(walletAddress), {
+			settings,
+		});
 	};
 
 	const updateProfile = async (profileData: IUser) => {
