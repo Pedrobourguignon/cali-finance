@@ -3,6 +3,7 @@ export * from './chainLogo';
 export * from './clients';
 export * from './ColorHandler';
 export * from './dateHandler';
+export * from './firebaseConfig';
 export * from './getLogo';
 export * from './logoHandler';
 export * from './navigationPaths';

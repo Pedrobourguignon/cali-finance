@@ -51,8 +51,6 @@ export const DashboardHeader: React.FC = () => {
 		return { status: translate('bullish'), color: 'blue.500' };
 	};
 
-	console.log(notificationsList);
-
 	return (
 		<Flex direction="column" pb="6">
 			<Flex justify="space-between">

@@ -9,8 +9,7 @@ export const NotificationComponent: React.FC<{
 }> = ({ notification }) => {
 	const theme = usePicasso();
 	const { locale } = useRouter();
-
-	console.log(notification);
+	// getNotifications(db);
 
 	const handleNotifications = () => {
 		if (notification.event.description === 'Added team member')
