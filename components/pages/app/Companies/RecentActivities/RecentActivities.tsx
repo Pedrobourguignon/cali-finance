@@ -1,10 +1,6 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { Flex, Text, Link } from '@chakra-ui/react';
-import {
-	ActivitiesData,
-	ActivitiesDataMobile,
-	AllCompaniesActivitiesData,
-} from 'components';
+import { ActivitiesData, ActivitiesDataMobile } from 'components';
 import { useCompanies, usePicasso } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
 import { navigationPaths } from 'utils';
