@@ -24,6 +24,7 @@ import useTranslation from 'next-translate/useTranslation';
 import React, { useMemo, useState, useEffect } from 'react';
 import { BiChevronDown } from 'react-icons/bi';
 import { IHistoryPage, INotificationList } from 'types';
+import { historyPageFilterOptions } from 'utils';
 
 export const HistoryComponent: React.FC<IHistoryPage> = ({ notifications }) => {
 	const { t: translate } = useTranslation('history-page');
@@ -51,16 +52,9 @@ export const HistoryComponent: React.FC<IHistoryPage> = ({ notifications }) => {
 		setPageNumber(pageNumber + 1);
 	};
 
-	const historyFilterOptions = [
-		translate('all'),
-		translate('deposit'),
-		translate('withdrawal'),
-		translate('createdCompany'),
-		translate('addedToTeam'),
-		translate('updatedCompany'),
-		translate('updatedUser'),
-		translate('updatedUserSettings'),
-	];
+	const historyFilterOptions = historyPageFilterOptions.map(option =>
+		translate(option)
+	);
 
 	const handleActivitiesFilterButton = (filter: string) => {
 		setFilteredActivities(
@@ -123,7 +117,6 @@ export const HistoryComponent: React.FC<IHistoryPage> = ({ notifications }) => {
 								rightIcon={<BiChevronDown />}
 								bg="white"
 								disabled={!session}
-								fb0bfdb3e84b980e3bee2b86dd5fa8dc6560fb9
 								_hover={{}}
 								_active={{}}
 								_focus={{}}

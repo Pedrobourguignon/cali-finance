@@ -1,5 +1,6 @@
 import { Flex, Img, Text } from '@chakra-ui/react';
 import { usePicasso } from 'hooks';
+import useTranslation from 'next-translate/useTranslation';
 import { useRouter } from 'next/router';
 import React from 'react';
 import { IActivitiesData } from 'types';
@@ -10,9 +11,10 @@ export const HistoryActivityDataMobile: React.FC<IActivitiesData> = ({
 }) => {
 	const theme = usePicasso();
 	const { locale } = useRouter();
+	const { t: translate } = useTranslation('history-page');
 
 	const handleActivities = () => {
-		if (activities?.event.description === 'Member added to company')
+		if (activities?.event.description === translate('addedToTeam'))
 			return {
 				icon: '/icons/add-user.svg',
 				text:
@@ -20,7 +22,7 @@ export const HistoryActivityDataMobile: React.FC<IActivitiesData> = ({
 						? activities?.meta.description.enDescription
 						: activities?.meta.description.ptDescription,
 			};
-		if (activities?.event.description === 'Created company')
+		if (activities?.event.description === translate('createdCompany'))
 			return {
 				icon: '/icons/companies.svg',
 				text:
@@ -28,7 +30,7 @@ export const HistoryActivityDataMobile: React.FC<IActivitiesData> = ({
 						? activities?.meta.description.enDescription
 						: activities?.meta.description.ptDescription,
 			};
-		if (activities.event.description === 'Updated company')
+		if (activities.event.description === translate('updatedCompany'))
 			return {
 				text: activities.meta.data.companyName,
 				icon: '/icons/companies.svg',
@@ -48,7 +50,7 @@ export const HistoryActivityDataMobile: React.FC<IActivitiesData> = ({
 			justify="space-between"
 			gap={{ base: '1', lg: '7' }}
 		>
-			{activities.event.description === 'Member added to company' ? (
+			{activities.event.description === translate('addedToTeam') ? (
 				<Flex gap="2" w="full">
 					<Img src="/images/avatar.png" boxSize="6" />
 					<Text
@@ -58,7 +60,7 @@ export const HistoryActivityDataMobile: React.FC<IActivitiesData> = ({
 						whiteSpace="nowrap"
 						color={theme.text.primary}
 					>
-						{activities.event.description === 'Member added to company'
+						{activities.event.description === translate('addedToTeam')
 							? `${truncateWallet(
 									handleActivities()?.text.slice(0, 41)
 							  )} ${handleActivities()?.text.slice(42)}`
@@ -74,7 +76,7 @@ export const HistoryActivityDataMobile: React.FC<IActivitiesData> = ({
 						whiteSpace="nowrap"
 						color={theme.text.primary}
 					>
-						{activities.event.description === 'Member added to company'
+						{activities.event.description === translate('addedToTeam')
 							? `${truncateWallet(
 									handleActivities()?.text.slice(0, 41)
 							  )} ${handleActivities()?.text.slice(42)}`

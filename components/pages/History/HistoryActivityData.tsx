@@ -1,41 +1,18 @@
 /* eslint-disable no-unsafe-optional-chaining */
 import { Flex, Img, Text } from '@chakra-ui/react';
 import { usePicasso } from 'hooks';
+import useTranslation from 'next-translate/useTranslation';
 import { useRouter } from 'next/router';
 import React from 'react';
 import { IActivitiesData } from 'types';
-import { truncateWallet } from 'utils';
+import { handleNotifications, truncateWallet } from 'utils';
 
 export const HistoryActivityData: React.FC<IActivitiesData> = ({
 	activities,
 }) => {
 	const theme = usePicasso();
+	const { t: translate } = useTranslation('history-page');
 	const { locale } = useRouter();
-
-	const handleActivities = () => {
-		if (activities.event.description === 'Member added to company')
-			return {
-				icon: '/icons/add-user.svg',
-				text:
-					locale === 'en-US'
-						? activities.meta.description.enDescription
-						: activities.meta.description.ptDescription,
-			};
-		if (activities.event.description === 'Created company')
-			return {
-				icon: '/icons/companies.svg',
-				text:
-					locale === 'en-US'
-						? activities.meta.description.enDescription
-						: activities.meta.description.ptDescription,
-			};
-		if (activities.event.description === 'Updated company')
-			return {
-				text: activities.meta.data.companyName,
-				icon: '/icons/companies.svg',
-			};
-		return null;
-	};
 
 	return (
 		<Flex
@@ -58,11 +35,11 @@ export const HistoryActivityData: React.FC<IActivitiesData> = ({
 						whiteSpace="nowrap"
 						color={theme.text.primary}
 					>
-						{activities.event.description === 'Member added to company'
+						{activities.event.description === translate('addedToTeam')
 							? `${truncateWallet(
-									handleActivities()?.text.slice(0, 41)
-							  )} ${handleActivities()?.text.slice(42)}`
-							: handleActivities()?.text}
+									handleNotifications(activities, locale)?.text.slice(0, 41)
+							  )} ${handleNotifications(activities, locale)?.text.slice(42)}`
+							: handleNotifications(activities, locale)?.text}
 					</Text>
 				</Flex>
 			) : (
@@ -74,16 +51,16 @@ export const HistoryActivityData: React.FC<IActivitiesData> = ({
 						whiteSpace="nowrap"
 						color={theme.text.primary}
 					>
-						{activities.event.description === 'Member added to company'
+						{activities.event.description === translate('addedToTeam')
 							? `${truncateWallet(
-									handleActivities()?.text.slice(0, 41)
-							  )} ${handleActivities()?.text.slice(42)}`
-							: handleActivities()?.text}
+									handleNotifications(activities, locale)?.text.slice(0, 41)
+							  )} ${handleNotifications(activities, locale)?.text.slice(42)}`
+							: handleNotifications(activities, locale)?.text}
 					</Text>
 				</Flex>
 			)}
 			<Flex align="center" gap="3">
-				<Img src={handleActivities()?.icon} boxSize="4" />
+				<Img src={handleNotifications(activities, locale)?.icon} boxSize="4" />
 				<Flex direction="column">
 					<Text fontSize="sm" fontWeight="normal" color={theme.text.primary}>
 						{activities.event.description}

@@ -4,6 +4,8 @@ export * from './clients';
 export * from './ColorHandler';
 export * from './dateHandler';
 export * from './getLogo';
+export * from './handleNotifications';
+export * from './historyFilterOptions';
 export * from './logoHandler';
 export * from './navigationPaths';
 export * from './networkInfos';

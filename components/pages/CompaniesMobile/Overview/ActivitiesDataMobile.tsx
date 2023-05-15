@@ -5,7 +5,7 @@ import useTranslation from 'next-translate/useTranslation';
 import { useRouter } from 'next/router';
 import { INotificationList } from 'types';
 import { ICompany } from 'types/interfaces/main-server/ICompany';
-import { truncateWallet } from 'utils';
+import { handleNotifications, truncateWallet } from 'utils';
 
 interface IActivitiesData {
 	activities: INotificationList;
@@ -17,28 +17,9 @@ export const ActivitiesDataMobile: React.FC<IActivitiesData> = ({
 	company,
 }) => {
 	const { t: translate } = useTranslation('companies');
+	const { t: translateNotification } = useTranslation('history-page');
 	const { locale } = useRouter();
 	const theme = usePicasso();
-
-	const handleActivities = () => {
-		if (activities.event.description === 'Member added to company')
-			return {
-				icon: '/icons/add-user.svg',
-				text:
-					locale === 'en-US'
-						? activities.meta.description.enDescription
-						: activities.meta.description.ptDescription,
-			};
-		if (activities.event.description === 'Created company')
-			return {
-				icon: '/icons/companies.svg',
-				text:
-					locale === 'en-US'
-						? activities.meta.description.enDescription
-						: activities.meta.description.ptDescription,
-			};
-		return null;
-	};
 
 	return (
 		<Flex
@@ -61,13 +42,21 @@ export const ActivitiesDataMobile: React.FC<IActivitiesData> = ({
 				w="max-content"
 				whiteSpace="nowrap"
 			>
-				{activities.event.description === 'Member added to company'
-					? truncateWallet(handleActivities()?.text.slice(0, 41))
-					: handleActivities()?.text.slice(8, company?.name!.length + 8)}
+				{activities.event.description === translateNotification('addedToTeam')
+					? truncateWallet(
+							handleNotifications(activities, locale)?.text.slice(0, 41)
+					  )
+					: handleNotifications(activities, locale)?.text.slice(
+							8,
+							company?.name!.length + 8
+					  )}
 			</Text>
 			<Flex w="full" justify="space-between">
 				<Flex align="center" gap="2">
-					<Img src={handleActivities()?.icon} boxSize="4" />
+					<Img
+						src={handleNotifications(activities, locale)?.icon}
+						boxSize="4"
+					/>
 					<Flex direction="column">
 						<Text fontSize="sm" fontWeight="normal">
 							{activities.event.description}

@@ -8,8 +8,6 @@ import NextLink from 'next/link';
 import { useAccount } from 'wagmi';
 import { useQuery } from 'react-query';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
-import { INotificationList } from 'types';
 
 export const RecentActivities = () => {
 	const { getCompanieActivities } = useCompanies();
@@ -35,39 +33,9 @@ export const RecentActivities = () => {
 		}
 	);
 
-	console.log(allCompaniesRecentActivities);
-
-	const [filteredActivities, setFilteredActivities] =
-		useState<INotificationList[]>();
-	const [filteredCompaniesActivities, setFilteredCompaniesActivities] =
-		useState<INotificationList[]>();
-
 	const { data: selectedCompany } = useQuery('created-company-overview', () =>
 		getCompanyById(Number(query.id))
 	);
-
-	console.log(filteredCompaniesActivities);
-
-	const filterActivities = () => {
-		setFilteredActivities(
-			recentActivities?.filter(
-				activitie =>
-					activitie.event.description === 'Created company' ||
-					activitie.event.description === 'Member added to company'
-			)
-		);
-		setFilteredCompaniesActivities(
-			recentActivities?.filter(
-				activitie =>
-					activitie.event.description === 'Created company' ||
-					activitie.event.description === 'Member added to company'
-			)
-		);
-	};
-
-	useEffect(() => {
-		filterActivities();
-	}, [recentActivities]);
 
 	return (
 		<Flex
@@ -99,14 +67,14 @@ export const RecentActivities = () => {
 			</Flex>
 			<Flex gap="2" direction="column" display={{ base: 'none', sm: 'flex' }}>
 				{Object.keys(query).length === 0
-					? filteredCompaniesActivities?.map((activity, index) => (
+					? allCompaniesRecentActivities?.map((activity, index) => (
 							<ActivitiesData
 								key={+index}
 								activities={activity}
 								company={selectedCompany!}
 							/>
 					  ))
-					: filteredActivities?.map((activity, index) => (
+					: recentActivities?.map((activity, index) => (
 							<ActivitiesData
 								key={+index}
 								activities={activity}
@@ -115,7 +83,7 @@ export const RecentActivities = () => {
 					  ))}
 			</Flex>
 			<Flex gap="2" direction="column" display={{ base: 'flex', sm: 'none' }}>
-				{filteredActivities?.map((activity, index) => (
+				{recentActivities?.map((activity, index) => (
 					<ActivitiesDataMobile
 						key={+index}
 						activities={activity}

@@ -3,33 +3,15 @@
 import { Flex, Img, Text } from '@chakra-ui/react';
 import { IActivitiesData } from 'types';
 import { useRouter } from 'next/router';
-import { truncateWallet } from 'utils';
+import { handleNotifications, truncateWallet } from 'utils';
+import useTranslation from 'next-translate/useTranslation';
 
 export const ActivitiesData: React.FC<IActivitiesData> = ({
 	activities,
 	company,
 }) => {
 	const { locale } = useRouter();
-
-	const handleActivities = () => {
-		if (activities.event.description === 'Member added to company')
-			return {
-				icon: '/icons/add-user.svg',
-				text:
-					locale === 'en-US'
-						? activities.meta.description.enDescription
-						: activities.meta.description.ptDescription,
-			};
-		if (activities.event.description === 'Created company')
-			return {
-				icon: '/icons/companies.svg',
-				text:
-					locale === 'en-US'
-						? activities.meta.description.enDescription
-						: activities.meta.description.ptDescription,
-			};
-		return null;
-	};
+	const { t: translate } = useTranslation('history-page');
 
 	return (
 		<Flex
@@ -48,15 +30,22 @@ export const ActivitiesData: React.FC<IActivitiesData> = ({
 				w={{ md: '24', lg: '36' }}
 				whiteSpace="nowrap"
 			>
-				{activities.event.description === 'Member added to company'
-					? truncateWallet(handleActivities()?.text.slice(0, 41))
-					: handleActivities()?.text?.slice(8, company?.name!.length + 8)}
+				{activities.event.description === translate('addedToTeam')
+					? truncateWallet(
+							handleNotifications(activities, locale)?.text.slice(0, 41)
+					  )
+					: handleNotifications(activities, locale)?.text?.slice(
+							8,
+							company?.name!.length + 8
+					  )}
 			</Text>
 			<Flex align="center" gap="2">
-				<Img src={handleActivities()?.icon} boxSize="4" />
+				<Img src={handleNotifications(activities, locale)?.icon} boxSize="4" />
 				<Flex direction="column">
 					<Text fontSize="sm" fontWeight="normal">
-						{activities.event.description}
+						{locale === 'en-US'
+							? activities.meta.description.enDescription
+							: activities.meta.description.ptDescription}
 					</Text>
 					<Text color="gray.500" fontSize="xs" whiteSpace="nowrap">
 						{activities.created_at}
