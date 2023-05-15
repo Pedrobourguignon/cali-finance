@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
+/* eslint-disable no-unsafe-optional-chaining */
 import {
 	Flex,
 	Text,
@@ -12,15 +14,17 @@ import {
 	Paginator,
 	DisplayedNotificationsMobile,
 } from 'components';
-import { useCompanies, usePicasso } from 'hooks';
+import { usePicasso } from 'hooks';
 import { MobileLayout } from 'layouts';
 import { useSession } from 'next-auth/react';
 import useTranslation from 'next-translate/useTranslation';
 import React, { useMemo, useState, useEffect } from 'react';
 import { BiChevronDown } from 'react-icons/bi';
-import { IHistoryPage } from 'types';
+import { IHistoryPage, INotificationList } from 'types';
 
-export const HistoryComponentMobile: React.FC<IHistoryPage> = ({ history }) => {
+export const HistoryComponentMobile: React.FC<IHistoryPage> = ({
+	notifications,
+}) => {
 	const { t: translate } = useTranslation('history-page');
 	const theme = usePicasso();
 	const [selectedFilterOption, setSelectedFilterOption] = useState<string>(
@@ -28,12 +32,14 @@ export const HistoryComponentMobile: React.FC<IHistoryPage> = ({ history }) => {
 	);
 	const [pageNumber, setPageNumber] = useState(0);
 	const { data: session } = useSession();
-	const { filteredNotifications, setFilteredNotifications } = useCompanies();
+	const [filteredActivities, setFilteredActivities] = useState<
+		INotificationList[]
+	>(notifications!);
 
 	const notificationPerPage = 7;
 	const maxPage = useMemo(
-		() => Math.ceil(filteredNotifications.length / notificationPerPage),
-		[filteredNotifications.length]
+		() => Math.ceil(filteredActivities?.length / notificationPerPage),
+		[filteredActivities?.length]
 	);
 	const pagesVisited = pageNumber * notificationPerPage;
 
@@ -48,23 +54,32 @@ export const HistoryComponentMobile: React.FC<IHistoryPage> = ({ history }) => {
 		translate('all'),
 		translate('deposit'),
 		translate('withdrawal'),
+		translate('createdCompany'),
 		translate('addedToTeam'),
-		translate('teamCreated'),
+		translate('updatedCompany'),
+		translate('updatedUser'),
+		translate('updatedUserSettings'),
 	];
 
-	const filterHistoryNotifications = (filter: string) => {
-		setFilteredNotifications(
-			history.filter(notification => notification.type === filter)
+	const handleActivitiesFilterButton = (filter: string) => {
+		setFilteredActivities(
+			notifications!.filter(
+				notification => notification.event.description === filter
+			)
 		);
 		if (filter === translate('all')) {
-			setFilteredNotifications(history);
+			setFilteredActivities(notifications!);
 		}
 		setSelectedFilterOption(filter);
 	};
 
 	useEffect(() => {
 		setPageNumber(0);
-	}, [filteredNotifications]);
+	}, [filteredActivities]);
+
+	useEffect(() => {
+		setFilteredActivities(notifications!);
+	}, [notifications]);
 
 	return (
 		<MobileLayout>
@@ -116,7 +131,7 @@ export const HistoryComponentMobile: React.FC<IHistoryPage> = ({ history }) => {
 										borderBottomRadius={
 											option === translate('teamCreated') ? 'base' : 'none'
 										}
-										onClick={() => filterHistoryNotifications(option)}
+										onClick={() => handleActivitiesFilterButton(option)}
 										_active={{}}
 									>
 										{option}
@@ -138,10 +153,10 @@ export const HistoryComponentMobile: React.FC<IHistoryPage> = ({ history }) => {
 								<DisplayedNotificationsMobile
 									notificationPerPage={notificationPerPage}
 									pagesVisited={pagesVisited}
-									filteredNotifications={filteredNotifications}
+									filteredNotifications={filteredActivities}
 								/>
 							</Flex>
-							{filteredNotifications.length ? (
+							{filteredActivities?.length ? (
 								<Flex justify="center" pt="5" pb="6">
 									<Paginator
 										actualPage={pageNumber + 1}
@@ -167,7 +182,7 @@ export const HistoryComponentMobile: React.FC<IHistoryPage> = ({ history }) => {
 											fontWeight="semibold"
 											cursor="pointer"
 											onClick={() => {
-												setFilteredNotifications(history);
+												setFilteredActivities(notifications!);
 												setSelectedFilterOption(translate('all'));
 											}}
 										>

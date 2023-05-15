@@ -28,7 +28,7 @@ export const DashboardHeader: React.FC = () => {
 		data: recentActivities,
 		isLoading: isLoadingRecentActivities,
 		error: errorRecentActivities,
-	} = useQuery('recent-activities', getUserActivities, {
+	} = useQuery('recent-activities', () => getUserActivities(4), {
 		enabled: !!isConnected,
 	});
 
@@ -51,7 +51,7 @@ export const DashboardHeader: React.FC = () => {
 		return { status: translate('bullish'), color: 'blue.500' };
 	};
 
-	console.log(notificationsList);
+	// console.log(notificationsList);
 
 	return (
 		<Flex direction="column" pb="6">

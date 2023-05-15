@@ -73,6 +73,9 @@ interface ICompanyContext {
 	allUserCompanies: GetUserCompaniesRes[];
 	selectedCompany: ICompany;
 	companiesWithMissingFunds: GetUserCompaniesRes[];
+	getCompanieActivities: (companyId: number) => Promise<INotificationList[]>;
+	getAllCompanyTeams: (id: number) => Promise<any>;
+	getAllCompaniesUserActivities: () => Promise<INotificationList[]>;
 }
 
 export const CompaniesContext = createContext({} as ICompanyContext);
@@ -276,6 +279,30 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 		await mainClient.put(`/team/${teamId}/user`, editedEmployeeInfo);
 	};
 
+	const getCompanieActivities = async (companyId: number) => {
+		const response = await mainClient.get(
+			MAIN_SERVICE_ROUTES.companyRecentActivities(companyId),
+			{
+				params: {
+					pageLimit: 9,
+				},
+			}
+		);
+		return response.data;
+	};
+
+	const getAllCompaniesUserActivities = async () => {
+		const response = await mainClient.get(
+			MAIN_SERVICE_ROUTES.allCompaniesUserActivities(),
+			{
+				params: {
+					pageLimit: 300,
+				},
+			}
+		);
+		return response.data;
+	};
+
 	const contextStates = useMemo(
 		() => ({
 			activities,
@@ -303,6 +330,9 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 			allUserCompanies,
 			selectedCompany,
 			updateCompany,
+			getCompanieActivities,
+			getAllCompanyTeams,
+			getAllCompaniesUserActivities,
 		}),
 		[
 			selectedCompany,

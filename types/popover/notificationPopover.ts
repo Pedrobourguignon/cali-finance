@@ -9,6 +9,7 @@ export interface INotificationList {
 	id: number;
 	meta: {
 		data: {
+			companyName: string;
 			companyId: number;
 			teamId: number;
 			userId: number;

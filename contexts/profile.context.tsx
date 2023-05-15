@@ -24,7 +24,7 @@ interface IProfileContext {
 	) => Promise<void>;
 	updateProfile: (profileData: IUser) => Promise<void>;
 	getProfileData: (wallet: `0x${string}` | undefined) => Promise<any>;
-	getUserActivities: () => Promise<INotificationList[]>;
+	getUserActivities: (limit: number) => Promise<any>;
 	favoriteCoins: ICoin[];
 	refetchUserData: <TPageData>(
 		options?: (RefetchOptions & RefetchQueryFilters<TPageData>) | undefined
@@ -94,12 +94,12 @@ export const ProfileProvider: React.FC<{ children: React.ReactNode }> = ({
 		);
 	};
 
-	const getUserActivities = async () => {
+	const getUserActivities = async (limit: number) => {
 		const response = await mainClient.get(
 			MAIN_SERVICE_ROUTES.userRecentActivities,
 			{
 				params: {
-					pageLimit: 4,
+					pageLimit: limit,
 				},
 			}
 		);
