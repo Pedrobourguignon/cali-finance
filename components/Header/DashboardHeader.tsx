@@ -7,6 +7,8 @@ import { useSession } from 'next-auth/react';
 import { useQuery } from 'react-query';
 import { useAccount } from 'wagmi';
 import { INotificationList } from 'types';
+import { getNotifications } from 'services';
+import { db } from 'utils';
 
 export const DashboardHeader: React.FC = () => {
 	const { onClose, isOpen, onOpen } = useDisclosure();
@@ -15,8 +17,7 @@ export const DashboardHeader: React.FC = () => {
 	const { getProfileData } = useProfile();
 	const percentage = 0;
 	const theme = usePicasso();
-	const { getUserActivities } = useProfile();
-	const { isConnected, address } = useAccount();
+	const { address } = useAccount();
 	const { data: profileData } = useQuery('profile-data', () =>
 		getProfileData(address)
 	);
@@ -24,17 +25,15 @@ export const DashboardHeader: React.FC = () => {
 		INotificationList[]
 	>([]);
 
-	const {
-		data: recentActivities,
-		isLoading: isLoadingRecentActivities,
-		error: errorRecentActivities,
-	} = useQuery('recent-activities', getUserActivities, {
-		enabled: !!isConnected,
-	});
-
 	useEffect(() => {
-		if (recentActivities) setNotificationsList(recentActivities);
-	}, [recentActivities]);
+		if (address) {
+			const fetchNotifications = async () => {
+				const recentActivities = await getNotifications(db, address);
+				console.log(recentActivities?.notifications);
+			};
+			fetchNotifications();
+		}
+	}, []);
 
 	const greetingMessage = useMemo(() => {
 		const hour = new Date().getHours();

@@ -16,10 +16,12 @@ import React from 'react';
 import { VscBellDot, VscBell } from 'react-icons/vsc';
 import { INotificationPopover } from 'types';
 import { NotificationComponent } from 'components';
+import { deleteNotifications } from 'services';
+import { useAccount } from 'wagmi';
+import { db } from 'utils';
 
 export const NotificationPopover: React.FC<INotificationPopover> = ({
 	notificationsList,
-	setNotificationsList,
 	onClose,
 	isOpen,
 	onOpen,
@@ -27,10 +29,13 @@ export const NotificationPopover: React.FC<INotificationPopover> = ({
 	const theme = usePicasso();
 	const { data: session } = useSession();
 	const { t: translate } = useTranslation('dashboard');
+	const { address } = useAccount();
 
 	const clearAllNotifications = () => {
-		setNotificationsList([]);
-		onClose();
+		if (address) {
+			deleteNotifications(db, address);
+			onClose();
+		}
 	};
 
 	return (
