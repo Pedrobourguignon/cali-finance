@@ -4,7 +4,7 @@ export const handleNotifications = (
 	notification: INotificationList,
 	locale = 'en-US'
 ) => {
-	if (notification.event.description === 'Added team member')
+	if (notification.event.description === 'Member added to company')
 		return {
 			icon: '/icons/add-user.svg',
 			text:

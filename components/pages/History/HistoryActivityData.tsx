@@ -5,7 +5,7 @@ import useTranslation from 'next-translate/useTranslation';
 import { useRouter } from 'next/router';
 import React from 'react';
 import { IActivitiesData } from 'types';
-import { handleNotifications, truncateWallet } from 'utils';
+import { truncateWallet } from 'utils';
 
 export const HistoryActivityData: React.FC<IActivitiesData> = ({
 	activities,
@@ -35,11 +35,10 @@ export const HistoryActivityData: React.FC<IActivitiesData> = ({
 						whiteSpace="nowrap"
 						color={theme.text.primary}
 					>
-						{activities.event.description === translate('addedToTeam')
-							? `${truncateWallet(
-									handleNotifications(activities, locale)?.text.slice(0, 41)
-							  )} ${handleNotifications(activities, locale)?.text.slice(42)}`
-							: handleNotifications(activities, locale)?.text}
+						{truncateWallet(activities.meta.data?.userAddedWallet)}{' '}
+						{locale === 'en-US'
+							? activities.meta.description.enDescription?.slice(42)
+							: activities.meta.description.ptDescription?.slice(42)}
 					</Text>
 				</Flex>
 			) : (
@@ -53,14 +52,20 @@ export const HistoryActivityData: React.FC<IActivitiesData> = ({
 					>
 						{activities.event.description === translate('addedToTeam')
 							? `${truncateWallet(
-									handleNotifications(activities, locale)?.text.slice(0, 41)
-							  )} ${handleNotifications(activities, locale)?.text.slice(42)}`
-							: handleNotifications(activities, locale)?.text}
+									locale === 'en-US'
+										? activities.meta.description.enDescription.slice(0, 41)
+										: activities.meta.description.ptDescription.slice(0, 41)
+							  )} ${
+									locale === 'en-US'
+										? activities.meta.description.enDescription.slice(0, 42)
+										: activities.meta.description.ptDescription.slice(0, 42)
+							  }`
+							: activities.meta.data.companyName}
 					</Text>
 				</Flex>
 			)}
 			<Flex align="center" gap="3">
-				<Img src={handleNotifications(activities, locale)?.icon} boxSize="4" />
+				<Img src={activities.meta.icon} boxSize="4" />
 				<Flex direction="column">
 					<Text fontSize="sm" fontWeight="normal" color={theme.text.primary}>
 						{activities.event.description}
