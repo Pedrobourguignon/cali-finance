@@ -57,11 +57,13 @@ export const HistoryComponent: React.FC<IHistoryPage> = ({ notifications }) => {
 	);
 
 	const handleActivitiesFilterButton = (filter: string) => {
-		setFilteredActivities(
-			notifications!.filter(
-				notification => notification.event.description === filter
-			)
-		);
+		if (notifications) {
+			setFilteredActivities(
+				notifications.filter(
+					notification => notification.event.description === filter
+				)
+			);
+		}
 		if (filter === translate('all')) {
 			setFilteredActivities(notifications!);
 		}
@@ -182,7 +184,7 @@ export const HistoryComponent: React.FC<IHistoryPage> = ({ notifications }) => {
 										fontSize="sm"
 										whiteSpace="normal"
 									>
-										{translate('noResults')}
+										{translate('noResults')}{' '}
 										<Text
 											decoration="underline"
 											color={theme.text.primary}
@@ -197,7 +199,7 @@ export const HistoryComponent: React.FC<IHistoryPage> = ({ notifications }) => {
 											}}
 										>
 											{translate('returnToAllResults')}
-										</Text>
+										</Text>{' '}
 										{translate('orSelectAnother')}
 									</Text>
 								</Flex>
