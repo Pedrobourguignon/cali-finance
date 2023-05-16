@@ -67,20 +67,24 @@ export const RecentActivities = () => {
 			</Flex>
 			<Flex gap="2" direction="column" display={{ base: 'none', sm: 'flex' }}>
 				{Object.keys(query).length === 0
-					? allCompaniesRecentActivities?.map((activity, index) => (
-							<ActivitiesData
-								key={+index}
-								activities={activity}
-								company={selectedCompany!}
-							/>
-					  ))
-					: recentActivities?.map((activity, index) => (
-							<ActivitiesData
-								key={+index}
-								activities={activity}
-								company={selectedCompany!}
-							/>
-					  ))}
+					? allCompaniesRecentActivities
+							?.slice(0, 5)
+							.map((activity, index) => (
+								<ActivitiesData
+									key={+index}
+									activities={activity}
+									company={selectedCompany!}
+								/>
+							))
+					: recentActivities
+							?.slice(0, 5)
+							.map((activity, index) => (
+								<ActivitiesData
+									key={+index}
+									activities={activity}
+									company={selectedCompany!}
+								/>
+							))}
 			</Flex>
 			<Flex gap="2" direction="column" display={{ base: 'flex', sm: 'none' }}>
 				{recentActivities?.map((activity, index) => (

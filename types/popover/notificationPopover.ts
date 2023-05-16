@@ -9,6 +9,7 @@ export interface INotificationList {
 	id: number;
 	meta: {
 		data: {
+			userAddedWallet: string;
 			companyName: string;
 			companyId: number;
 			teamId: number;
@@ -18,6 +19,7 @@ export interface INotificationList {
 			enDescription: string;
 			ptDescription: string;
 		};
+		icon: string;
 	};
 	wallet: string;
 }

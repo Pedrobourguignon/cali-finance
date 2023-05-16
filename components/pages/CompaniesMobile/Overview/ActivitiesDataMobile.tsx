@@ -2,10 +2,9 @@
 import { Flex, Img, Text } from '@chakra-ui/react';
 import { usePicasso } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
-import { useRouter } from 'next/router';
 import { INotificationList } from 'types';
 import { ICompany } from 'types/interfaces/main-server/ICompany';
-import { handleNotifications, truncateWallet } from 'utils';
+import { truncateWallet } from 'utils';
 
 interface IActivitiesData {
 	activities: INotificationList;
@@ -14,11 +13,8 @@ interface IActivitiesData {
 
 export const ActivitiesDataMobile: React.FC<IActivitiesData> = ({
 	activities,
-	company,
 }) => {
 	const { t: translate } = useTranslation('companies');
-	const { t: translateNotification } = useTranslation('history-page');
-	const { locale } = useRouter();
 	const theme = usePicasso();
 
 	return (
@@ -42,21 +38,13 @@ export const ActivitiesDataMobile: React.FC<IActivitiesData> = ({
 				w="max-content"
 				whiteSpace="nowrap"
 			>
-				{activities.event.description === translateNotification('addedToTeam')
-					? truncateWallet(
-							handleNotifications(activities, locale)?.text.slice(0, 41)
-					  )
-					: handleNotifications(activities, locale)?.text.slice(
-							8,
-							company?.name!.length + 8
-					  )}
+				{activities.event.description === translate('addedToTeam')
+					? truncateWallet(activities.meta.data?.userAddedWallet)
+					: activities.meta.data.companyName}
 			</Text>
 			<Flex w="full" justify="space-between">
 				<Flex align="center" gap="2">
-					<Img
-						src={handleNotifications(activities, locale)?.icon}
-						boxSize="4"
-					/>
+					<Img src={activities.meta.icon} boxSize="4" />
 					<Flex direction="column">
 						<Text fontSize="sm" fontWeight="normal">
 							{activities.event.description}
