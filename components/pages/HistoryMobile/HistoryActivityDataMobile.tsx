@@ -4,7 +4,7 @@ import useTranslation from 'next-translate/useTranslation';
 import { useRouter } from 'next/router';
 import React from 'react';
 import { IActivitiesData } from 'types';
-import { truncateWallet } from 'utils';
+import { handleNotifications, truncateWallet } from 'utils';
 
 export const HistoryActivityDataMobile: React.FC<IActivitiesData> = ({
 	activities,
@@ -12,31 +12,6 @@ export const HistoryActivityDataMobile: React.FC<IActivitiesData> = ({
 	const theme = usePicasso();
 	const { locale } = useRouter();
 	const { t: translate } = useTranslation('history-page');
-
-	const handleActivities = () => {
-		if (activities?.event.description === translate('addedToTeam'))
-			return {
-				icon: '/icons/add-user.svg',
-				text:
-					locale === 'en-US'
-						? activities?.meta.description.enDescription
-						: activities?.meta.description.ptDescription,
-			};
-		if (activities?.event.description === translate('createdCompany'))
-			return {
-				icon: '/icons/companies.svg',
-				text:
-					locale === 'en-US'
-						? activities?.meta.description.enDescription
-						: activities?.meta.description.ptDescription,
-			};
-		if (activities.event.description === translate('updatedCompany'))
-			return {
-				text: activities.meta.data.companyName,
-				icon: '/icons/companies.svg',
-			};
-		return null;
-	};
 
 	return (
 		<Flex
@@ -62,9 +37,9 @@ export const HistoryActivityDataMobile: React.FC<IActivitiesData> = ({
 					>
 						{activities.event.description === translate('addedToTeam')
 							? `${truncateWallet(
-									handleActivities()?.text.slice(0, 41)
-							  )} ${handleActivities()?.text.slice(42)}`
-							: handleActivities()?.text}
+									handleNotifications(activities, locale)?.text.slice(0, 41)
+							  )} ${handleNotifications(activities, locale)?.text.slice(42)}`
+							: handleNotifications(activities, locale)?.text}
 					</Text>
 				</Flex>
 			) : (
@@ -78,14 +53,14 @@ export const HistoryActivityDataMobile: React.FC<IActivitiesData> = ({
 					>
 						{activities.event.description === translate('addedToTeam')
 							? `${truncateWallet(
-									handleActivities()?.text.slice(0, 41)
-							  )} ${handleActivities()?.text.slice(42)}`
-							: handleActivities()?.text}
+									handleNotifications(activities, locale)?.text.slice(0, 41)
+							  )} ${handleNotifications(activities, locale)?.text.slice(42)}`
+							: handleNotifications(activities, locale)?.text}
 					</Text>
 				</Flex>
 			)}
 			<Flex align="center" gap="3" w="full">
-				<Img src={handleActivities()?.icon} boxSize="4" />
+				<Img src={handleNotifications(activities, locale)?.icon} boxSize="4" />
 				<Flex direction="column">
 					<Text fontSize="sm" fontWeight="normal" color={theme.text.primary}>
 						{activities.event.description}
