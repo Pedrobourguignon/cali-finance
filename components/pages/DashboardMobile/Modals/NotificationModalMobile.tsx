@@ -3,7 +3,7 @@ import { usePicasso } from 'hooks';
 import { MobileModalLayout } from 'layouts';
 import useTranslation from 'next-translate/useTranslation';
 import React from 'react';
-import { IBasicModal, INotificationPopover } from 'types';
+import { INotificationPopover } from 'types';
 
 export const NotificationModalMobile: React.FC<INotificationPopover> = ({
 	notificationsList,
@@ -70,8 +70,8 @@ export const NotificationModalMobile: React.FC<INotificationPopover> = ({
 							align="center"
 							px="3"
 						>
-							<Flex gap="2" align="center" py="1" w="full">
-								<Img src={notification.icon} boxSize="4" />
+							{/* <Flex gap="2" align="center" py="1" w="full">
+								<Img src={notification.} boxSize="4" />
 								<Flex direction="column" justify="center">
 									<Text
 										color={theme.text.primary}
@@ -84,7 +84,7 @@ export const NotificationModalMobile: React.FC<INotificationPopover> = ({
 										{notification.date}
 									</Text>
 								</Flex>
-							</Flex>
+							</Flex> */}
 						</Flex>
 					))}
 				</Flex>

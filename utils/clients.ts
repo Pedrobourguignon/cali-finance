@@ -8,7 +8,7 @@ export const checkJwt = () => {
 };
 
 export const authClient = axios.create({
-	baseURL: API_URLS.auth,
+	baseURL: `${API_URLS.main}/auth`,
 	withCredentials: false,
 });
 

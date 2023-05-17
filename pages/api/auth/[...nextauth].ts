@@ -18,13 +18,11 @@ export default async function auth(req: NextApiRequest, res: NextApiResponse) {
 				}
 				try {
 					const { signature, wallet } = credentials;
-					const { data } = await authClient.post(
-						AUTH_SERVICE_ROUTES.signature,
-						{
-							wallet,
-							signature,
-						}
-					);
+					const url = AUTH_SERVICE_ROUTES.signature;
+					const { data } = await authClient.post(url, {
+						wallet,
+						signature,
+					});
 					const { jwt } = data;
 					if (jwt) {
 						return jwt;

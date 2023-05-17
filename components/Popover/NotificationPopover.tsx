@@ -7,7 +7,6 @@ import {
 	Button,
 	Icon,
 	Text,
-	Img,
 	PopoverCloseButton,
 } from '@chakra-ui/react';
 import { usePicasso } from 'hooks';
@@ -16,6 +15,7 @@ import useTranslation from 'next-translate/useTranslation';
 import React from 'react';
 import { VscBellDot, VscBell } from 'react-icons/vsc';
 import { INotificationPopover } from 'types';
+import { NotificationComponent } from 'components';
 
 export const NotificationPopover: React.FC<INotificationPopover> = ({
 	notificationsList,
@@ -100,31 +100,7 @@ export const NotificationPopover: React.FC<INotificationPopover> = ({
 						}}
 					>
 						{notificationsList.map((notification, index) => (
-							<Flex
-								key={+index}
-								justify="space-between"
-								bg="gray.100"
-								color="white"
-								borderRadius="base"
-								align="center"
-								px="3"
-							>
-								<Flex gap="2" align="center" py="1" w="full">
-									<Img src={notification.icon} boxSize="4" />
-									<Flex direction="column" justify="center">
-										<Text
-											color={theme.text.primary}
-											fontSize="sm"
-											fontWeight="normal"
-										>
-											{notification.type}
-										</Text>
-										<Text color="gray.500" fontSize="xs">
-											{notification.date}
-										</Text>
-									</Flex>
-								</Flex>
-							</Flex>
+							<NotificationComponent notification={notification} key={+index} />
 						))}
 					</Flex>
 				</PopoverBody>

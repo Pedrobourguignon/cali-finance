@@ -1,9 +1,27 @@
 import { Dispatch, SetStateAction } from 'react';
 
 export interface INotificationList {
-	type: string;
-	date: string;
-	icon: string;
+	created_at: string;
+	event: {
+		name: string;
+		description: string;
+	};
+	id: number;
+	meta: {
+		data: {
+			userAddedWallet: string;
+			companyName: string;
+			companyId: number;
+			teamId: number;
+			userId: number;
+		};
+		description: {
+			enDescription: string;
+			ptDescription: string;
+		};
+		icon: string;
+	};
+	wallet: string;
 }
 
 export interface INotificationPopover {

@@ -14,11 +14,7 @@ import {
 	ModalBody,
 	Icon,
 } from '@chakra-ui/react';
-import {
-	ConnectWalletMobile,
-	NotificationModalMobile,
-	ChangeNetworkMobile,
-} from 'components';
+import { ConnectWalletMobile, ChangeNetworkMobile } from 'components';
 import { usePicasso, useProfile } from 'hooks';
 import { useSession, signOut } from 'next-auth/react';
 import { useState } from 'react';
@@ -77,38 +73,7 @@ export const MobileHeader = () => {
 
 	const [notificationsList, setNotificationsList] = useState<
 		INotificationList[]
-	>([
-		{
-			type: 'You made a deposit of $23,456.02',
-			date: '08 Aug 22, 20:57',
-			icon: '/icons/deposit.svg',
-		},
-		{
-			type: 'You created Kylie Cosmetics',
-			date: '08 Aug 22, 20:57',
-			icon: '/icons/deposit.svg',
-		},
-		{
-			type: '0x6856...BF99 added to Kylie Baby',
-			date: '08 Aug 22, 20:57',
-			icon: '/icons/deposit.svg',
-		},
-		{
-			type: 'Marketing Team created Kylie Skin',
-			date: '08 Aug 22, 20:57',
-			icon: '/icons/deposit.svg',
-		},
-		{
-			type: 'Marketing Team created Kylie Skin',
-			date: '08 Aug 22, 20:57',
-			icon: '/icons/deposit.svg',
-		},
-		{
-			type: 'Marketing Team created Kylie Skin',
-			date: '08 Aug 22, 20:57',
-			icon: '/icons/deposit.svg',
-		},
-	]);
+	>([]);
 	const [networkData, setNetworkData] = useState<INetwork>({
 		name: 'Ethereum',
 		icon: '/images/bnbchain.png',
@@ -282,12 +247,12 @@ export const MobileHeader = () => {
 					networkIcon={networkData.icon}
 					networkName={networkData.name}
 				/>
-				<NotificationModalMobile
+				{/* <NotificationModalMobile
 					isOpen={isOpenNotifications}
 					onClose={onCloseNotifications}
 					setNotificationsList={setNotificationsList}
 					notificationsList={notificationsList}
-				/>
+				/> */}
 				<Button
 					bg="transparent"
 					onClick={onOpenNotifications}

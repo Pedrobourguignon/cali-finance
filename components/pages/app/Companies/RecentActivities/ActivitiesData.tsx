@@ -1,47 +1,18 @@
+/* eslint-disable no-unsafe-optional-chaining */
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { Flex, Img, Text } from '@chakra-ui/react';
+import { IActivitiesData } from 'types';
+import { truncateWallet } from 'utils';
 import useTranslation from 'next-translate/useTranslation';
-import { useMemo } from 'react';
-import { IActivities } from 'types';
-
-interface IActivitiesData {
-	activities: IActivities;
-}
+import { usePicasso } from 'hooks';
 
 export const ActivitiesData: React.FC<IActivitiesData> = ({ activities }) => {
-	const { t: translate } = useTranslation('companies');
-	const handleIcon = () => {
-		if (activities.type === 'Withdrawal') return '/icons/withdrawal.svg';
-		if (activities.type === 'Deposit') return '/icons/deposit.svg';
-		if (activities.type === 'Added to Sales Team') return '/icons/add-user.svg';
-
-		return '/icons/team-created.svg';
-	};
-
-	const getStatusColor = () => {
-		if (activities.status === translate('completed')) return 'green.400';
-		if (activities.status === translate('processing')) return 'gray.400';
-		return 'red.400';
-	};
-
-	const renderStatus = useMemo(() => {
-		if (activities.type === 'Withdrawal' || activities.type === 'Deposit') {
-			return (
-				<Flex direction="column" align="end" w="20">
-					<Flex flexDir="row" fontSize="xs" fontWeight="normal" gap="1">
-						<Text>{activities.value.toLocaleString('en-US')}</Text>
-						<Text>{activities.coin}</Text>
-					</Flex>
-					<Text fontSize="xs" color={getStatusColor()}>
-						{translate(activities.status)}
-					</Text>
-				</Flex>
-			);
-		}
-		return <Flex w="20" />;
-	}, [activities]);
+	const theme = usePicasso();
+	const { t: translate } = useTranslation('history-page');
 
 	return (
 		<Flex
+			w="full"
 			align="center"
 			px={{ md: '2', lg: '3' }}
 			py="1"
@@ -56,22 +27,21 @@ export const ActivitiesData: React.FC<IActivitiesData> = ({ activities }) => {
 				w={{ md: '24', lg: '36' }}
 				whiteSpace="nowrap"
 			>
-				{activities.name}
+				{activities.event.description === translate('addedToTeam')
+					? truncateWallet(activities.meta.data?.userAddedWallet)
+					: activities.meta.data.companyName}
 			</Text>
-			<Flex align="center" gap="2">
-				<Img src={handleIcon()} boxSize="4" />
+			<Flex align="center" gap="3">
+				<Img src={activities.meta.icon} boxSize="4" />
 				<Flex direction="column">
-					<Text fontSize="sm" fontWeight="normal">
-						{activities.type === 'Team Created'
-							? translate('teamCreated')
-							: translate(activities.type.toLowerCase())}
+					<Text fontSize="sm" fontWeight="normal" color={theme.text.primary}>
+						{activities.event.description}
 					</Text>
 					<Text color="gray.500" fontSize="xs" whiteSpace="nowrap">
-						{activities.date}
+						{activities.created_at}
 					</Text>
 				</Flex>
 			</Flex>
-			{renderStatus}
 		</Flex>
 	);
 };

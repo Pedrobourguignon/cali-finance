@@ -9,12 +9,13 @@ import {
 } from 'react';
 import {
 	IActivities,
-	INotificationList,
 	IEmployee,
 	IHistoryNotification,
 	ISocialMedia,
 	INewEmployee,
 	IEditedEmployeeInfo,
+	IMockCompany,
+	INotificationList,
 } from 'types';
 import { historyNotifications } from 'components';
 import { mainClient, navigationPaths } from 'utils';
@@ -31,8 +32,20 @@ import { MAIN_SERVICE_ROUTES } from 'helpers';
 
 interface ICompanyContext {
 	activities: IActivities[];
-	notificationsList: INotificationList[];
-	setNotificationsList: Dispatch<SetStateAction<INotificationList[]>>;
+	notificationsList: {
+		type: string;
+		date: string;
+		icon: string;
+	}[];
+	setNotificationsList: Dispatch<
+		SetStateAction<
+			{
+				type: string;
+				date: string;
+				icon: string;
+			}[]
+		>
+	>;
 	setSelectedCompany: Dispatch<SetStateAction<ICompany>>;
 	setEditedInfo: Dispatch<SetStateAction<ICompany>>;
 	editedInfo: ICompany;
@@ -60,6 +73,9 @@ interface ICompanyContext {
 	allUserCompanies: GetUserCompaniesRes[];
 	selectedCompany: ICompany;
 	companiesWithMissingFunds: GetUserCompaniesRes[];
+	getCompanieActivities: (companyId: number) => Promise<INotificationList[]>;
+	getAllCompanyTeams: (id: number) => Promise<any>;
+	getAllCompaniesUserActivities: () => Promise<INotificationList[]>;
 }
 
 export const CompaniesContext = createContext({} as ICompanyContext);
@@ -89,9 +105,7 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 	const [filteredNotifications, setFilteredNotifications] =
 		useState<IHistoryNotification[]>(historyNotifications);
 
-	const [notificationsList, setNotificationsList] = useState<
-		INotificationList[]
-	>([
+	const [notificationsList, setNotificationsList] = useState([
 		{
 			type: 'You made a deposit of $23,456.02',
 			date: '08 Aug 22, 20:57',
@@ -265,6 +279,30 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 		await mainClient.put(`/team/${teamId}/user`, editedEmployeeInfo);
 	};
 
+	const getCompanieActivities = async (companyId: number) => {
+		const response = await mainClient.get(
+			MAIN_SERVICE_ROUTES.companyRecentActivities(companyId),
+			{
+				params: {
+					pageLimit: 9,
+				},
+			}
+		);
+		return response.data;
+	};
+
+	const getAllCompaniesUserActivities = async () => {
+		const response = await mainClient.get(
+			MAIN_SERVICE_ROUTES.allCompaniesUserActivities(),
+			{
+				params: {
+					pageLimit: 300,
+				},
+			}
+		);
+		return response.data;
+	};
+
 	const contextStates = useMemo(
 		() => ({
 			activities,
@@ -292,6 +330,9 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 			allUserCompanies,
 			selectedCompany,
 			updateCompany,
+			getCompanieActivities,
+			getAllCompanyTeams,
+			getAllCompaniesUserActivities,
 		}),
 		[
 			selectedCompany,

@@ -8,7 +8,7 @@ import {
 	useMutation,
 	useQuery,
 } from 'react-query';
-import { ICoin, ISelectedCoin, IWalletData } from 'types';
+import { ICoin, INotificationList, ISelectedCoin, IWalletData } from 'types';
 import { IUser } from 'types/interfaces/main-server/IUser';
 import { mainClient } from 'utils';
 import { useAccount } from 'wagmi';
@@ -24,6 +24,7 @@ interface IProfileContext {
 	) => Promise<void>;
 	updateProfile: (profileData: IUser) => Promise<void>;
 	getProfileData: (wallet: `0x${string}` | undefined) => Promise<any>;
+	getUserActivities: (limit: number) => Promise<any>;
 	favoriteCoins: ICoin[];
 	refetchUserData: <TPageData>(
 		options?: (RefetchOptions & RefetchQueryFilters<TPageData>) | undefined
@@ -93,6 +94,17 @@ export const ProfileProvider: React.FC<{ children: React.ReactNode }> = ({
 		);
 	};
 
+	const getUserActivities = async (limit: number) => {
+		const response = await mainClient.get(
+			MAIN_SERVICE_ROUTES.userRecentActivities,
+			{
+				params: {
+					pageLimit: limit,
+				},
+			}
+		);
+		return response.data;
+	};
 	const { mutate } = useMutation(
 		(settings: { coin: ICoin[] }) =>
 			updateUserSettings(settings, walletAddress),
@@ -203,6 +215,7 @@ export const ProfileProvider: React.FC<{ children: React.ReactNode }> = ({
 			updateUserSettings,
 			updateProfile,
 			getProfileData,
+			getUserActivities,
 			favoriteCoins,
 			refetchUserData,
 			isLoadingUserData,

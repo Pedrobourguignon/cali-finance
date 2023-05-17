@@ -1,4 +1,5 @@
 import { Icon } from '@chakra-ui/react';
+import { INotificationList } from 'types/popover';
 
 export interface IHistoryNotification {
 	companyIcon: typeof Icon;
@@ -14,5 +15,6 @@ export interface IHistoryNotification {
 }
 
 export interface IHistoryPage {
-	history: IHistoryNotification[];
+	history?: IHistoryNotification[];
+	notifications?: INotificationList[];
 }
