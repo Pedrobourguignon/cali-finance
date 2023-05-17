@@ -20,9 +20,9 @@ import {
 import { historyNotifications } from 'components';
 import { mainClient, navigationPaths } from 'utils';
 import { useQuery } from 'react-query';
-import { IUser } from 'types/interfaces/auth-srv/IUser';
-import { GetCompanyUsersRes } from 'types/interfaces/main-server/IUser';
+
 import { useAccount } from 'wagmi';
+
 import {
 	GetUserCompaniesRes,
 	ICompany,

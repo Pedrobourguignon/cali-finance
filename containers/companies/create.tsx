@@ -1,5 +1,4 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
-import { Flex, FormControl, useToast } from '@chakra-ui/react';
+import { Button, Flex, FormControl, useToast } from '@chakra-ui/react';
 import {
 	NewCompanyLinks,
 	NavigationBack,
@@ -35,6 +34,7 @@ export const CreateCompanyContainer = () => {
 	const [selectedType, setSelectedType] = useState<string>(
 		translate('pleaseSelect')
 	);
+
 	const [newCompanyPicture, setNewCompanyPicture] = useState('');
 	const [socialLinksInputValue, setSocialLinksInputValue] =
 		useState<ISociaLinksInputValue>({} as ISociaLinksInputValue);
