@@ -33,9 +33,17 @@ export const RecentActivities = () => {
 		}
 	);
 
-	const { data: selectedCompany } = useQuery('created-company-overview', () =>
-		getCompanyById(Number(query.id))
+	const { data: selectedCompany } = useQuery(
+		'created-company-overview',
+		() => getCompanyById(Number(query.id)),
+		{
+			enabled: Object.keys(query).length > 0,
+		}
 	);
+
+	// const recentActivities = [];
+	// const allCompaniesRecentActivities = [];
+	// const selectedCompany = {};
 
 	return (
 		<Flex

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import useTranslation from 'next-translate/useTranslation';
 import {
 	createContext,
@@ -14,15 +15,12 @@ import {
 	ISocialMedia,
 	INewEmployee,
 	IEditedEmployeeInfo,
-	IMockCompany,
 	INotificationList,
 } from 'types';
 import { historyNotifications } from 'components';
 import { mainClient, navigationPaths } from 'utils';
 import { useQuery } from 'react-query';
-
 import { useAccount } from 'wagmi';
-
 import {
 	GetUserCompaniesRes,
 	ICompany,
@@ -63,6 +61,12 @@ interface ICompanyContext {
 	updateCompany: (company: ICompany) => Promise<void>;
 	getAllCompanyEmployees: (id: number) => Promise<IEmployee[]>;
 	addEmployeeToTeam: (employee: INewEmployee) => Promise<void>;
+	allUserCompanies: GetUserCompaniesRes[];
+	selectedCompany: ICompany;
+	companiesWithMissingFunds: GetUserCompaniesRes[];
+	getCompanieActivities: (companyId: number) => Promise<INotificationList[]>;
+	getAllCompanyTeams: (id: number) => Promise<any>;
+	getAllCompaniesUserActivities: () => Promise<INotificationList[]>;
 	addEmployeeCsv: (
 		employee: string | undefined | null | ArrayBuffer
 	) => Promise<void>;
@@ -70,12 +74,6 @@ interface ICompanyContext {
 		editedEmployeeInfo: IEditedEmployeeInfo,
 		teamId: number
 	) => Promise<void>;
-	allUserCompanies: GetUserCompaniesRes[];
-	selectedCompany: ICompany;
-	companiesWithMissingFunds: GetUserCompaniesRes[];
-	getCompanieActivities: (companyId: number) => Promise<INotificationList[]>;
-	getAllCompanyTeams: (id: number) => Promise<any>;
-	getAllCompaniesUserActivities: () => Promise<INotificationList[]>;
 }
 
 export const CompaniesContext = createContext({} as ICompanyContext);
@@ -86,24 +84,24 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 	const { query } = useRouter();
 	const { t: translate } = useTranslation('companies');
 	const { address: wallet } = useAccount();
-	const [displayMissingFundsWarning, setDisplayMissingFundsWarning] =
-		useState('none');
 	const [displayNeedFundsCard, setDisplayNeedFundsCard] = useState('none');
 	const [socialMediasData, setSocialMediasData] = useState<ISocialMedia[]>([]);
+	const [editedInfo, setEditedInfo] = useState<ICompany>({} as ICompany);
 	const [allUserCompanies, setAllUserCompanies] = useState<
 		GetUserCompaniesRes[]
 	>([]);
 	const [selectedCompany, setSelectedCompany] = useState<ICompany>(
 		{} as ICompany
 	);
-	const neededFunds = 0;
-
+	const [displayMissingFundsWarning, setDisplayMissingFundsWarning] =
+		useState('none');
 	const [companiesWithMissingFunds, setCompaniesWithMissingFunds] = useState<
 		GetUserCompaniesRes[]
 	>([]);
-
 	const [filteredNotifications, setFilteredNotifications] =
 		useState<IHistoryNotification[]>(historyNotifications);
+
+	const neededFunds = 0;
 
 	const [notificationsList, setNotificationsList] = useState([
 		{
@@ -164,8 +162,6 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 		},
 	]);
 
-	const [editedInfo, setEditedInfo] = useState<ICompany>({} as ICompany);
-
 	const getAllUserCompanies = async () => {
 		if (!wallet) throw new Error('User not connected');
 		const response = await mainClient.get(
@@ -224,7 +220,7 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 				company,
 			})
 			.then(id =>
-				router.push(navigationPaths.dashboard.companies.overview(query.id))
+				router.push(navigationPaths.dashboard.companies.overview(query.id!))
 			);
 	};
 	const getAllCompanyEmployees = async (id: number) => {
