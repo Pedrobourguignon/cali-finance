@@ -212,10 +212,7 @@ export const CreateCompanyContainer = () => {
 							/>
 						}
 					>
-						<WaitMetamaskFinishTransaction
-							isOpen={isLoading}
-							onClose={onClose}
-						/>
+						<WaitMetamaskFinishTransaction isOpen onClose={onClose} />
 						<CompanyWhiteBackground />
 						<Flex direction="column" gap="10" zIndex="docked" pt="6" w="100%">
 							<Flex w="100%">

@@ -29,7 +29,7 @@ interface ISelectedNetwork {
 
 export const CreateCompanyMobileContainer = () => {
 	const { createCompanySchema } = useSchema();
-	const { onClose } = useDisclosure();
+	const { onClose, isOpen } = useDisclosure();
 	const toast = useToast();
 	const { createCompany } = useCompanies();
 	const { t: translate } = useTranslation('create-company');
@@ -170,7 +170,7 @@ export const CreateCompanyMobileContainer = () => {
 			<CompaniesProvider>
 				<FormControl>
 					<MobileLayout>
-						<WaitConfirmationModalMobile isOpen onClose={onClose} />
+						<WaitConfirmationModalMobile isOpen={isOpen} onClose={onClose} />
 						<Flex direction="column" w="full">
 							<Flex
 								borderTopRadius="3xl"
