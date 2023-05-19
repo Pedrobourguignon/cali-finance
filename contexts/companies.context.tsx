@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import useTranslation from 'next-translate/useTranslation';
 import {
 	createContext,

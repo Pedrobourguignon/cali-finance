@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { Flex, Text, Link } from '@chakra-ui/react';
 import { ActivitiesData, ActivitiesDataMobile } from 'components';
 import { useCompanies, usePicasso } from 'hooks';
@@ -41,10 +40,6 @@ export const RecentActivities = () => {
 		}
 	);
 
-	// const recentActivities = [];
-	// const allCompaniesRecentActivities = [];
-	// const selectedCompany = {};
-
 	return (
 		<Flex
 			boxShadow="md"
@@ -81,7 +76,7 @@ export const RecentActivities = () => {
 								<ActivitiesData
 									key={+index}
 									activities={activity}
-									company={selectedCompany!}
+									company={selectedCompany}
 								/>
 							))
 					: recentActivities
@@ -90,7 +85,7 @@ export const RecentActivities = () => {
 								<ActivitiesData
 									key={+index}
 									activities={activity}
-									company={selectedCompany!}
+									company={selectedCompany}
 								/>
 							))}
 			</Flex>
@@ -99,7 +94,7 @@ export const RecentActivities = () => {
 					<ActivitiesDataMobile
 						key={+index}
 						activities={activity}
-						company={selectedCompany!}
+						company={selectedCompany}
 					/>
 				))}
 			</Flex>

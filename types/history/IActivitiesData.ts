@@ -3,5 +3,5 @@ import { INotificationList } from 'types/popover';
 
 export interface IActivitiesData {
 	activities: INotificationList;
-	company: ICompany;
+	company?: ICompany;
 }

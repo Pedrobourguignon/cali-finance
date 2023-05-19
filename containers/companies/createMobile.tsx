@@ -1,6 +1,11 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import { Flex, FormControl, useToast } from '@chakra-ui/react';
-import { NavigationBack, AlertToast, CreateCompanyMobile } from 'components';
+import { Flex, FormControl, useDisclosure, useToast } from '@chakra-ui/react';
+import {
+	NavigationBack,
+	AlertToast,
+	CreateCompanyMobile,
+	WaitConfirmationModalMobile,
+} from 'components';
 import { MobileLayout } from 'layouts';
 import { navigationPaths } from 'utils';
 import { useForm } from 'react-hook-form';
@@ -24,6 +29,7 @@ interface ISelectedNetwork {
 
 export const CreateCompanyMobileContainer = () => {
 	const { createCompanySchema } = useSchema();
+	const { onClose } = useDisclosure();
 	const toast = useToast();
 	const { createCompany } = useCompanies();
 	const { t: translate } = useTranslation('create-company');
@@ -164,6 +170,7 @@ export const CreateCompanyMobileContainer = () => {
 			<CompaniesProvider>
 				<FormControl>
 					<MobileLayout>
+						<WaitConfirmationModalMobile isOpen onClose={onClose} />
 						<Flex direction="column" w="full">
 							<Flex
 								borderTopRadius="3xl"
