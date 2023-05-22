@@ -114,7 +114,6 @@ export const DepositOrWithdrawCard: React.FC<IDepositOrWithdrawCard> = ({
 									borderRightRadius="none"
 									_hover={{}}
 									color={theme.text.primary}
-									type="number"
 									zIndex="docked"
 									{...register('amount')}
 								/>

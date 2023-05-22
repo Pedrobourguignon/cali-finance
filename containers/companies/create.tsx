@@ -138,7 +138,7 @@ export const CreateCompanyContainer = () => {
 
 	// inside this hook, the contract of the new company is created
 	// inside the onSuccess, the mutate const is called to create the company in the backend
-	const { isLoading } = useWaitForTransaction({
+	const { isLoading, data: contractData } = useWaitForTransaction({
 		hash: data?.hash,
 		confirmations: 3,
 		onSuccess() {
@@ -212,7 +212,10 @@ export const CreateCompanyContainer = () => {
 							/>
 						}
 					>
-						<WaitMetamaskFinishTransaction isOpen onClose={onClose} />
+						<WaitMetamaskFinishTransaction
+							isOpen={isLoading}
+							onClose={onClose}
+						/>
 						<CompanyWhiteBackground />
 						<Flex direction="column" gap="10" zIndex="docked" pt="6" w="100%">
 							<Flex w="100%">

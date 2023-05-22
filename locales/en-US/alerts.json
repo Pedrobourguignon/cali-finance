@@ -16,5 +16,7 @@
 	"employeeAdded": "Added employee",
 	"employeesAdded": "Added employees",
 	"theContentOfTheCsv": "The contents of the CSV file don't conform to the required specifications.",
-	"userAlreadyExists": "User already exists in this company"
+	"userAlreadyExists": "User already exists in this company",
+	"depositSuccessfully": "Deposit made successfully",
+	"successfulWithdrawal": "Successful withdrawal"
 }
