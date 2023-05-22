@@ -7,7 +7,7 @@ import {
 	WaitMetamaskFinishTransaction,
 } from 'components';
 import { AppLayout, CompanyWhiteBackground } from 'layouts';
-import { navigationPaths } from 'utils';
+import { mainClient, navigationPaths } from 'utils';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { CompaniesProvider } from 'contexts';
@@ -26,6 +26,7 @@ import {
 	useWaitForTransaction,
 } from 'wagmi';
 import factoryAbi from 'utils/abi/factory.json';
+import { MAIN_SERVICE_ROUTES } from 'helpers';
 
 interface ISelectedNetwork {
 	name: string;
@@ -34,11 +35,10 @@ interface ISelectedNetwork {
 }
 
 export const CreateCompanyContainer = () => {
-	const [newCompanyData, setNewCompanyData] = useState<ICompany>({});
 	const { createCompanySchema } = useSchema();
 	const toast = useToast();
 	const { onClose } = useDisclosure();
-	const { createCompany } = useCompanies();
+	const [newCompanyId, setNewCompanyId] = useState<number>(0);
 	const { t: translate } = useTranslation('create-company');
 	const [newCompanyPicture, setNewCompanyPicture] = useState('');
 	const [socialLinksInputValue, setSocialLinksInputValue] =
@@ -61,6 +61,14 @@ export const CreateCompanyContainer = () => {
 		resolver: yupResolver(createCompanySchema),
 	});
 
+	const createCompany = async (company: ICompany) => {
+		await mainClient
+			.post(MAIN_SERVICE_ROUTES.createCompany, {
+				company,
+			})
+			.then(id => setNewCompanyId(id.data.id));
+	};
+
 	const { data: session } = useSession({
 		required: true,
 		onUnauthenticated() {
@@ -79,21 +87,11 @@ export const CreateCompanyContainer = () => {
 		setupCreateCompanyContract
 	);
 
-	// function to create the company and send to the backend API
 	const { mutate } = useMutation(
 		(createdCompanyData: ICompany) => createCompany(createdCompanyData),
 		{
-			onSuccess: () => {
-				toast({
-					position: 'top',
-					render: () => (
-						<AlertToast
-							onClick={toast.closeAll}
-							text="companyCreatedWithSuccess"
-							type="success"
-						/>
-					),
-				});
+			onSuccess: async () => {
+				await createCompanyContract?.();
 			},
 			onError: error => {
 				if (error instanceof AxiosError) {
@@ -136,46 +134,22 @@ export const CreateCompanyContainer = () => {
 		}
 	);
 
-	// inside this hook, the contract of the new company is created
-	// inside the onSuccess, the mutate const is called to create the company in the backend
 	const { isLoading } = useWaitForTransaction({
 		hash: data?.hash,
 		confirmations: 3,
 		onSuccess() {
-			const { websiteURL, instagramURL, twitterURL, telegramURL, mediumURL } =
-				socialLinksInputValue;
-			const { name, contactEmail, description } = newCompanyData;
-			mutate({
-				name,
-				contactEmail,
-				description,
-				network: selectedNetwork.id,
-				type: selectedType,
-				socialMedia: [
-					{
-						name: 'website',
-						url: websiteURL,
-					},
-					{
-						name: 'instagram',
-						url: instagramURL,
-					},
-					{
-						name: 'twitter',
-						url: twitterURL,
-					},
-					{
-						name: 'telegram',
-						url: telegramURL,
-					},
-					{
-						name: 'medium',
-						url: mediumURL,
-					},
-				],
-				isPublic: false,
-				color: '#121212',
-				logo: newCompanyPicture === '' ? undefined : newCompanyPicture,
+			router.push(
+				navigationPaths.dashboard.companies.overview(newCompanyId.toString())
+			);
+			toast({
+				position: 'top',
+				render: () => (
+					<AlertToast
+						onClick={toast.closeAll}
+						text="companyCreatedWithSuccess"
+						type="success"
+					/>
+				),
 			});
 		},
 	});
@@ -184,12 +158,43 @@ export const CreateCompanyContainer = () => {
 		setNewCompanyPicture(picture);
 	};
 
-	// function to call the factory contract write method
 	const handleCreateCompany = async (companyData: ICompany) => {
-		const { name } = companyData;
-		setNewCompanyData(companyData);
+		const { websiteURL, instagramURL, twitterURL, telegramURL, mediumURL } =
+			socialLinksInputValue;
+		const { name, contactEmail, description } = companyData;
 		companyContractName = name;
-		await createCompanyContract?.();
+		mutate({
+			name,
+			contactEmail,
+			description,
+			network: selectedNetwork.id,
+			type: selectedType,
+			socialMedia: [
+				{
+					name: 'website',
+					url: websiteURL,
+				},
+				{
+					name: 'instagram',
+					url: instagramURL,
+				},
+				{
+					name: 'twitter',
+					url: twitterURL,
+				},
+				{
+					name: 'telegram',
+					url: telegramURL,
+				},
+				{
+					name: 'medium',
+					url: mediumURL,
+				},
+			],
+			isPublic: false,
+			color: '#121212',
+			logo: newCompanyPicture === '' ? undefined : newCompanyPicture,
+		});
 	};
 
 	const setSocialMediasInput = (name: string[], url: string) => {
@@ -212,7 +217,10 @@ export const CreateCompanyContainer = () => {
 							/>
 						}
 					>
-						<WaitMetamaskFinishTransaction isOpen onClose={onClose} />
+						<WaitMetamaskFinishTransaction
+							isOpen={isLoading}
+							onClose={onClose}
+						/>
 						<CompanyWhiteBackground />
 						<Flex direction="column" gap="10" zIndex="docked" pt="6" w="100%">
 							<Flex w="100%">
