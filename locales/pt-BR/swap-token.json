@@ -9,7 +9,7 @@
 	"swap": "Converter",
 	"select": "Selecione",
 	"waitingForConfirmation": "Aguardando confirmação...",
-	"pleaseConfirmTransaction": "Favor confirmar essa transação em sua carteira",
+	"pleaseConfirmTransaction": "Aguarde enquanto a transação é confirmada",
 	"selectACoin": "Selecione uma moeda",
 	"searchName": "Search name",
 	"tokenName": "Pesquisar nome",

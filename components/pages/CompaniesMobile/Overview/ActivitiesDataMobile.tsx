@@ -2,12 +2,10 @@ import { Flex, Img, Text } from '@chakra-ui/react';
 import { usePicasso } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
 import { IHistoryNotifications } from 'types';
-import { ICompany } from 'types/interfaces/main-server/ICompany';
-import { notificationIcons, truncateWallet } from 'utils';
+import { dateHandler, notificationIcons, truncateWallet } from 'utils';
 
 interface IActivitiesData {
 	activities: IHistoryNotifications;
-	company: ICompany;
 }
 
 export const ActivitiesDataMobile: React.FC<IActivitiesData> = ({
@@ -52,7 +50,7 @@ export const ActivitiesDataMobile: React.FC<IActivitiesData> = ({
 							{activities.event.description}
 						</Text>
 						<Text color="gray.500" fontSize="xs" whiteSpace="nowrap">
-							{activities.created_at}
+							{dateHandler(activities.created_at)}
 						</Text>
 					</Flex>
 				</Flex>

@@ -17,9 +17,7 @@ import {
 } from 'types';
 import { mainClient, navigationPaths } from 'utils';
 import { useQuery } from 'react-query';
-
 import { useAccount } from 'wagmi';
-
 import {
 	GetUserCompaniesRes,
 	ICompany,
@@ -43,13 +41,6 @@ interface ICompanyContext {
 	updateCompany: (company: ICompany) => Promise<void>;
 	getAllCompanyEmployees: (id: number) => Promise<IEmployee[]>;
 	addEmployeeToTeam: (employee: INewEmployee) => Promise<void>;
-	addEmployeeCsv: (
-		employee: string | undefined | null | ArrayBuffer
-	) => Promise<void>;
-	updateEmployee: (
-		editedEmployeeInfo: IEditedEmployeeInfo,
-		teamId: number
-	) => Promise<void>;
 	allUserCompanies: GetUserCompaniesRes[];
 	selectedCompany: ICompany;
 	companiesWithMissingFunds: GetUserCompaniesRes[];
@@ -58,6 +49,13 @@ interface ICompanyContext {
 	) => Promise<IHistoryNotifications[]>;
 	getAllCompanyTeams: (id: number) => Promise<any>;
 	getAllCompaniesUserActivities: () => Promise<IHistoryNotifications[]>;
+	addEmployeeCsv: (
+		employee: string | undefined | null | ArrayBuffer
+	) => Promise<void>;
+	updateEmployee: (
+		editedEmployeeInfo: IEditedEmployeeInfo,
+		teamId: number
+	) => Promise<void>;
 }
 
 export const CompaniesContext = createContext({} as ICompanyContext);
@@ -68,23 +66,21 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 	const { query } = useRouter();
 	const { t: translate } = useTranslation('companies');
 	const { address: wallet } = useAccount();
-	const [displayMissingFundsWarning, setDisplayMissingFundsWarning] =
-		useState('none');
 	const [displayNeedFundsCard, setDisplayNeedFundsCard] = useState('none');
 	const [socialMediasData, setSocialMediasData] = useState<ISocialMedia[]>([]);
+	const [editedInfo, setEditedInfo] = useState<ICompany>({} as ICompany);
 	const [allUserCompanies, setAllUserCompanies] = useState<
 		GetUserCompaniesRes[]
 	>([]);
 	const [selectedCompany, setSelectedCompany] = useState<ICompany>(
 		{} as ICompany
 	);
-	const neededFunds = 0;
-
+	const [displayMissingFundsWarning, setDisplayMissingFundsWarning] =
+		useState('none');
 	const [companiesWithMissingFunds, setCompaniesWithMissingFunds] = useState<
 		GetUserCompaniesRes[]
 	>([]);
-
-	const [editedInfo, setEditedInfo] = useState<ICompany>({} as ICompany);
+	const neededFunds = 0;
 
 	const getAllUserCompanies = async () => {
 		if (!wallet) throw new Error('User not connected');
@@ -144,7 +140,7 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 				company,
 			})
 			.then(id =>
-				router.push(navigationPaths.dashboard.companies.overview(query.id))
+				router.push(navigationPaths.dashboard.companies.overview(query.id!))
 			);
 	};
 	const getAllCompanyEmployees = async (id: number) => {
