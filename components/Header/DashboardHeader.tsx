@@ -1,14 +1,11 @@
 import { Flex, Text, useDisclosure } from '@chakra-ui/react';
 import { NotificationPopover } from 'components';
-import { useState, useMemo, useEffect } from 'react';
+import { useMemo } from 'react';
 import useTranslation from 'next-translate/useTranslation';
 import { usePicasso, useProfile } from 'hooks';
 import { useSession } from 'next-auth/react';
 import { useQuery } from 'react-query';
 import { useAccount } from 'wagmi';
-import { INotificationList } from 'types';
-import { getNotifications } from 'services';
-import { db } from 'utils';
 
 export const DashboardHeader: React.FC = () => {
 	const { onClose, isOpen, onOpen } = useDisclosure();
@@ -21,19 +18,6 @@ export const DashboardHeader: React.FC = () => {
 	const { data: profileData } = useQuery('profile-data', () =>
 		getProfileData(address)
 	);
-	const [notificationsList, setNotificationsList] = useState<
-		INotificationList[]
-	>([]);
-
-	useEffect(() => {
-		if (address) {
-			const fetchNotifications = async () => {
-				const recentActivities = await getNotifications(db, address);
-				console.log(recentActivities?.notifications);
-			};
-			fetchNotifications();
-		}
-	}, []);
 
 	const greetingMessage = useMemo(() => {
 		const hour = new Date().getHours();
@@ -77,11 +61,9 @@ export const DashboardHeader: React.FC = () => {
 				</Flex>
 				<Flex display={{ base: 'none', md: 'flex' }} h="8" align="center">
 					<NotificationPopover
-						setNotificationsList={setNotificationsList}
 						onClose={onClose}
 						isOpen={isOpen}
 						onOpen={onOpen}
-						notificationsList={notificationsList}
 					/>
 				</Flex>
 			</Flex>

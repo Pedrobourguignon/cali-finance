@@ -1,0 +1,323 @@
+[
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "_employeeAddress",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_salary",
+				"type": "uint256"
+			}
+		],
+		"name": "addEmployee",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "_ownerAddress",
+				"type": "address"
+			},
+			{
+				"internalType": "string",
+				"name": "_companyName",
+				"type": "string"
+			}
+		],
+		"stateMutability": "nonpayable",
+		"type": "constructor"
+	},
+	{
+		"inputs": [],
+		"name": "NotCollaborators",
+		"type": "error"
+	},
+	{
+		"inputs": [],
+		"name": "NotOwner",
+		"type": "error"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"internalType": "string",
+				"name": "companyName",
+				"type": "string"
+			},
+			{
+				"indexed": false,
+				"internalType": "address",
+				"name": "ownerAddress",
+				"type": "address"
+			}
+		],
+		"name": "CompanyCreated",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"internalType": "string",
+				"name": "companyName",
+				"type": "string"
+			},
+			{
+				"indexed": false,
+				"internalType": "address",
+				"name": "companyAddress",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"internalType": "address",
+				"name": "depositAddress",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "depositAmount",
+				"type": "uint256"
+			}
+		],
+		"name": "DepositReceived",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"internalType": "string",
+				"name": "companyName",
+				"type": "string"
+			},
+			{
+				"indexed": false,
+				"internalType": "address",
+				"name": "companyAddress",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"internalType": "address",
+				"name": "employeeAddress",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "employeeSalary",
+				"type": "uint256"
+			}
+		],
+		"name": "EmployeeAdded",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"internalType": "string",
+				"name": "companyName",
+				"type": "string"
+			},
+			{
+				"indexed": false,
+				"internalType": "address",
+				"name": "companyAddress",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"internalType": "address",
+				"name": "employeeAddress",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "newSalary",
+				"type": "uint256"
+			}
+		],
+		"name": "EmployeeSalaryUpdated",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"internalType": "string",
+				"name": "companyName",
+				"type": "string"
+			},
+			{
+				"indexed": false,
+				"internalType": "address",
+				"name": "companyAddress",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"internalType": "address",
+				"name": "employeeAddress",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "employeeSalary",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "withdrawalAmount",
+				"type": "uint256"
+			}
+		],
+		"name": "EmployeeWithdrawal",
+		"type": "event"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "_employeeAddress",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_newSalary",
+				"type": "uint256"
+			}
+		],
+		"name": "updateEmployeeSalary",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "withdrawToken",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"stateMutability": "payable",
+		"type": "receive"
+	},
+	{
+		"inputs": [],
+		"name": "_CompanyBalance",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "_CompanyName",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "_CompanyOwner",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"name": "_employees",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "salary",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "balance",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "joinDate",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "lastWithdrawal",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "_EthPrice",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "calculateAllowedWithdrawal",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	}
+]

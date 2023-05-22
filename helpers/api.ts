@@ -30,8 +30,10 @@ export const MAIN_SERVICE_ROUTES = {
 	teamRecentActivities: (teamId: number) =>
 		path(API_URLS.main, `/team/${teamId}/recent-activity`),
 	companyRecentActivities: (companyId: number) =>
-		path(API_URLS.main, `/team/${companyId}/recent-activity`),
+		path(API_URLS.main, `/company/${companyId}/recent-activity`),
 	profileData: (wallet: string) => path(API_URLS.main, `/user/${wallet}`),
 	userSettings: (wallet: string) =>
 		path(API_URLS.main, `/user/${wallet}/settings`),
+	allCompaniesUserActivities: () =>
+		path(API_URLS.main, '/company/all/recent-activity'),
 };

@@ -1,7 +1,7 @@
 import { Flex, Img, Text } from '@chakra-ui/react';
 import { usePicasso } from 'hooks';
 import { INotificationList } from 'types';
-import { dateHandler } from 'utils';
+import { dateHandler, notificationIcons } from 'utils';
 import { useRouter } from 'next/router';
 
 export const NotificationComponent: React.FC<{
@@ -9,26 +9,6 @@ export const NotificationComponent: React.FC<{
 }> = ({ notification }) => {
 	const theme = usePicasso();
 	const { locale } = useRouter();
-
-	const handleNotifications = () => {
-		if (notification.event.description === 'Added team member')
-			return {
-				icon: '/icons/add-user.svg',
-				text:
-					locale === 'en-US'
-						? notification.meta.description.enDescription
-						: notification.meta.description.ptDescription,
-			};
-		if (notification.event.description === 'Created company')
-			return {
-				icon: '/icons/companies.svg',
-				text:
-					locale === 'en-US'
-						? notification.meta.description.enDescription
-						: notification.meta.description.ptDescription,
-			};
-		return null;
-	};
 
 	return (
 		<Flex
@@ -38,18 +18,25 @@ export const NotificationComponent: React.FC<{
 			borderRadius="base"
 			align="center"
 			px="3"
-			h="12"
+			py="1"
 		>
-			<Flex gap="2" align="center" py="1" w="full">
-				<Img src={handleNotifications()?.icon} boxSize="4" color="black" />
+			<Flex gap="2" align="center" w="full">
+				<Img
+					src={notificationIcons[notification.meta.data.event].icon}
+					boxSize="4"
+					color="black"
+				/>
 				<Flex direction="column" justify="center">
 					<Text
 						color={theme.text.primary}
 						fontSize="sm"
 						fontWeight="normal"
 						lineHeight="shorter"
+						noOfLines={1}
 					>
-						{handleNotifications()?.text}
+						{locale === 'en-US'
+							? notification.meta.description['en-US']
+							: notification.meta.description['pt-BR']}
 					</Text>
 					<Text color="gray.500" fontSize="xs">
 						{dateHandler(notification.created_at, locale)}

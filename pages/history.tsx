@@ -1,6 +1,11 @@
 import { HistoryContainer } from 'containers';
+import { ProfileProvider } from 'contexts';
 import React from 'react';
 
-const History = () => <HistoryContainer />;
+const History = () => (
+	<ProfileProvider>
+		<HistoryContainer />
+	</ProfileProvider>
+);
 
 export default History;

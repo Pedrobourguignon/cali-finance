@@ -1,7 +1,7 @@
-import { IHistoryNotification } from 'types';
+import { IHistoryNotifications } from 'types';
 
 export interface IDisplayedNotifications {
-	filteredNotifications: IHistoryNotification[];
+	filteredNotifications: IHistoryNotifications[];
 	pagesVisited: number;
 	notificationPerPage: number;
 }

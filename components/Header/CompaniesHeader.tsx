@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import {
 	Flex,
 	Img,
@@ -25,8 +24,7 @@ export const CompaniesHeader = () => {
 	const theme = usePicasso();
 	const { isSamePath } = usePath();
 	const { query } = useRouter();
-	const { setNotificationsList, notificationsList, getCompanyById } =
-		useCompanies();
+	const { getCompanyById } = useCompanies();
 	const { onClose, isOpen, onOpen } = useDisclosure();
 	const { t: translate } = useTranslation('company-overall');
 	const { data: session } = useSession({
@@ -35,8 +33,6 @@ export const CompaniesHeader = () => {
 			router.push(navigationPaths.dashboard.companies.home);
 		},
 	});
-
-	const amount = null;
 
 	const menuOptions = [
 		{
@@ -71,13 +67,11 @@ export const CompaniesHeader = () => {
 				</NavigationBack>
 				<Flex align="center" gap="2">
 					<NeedFundsCompaniesHeader />
-					{/* <NotificationPopover
-						setNotificationsList={setNotificationsList}
+					<NotificationPopover
 						onClose={onClose}
 						isOpen={isOpen}
 						onOpen={onOpen}
-						notificationsList={notificationsList}
-					/> */}
+					/>
 				</Flex>
 			</Flex>
 			<Flex w="100%" justify="space-between" align="center">

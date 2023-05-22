@@ -6,5 +6,6 @@ export const getNotifications = async (
 ) => {
 	const notificationsCol = doc(firestore, 'notifications', wallet);
 	const notificationsSnapshot = await getDoc(notificationsCol);
+
 	return notificationsSnapshot.data();
 };

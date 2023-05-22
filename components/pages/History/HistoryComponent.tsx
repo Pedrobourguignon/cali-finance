@@ -1,3 +1,5 @@
+/* eslint-disable no-unsafe-optional-chaining */
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import {
 	Flex,
 	Text,
@@ -15,13 +17,14 @@ import {
 	Paginator,
 	LifeIsEasierTabletBreakpoint,
 } from 'components';
-import { useCompanies, usePicasso } from 'hooks';
+import { usePicasso } from 'hooks';
 import { AppLayout } from 'layouts';
 import { useSession } from 'next-auth/react';
 import useTranslation from 'next-translate/useTranslation';
 import React, { useMemo, useState, useEffect } from 'react';
 import { BiChevronDown } from 'react-icons/bi';
-import { IHistoryPage } from 'types';
+import { IHistoryNotifications, IHistoryPage } from 'types';
+import { historyPageFilterOptions } from 'utils';
 
 export const HistoryComponent: React.FC<IHistoryPage> = ({ history }) => {
 	const { t: translate } = useTranslation('history-page');
@@ -31,12 +34,14 @@ export const HistoryComponent: React.FC<IHistoryPage> = ({ history }) => {
 	);
 	const [pageNumber, setPageNumber] = useState(0);
 	const { data: session } = useSession();
-	const { filteredNotifications, setFilteredNotifications } = useCompanies();
+	const [filteredActivities, setFilteredActivities] = useState<
+		IHistoryNotifications[]
+	>(history!);
 
 	const notificationPerPage = 14;
 	const maxPage = useMemo(
-		() => Math.ceil(filteredNotifications.length / notificationPerPage),
-		[filteredNotifications.length]
+		() => Math.ceil(filteredActivities?.length / notificationPerPage),
+		[filteredActivities?.length]
 	);
 	const pagesVisited = pageNumber * notificationPerPage;
 
@@ -47,27 +52,31 @@ export const HistoryComponent: React.FC<IHistoryPage> = ({ history }) => {
 		setPageNumber(pageNumber + 1);
 	};
 
-	const historyFilterOptions = [
-		translate('all'),
-		translate('deposit'),
-		translate('withdrawal'),
-		translate('addedToTeam'),
-		translate('teamCreated'),
-	];
+	const historyFilterOptions = historyPageFilterOptions.map(option =>
+		translate(option)
+	);
 
-	const filterHistoryNotifications = (filter: string) => {
-		setFilteredNotifications(
-			history.filter(notification => notification.type === filter)
-		);
+	const handleActivitiesFilterButton = (filter: string) => {
+		if (history) {
+			setFilteredActivities(
+				history.filter(
+					notification => notification.event.description === filter
+				)
+			);
+		}
 		if (filter === translate('all')) {
-			setFilteredNotifications(history);
+			setFilteredActivities(history!);
 		}
 		setSelectedFilterOption(filter);
 	};
 
 	useEffect(() => {
 		setPageNumber(0);
-	}, [filteredNotifications]);
+	}, [filteredActivities]);
+
+	useEffect(() => {
+		setFilteredActivities(history!);
+	}, [history]);
 
 	return (
 		<AppLayout
@@ -110,7 +119,6 @@ export const HistoryComponent: React.FC<IHistoryPage> = ({ history }) => {
 								rightIcon={<BiChevronDown />}
 								bg="white"
 								disabled={!session}
-								fb0bfdb3e84b980e3bee2b86dd5fa8dc6560fb9
 								_hover={{}}
 								_active={{}}
 								_focus={{}}
@@ -135,7 +143,7 @@ export const HistoryComponent: React.FC<IHistoryPage> = ({ history }) => {
 										borderBottomRadius={
 											option === translate('teamCreated') ? 'base' : 'none'
 										}
-										onClick={() => filterHistoryNotifications(option)}
+										onClick={() => handleActivitiesFilterButton(option)}
 										_active={{}}
 									>
 										{option}
@@ -157,10 +165,10 @@ export const HistoryComponent: React.FC<IHistoryPage> = ({ history }) => {
 								<DisplayedNotifications
 									notificationPerPage={notificationPerPage}
 									pagesVisited={pagesVisited}
-									filteredNotifications={filteredNotifications}
+									filteredNotifications={filteredActivities}
 								/>
 							</Flex>
-							{filteredNotifications.length ? (
+							{filteredActivities?.length ? (
 								<Flex justify="center" pt="5" pb="6">
 									<Paginator
 										actualPage={pageNumber + 1}
@@ -176,7 +184,7 @@ export const HistoryComponent: React.FC<IHistoryPage> = ({ history }) => {
 										fontSize="sm"
 										whiteSpace="normal"
 									>
-										{translate('noResults')}
+										{translate('noResults')}{' '}
 										<Text
 											decoration="underline"
 											color={theme.text.primary}
@@ -186,12 +194,12 @@ export const HistoryComponent: React.FC<IHistoryPage> = ({ history }) => {
 											fontWeight="semibold"
 											cursor="pointer"
 											onClick={() => {
-												setFilteredNotifications(history);
+												setFilteredActivities(history!);
 												setSelectedFilterOption(translate('all'));
 											}}
 										>
 											{translate('returnToAllResults')}
-										</Text>
+										</Text>{' '}
 										{translate('orSelectAnother')}
 									</Text>
 								</Flex>
