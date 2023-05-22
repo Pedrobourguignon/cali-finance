@@ -36,7 +36,6 @@ export const RecentActivities = () => {
 	const { data: selectedCompany } = useQuery('created-company-overview', () =>
 		getCompanyById(Number(query.id))
 	);
-	console.log(recentActivities);
 
 	return (
 		<Flex
