@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { Flex, Text, Link } from '@chakra-ui/react';
 import { ActivitiesData, ActivitiesDataMobile } from 'components';
 import { useCompanies, usePicasso } from 'hooks';
@@ -33,8 +32,12 @@ export const RecentActivities = () => {
 		}
 	);
 
-	const { data: selectedCompany } = useQuery('created-company-overview', () =>
-		getCompanyById(Number(query.id))
+	const { data: selectedCompany } = useQuery(
+		'created-company-overview',
+		() => getCompanyById(Number(query.id)),
+		{
+			enabled: Object.keys(query).length > 0,
+		}
 	);
 
 	return (
@@ -73,7 +76,7 @@ export const RecentActivities = () => {
 								<ActivitiesData
 									key={+index}
 									activities={activity}
-									company={selectedCompany!}
+									company={selectedCompany}
 								/>
 							))
 					: recentActivities
@@ -82,7 +85,7 @@ export const RecentActivities = () => {
 								<ActivitiesData
 									key={+index}
 									activities={activity}
-									company={selectedCompany!}
+									company={selectedCompany}
 								/>
 							))}
 			</Flex>
@@ -91,7 +94,7 @@ export const RecentActivities = () => {
 					<ActivitiesDataMobile
 						key={+index}
 						activities={activity}
-						company={selectedCompany!}
+						company={selectedCompany}
 					/>
 				))}
 			</Flex>

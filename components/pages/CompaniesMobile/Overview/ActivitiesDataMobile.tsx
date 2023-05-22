@@ -8,7 +8,7 @@ import { truncateWallet } from 'utils';
 
 interface IActivitiesData {
 	activities: INotificationList;
-	company: ICompany;
+	company?: ICompany;
 }
 
 export const ActivitiesDataMobile: React.FC<IActivitiesData> = ({

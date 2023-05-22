@@ -1,4 +1,5 @@
 export * from './AddEmployee';
+export * from './CaliLogoLoadingAnimation';
 export * from './ContactOptionsModal';
 export * from './DeleteTeamModal';
 export * from './EditEmployee';
@@ -6,5 +7,6 @@ export * from './ImageUploader';
 export * from './NetworkModal';
 export * from './TokenSelector';
 export * from './WaitingConfirmation';
+export * from './WaitMetamaskFinishTransaction';
 export * from './Wallets';
 export * from './WithdrawModal';
