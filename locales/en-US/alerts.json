@@ -18,5 +18,6 @@
 	"theContentOfTheCsv": "The contents of the CSV file don't conform to the required specifications.",
 	"userAlreadyExists": "User already exists in this company",
 	"depositSuccessfully": "Deposit made successfully",
-	"successfulWithdrawal": "Successful withdrawal"
+	"successfulWithdrawal": "Successful withdrawal",
+	"insufficientFunds": "You don't have funds for transaction"
 }

@@ -42,14 +42,33 @@ export const ConfirmTransaction: React.FC<IConfirmTransaction> = ({
 		const selectedButton = buttonOptions.find(item => item === btnName);
 		setSelectedOption(selectedButton);
 	};
+	const [enabledTransaction, setEnabledTransaction] = useState(false);
 	const { onClose } = useDisclosure();
 
 	const { config: sendTransactionConfig } = usePrepareSendTransaction({
+		enabled: enabledTransaction,
 		request: {
 			to: '0x8409809BdF2424C45Fb85DB7768daC6026e95602',
 			value: debouncedAmount
 				? parseEther(debouncedAmount.toString())
 				: undefined,
+		},
+		onError: (error: any) => {
+			toast({
+				position: 'top',
+				render: () => (
+					<AlertToast
+						onClick={toast.closeAll}
+						text={
+							error.code === -32603
+								? 'insufficientFunds'
+								: 'weAreWorkingToSolve'
+						}
+						type="error"
+					/>
+				),
+			});
+			setConfirm(false);
 		},
 	});
 
@@ -77,10 +96,24 @@ export const ConfirmTransaction: React.FC<IConfirmTransaction> = ({
 			});
 			setConfirm(false);
 		},
-		onError: error => {
-			console.log(error);
+		onError: () => {
+			toast({
+				position: 'top',
+				render: () => (
+					<AlertToast
+						onClick={toast.closeAll}
+						text="weAreWorkingToSolve"
+						type="error"
+					/>
+				),
+			});
 		},
 	});
+
+	const handleSendTransaction = () => {
+		setEnabledTransaction(true);
+		sendTransaction?.();
+	};
 
 	return (
 		<Flex
@@ -182,7 +215,7 @@ export const ConfirmTransaction: React.FC<IConfirmTransaction> = ({
 					_active={{
 						opacity: 0.8,
 					}}
-					onClick={() => sendTransaction?.()}
+					onClick={() => handleSendTransaction()}
 				>
 					{selectedOption === translate('deposit')
 						? translate('addFunds')
