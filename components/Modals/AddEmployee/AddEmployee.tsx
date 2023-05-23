@@ -36,6 +36,13 @@ import { navigationPaths } from 'utils';
 import NextLink from 'next/link';
 import { useMutation, useQueryClient } from 'react-query';
 import { AxiosError } from 'axios';
+import {
+	useContractWrite,
+	usePrepareContractWrite,
+	useWaitForTransaction,
+} from 'wagmi';
+import companyAbi from 'utils/abi/company.json';
+import { useDebounce } from 'use-debounce';
 
 export const AddEmployee: React.FC<IAddEmployee> = ({ isOpen, onClose }) => {
 	const { t: translate } = useTranslation('create-team');
@@ -55,6 +62,12 @@ export const AddEmployee: React.FC<IAddEmployee> = ({ isOpen, onClose }) => {
 	const { selectedCompany, addEmployeeToTeam } = useCompanies();
 	const { addEmployeeSchema } = useSchema();
 	const queryClient = useQueryClient();
+
+	const debouncedEmployeeAddress = useDebounce(
+		addedEmployeeData.walletAddress,
+		500
+	);
+	const debouncedEmployeeAmount = useDebounce(addedEmployeeData.amount, 500);
 
 	const toast = useToast();
 	const theme = usePicasso();
@@ -93,11 +106,51 @@ export const AddEmployee: React.FC<IAddEmployee> = ({ isOpen, onClose }) => {
 		}));
 	};
 
+	const { config: addEmployeeConfig } = usePrepareContractWrite({
+		address: '0x8409809BdF2424C45Fb85DB7768daC6026e95602',
+		abi: companyAbi,
+		functionName: 'addEmployee',
+		args: [debouncedEmployeeAddress[0], debouncedEmployeeAmount[0]],
+		enabled:
+			addedEmployeeData.walletAddress !== '' && addedEmployeeData.amount !== 0,
+	});
+
+	const { data: addEmployeeData, write: addEmployeeWrite } =
+		useContractWrite(addEmployeeConfig);
+
+	const { data: useWaitForTransactionData } = useWaitForTransaction({
+		hash: addEmployeeData?.hash,
+		onSuccess() {
+			toast({
+				position: 'top',
+				render: () => (
+					<AlertToast
+						onClick={toast.closeAll}
+						text="employeeAdded"
+						type="success"
+					/>
+				),
+			});
+		},
+		onError() {
+			toast({
+				position: 'top',
+				render: () => (
+					<AlertToast
+						onClick={toast.closeAll}
+						text="weAreWorkingToSolve"
+						type="error"
+					/>
+				),
+			});
+		},
+	});
+
 	const {
 		register,
 		handleSubmit,
 		reset,
-		formState: { errors, isValid },
+		formState: { errors },
 	} = useForm<IAddEmployeeForm>({
 		resolver: yupResolver(addEmployeeSchema),
 	});
@@ -107,16 +160,7 @@ export const AddEmployee: React.FC<IAddEmployee> = ({ isOpen, onClose }) => {
 		{
 			onSuccess: () => {
 				queryClient.invalidateQueries({ queryKey: ['all-company-employees'] });
-				toast({
-					position: 'top',
-					render: () => (
-						<AlertToast
-							onClick={toast.closeAll}
-							text="employeeAdded"
-							type="success"
-						/>
-					),
-				});
+				addEmployeeWrite?.();
 			},
 			onError: error => {
 				if (error instanceof AxiosError) {
