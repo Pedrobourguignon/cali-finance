@@ -10,8 +10,9 @@ import {
 import { AppLayout } from 'layouts';
 import { useCompanies, usePicasso } from 'hooks';
 import { useQuery } from 'react-query';
-import { useAccount } from 'wagmi';
+import { useAccount, useContractRead } from 'wagmi';
 import useTranslation from 'next-translate/useTranslation';
+import companyAbi from 'utils/abi/company.json';
 
 export const CompaniesConnected: React.FC = () => {
 	const { activities, getAllUserCompanies } = useCompanies();
@@ -22,6 +23,14 @@ export const CompaniesConnected: React.FC = () => {
 	const { data: companies } = useQuery('all-companies', getAllUserCompanies, {
 		enabled: !!isConnected,
 	});
+
+	// const { data } = useContractRead({
+	// 	address: '0x1C7E61bF4754Ffd0def0EAd225a8fbDa4a6Eb9D4',
+	// 	abi: companyAbi,
+	// 	functionName: '_CompanyOwner',
+	// });
+
+	// console.log(data);
 
 	return (
 		<AppLayout right={<CompaniesRightBar />}>

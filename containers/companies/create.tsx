@@ -134,7 +134,7 @@ export const CreateCompanyContainer = () => {
 		}
 	);
 
-	const { isLoading } = useWaitForTransaction({
+	const { data: dataa, isLoading } = useWaitForTransaction({
 		hash: data?.hash,
 		confirmations: 3,
 		onSuccess() {
@@ -153,6 +153,8 @@ export const CreateCompanyContainer = () => {
 			});
 		},
 	});
+
+	console.log(dataa);
 
 	const handleNewPicture = (picture: string) => {
 		setNewCompanyPicture(picture);
