@@ -162,7 +162,7 @@ export const CreateCompanyContainer = () => {
 		const { websiteURL, instagramURL, twitterURL, telegramURL, mediumURL } =
 			socialLinksInputValue;
 		const { name, contactEmail, description } = companyData;
-		companyContractName = name;
+		companyContractName = `${name}#${newCompanyId}`;
 		mutate({
 			name,
 			contactEmail,
