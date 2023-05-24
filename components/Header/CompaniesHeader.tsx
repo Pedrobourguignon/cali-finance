@@ -1,4 +1,5 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
+/* eslint-disable no-prototype-builtins */
+/* eslint-disable no-restricted-syntax */
 import {
 	Flex,
 	Img,
@@ -7,7 +8,7 @@ import {
 	Link,
 	Skeleton,
 } from '@chakra-ui/react';
-import { useCompanies, usePath, usePicasso } from 'hooks';
+import { useCompanies, usePath, usePicasso, useTokens } from 'hooks';
 import { getLogo, handleLogoImage, navigationPaths, networkInfos } from 'utils';
 import {
 	NavigationBack,
@@ -19,16 +20,34 @@ import { useSession } from 'next-auth/react';
 import router, { useRouter } from 'next/router';
 import NextLink from 'next/link';
 import { useQuery } from 'react-query';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { useBalance } from 'wagmi';
+
+interface IUseBalance {
+	decimals: number;
+	formatted: number | string;
+	symbol: string;
+	value: {
+		_hex: string;
+		_isBigNumber: boolean;
+	};
+}
 
 export const CompaniesHeader = () => {
 	const theme = usePicasso();
 	const { isSamePath } = usePath();
 	const { query } = useRouter();
-	const { setNotificationsList, notificationsList, getCompanyById } =
-		useCompanies();
+	const { getCoinServiceTokens } = useTokens();
 	const { onClose, isOpen, onOpen } = useDisclosure();
 	const { t: translate } = useTranslation('company-overall');
+	const { setNotificationsList, notificationsList, getCompanyById } =
+		useCompanies();
+
+	const [totalCompanyBalanceInDolar, setTotalCompanyBalanceInDolar] =
+		useState<number>(0);
+	const contractCompanyAssetsData: IUseBalance[] = [];
+	const companyAssetsDolarQuotation: number[] = [];
+
 	const { data: session } = useSession({
 		required: true,
 		onUnauthenticated() {
@@ -36,16 +55,53 @@ export const CompaniesHeader = () => {
 		},
 	});
 
-	const amount = null;
+	const { data: companyBalance } = useBalance({
+		address: '0x8409809BdF2424C45Fb85DB7768daC6026e95602',
+	});
+	if (companyBalance) {
+		contractCompanyAssetsData.push(companyBalance);
+	}
+
+	const { data: companyAssetsInDolar } = useQuery('get-coin-data', () =>
+		getCoinServiceTokens(
+			contractCompanyAssetsData.map(asset => asset.symbol).toString()
+		)
+	);
+
+	useEffect(() => {
+		// get the value of the quotation of all assets in the company's contract and put in an array
+		if (companyAssetsInDolar) {
+			for (const key in companyAssetsInDolar) {
+				if (companyAssetsInDolar.hasOwnProperty(key)) {
+					companyAssetsDolarQuotation.push(companyAssetsInDolar[key]?.value);
+				}
+			}
+			// maps the array of assets and the array of quotes, multiplying the respective index
+			// sum all values and set the final dolar balance state to show in the company header
+			const multiplyAssetsToDolar = () => {
+				const dolarValues = contractCompanyAssetsData.map(asset =>
+					companyAssetsDolarQuotation.map(
+						assetQuotation => Number(asset.formatted) * assetQuotation
+					)
+				);
+				const sumAllDolarValues = dolarValues[0].reduce(
+					(partialSum, acc) => partialSum + acc,
+					0
+				);
+				setTotalCompanyBalanceInDolar(sumAllDolarValues);
+			};
+			multiplyAssetsToDolar();
+		}
+	}, [contractCompanyAssetsData]);
 
 	const menuOptions = [
 		{
 			name: translate('overview'),
-			route: navigationPaths.dashboard.companies.overview(query.id!.toString()),
+			route: navigationPaths.dashboard.companies.overview(query.id?.toString()),
 		},
 		{
 			name: translate('funds'),
-			route: navigationPaths.dashboard.companies.funds(query.id!.toString()),
+			route: navigationPaths.dashboard.companies.funds(query.id?.toString()),
 		},
 	];
 
@@ -111,18 +167,24 @@ export const CompaniesHeader = () => {
 					)}
 					{}
 				</Flex>
-				<Flex direction="column" maxW="28">
+				<Flex direction="column" maxW="32">
 					{isLoadingSelectedCompany ? (
 						<Skeleton w="14" h="6" />
 					) : (
-						<Text fontSize="xl">{selectedCompany?.totalFundsUsd}</Text>
+						<Text fontSize="xl">
+							{totalCompanyBalanceInDolar === 0 ||
+							Number.isNaN(totalCompanyBalanceInDolar) ? (
+								<Skeleton w="18" h="4" />
+							) : (
+								`$ ${totalCompanyBalanceInDolar.toLocaleString()}`
+							)}
+						</Text>
 					)}
-
 					<Text fontSize="sm">{translate('totalFunds')}</Text>
 				</Flex>
 				<Link
 					href={navigationPaths.dashboard.companies.editOrg(
-						query.id!.toString()
+						query.id?.toString()
 					)}
 					as={NextLink}
 				>
