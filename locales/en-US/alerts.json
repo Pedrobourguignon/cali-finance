@@ -19,5 +19,5 @@
 	"userAlreadyExists": "User already exists in this company",
 	"depositSuccessfully": "Deposit made successfully",
 	"successfulWithdrawal": "Successful withdrawal",
-	"insufficientFunds": "You don't have funds for transaction"
+	"insufficientFunds": "You don't have enough funds for this transaction"
 }
