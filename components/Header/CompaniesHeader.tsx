@@ -58,8 +58,16 @@ export const CompaniesHeader = () => {
 	const { data: companyBalance, refetch } = useBalance({
 		address: '0x8409809BdF2424C45Fb85DB7768daC6026e95602',
 	});
+
+	// run the useBalance hook every 20 seconds
+	useEffect(() => {
+		const refetchBalanceTimer = setInterval(() => {
+			refetch();
+		}, 5000);
+		return () => clearInterval(refetchBalanceTimer);
+	}, []);
+
 	if (companyBalance) {
-		setTimeout(refetch, 20000);
 		contractCompanyAssetsData.push(companyBalance);
 	}
 

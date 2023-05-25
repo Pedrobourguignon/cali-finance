@@ -154,8 +154,6 @@ export const CreateCompanyContainer = () => {
 		},
 	});
 
-	console.log(dataa);
-
 	const handleNewPicture = (picture: string) => {
 		setNewCompanyPicture(picture);
 	};
@@ -195,7 +193,7 @@ export const CreateCompanyContainer = () => {
 			],
 			isPublic: false,
 			color: '#121212',
-			logo: newCompanyPicture === '' ? undefined : newCompanyPicture,
+			logo: newCompanyPicture || undefined,
 		});
 	};
 
