@@ -1,3 +1,5 @@
+import { ILanguages } from 'types';
+
 export interface IHistoryNotifications {
 	created_at: string;
 	event: {
@@ -14,9 +16,6 @@ export interface IHistoryNotifications {
 			userAddedWallet: string;
 			userId: number;
 		};
-		description: {
-			'en-US': string;
-			'pt-BR': string;
-		};
+		description: ILanguages;
 	};
 }

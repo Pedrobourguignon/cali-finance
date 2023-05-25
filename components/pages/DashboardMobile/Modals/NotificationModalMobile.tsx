@@ -83,9 +83,7 @@ export const NotificationModalMobile: React.FC<INotificationPopover> = ({
 										fontSize="sm"
 										fontWeight="normal"
 									>
-										{locale === 'en-US'
-											? notification.meta.description['en-US']
-											: notification.meta.description['pt-BR']}
+										{notification.meta.description[locale!]}
 									</Text>
 									<Text color="gray.500" fontSize="xs">
 										{dateHandler(notification.created_at)}

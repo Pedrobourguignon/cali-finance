@@ -1,3 +1,5 @@
+import { ILanguages } from 'types';
+
 export interface INotificationList {
 	created_at: string;
 	meta: {
@@ -8,10 +10,7 @@ export interface INotificationList {
 			userId: number;
 			event: string;
 		};
-		description: {
-			'en-US': string;
-			'pt-BR': string;
-		};
+		description: ILanguages;
 	};
 }
 

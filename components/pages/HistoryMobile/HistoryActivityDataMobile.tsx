@@ -36,9 +36,7 @@ export const HistoryActivityDataMobile: React.FC<IActivitiesData> = ({
 						color={theme.text.primary}
 					>
 						{truncateWallet(activities.meta.data?.userAddedWallet)}{' '}
-						{locale === 'en-US'
-							? activities.meta.description['en-US']?.slice(42)
-							: activities.meta.description['pt-BR']?.slice(42)}
+						{activities.meta.description[locale!]?.slice(42)}
 					</Text>
 				</Flex>
 			) : (
@@ -52,14 +50,8 @@ export const HistoryActivityDataMobile: React.FC<IActivitiesData> = ({
 					>
 						{activities.event.description === translate('addedToTeam')
 							? `${truncateWallet(
-									locale === 'en-US'
-										? activities.meta.description['en-US'].slice(0, 41)
-										: activities.meta.description['pt-BR'].slice(0, 41)
-							  )} ${
-									locale === 'en-US'
-										? activities.meta.description['en-US'].slice(0, 42)
-										: activities.meta.description['pt-BR'].slice(0, 42)
-							  }`
+									activities.meta.description[locale!].slice(0, 41)
+							  )} ${activities.meta.description[locale!].slice(0, 42)}`
 							: activities.meta.data.companyName}
 					</Text>
 				</Flex>

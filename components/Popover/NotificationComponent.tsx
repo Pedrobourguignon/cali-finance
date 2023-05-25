@@ -34,9 +34,7 @@ export const NotificationComponent: React.FC<{
 						lineHeight="shorter"
 						noOfLines={1}
 					>
-						{locale === 'en-US'
-							? notification.meta.description['en-US']
-							: notification.meta.description['pt-BR']}
+						{notification.meta.description[locale!]}
 					</Text>
 					<Text color="gray.500" fontSize="xs">
 						{dateHandler(notification.created_at, locale)}

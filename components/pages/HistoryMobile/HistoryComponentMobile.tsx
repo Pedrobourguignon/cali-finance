@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable no-unsafe-optional-chaining */
 import {
 	Flex,
@@ -20,7 +19,7 @@ import { useSession } from 'next-auth/react';
 import useTranslation from 'next-translate/useTranslation';
 import React, { useMemo, useState, useEffect } from 'react';
 import { BiChevronDown } from 'react-icons/bi';
-import { IHistoryNotifications, IHistoryPage, INotificationList } from 'types';
+import { IHistoryNotifications, IHistoryPage } from 'types';
 
 export const HistoryComponentMobile: React.FC<IHistoryPage> = ({ history }) => {
 	const { t: translate } = useTranslation('history-page');
@@ -76,6 +75,11 @@ export const HistoryComponentMobile: React.FC<IHistoryPage> = ({ history }) => {
 	useEffect(() => {
 		setFilteredActivities(history!);
 	}, [history]);
+
+	const returnToAllResults = () => {
+		setFilteredActivities(history!);
+		setSelectedFilterOption(translate('all'));
+	};
 
 	return (
 		<MobileLayout>
@@ -177,10 +181,7 @@ export const HistoryComponentMobile: React.FC<IHistoryPage> = ({ history }) => {
 											whiteSpace="normal"
 											fontWeight="semibold"
 											cursor="pointer"
-											onClick={() => {
-												setFilteredActivities(history!);
-												setSelectedFilterOption(translate('all'));
-											}}
+											onClick={returnToAllResults}
 										>
 											{translate('returnToAllResults')}
 										</Text>{' '}
