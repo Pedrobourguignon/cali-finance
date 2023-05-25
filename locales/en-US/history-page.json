@@ -26,5 +26,16 @@
 	"dec": "Dec",
 	"noResults": "No results were found for this filter. You can",
 	"returnToAllResults": "Return to All Results",
-	"orSelectAnother": "or select another option above."
+	"orSelectAnother": "or select another option above.",
+	"updateTeamMember": "Updated team member",
+	"companyDeleted": "Company deleted",
+	"userCreated": "User created",
+	"userDeleted": "User deleted",
+	"userWalletUpdated": "User wallet updated",
+	"teamAddUserToTeam": "Added user to team",
+	"teamUpdated": "Team updated",
+	"teamMemberDeleted": "Team member deleted",
+	"teamDeleted": "Team deleted",
+	"userAddUserToTeam": "Added user to team",
+	"userAddUserToCompany": "Added user to company"
 }

@@ -4,7 +4,11 @@ import useTranslation from 'next-translate/useTranslation';
 import { useRouter } from 'next/router';
 import React from 'react';
 import { IActivitiesData } from 'types';
-import { notificationIcons, truncateWallet } from 'utils';
+import {
+	activitieDescriptTranslation,
+	notificationIcons,
+	truncateWallet,
+} from 'utils';
 
 export const HistoryActivityDataMobile: React.FC<IActivitiesData> = ({
 	activities,
@@ -63,7 +67,10 @@ export const HistoryActivityDataMobile: React.FC<IActivitiesData> = ({
 				/>
 				<Flex direction="column">
 					<Text fontSize="sm" fontWeight="normal" color={theme.text.primary}>
-						{activities.event.description}
+						{activities &&
+							translate(
+								activitieDescriptTranslation[activities.event.name].text
+							)}
 					</Text>
 					<Text color="gray.500" fontSize="xs" whiteSpace="nowrap">
 						{activities.created_at}
