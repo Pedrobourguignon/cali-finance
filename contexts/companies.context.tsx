@@ -1,3 +1,5 @@
+/* eslint-disable no-prototype-builtins */
+/* eslint-disable no-restricted-syntax */
 import useTranslation from 'next-translate/useTranslation';
 import {
 	createContext,
@@ -15,17 +17,19 @@ import {
 	INewEmployee,
 	IEditedEmployeeInfo,
 	INotificationList,
+	IUseBalance,
 } from 'types';
 import { historyNotifications } from 'components';
 import { mainClient, navigationPaths } from 'utils';
 import { useQuery } from 'react-query';
-import { useAccount } from 'wagmi';
+import { useAccount, useBalance } from 'wagmi';
 import {
 	GetUserCompaniesRes,
 	ICompany,
 } from 'types/interfaces/main-server/ICompany';
 import router, { useRouter } from 'next/router';
 import { MAIN_SERVICE_ROUTES } from 'helpers';
+import { useTokens } from 'hooks';
 
 interface ICompanyContext {
 	activities: IActivities[];
@@ -62,6 +66,7 @@ interface ICompanyContext {
 	addEmployeeToTeam: (employee: INewEmployee) => Promise<void>;
 	allUserCompanies: GetUserCompaniesRes[];
 	selectedCompany: ICompany;
+	totalCompanyBalanceInDolar: number;
 	companiesWithMissingFunds: GetUserCompaniesRes[];
 	getCompanieActivities: (companyId: number) => Promise<INotificationList[]>;
 	getAllCompanyTeams: (id: number) => Promise<any>;
@@ -81,6 +86,7 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 	children,
 }) => {
 	const { query } = useRouter();
+	const { getCoinServiceTokens } = useTokens();
 	const { t: translate } = useTranslation('companies');
 	const { address: wallet } = useAccount();
 	const [displayNeedFundsCard, setDisplayNeedFundsCard] = useState('none');
@@ -298,6 +304,59 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 		return response.data;
 	};
 
+	const [totalCompanyBalanceInDolar, setTotalCompanyBalanceInDolar] =
+		useState<number>(0);
+	const contractCompanyAssetsData: IUseBalance[] = [];
+	const companyAssetsDolarQuotation: number[] = [];
+
+	const { data: companyBalance, refetch } = useBalance({
+		address: '0x8409809BdF2424C45Fb85DB7768daC6026e95602',
+	});
+
+	// run the useBalance hook every 20 seconds
+	useEffect(() => {
+		const refetchBalanceTimer = setInterval(() => {
+			refetch();
+		}, 5000);
+		return () => clearInterval(refetchBalanceTimer);
+	}, []);
+
+	if (companyBalance) {
+		contractCompanyAssetsData.push(companyBalance);
+	}
+
+	const { data: companyAssetsInDolar } = useQuery('get-coin-data', () =>
+		getCoinServiceTokens(
+			contractCompanyAssetsData.map(asset => asset.symbol).toString()
+		)
+	);
+
+	useEffect(() => {
+		// get the value of the quotation of all assets in the company's contract and put in an array
+		if (companyAssetsInDolar) {
+			for (const key in companyAssetsInDolar) {
+				if (companyAssetsInDolar.hasOwnProperty(key)) {
+					companyAssetsDolarQuotation.push(companyAssetsInDolar[key]?.value);
+				}
+			}
+			// maps the array of assets and the array of quotes, multiplying the respective index
+			// sum all values and set the final dolar balance state to show in the company header
+			const multiplyAssetsToDolar = () => {
+				const dolarValues = contractCompanyAssetsData.map(asset =>
+					companyAssetsDolarQuotation.map(
+						assetQuotation => Number(asset.formatted) * assetQuotation
+					)
+				);
+				const sumAllDolarValues = dolarValues[0].reduce(
+					(partialSum, acc) => partialSum + acc,
+					0
+				);
+				setTotalCompanyBalanceInDolar(sumAllDolarValues);
+			};
+			multiplyAssetsToDolar();
+		}
+	}, [contractCompanyAssetsData]);
+
 	const contextStates = useMemo(
 		() => ({
 			activities,
@@ -328,6 +387,7 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 			getCompanieActivities,
 			getAllCompanyTeams,
 			getAllCompaniesUserActivities,
+			totalCompanyBalanceInDolar,
 		}),
 		[
 			selectedCompany,

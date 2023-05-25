@@ -168,13 +168,13 @@ export const ProfileProvider: React.FC<{ children: React.ReactNode }> = ({
 							coin => coin.symbol.toLowerCase() === item.symbol.toLowerCase()
 						)
 					) {
-						const logo = Object!
-							.values(favoriteCoins)
-							.find(
+						if (favoriteCoins) {
+							const logo = Object.values(favoriteCoins).find(
 								token =>
 									token.symbol.toLowerCase() === item.symbol.toLowerCase()
 							);
-						acc.push({ ...item, ...logo });
+							acc.push({ ...item, ...logo });
+						}
 					}
 				return acc;
 			}, [] as ICoin[]);

@@ -1,5 +1,12 @@
-import { Flex, Img, Link, Text, useDisclosure } from '@chakra-ui/react';
-import { usePicasso } from 'hooks';
+import {
+	Flex,
+	Img,
+	Link,
+	Skeleton,
+	Text,
+	useDisclosure,
+} from '@chakra-ui/react';
+import { useCompanies, usePicasso } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
 import React from 'react';
 import { getLogo, handleLogoImage, navigationPaths } from 'utils';
@@ -19,6 +26,7 @@ export const CompanyCard: React.FC<ICompanyCard> = ({
 	userCompanies,
 }) => {
 	const theme = usePicasso();
+	const { totalCompanyBalanceInDolar } = useCompanies();
 	const { t: translate } = useTranslation('companies');
 	const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -81,9 +89,16 @@ export const CompanyCard: React.FC<ICompanyCard> = ({
 								? translate('funds')
 								: translate('availableToWithdraw')}
 						</Text>
-
+						{/* <Text fontSize={{ base: 'sm', md: 'xs', xl: 'sm' }}>
+							${totalCompanyBalanceInDolar.toLocaleString()}
+						</Text> */}
 						<Text fontSize={{ base: 'sm', md: 'xs', xl: 'sm' }}>
-							${company?.revenue ? company?.revenue.toLocaleString('en-US') : 0}
+							{totalCompanyBalanceInDolar === 0 ||
+							Number.isNaN(totalCompanyBalanceInDolar) ? (
+								<Skeleton w="10" h="4" />
+							) : (
+								`$ ${totalCompanyBalanceInDolar.toLocaleString()}`
+							)}
 						</Text>
 					</Flex>
 					{company?.isAdmin ? (
