@@ -118,7 +118,7 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 		{ enabled: false }
 	);
 
-	// Todo: update address
+	// TODO: update address
 	const { config: editEmployeeConfig } = usePrepareContractWrite({
 		address: '0x8409809BdF2424C45Fb85DB7768daC6026e95602',
 		abi: companyAbi,
