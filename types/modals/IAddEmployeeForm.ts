@@ -1,5 +1,5 @@
 export interface IAddEmployeeForm {
 	isDol: boolean;
-	walletAddress: `0x${string}` | undefined;
+	walletAddress: string;
 	amount: number;
 }
