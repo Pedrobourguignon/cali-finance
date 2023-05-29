@@ -28,14 +28,15 @@
 	"returnToAllResults": "Return to All Results",
 	"orSelectAnother": "or select another option above.",
 	"updateTeamMember": "Updated team member",
-	"companyDeleted": "Company deleted",
+	"companyDeleted": "Company removed",
 	"userCreated": "User created",
-	"userDeleted": "User deleted",
+	"userDeleted": "User removed",
 	"userWalletUpdated": "User wallet updated",
 	"teamAddUserToTeam": "Added user to team",
 	"teamUpdated": "Team updated",
-	"teamMemberDeleted": "Team member deleted",
-	"teamDeleted": "Team deleted",
+	"teamMemberDeleted": "Team member removed",
+	"teamDeleted": "Team removed",
 	"userAddUserToTeam": "Added user to team",
-	"userAddUserToCompany": "Added user to company"
+	"userAddUserToCompany": "Added user to company",
+	"addToCompany": "Added to company"
 }

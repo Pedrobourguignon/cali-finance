@@ -52,9 +52,9 @@ export const HistoryActivityDataMobile: React.FC<IActivitiesData> = ({
 						whiteSpace="nowrap"
 						color={theme.text.primary}
 					>
-						{activities.event.description === translate('addedToTeam')
+						{activities.event.description === translate('addToCompany')
 							? `${truncateWallet(
-									activities.meta.description[locale!].slice(0, 41)
+									activities.meta.data.userAddedWallet
 							  )} ${activities.meta.description[locale!].slice(0, 42)}`
 							: activities.meta.data.companyName}
 					</Text>
