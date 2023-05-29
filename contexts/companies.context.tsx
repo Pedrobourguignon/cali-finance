@@ -309,7 +309,7 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 	const contractCompanyAssetsData: IUseBalance[] = [];
 	const companyAssetsDolarQuotation: number[] = [];
 
-	// the address is hardcoded, need update before the event watcher implemented
+	// TODO: update address when the event watcher is ready
 	const { data: companyBalance, refetch } = useBalance({
 		address: '0x8409809BdF2424C45Fb85DB7768daC6026e95602',
 	});
