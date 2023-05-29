@@ -89,11 +89,8 @@ export const CompanyCard: React.FC<ICompanyCard> = ({
 								? translate('funds')
 								: translate('availableToWithdraw')}
 						</Text>
-						{/* <Text fontSize={{ base: 'sm', md: 'xs', xl: 'sm' }}>
-							${totalCompanyBalanceInDolar.toLocaleString()}
-						</Text> */}
 						<Text fontSize={{ base: 'sm', md: 'xs', xl: 'sm' }}>
-							{totalCompanyBalanceInDolar === 0 ||
+							{totalCompanyBalanceInDolar === -1 ||
 							Number.isNaN(totalCompanyBalanceInDolar) ? (
 								<Skeleton w="10" h="4" />
 							) : (

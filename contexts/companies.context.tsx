@@ -305,10 +305,11 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 	};
 
 	const [totalCompanyBalanceInDolar, setTotalCompanyBalanceInDolar] =
-		useState<number>(0);
+		useState<number>(-1);
 	const contractCompanyAssetsData: IUseBalance[] = [];
 	const companyAssetsDolarQuotation: number[] = [];
 
+	// the address is hardcoded, need update before the event watcher implemented
 	const { data: companyBalance, refetch } = useBalance({
 		address: '0x8409809BdF2424C45Fb85DB7768daC6026e95602',
 	});

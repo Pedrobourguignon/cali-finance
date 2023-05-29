@@ -117,7 +117,7 @@ export const CompaniesHeader = () => {
 						<Skeleton w="14" h="6" />
 					) : (
 						<Text fontSize="xl">
-							{totalCompanyBalanceInDolar === 0 ||
+							{totalCompanyBalanceInDolar === -1 ||
 							Number.isNaN(totalCompanyBalanceInDolar) ? (
 								<Skeleton w="18" h="4" />
 							) : (
