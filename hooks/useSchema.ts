@@ -30,7 +30,7 @@ const useSchema = () => {
 			.typeError(translate('amountMustBeANumber')),
 	});
 	const editEmployeeSchema = yup.object().shape({
-		amount: yup
+		revenue: yup
 			.number()
 			.test('is-decimal', translate('sixDigits'), (val: any) =>
 				sixDigitsAfterComma.test(val)
