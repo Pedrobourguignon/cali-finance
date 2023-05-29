@@ -164,6 +164,7 @@ export const AddEmployee: React.FC<IAddEmployee> = ({ isOpen, onClose }) => {
 			});
 		},
 		onError() {
+			handleResetFormInputs();
 			toast({
 				position: 'top',
 				render: () => (
