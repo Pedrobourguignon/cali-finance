@@ -19,13 +19,14 @@ import {
 import { historyNotifications } from 'components';
 import { mainClient, navigationPaths } from 'utils';
 import { useQuery } from 'react-query';
-import { useAccount } from 'wagmi';
+import { useAccount, useContractRead } from 'wagmi';
 import {
 	GetUserCompaniesRes,
 	ICompany,
 } from 'types/interfaces/main-server/ICompany';
 import router, { useRouter } from 'next/router';
 import { MAIN_SERVICE_ROUTES } from 'helpers';
+import companyABI from 'utils/abi/company.json';
 
 interface ICompanyContext {
 	activities: IActivities[];
@@ -297,6 +298,15 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 		);
 		return response.data;
 	};
+
+	const { data, isError, isLoading } = useContractRead({
+		address: '0xF314EE142382Ecd1aB477858273Fd9e50f392D98',
+		abi: companyABI,
+		functionName: 'employeeSalary',
+		args: ['0x969Cf86eeb3f9354D89f357c8dFe43DE8e645148'],
+	});
+
+	console.log(data);
 
 	const contextStates = useMemo(
 		() => ({

@@ -77,7 +77,7 @@ export const CreateCompanyContainer = () => {
 	});
 
 	const { config: setupCreateCompanyContract } = usePrepareContractWrite({
-		address: '0x6d5E353794b11a778F34b5c73ec20E4FfcC44e61',
+		address: '0x0b077ae7543c05aa5049423b2466931cd4bc82b0',
 		abi: factoryAbi,
 		functionName: 'createNewCompany',
 		args: [companyContractName],

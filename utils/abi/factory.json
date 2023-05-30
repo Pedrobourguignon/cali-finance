@@ -17,10 +17,35 @@
 				"internalType": "address",
 				"name": "_companyAddress",
 				"type": "address"
+			},
+			{
+				"indexed": false,
+				"internalType": "string",
+				"name": "_companyIdentifier",
+				"type": "string"
 			}
 		],
 		"name": "CompanyCreated",
 		"type": "event"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "_companyIdentifier",
+				"type": "string"
+			}
+		],
+		"name": "createNewCompany",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "nonpayable",
+		"type": "function"
 	},
 	{
 		"inputs": [],
@@ -52,25 +77,6 @@
 			}
 		],
 		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "string",
-				"name": "_companyName",
-				"type": "string"
-			}
-		],
-		"name": "createNewCompany",
-		"outputs": [
-			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
-			}
-		],
-		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
