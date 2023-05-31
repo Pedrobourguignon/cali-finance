@@ -1,4 +1,5 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
+/* eslint-disable no-prototype-builtins */
+/* eslint-disable no-restricted-syntax */
 import {
 	Flex,
 	Img,
@@ -7,7 +8,7 @@ import {
 	Link,
 	Skeleton,
 } from '@chakra-ui/react';
-import { useCompanies, usePath, usePicasso } from 'hooks';
+import { useCompanies, usePath, usePicasso, useTokens } from 'hooks';
 import { getLogo, handleLogoImage, navigationPaths, networkInfos } from 'utils';
 import {
 	NavigationBack,
@@ -25,10 +26,12 @@ export const CompaniesHeader = () => {
 	const theme = usePicasso();
 	const { isSamePath } = usePath();
 	const { query } = useRouter();
-	const { setNotificationsList, notificationsList, getCompanyById } =
-		useCompanies();
+	const { totalCompanyBalanceInDolar } = useCompanies();
 	const { onClose, isOpen, onOpen } = useDisclosure();
 	const { t: translate } = useTranslation('company-overall');
+	const { setNotificationsList, notificationsList, getCompanyById } =
+		useCompanies();
+
 	const { data: session } = useSession({
 		required: true,
 		onUnauthenticated() {
@@ -36,16 +39,14 @@ export const CompaniesHeader = () => {
 		},
 	});
 
-	const amount = null;
-
 	const menuOptions = [
 		{
 			name: translate('overview'),
-			route: navigationPaths.dashboard.companies.overview(query.id!.toString()),
+			route: navigationPaths.dashboard.companies.overview(query.id?.toString()),
 		},
 		{
 			name: translate('funds'),
-			route: navigationPaths.dashboard.companies.funds(query.id!.toString()),
+			route: navigationPaths.dashboard.companies.funds(query.id?.toString()),
 		},
 	];
 
@@ -111,18 +112,24 @@ export const CompaniesHeader = () => {
 					)}
 					{}
 				</Flex>
-				<Flex direction="column" maxW="28">
+				<Flex direction="column" maxW="32">
 					{isLoadingSelectedCompany ? (
 						<Skeleton w="14" h="6" />
 					) : (
-						<Text fontSize="xl">{selectedCompany?.totalFundsUsd}</Text>
+						<Text fontSize="xl">
+							{totalCompanyBalanceInDolar === -1 ||
+							Number.isNaN(totalCompanyBalanceInDolar) ? (
+								<Skeleton w="18" h="4" />
+							) : (
+								`$ ${totalCompanyBalanceInDolar.toLocaleString()}`
+							)}
+						</Text>
 					)}
-
 					<Text fontSize="sm">{translate('totalFunds')}</Text>
 				</Flex>
 				<Link
 					href={navigationPaths.dashboard.companies.editOrg(
-						query.id!.toString()
+						query.id?.toString()
 					)}
 					as={NextLink}
 				>

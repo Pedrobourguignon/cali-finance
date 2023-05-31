@@ -134,7 +134,7 @@ export const CreateCompanyContainer = () => {
 		}
 	);
 
-	const { isLoading } = useWaitForTransaction({
+	const { data: dataa, isLoading } = useWaitForTransaction({
 		hash: data?.hash,
 		confirmations: 3,
 		onSuccess() {
@@ -193,7 +193,7 @@ export const CreateCompanyContainer = () => {
 			],
 			isPublic: false,
 			color: '#121212',
-			logo: newCompanyPicture === '' ? undefined : newCompanyPicture,
+			logo: newCompanyPicture || undefined,
 		});
 	};
 
