@@ -26,5 +26,17 @@
 	"dec": "Dez",
 	"noResults": "Nenhum resultado foi encontrado para este filtro. Você pode",
 	"returnToAllResults": "Retornar a Todos Resultados",
-	"orSelectAnother": "ou selecionar outra opção acima."
+	"orSelectAnother": "ou selecionar outra opção acima.",
+	"updateTeamMember": "Membro do time atualizado",
+	"companyDeleted": "Organização removida",
+	"userCreated": "Usuário criado",
+	"userDeleted": "Usuário removido",
+	"userWalletUpdated": "Carteira do usuário atualizada",
+	"teamAddUserToTeam": "Usuário adicionado à equipe",
+	"teamUpdated": "Time atualizado",
+	"teamMemberDeleted": "Membro do time removido",
+	"teamDeleted": "Time removido",
+	"userAddUserToTeam": "Usuário adicionado ao time",
+	"userAddUserToCompany": "Usuário adicionado à organização",
+	"addToCompany": "Adicionado a organização"
 }

@@ -4,7 +4,11 @@ import useTranslation from 'next-translate/useTranslation';
 import { useRouter } from 'next/router';
 import React from 'react';
 import { IActivitiesData } from 'types';
-import { notificationIcons, truncateWallet } from 'utils';
+import {
+	notificationIcons,
+	truncateWallet,
+	activitieDescriptTranslation,
+} from 'utils';
 
 export const HistoryActivityData: React.FC<IActivitiesData> = ({
 	activities,
@@ -47,9 +51,9 @@ export const HistoryActivityData: React.FC<IActivitiesData> = ({
 						whiteSpace="nowrap"
 						color={theme.text.primary}
 					>
-						{activities.event.description === translate('addedToTeam')
+						{activities.event.description === translate('addToCompany')
 							? `${truncateWallet(
-									activities.meta.description[locale!].slice(0, 41)
+									activities.meta.data.userAddedWallet
 							  )} ${activities.meta.description[locale!].slice(0, 42)}`
 							: activities.meta.data.companyName}
 					</Text>
@@ -59,7 +63,10 @@ export const HistoryActivityData: React.FC<IActivitiesData> = ({
 				<Img src={notificationIcons[activities.event.name].icon} boxSize="4" />
 				<Flex direction="column">
 					<Text fontSize="sm" fontWeight="normal" color={theme.text.primary}>
-						{activities.event.description}
+						{activities &&
+							translate(
+								activitieDescriptTranslation[activities.event.name].text
+							)}
 					</Text>
 					<Text color="gray.500" fontSize="xs" whiteSpace="nowrap">
 						{activities.created_at}

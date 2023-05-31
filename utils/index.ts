@@ -1,3 +1,4 @@
+export * from './activitieDescriptTranslation';
 export * from './chainList';
 export * from './chainLogo';
 export * from './clients';

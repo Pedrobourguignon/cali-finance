@@ -1,8 +1,24 @@
-import { Button, Flex, Img, Text } from '@chakra-ui/react';
+/* eslint-disable import/extensions */
+import {
+	Button,
+	Flex,
+	Img,
+	Text,
+	useDisclosure,
+	useToast,
+} from '@chakra-ui/react';
 import { usePicasso } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
 import { Dispatch, SetStateAction, useState } from 'react';
 import { ITransaction } from 'types';
+import {
+	usePrepareSendTransaction,
+	useSendTransaction,
+	useWaitForTransaction,
+} from 'wagmi';
+import { useDebounce } from 'use-debounce';
+import { parseEther } from 'ethers/lib/utils.js';
+import { AlertToast, WaitMetamaskFinishTransaction } from 'components';
 
 interface IConfirmTransaction {
 	transaction: ITransaction;
@@ -15,15 +31,90 @@ export const ConfirmTransaction: React.FC<IConfirmTransaction> = ({
 }) => {
 	const { t: translate } = useTranslation('company-overall');
 	const buttonOptions = [translate('deposit'), translate('withdrawal')];
+	const toast = useToast();
 
 	const [selectedOption, setSelectedOption] = useState<string | undefined>(
 		transaction.type
 	);
+	const [debouncedAmount] = useDebounce(transaction.amount, 500);
 	const theme = usePicasso();
 	const handleSelectedButton = (btnName: string) => {
 		const selectedButton = buttonOptions.find(item => item === btnName);
 		setSelectedOption(selectedButton);
 	};
+	const [enabledTransaction, setEnabledTransaction] = useState(false);
+	const { onClose } = useDisclosure();
+
+	const { config: sendTransactionConfig } = usePrepareSendTransaction({
+		enabled: enabledTransaction,
+		request: {
+			to: '0x8409809BdF2424C45Fb85DB7768daC6026e95602',
+			value: debouncedAmount
+				? parseEther(debouncedAmount.toString())
+				: undefined,
+		},
+		onError: (error: any) => {
+			toast({
+				position: 'top',
+				render: () => (
+					<AlertToast
+						onClick={toast.closeAll}
+						text={
+							error.code === -32603
+								? 'insufficientFunds'
+								: 'weAreWorkingToSolve'
+						}
+						type="error"
+					/>
+				),
+			});
+			setConfirm(false);
+		},
+	});
+
+	const { sendTransaction, data: sendTransactionData } = useSendTransaction(
+		sendTransactionConfig
+	);
+
+	const { data, isLoading: isLoadingTransaction } = useWaitForTransaction({
+		hash: sendTransactionData?.hash,
+		confirmations: 3,
+		onSuccess: () => {
+			toast({
+				position: 'top',
+				render: () => (
+					<AlertToast
+						onClick={toast.closeAll}
+						text={
+							transaction.type === 'Deposit'
+								? 'depositSuccessfully'
+								: 'successfulWithdrawal'
+						}
+						type="success"
+					/>
+				),
+			});
+			setConfirm(false);
+		},
+		onError: () => {
+			toast({
+				position: 'top',
+				render: () => (
+					<AlertToast
+						onClick={toast.closeAll}
+						text="weAreWorkingToSolve"
+						type="error"
+					/>
+				),
+			});
+		},
+	});
+
+	const handleSendTransaction = () => {
+		setEnabledTransaction(true);
+		sendTransaction?.();
+	};
+
 	return (
 		<Flex
 			bg="white"
@@ -34,6 +125,10 @@ export const ConfirmTransaction: React.FC<IConfirmTransaction> = ({
 			gap="6"
 			w="100%"
 		>
+			<WaitMetamaskFinishTransaction
+				isOpen={isLoadingTransaction}
+				onClose={onClose}
+			/>
 			<Flex w="100%" justify="center" direction="row">
 				{buttonOptions.map((item, index) => (
 					<Button
@@ -120,6 +215,7 @@ export const ConfirmTransaction: React.FC<IConfirmTransaction> = ({
 					_active={{
 						opacity: 0.8,
 					}}
+					onClick={() => handleSendTransaction()}
 				>
 					{selectedOption === translate('deposit')
 						? translate('addFunds')
