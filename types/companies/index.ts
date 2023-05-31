@@ -12,3 +12,4 @@ export * from './ISocialMedia';
 export * from './ISocialMediaInput';
 export * from './ITeam';
 export * from './ITransaction';
+export * from './IUseBalance';

@@ -18,7 +18,13 @@ import {
 	Link,
 	useToast,
 } from '@chakra-ui/react';
-import { AlertToast, BlackButton, TokenSelector, UploadCsv } from 'components';
+import {
+	AlertToast,
+	BlackButton,
+	TokenSelector,
+	UploadCsv,
+	WaitMetamaskFinishTransaction,
+} from 'components';
 import { useCompanies, usePicasso, useSchema } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
 import React, { useState } from 'react';
@@ -76,6 +82,16 @@ export const AddEmployee: React.FC<IAddEmployee> = ({ isOpen, onClose }) => {
 		onOpen: onOpenTokenSelector,
 		onClose: onCloseTokenSelector,
 	} = useDisclosure();
+	const { onClose: onCloseLoadingConfirmation } = useDisclosure();
+
+	const {
+		register,
+		handleSubmit,
+		reset,
+		formState: { errors },
+	} = useForm<IAddEmployeeForm>({
+		resolver: yupResolver(addEmployeeSchema),
+	});
 
 	const [individuallyOrList, setIndividuallyOrList] = useState(true);
 	const shouldDisplay = individuallyOrList ? 'flex' : 'none';
@@ -105,8 +121,17 @@ export const AddEmployee: React.FC<IAddEmployee> = ({ isOpen, onClose }) => {
 			amountInDollar: amountInDollar * bitcoinPrice,
 		}));
 	};
+	const handleResetFormInputs = () => {
+		reset();
+		onClose();
+		setAddedEmployeeData(prevState => ({
+			...prevState,
+			amount: 0,
+			walletAddress: '',
+		}));
+	};
 
-	// Todo: update address
+	// TODO: update address
 	const { config: addEmployeeConfig } = usePrepareContractWrite({
 		address: '0xB4B7dB8d29d341029eb800c5F00a4aB683A52F20',
 		abi: companyAbi,
@@ -119,9 +144,14 @@ export const AddEmployee: React.FC<IAddEmployee> = ({ isOpen, onClose }) => {
 	const { data: addEmployeeData, write: addEmployeeWrite } =
 		useContractWrite(addEmployeeConfig);
 
-	const { data: useWaitForTransactionData } = useWaitForTransaction({
+	const {
+		data: useWaitForTransactionData,
+		isLoading: useWaitForTransactionLoading,
+	} = useWaitForTransaction({
 		hash: addEmployeeData?.hash,
+		confirmations: 3,
 		onSuccess() {
+			handleResetFormInputs();
 			toast({
 				position: 'top',
 				render: () => (
@@ -134,6 +164,7 @@ export const AddEmployee: React.FC<IAddEmployee> = ({ isOpen, onClose }) => {
 			});
 		},
 		onError() {
+			handleResetFormInputs();
 			toast({
 				position: 'top',
 				render: () => (
@@ -145,15 +176,6 @@ export const AddEmployee: React.FC<IAddEmployee> = ({ isOpen, onClose }) => {
 				),
 			});
 		},
-	});
-
-	const {
-		register,
-		handleSubmit,
-		reset,
-		formState: { errors },
-	} = useForm<IAddEmployeeForm>({
-		resolver: yupResolver(addEmployeeSchema),
 	});
 
 	const { mutate } = useMutation(
@@ -193,23 +215,12 @@ export const AddEmployee: React.FC<IAddEmployee> = ({ isOpen, onClose }) => {
 		}
 	);
 
-	const handleResetFormInputs = () => {
-		reset();
-		onClose();
-		setAddedEmployeeData(prevState => ({
-			...prevState,
-			amount: 0,
-			walletAddress: '',
-		}));
-	};
-
 	const handleAddEmployee = (newEmployeeData: IAddEmployeeForm) => {
 		mutate({
 			userAddress: newEmployeeData.walletAddress,
 			revenue: newEmployeeData.amount,
 			asset: token.symbol,
 		});
-		handleResetFormInputs();
 	};
 
 	return (
@@ -319,6 +330,10 @@ export const AddEmployee: React.FC<IAddEmployee> = ({ isOpen, onClose }) => {
 						<FormControl>
 							<ModalBody display={shouldDisplay} flexDirection="column" gap="2">
 								<Flex direction="column" gap="2">
+									<WaitMetamaskFinishTransaction
+										isOpen={useWaitForTransactionLoading}
+										onClose={onCloseLoadingConfirmation}
+									/>
 									<Text {...labelStyle}>{translate('employeeWallet')}</Text>
 									<Input
 										placeholder="0x6856...BF99"

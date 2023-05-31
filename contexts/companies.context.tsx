@@ -1,3 +1,5 @@
+/* eslint-disable no-prototype-builtins */
+/* eslint-disable no-restricted-syntax */
 import useTranslation from 'next-translate/useTranslation';
 import {
 	createContext,
@@ -8,41 +10,26 @@ import {
 	useState,
 } from 'react';
 import {
-	IActivities,
 	IEmployee,
-	IHistoryNotification,
 	ISocialMedia,
 	INewEmployee,
 	IEditedEmployeeInfo,
 	INotificationList,
+	IHistoryNotifications,
+	IUseBalance,
 } from 'types';
-import { historyNotifications } from 'components';
 import { mainClient, navigationPaths } from 'utils';
 import { useQuery } from 'react-query';
-import { useAccount } from 'wagmi';
+import { useAccount, useBalance } from 'wagmi';
 import {
 	GetUserCompaniesRes,
 	ICompany,
 } from 'types/interfaces/main-server/ICompany';
 import router, { useRouter } from 'next/router';
 import { MAIN_SERVICE_ROUTES } from 'helpers';
+import { useTokens } from 'hooks';
 
 interface ICompanyContext {
-	activities: IActivities[];
-	notificationsList: {
-		type: string;
-		date: string;
-		icon: string;
-	}[];
-	setNotificationsList: Dispatch<
-		SetStateAction<
-			{
-				type: string;
-				date: string;
-				icon: string;
-			}[]
-		>
-	>;
 	setSelectedCompany: Dispatch<SetStateAction<ICompany>>;
 	setEditedInfo: Dispatch<SetStateAction<ICompany>>;
 	editedInfo: ICompany;
@@ -50,8 +37,6 @@ interface ICompanyContext {
 	setDisplayMissingFundsWarning: Dispatch<SetStateAction<string>>;
 	displayNeedFundsCard: string;
 	setDisplayNeedFundsCard: Dispatch<SetStateAction<string>>;
-	filteredNotifications: IHistoryNotification[];
-	setFilteredNotifications: Dispatch<SetStateAction<IHistoryNotification[]>>;
 	getAllUserCompanies: () => Promise<GetUserCompaniesRes[]>;
 	createCompany: (company: ICompany) => Promise<void>;
 	socialMediasData: ISocialMedia[];
@@ -62,10 +47,13 @@ interface ICompanyContext {
 	addEmployeeToTeam: (employee: INewEmployee) => Promise<void>;
 	allUserCompanies: GetUserCompaniesRes[];
 	selectedCompany: ICompany;
+	totalCompanyBalanceInDolar: number;
 	companiesWithMissingFunds: GetUserCompaniesRes[];
-	getCompanieActivities: (companyId: number) => Promise<INotificationList[]>;
+	getCompanieActivities: (
+		companyId: number
+	) => Promise<IHistoryNotifications[]>;
 	getAllCompanyTeams: (id: number) => Promise<any>;
-	getAllCompaniesUserActivities: () => Promise<INotificationList[]>;
+	getAllCompaniesUserActivities: () => Promise<IHistoryNotifications[]>;
 	addEmployeeCsv: (
 		employee: string | undefined | null | ArrayBuffer
 	) => Promise<void>;
@@ -81,6 +69,7 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 	children,
 }) => {
 	const { query } = useRouter();
+	const { getCoinServiceTokens } = useTokens();
 	const { t: translate } = useTranslation('companies');
 	const { address: wallet } = useAccount();
 	const [displayNeedFundsCard, setDisplayNeedFundsCard] = useState('none');
@@ -97,69 +86,7 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 	const [companiesWithMissingFunds, setCompaniesWithMissingFunds] = useState<
 		GetUserCompaniesRes[]
 	>([]);
-	const [filteredNotifications, setFilteredNotifications] =
-		useState<IHistoryNotification[]>(historyNotifications);
-
 	const neededFunds = 0;
-
-	const [notificationsList, setNotificationsList] = useState([
-		{
-			type: 'You made a deposit of $23,456.02',
-			date: '08 Aug 22, 20:57',
-			icon: '/icons/deposit.svg',
-		},
-		{
-			type: 'You created Kylie Cosmetics',
-			date: '08 Aug 22, 20:57',
-			icon: '/icons/deposit.svg',
-		},
-		{
-			type: '0x6856...BF99 added to Kylie Baby',
-			date: '08 Aug 22, 20:57',
-			icon: '/icons/deposit.svg',
-		},
-		{
-			type: 'Marketing Team created Kylie Skin',
-			date: '08 Aug 22, 20:57',
-			icon: '/icons/deposit.svg',
-		},
-		{
-			type: 'Marketing Team created Kylie Skin',
-			date: '08 Aug 22, 20:57',
-			icon: '/icons/deposit.svg',
-		},
-		{
-			type: 'Marketing Team created Kylie Skin',
-			date: '08 Aug 22, 20:57',
-			icon: '/icons/deposit.svg',
-		},
-	]);
-	const [activities, setActivities] = useState<IActivities[]>([
-		{
-			name: 'Kylie Cosmetics',
-			type: 'Deposit',
-			coin: 'USDT',
-			date: '08 Aug 22, 20:57',
-			status: translate('completed'),
-			value: 100063,
-		},
-		{
-			name: 'Kylie Skin',
-			type: 'Withdrawal',
-			coin: 'USDT',
-			date: '08 Aug 22, 20:57',
-			status: translate('completed'),
-			value: 19636,
-		},
-		{
-			name: 'Kylie Baby',
-			type: 'Team Created',
-			coin: 'USDT',
-			date: '08 Aug 22, 20:57',
-			status: translate('completed'),
-			value: 10,
-		},
-	]);
 
 	const getAllUserCompanies = async () => {
 		if (!wallet) throw new Error('User not connected');
@@ -298,11 +225,62 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 		return response.data;
 	};
 
+	const [totalCompanyBalanceInDolar, setTotalCompanyBalanceInDolar] =
+		useState<number>(-1);
+	const contractCompanyAssetsData: IUseBalance[] = [];
+	const companyAssetsDolarQuotation: number[] = [];
+
+	// TODO: update address when the event watcher is ready
+	const { data: companyBalance, refetch } = useBalance({
+		address: '0x8409809BdF2424C45Fb85DB7768daC6026e95602',
+	});
+
+	// run the useBalance hook every 20 seconds
+	useEffect(() => {
+		const refetchBalanceTimer = setInterval(() => {
+			refetch();
+		}, 5000);
+		return () => clearInterval(refetchBalanceTimer);
+	}, []);
+
+	if (companyBalance) {
+		contractCompanyAssetsData.push(companyBalance);
+	}
+
+	const { data: companyAssetsInDolar } = useQuery('get-coin-data', () =>
+		getCoinServiceTokens(
+			contractCompanyAssetsData.map(asset => asset.symbol).toString()
+		)
+	);
+
+	useEffect(() => {
+		// get the value of the quotation of all assets in the company's contract and put in an array
+		if (companyAssetsInDolar) {
+			for (const key in companyAssetsInDolar) {
+				if (companyAssetsInDolar.hasOwnProperty(key)) {
+					companyAssetsDolarQuotation.push(companyAssetsInDolar[key]?.value);
+				}
+			}
+			// maps the array of assets and the array of quotes, multiplying the respective index
+			// sum all values and set the final dolar balance state to show in the company header
+			const multiplyAssetsToDolar = () => {
+				const dolarValues = contractCompanyAssetsData.map(asset =>
+					companyAssetsDolarQuotation.map(
+						assetQuotation => Number(asset.formatted) * assetQuotation
+					)
+				);
+				const sumAllDolarValues = dolarValues[0].reduce(
+					(partialSum, acc) => partialSum + acc,
+					0
+				);
+				setTotalCompanyBalanceInDolar(sumAllDolarValues);
+			};
+			multiplyAssetsToDolar();
+		}
+	}, [contractCompanyAssetsData]);
+
 	const contextStates = useMemo(
 		() => ({
-			activities,
-			notificationsList,
-			setNotificationsList,
 			setEditedInfo,
 			editedInfo,
 			displayMissingFundsWarning,
@@ -310,8 +288,6 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 			displayNeedFundsCard,
 			setDisplayNeedFundsCard,
 			companiesWithMissingFunds,
-			filteredNotifications,
-			setFilteredNotifications,
 			getAllUserCompanies,
 			createCompany,
 			socialMediasData,
@@ -328,16 +304,14 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 			getCompanieActivities,
 			getAllCompanyTeams,
 			getAllCompaniesUserActivities,
+			totalCompanyBalanceInDolar,
 		}),
 		[
 			selectedCompany,
-			activities,
-			notificationsList,
 			editedInfo,
 			displayMissingFundsWarning,
 			displayNeedFundsCard,
 			companiesWithMissingFunds,
-			filteredNotifications,
 			socialMediasData,
 			allUserCompanies,
 			setSocialMediasData,

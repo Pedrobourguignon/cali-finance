@@ -1,16 +1,18 @@
-import { Flex, Text } from '@chakra-ui/react';
-import { RecentActivities, HaveProblemCard, DashboardHeader } from 'components';
+import { Flex } from '@chakra-ui/react';
+import {
+	RecentActivities,
+	HaveProblemCard,
+	DashboardHeader,
+	CompaniesDashboardMobile,
+} from 'components';
 import { MobileLayout } from 'layouts';
-import { useCompanies, usePicasso } from 'hooks';
+import { useCompanies } from 'hooks';
 import { useQuery } from 'react-query';
 import { useAccount } from 'wagmi';
-import useTranslation from 'next-translate/useTranslation';
-import { CompaniesDashboardMobile } from './CompaniesDashboardMobile';
 
 export const CompaniesConnectedMobile: React.FC = () => {
-	const { activities, getAllUserCompanies } = useCompanies();
+	const { getAllUserCompanies } = useCompanies();
 	const { isConnected } = useAccount();
-	const { t: translate } = useTranslation('dashboard');
 
 	const { data: companies } = useQuery('all-companies', getAllUserCompanies, {
 		enabled: !!isConnected,
@@ -29,7 +31,7 @@ export const CompaniesConnectedMobile: React.FC = () => {
 					/>
 				</Flex>
 				<Flex w="full" flexDir="column" gap="8" pt="10">
-					{activities && <RecentActivities />}
+					<RecentActivities />
 				</Flex>
 			</Flex>
 			<Flex pt="10" pb="24">

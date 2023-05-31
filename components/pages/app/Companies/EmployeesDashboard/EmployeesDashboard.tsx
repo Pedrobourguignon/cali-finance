@@ -27,11 +27,7 @@ export const EmployeesDashboard: React.FC<IEmployeeDashboard> = ({
 	const { getAllCompanyEmployees } = useCompanies();
 	const { query } = useRouter();
 	const { isOpen, onOpen, onClose } = useDisclosure();
-	const {
-		isOpen: isOpenMobile,
-		onOpen: onOpenMobile,
-		onClose: onCloseMobile,
-	} = useDisclosure();
+	const { isOpen: isOpenMobile, onClose: onCloseMobile } = useDisclosure();
 	const { isOpen: isFullList, onToggle: toggleListView } = useDisclosure();
 
 	const {
@@ -55,6 +51,7 @@ export const EmployeesDashboard: React.FC<IEmployeeDashboard> = ({
 				onClose={onClose}
 				selectedCompany={selectedCompany}
 			/>
+
 			<AddEmployeeMobile
 				isOpen={isOpenMobile}
 				onClose={onCloseMobile}

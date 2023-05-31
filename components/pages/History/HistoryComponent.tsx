@@ -23,10 +23,10 @@ import { useSession } from 'next-auth/react';
 import useTranslation from 'next-translate/useTranslation';
 import React, { useMemo, useState, useEffect } from 'react';
 import { BiChevronDown } from 'react-icons/bi';
-import { IHistoryPage, INotificationList } from 'types';
+import { IHistoryNotifications, IHistoryPage } from 'types';
 import { historyPageFilterOptions } from 'utils';
 
-export const HistoryComponent: React.FC<IHistoryPage> = ({ notifications }) => {
+export const HistoryComponent: React.FC<IHistoryPage> = ({ history }) => {
 	const { t: translate } = useTranslation('history-page');
 	const theme = usePicasso();
 	const [selectedFilterOption, setSelectedFilterOption] = useState<string>(
@@ -35,8 +35,8 @@ export const HistoryComponent: React.FC<IHistoryPage> = ({ notifications }) => {
 	const [pageNumber, setPageNumber] = useState(0);
 	const { data: session } = useSession();
 	const [filteredActivities, setFilteredActivities] = useState<
-		INotificationList[]
-	>(notifications!);
+		IHistoryNotifications[]
+	>(history!);
 
 	const notificationPerPage = 14;
 	const maxPage = useMemo(
@@ -57,15 +57,15 @@ export const HistoryComponent: React.FC<IHistoryPage> = ({ notifications }) => {
 	);
 
 	const handleActivitiesFilterButton = (filter: string) => {
-		if (notifications) {
+		if (history) {
 			setFilteredActivities(
-				notifications.filter(
+				history.filter(
 					notification => notification.event.description === filter
 				)
 			);
 		}
 		if (filter === translate('all')) {
-			setFilteredActivities(notifications!);
+			setFilteredActivities(history!);
 		}
 		setSelectedFilterOption(filter);
 	};
@@ -75,8 +75,8 @@ export const HistoryComponent: React.FC<IHistoryPage> = ({ notifications }) => {
 	}, [filteredActivities]);
 
 	useEffect(() => {
-		setFilteredActivities(notifications!);
-	}, [notifications]);
+		setFilteredActivities(history!);
+	}, [history]);
 
 	return (
 		<AppLayout
@@ -194,7 +194,7 @@ export const HistoryComponent: React.FC<IHistoryPage> = ({ notifications }) => {
 											fontWeight="semibold"
 											cursor="pointer"
 											onClick={() => {
-												setFilteredActivities(notifications!);
+												setFilteredActivities(history!);
 												setSelectedFilterOption(translate('all'));
 											}}
 										>

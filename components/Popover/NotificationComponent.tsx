@@ -1,7 +1,7 @@
 import { Flex, Img, Text } from '@chakra-ui/react';
 import { usePicasso } from 'hooks';
 import { INotificationList } from 'types';
-import { dateHandler, handleNotifications } from 'utils';
+import { dateHandler, notificationIcons } from 'utils';
 import { useRouter } from 'next/router';
 
 export const NotificationComponent: React.FC<{
@@ -18,11 +18,11 @@ export const NotificationComponent: React.FC<{
 			borderRadius="base"
 			align="center"
 			px="3"
-			h="12"
+			py="1"
 		>
-			<Flex gap="2" align="center" py="1" w="full">
+			<Flex gap="2" align="center" w="full">
 				<Img
-					src={handleNotifications(notification, locale).icon}
+					src={notificationIcons[notification.meta.data.event].icon}
 					boxSize="4"
 					color="black"
 				/>
@@ -32,8 +32,9 @@ export const NotificationComponent: React.FC<{
 						fontSize="sm"
 						fontWeight="normal"
 						lineHeight="shorter"
+						noOfLines={1}
 					>
-						{handleNotifications(notification, locale).text}
+						{notification.meta.description[locale!]}
 					</Text>
 					<Text color="gray.500" fontSize="xs">
 						{dateHandler(notification.created_at, locale)}

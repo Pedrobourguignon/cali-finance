@@ -38,7 +38,7 @@ export const FeeCalculator = () => {
 
 	useEffect(() => {
 		if (coinServiceTokens) {
-			setFeeInDolarPrice(Object.values(coinServiceTokens!)[0].value);
+			setFeeInDolarPrice(Object.values(coinServiceTokens!)[0]!.value);
 		}
 	}, [coinServiceTokens]);
 

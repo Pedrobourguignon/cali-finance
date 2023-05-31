@@ -27,6 +27,7 @@ import {
 	EditProfileIcon,
 	TokenSelector,
 	AlertToast,
+	WaitMetamaskFinishTransaction,
 } from 'components';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -70,6 +71,7 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 		onOpen: onOpenTokenSelector,
 		onClose: onCloseTokenSelector,
 	} = useDisclosure();
+	const { onClose: onCloseLoadingConfirmation } = useDisclosure();
 
 	const labelStyle: TextProps = {
 		color: 'black',
@@ -118,7 +120,7 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 		{ enabled: false }
 	);
 
-	// Todo: update address
+	// TODO: update address
 	const { config: editEmployeeConfig } = usePrepareContractWrite({
 		address: '0x8409809BdF2424C45Fb85DB7768daC6026e95602',
 		abi: companyAbi,
@@ -129,9 +131,11 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 	const { data: editEmployeeData, write: editEmployeeWrite } =
 		useContractWrite(editEmployeeConfig);
 
-	const { data: useWaitForTransactionData } = useWaitForTransaction({
+	const { isLoading: useWaitForTransactionLoading } = useWaitForTransaction({
 		hash: editEmployeeData?.hash,
+		confirmations: 3,
 		onSuccess() {
+			handleResetFormInputs();
 			toast({
 				position: 'top',
 				render: () => (
@@ -144,6 +148,7 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 			});
 		},
 		onError() {
+			handleResetFormInputs();
 			toast({
 				position: 'top',
 				render: () => (
@@ -164,7 +169,6 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 			onSuccess: () => {
 				queryClient.invalidateQueries('all-company-employees');
 				editEmployeeWrite?.();
-				handleResetFormInputs();
 			},
 			onError: error => {
 				if (error instanceof AxiosError) {
@@ -211,6 +215,10 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 				isOpen={isOpenTokenSelector}
 				onClose={onCloseTokenSelector}
 				setToken={setToken}
+			/>
+			<WaitMetamaskFinishTransaction
+				isOpen={useWaitForTransactionLoading}
+				onClose={onCloseLoadingConfirmation}
 			/>
 			<ModalContent
 				m="auto"

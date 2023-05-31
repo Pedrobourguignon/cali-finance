@@ -10,7 +10,6 @@ import { AppLayout, CompanyWhiteBackground } from 'layouts';
 import { mainClient, navigationPaths } from 'utils';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { CompaniesProvider } from 'contexts';
 import useTranslation from 'next-translate/useTranslation';
 import { useSession } from 'next-auth/react';
 import router from 'next/router';
@@ -28,6 +27,7 @@ import {
 import factoryAbi from 'utils/abi/factory.json';
 import { MAIN_SERVICE_ROUTES } from 'helpers';
 import { useDebounce } from 'use-debounce';
+import { CompaniesProvider } from 'contexts';
 
 interface ISelectedNetwork {
 	name: string;
@@ -137,7 +137,7 @@ export const CreateCompanyContainer = () => {
 		}
 	);
 
-	const { isLoading } = useWaitForTransaction({
+	const { data: dataa, isLoading } = useWaitForTransaction({
 		hash: data?.hash,
 		confirmations: 3,
 		onSuccess() {
@@ -196,7 +196,7 @@ export const CreateCompanyContainer = () => {
 			],
 			isPublic: false,
 			color: '#121212',
-			logo: newCompanyPicture === '' ? undefined : newCompanyPicture,
+			logo: newCompanyPicture || undefined,
 		});
 	};
 

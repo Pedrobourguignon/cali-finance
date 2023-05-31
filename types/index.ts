@@ -4,6 +4,7 @@ export * from './dashboard';
 export * from './history';
 export * from './IChainDictionary';
 export * from './ICoin';
+export * from './ILanguages';
 export * from './INetwork';
 export * from './IProfile';
 export * from './landing';

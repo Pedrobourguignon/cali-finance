@@ -1,14 +1,11 @@
-/* eslint-disable no-unsafe-optional-chaining */
 import { Flex, Img, Text } from '@chakra-ui/react';
 import { usePicasso } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
-import { INotificationList } from 'types';
-import { ICompany } from 'types/interfaces/main-server/ICompany';
-import { truncateWallet } from 'utils';
+import { IHistoryNotifications } from 'types';
+import { dateHandler, notificationIcons, truncateWallet } from 'utils';
 
 interface IActivitiesData {
-	activities: INotificationList;
-	company?: ICompany;
+	activities: IHistoryNotifications;
 }
 
 export const ActivitiesDataMobile: React.FC<IActivitiesData> = ({
@@ -44,13 +41,16 @@ export const ActivitiesDataMobile: React.FC<IActivitiesData> = ({
 			</Text>
 			<Flex w="full" justify="space-between">
 				<Flex align="center" gap="2">
-					<Img src={activities.meta.icon} boxSize="4" />
+					<Img
+						src={notificationIcons[activities.event.name].icon}
+						boxSize="4"
+					/>
 					<Flex direction="column">
 						<Text fontSize="sm" fontWeight="normal">
 							{activities.event.description}
 						</Text>
 						<Text color="gray.500" fontSize="xs" whiteSpace="nowrap">
-							{activities.created_at}
+							{dateHandler(activities.created_at)}
 						</Text>
 					</Flex>
 				</Flex>

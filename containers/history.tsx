@@ -11,7 +11,7 @@ export const HistoryContainer = () => {
 	const { isConnected } = useAccount();
 	const { getUserActivities } = useProfile();
 
-	const { data: recentActivities } = useQuery(
+	const { data: historyNotifications } = useQuery(
 		'all-activities',
 		() => getUserActivities(999),
 		{
@@ -23,10 +23,10 @@ export const HistoryContainer = () => {
 		<CompaniesProvider>
 			<ProfileProvider>
 				<Flex bg={theme.bg.primary} display={{ base: 'none', sm: 'flex' }}>
-					<HistoryComponent notifications={recentActivities} />
+					<HistoryComponent history={historyNotifications} />
 				</Flex>
 				<Flex bg={theme.bg.primary} display={{ base: 'flex', sm: 'none' }}>
-					<HistoryComponentMobile notifications={recentActivities} />
+					<HistoryComponentMobile history={historyNotifications} />
 				</Flex>
 			</ProfileProvider>
 		</CompaniesProvider>
