@@ -14,7 +14,7 @@ import { CompaniesProvider } from 'contexts';
 import useTranslation from 'next-translate/useTranslation';
 import { useSession } from 'next-auth/react';
 import router from 'next/router';
-import { useCompanies, useSchema } from 'hooks';
+import { useSchema } from 'hooks';
 import { ICompany } from 'types/interfaces/main-server/ICompany';
 import { useState } from 'react';
 import { useMutation } from 'react-query';
@@ -27,6 +27,7 @@ import {
 } from 'wagmi';
 import factoryAbi from 'utils/abi/factory.json';
 import { MAIN_SERVICE_ROUTES } from 'helpers';
+import { useDebounce } from 'use-debounce';
 
 interface ISelectedNetwork {
 	name: string;
@@ -43,10 +44,12 @@ export const CreateCompanyContainer = () => {
 	const [newCompanyPicture, setNewCompanyPicture] = useState('');
 	const [socialLinksInputValue, setSocialLinksInputValue] =
 		useState<ISociaLinksInputValue>({} as ISociaLinksInputValue);
-	let companyContractName: string | undefined = '';
+	const [companyContractName, setContractName] = useState('');
 	const [selectedType, setSelectedType] = useState<string>(
 		translate('pleaseSelect')
 	);
+
+	const debouncedCompanyContractName = useDebounce(companyContractName, 500);
 
 	const [selectedNetwork, setSelectedNetwork] = useState<ISelectedNetwork>({
 		name: translate('pleaseSelect'),
@@ -77,10 +80,10 @@ export const CreateCompanyContainer = () => {
 	});
 
 	const { config: setupCreateCompanyContract } = usePrepareContractWrite({
-		address: '0x6d5E353794b11a778F34b5c73ec20E4FfcC44e61',
+		address: '0x5690A0377E28ECE71880769eE9E8a47CbfDcDc4b',
 		abi: factoryAbi,
 		functionName: 'createNewCompany',
-		args: [companyContractName],
+		args: [debouncedCompanyContractName[0]],
 	});
 
 	const { data, writeAsync: createCompanyContract } = useContractWrite(
@@ -162,7 +165,7 @@ export const CreateCompanyContainer = () => {
 		const { websiteURL, instagramURL, twitterURL, telegramURL, mediumURL } =
 			socialLinksInputValue;
 		const { name, contactEmail, description } = companyData;
-		companyContractName = `${name}#${newCompanyId}`;
+		setContractName(`${name}#${newCompanyId}`);
 		mutate({
 			name,
 			contactEmail,

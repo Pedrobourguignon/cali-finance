@@ -54,7 +54,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 	const handleSignIn = async (account: `0x${string}` | undefined) => {
 		try {
 			const { nonce } = await getNonce(account);
-			console.log(nonce);
 			const signature = await getSignature(nonce);
 			if (signature) {
 				signIn('credentials', {

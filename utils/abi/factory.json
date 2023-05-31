@@ -5,11 +5,6 @@
 		"type": "constructor"
 	},
 	{
-		"inputs": [],
-		"name": "NotOwner",
-		"type": "error"
-	},
-	{
 		"anonymous": false,
 		"inputs": [
 			{
@@ -17,6 +12,12 @@
 				"internalType": "address",
 				"name": "_companyAddress",
 				"type": "address"
+			},
+			{
+				"indexed": false,
+				"internalType": "string",
+				"name": "_companyIdentifier",
+				"type": "string"
 			}
 		],
 		"name": "CompanyCreated",
@@ -58,7 +59,7 @@
 		"inputs": [
 			{
 				"internalType": "string",
-				"name": "_companyName",
+				"name": "_companyIdentifier",
 				"type": "string"
 			}
 		],
