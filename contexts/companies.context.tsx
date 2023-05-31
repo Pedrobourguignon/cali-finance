@@ -10,16 +10,14 @@ import {
 	useState,
 } from 'react';
 import {
-	IActivities,
 	IEmployee,
-	IHistoryNotification,
 	ISocialMedia,
 	INewEmployee,
 	IEditedEmployeeInfo,
 	INotificationList,
+	IHistoryNotifications,
 	IUseBalance,
 } from 'types';
-import { historyNotifications } from 'components';
 import { mainClient, navigationPaths } from 'utils';
 import { useQuery } from 'react-query';
 import { useAccount, useBalance } from 'wagmi';
@@ -32,21 +30,6 @@ import { MAIN_SERVICE_ROUTES } from 'helpers';
 import { useTokens } from 'hooks';
 
 interface ICompanyContext {
-	activities: IActivities[];
-	notificationsList: {
-		type: string;
-		date: string;
-		icon: string;
-	}[];
-	setNotificationsList: Dispatch<
-		SetStateAction<
-			{
-				type: string;
-				date: string;
-				icon: string;
-			}[]
-		>
-	>;
 	setSelectedCompany: Dispatch<SetStateAction<ICompany>>;
 	setEditedInfo: Dispatch<SetStateAction<ICompany>>;
 	editedInfo: ICompany;
@@ -54,8 +37,6 @@ interface ICompanyContext {
 	setDisplayMissingFundsWarning: Dispatch<SetStateAction<string>>;
 	displayNeedFundsCard: string;
 	setDisplayNeedFundsCard: Dispatch<SetStateAction<string>>;
-	filteredNotifications: IHistoryNotification[];
-	setFilteredNotifications: Dispatch<SetStateAction<IHistoryNotification[]>>;
 	getAllUserCompanies: () => Promise<GetUserCompaniesRes[]>;
 	createCompany: (company: ICompany) => Promise<void>;
 	socialMediasData: ISocialMedia[];
@@ -68,9 +49,11 @@ interface ICompanyContext {
 	selectedCompany: ICompany;
 	totalCompanyBalanceInDolar: number;
 	companiesWithMissingFunds: GetUserCompaniesRes[];
-	getCompanieActivities: (companyId: number) => Promise<INotificationList[]>;
+	getCompanieActivities: (
+		companyId: number
+	) => Promise<IHistoryNotifications[]>;
 	getAllCompanyTeams: (id: number) => Promise<any>;
-	getAllCompaniesUserActivities: () => Promise<INotificationList[]>;
+	getAllCompaniesUserActivities: () => Promise<IHistoryNotifications[]>;
 	addEmployeeCsv: (
 		employee: string | undefined | null | ArrayBuffer
 	) => Promise<void>;
@@ -103,69 +86,7 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 	const [companiesWithMissingFunds, setCompaniesWithMissingFunds] = useState<
 		GetUserCompaniesRes[]
 	>([]);
-	const [filteredNotifications, setFilteredNotifications] =
-		useState<IHistoryNotification[]>(historyNotifications);
-
 	const neededFunds = 0;
-
-	const [notificationsList, setNotificationsList] = useState([
-		{
-			type: 'You made a deposit of $23,456.02',
-			date: '08 Aug 22, 20:57',
-			icon: '/icons/deposit.svg',
-		},
-		{
-			type: 'You created Kylie Cosmetics',
-			date: '08 Aug 22, 20:57',
-			icon: '/icons/deposit.svg',
-		},
-		{
-			type: '0x6856...BF99 added to Kylie Baby',
-			date: '08 Aug 22, 20:57',
-			icon: '/icons/deposit.svg',
-		},
-		{
-			type: 'Marketing Team created Kylie Skin',
-			date: '08 Aug 22, 20:57',
-			icon: '/icons/deposit.svg',
-		},
-		{
-			type: 'Marketing Team created Kylie Skin',
-			date: '08 Aug 22, 20:57',
-			icon: '/icons/deposit.svg',
-		},
-		{
-			type: 'Marketing Team created Kylie Skin',
-			date: '08 Aug 22, 20:57',
-			icon: '/icons/deposit.svg',
-		},
-	]);
-	const [activities, setActivities] = useState<IActivities[]>([
-		{
-			name: 'Kylie Cosmetics',
-			type: 'Deposit',
-			coin: 'USDT',
-			date: '08 Aug 22, 20:57',
-			status: translate('completed'),
-			value: 100063,
-		},
-		{
-			name: 'Kylie Skin',
-			type: 'Withdrawal',
-			coin: 'USDT',
-			date: '08 Aug 22, 20:57',
-			status: translate('completed'),
-			value: 19636,
-		},
-		{
-			name: 'Kylie Baby',
-			type: 'Team Created',
-			coin: 'USDT',
-			date: '08 Aug 22, 20:57',
-			status: translate('completed'),
-			value: 10,
-		},
-	]);
 
 	const getAllUserCompanies = async () => {
 		if (!wallet) throw new Error('User not connected');
@@ -360,9 +281,6 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 
 	const contextStates = useMemo(
 		() => ({
-			activities,
-			notificationsList,
-			setNotificationsList,
 			setEditedInfo,
 			editedInfo,
 			displayMissingFundsWarning,
@@ -370,8 +288,6 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 			displayNeedFundsCard,
 			setDisplayNeedFundsCard,
 			companiesWithMissingFunds,
-			filteredNotifications,
-			setFilteredNotifications,
 			getAllUserCompanies,
 			createCompany,
 			socialMediasData,
@@ -392,13 +308,10 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 		}),
 		[
 			selectedCompany,
-			activities,
-			notificationsList,
 			editedInfo,
 			displayMissingFundsWarning,
 			displayNeedFundsCard,
 			companiesWithMissingFunds,
-			filteredNotifications,
 			socialMediasData,
 			allUserCompanies,
 			setSocialMediasData,

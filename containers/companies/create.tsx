@@ -10,11 +10,10 @@ import { AppLayout, CompanyWhiteBackground } from 'layouts';
 import { mainClient, navigationPaths } from 'utils';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { CompaniesProvider } from 'contexts';
 import useTranslation from 'next-translate/useTranslation';
 import { useSession } from 'next-auth/react';
 import router from 'next/router';
-import { useCompanies, useSchema } from 'hooks';
+import { useSchema } from 'hooks';
 import { ICompany } from 'types/interfaces/main-server/ICompany';
 import { useState } from 'react';
 import { useMutation } from 'react-query';
@@ -27,6 +26,7 @@ import {
 } from 'wagmi';
 import factoryAbi from 'utils/abi/factory.json';
 import { MAIN_SERVICE_ROUTES } from 'helpers';
+import { CompaniesProvider } from 'contexts';
 
 interface ISelectedNetwork {
 	name: string;

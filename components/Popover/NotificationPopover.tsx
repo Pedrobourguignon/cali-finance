@@ -9,17 +9,18 @@ import {
 	Text,
 	PopoverCloseButton,
 } from '@chakra-ui/react';
-import { usePicasso } from 'hooks';
+import { usePicasso, useProfile } from 'hooks';
 import { useSession } from 'next-auth/react';
 import useTranslation from 'next-translate/useTranslation';
 import React from 'react';
 import { VscBellDot, VscBell } from 'react-icons/vsc';
 import { INotificationPopover } from 'types';
 import { NotificationComponent } from 'components';
+import { deleteNotifications } from 'services';
+import { useAccount } from 'wagmi';
+import { db } from 'utils';
 
 export const NotificationPopover: React.FC<INotificationPopover> = ({
-	notificationsList,
-	setNotificationsList,
 	onClose,
 	isOpen,
 	onOpen,
@@ -27,10 +28,15 @@ export const NotificationPopover: React.FC<INotificationPopover> = ({
 	const theme = usePicasso();
 	const { data: session } = useSession();
 	const { t: translate } = useTranslation('dashboard');
+	const { address } = useAccount();
+	const { setNotificationsList, notificationsList } = useProfile();
 
 	const clearAllNotifications = () => {
-		setNotificationsList([]);
-		onClose();
+		if (address) {
+			deleteNotifications(db, address);
+			setNotificationsList([]);
+			onClose();
+		}
 	};
 
 	return (
@@ -54,10 +60,11 @@ export const NotificationPopover: React.FC<INotificationPopover> = ({
 			<PopoverContent
 				boxShadow="xl"
 				borderRadius="base"
+				h="16.8rem"
 				minW={{ md: '14.1rem', lg: '18.8rem', xl: '23.5rem', '2xl': '28.2rem' }}
 			>
-				<PopoverBody bg="white" borderRadius="base">
-					<Flex fontSize="sm" py="3" bg="white">
+				<PopoverBody bg="white" borderRadius="base" h="16.8rem">
+					<Flex fontSize="sm" py="6" h="6" bg="white" align="center">
 						<Text
 							fontSize="md"
 							fontWeight="medium"
@@ -74,14 +81,14 @@ export const NotificationPopover: React.FC<INotificationPopover> = ({
 							_hover={{ color: 'theme.branding.blue', bg: 'none' }}
 							_focus={{ color: 'theme.branding.blue', bg: 'none' }}
 							w="max-content"
-							py="7"
+							pt="7"
 							onClick={() => clearAllNotifications()}
 						>
 							{translate('clearAll')}
 						</PopoverCloseButton>
 					</Flex>
 					<Flex
-						h="56"
+						h="12.5rem"
 						direction="column"
 						gap="2"
 						overflow="auto"

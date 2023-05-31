@@ -26,11 +26,9 @@ export const CompaniesHeader = () => {
 	const theme = usePicasso();
 	const { isSamePath } = usePath();
 	const { query } = useRouter();
-	const { totalCompanyBalanceInDolar } = useCompanies();
 	const { onClose, isOpen, onOpen } = useDisclosure();
 	const { t: translate } = useTranslation('company-overall');
-	const { setNotificationsList, notificationsList, getCompanyById } =
-		useCompanies();
+	const { getCompanyById, totalCompanyBalanceInDolar } = useCompanies();
 
 	const { data: session } = useSession({
 		required: true,
@@ -72,13 +70,11 @@ export const CompaniesHeader = () => {
 				</NavigationBack>
 				<Flex align="center" gap="2">
 					<NeedFundsCompaniesHeader />
-					{/* <NotificationPopover
-						setNotificationsList={setNotificationsList}
+					<NotificationPopover
 						onClose={onClose}
 						isOpen={isOpen}
 						onOpen={onOpen}
-						notificationsList={notificationsList}
-					/> */}
+					/>
 				</Flex>
 			</Flex>
 			<Flex w="100%" justify="space-between" align="center">

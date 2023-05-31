@@ -14,11 +14,15 @@ import {
 	ModalBody,
 	Icon,
 } from '@chakra-ui/react';
-import { ConnectWalletMobile, ChangeNetworkMobile } from 'components';
+import {
+	ConnectWalletMobile,
+	ChangeNetworkMobile,
+	NotificationModalMobile,
+} from 'components';
 import { usePicasso, useProfile } from 'hooks';
 import { useSession, signOut } from 'next-auth/react';
 import { useState } from 'react';
-import { INetwork, INotificationList } from 'types';
+import { INetwork } from 'types';
 import NextLink from 'next/link';
 import useTranslation from 'next-translate/useTranslation';
 import { getLogo, truncateWallet } from 'utils';
@@ -44,7 +48,7 @@ const networks: INetwork[] = [
 export const MobileHeader = () => {
 	const theme = usePicasso();
 	const { t: translate } = useTranslation('sidebar');
-	const { getProfileData } = useProfile();
+	const { getProfileData, notificationsList } = useProfile();
 	const { address: walletAddress, isConnected } = useAccount();
 	const { data: session } = useSession();
 	const { disconnect } = useDisconnect();
@@ -71,9 +75,6 @@ export const MobileHeader = () => {
 		}
 	);
 
-	const [notificationsList, setNotificationsList] = useState<
-		INotificationList[]
-	>([]);
 	const [networkData, setNetworkData] = useState<INetwork>({
 		name: 'Ethereum',
 		icon: '/images/bnbchain.png',
@@ -247,12 +248,10 @@ export const MobileHeader = () => {
 					networkIcon={networkData.icon}
 					networkName={networkData.name}
 				/>
-				{/* <NotificationModalMobile
+				<NotificationModalMobile
 					isOpen={isOpenNotifications}
 					onClose={onCloseNotifications}
-					setNotificationsList={setNotificationsList}
-					notificationsList={notificationsList}
-				/> */}
+				/>
 				<Button
 					bg="transparent"
 					onClick={onOpenNotifications}

@@ -14,7 +14,7 @@ import { useAccount } from 'wagmi';
 import useTranslation from 'next-translate/useTranslation';
 
 export const CompaniesConnected: React.FC = () => {
-	const { activities, getAllUserCompanies } = useCompanies();
+	const { getAllUserCompanies } = useCompanies();
 	const { isConnected } = useAccount();
 	const { t: translate } = useTranslation('dashboard');
 	const theme = usePicasso();
@@ -50,7 +50,7 @@ export const CompaniesConnected: React.FC = () => {
 							<CreateCompanyCard />
 						</Flex>
 					)}
-					{activities && <RecentActivities />}
+					<RecentActivities />
 				</Flex>
 			</Flex>
 		</AppLayout>
