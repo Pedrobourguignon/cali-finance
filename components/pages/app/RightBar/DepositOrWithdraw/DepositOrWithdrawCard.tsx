@@ -17,6 +17,8 @@ import { Dispatch, SetStateAction, useState } from 'react';
 import { IoIosArrowDown } from 'react-icons/io';
 import { ISelectedCoin, ITransaction } from 'types';
 import { yupResolver } from '@hookform/resolvers/yup';
+import companyAbi from 'utils/abi/company.json';
+import { useContractRead } from 'wagmi';
 
 interface IDepositOrWithdrawCard {
 	setTransaction: Dispatch<SetStateAction<ITransaction>>;
@@ -114,7 +116,6 @@ export const DepositOrWithdrawCard: React.FC<IDepositOrWithdrawCard> = ({
 									borderRightRadius="none"
 									_hover={{}}
 									color={theme.text.primary}
-									type="number"
 									zIndex="docked"
 									{...register('amount')}
 								/>
