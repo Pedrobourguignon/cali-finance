@@ -22,7 +22,7 @@ export const NotificationComponent: React.FC<{
 		>
 			<Flex gap="2" align="center" w="full">
 				<Img
-					src={notificationIcons[notification.meta.data.event].icon}
+					src={notificationIcons[notification.meta.data.event]?.icon}
 					boxSize="4"
 					color="black"
 				/>

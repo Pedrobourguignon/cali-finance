@@ -74,7 +74,7 @@ export const NotificationModalMobile: React.FC<INotificationPopover> = ({
 						>
 							<Flex gap="2" align="center" py="1" w="full">
 								<Img
-									src={notificationIcons[notification.meta.data.event].icon}
+									src={notificationIcons[notification.meta.data.event]?.icon}
 									boxSize="4"
 								/>
 								<Flex direction="column" justify="center">

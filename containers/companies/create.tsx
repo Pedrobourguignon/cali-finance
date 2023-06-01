@@ -137,9 +137,6 @@ export const CreateCompanyContainer = () => {
 		}
 	);
 
-
-	const { isLoading } = useWaitForTransaction({
-
 	const { data: dataa, isLoading } = useWaitForTransaction({
 		hash: data?.hash,
 		confirmations: 3,
