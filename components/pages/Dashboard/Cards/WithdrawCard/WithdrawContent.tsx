@@ -11,18 +11,23 @@ import {
 import { usePicasso } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
 import { IoIosArrowDown } from 'react-icons/io';
-import { ICompany } from 'types/interfaces/main-server/ICompany';
+import {
+	GetUserCompaniesRes,
+	ICompany,
+} from 'types/interfaces/main-server/ICompany';
 
 interface ISelectedCoin {
 	coin: { logo?: string; symbol: string };
 	onOpen: () => void;
 	userCompanies: ICompany[];
+	company: GetUserCompaniesRes;
 }
 
 export const WithdrawContent: React.FC<ISelectedCoin> = ({
 	coin,
 	onOpen,
 	userCompanies,
+	company,
 }) => {
 	const theme = usePicasso();
 	const { t: translate } = useTranslation('dashboard');
@@ -41,12 +46,13 @@ export const WithdrawContent: React.FC<ISelectedCoin> = ({
 					_hover={{}}
 					h="8"
 				>
-					<option disabled selected style={{ background: 'white' }}>
+					<option disabled style={{ background: 'white' }}>
 						{translate('selectAOrg')}
 					</option>
 					{userCompanies?.map((org, index) => (
 						<option
 							style={{ background: 'white', color: theme.text.primary }}
+							selected={org.name === company.name}
 							key={+index}
 							color="black"
 						>

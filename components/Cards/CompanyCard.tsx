@@ -72,6 +72,7 @@ export const CompanyCard: React.FC<ICompanyCard> = ({
 				isOpen={isOpen}
 				onClose={onClose}
 				userCompanies={userCompanies}
+				company={company}
 			/>
 			<Flex direction="column" pt="2.5" pl="4" color={theme.text.primary}>
 				<Flex align="center" gap={{ base: '1', xl: '2' }}>

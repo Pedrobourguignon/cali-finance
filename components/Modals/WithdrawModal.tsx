@@ -10,25 +10,30 @@ import {
 	useDisclosure,
 } from '@chakra-ui/react';
 import {
-	WithdrawButton,
 	WithdrawContent,
 	OffsetShadow,
 	TokenSelector,
+	WithdrawButton,
 } from 'components';
 import { usePicasso } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
 import { IBasicModal, ISelectedCoin } from 'types';
 import { useState } from 'react';
-import { ICompany } from 'types/interfaces/main-server/ICompany';
+import {
+	GetUserCompaniesRes,
+	ICompany,
+} from 'types/interfaces/main-server/ICompany';
 
 interface IWithdrawModal extends IBasicModal {
 	userCompanies: ICompany[];
+	company: GetUserCompaniesRes;
 }
 
 export const WithdrawModal: React.FC<IWithdrawModal> = ({
 	isOpen,
 	onClose,
 	userCompanies,
+	company,
 }) => {
 	const theme = usePicasso();
 	const [token, setToken] = useState<ISelectedCoin>({
@@ -70,11 +75,12 @@ export const WithdrawModal: React.FC<IWithdrawModal> = ({
 								coin={token}
 								onOpen={onOpenSelector}
 								userCompanies={userCompanies}
+								company={company}
 							/>
 						</ModalBody>
 
 						<ModalFooter>
-							<WithdrawButton />
+							<WithdrawButton onClose={onClose} />
 						</ModalFooter>
 					</Flex>
 				</OffsetShadow>

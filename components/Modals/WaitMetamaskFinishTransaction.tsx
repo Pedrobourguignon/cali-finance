@@ -61,7 +61,13 @@ export const WaitMetamaskFinishTransaction: React.FC<IBasicModal> = ({
 							>
 								{translate('waitingForConfirmation')}
 							</Text>
-							<Text fontSize="sm" color="black" textAlign="center" pb="4">
+							<Text
+								fontSize="sm"
+								h="12"
+								color="black"
+								textAlign="center"
+								pb="4"
+							>
 								{translate('pleaseConfirmTransaction')}
 							</Text>
 						</ModalBody>
