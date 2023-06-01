@@ -20,6 +20,7 @@ import { useMutation } from 'react-query';
 import { ISociaLinksInputValue } from 'types';
 import { AxiosError } from 'axios';
 import {
+	useContractRead,
 	useContractWrite,
 	usePrepareContractWrite,
 	useWaitForTransaction,
@@ -28,6 +29,7 @@ import factoryAbi from 'utils/abi/factory.json';
 import { MAIN_SERVICE_ROUTES } from 'helpers';
 import { useDebounce } from 'use-debounce';
 import { CompaniesProvider } from 'contexts';
+import companyAbi from 'utils/abi/company.json';
 
 interface ISelectedNetwork {
 	name: string;
@@ -44,12 +46,15 @@ export const CreateCompanyContainer = () => {
 	const [newCompanyPicture, setNewCompanyPicture] = useState('');
 	const [socialLinksInputValue, setSocialLinksInputValue] =
 		useState<ISociaLinksInputValue>({} as ISociaLinksInputValue);
-	const [companyContractName, setContractName] = useState('');
 	const [selectedType, setSelectedType] = useState<string>(
 		translate('pleaseSelect')
 	);
+	let algumId = 0;
 
-	const debouncedCompanyContractName = useDebounce(companyContractName, 500);
+	const debouncedCompanyIdentifier = useDebounce(
+		newCompanyId.toString(16),
+		500
+	);
 
 	const [selectedNetwork, setSelectedNetwork] = useState<ISelectedNetwork>({
 		name: translate('pleaseSelect'),
@@ -69,8 +74,12 @@ export const CreateCompanyContainer = () => {
 			.post(MAIN_SERVICE_ROUTES.createCompany, {
 				company,
 			})
-			.then(id => setNewCompanyId(id.data.id));
+			.then(id => {
+				algumId = id.data.id;
+				setNewCompanyId(id.data.id);
+			});
 	};
+	console.log(algumId);
 
 	const { data: session } = useSession({
 		required: true,
@@ -79,22 +88,27 @@ export const CreateCompanyContainer = () => {
 		},
 	});
 
+	// const { data: readData } = useContractRead({
+	// 	address: '0x9225B9623598960D1541936BDA441C48E6b24Ef7',
+	// 	abi: companyAbi,
+	// 	functionName: '_CompanyIdentifier',
+	// });
+
 	const { config: setupCreateCompanyContract } = usePrepareContractWrite({
-		address: '0x5690A0377E28ECE71880769eE9E8a47CbfDcDc4b',
+		address: '0xe6b7C4D29E3980F96EAc96689eB1154B10015339',
 		abi: factoryAbi,
 		functionName: 'createNewCompany',
-		args: [debouncedCompanyContractName[0]],
+		args: [debouncedCompanyIdentifier[0]],
 	});
 
-	const { data, writeAsync: createCompanyContract } = useContractWrite(
-		setupCreateCompanyContract
-	);
+	const { data: contractWriteData, writeAsync: createCompanyContract } =
+		useContractWrite(setupCreateCompanyContract);
 
 	const { mutate } = useMutation(
 		(createdCompanyData: ICompany) => createCompany(createdCompanyData),
 		{
-			onSuccess: async () => {
-				await createCompanyContract?.();
+			onSuccess: () => {
+				createCompanyContract?.();
 			},
 			onError: error => {
 				if (error instanceof AxiosError) {
@@ -137,8 +151,8 @@ export const CreateCompanyContainer = () => {
 		}
 	);
 
-	const { data: dataa, isLoading } = useWaitForTransaction({
-		hash: data?.hash,
+	const { isLoading } = useWaitForTransaction({
+		hash: contractWriteData?.hash,
 		confirmations: 3,
 		onSuccess() {
 			router.push(
@@ -165,7 +179,6 @@ export const CreateCompanyContainer = () => {
 		const { websiteURL, instagramURL, twitterURL, telegramURL, mediumURL } =
 			socialLinksInputValue;
 		const { name, contactEmail, description } = companyData;
-		setContractName(`${name}#${newCompanyId}`);
 		mutate({
 			name,
 			contactEmail,
