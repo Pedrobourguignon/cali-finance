@@ -26,6 +26,7 @@ import {
 } from 'wagmi';
 import factoryAbi from 'utils/abi/factory.json';
 import { MAIN_SERVICE_ROUTES } from 'helpers';
+import { useDebounce } from 'use-debounce';
 import { CompaniesProvider } from 'contexts';
 
 interface ISelectedNetwork {
@@ -43,10 +44,12 @@ export const CreateCompanyContainer = () => {
 	const [newCompanyPicture, setNewCompanyPicture] = useState('');
 	const [socialLinksInputValue, setSocialLinksInputValue] =
 		useState<ISociaLinksInputValue>({} as ISociaLinksInputValue);
-	let companyContractName: string | undefined = '';
+	const [companyContractName, setContractName] = useState('');
 	const [selectedType, setSelectedType] = useState<string>(
 		translate('pleaseSelect')
 	);
+
+	const debouncedCompanyContractName = useDebounce(companyContractName, 500);
 
 	const [selectedNetwork, setSelectedNetwork] = useState<ISelectedNetwork>({
 		name: translate('pleaseSelect'),
@@ -77,10 +80,10 @@ export const CreateCompanyContainer = () => {
 	});
 
 	const { config: setupCreateCompanyContract } = usePrepareContractWrite({
-		address: '0x0b077ae7543c05aa5049423b2466931cd4bc82b0',
+		address: '0x5690A0377E28ECE71880769eE9E8a47CbfDcDc4b',
 		abi: factoryAbi,
 		functionName: 'createNewCompany',
-		args: [companyContractName],
+		args: [debouncedCompanyContractName[0]],
 	});
 
 	const { data, writeAsync: createCompanyContract } = useContractWrite(
@@ -162,7 +165,7 @@ export const CreateCompanyContainer = () => {
 		const { websiteURL, instagramURL, twitterURL, telegramURL, mediumURL } =
 			socialLinksInputValue;
 		const { name, contactEmail, description } = companyData;
-		companyContractName = `${name}#${newCompanyId}`;
+		setContractName(`${name}#${newCompanyId}`);
 		mutate({
 			name,
 			contactEmail,

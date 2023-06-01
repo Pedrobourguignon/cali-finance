@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 import {
 	Flex,
 	Img,
@@ -13,6 +14,9 @@ import { getLogo, handleLogoImage, navigationPaths } from 'utils';
 import NextLink from 'next/link';
 import { GetUserCompaniesRes } from 'types/interfaces/main-server/ICompany';
 import { WithdrawModal } from 'components';
+import { useContractRead } from 'wagmi';
+import companyABI from 'utils/abi/company.json';
+import { BigNumber } from 'ethers';
 
 interface ICompanyCard {
 	company: GetUserCompaniesRes;
@@ -29,6 +33,23 @@ export const CompanyCard: React.FC<ICompanyCard> = ({
 	const { totalCompanyBalanceInDolar } = useCompanies();
 	const { t: translate } = useTranslation('companies');
 	const { isOpen, onOpen, onClose } = useDisclosure();
+
+	// TODO: get the company contract address from the event watcher
+	const { data: employeeBalance } = useContractRead({
+		address: '0x740Aa0f13f0008d2Ac030e89F5b7e5860925D557',
+		abi: companyABI,
+		functionName: 'getSingleBalance',
+		args: ['0x969Cf86eeb3f9354D89f357c8dFe43DE8e645148'],
+	});
+
+	const fundsOrAvailableWithdraw = () => {
+		if (!company.isAdmin && employeeBalance) {
+			return `$ ${Number(
+				(employeeBalance as BigNumber)._hex
+			).toLocaleString()}`;
+		}
+		return `$ ${totalCompanyBalanceInDolar.toLocaleString()}`;
+	};
 
 	return (
 		<Flex
@@ -94,7 +115,7 @@ export const CompanyCard: React.FC<ICompanyCard> = ({
 							Number.isNaN(totalCompanyBalanceInDolar) ? (
 								<Skeleton w="10" h="4" />
 							) : (
-								`$ ${totalCompanyBalanceInDolar.toLocaleString()}`
+								fundsOrAvailableWithdraw()
 							)}
 						</Text>
 					</Flex>

@@ -5,11 +5,6 @@
 		"type": "constructor"
 	},
 	{
-		"inputs": [],
-		"name": "NotOwner",
-		"type": "error"
-	},
-	{
 		"anonymous": false,
 		"inputs": [
 			{
@@ -77,6 +72,25 @@
 			}
 		],
 		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "_companyIdentifier",
+				"type": "string"
+			}
+		],
+		"name": "createNewCompany",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
