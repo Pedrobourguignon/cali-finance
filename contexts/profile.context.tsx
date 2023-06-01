@@ -8,9 +8,16 @@ import {
 	useMutation,
 	useQuery,
 } from 'react-query';
-import { ICoin, INotificationList, ISelectedCoin, IWalletData } from 'types';
+import { getNotifications } from 'services';
+import {
+	ICoin,
+	IHistoryNotifications,
+	INotificationList,
+	ISelectedCoin,
+	IWalletData,
+} from 'types';
 import { IUser } from 'types/interfaces/main-server/IUser';
-import { mainClient } from 'utils';
+import { db, mainClient } from 'utils';
 import { useAccount } from 'wagmi';
 
 interface IProfileContext {
@@ -24,7 +31,7 @@ interface IProfileContext {
 	) => Promise<void>;
 	updateProfile: (profileData: IUser) => Promise<void>;
 	getProfileData: (wallet: `0x${string}` | undefined) => Promise<any>;
-	getUserActivities: (limit: number) => Promise<any>;
+	getUserActivities: (limit: number) => Promise<IHistoryNotifications[]>;
 	favoriteCoins: ICoin[];
 	refetchUserData: <TPageData>(
 		options?: (RefetchOptions & RefetchQueryFilters<TPageData>) | undefined
@@ -32,6 +39,10 @@ interface IProfileContext {
 	isLoadingUserData: boolean;
 	setSelectedToken: React.Dispatch<React.SetStateAction<ISelectedCoin>>;
 	cardItems: ICoin[];
+	setNotificationsList: React.Dispatch<
+		React.SetStateAction<INotificationList[]>
+	>;
+	notificationsList: INotificationList[];
 }
 
 export const ProfileContext = createContext({} as IProfileContext);
@@ -41,6 +52,9 @@ export const ProfileProvider: React.FC<{ children: React.ReactNode }> = ({
 }) => {
 	const { address: walletAddress, isConnected } = useAccount();
 	const { getCoinServiceTokens } = useTokens();
+	const [notificationsList, setNotificationsList] = useState<
+		INotificationList[]
+	>([]);
 
 	const [walletData, setWalletData] = useState<IWalletData>({
 		name: '',
@@ -113,6 +127,17 @@ export const ProfileProvider: React.FC<{ children: React.ReactNode }> = ({
 		}
 	);
 
+	useEffect(() => {
+		if (walletAddress) {
+			const fetchNotifications = async () => {
+				const recentActivities = await getNotifications(db, walletAddress);
+				if (recentActivities)
+					setNotificationsList(recentActivities?.notifications);
+			};
+			fetchNotifications();
+		}
+	}, []);
+
 	const { data: coinServiceTokens, refetch: refetchCoinServiceTokens } =
 		useQuery('get-coin-data', () => getCoinServiceTokens(symbols.toString()));
 
@@ -168,10 +193,13 @@ export const ProfileProvider: React.FC<{ children: React.ReactNode }> = ({
 							coin => coin.symbol.toLowerCase() === item.symbol.toLowerCase()
 						)
 					) {
-						const logo = Object.values(favoriteCoins).find(
-							token => token.symbol.toLowerCase() === item.symbol.toLowerCase()
-						);
-						acc.push({ ...item, ...logo });
+						if (favoriteCoins) {
+							const logo = Object.values(favoriteCoins).find(
+								token =>
+									token.symbol.toLowerCase() === item.symbol.toLowerCase()
+							);
+							acc.push({ ...item, ...logo });
+						}
 					}
 				return acc;
 			}, [] as ICoin[]);
@@ -221,6 +249,8 @@ export const ProfileProvider: React.FC<{ children: React.ReactNode }> = ({
 			isLoadingUserData,
 			setSelectedToken,
 			cardItems,
+			setNotificationsList,
+			notificationsList,
 		}),
 		[
 			walletData,
@@ -229,6 +259,7 @@ export const ProfileProvider: React.FC<{ children: React.ReactNode }> = ({
 			refetchUserData,
 			isLoadingUserData,
 			cardItems,
+			notificationsList,
 		]
 	);
 

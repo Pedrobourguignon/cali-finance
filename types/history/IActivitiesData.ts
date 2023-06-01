@@ -1,7 +1,5 @@
-import { ICompany } from 'types/interfaces/main-server/ICompany';
-import { INotificationList } from 'types/popover';
+import { IHistoryNotifications } from 'types';
 
 export interface IActivitiesData {
-	activities: INotificationList;
-	company?: ICompany;
+	activities: IHistoryNotifications;
 }

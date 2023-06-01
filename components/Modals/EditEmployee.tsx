@@ -27,6 +27,7 @@ import {
 	EditProfileIcon,
 	TokenSelector,
 	AlertToast,
+	WaitMetamaskFinishTransaction,
 } from 'components';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -34,6 +35,13 @@ import { mainClient, truncateWallet } from 'utils';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { AxiosError } from 'axios';
 import useTranslation from 'next-translate/useTranslation';
+import {
+	useContractWrite,
+	usePrepareContractWrite,
+	useWaitForTransaction,
+} from 'wagmi';
+import companyAbi from 'utils/abi/company.json';
+import { useDebounce } from 'use-debounce';
 
 export const EditEmployee: React.FC<IEditEmployee> = ({
 	isOpen,
@@ -56,12 +64,14 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 		symbol: 'BTC',
 	} as ISelectedCoin);
 	const bitcoinPrice = 87586;
+	const debouncedEmployeeAmount = useDebounce(editedEmployeeData.amount, 500);
 
 	const {
 		isOpen: isOpenTokenSelector,
 		onOpen: onOpenTokenSelector,
 		onClose: onCloseTokenSelector,
 	} = useDisclosure();
+	const { onClose: onCloseLoadingConfirmation } = useDisclosure();
 
 	const labelStyle: TextProps = {
 		color: 'black',
@@ -110,23 +120,55 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 		{ enabled: false }
 	);
 
+	// TODO: update address
+	const { config: editEmployeeConfig } = usePrepareContractWrite({
+		address: '0x8409809BdF2424C45Fb85DB7768daC6026e95602',
+		abi: companyAbi,
+		functionName: 'updateEmployeeSalary',
+		args: [employee.wallet, debouncedEmployeeAmount[0]],
+		enabled: editedEmployeeData.amount !== 0,
+	});
+	const { data: editEmployeeData, write: editEmployeeWrite } =
+		useContractWrite(editEmployeeConfig);
+
+	const { isLoading: useWaitForTransactionLoading } = useWaitForTransaction({
+		hash: editEmployeeData?.hash,
+		confirmations: 3,
+		onSuccess() {
+			handleResetFormInputs();
+			toast({
+				position: 'top',
+				render: () => (
+					<AlertToast
+						onClick={toast.closeAll}
+						text="employeeDataChangedWithSuccessfully"
+						type="success"
+					/>
+				),
+			});
+		},
+		onError() {
+			handleResetFormInputs();
+			toast({
+				position: 'top',
+				render: () => (
+					<AlertToast
+						onClick={toast.closeAll}
+						text="weAreWorkingToSolve"
+						type="error"
+					/>
+				),
+			});
+		},
+	});
+
 	const { mutate } = useMutation(
 		(newDataOfEmployee: IEditedEmployeeInfo) =>
 			updateEmployee(newDataOfEmployee, teams[0].id),
 		{
 			onSuccess: () => {
 				queryClient.invalidateQueries('all-company-employees');
-				handleResetFormInputs();
-				toast({
-					position: 'top',
-					render: () => (
-						<AlertToast
-							onClick={toast.closeAll}
-							text="employeeDataChangedWithSuccessfully"
-							type="success"
-						/>
-					),
-				});
+				editEmployeeWrite?.();
 			},
 			onError: error => {
 				if (error instanceof AxiosError) {
@@ -158,10 +200,10 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 		}
 	);
 
-	const handleEditEmployee = () => {
+	const handleEditEmployee = (editedEmployee: IEditedEmployeeInfo) => {
 		mutate({
 			asset: token.symbol,
-			revenue: editedEmployeeData.amount,
+			revenue: editedEmployee.revenue,
 			userAddress: employee.wallet,
 		});
 	};
@@ -173,6 +215,10 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 				isOpen={isOpenTokenSelector}
 				onClose={onCloseTokenSelector}
 				setToken={setToken}
+			/>
+			<WaitMetamaskFinishTransaction
+				isOpen={useWaitForTransactionLoading}
+				onClose={onCloseLoadingConfirmation}
 			/>
 			<ModalContent
 				m="auto"

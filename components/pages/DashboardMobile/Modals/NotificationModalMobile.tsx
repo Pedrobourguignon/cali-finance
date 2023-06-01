@@ -1,18 +1,20 @@
 import { Flex, Img, ModalCloseButton, Text } from '@chakra-ui/react';
-import { usePicasso } from 'hooks';
+import { usePicasso, useProfile } from 'hooks';
 import { MobileModalLayout } from 'layouts';
 import useTranslation from 'next-translate/useTranslation';
+import { useRouter } from 'next/router';
 import React from 'react';
 import { INotificationPopover } from 'types';
+import { dateHandler, notificationIcons } from 'utils';
 
 export const NotificationModalMobile: React.FC<INotificationPopover> = ({
-	notificationsList,
-	setNotificationsList,
 	onClose,
 	isOpen,
 }) => {
 	const theme = usePicasso();
 	const { t: translate } = useTranslation('dashboard');
+	const { notificationsList } = useProfile();
+	const { locale } = useRouter();
 	return (
 		<MobileModalLayout isOpen={isOpen} onClose={onClose}>
 			<Flex
@@ -70,21 +72,24 @@ export const NotificationModalMobile: React.FC<INotificationPopover> = ({
 							align="center"
 							px="3"
 						>
-							{/* <Flex gap="2" align="center" py="1" w="full">
-								<Img src={notification.} boxSize="4" />
+							<Flex gap="2" align="center" py="1" w="full">
+								<Img
+									src={notificationIcons[notification.meta.data.event].icon}
+									boxSize="4"
+								/>
 								<Flex direction="column" justify="center">
 									<Text
 										color={theme.text.primary}
 										fontSize="sm"
 										fontWeight="normal"
 									>
-										{notification.type}
+										{notification.meta.description[locale!]}
 									</Text>
 									<Text color="gray.500" fontSize="xs">
-										{notification.date}
+										{dateHandler(notification.created_at)}
 									</Text>
 								</Flex>
-							</Flex> */}
+							</Flex>
 						</Flex>
 					))}
 				</Flex>

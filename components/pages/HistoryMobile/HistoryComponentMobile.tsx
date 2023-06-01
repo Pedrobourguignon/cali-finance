@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable no-unsafe-optional-chaining */
 import {
 	Flex,
@@ -20,11 +19,9 @@ import { useSession } from 'next-auth/react';
 import useTranslation from 'next-translate/useTranslation';
 import React, { useMemo, useState, useEffect } from 'react';
 import { BiChevronDown } from 'react-icons/bi';
-import { IHistoryPage, INotificationList } from 'types';
+import { IHistoryNotifications, IHistoryPage } from 'types';
 
-export const HistoryComponentMobile: React.FC<IHistoryPage> = ({
-	notifications,
-}) => {
+export const HistoryComponentMobile: React.FC<IHistoryPage> = ({ history }) => {
 	const { t: translate } = useTranslation('history-page');
 	const theme = usePicasso();
 	const [selectedFilterOption, setSelectedFilterOption] = useState<string>(
@@ -33,8 +30,8 @@ export const HistoryComponentMobile: React.FC<IHistoryPage> = ({
 	const [pageNumber, setPageNumber] = useState(0);
 	const { data: session } = useSession();
 	const [filteredActivities, setFilteredActivities] = useState<
-		INotificationList[]
-	>(notifications!);
+		IHistoryNotifications[]
+	>(history!);
 
 	const notificationPerPage = 7;
 	const maxPage = useMemo(
@@ -63,12 +60,10 @@ export const HistoryComponentMobile: React.FC<IHistoryPage> = ({
 
 	const handleActivitiesFilterButton = (filter: string) => {
 		setFilteredActivities(
-			notifications!.filter(
-				notification => notification.event.description === filter
-			)
+			history!.filter(notification => notification.event.description === filter)
 		);
 		if (filter === translate('all')) {
-			setFilteredActivities(notifications!);
+			setFilteredActivities(history!);
 		}
 		setSelectedFilterOption(filter);
 	};
@@ -78,8 +73,13 @@ export const HistoryComponentMobile: React.FC<IHistoryPage> = ({
 	}, [filteredActivities]);
 
 	useEffect(() => {
-		setFilteredActivities(notifications!);
-	}, [notifications]);
+		setFilteredActivities(history!);
+	}, [history]);
+
+	const returnToAllResults = () => {
+		setFilteredActivities(history!);
+		setSelectedFilterOption(translate('all'));
+	};
 
 	return (
 		<MobileLayout>
@@ -181,10 +181,7 @@ export const HistoryComponentMobile: React.FC<IHistoryPage> = ({
 											whiteSpace="normal"
 											fontWeight="semibold"
 											cursor="pointer"
-											onClick={() => {
-												setFilteredActivities(notifications!);
-												setSelectedFilterOption(translate('all'));
-											}}
+											onClick={returnToAllResults}
 										>
 											{translate('returnToAllResults')}
 										</Text>{' '}
