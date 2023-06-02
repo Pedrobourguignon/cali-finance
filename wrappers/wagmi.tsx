@@ -1,4 +1,4 @@
-import { WagmiConfig, createClient, configureChains } from 'wagmi';
+import { WagmiConfig, createConfig, configureChains } from 'wagmi';
 import { bsc, mainnet, polygonMumbai } from 'wagmi/chains';
 import { alchemyProvider } from 'wagmi/providers/alchemy';
 import { publicProvider } from 'wagmi/providers/public';
@@ -9,7 +9,7 @@ import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
 import { RPCs } from 'helpers';
 
 // Set up chains
-const { chains, provider, webSocketProvider } = configureChains(
+const { chains, publicClient, webSocketPublicClient } = configureChains(
 	[mainnet, bsc, polygonMumbai],
 	[
 		alchemyProvider({ apiKey: RPCs.alchemy.mainnet as string }),
@@ -20,7 +20,7 @@ const { chains, provider, webSocketProvider } = configureChains(
 );
 
 // Set up client
-const client = createClient({
+const config = createConfig({
 	autoConnect: true,
 	connectors: [
 		new MetaMaskConnector({ chains }),
@@ -33,7 +33,10 @@ const client = createClient({
 		new WalletConnectConnector({
 			chains,
 			options: {
-				qrcode: true,
+				projectId: process.env.NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID
+					? process.env.NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID
+					: '',
+				showQrModal: true,
 			},
 		}),
 		new InjectedConnector({
@@ -51,8 +54,8 @@ const client = createClient({
 		// 	},
 		// }),
 	],
-	provider,
-	webSocketProvider,
+	publicClient,
+	webSocketPublicClient,
 });
 
 // Set up wrapper interface
@@ -62,5 +65,5 @@ interface ProviderProps {
 
 // Set up wrapper component
 export const WagmiWrapper: React.FC<ProviderProps> = ({ children }) => (
-	<WagmiConfig client={client}>{children}</WagmiConfig>
+	<WagmiConfig config={config}>{children}</WagmiConfig>
 );

@@ -47,12 +47,8 @@ export const ConfirmTransaction: React.FC<IConfirmTransaction> = ({
 
 	const { config: sendTransactionConfig } = usePrepareSendTransaction({
 		enabled: enabledTransaction,
-		request: {
-			to: '0x8409809BdF2424C45Fb85DB7768daC6026e95602',
-			value: debouncedAmount
-				? parseEther(debouncedAmount.toString())
-				: undefined,
-		},
+		to: '0x8409809BdF2424C45Fb85DB7768daC6026e95602',
+		value: debouncedAmount ? BigInt(debouncedAmount) : undefined,
 		onError: (error: any) => {
 			toast({
 				position: 'top',

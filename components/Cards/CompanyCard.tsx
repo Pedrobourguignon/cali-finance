@@ -16,7 +16,6 @@ import { GetUserCompaniesRes } from 'types/interfaces/main-server/ICompany';
 import { WithdrawModal } from 'components';
 import { useContractRead } from 'wagmi';
 import companyABI from 'utils/abi/company.json';
-import { BigNumber } from 'ethers';
 
 interface ICompanyCard {
 	company: GetUserCompaniesRes;
@@ -44,9 +43,7 @@ export const CompanyCard: React.FC<ICompanyCard> = ({
 
 	const fundsOrAvailableWithdraw = () => {
 		if (!company.isAdmin && employeeBalance) {
-			return `$ ${Number(
-				(employeeBalance as BigNumber)._hex
-			).toLocaleString()}`;
+			return `$ ${Number(employeeBalance).toLocaleString()}`;
 		}
 		return `$ ${totalCompanyBalanceInDolar.toLocaleString()}`;
 	};
