@@ -23,7 +23,7 @@ import { useEffect } from 'react';
 interface IWallet {
 	name: string;
 	icon: string;
-	connector?: Connector<any, any, any>;
+	connector?: Connector;
 }
 
 export const WalletsOptionsModal: React.FC<IWalletOptionsModal> = ({

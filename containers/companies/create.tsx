@@ -19,14 +19,9 @@ import { useState } from 'react';
 import { useMutation } from 'react-query';
 import { ISociaLinksInputValue } from 'types';
 import { AxiosError } from 'axios';
-import {
-	useContractWrite,
-	usePrepareContractWrite,
-	useWaitForTransaction,
-} from 'wagmi';
+import { useContractWrite, useWaitForTransaction } from 'wagmi';
 import factoryAbi from 'utils/abi/factory.json';
 import { MAIN_SERVICE_ROUTES } from 'helpers';
-import { useDebounce } from 'use-debounce';
 import { CompaniesProvider } from 'contexts';
 
 interface ISelectedNetwork {
@@ -39,17 +34,14 @@ export const CreateCompanyContainer = () => {
 	const { createCompanySchema } = useSchema();
 	const toast = useToast();
 	const { onClose } = useDisclosure();
-	const [newCompanyId, setNewCompanyId] = useState<number>(0);
+	const [newCompanyId, setNewCompanyId] = useState(0);
 	const { t: translate } = useTranslation('create-company');
 	const [newCompanyPicture, setNewCompanyPicture] = useState('');
 	const [socialLinksInputValue, setSocialLinksInputValue] =
 		useState<ISociaLinksInputValue>({} as ISociaLinksInputValue);
-	const [companyContractName, setContractName] = useState('');
 	const [selectedType, setSelectedType] = useState<string>(
 		translate('pleaseSelect')
 	);
-
-	const debouncedCompanyContractName = useDebounce(companyContractName, 500);
 
 	const [selectedNetwork, setSelectedNetwork] = useState<ISelectedNetwork>({
 		name: translate('pleaseSelect'),
@@ -64,12 +56,34 @@ export const CreateCompanyContainer = () => {
 		resolver: yupResolver(createCompanySchema),
 	});
 
+	const { write: createCompanyWrite, data: createCompanyData } =
+		useContractWrite({
+			address: '0xe6b7C4D29E3980F96EAc96689eB1154B10015339',
+			abi: factoryAbi,
+			functionName: 'createNewCompany',
+		});
+
 	const createCompany = async (company: ICompany) => {
-		await mainClient
-			.post(MAIN_SERVICE_ROUTES.createCompany, {
+		try {
+			const {
+				data: { id },
+			} = await mainClient.post(MAIN_SERVICE_ROUTES.createCompany, {
 				company,
-			})
-			.then(id => setNewCompanyId(id.data.id));
+			});
+			setNewCompanyId(id);
+			createCompanyWrite?.({ args: [id.toString(16)] });
+		} catch (error) {
+			toast({
+				position: 'top',
+				render: () => (
+					<AlertToast
+						onClick={toast.closeAll}
+						text="weAreWorkingToSolve"
+						type="error"
+					/>
+				),
+			});
+		}
 	};
 
 	const { data: session } = useSession({
@@ -79,23 +93,41 @@ export const CreateCompanyContainer = () => {
 		},
 	});
 
-	const { config: setupCreateCompanyContract } = usePrepareContractWrite({
-		address: '0x5690A0377E28ECE71880769eE9E8a47CbfDcDc4b',
-		abi: factoryAbi,
-		functionName: 'createNewCompany',
-		args: [debouncedCompanyContractName[0]],
+	const { isLoading } = useWaitForTransaction({
+		hash: createCompanyData?.hash,
+		confirmations: 3,
+		onSuccess() {
+			toast({
+				position: 'top',
+				render: () => (
+					<AlertToast
+						onClick={toast.closeAll}
+						text="employeeAdded"
+						type="success"
+					/>
+				),
+			});
+			router.push(
+				navigationPaths.dashboard.companies.overview(newCompanyId.toString())
+			);
+		},
+		onError() {
+			toast({
+				position: 'top',
+				render: () => (
+					<AlertToast
+						onClick={toast.closeAll}
+						text="weAreWorkingToSolve"
+						type="error"
+					/>
+				),
+			});
+		},
 	});
-
-	const { data, writeAsync: createCompanyContract } = useContractWrite(
-		setupCreateCompanyContract
-	);
 
 	const { mutate } = useMutation(
 		(createdCompanyData: ICompany) => createCompany(createdCompanyData),
 		{
-			onSuccess: async () => {
-				await createCompanyContract?.();
-			},
 			onError: error => {
 				if (error instanceof AxiosError) {
 					if (error.response?.data.message === 'Unique company name') {
@@ -137,26 +169,6 @@ export const CreateCompanyContainer = () => {
 		}
 	);
 
-	const { data: dataa, isLoading } = useWaitForTransaction({
-		hash: data?.hash,
-		confirmations: 3,
-		onSuccess() {
-			router.push(
-				navigationPaths.dashboard.companies.overview(newCompanyId.toString())
-			);
-			toast({
-				position: 'top',
-				render: () => (
-					<AlertToast
-						onClick={toast.closeAll}
-						text="companyCreatedWithSuccess"
-						type="success"
-					/>
-				),
-			});
-		},
-	});
-
 	const handleNewPicture = (picture: string) => {
 		setNewCompanyPicture(picture);
 	};
@@ -165,7 +177,6 @@ export const CreateCompanyContainer = () => {
 		const { websiteURL, instagramURL, twitterURL, telegramURL, mediumURL } =
 			socialLinksInputValue;
 		const { name, contactEmail, description } = companyData;
-		setContractName(`${name}#${newCompanyId}`);
 		mutate({
 			name,
 			contactEmail,
