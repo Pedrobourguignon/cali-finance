@@ -47,7 +47,7 @@ interface ICompanyContext {
 	addEmployeeToTeam: (employee: INewEmployee) => Promise<void>;
 	allUserCompanies: GetUserCompaniesRes[];
 	selectedCompany: ICompany;
-	totalCompanyBalanceInDolar: number;
+	totalCompanyBalanceInDollar: number;
 	companiesWithMissingFunds: GetUserCompaniesRes[];
 	getCompanieActivities: (
 		companyId: number
@@ -225,10 +225,10 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 		return response.data;
 	};
 
-	const [totalCompanyBalanceInDolar, setTotalCompanyBalanceInDolar] =
+	const [totalCompanyBalanceInDollar, setTotalCompanyBalanceInDollar] =
 		useState<number>(-1);
 	const contractCompanyAssetsData: IUseBalance[] = [];
-	const companyAssetsDolarQuotation: number[] = [];
+	const companyAssetsDollarQuotation: number[] = [];
 
 	// TODO: update address when the event watcher is ready
 	const { data: companyBalance, refetch } = useBalance({
@@ -247,7 +247,7 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 		contractCompanyAssetsData.push(companyBalance);
 	}
 
-	const { data: companyAssetsInDolar } = useQuery(['get-coin-data'], () =>
+	const { data: companyAssetsInDollar } = useQuery(['get-coin-data'], () =>
 		getCoinServiceTokens(
 			contractCompanyAssetsData.map(asset => asset.symbol).toString()
 		)
@@ -255,17 +255,17 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 
 	useEffect(() => {
 		// get the value of the quotation of all assets in the company's contract and put in an array
-		if (companyAssetsInDolar) {
-			for (const key in companyAssetsInDolar) {
-				if (companyAssetsInDolar.hasOwnProperty(key)) {
-					companyAssetsDolarQuotation.push(companyAssetsInDolar[key]?.value);
+		if (companyAssetsInDollar) {
+			for (const key in companyAssetsInDollar) {
+				if (companyAssetsInDollar.hasOwnProperty(key)) {
+					companyAssetsDollarQuotation.push(companyAssetsInDollar[key]?.value);
 				}
 			}
 			// maps the array of assets and the array of quotes, multiplying the respective index
 			// sum all values and set the final dolar balance state to show in the company header
-			const multiplyAssetsToDolar = () => {
+			const multiplyAssetsToDollar = () => {
 				const dolarValues = contractCompanyAssetsData.map(asset =>
-					companyAssetsDolarQuotation.map(
+					companyAssetsDollarQuotation.map(
 						assetQuotation => Number(asset.formatted) * assetQuotation
 					)
 				);
@@ -273,9 +273,9 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 					(partialSum, acc) => partialSum + acc,
 					0
 				);
-				setTotalCompanyBalanceInDolar(sumAllDolarValues);
+				setTotalCompanyBalanceInDollar(sumAllDolarValues);
 			};
-			multiplyAssetsToDolar();
+			multiplyAssetsToDollar();
 		}
 	}, [contractCompanyAssetsData]);
 
@@ -304,7 +304,7 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 			getCompanieActivities,
 			getAllCompanyTeams,
 			getAllCompaniesUserActivities,
-			totalCompanyBalanceInDolar,
+			totalCompanyBalanceInDollar,
 		}),
 		[
 			selectedCompany,
