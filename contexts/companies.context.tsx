@@ -247,7 +247,7 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 		contractCompanyAssetsData.push(companyBalance);
 	}
 
-	const { data: companyAssetsInDolar } = useQuery('get-coin-data', () =>
+	const { data: companyAssetsInDolar } = useQuery(['get-coin-data'], () =>
 		getCoinServiceTokens(
 			contractCompanyAssetsData.map(asset => asset.symbol).toString()
 		)
