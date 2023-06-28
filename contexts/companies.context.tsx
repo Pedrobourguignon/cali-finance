@@ -262,18 +262,18 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 				}
 			}
 			// maps the array of assets and the array of quotes, multiplying the respective index
-			// sum all values and set the final dolar balance state to show in the company header
+			// sum all values and set the final Dollar balance state to show in the company header
 			const multiplyAssetsToDollar = () => {
-				const dolarValues = contractCompanyAssetsData.map(asset =>
+				const DollarValues = contractCompanyAssetsData.map(asset =>
 					companyAssetsDollarQuotation.map(
 						assetQuotation => Number(asset.formatted) * assetQuotation
 					)
 				);
-				const sumAllDolarValues = dolarValues[0].reduce(
+				const sumAllDollarValues = DollarValues[0].reduce(
 					(partialSum, acc) => partialSum + acc,
 					0
 				);
-				setTotalCompanyBalanceInDollar(sumAllDolarValues);
+				setTotalCompanyBalanceInDollar(sumAllDollarValues);
 			};
 			multiplyAssetsToDollar();
 		}
