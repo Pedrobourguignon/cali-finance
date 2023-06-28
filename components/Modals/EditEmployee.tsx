@@ -122,7 +122,7 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 
 	// TODO: update address
 	const { config: editEmployeeConfig } = usePrepareContractWrite({
-		address: '0x8409809BdF2424C45Fb85DB7768daC6026e95602',
+		address: '0xad2a9cfbf3641d8d4d212cdf2a6966d53c5c0144',
 		abi: companyAbi,
 		functionName: 'updateEmployeeSalary',
 		args: [employee.wallet, debouncedEmployeeAmount[0]],
@@ -248,7 +248,7 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 								>
 									{translate('editEmployee')}
 								</Text>
-								<Text color={theme.text.primary} fontSize="sm">
+								<Text color={theme.text.primary} fontSize="sm" maxW="72">
 									{employee.name} - {truncateWallet(employee?.wallet)}
 								</Text>
 							</Flex>

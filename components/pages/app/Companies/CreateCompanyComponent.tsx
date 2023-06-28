@@ -27,6 +27,7 @@ import { FieldErrors, UseFormRegister } from 'react-hook-form/dist/types';
 interface ICreateCompanyComponent {
 	register: UseFormRegister<ICompany>;
 	errors: FieldErrors<ICompany>;
+	isValid: boolean;
 	setSelectedType: Dispatch<SetStateAction<string>>;
 	selectedType: string;
 	selectedNetwork: {
@@ -70,6 +71,7 @@ export const CreateCompanyComponent: React.FC<ICreateCompanyComponent> = ({
 	selectedType,
 	setSelectedNetwork,
 	setSelectedType,
+	isValid,
 }) => {
 	const theme = usePicasso();
 	const { t: translate } = useTranslation('create-company');
@@ -330,7 +332,8 @@ export const CreateCompanyComponent: React.FC<ICreateCompanyComponent> = ({
 						isDisabled={
 							selectedType === translate('pleaseSelect') ||
 							selectedNetwork.id === 0 ||
-							!!errors?.name
+							!!errors?.name ||
+							!isValid
 						}
 						fontWeight="medium"
 						fontSize="md"

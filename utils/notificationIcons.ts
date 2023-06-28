@@ -5,7 +5,7 @@ export const notificationIcons: { [key: string]: { icon: string } } = {
 	company_updated: {
 		icon: '/icons/companies.svg',
 	},
-	company_add_to_company: {
+	company_added_member: {
 		icon: '/icons/add-user.svg',
 	},
 	company_deleted: {
@@ -26,7 +26,7 @@ export const notificationIcons: { [key: string]: { icon: string } } = {
 	user_settings_updated: {
 		icon: '/icons/add-user.svg',
 	},
-	team_add_user_to_team: {
+	team_member_added: {
 		icon: '/icons/add-user.svg',
 	},
 	team_updated: {
@@ -41,10 +41,10 @@ export const notificationIcons: { [key: string]: { icon: string } } = {
 	team_deleted: {
 		icon: '/icons/add-user.svg',
 	},
-	user_add_user_to_team: {
+	user_added_to_team: {
 		icon: '/icons/add-user.svg',
 	},
-	user_add_user_to_company: {
+	user_added_to_company: {
 		icon: '/icons/add-user.svg',
 	},
 };
