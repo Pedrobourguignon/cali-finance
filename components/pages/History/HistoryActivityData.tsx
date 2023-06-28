@@ -1,13 +1,15 @@
 import { Flex, Img, Text } from '@chakra-ui/react';
-import { usePicasso } from 'hooks';
+import { useCompanies, usePicasso } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
 import { useRouter } from 'next/router';
 import React from 'react';
+import { useQuery } from 'react-query';
 import { IActivitiesData } from 'types';
 import {
 	notificationIcons,
 	truncateWallet,
 	activitieDescriptTranslation,
+	getLogo,
 } from 'utils';
 
 export const HistoryActivityData: React.FC<IActivitiesData> = ({
@@ -15,7 +17,12 @@ export const HistoryActivityData: React.FC<IActivitiesData> = ({
 }) => {
 	const theme = usePicasso();
 	const { t: translate } = useTranslation('history-page');
+	const { getCompanyById } = useCompanies();
 	const { locale } = useRouter();
+
+	const { data: company } = useQuery('get-company-data', () =>
+		getCompanyById(activities.meta.data.companyId)
+	);
 
 	return (
 		<Flex
@@ -25,9 +32,12 @@ export const HistoryActivityData: React.FC<IActivitiesData> = ({
 			h="3.25rem"
 			borderRadius="base"
 			align="center"
-			justify="space-between"
+			// justify="space-between"
 			gap={{ md: '0', lg: '7' }}
 		>
+			{company?.logo && (
+				<Img src={getLogo(company.logo!)} boxSize="6" borderRadius="full" />
+			)}
 			{activities.event.description === 'Member added to company' ? (
 				<Flex gap="2">
 					<Img src="/images/avatar.png" boxSize="6" />
