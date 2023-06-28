@@ -20,12 +20,12 @@ export const RecentActivities = () => {
 		'recent-activities',
 		() => getCompanieActivities(Number(query.id)),
 		{
-			enabled: !!isConnected,
+			enabled: !!isConnected && !!query.id,
 		}
 	);
 
 	const { data: allCompaniesRecentActivities } = useQuery(
-		'all-companies-  recent-activities',
+		'all-companies-recent-activities',
 		getAllCompaniesUserActivities,
 		{
 			enabled: !!isConnected,

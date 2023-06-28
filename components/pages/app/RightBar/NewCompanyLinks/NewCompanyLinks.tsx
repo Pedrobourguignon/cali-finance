@@ -1,9 +1,10 @@
 import { Flex, Img } from '@chakra-ui/react';
 import { usePicasso } from 'hooks';
 import { BlackButton, ImageUploader, SocialMediaInput } from 'components';
-import { ISociaLinksInputValue, ISocialMediaInput } from 'types';
+import { ISocialMediaInput } from 'types';
 import useTranslation from 'next-translate/useTranslation';
-import { Dispatch, SetStateAction } from 'react';
+import { FieldErrors } from 'react-hook-form';
+import { ICompany } from 'types/interfaces/main-server/ICompany';
 
 const socialLinks: ISocialMediaInput[] = [
 	{
@@ -44,7 +45,23 @@ export const NewCompanyLinks: React.FC<{
 	setSocialMediasInput: (name: string[], url: string) => void;
 	handleNewPicture: (picture: string) => void;
 	newCompanyPicture: string;
-}> = ({ newCompanyPicture, handleNewPicture, setSocialMediasInput }) => {
+	selectedType: string;
+	selectedNetwork: {
+		name: string;
+		icon: string;
+		id: number;
+	};
+	errors: FieldErrors<ICompany>;
+	isValid: boolean;
+}> = ({
+	newCompanyPicture,
+	handleNewPicture,
+	setSocialMediasInput,
+	errors,
+	isValid,
+	selectedNetwork,
+	selectedType,
+}) => {
 	const theme = usePicasso();
 	const { t: translate } = useTranslation('create-company');
 
@@ -86,6 +103,12 @@ export const NewCompanyLinks: React.FC<{
 				lineHeight="6"
 				fontSize="md"
 				minW="80"
+				isDisabled={
+					selectedType === translate('pleaseSelect') ||
+					selectedNetwork.id === 0 ||
+					!!errors?.name ||
+					!isValid
+				}
 				borderRadius="sm"
 				py="2.5"
 				display={{ md: 'flex', lg: 'none' }}

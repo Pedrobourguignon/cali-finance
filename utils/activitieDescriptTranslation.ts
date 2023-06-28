@@ -6,7 +6,7 @@ export const activitieDescriptTranslation: { [key: string]: { text: string } } =
 		company_updated: {
 			text: 'updatedCompany',
 		},
-		company_add_to_company: {
+		company_added_member: {
 			text: 'addToCompany',
 		},
 		company_deleted: {
@@ -27,7 +27,7 @@ export const activitieDescriptTranslation: { [key: string]: { text: string } } =
 		user_settings_updated: {
 			text: 'updatedUserSettings',
 		},
-		team_add_user_to_team: {
+		team_member_added: {
 			text: 'teamAddUserToTeam',
 		},
 		team_updated: {
