@@ -61,10 +61,7 @@ export const HistoryActivityDataMobile: React.FC<IActivitiesData> = ({
 				</Flex>
 			)}
 			<Flex align="center" gap="3" w="full">
-				<Img
-					src={notificationIcons[activities.meta.data.event].icon}
-					boxSize="4"
-				/>
+				<Img src={notificationIcons[activities.event.name].icon} boxSize="4" />
 				<Flex direction="column">
 					<Text fontSize="sm" fontWeight="normal" color={theme.text.primary}>
 						{activities &&

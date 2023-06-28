@@ -51,7 +51,7 @@ export const CreateCompanyContainer = () => {
 	const {
 		handleSubmit,
 		register,
-		formState: { errors },
+		formState: { errors, isValid },
 	} = useForm<ICompany>({
 		resolver: yupResolver(createCompanySchema),
 	});
@@ -102,7 +102,7 @@ export const CreateCompanyContainer = () => {
 				render: () => (
 					<AlertToast
 						onClick={toast.closeAll}
-						text="employeeAdded"
+						text="companyCreatedWithSuccess"
 						type="success"
 					/>
 				),
@@ -225,6 +225,10 @@ export const CreateCompanyContainer = () => {
 					<AppLayout
 						right={
 							<NewCompanyLinks
+								errors={errors}
+								isValid={isValid}
+								selectedNetwork={selectedNetwork}
+								selectedType={selectedType}
 								setSocialMediasInput={setSocialMediasInput}
 								newCompanyPicture={newCompanyPicture}
 								handleNewPicture={handleNewPicture}
@@ -243,6 +247,7 @@ export const CreateCompanyContainer = () => {
 								</NavigationBack>
 							</Flex>
 							<CreateCompanyComponent
+								isValid={isValid}
 								errors={errors}
 								register={register}
 								setSelectedNetwork={setSelectedNetwork}
