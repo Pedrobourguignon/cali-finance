@@ -41,8 +41,6 @@ export const CompanyCard: React.FC<ICompanyCard> = ({
 		args: ['0x969Cf86eeb3f9354D89f357c8dFe43DE8e645148'],
 	});
 
-	console.log(employeeBalance);
-
 	const fundsOrAvailableWithdraw = () => {
 		if (!company.isAdmin && employeeBalance) {
 			return `$ ${Number(employeeBalance).toLocaleString()}`;
