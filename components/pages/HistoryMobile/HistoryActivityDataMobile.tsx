@@ -1,12 +1,12 @@
 import { Flex, Img, Text } from '@chakra-ui/react';
 import { useCompanies, usePicasso } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
-import { useRouter } from 'next/router';
 import React from 'react';
 import { useQuery } from 'react-query';
 import { IActivitiesData } from 'types';
 import {
 	activitieDescriptTranslation,
+	dateHandler,
 	getLogo,
 	handleLogoImage,
 	notificationIcons,
@@ -100,7 +100,7 @@ export const HistoryActivityDataMobile: React.FC<IActivitiesData> = ({
 										)}
 								</Text>
 								<Text color="gray.500" fontSize="xs" whiteSpace="nowrap">
-									{activities.created_at}
+									{dateHandler(activities.created_at)}
 								</Text>
 							</Flex>
 						</Flex>

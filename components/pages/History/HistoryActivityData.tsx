@@ -1,7 +1,6 @@
 import { Flex, Grid, GridItem, Img, Text } from '@chakra-ui/react';
 import { useCompanies, usePicasso } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
-import { useRouter } from 'next/router';
 import React from 'react';
 import { useQuery } from 'react-query';
 import { IActivitiesData } from 'types';
@@ -11,6 +10,7 @@ import {
 	activitieDescriptTranslation,
 	getLogo,
 	handleLogoImage,
+	dateHandler,
 } from 'utils';
 
 export const HistoryActivityData: React.FC<IActivitiesData> = ({
@@ -19,7 +19,6 @@ export const HistoryActivityData: React.FC<IActivitiesData> = ({
 	const theme = usePicasso();
 	const { t: translate } = useTranslation('history-page');
 	const { getCompanyById } = useCompanies();
-	const { locale } = useRouter();
 
 	const { data: company } = useQuery('get-company-data', () =>
 		getCompanyById(activities.meta.data.companyId)
@@ -107,7 +106,7 @@ export const HistoryActivityData: React.FC<IActivitiesData> = ({
 												)}
 										</Text>
 										<Text color="gray.500" fontSize="xs" whiteSpace="nowrap">
-											{activities.created_at}
+											{dateHandler(activities.created_at)}
 										</Text>
 									</Flex>
 								</Flex>
