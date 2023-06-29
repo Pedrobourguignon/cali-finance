@@ -34,11 +34,13 @@ export const FeeCalculator = () => {
 		getCoinServiceTokens(token.symbol)
 	);
 
-	const [feeInDolarPrice, setFeeInDolarPrice] = useState<number | undefined>(0);
+	const [feeInDollarPrice, setFeeInDollarPrice] = useState<number | undefined>(
+		0
+	);
 
 	useEffect(() => {
 		if (coinServiceTokens) {
-			setFeeInDolarPrice(Object.values(coinServiceTokens!)[0]!.value);
+			setFeeInDollarPrice(Object.values(coinServiceTokens!)[0]!.value);
 		}
 	}, [coinServiceTokens]);
 
@@ -131,7 +133,7 @@ export const FeeCalculator = () => {
 								{amountToCompare === 999
 									? '0'
 									: ` ${(
-											((feeInDolarPrice! * 0.5) / 100) *
+											((feeInDollarPrice! * 0.5) / 100) *
 											amount
 									  ).toLocaleString()} US$`}
 							</Text>
