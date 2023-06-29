@@ -80,9 +80,7 @@ export const DashboardContainer = () => {
 							<MyAssets />
 						</Flex>
 						<Flex pt="12">
-							<RecentActivitiesDashboard
-								recentActivitiesList={recentActivitiesList}
-							/>
+							<RecentActivitiesDashboard />
 						</Flex>
 						<Flex pt="10" pb="24">
 							<HaveProblemCard />

@@ -1,7 +1,6 @@
 import { Flex, Grid, GridItem, Img, Text } from '@chakra-ui/react';
 import { useCompanies, usePicasso } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
-import { useRouter } from 'next/router';
 import React from 'react';
 import { useQuery } from 'react-query';
 import { IActivitiesData } from 'types';
@@ -19,7 +18,6 @@ export const HistoryActivityData: React.FC<IActivitiesData> = ({
 	const theme = usePicasso();
 	const { t: translate } = useTranslation('history-page');
 	const { getCompanyById } = useCompanies();
-	const { locale } = useRouter();
 
 	const { data: company } = useQuery('get-company-data', () =>
 		getCompanyById(activities.meta.data.companyId)
@@ -69,7 +67,11 @@ export const HistoryActivityData: React.FC<IActivitiesData> = ({
 										{handleLogoImage(company?.name)}
 									</Flex>
 								)}
-								<Text fontSize="sm" color={theme.text.primary} fontWeight="600">
+								<Text
+									fontSize="sm"
+									color={theme.text.primary}
+									fontWeight="bold"
+								>
 									{activities.meta.data.companyName}
 								</Text>
 							</GridItem>

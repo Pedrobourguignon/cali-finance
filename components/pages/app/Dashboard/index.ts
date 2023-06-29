@@ -5,4 +5,5 @@ export * from './DashboardComponent';
 export * from './MyAssets';
 export * from './NotFoundPage';
 export * from './RecentActivitiesDashboard';
+export * from './RecentActivitiesData';
 export * from './SwapToken';

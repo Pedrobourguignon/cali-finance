@@ -24,12 +24,14 @@ export const ActivitiesData: React.FC<IActivitiesData> = ({ activities }) => {
 				fontWeight="normal"
 				w={{ md: '24', lg: '36' }}
 				whiteSpace="nowrap"
+				display="flex"
+				flex="3.2"
 			>
 				{activities.event.description === translate('addedToTeam')
 					? truncateWallet(activities.meta.data?.userAddedWallet)
 					: activities.meta.data.companyName}
 			</Text>
-			<Flex align="center" gap="3">
+			<Flex align="center" gap="3" flex="1">
 				<Img src={notificationIcons[activities.event.name].icon} boxSize="4" />
 				<Flex direction="column">
 					<Text fontSize="sm" fontWeight="normal" color={theme.text.primary}>
