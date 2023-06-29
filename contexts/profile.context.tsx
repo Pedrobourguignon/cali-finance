@@ -139,7 +139,7 @@ export const ProfileProvider: React.FC<{ children: React.ReactNode }> = ({
 	}, []);
 
 	const { data: coinServiceTokens, refetch: refetchCoinServiceTokens } =
-		useQuery('get-coin-data', () => getCoinServiceTokens(symbols.toString()));
+		useQuery(['get-coin-data'], () => getCoinServiceTokens(symbols.toString()));
 
 	useEffect(() => {
 		if (Object.keys(selectedToken).length !== 0) {
