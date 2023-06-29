@@ -14,6 +14,8 @@ import { getLogo, handleLogoImage, navigationPaths } from 'utils';
 import NextLink from 'next/link';
 import { GetUserCompaniesRes } from 'types/interfaces/main-server/ICompany';
 import { WithdrawModal } from 'components';
+import { useAccount, useContractRead } from 'wagmi';
+import companyAbi from 'utils/abi/company.json';
 
 interface ICompanyCard {
 	company: GetUserCompaniesRes;
@@ -28,6 +30,14 @@ export const CompanyCard: React.FC<ICompanyCard> = ({
 	const { t: translate } = useTranslation('companies');
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const { isLoadingCompanies } = useCompanies();
+	const { address } = useAccount();
+
+	const { data: availableToWithdraw } = useContractRead({
+		address: company.contract,
+		abi: companyAbi,
+		functionName: 'getSingleBalance',
+		args: [address],
+	});
 
 	return (
 		<Flex
@@ -89,15 +99,27 @@ export const CompanyCard: React.FC<ICompanyCard> = ({
 								? translate('funds')
 								: translate('availableToWithdraw')}
 						</Text>
-						<Flex fontSize={{ base: 'sm', md: 'xs', xl: 'sm' }}>
-							{isLoadingCompanies ? (
-								<Skeleton w="10" h="4" />
-							) : (
-								<Text>{/* {company.totalFundsUsd} */}0</Text>
-							)}
-						</Flex>
+						{company.isAdmin ? (
+							<Flex fontSize={{ base: 'sm', md: 'xs', xl: 'sm' }}>
+								{isLoadingCompanies ? (
+									<Skeleton w="10" h="4" />
+								) : (
+									<Text>
+										{company.totalFundsUsd ? company.totalFundsUsd : 0}
+									</Text>
+								)}
+							</Flex>
+						) : (
+							<Flex fontSize={{ base: 'sm', md: 'xs', xl: 'sm' }}>
+								{isLoadingCompanies ? (
+									<Skeleton w="10" h="4" />
+								) : (
+									<Text>{Number(availableToWithdraw)}</Text>
+								)}
+							</Flex>
+						)}
 					</Flex>
-					{company?.isAdmin && (
+					{company?.isAdmin ? (
 						<Flex direction="column">
 							<Text
 								fontSize={{ base: 'xs', md: 'xs', xl: 'sm' }}
@@ -106,18 +128,16 @@ export const CompanyCard: React.FC<ICompanyCard> = ({
 								{translate('members')}
 							</Text>
 
-							{
-								// TODO:colocar members quando fael adicionar a rota
-								isLoadingCompanies ? (
-									<Skeleton w="10" h="4" />
-								) : (
-									<Text fontSize={{ base: 'sm', md: 'xs', xl: 'sm' }}>
-										{/* {company.members} */}
-										13
-									</Text>
-								)
-							}
+							{isLoadingCompanies ? (
+								<Skeleton w="10" h="4" />
+							) : (
+								<Text fontSize={{ base: 'sm', md: 'xs', xl: 'sm' }}>
+									{company.total_members}
+								</Text>
+							)}
 						</Flex>
+					) : (
+						''
 					)}
 				</Flex>
 			</Flex>

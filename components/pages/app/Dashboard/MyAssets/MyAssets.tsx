@@ -5,7 +5,7 @@ import useTranslation from 'next-translate/useTranslation';
 import React, { useRef, useMemo, useState, useEffect } from 'react';
 import { IAssetsOptions } from 'types';
 import { useAccount, useContractRead } from 'wagmi';
-import companyAbi from '../../../../../utils/abi/company.json';
+import companyAbi from 'utils/abi/company.json';
 
 export const MyAssets = () => {
 	const { t: translate } = useTranslation('dashboard');
