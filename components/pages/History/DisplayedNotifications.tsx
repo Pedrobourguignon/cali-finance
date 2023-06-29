@@ -14,6 +14,8 @@ export const DisplayedNotifications: React.FC<IDisplayedNotifications> = ({
 		pagesVisited + notificationPerPage
 	);
 
+	console.log(displayNotifications);
+
 	return (
 		<CompaniesProvider>
 			<Flex direction="column" gap="2">

@@ -30,7 +30,7 @@ export const ActivitiesData: React.FC<IActivitiesData> = ({ activities }) => {
 					: activities.meta.data.companyName}
 			</Text>
 			<Flex align="center" gap="3">
-				{/* <Img src={notificationIcons[activities.event.name].icon} boxSize="4" /> */}
+				<Img src={notificationIcons[activities.event.name].icon} boxSize="4" />
 				<Flex direction="column">
 					<Text fontSize="sm" fontWeight="normal" color={theme.text.primary}>
 						{activities.event.description}
