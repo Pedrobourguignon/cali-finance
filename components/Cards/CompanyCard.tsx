@@ -29,7 +29,7 @@ export const CompanyCard: React.FC<ICompanyCard> = ({
 	userCompanies,
 }) => {
 	const theme = usePicasso();
-	const { totalCompanyBalanceInDolar } = useCompanies();
+	const { totalCompanyBalanceInDollar } = useCompanies();
 	const { t: translate } = useTranslation('companies');
 	const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -45,7 +45,7 @@ export const CompanyCard: React.FC<ICompanyCard> = ({
 		if (!company.isAdmin && employeeBalance) {
 			return `$ ${Number(employeeBalance).toLocaleString()}`;
 		}
-		return `$ ${totalCompanyBalanceInDolar.toLocaleString()}`;
+		return `$ ${totalCompanyBalanceInDollar.toLocaleString()}`;
 	};
 
 	return (
@@ -109,8 +109,8 @@ export const CompanyCard: React.FC<ICompanyCard> = ({
 								: translate('availableToWithdraw')}
 						</Text>
 						<Text fontSize={{ base: 'sm', md: 'xs', xl: 'sm' }}>
-							{totalCompanyBalanceInDolar === -1 ||
-							Number.isNaN(totalCompanyBalanceInDolar) ? (
+							{totalCompanyBalanceInDollar === -1 ||
+							Number.isNaN(totalCompanyBalanceInDollar) ? (
 								<Skeleton w="10" h="4" />
 							) : (
 								fundsOrAvailableWithdraw()

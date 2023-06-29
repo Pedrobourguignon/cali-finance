@@ -28,7 +28,7 @@ export const CompaniesHeader = () => {
 	const { query } = useRouter();
 	const { onClose, isOpen, onOpen } = useDisclosure();
 	const { t: translate } = useTranslation('company-overall');
-	const { getCompanyById, totalCompanyBalanceInDolar } = useCompanies();
+	const { getCompanyById, totalCompanyBalanceInDollar } = useCompanies();
 
 	const { data: session } = useSession({
 		required: true,
@@ -113,11 +113,11 @@ export const CompaniesHeader = () => {
 						<Skeleton w="14" h="6" />
 					) : (
 						<Text fontSize="xl">
-							{totalCompanyBalanceInDolar === -1 ||
-							Number.isNaN(totalCompanyBalanceInDolar) ? (
+							{totalCompanyBalanceInDollar === -1 ||
+							Number.isNaN(totalCompanyBalanceInDollar) ? (
 								<Skeleton w="18" h="4" />
 							) : (
-								`$ ${totalCompanyBalanceInDolar.toLocaleString()}`
+								`$ ${totalCompanyBalanceInDollar.toLocaleString()}`
 							)}
 						</Text>
 					)}
