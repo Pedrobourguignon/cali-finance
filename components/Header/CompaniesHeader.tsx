@@ -1,5 +1,3 @@
-/* eslint-disable no-prototype-builtins */
-/* eslint-disable no-restricted-syntax */
 import {
 	Flex,
 	Img,
@@ -28,7 +26,7 @@ export const CompaniesHeader = () => {
 	const { query } = useRouter();
 	const { onClose, isOpen, onOpen } = useDisclosure();
 	const { t: translate } = useTranslation('company-overall');
-	const { getCompanyById, totalCompanyBalanceInDolar } = useCompanies();
+	const { getCompanyById } = useCompanies();
 
 	const { data: session } = useSession({
 		required: true,

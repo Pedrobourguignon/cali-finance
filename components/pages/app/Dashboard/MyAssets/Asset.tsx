@@ -1,5 +1,5 @@
 import { Flex, Img, Text } from '@chakra-ui/react';
-import { usePicasso } from 'hooks';
+import { usePicasso, useTokens } from 'hooks';
 import React from 'react';
 import { IAssetsOptions } from 'types';
 
@@ -9,6 +9,12 @@ interface IAsset {
 
 export const Asset: React.FC<IAsset> = ({ assetsOptions }) => {
 	const theme = usePicasso();
+	const { listOfTokens } = useTokens();
+
+	const searchCoinLogo = () => {
+		const logo = listOfTokens.find(coin => coin.symbol === assetsOptions.name);
+		return logo?.logoURI;
+	};
 	return (
 		<Flex
 			justify="space-between"
@@ -18,19 +24,19 @@ export const Asset: React.FC<IAsset> = ({ assetsOptions }) => {
 			borderRadius="base"
 		>
 			<Flex gap="2" align="center" p="0.5">
-				<Img src="/icons/usdc.svg" boxSize={{ lg: '5', xl: '6' }} />
+				<Img src={searchCoinLogo()} boxSize={{ lg: '5', xl: '6' }} />
 				<Flex direction="column" justify="center">
 					<Text fontSize={{ base: 'sm', md: 'xs', lg: 'sm' }}>
 						{assetsOptions.name}
 					</Text>
 					<Text fontSize="xs" color="gray.400">
-						{assetsOptions.initials}
+						{assetsOptions.name}
 					</Text>
 				</Flex>
 			</Flex>
 			<Flex direction="column" align="flex-end" p="0.5">
 				<Text fontSize={{ base: 'sm', md: 'xs', lg: 'sm' }}>
-					{assetsOptions.units}
+					{assetsOptions.value.toLocaleString('en-US')}
 				</Text>
 				<Text fontSize="xs" color="gray.400">
 					$ {assetsOptions.value.toLocaleString('en-US')}
