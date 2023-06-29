@@ -8,7 +8,7 @@ import {
 	Link,
 	Skeleton,
 } from '@chakra-ui/react';
-import { useCompanies, usePath, usePicasso, useTokens } from 'hooks';
+import { useCompanies, usePath, usePicasso } from 'hooks';
 import { getLogo, handleLogoImage, navigationPaths, networkInfos } from 'utils';
 import {
 	NavigationBack,
@@ -112,14 +112,7 @@ export const CompaniesHeader = () => {
 					{isLoadingSelectedCompany ? (
 						<Skeleton w="14" h="6" />
 					) : (
-						<Text fontSize="xl">
-							{totalCompanyBalanceInDolar === -1 ||
-							Number.isNaN(totalCompanyBalanceInDolar) ? (
-								<Skeleton w="18" h="4" />
-							) : (
-								`$ ${totalCompanyBalanceInDolar.toLocaleString()}`
-							)}
-						</Text>
+						<Text>{`$ ${selectedCompany?.totalFundsUsd}`}</Text>
 					)}
 					<Text fontSize="sm">{translate('totalFunds')}</Text>
 				</Flex>

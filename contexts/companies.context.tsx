@@ -1,6 +1,5 @@
 /* eslint-disable no-prototype-builtins */
 /* eslint-disable no-restricted-syntax */
-import useTranslation from 'next-translate/useTranslation';
 import {
 	createContext,
 	Dispatch,
@@ -14,7 +13,6 @@ import {
 	ISocialMedia,
 	INewEmployee,
 	IEditedEmployeeInfo,
-	INotificationList,
 	IHistoryNotifications,
 	IUseBalance,
 } from 'types';
@@ -45,7 +43,7 @@ interface ICompanyContext {
 	updateCompany: (company: ICompany) => Promise<void>;
 	getAllCompanyEmployees: (id: number) => Promise<IEmployee[]>;
 	addEmployeeToTeam: (employee: INewEmployee) => Promise<void>;
-	allUserCompanies: GetUserCompaniesRes[];
+	allUserCompanies: GetUserCompaniesRes[] | undefined;
 	selectedCompany: ICompany;
 	totalCompanyBalanceInDolar: number;
 	companiesWithMissingFunds: GetUserCompaniesRes[];
@@ -61,6 +59,12 @@ interface ICompanyContext {
 		editedEmployeeInfo: IEditedEmployeeInfo,
 		teamId: number
 	) => Promise<void>;
+	getCompaniesOverview: () => Promise<{
+		companies: number;
+		members: number;
+		totalFunds: number;
+	}>;
+	isLoadingCompanies: boolean;
 }
 
 export const CompaniesContext = createContext({} as ICompanyContext);
@@ -70,14 +74,11 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 }) => {
 	const { query } = useRouter();
 	const { getCoinServiceTokens } = useTokens();
-	const { t: translate } = useTranslation('companies');
+	const { isConnected } = useAccount();
 	const { address: wallet } = useAccount();
 	const [displayNeedFundsCard, setDisplayNeedFundsCard] = useState('none');
 	const [socialMediasData, setSocialMediasData] = useState<ISocialMedia[]>([]);
 	const [editedInfo, setEditedInfo] = useState<ICompany>({} as ICompany);
-	const [allUserCompanies, setAllUserCompanies] = useState<
-		GetUserCompaniesRes[]
-	>([]);
 	const [selectedCompany, setSelectedCompany] = useState<ICompany>(
 		{} as ICompany
 	);
@@ -88,21 +89,36 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 	>([]);
 	const neededFunds = 0;
 
-	const getAllUserCompanies = async () => {
+	const getAllUserCompanies: () => Promise<
+		GetUserCompaniesRes[]
+	> = async () => {
 		if (!wallet) throw new Error('User not connected');
 		const response = await mainClient.get(
 			MAIN_SERVICE_ROUTES.allUserCompanies(wallet)
 		);
-		setAllUserCompanies(response.data);
+		return response.data;
+	};
+	const { data: allUserCompanies, isLoading: isLoadingCompanies } = useQuery(
+		['all-companies'],
+		getAllUserCompanies,
+		{
+			enabled: !!isConnected,
+		}
+	);
+
+	const getCompaniesOverview = async () => {
+		if (!wallet) throw new Error('User not connected');
+		const response = await mainClient.get(MAIN_SERVICE_ROUTES.getOverview);
 		return response.data;
 	};
 
 	const handleMissingFunds = () => {
-		allUserCompanies.forEach(companie => {
-			if (companie.revenue! < neededFunds) {
-				setCompaniesWithMissingFunds(prevState => prevState.concat(companie));
-			}
-		});
+		if (allUserCompanies)
+			allUserCompanies.forEach(companie => {
+				if (companie.revenue! < neededFunds) {
+					setCompaniesWithMissingFunds(prevState => prevState.concat(companie));
+				}
+			});
 	};
 	useEffect(() => {
 		handleMissingFunds();
@@ -232,7 +248,7 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 
 	// TODO: update address when the event watcher is ready
 	const { data: companyBalance, refetch } = useBalance({
-		address: '0x8409809BdF2424C45Fb85DB7768daC6026e95602',
+		address: '0xC186498cd0736D19A988fb602eF74607F502D2Ca',
 	});
 
 	// run the useBalance hook every 20 seconds
@@ -247,11 +263,12 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 		contractCompanyAssetsData.push(companyBalance);
 	}
 
-	const { data: companyAssetsInDolar } = useQuery('get-coin-data', () =>
-		getCoinServiceTokens(
-			contractCompanyAssetsData.map(asset => asset.symbol).toString()
-		)
-	);
+	const { data: companyAssetsInDolar, isLoading: isLoadingCompanyAssets } =
+		useQuery(['get-coin-data'], () =>
+			getCoinServiceTokens(
+				contractCompanyAssetsData.map(asset => asset.symbol).toString()
+			)
+		);
 
 	useEffect(() => {
 		// get the value of the quotation of all assets in the company's contract and put in an array
@@ -277,7 +294,11 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 			};
 			multiplyAssetsToDolar();
 		}
-	}, [contractCompanyAssetsData]);
+	}, [
+		companyAssetsDolarQuotation,
+		companyAssetsInDolar,
+		contractCompanyAssetsData,
+	]);
 
 	const contextStates = useMemo(
 		() => ({
@@ -301,21 +322,25 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 			allUserCompanies,
 			selectedCompany,
 			updateCompany,
+			isLoadingCompanies,
 			getCompanieActivities,
 			getAllCompanyTeams,
 			getAllCompaniesUserActivities,
 			totalCompanyBalanceInDolar,
+			getCompaniesOverview,
 		}),
 		[
-			selectedCompany,
 			editedInfo,
 			displayMissingFundsWarning,
 			displayNeedFundsCard,
 			companiesWithMissingFunds,
+			getAllUserCompanies,
 			socialMediasData,
 			allUserCompanies,
-			setSocialMediasData,
+			selectedCompany,
 			updateCompany,
+			totalCompanyBalanceInDolar,
+			getCompaniesOverview,
 		]
 	);
 

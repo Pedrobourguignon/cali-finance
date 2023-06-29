@@ -7,15 +7,10 @@ import {
 } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 import { CompanyCard, CreateCompanyCard } from 'components';
-import { usePicasso } from 'hooks';
+import { useCompanies, usePicasso } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
-import { GetUserCompaniesRes } from 'types/interfaces/main-server/ICompany';
 
-interface ICompaniesList {
-	companies: GetUserCompaniesRes[] | undefined;
-}
-
-export const CompaniesListFixed: React.FC<ICompaniesList> = ({ companies }) => {
+export const CompaniesListFixed = () => {
 	const theme = usePicasso();
 	const [flexWidth, setFlexWidth] = useState<number>(
 		useMediaQuery('(max-width: 1280px)') ? 3 : 4
@@ -23,6 +18,7 @@ export const CompaniesListFixed: React.FC<ICompaniesList> = ({ companies }) => {
 	const { isOpen: isFullList, onToggle: toggleListView } = useDisclosure();
 	const { t: translate } = useTranslation('company-overall');
 	const { t: translateDashboard } = useTranslation('dashboard');
+	const { allUserCompanies } = useCompanies();
 
 	const setInitialWidth = () => {
 		if (window.innerWidth < 1281) {
@@ -58,9 +54,9 @@ export const CompaniesListFixed: React.FC<ICompaniesList> = ({ companies }) => {
 					onClick={() => toggleListView()}
 					p="0"
 					isDisabled={
-						(window.innerWidth < 1281 && companies?.length === 3) ||
-						(window.innerWidth > 1536 && companies?.length === 4) ||
-						(window.innerWidth > 1768 && companies?.length === 5)
+						(window.innerWidth < 1281 && allUserCompanies?.length === 3) ||
+						(window.innerWidth > 1536 && allUserCompanies?.length === 4) ||
+						(window.innerWidth > 1768 && allUserCompanies?.length === 5)
 					}
 				>
 					<Text fontSize="xs" color="gray.500" fontWeight="medium">
@@ -69,15 +65,14 @@ export const CompaniesListFixed: React.FC<ICompaniesList> = ({ companies }) => {
 				</Button>
 			</Flex>
 			<Flex justify="flex-start" wrap="wrap" gap={{ md: '4', '2xl': '6' }}>
-				{companies && companies.length > 0 ? (
-					companies
-						.slice(0, isFullList ? companies?.length : flexWidth)
+				{allUserCompanies && allUserCompanies.length > 0 ? (
+					allUserCompanies
+						.slice(0, isFullList ? allUserCompanies?.length : flexWidth)
 						.map((company, index) => (
 							<Flex key={+index}>
 								<CompanyCard
 									company={company}
-									userCompanies={companies}
-									companyMembers={0}
+									userCompanies={allUserCompanies}
 								/>
 							</Flex>
 						))

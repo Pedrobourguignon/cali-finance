@@ -16,6 +16,7 @@ export const AUTH_SERVICE_ROUTES = {
 
 export const MAIN_SERVICE_ROUTES = {
 	createCompany: path(API_URLS.main, '/company/'),
+	getOverview: path(API_URLS.main, '/user/overview'),
 	allUserCompanies: (wallet: string) =>
 		path(API_URLS.main, `/user/${wallet}/company`),
 	updateCompany: (id: number) => path(API_URLS.main, `/company/${id}`),

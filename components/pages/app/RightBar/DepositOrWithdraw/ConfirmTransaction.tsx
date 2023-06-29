@@ -17,7 +17,6 @@ import {
 	useWaitForTransaction,
 } from 'wagmi';
 import { useDebounce } from 'use-debounce';
-import { parseEther } from 'ethers/lib/utils.js';
 import { AlertToast, WaitMetamaskFinishTransaction } from 'components';
 
 interface IConfirmTransaction {
@@ -45,6 +44,7 @@ export const ConfirmTransaction: React.FC<IConfirmTransaction> = ({
 	const [enabledTransaction, setEnabledTransaction] = useState(false);
 	const { onClose } = useDisclosure();
 
+	// TODO:Put address dynamic
 	const { config: sendTransactionConfig } = usePrepareSendTransaction({
 		enabled: enabledTransaction,
 		to: '0x8409809BdF2424C45Fb85DB7768daC6026e95602',

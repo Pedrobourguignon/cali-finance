@@ -14,14 +14,18 @@ import { useAccount } from 'wagmi';
 import useTranslation from 'next-translate/useTranslation';
 
 export const CompaniesConnected: React.FC = () => {
-	const { getAllUserCompanies } = useCompanies();
+	const { getCompaniesOverview } = useCompanies();
 	const { isConnected } = useAccount();
 	const { t: translate } = useTranslation('dashboard');
 	const theme = usePicasso();
 
-	const { data: companies } = useQuery('all-companies', getAllUserCompanies, {
-		enabled: !!isConnected,
-	});
+	const { data: companies } = useQuery(
+		'all-companies-overview',
+		getCompaniesOverview,
+		{
+			enabled: !!isConnected,
+		}
+	);
 
 	return (
 		<AppLayout right={<CompaniesRightBar />}>
@@ -29,15 +33,15 @@ export const CompaniesConnected: React.FC = () => {
 				<Flex direction="column">
 					<DashboardHeader />
 					<CompaniesDashboard
-						members={17}
-						companiesCount={companies?.length}
+						members={companies?.members ? companies.members : 0}
+						companiesCount={companies?.companies}
 						teams={1}
-						totalFunds={67900}
+						totalFunds={companies?.totalFunds ? companies.totalFunds : 0}
 					/>
 				</Flex>
 				<Flex w="full" flexDir="column" gap="8">
-					{companies?.length ? (
-						<CompaniesListFixed companies={companies} />
+					{companies?.companies !== 0 ? (
+						<CompaniesListFixed />
 					) : (
 						<Flex direction="column" gap="4" pt="10">
 							<Text

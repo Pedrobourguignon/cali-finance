@@ -1,19 +1,14 @@
 import { Flex, Text } from '@chakra-ui/react';
-import { usePicasso } from 'hooks';
+import { CompanyCard } from 'components/Cards';
+import { useCompanies, usePicasso } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
 import React from 'react';
-import { GetUserCompaniesRes } from 'types/interfaces/main-server/ICompany';
-import { CreateCompanyCard, CompanyCard } from 'components';
+import { CreateCompanyCard } from '../app';
 
-interface IYourCompaniesMobile {
-	companies: GetUserCompaniesRes[] | undefined;
-}
-
-export const YourCompaniesMobile: React.FC<IYourCompaniesMobile> = ({
-	companies,
-}) => {
+export const YourCompaniesMobile = () => {
 	const theme = usePicasso();
 	const { t: translateDashboard } = useTranslation('dashboard');
+	const { allUserCompanies } = useCompanies();
 
 	return (
 		<Flex overflowX="hidden" direction="column" py="10">
@@ -30,13 +25,12 @@ export const YourCompaniesMobile: React.FC<IYourCompaniesMobile> = ({
 						},
 					}}
 				>
-					{companies && companies.length > 0 ? (
-						companies.map((company, index) => (
+					{allUserCompanies && allUserCompanies.length > 0 ? (
+						allUserCompanies.map((company, index) => (
 							<Flex key={+index}>
 								<CompanyCard
 									company={company}
-									companyMembers={1}
-									userCompanies={companies}
+									userCompanies={allUserCompanies}
 								/>
 							</Flex>
 						))

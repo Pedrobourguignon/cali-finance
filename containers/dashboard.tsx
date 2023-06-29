@@ -11,20 +11,15 @@ import {
 	CoinsMobile,
 } from 'components';
 import { CompaniesProvider, ProfileProvider, TokensProvider } from 'contexts';
-import { useCompanies } from 'hooks';
 import { AppLayout, MobileLayout } from 'layouts';
 import { useSession } from 'next-auth/react';
 import useTranslation from 'next-translate/useTranslation';
 import React from 'react';
-import { useQuery } from 'react-query';
 import { IRecentActivitiesList } from 'types';
-import { useAccount } from 'wagmi';
 
 export const DashboardContainer = () => {
 	const { data: session } = useSession();
-	const { isConnected } = useAccount();
 	const { t: translate } = useTranslation('dashboard');
-	const { getAllUserCompanies } = useCompanies();
 
 	const recentActivitiesList: IRecentActivitiesList[] = [
 		{
@@ -53,14 +48,6 @@ export const DashboardContainer = () => {
 		},
 	];
 
-	const {
-		data: companies,
-		isLoading: isLoadingCompanies,
-		error,
-	} = useQuery('all-companies', getAllUserCompanies, {
-		enabled: !!isConnected,
-	});
-
 	return (
 		<CompaniesProvider>
 			<TokensProvider>
@@ -75,7 +62,7 @@ export const DashboardContainer = () => {
 					<MobileLayout>
 						<DashboardHeader />
 						<CoinsMobile />
-						<YourCompaniesMobile companies={companies} />
+						<YourCompaniesMobile />
 						<Flex pr="2.5">
 							<MyAssets />
 						</Flex>

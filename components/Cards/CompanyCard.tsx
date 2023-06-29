@@ -14,39 +14,20 @@ import { getLogo, handleLogoImage, navigationPaths } from 'utils';
 import NextLink from 'next/link';
 import { GetUserCompaniesRes } from 'types/interfaces/main-server/ICompany';
 import { WithdrawModal } from 'components';
-import { useContractRead } from 'wagmi';
-import companyABI from 'utils/abi/company.json';
 
 interface ICompanyCard {
 	company: GetUserCompaniesRes;
-	companyMembers: number;
 	userCompanies: GetUserCompaniesRes[];
 }
 
 export const CompanyCard: React.FC<ICompanyCard> = ({
 	company,
-	companyMembers,
 	userCompanies,
 }) => {
 	const theme = usePicasso();
-	const { totalCompanyBalanceInDolar } = useCompanies();
 	const { t: translate } = useTranslation('companies');
 	const { isOpen, onOpen, onClose } = useDisclosure();
-
-	// TODO: get the company contract address from the event watcher
-	const { data: employeeBalance } = useContractRead({
-		address: '0x740Aa0f13f0008d2Ac030e89F5b7e5860925D557',
-		abi: companyABI,
-		functionName: 'getSingleBalance',
-		args: ['0x969Cf86eeb3f9354D89f357c8dFe43DE8e645148'],
-	});
-
-	const fundsOrAvailableWithdraw = () => {
-		if (!company.isAdmin && employeeBalance) {
-			return `$ ${Number(employeeBalance).toLocaleString()}`;
-		}
-		return `$ ${totalCompanyBalanceInDolar.toLocaleString()}`;
-	};
+	const { isLoadingCompanies } = useCompanies();
 
 	return (
 		<Flex
@@ -108,16 +89,15 @@ export const CompanyCard: React.FC<ICompanyCard> = ({
 								? translate('funds')
 								: translate('availableToWithdraw')}
 						</Text>
-						<Text fontSize={{ base: 'sm', md: 'xs', xl: 'sm' }}>
-							{totalCompanyBalanceInDolar === -1 ||
-							Number.isNaN(totalCompanyBalanceInDolar) ? (
+						<Flex fontSize={{ base: 'sm', md: 'xs', xl: 'sm' }}>
+							{isLoadingCompanies ? (
 								<Skeleton w="10" h="4" />
 							) : (
-								fundsOrAvailableWithdraw()
+								<Text>{/* {company.totalFundsUsd} */}0</Text>
 							)}
-						</Text>
+						</Flex>
 					</Flex>
-					{company?.isAdmin ? (
+					{company?.isAdmin && (
 						<Flex direction="column">
 							<Text
 								fontSize={{ base: 'xs', md: 'xs', xl: 'sm' }}
@@ -125,12 +105,19 @@ export const CompanyCard: React.FC<ICompanyCard> = ({
 							>
 								{translate('members')}
 							</Text>
-							<Text fontSize={{ base: 'sm', md: 'xs', xl: 'sm' }}>
-								{companyMembers}
-							</Text>
+
+							{
+								// TODO:colocar members quando fael adicionar a rota
+								isLoadingCompanies ? (
+									<Skeleton w="10" h="4" />
+								) : (
+									<Text fontSize={{ base: 'sm', md: 'xs', xl: 'sm' }}>
+										{/* {company.members} */}
+										13
+									</Text>
+								)
+							}
 						</Flex>
-					) : (
-						<Flex />
 					)}
 				</Flex>
 			</Flex>
