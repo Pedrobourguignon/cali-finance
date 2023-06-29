@@ -69,6 +69,8 @@ export const AddEmployee: React.FC<IAddEmployee> = ({ isOpen, onClose }) => {
 	const { addEmployeeSchema } = useSchema();
 	const queryClient = useQueryClient();
 
+	console.log(selectedCompany);
+
 	const debouncedEmployeeAddress = useDebounce(
 		addedEmployeeData.walletAddress,
 		500
