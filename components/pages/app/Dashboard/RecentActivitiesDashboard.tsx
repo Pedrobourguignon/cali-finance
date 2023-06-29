@@ -54,17 +54,19 @@ export const RecentActivitiesDashboard = () => {
 					</Text>
 				</Link>
 			</Flex>
-			<Flex direction="column" gap="2" py="4">
-				{allCompaniesRecentActivities?.slice(0, 5).map(activity => (
-					<>
-						{activity.event.name !== 'team_member_added' &&
-							activity.event.name !== 'user_added_to_company' &&
-							activity.event.name !== 'user_added_to_team' && (
-								<RecentActivitiesData activities={activity} />
-							)}
-					</>
-				))}
-			</Flex>
+			{allCompaniesRecentActivities?.length === 0 ? (
+				<Flex py="24" justify="center">
+					<Text color={theme.text.primary} fontWeight="semibold">
+						{translate('dontHaveRecentActivities')}
+					</Text>
+				</Flex>
+			) : (
+				<Flex direction="column" gap="2" py="4">
+					{allCompaniesRecentActivities?.slice(0, 5).map((activity, index) => (
+						<RecentActivitiesData activities={activity} key={+index} />
+					))}
+				</Flex>
+			)}
 		</Flex>
 	);
 };

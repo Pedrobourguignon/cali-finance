@@ -25,5 +25,7 @@
 	"withdraw": "Withdraw",
 	"selectAOrg": "Please select a Company",
 	"pendingNotifications": "pending notifications",
-	"clearAll": "Clear all"
+	"clearAll": "Clear all",
+	"dontHaveRecentActivities": "You have no recent activity",
+	"dontHaveCompaniesRecentActivities": "Your companies have no recent activities"
 }
