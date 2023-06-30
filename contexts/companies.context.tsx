@@ -30,7 +30,7 @@ import { MAIN_SERVICE_ROUTES } from 'helpers';
 import { useTokens } from 'hooks';
 
 interface ICompanyContext {
-	setSelectedCompany: Dispatch<SetStateAction<ICompany>>;
+	setSelectedCompany: Dispatch<SetStateAction<GetUserCompaniesRes>>;
 	setEditedInfo: Dispatch<SetStateAction<ICompany>>;
 	editedInfo: ICompany;
 	displayMissingFundsWarning: string;
@@ -46,7 +46,7 @@ interface ICompanyContext {
 	getAllCompanyEmployees: (id: number) => Promise<IEmployee[]>;
 	addEmployeeToTeam: (employee: INewEmployee) => Promise<void>;
 	allUserCompanies: GetUserCompaniesRes[];
-	selectedCompany: ICompany;
+	selectedCompany: GetUserCompaniesRes;
 	totalCompanyBalanceInDollar: number;
 	companiesWithMissingFunds: GetUserCompaniesRes[];
 	getCompanieActivities: (
@@ -78,8 +78,8 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 	const [allUserCompanies, setAllUserCompanies] = useState<
 		GetUserCompaniesRes[]
 	>([]);
-	const [selectedCompany, setSelectedCompany] = useState<ICompany>(
-		{} as ICompany
+	const [selectedCompany, setSelectedCompany] = useState<GetUserCompaniesRes>(
+		{} as GetUserCompaniesRes
 	);
 	const [displayMissingFundsWarning, setDisplayMissingFundsWarning] =
 		useState('none');
@@ -299,16 +299,16 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 			addEmployeeCsv,
 			updateEmployee,
 			allUserCompanies,
-			selectedCompany,
 			updateCompany,
 			getCompanieActivities,
 			getAllCompanyTeams,
 			getAllCompaniesUserActivities,
 			totalCompanyBalanceInDollar,
+			selectedCompany,
 		}),
 		[
-			selectedCompany,
 			editedInfo,
+			selectedCompany,
 			displayMissingFundsWarning,
 			displayNeedFundsCard,
 			companiesWithMissingFunds,

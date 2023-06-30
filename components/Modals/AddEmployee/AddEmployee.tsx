@@ -69,8 +69,6 @@ export const AddEmployee: React.FC<IAddEmployee> = ({ isOpen, onClose }) => {
 	const { addEmployeeSchema } = useSchema();
 	const queryClient = useQueryClient();
 
-	console.log(selectedCompany);
-
 	const debouncedEmployeeAddress = useDebounce(
 		addedEmployeeData.walletAddress,
 		500
@@ -133,9 +131,8 @@ export const AddEmployee: React.FC<IAddEmployee> = ({ isOpen, onClose }) => {
 		}));
 	};
 
-	// TODO: update address
 	const { config: addEmployeeConfig } = usePrepareContractWrite({
-		address: '0xad2a9cfbf3641d8d4d212cdf2a6966d53c5c0144',
+		address: selectedCompany.contract,
 		abi: companyAbi,
 		functionName: 'addEmployee',
 		args: [debouncedEmployeeAddress[0], debouncedEmployeeAmount[0]],
