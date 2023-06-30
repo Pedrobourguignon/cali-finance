@@ -14,7 +14,6 @@ import {
 	ISocialMedia,
 	INewEmployee,
 	IEditedEmployeeInfo,
-	INotificationList,
 	IHistoryNotifications,
 	IUseBalance,
 } from 'types';
@@ -230,9 +229,9 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 	const contractCompanyAssetsData: IUseBalance[] = [];
 	const companyAssetsDollarQuotation: number[] = [];
 
-	// TODO: update address when the event watcher is ready
 	const { data: companyBalance, refetch } = useBalance({
-		address: '0x8409809BdF2424C45Fb85DB7768daC6026e95602',
+		address: selectedCompany!.contract,
+		enabled: selectedCompany !== undefined,
 	});
 
 	// run the useBalance hook every 20 seconds
@@ -269,7 +268,7 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 						assetQuotation => Number(asset.formatted) * assetQuotation
 					)
 				);
-				const sumAllDollarValues = DollarValues[0].reduce(
+				const sumAllDollarValues = DollarValues[0]?.reduce(
 					(partialSum, acc) => partialSum + acc,
 					0
 				);

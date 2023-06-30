@@ -33,7 +33,6 @@ export const CompanyCard: React.FC<ICompanyCard> = ({
 	const { t: translate } = useTranslation('companies');
 	const { isOpen, onOpen, onClose } = useDisclosure();
 
-	// TODO: get the company contract address from the event watcher
 	const { data: employeeBalance } = useContractRead({
 		address: company.contract,
 		abi: companyABI,

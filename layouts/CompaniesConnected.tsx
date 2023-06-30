@@ -23,6 +23,8 @@ export const CompaniesConnected: React.FC = () => {
 		enabled: !!isConnected,
 	});
 
+	console.log(companies);
+
 	return (
 		<AppLayout right={<CompaniesRightBar />}>
 			<Flex direction="column" pt="6" w="100%">
