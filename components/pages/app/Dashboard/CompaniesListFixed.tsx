@@ -7,7 +7,7 @@ import {
 } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 import { CompanyCard, CreateCompanyCard } from 'components';
-import { usePicasso } from 'hooks';
+import { useCompanies, usePicasso } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
 import { GetUserCompaniesRes } from 'types/interfaces/main-server/ICompany';
 
@@ -23,6 +23,7 @@ export const CompaniesListFixed: React.FC<ICompaniesList> = ({ companies }) => {
 	const { isOpen: isFullList, onToggle: toggleListView } = useDisclosure();
 	const { t: translate } = useTranslation('company-overall');
 	const { t: translateDashboard } = useTranslation('dashboard');
+	const { allUserCompanies } = useCompanies();
 
 	const setInitialWidth = () => {
 		if (window.innerWidth < 1281) {
@@ -70,7 +71,7 @@ export const CompaniesListFixed: React.FC<ICompaniesList> = ({ companies }) => {
 			</Flex>
 			<Flex justify="flex-start" wrap="wrap" gap={{ md: '4', '2xl': '6' }}>
 				{companies && companies.length > 0 ? (
-					companies
+					allUserCompanies
 						.slice(0, isFullList ? companies?.length : flexWidth)
 						.map((company, index) => (
 							<Flex key={+index}>

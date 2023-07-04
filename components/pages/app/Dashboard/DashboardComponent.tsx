@@ -18,7 +18,7 @@ import { useCompanies } from 'hooks';
 export const DashboardComponent: React.FC = () => {
 	const { t: translate } = useTranslation('dashboard');
 	const { data: session } = useSession();
-	const { getAllUserCompanies } = useCompanies();
+	const { getAllUserCompanies, allUserCompanies } = useCompanies();
 
 	const recentActivitiesList: IRecentActivitiesList[] = [
 		{
@@ -62,7 +62,7 @@ export const DashboardComponent: React.FC = () => {
 				</Flex>
 				<Flex direction="column" gap="9" pt={!session ? '4' : 0}>
 					{session ? (
-						<CompaniesListFixed companies={companies} />
+						<CompaniesListFixed companies={allUserCompanies} />
 					) : (
 						<CreateCompanyCard />
 					)}
