@@ -58,7 +58,7 @@ export const EmployeesDashboard: React.FC<IEmployeeDashboard> = ({
 				selectedCompany={selectedCompany}
 			/>
 			<Flex justify="space-between" w="100%" align="center">
-				{!employees ? (
+				{employees?.length === 0 ? (
 					<Text color={theme.text.primary} fontWeight="medium">
 						{translate('youDontHaveEmployee')}
 					</Text>

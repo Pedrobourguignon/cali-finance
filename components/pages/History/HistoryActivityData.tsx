@@ -10,6 +10,7 @@ import {
 	activitieDescriptTranslation,
 	getLogo,
 	handleLogoImage,
+	dateHandler,
 } from 'utils';
 
 export const HistoryActivityData: React.FC<IActivitiesData> = ({
@@ -47,9 +48,9 @@ export const HistoryActivityData: React.FC<IActivitiesData> = ({
 							alignItems="center"
 						>
 							<GridItem display="flex" alignContent="center" gap="2" flex="2.5">
-								{company?.logo ? (
+								{activities.meta.data.companyLogo ? (
 									<Img
-										src={getLogo(company?.logo)}
+										src={getLogo(activities.meta.data.companyLogo)}
 										boxSize="6"
 										borderRadius="base"
 									/>
@@ -64,7 +65,7 @@ export const HistoryActivityData: React.FC<IActivitiesData> = ({
 										bg={theme.bg.white2}
 										color={theme.text.primary}
 									>
-										{handleLogoImage(company?.name)}
+										{handleLogoImage(activities.meta.data.companyName)}
 									</Flex>
 								)}
 								<Text
@@ -109,7 +110,7 @@ export const HistoryActivityData: React.FC<IActivitiesData> = ({
 												)}
 										</Text>
 										<Text color="gray.500" fontSize="xs" whiteSpace="nowrap">
-											{activities.created_at}
+											{dateHandler(activities.created_at)}
 										</Text>
 									</Flex>
 								</Flex>
