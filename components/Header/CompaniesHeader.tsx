@@ -1,5 +1,3 @@
-/* eslint-disable no-prototype-builtins */
-/* eslint-disable no-restricted-syntax */
 import {
 	Flex,
 	Img,
@@ -8,7 +6,7 @@ import {
 	Link,
 	Skeleton,
 } from '@chakra-ui/react';
-import { useCompanies, usePath, usePicasso, useTokens } from 'hooks';
+import { useCompanies, usePath, usePicasso } from 'hooks';
 import { getLogo, handleLogoImage, navigationPaths, networkInfos } from 'utils';
 import {
 	NavigationBack,
@@ -28,7 +26,8 @@ export const CompaniesHeader = () => {
 	const { query } = useRouter();
 	const { onClose, isOpen, onOpen } = useDisclosure();
 	const { t: translate } = useTranslation('company-overall');
-	const { getCompanyById, totalCompanyBalanceInDollar } = useCompanies();
+	const { getCompanyById, totalCompanyBalanceInDollar, selectedCompany } =
+		useCompanies();
 
 	const { data: session } = useSession({
 		required: true,
@@ -48,13 +47,10 @@ export const CompaniesHeader = () => {
 		},
 	];
 
-	const {
-		data: selectedCompany,
-		isLoading: isLoadingSelectedCompany,
-		error: selectedCompanyError,
-	} = useQuery('created-company-overview', () =>
-		getCompanyById(Number(query.id))
-	);
+	const { isLoading: isLoadingSelectedCompany, error: selectedCompanyError } =
+		useQuery('created-company-overview', () =>
+			getCompanyById(Number(query.id))
+		);
 
 	useEffect(() => {
 		if (selectedCompanyError) {
@@ -113,11 +109,10 @@ export const CompaniesHeader = () => {
 						<Skeleton w="14" h="6" />
 					) : (
 						<Text fontSize="xl">
-							{totalCompanyBalanceInDollar === -1 ||
-							Number.isNaN(totalCompanyBalanceInDollar) ? (
+							{!totalCompanyBalanceInDollar ? (
 								<Skeleton w="18" h="4" />
 							) : (
-								`$ ${totalCompanyBalanceInDollar.toLocaleString()}`
+								`$ ${selectedCompany.totalFundsUsd}`
 							)}
 						</Text>
 					)}

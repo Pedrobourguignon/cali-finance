@@ -131,9 +131,8 @@ export const AddEmployee: React.FC<IAddEmployee> = ({ isOpen, onClose }) => {
 		}));
 	};
 
-	// TODO: update address
 	const { config: addEmployeeConfig } = usePrepareContractWrite({
-		address: '0x375486407d22fb31b62e56a54ff63981bbe5bc80',
+		address: selectedCompany.contract,
 		abi: companyAbi,
 		functionName: 'addEmployee',
 		args: [debouncedEmployeeAddress[0], debouncedEmployeeAmount[0]],
