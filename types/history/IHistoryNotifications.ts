@@ -11,6 +11,7 @@ export interface IHistoryNotifications {
 		data: {
 			companyId: number;
 			companyName: string;
+			companyLogo: string;
 			event: string;
 			teamId: number;
 			userAddedWallet: string;
