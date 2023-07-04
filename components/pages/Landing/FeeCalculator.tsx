@@ -40,7 +40,7 @@ export const FeeCalculator = () => {
 
 	useEffect(() => {
 		if (coinServiceTokens) {
-			setFeeInDollarPrice(Object.values(coinServiceTokens!)[0]!.value);
+			setFeeInDollarPrice(Object.values(coinServiceTokens)[0]?.value);
 		}
 	}, [coinServiceTokens]);
 
@@ -127,7 +127,6 @@ export const FeeCalculator = () => {
 									: `${feePrice} ${token.symbol.toUpperCase()}`}
 							</Text>
 						</Flex>
-
 						<Flex justify="end" w="full">
 							<Text fontSize="xs" color="blackAlpha.700">
 								{amountToCompare === 999
