@@ -1,5 +1,5 @@
 import { Flex, Text, useDisclosure } from '@chakra-ui/react';
-import { TokenSelector, WithdrawContent, WithdrawButton } from 'components';
+import { TokenSelector } from 'components';
 import { usePicasso } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
 import { useState } from 'react';
@@ -34,7 +34,6 @@ export const WithdrawCard = () => {
 					$ {translate('withdraw')}
 				</Text>
 			</Flex>
-			<WithdrawButton />
 		</Flex>
 	);
 };

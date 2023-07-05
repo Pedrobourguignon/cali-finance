@@ -9,7 +9,7 @@ import {
 } from '@chakra-ui/react';
 import { useCompanies, usePicasso } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { getLogo, handleLogoImage, navigationPaths } from 'utils';
 import NextLink from 'next/link';
 import { GetUserCompaniesRes } from 'types/interfaces/main-server/ICompany';
@@ -29,15 +29,30 @@ export const CompanyCard: React.FC<ICompanyCard> = ({
 	const theme = usePicasso();
 	const { t: translate } = useTranslation('companies');
 	const { isOpen, onOpen, onClose } = useDisclosure();
-	const { isLoadingCompanies } = useCompanies();
+	const { isLoadingCompanies, setAllUserBalance, allUserBalance } =
+		useCompanies();
 	const { address } = useAccount();
 
-	const { data: availableToWithdraw } = useContractRead({
+	const { data: employeeBalance } = useContractRead({
 		address: company.contract,
 		abi: companyAbi,
 		functionName: 'getSingleBalance',
 		args: [address],
 	});
+
+	useEffect(() => {
+		if (employeeBalance) {
+			setAllUserBalance(prevState => {
+				if (
+					!prevState.includes(Number(employeeBalance)) &&
+					Number(employeeBalance) !== 0
+				) {
+					return [...prevState, Number(employeeBalance)];
+				}
+				return prevState;
+			});
+		}
+	}, []);
 
 	return (
 		<Flex
@@ -114,7 +129,7 @@ export const CompanyCard: React.FC<ICompanyCard> = ({
 								{isLoadingCompanies ? (
 									<Skeleton w="10" h="4" />
 								) : (
-									<Text>{Number(availableToWithdraw)}</Text>
+									<Text>{Number(employeeBalance)}</Text>
 								)}
 							</Flex>
 						)}

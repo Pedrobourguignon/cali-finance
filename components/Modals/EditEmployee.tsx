@@ -54,7 +54,7 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 	const queryClient = useQueryClient();
 	const toast = useToast();
 	const { editEmployeeSchema } = useSchema();
-	const { updateEmployee } = useCompanies();
+	const { updateEmployee, selectedCompany } = useCompanies();
 	const [editedEmployeeData, setEditedEmployeeData] = useState({
 		amount: 0,
 		amountInDollar: 0,
@@ -120,9 +120,8 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 		{ enabled: false }
 	);
 
-	// TODO: update address
 	const { config: editEmployeeConfig } = usePrepareContractWrite({
-		address: '0xad2a9cfbf3641d8d4d212cdf2a6966d53c5c0144',
+		address: selectedCompany.contract,
 		abi: companyAbi,
 		functionName: 'updateEmployeeSalary',
 		args: [employee.wallet, debouncedEmployeeAmount[0]],

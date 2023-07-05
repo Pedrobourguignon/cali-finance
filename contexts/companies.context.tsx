@@ -28,7 +28,7 @@ import { MAIN_SERVICE_ROUTES } from 'helpers';
 import { useTokens } from 'hooks';
 
 interface ICompanyContext {
-	setSelectedCompany: Dispatch<SetStateAction<ICompany>>;
+	setSelectedCompany: Dispatch<SetStateAction<GetUserCompaniesRes>>;
 	setEditedInfo: Dispatch<SetStateAction<ICompany>>;
 	editedInfo: ICompany;
 	displayMissingFundsWarning: string;
@@ -44,7 +44,8 @@ interface ICompanyContext {
 	getAllCompanyEmployees: (id: number) => Promise<IEmployee[]>;
 	addEmployeeToTeam: (employee: INewEmployee) => Promise<void>;
 	allUserCompanies: GetUserCompaniesRes[] | undefined;
-	selectedCompany: ICompany;
+	selectedCompany: GetUserCompaniesRes;
+	totalCompanyBalanceInDollar: number;
 	companiesWithMissingFunds: GetUserCompaniesRes[];
 	getCompanieActivities: (
 		companyId: number
@@ -64,6 +65,8 @@ interface ICompanyContext {
 		totalFunds: number;
 	}>;
 	isLoadingCompanies: boolean;
+	setAllUserBalance: Dispatch<SetStateAction<number[]>>;
+	allUserBalance: number[];
 }
 
 export const CompaniesContext = createContext({} as ICompanyContext);
@@ -78,8 +81,8 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 	const [displayNeedFundsCard, setDisplayNeedFundsCard] = useState('none');
 	const [socialMediasData, setSocialMediasData] = useState<ISocialMedia[]>([]);
 	const [editedInfo, setEditedInfo] = useState<ICompany>({} as ICompany);
-	const [selectedCompany, setSelectedCompany] = useState<ICompany>(
-		{} as ICompany
+	const [selectedCompany, setSelectedCompany] = useState<GetUserCompaniesRes>(
+		{} as GetUserCompaniesRes
 	);
 	const [displayMissingFundsWarning, setDisplayMissingFundsWarning] =
 		useState('none');
@@ -87,6 +90,7 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 		GetUserCompaniesRes[]
 	>([]);
 	const neededFunds = 0;
+	const [allUserBalance, setAllUserBalance] = useState<number[]>([]);
 
 	const getAllUserCompanies: () => Promise<
 		GetUserCompaniesRes[]
@@ -119,6 +123,7 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 				}
 			});
 	};
+
 	useEffect(() => {
 		handleMissingFunds();
 	}, [allUserCompanies]);
@@ -245,9 +250,9 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 	const contractCompanyAssetsData: IUseBalance[] = [];
 	const companyAssetsDollarQuotation: number[] = [];
 
-	// TODO: update address when the event watcher is ready
 	const { data: companyBalance, refetch } = useBalance({
-		address: '0xC186498cd0736D19A988fb602eF74607F502D2Ca',
+		address: selectedCompany!.contract,
+		enabled: selectedCompany !== undefined,
 	});
 
 	// run the useBalance hook every 20 seconds
@@ -284,7 +289,7 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 						assetQuotation => Number(asset.formatted) * assetQuotation
 					)
 				);
-				const sumAllDollarValues = DollarValues[0].reduce(
+				const sumAllDollarValues = DollarValues[0]?.reduce(
 					(partialSum, acc) => partialSum + acc,
 					0
 				);
@@ -314,25 +319,46 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 			addEmployeeCsv,
 			updateEmployee,
 			allUserCompanies,
-			selectedCompany,
 			updateCompany,
 			isLoadingCompanies,
 			getCompanieActivities,
 			getAllCompanyTeams,
 			getAllCompaniesUserActivities,
 			getCompaniesOverview,
+			totalCompanyBalanceInDollar,
+			selectedCompany,
+			setAllUserBalance,
+			allUserBalance,
 		}),
 		[
+			setEditedInfo,
 			editedInfo,
 			displayMissingFundsWarning,
+			setDisplayMissingFundsWarning,
 			displayNeedFundsCard,
+			setDisplayNeedFundsCard,
 			companiesWithMissingFunds,
 			getAllUserCompanies,
+			createCompany,
 			socialMediasData,
+			setSocialMediasData,
+			getCompanyById,
+			setSelectedCompany,
+			getAllCompanyEmployees,
+			addEmployeeToTeam,
+			addEmployeeCsv,
+			updateEmployee,
 			allUserCompanies,
-			selectedCompany,
 			updateCompany,
+			isLoadingCompanies,
+			getCompanieActivities,
+			getAllCompanyTeams,
+			getAllCompaniesUserActivities,
 			getCompaniesOverview,
+			totalCompanyBalanceInDollar,
+			selectedCompany,
+			setAllUserBalance,
+			allUserBalance,
 		]
 	);
 

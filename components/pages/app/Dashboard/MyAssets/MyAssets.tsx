@@ -1,54 +1,35 @@
 import { Button, Flex, Text, useDisclosure } from '@chakra-ui/react';
 import { Asset, OffsetShadow } from 'components';
-import { usePicasso } from 'hooks';
+import { useCompanies, usePicasso } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
-import React, { useRef, useMemo, useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect, useMemo } from 'react';
 import { IAssetsOptions } from 'types';
-import { useAccount, useContractRead } from 'wagmi';
-import companyAbi from 'utils/abi/company.json';
 
 export const MyAssets = () => {
 	const { t: translate } = useTranslation('dashboard');
 	const { isOpen: isFullList, onToggle: toggleListView } = useDisclosure();
 	const theme = usePicasso();
-	const { address } = useAccount();
+	const { allUserBalance } = useCompanies();
 
 	const ref = useRef<HTMLDivElement>(null);
 
-	const [assetsOptions, setAssetOptions] = useState<IAssetsOptions[]>([
-		{
-			name: 'USDT',
-			value: 84238.11,
-		},
-	]);
+	const [assetOptions, setAssetOptions] = useState<IAssetsOptions[]>([]);
 
-	const { data: availableToWithdraw } = useContractRead({
-		address: '0xC186498cd0736D19A988fb602eF74607F502D2Ca',
-		abi: companyAbi,
-		functionName: 'getSingleBalance',
-		args: [address],
-	});
+	const sumAvailableToWithdraw = () => {
+		const total = allUserBalance.reduce((acc, balance) => acc + balance, 0);
+		// const USDT = assetOptions.findIndex(item => item.name === 'USDT');
+		const newAssetOptions = [...assetOptions];
+		newAssetOptions.push({ name: 'USDT', value: total });
+		setAssetOptions(newAssetOptions);
+	};
 
 	useEffect(() => {
-		setAssetOptions(prevState => {
-			const updatedAsset = prevState.map(option => {
-				if (option.name === 'USDT') {
-					return {
-						...option,
-						value: Number(availableToWithdraw),
-					};
-				}
-				return option;
-			});
-			return updatedAsset;
-		});
-	}, []);
+		sumAvailableToWithdraw();
+	}, [allUserBalance.length]);
 
-	const totalAssetsValue = useMemo(
-		() =>
-			assetsOptions.reduce((totalValue, asset) => totalValue + asset.value, 0),
-		[assetsOptions]
-	);
+	const getUsdtBalance = useMemo(() => assetOptions[0]?.value, [assetOptions]);
+
+	console.log(assetOptions);
 
 	return (
 		<OffsetShadow
@@ -82,7 +63,8 @@ export const MyAssets = () => {
 								fontSize={{ base: 'sm', md: 'xs', lg: 'sm' }}
 								color={theme.text.primary}
 							>
-								${totalAssetsValue.toLocaleString('en-US')}
+								${getUsdtBalance}
+								{JSON.stringify(assetOptions)}
 							</Text>
 						</Flex>
 						<Button
@@ -99,8 +81,8 @@ export const MyAssets = () => {
 						</Button>
 					</Flex>
 					<Flex direction="column" px="4" gap="2" py="3">
-						{assetsOptions
-							.slice(0, isFullList ? assetsOptions.length : 3)
+						{assetOptions
+							.slice(0, isFullList ? assetOptions.length : 3)
 							.map((asset, index) => (
 								<Asset assetsOptions={asset} key={+index} />
 							))}

@@ -26,7 +26,7 @@ export const CompaniesHeader = () => {
 	const { query } = useRouter();
 	const { onClose, isOpen, onOpen } = useDisclosure();
 	const { t: translate } = useTranslation('company-overall');
-	const { getCompanyById } = useCompanies();
+	const { getCompanyById, selectedCompany } = useCompanies();
 
 	const { data: session } = useSession({
 		required: true,
@@ -46,13 +46,10 @@ export const CompaniesHeader = () => {
 		},
 	];
 
-	const {
-		data: selectedCompany,
-		isLoading: isLoadingSelectedCompany,
-		error: selectedCompanyError,
-	} = useQuery('created-company-overview', () =>
-		getCompanyById(Number(query.id))
-	);
+	const { isLoading: isLoadingSelectedCompany, error: selectedCompanyError } =
+		useQuery('created-company-overview', () =>
+			getCompanyById(Number(query.id))
+		);
 
 	useEffect(() => {
 		if (selectedCompanyError) {
