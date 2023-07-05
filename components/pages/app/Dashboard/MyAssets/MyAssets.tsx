@@ -17,9 +17,12 @@ export const MyAssets = () => {
 
 	const sumAvailableToWithdraw = () => {
 		const total = allUserBalance.reduce((acc, balance) => acc + balance, 0);
-		// const USDT = assetOptions.findIndex(item => item.name === 'USDT');
-		const newAssetOptions = [...assetOptions];
-		newAssetOptions.push({ name: 'USDT', value: total });
+		const newAssetOptions = [
+			{
+				name: 'USDT',
+				value: total,
+			},
+		];
 		setAssetOptions(newAssetOptions);
 	};
 
