@@ -19,4 +19,5 @@ export interface IHistoryNotifications {
 		};
 		description: ILanguages;
 	};
+	wallet: string;
 }

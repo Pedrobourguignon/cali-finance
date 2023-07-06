@@ -24,21 +24,39 @@ export const ActivitiesDataMobile: React.FC<IActivitiesData> = ({
 			justify="space-between"
 			direction="column"
 		>
-			<Text
-				px="2"
-				bg={theme.bg.black}
-				borderRadius="full"
-				color={theme.text.white}
-				h="max-content"
-				fontSize="2xs"
-				fontWeight="normal"
-				w="max-content"
-				whiteSpace="nowrap"
-			>
-				{activities.event.description === translate('addedToTeam')
-					? truncateWallet(activities.meta.data?.userAddedWallet)
-					: activities.meta.data.companyName}
-			</Text>
+			{activities.event.name === 'user_added_to_company' ||
+			activities.event.name === 'user_added_to_team' ||
+			activities.event.name === 'user_updated' ? (
+				<Text
+					px="2"
+					bg={theme.bg.black}
+					borderRadius="full"
+					color={theme.text.white}
+					h="max-content"
+					fontSize="2xs"
+					fontWeight="normal"
+					w="max-content"
+					whiteSpace="nowrap"
+				>
+					{truncateWallet(activities.wallet)}
+				</Text>
+			) : (
+				<Text
+					px="2"
+					bg={theme.bg.black}
+					borderRadius="full"
+					color={theme.text.white}
+					h="max-content"
+					fontSize="2xs"
+					fontWeight="normal"
+					w="max-content"
+					whiteSpace="nowrap"
+				>
+					{activities.event.description === translate('addedToTeam')
+						? truncateWallet(activities.meta.data?.userAddedWallet)
+						: activities.meta.data.companyName}
+				</Text>
+			)}
 			<Flex w="full" justify="space-between">
 				<Flex align="center" gap="2">
 					<Img
