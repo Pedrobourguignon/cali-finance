@@ -64,11 +64,9 @@ export const TokensProvider: React.FC<{ children: React.ReactNode }> = ({
 		getOneInchTokens();
 	}, []);
 
-	const getTokenDataById = async () => {
+	const getTokenDataById = async (tokenName: string) => {
 		try {
-			const tokenData = await CoingeckoService.tokenInfoByTokenId(
-				chosenToken.symbol
-			);
+			const tokenData = await CoingeckoService.tokenInfoByTokenId(tokenName);
 		} catch (error) {
 			console.error(error);
 		}

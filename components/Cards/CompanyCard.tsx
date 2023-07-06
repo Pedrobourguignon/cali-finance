@@ -9,43 +9,35 @@ import {
 } from '@chakra-ui/react';
 import { useCompanies, usePicasso } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { getLogo, handleLogoImage, navigationPaths } from 'utils';
 import NextLink from 'next/link';
 import { GetUserCompaniesRes } from 'types/interfaces/main-server/ICompany';
 import { WithdrawModal } from 'components';
-import { useContractRead } from 'wagmi';
-import companyABI from 'utils/abi/company.json';
+import { useAccount, useContractRead } from 'wagmi';
+import companyAbi from 'utils/abi/company.json';
 
 interface ICompanyCard {
 	company: GetUserCompaniesRes;
-	companyMembers: number;
 	userCompanies: GetUserCompaniesRes[];
 }
 
 export const CompanyCard: React.FC<ICompanyCard> = ({
 	company,
-	companyMembers,
 	userCompanies,
 }) => {
 	const theme = usePicasso();
-	const { totalCompanyBalanceInDollar } = useCompanies();
 	const { t: translate } = useTranslation('companies');
 	const { isOpen, onOpen, onClose } = useDisclosure();
+	const { isLoadingCompanies } = useCompanies();
+	const { address } = useAccount();
 
 	const { data: employeeBalance } = useContractRead({
 		address: company.contract,
-		abi: companyABI,
+		abi: companyAbi,
 		functionName: 'getSingleBalance',
-		args: ['0x969Cf86eeb3f9354D89f357c8dFe43DE8e645148'],
+		args: [address],
 	});
-
-	const fundsOrAvailableWithdraw = () => {
-		if (!company.isAdmin && employeeBalance) {
-			return `$ ${Number(employeeBalance).toLocaleString()}`;
-		}
-		return `$ ${totalCompanyBalanceInDollar?.toLocaleString()}`;
-	};
 
 	return (
 		<Flex
@@ -107,14 +99,25 @@ export const CompanyCard: React.FC<ICompanyCard> = ({
 								? translate('funds')
 								: translate('availableToWithdraw')}
 						</Text>
-						<Text fontSize={{ base: 'sm', md: 'xs', xl: 'sm' }}>
-							{totalCompanyBalanceInDollar === -1 ||
-							Number.isNaN(totalCompanyBalanceInDollar) ? (
-								<Skeleton w="10" h="4" />
-							) : (
-								fundsOrAvailableWithdraw()
-							)}
-						</Text>
+						{company.isAdmin ? (
+							<Flex fontSize={{ base: 'sm', md: 'xs', xl: 'sm' }}>
+								{isLoadingCompanies ? (
+									<Skeleton w="10" h="4" />
+								) : (
+									<Text>
+										{company.totalFundsUsd ? company.totalFundsUsd : 0}
+									</Text>
+								)}
+							</Flex>
+						) : (
+							<Flex fontSize={{ base: 'sm', md: 'xs', xl: 'sm' }}>
+								{isLoadingCompanies ? (
+									<Skeleton w="10" h="4" />
+								) : (
+									<Text>{Number(employeeBalance)}</Text>
+								)}
+							</Flex>
+						)}
 					</Flex>
 					{company?.isAdmin ? (
 						<Flex direction="column">
@@ -124,12 +127,17 @@ export const CompanyCard: React.FC<ICompanyCard> = ({
 							>
 								{translate('members')}
 							</Text>
-							<Text fontSize={{ base: 'sm', md: 'xs', xl: 'sm' }}>
-								{companyMembers}
-							</Text>
+
+							{isLoadingCompanies ? (
+								<Skeleton w="10" h="4" />
+							) : (
+								<Text fontSize={{ base: 'sm', md: 'xs', xl: 'sm' }}>
+									{company.total_members}
+								</Text>
+							)}
 						</Flex>
 					) : (
-						<Flex />
+						''
 					)}
 				</Flex>
 			</Flex>

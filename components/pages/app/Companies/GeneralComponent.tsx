@@ -12,7 +12,7 @@ export const GeneralComponent = () => {
 	const { data: session } = useSession();
 
 	return (
-		<CompaniesProvider>
+		<>
 			<Flex display={{ base: 'none', sm: 'flex' }}>
 				{session ? <CompaniesConnected /> : <CompaniesLayoutNoConnected />}
 			</Flex>
@@ -23,7 +23,7 @@ export const GeneralComponent = () => {
 					<CompaniesNoConnectedMobile />
 				)}
 			</Flex>
-		</CompaniesProvider>
+		</>
 	);
 };
 

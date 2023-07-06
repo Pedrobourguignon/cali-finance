@@ -22,7 +22,7 @@ export const LifeIsEasierTabletBreakpoint = () => {
 		>
 			<Flex
 				boxSize="full"
-				bgImage="/images/sparkles.png"
+				bgImage="/images/sparkles.svg"
 				bgRepeat="no-repeat"
 				bgSize="contain"
 				bgPosition="center"

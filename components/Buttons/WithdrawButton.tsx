@@ -8,17 +8,19 @@ import {
 } from 'wagmi';
 import companyAbi from 'utils/abi/company.json';
 import { AlertToast, WaitMetamaskFinishTransaction } from 'components';
+import { GetUserCompaniesRes } from 'types/interfaces/main-server/ICompany';
 
-export const WithdrawButton: React.FC<{ onClose?: () => void }> = ({
-	onClose,
-}) => {
+export const WithdrawButton: React.FC<{
+	onClose?: () => void;
+	company: GetUserCompaniesRes;
+}> = ({ onClose, company }) => {
 	const theme = usePicasso();
 	const { t: translate } = useTranslation('dashboard');
 	const toast = useToast();
 	const { onClose: onCloseConfirmationModal } = useDisclosure();
 
 	const { config: withdrawConfig } = usePrepareContractWrite({
-		address: '0xFBA3912Ca04dd458c843e2EE08967fC04f3579c2',
+		address: company.contract,
 		abi: companyAbi,
 		functionName: 'withdrawToken',
 	});

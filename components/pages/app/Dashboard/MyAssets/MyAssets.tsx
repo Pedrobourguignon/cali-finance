@@ -1,69 +1,36 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { Button, Flex, Text, useDisclosure } from '@chakra-ui/react';
 import { Asset, OffsetShadow } from 'components';
-import { usePicasso } from 'hooks';
+import { useCompanies, usePicasso } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
-import React, { useState, useRef, useEffect, useMemo } from 'react';
+import React, { useRef, useState, useEffect, useMemo } from 'react';
 import { IAssetsOptions } from 'types';
-
-const assetsOptions: IAssetsOptions[] = [
-	{
-		name: 'USD Coin',
-		initials: 'USDC',
-		units: '84,238.11',
-		value: 84238.11,
-		icon: '/icons/usdc.svg',
-	},
-	{
-		name: 'Bitcoin',
-		initials: 'bitcoin',
-		units: '0.001234',
-		value: 5666.99,
-		icon: '/icons/bitcoin.svg',
-	},
-	{
-		name: 'Ethereum',
-		initials: 'ETH',
-		units: '0.7',
-		value: 2032.11,
-		icon: '/icons/eth.svg',
-	},
-	{
-		name: 'Ethereum',
-		initials: 'ETH',
-		units: '0.7',
-		value: 4,
-		icon: '/icons/eth.svg',
-	},
-	{
-		name: 'Ethereum',
-		initials: 'ETH',
-		units: '0.7',
-		value: 5,
-		icon: '/icons/eth.svg',
-	},
-	{
-		name: 'Ethereum',
-		initials: 'ETH',
-		units: '0.7',
-		value: 6,
-		icon: '/icons/eth.svg',
-	},
-];
 
 export const MyAssets = () => {
 	const { t: translate } = useTranslation('dashboard');
 	const { isOpen: isFullList, onToggle: toggleListView } = useDisclosure();
 	const theme = usePicasso();
+	const { allUserBalance } = useCompanies();
 
 	const ref = useRef<HTMLDivElement>(null);
-	const [flexHeight, setFlexHeight] = useState(239);
 
-	const totalAssetsValue = useMemo(
-		() =>
-			assetsOptions.reduce((totalValue, asset) => totalValue + asset.value, 0),
-		[assetsOptions]
-	);
+	const [assetOptions, setAssetOptions] = useState<IAssetsOptions[]>([]);
+
+	const sumAvailableToWithdraw = () => {
+		const total = allUserBalance.reduce((acc, balance) => acc + balance, 0);
+		const newAssetOptions = [
+			{
+				name: 'USDT',
+				value: total,
+			},
+		];
+		setAssetOptions(newAssetOptions);
+	};
+
+	useEffect(() => {
+		sumAvailableToWithdraw();
+	}, [allUserBalance.length]);
+
+	const getUsdtBalance = useMemo(() => assetOptions[0]?.value, [assetOptions]);
 
 	return (
 		<OffsetShadow
@@ -97,7 +64,7 @@ export const MyAssets = () => {
 								fontSize={{ base: 'sm', md: 'xs', lg: 'sm' }}
 								color={theme.text.primary}
 							>
-								${totalAssetsValue.toLocaleString('en-US')}
+								${getUsdtBalance?.toLocaleString('en-US')}
 							</Text>
 						</Flex>
 						<Button
@@ -114,8 +81,8 @@ export const MyAssets = () => {
 						</Button>
 					</Flex>
 					<Flex direction="column" px="4" gap="2" py="3">
-						{assetsOptions
-							.slice(0, isFullList ? assetsOptions.length : 3)
+						{assetOptions
+							.slice(0, isFullList ? assetOptions.length : 3)
 							.map((asset, index) => (
 								<Asset assetsOptions={asset} key={+index} />
 							))}

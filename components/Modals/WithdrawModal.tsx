@@ -80,7 +80,7 @@ export const WithdrawModal: React.FC<IWithdrawModal> = ({
 						</ModalBody>
 
 						<ModalFooter>
-							<WithdrawButton onClose={onClose} />
+							<WithdrawButton onClose={onClose} company={company} />
 						</ModalFooter>
 					</Flex>
 				</OffsetShadow>

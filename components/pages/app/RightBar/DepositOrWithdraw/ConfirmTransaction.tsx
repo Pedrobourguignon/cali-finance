@@ -7,7 +7,7 @@ import {
 	useDisclosure,
 	useToast,
 } from '@chakra-ui/react';
-import { usePicasso } from 'hooks';
+import { useCompanies, usePicasso } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
 import { Dispatch, SetStateAction, useState } from 'react';
 import { ITransaction } from 'types';
@@ -17,7 +17,6 @@ import {
 	useWaitForTransaction,
 } from 'wagmi';
 import { useDebounce } from 'use-debounce';
-import { parseEther } from 'ethers/lib/utils.js';
 import { AlertToast, WaitMetamaskFinishTransaction } from 'components';
 
 interface IConfirmTransaction {
@@ -32,6 +31,7 @@ export const ConfirmTransaction: React.FC<IConfirmTransaction> = ({
 	const { t: translate } = useTranslation('company-overall');
 	const buttonOptions = [translate('deposit'), translate('withdrawal')];
 	const toast = useToast();
+	const { selectedCompany } = useCompanies();
 
 	const [selectedOption, setSelectedOption] = useState<string | undefined>(
 		transaction.type
@@ -47,7 +47,7 @@ export const ConfirmTransaction: React.FC<IConfirmTransaction> = ({
 
 	const { config: sendTransactionConfig } = usePrepareSendTransaction({
 		enabled: enabledTransaction,
-		to: '0x8409809BdF2424C45Fb85DB7768daC6026e95602',
+		to: selectedCompany.contract,
 		value: debouncedAmount ? BigInt(debouncedAmount) : undefined,
 		onError: (error: any) => {
 			toast({

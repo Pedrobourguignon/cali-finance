@@ -26,8 +26,7 @@ export const CompaniesHeader = () => {
 	const { query } = useRouter();
 	const { onClose, isOpen, onOpen } = useDisclosure();
 	const { t: translate } = useTranslation('company-overall');
-	const { getCompanyById, totalCompanyBalanceInDollar, selectedCompany } =
-		useCompanies();
+	const { getCompanyById, selectedCompany } = useCompanies();
 
 	const { data: session } = useSession({
 		required: true,
@@ -108,13 +107,7 @@ export const CompaniesHeader = () => {
 					{isLoadingSelectedCompany ? (
 						<Skeleton w="14" h="6" />
 					) : (
-						<Text fontSize="xl">
-							{!totalCompanyBalanceInDollar ? (
-								<Skeleton w="18" h="4" />
-							) : (
-								`$ ${selectedCompany.totalFundsUsd}`
-							)}
-						</Text>
+						<Text>{`$ ${selectedCompany?.totalFundsUsd}`}</Text>
 					)}
 					<Text fontSize="sm">{translate('totalFunds')}</Text>
 				</Flex>
