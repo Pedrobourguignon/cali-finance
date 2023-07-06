@@ -13,7 +13,10 @@ export const Asset: React.FC<IAsset> = ({ assetsOptions }) => {
 
 	const searchCoinLogo = () => {
 		const logo = listOfTokens.find(coin => coin.symbol === assetsOptions.name);
-		return logo?.logoURI;
+		if (logo?.logoURI) {
+			return logo?.logoURI;
+		}
+		return '/public/images/coin.svg';
 	};
 	return (
 		<Flex
@@ -24,7 +27,7 @@ export const Asset: React.FC<IAsset> = ({ assetsOptions }) => {
 			borderRadius="base"
 		>
 			<Flex gap="2" align="center" p="0.5">
-				<Img src={searchCoinLogo()} boxSize={{ lg: '5', xl: '6' }} />
+				<Img src={searchCoinLogo()} boxSize="6" />
 				<Flex direction="column" justify="center">
 					<Text fontSize={{ base: 'sm', md: 'xs', lg: 'sm' }}>
 						{assetsOptions.name}

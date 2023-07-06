@@ -26,6 +26,8 @@ import {
 import router, { useRouter } from 'next/router';
 import { MAIN_SERVICE_ROUTES } from 'helpers';
 import { useTokens } from 'hooks';
+import { readContract } from '@wagmi/core';
+import companyAbi from 'utils/abi/company.json';
 
 interface ICompanyContext {
 	setSelectedCompany: Dispatch<SetStateAction<GetUserCompaniesRes>>;
@@ -45,7 +47,6 @@ interface ICompanyContext {
 	addEmployeeToTeam: (employee: INewEmployee) => Promise<void>;
 	allUserCompanies: GetUserCompaniesRes[] | undefined;
 	selectedCompany: GetUserCompaniesRes;
-	totalCompanyBalanceInDollar: number;
 	companiesWithMissingFunds: GetUserCompaniesRes[];
 	getCompanieActivities: (
 		companyId: number
@@ -109,6 +110,34 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 		}
 	);
 
+	const getEmployeeBalance = async () => {
+		if (allUserCompanies) {
+			const filteredCompanies = allUserCompanies.filter(
+				company => Boolean(company.isAdmin) === false
+			);
+			const contractAddress = filteredCompanies.map(
+				filteredCompany => filteredCompany.contract
+			);
+
+			const data = contractAddress.map(item =>
+				readContract({
+					address: item,
+					abi: companyAbi,
+					functionName: 'getSingleBalance',
+					args: [wallet],
+				})
+			);
+			try {
+				const result = await Promise.all(data);
+				const numberResult = result.map(item => Number(item));
+				const availableToWithdraw = numberResult.filter(number => number !== 0);
+				setAllUserBalance(availableToWithdraw);
+			} catch (err) {
+				console.log(err);
+			}
+		}
+	};
+
 	const getCompaniesOverview = async () => {
 		if (!wallet) throw new Error('User not connected');
 		const response = await mainClient.get(MAIN_SERVICE_ROUTES.getOverview);
@@ -126,6 +155,7 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 
 	useEffect(() => {
 		handleMissingFunds();
+		getEmployeeBalance();
 	}, [allUserCompanies]);
 
 	useEffect(() => {
@@ -245,60 +275,6 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 		return response.data;
 	};
 
-	const [totalCompanyBalanceInDollar, setTotalCompanyBalanceInDollar] =
-		useState<number>(-1);
-	const contractCompanyAssetsData: IUseBalance[] = [];
-	const companyAssetsDollarQuotation: number[] = [];
-
-	const { data: companyBalance, refetch } = useBalance({
-		address: selectedCompany!.contract,
-		enabled: selectedCompany !== undefined,
-	});
-
-	// run the useBalance hook every 20 seconds
-	useEffect(() => {
-		const refetchBalanceTimer = setInterval(() => {
-			refetch();
-		}, 5000);
-		return () => clearInterval(refetchBalanceTimer);
-	}, []);
-
-	if (companyBalance) {
-		contractCompanyAssetsData.push(companyBalance);
-	}
-
-	const { data: companyAssetsInDollar } = useQuery(['get-coin-data'], () =>
-		getCoinServiceTokens(
-			contractCompanyAssetsData.map(asset => asset.symbol).toString()
-		)
-	);
-
-	useEffect(() => {
-		// get the value of the quotation of all assets in the company's contract and put in an array
-		if (companyAssetsInDollar) {
-			for (const key in companyAssetsInDollar) {
-				if (companyAssetsInDollar.hasOwnProperty(key)) {
-					companyAssetsDollarQuotation.push(companyAssetsInDollar[key]?.value);
-				}
-			}
-			// maps the array of assets and the array of quotes, multiplying the respective index
-			// sum all values and set the final Dollar balance state to show in the company header
-			const multiplyAssetsToDollar = () => {
-				const DollarValues = contractCompanyAssetsData.map(asset =>
-					companyAssetsDollarQuotation.map(
-						assetQuotation => Number(asset.formatted) * assetQuotation
-					)
-				);
-				const sumAllDollarValues = DollarValues[0]?.reduce(
-					(partialSum, acc) => partialSum + acc,
-					0
-				);
-				setTotalCompanyBalanceInDollar(sumAllDollarValues);
-			};
-			multiplyAssetsToDollar();
-		}
-	}, [contractCompanyAssetsData]);
-
 	const contextStates = useMemo(
 		() => ({
 			setEditedInfo,
@@ -325,7 +301,6 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 			getAllCompanyTeams,
 			getAllCompaniesUserActivities,
 			getCompaniesOverview,
-			totalCompanyBalanceInDollar,
 			selectedCompany,
 			setAllUserBalance,
 			allUserBalance,
@@ -355,7 +330,6 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 			getAllCompanyTeams,
 			getAllCompaniesUserActivities,
 			getCompaniesOverview,
-			totalCompanyBalanceInDollar,
 			selectedCompany,
 			setAllUserBalance,
 			allUserBalance,

@@ -32,8 +32,6 @@ export const MyAssets = () => {
 
 	const getUsdtBalance = useMemo(() => assetOptions[0]?.value, [assetOptions]);
 
-	console.log(assetOptions);
-
 	return (
 		<OffsetShadow
 			width="full"
@@ -66,8 +64,7 @@ export const MyAssets = () => {
 								fontSize={{ base: 'sm', md: 'xs', lg: 'sm' }}
 								color={theme.text.primary}
 							>
-								${getUsdtBalance}
-								{JSON.stringify(assetOptions)}
+								${getUsdtBalance?.toLocaleString('en-US')}
 							</Text>
 						</Flex>
 						<Button

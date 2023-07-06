@@ -29,8 +29,7 @@ export const CompanyCard: React.FC<ICompanyCard> = ({
 	const theme = usePicasso();
 	const { t: translate } = useTranslation('companies');
 	const { isOpen, onOpen, onClose } = useDisclosure();
-	const { isLoadingCompanies, setAllUserBalance, allUserBalance } =
-		useCompanies();
+	const { isLoadingCompanies } = useCompanies();
 	const { address } = useAccount();
 
 	const { data: employeeBalance } = useContractRead({
@@ -39,20 +38,6 @@ export const CompanyCard: React.FC<ICompanyCard> = ({
 		functionName: 'getSingleBalance',
 		args: [address],
 	});
-
-	useEffect(() => {
-		if (employeeBalance) {
-			setAllUserBalance(prevState => {
-				if (
-					!prevState.includes(Number(employeeBalance)) &&
-					Number(employeeBalance) !== 0
-				) {
-					return [...prevState, Number(employeeBalance)];
-				}
-				return prevState;
-			});
-		}
-	}, []);
 
 	return (
 		<Flex
