@@ -23,8 +23,6 @@ export const RecentActivitiesDashboard = () => {
 		}
 	);
 
-	console.log(allCompaniesRecentActivities);
-
 	return (
 		<Flex
 			direction="column"
