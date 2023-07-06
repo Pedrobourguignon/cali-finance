@@ -1,7 +1,8 @@
 import { Flex, Grid, GridItem, Img, Text } from '@chakra-ui/react';
-import { usePicasso } from 'hooks';
+import { useCompanies, usePicasso } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
 import React from 'react';
+import { useQuery } from 'react-query';
 import { IActivitiesData } from 'types';
 import {
 	notificationIcons,
@@ -17,6 +18,11 @@ export const HistoryActivityData: React.FC<IActivitiesData> = ({
 }) => {
 	const theme = usePicasso();
 	const { t: translate } = useTranslation('history-page');
+	const { getCompanyById } = useCompanies();
+
+	const { data: company } = useQuery('get-company-data', () =>
+		getCompanyById(activities.meta.data.companyId)
+	);
 
 	return (
 		// eslint-disable-next-line react/jsx-no-useless-fragment
@@ -62,7 +68,11 @@ export const HistoryActivityData: React.FC<IActivitiesData> = ({
 										{handleLogoImage(activities.meta.data.companyName)}
 									</Flex>
 								)}
-								<Text fontSize="sm" color={theme.text.primary} fontWeight="600">
+								<Text
+									fontSize="sm"
+									color={theme.text.primary}
+									fontWeight="bold"
+								>
 									{activities.meta.data.companyName}
 								</Text>
 							</GridItem>

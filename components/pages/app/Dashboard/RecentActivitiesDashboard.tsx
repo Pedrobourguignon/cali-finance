@@ -1,16 +1,28 @@
-import { Flex, Img, Text, Link } from '@chakra-ui/react';
+/* eslint-disable react/jsx-no-useless-fragment */
+import { Flex, Text, Link } from '@chakra-ui/react';
 import React from 'react';
-import { IRecentActivitiesComponent } from 'types';
 import useTranslation from 'next-translate/useTranslation';
 import { navigationPaths } from 'utils';
-import { usePicasso } from 'hooks';
+import { usePicasso, useProfile } from 'hooks';
 import NextLink from 'next/link';
+import { useQuery } from 'react-query';
+import { useAccount } from 'wagmi';
+import { RecentActivitiesData } from 'components';
 
-export const RecentActivitiesDashboard: React.FC<
-	IRecentActivitiesComponent
-> = ({ recentActivitiesList }) => {
+export const RecentActivitiesDashboard = () => {
 	const { t: translate } = useTranslation('dashboard');
 	const theme = usePicasso();
+	const { isConnected } = useAccount();
+	const { getUserActivities } = useProfile();
+
+	const { data: allCompaniesRecentActivities } = useQuery(
+		'recent-activities',
+		() => getUserActivities(999),
+		{
+			enabled: !!isConnected,
+		}
+	);
+
 	return (
 		<Flex
 			direction="column"
@@ -42,49 +54,19 @@ export const RecentActivitiesDashboard: React.FC<
 					</Text>
 				</Link>
 			</Flex>
-			<Flex direction="column" gap="2" py="4">
-				{recentActivitiesList.map((activity, index) => (
-					<Flex
-						w="full"
-						key={+index}
-						justify="space-between"
-						bg="gray.100"
-						color="white"
-						borderRadius="base"
-						align="center"
-					>
-						<Flex gap={{ base: '2.5', '2xl': '4' }} align="center" p="0.5">
-							<Img src="/icons/deposit.svg" boxSize="7" pl="3" />
-							<Flex direction="column" justify="center">
-								<Text
-									color={theme.text.primary}
-									fontSize={{ base: 'sm', md: 'xs', lg: 'sm' }}
-									fontWeight="normal"
-								>
-									{activity.type}
-								</Text>
-								<Text color="gray.500" fontSize="xs" whiteSpace="nowrap">
-									{activity.date}
-								</Text>
-							</Flex>
-						</Flex>
-						<Flex
-							direction="column"
-							align="flex-end"
-							fontSize={{ md: 'xs', lg: 'sm' }}
-							p="0.5"
-							pr="2"
-						>
-							<Text fontSize="xs" color={theme.text.primary}>
-								{activity.value}
-							</Text>
-							<Text fontSize="xs" color="green.400" whiteSpace="nowrap">
-								{activity.status}
-							</Text>
-						</Flex>
-					</Flex>
-				))}
-			</Flex>
+			{allCompaniesRecentActivities?.length === 0 ? (
+				<Flex py="24" justify="center">
+					<Text color={theme.text.primary} fontWeight="semibold">
+						{translate('dontHaveRecentActivities')}
+					</Text>
+				</Flex>
+			) : (
+				<Flex direction="column" gap="2" py="4">
+					{allCompaniesRecentActivities?.slice(0, 5).map((activity, index) => (
+						<RecentActivitiesData activities={activity} key={+index} />
+					))}
+				</Flex>
+			)}
 		</Flex>
 	);
 };

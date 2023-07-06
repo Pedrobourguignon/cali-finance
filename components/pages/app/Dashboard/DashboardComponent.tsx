@@ -8,40 +8,10 @@ import {
 	DashboardHeader,
 } from 'components';
 import React from 'react';
-import { IRecentActivitiesList } from 'types';
-import useTranslation from 'next-translate/useTranslation';
 import { useSession } from 'next-auth/react';
 
 export const DashboardComponent: React.FC = () => {
-	const { t: translate } = useTranslation('dashboard');
 	const { data: session } = useSession();
-
-	const recentActivitiesList: IRecentActivitiesList[] = [
-		{
-			type: translate('deposit'),
-			date: '08 Aug 22, 20:57',
-			value: '10,000 USDT',
-			status: translate('completed'),
-		},
-		{
-			type: translate('deposit'),
-			date: '08 Aug 22, 20:57',
-			value: '10,000 USDT',
-			status: translate('completed'),
-		},
-		{
-			type: translate('deposit'),
-			date: '08 Aug 22, 20:57',
-			value: '10,000 USDT',
-			status: translate('completed'),
-		},
-		{
-			type: translate('deposit'),
-			date: '08 Aug 22, 20:57',
-			value: '10,000 USDT',
-			status: translate('completed'),
-		},
-	];
 
 	return (
 		<Flex w="full">
@@ -58,9 +28,7 @@ export const DashboardComponent: React.FC = () => {
 								<MyAssets />
 							</Flex>
 							<Flex w="100%" h="max-content" flex={{ md: '5.5', xl: '4.5' }}>
-								<RecentActivitiesDashboard
-									recentActivitiesList={recentActivitiesList}
-								/>
+								<RecentActivitiesDashboard />
 							</Flex>
 						</Flex>
 					)}

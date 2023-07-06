@@ -25,5 +25,7 @@
 	"withdraw": "Retirar",
 	"selectAOrg": "Selecione uma organização",
 	"pendingNotifications": "notificações pendentes",
-	"clearAll": "Limpar tudo"
+	"clearAll": "Limpar tudo",
+	"dontHaveRecentActivities": "Você não possui nenhuma atividade recente",
+	"dontHaveCompaniesRecentActivities": "Suas empresas não possuem atividades recentes"
 }
