@@ -18,19 +18,20 @@ export const FundsPageComponent = () => {
 	const { t: translate } = useTranslation('company-overall');
 	const { getCoinServiceTokens, listOfTokens } = useTokens();
 	const [coins, setCoins] = useState<ICoin[]>([]);
+	const symbols = ['usdt'];
 
 	const { data: coinServiceTokens } = useQuery(['get-coin-data'], () =>
-		getCoinServiceTokens('eth')
+		getCoinServiceTokens(symbols.toString())
 	);
 
 	const createCoin = () => {
 		if (coinServiceTokens) {
 			const newCoin: ICoin[] = [
 				{
-					symbol: coinServiceTokens?.ETH.symbol,
-					change: coinServiceTokens?.ETH.change,
-					value: coinServiceTokens?.ETH.value,
-					logo: getCoinLogo(coinServiceTokens?.ETH.symbol, listOfTokens),
+					symbol: coinServiceTokens?.usdt.symbol,
+					change: coinServiceTokens?.usdt.change,
+					value: coinServiceTokens?.usdt.value,
+					logo: getCoinLogo(coinServiceTokens?.usdt.symbol, listOfTokens),
 				},
 			];
 			setCoins(newCoin);

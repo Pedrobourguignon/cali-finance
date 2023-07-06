@@ -1,6 +1,7 @@
+import { COIN_SERVICE_ROUTES } from 'helpers';
 import debounce from 'lodash.debounce';
 import React, { createContext, useEffect, useMemo, useState } from 'react';
-import { OneInchService, CoingeckoService } from 'services';
+import { OneInchService } from 'services';
 import { ISelectedCoin, ISwapTokenSelector, IToken } from 'types';
 import { coinClient } from 'utils';
 
@@ -64,14 +65,6 @@ export const TokensProvider: React.FC<{ children: React.ReactNode }> = ({
 		getOneInchTokens();
 	}, []);
 
-	const getTokenDataById = async (tokenName: string) => {
-		try {
-			const tokenData = await CoingeckoService.tokenInfoByTokenId(tokenName);
-		} catch (error) {
-			console.error(error);
-		}
-	};
-
 	const handleSearchToken = debounce(
 		(searchValue: string, tokens: IToken[]) => {
 			if (!searchValue) {
@@ -94,7 +87,12 @@ export const TokensProvider: React.FC<{ children: React.ReactNode }> = ({
 
 	const getCoinServiceTokens = async (symbols: string) => {
 		if (symbols) {
-			const response = await coinClient.get(`/coin?symbols=${symbols}`);
+			const response = await coinClient.get(
+				COIN_SERVICE_ROUTES.getCoinService,
+				{
+					params: { symbols },
+				}
+			);
 			return response.data;
 		}
 		return null;
