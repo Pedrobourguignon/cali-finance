@@ -287,7 +287,8 @@ export const EditProfileComponent = () => {
 									editedProfileInfo.email === profileData?.email &&
 									editedProfileInfo.name === profileData?.name &&
 									editedProfileInfo.picture === profileData?.picture &&
-									editedProfileInfo.picture === editedProfilePicture
+									(editedProfileInfo.picture === editedProfilePicture ||
+										editedProfilePicture === '/images/editImage.png')
 								}
 								_disabled={{ opacity: '50%', cursor: 'not-allowed' }}
 							>
