@@ -14,6 +14,7 @@ export const RecentActivities = () => {
 	const { query } = useRouter();
 	const { isConnected } = useAccount();
 	const { t: translate } = useTranslation('companies');
+	const { t: translateDashboard } = useTranslation('dashboard');
 	const { getAllCompaniesUserActivities } = useCompanies();
 
 	const { data: recentActivities } = useQuery(
@@ -60,19 +61,28 @@ export const RecentActivities = () => {
 					</Text>
 				</Link>
 			</Flex>
-			<Flex gap="2" direction="column" display={{ base: 'none', sm: 'flex' }}>
-				{Object.keys(query).length === 0
-					? allCompaniesRecentActivities
-							?.slice(0, 5)
-							.map((activity, index) => (
-								<ActivitiesData key={+index} activities={activity} />
-							))
-					: recentActivities
-							?.slice(0, 5)
-							.map((activity, index) => (
-								<ActivitiesData key={+index} activities={activity} />
-							))}
-			</Flex>
+			{allCompaniesRecentActivities?.length === 0 ? (
+				<Flex py="24" justify="center">
+					<Text color={theme.text.primary} fontWeight="semibold">
+						{translateDashboard('dontHaveCompaniesRecentActivities')}
+					</Text>
+				</Flex>
+			) : (
+				<Flex gap="2" direction="column" display={{ base: 'none', sm: 'flex' }}>
+					{Object.keys(query).length === 0
+						? allCompaniesRecentActivities
+								?.slice(0, 5)
+								.map((activity, index) => (
+									<ActivitiesData key={+index} activities={activity} />
+								))
+						: recentActivities
+								?.slice(0, 5)
+								.map((activity, index) => (
+									<ActivitiesData key={+index} activities={activity} />
+								))}
+				</Flex>
+			)}
+
 			<Flex gap="2" direction="column" display={{ base: 'flex', sm: 'none' }}>
 				{recentActivities?.map((activity, index) => (
 					<ActivitiesDataMobile key={+index} activities={activity} />
