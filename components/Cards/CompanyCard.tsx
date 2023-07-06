@@ -44,7 +44,7 @@ export const CompanyCard: React.FC<ICompanyCard> = ({
 		if (!company.isAdmin && employeeBalance) {
 			return `$ ${Number(employeeBalance).toLocaleString()}`;
 		}
-		return `$ ${totalCompanyBalanceInDollar.toLocaleString()}`;
+		return `$ ${totalCompanyBalanceInDollar?.toLocaleString()}`;
 	};
 
 	return (
