@@ -50,6 +50,7 @@ export const EmployeeData: React.FC<IEmployeeData> = ({
 			),
 		});
 	};
+
 	return (
 		<Flex
 			w="100%"
@@ -77,8 +78,13 @@ export const EmployeeData: React.FC<IEmployeeData> = ({
 					boxSize="6"
 				/>
 				<Flex direction="column" justifyItems="center">
-					<Text fontSize="sm">
-						{!employee.name ? employee.wallet : employee.name}
+					<Text fontSize="sm" display={{ base: 'flex', sm: 'none' }}>
+						{employee.name?.length !== 40
+							? truncateWallet(employee.wallet)
+							: employee.name}
+					</Text>
+					<Text fontSize="sm" display={{ base: 'none', sm: 'flex' }}>
+						{employee.name?.length !== 40 ? employee.wallet : employee.name}
 					</Text>
 					<Flex align="center">
 						<Text fontSize="xs" color="gray.500">

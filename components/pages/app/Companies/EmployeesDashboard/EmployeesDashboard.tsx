@@ -27,7 +27,11 @@ export const EmployeesDashboard: React.FC<IEmployeeDashboard> = ({
 	const { getAllCompanyEmployees } = useCompanies();
 	const { query } = useRouter();
 	const { isOpen, onOpen, onClose } = useDisclosure();
-	const { isOpen: isOpenMobile, onClose: onCloseMobile } = useDisclosure();
+	const {
+		isOpen: isOpenMobile,
+		onOpen: onOpenMobile,
+		onClose: onCloseMobile,
+	} = useDisclosure();
 	const { isOpen: isFullList, onToggle: toggleListView } = useDisclosure();
 
 	const {
@@ -68,7 +72,7 @@ export const EmployeesDashboard: React.FC<IEmployeeDashboard> = ({
 						<Text>{translate('employees')}</Text>
 					</Flex>
 				)}
-				<Flex gap="8" align="center">
+				<Flex gap="8" align="center" display={{ base: 'none', sm: 'flex' }}>
 					{employees && (
 						<Button h="max-content" onClick={() => toggleListView()}>
 							<Text fontSize="xs" color="gray.500" fontWeight="medium">
@@ -76,10 +80,30 @@ export const EmployeesDashboard: React.FC<IEmployeeDashboard> = ({
 							</Text>
 						</Button>
 					)}
-
 					<BlackButton
 						px="3"
 						onClick={onOpen}
+						fontSize="xs"
+						gap="2.5"
+						fontWeight="medium"
+						py="1"
+						borderRadius="base"
+					>
+						<Text>+</Text>
+						<Text>{translate('addEmployee')}</Text>
+					</BlackButton>
+				</Flex>
+				<Flex gap="8" align="center" display={{ base: 'flex', sm: 'none' }}>
+					{employees && (
+						<Button h="max-content" onClick={() => toggleListView()}>
+							<Text fontSize="xs" color="gray.500" fontWeight="medium">
+								{isFullList ? translate('seeLess') : translate('seeAll')}
+							</Text>
+						</Button>
+					)}
+					<BlackButton
+						px="3"
+						onClick={onOpenMobile}
 						fontSize="xs"
 						gap="2.5"
 						fontWeight="medium"
