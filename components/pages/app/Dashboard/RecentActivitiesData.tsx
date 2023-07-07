@@ -1,6 +1,7 @@
 import { Flex, Grid, GridItem, Img, Text } from '@chakra-ui/react';
 import { usePicasso } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
+import { useRouter } from 'next/router';
 import React from 'react';
 import { IActivitiesData } from 'types';
 import {
@@ -16,6 +17,7 @@ export const RecentActivitiesData: React.FC<IActivitiesData> = ({
 }) => {
 	const theme = usePicasso();
 	const { t: translate } = useTranslation('history-page');
+	const { locale } = useRouter();
 
 	return (
 		// eslint-disable-next-line react/jsx-no-useless-fragment
@@ -32,29 +34,41 @@ export const RecentActivitiesData: React.FC<IActivitiesData> = ({
 						alignItems="center"
 					>
 						<GridItem display="flex" alignContent="center" gap="2" flex="3.5">
-							{activities.meta.data.companyLogo ? (
+							{activities.event.name !== 'user_updated' &&
+							activities.event.name !== 'user_settings_updated' &&
+							activities.meta.data.companyLogo ? (
 								<Img
 									src={getLogo(activities.meta.data.companyLogo)}
 									boxSize="6"
 									borderRadius="base"
 								/>
 							) : (
-								<Flex
-									boxSize="6"
-									borderRadius="full"
-									align="center"
-									justify="center"
-									fontSize="xs"
-									fontWeight="bold"
-									bg={theme.bg.white2}
-									color={theme.text.primary}
-								>
-									{handleLogoImage(activities.meta.data.companyName)}
-								</Flex>
+								activities.event.name !== 'user_updated' &&
+								activities.event.name !== 'user_settings_updated' && (
+									<Flex
+										boxSize="6"
+										borderRadius="full"
+										align="center"
+										justify="center"
+										fontSize="xs"
+										fontWeight="bold"
+										bg={theme.bg.white2}
+										color={theme.text.primary}
+									>
+										{handleLogoImage(activities.meta.data.companyName)}
+									</Flex>
+								)
 							)}
-							<Text fontSize="sm" color={theme.text.primary}>
-								{activities.meta.data.companyName}
-							</Text>
+							{activities.event.name === 'user_updated' ||
+							activities.event.name === 'user_settings_updated' ? (
+								<Text fontSize="sm" color={theme.text.primary}>
+									{activities.meta.description[locale!]}
+								</Text>
+							) : (
+								<Text fontSize="sm" color={theme.text.primary}>
+									{activities.meta.data.companyName}
+								</Text>
+							)}
 						</GridItem>
 						<GridItem flex={{ base: '3.2', md: '2.5' }}>
 							<Flex align="center" gap="2">
