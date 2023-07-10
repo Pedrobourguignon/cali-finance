@@ -16,7 +16,6 @@ import { useConnect, Connector, useAccount } from 'wagmi';
 import NextLink from 'next/link';
 import { useEffect } from 'react';
 import { MobileModalLayout } from 'layouts';
-import { isMobile } from 'react-device-detect';
 
 interface IWallet {
 	name: string;
@@ -83,7 +82,6 @@ export const WalletOptionsMobile: React.FC<IWalletOptionsModal> = ({
 			name: 'MetaMask',
 			icon: '/icons/metamask.svg',
 			connector: connectors[0],
-			link: 'https://apps.apple.com/br/app/metamask-blockchain-wallet/id1438144202',
 		},
 		{
 			name: 'Coinbase Wallet',
@@ -105,34 +103,6 @@ export const WalletOptionsMobile: React.FC<IWalletOptionsModal> = ({
 			icon: '/icons/treedots.svg',
 		},
 	];
-
-	const handleConnectWallet = (link: string) => {
-		if (isMobile) {
-			window.open(link);
-		} else {
-			window.open('metamask://');
-		}
-	};
-
-	// useEffect(() => {}, []);
-
-	const teste = () => {
-		const isMobilee = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-		const isMetaMaskInstalled = typeof window.ethereum !== 'undefined';
-
-		if (isMobile && isMetaMaskInstalled) {
-			window.open('https://metamask.app.link/metamask');
-		} else if (isMobile && !isMetaMaskInstalled) {
-			if (navigator.userAgent.match(/iPhone|iPad|iPod/i)) {
-				window.open('https://apps.apple.com/app/metamask/id1438144202');
-			} else if (navigator.userAgent.match(/Android/i)) {
-				window.open(
-					'https://play.google.com/store/apps/details?id=io.metamask'
-				);
-			}
-		}
-	};
-
 	return (
 		<MobileModalLayout isOpen={isOpen} onClose={onClose}>
 			<Flex
@@ -168,9 +138,7 @@ export const WalletOptionsMobile: React.FC<IWalletOptionsModal> = ({
 								color: 'white',
 								bg: 'black',
 							}}
-							// onClick={() => onTriggerLoadingModal(wallet)}
-							// onClick={() => handleConnectWallet(wallet.link!)}
-							onClick={() => teste()}
+							onClick={() => onTriggerLoadingModal(wallet)}
 							color={theme.text.mono}
 							transition="all 0.1s ease-in-out"
 							borderRadius="base"

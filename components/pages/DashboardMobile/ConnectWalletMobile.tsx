@@ -12,13 +12,12 @@ export const ConnectWalletMobile = () => {
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const { walletData, setWalletData } = useProfile();
 
-	const { icon, name } = walletData;
-
 	const {
 		isOpen: isOpenLoading,
 		onClose: onCloseLoading,
 		onOpen: onOpenLoading,
 	} = useDisclosure();
+	const { icon, name } = walletData;
 
 	return (
 		<Flex>
