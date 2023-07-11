@@ -1,4 +1,4 @@
-import { Flex, Text } from '@chakra-ui/react';
+import { Flex, list, Text } from '@chakra-ui/react';
 import { usePicasso, useTokens } from 'hooks';
 import { AppLayout } from 'layouts';
 import {
@@ -24,14 +24,18 @@ export const FundsPageComponent = () => {
 		getCoinServiceTokens(symbols.toString())
 	);
 
-	const createCoin = () => {
-		if (coinServiceTokens) {
+	const createCoin = async () => {
+		if (
+			coinServiceTokens &&
+			coinServiceTokens.USDT &&
+			listOfTokens.length !== 0
+		) {
 			const newCoin: ICoin[] = [
 				{
-					symbol: coinServiceTokens?.usdt.symbol,
-					change: coinServiceTokens?.usdt.change,
-					value: coinServiceTokens?.usdt.value,
-					logo: getCoinLogo(coinServiceTokens?.usdt.symbol, listOfTokens),
+					symbol: coinServiceTokens?.USDT.symbol,
+					change: coinServiceTokens?.USDT.change,
+					value: coinServiceTokens?.USDT.value,
+					logo: getCoinLogo(coinServiceTokens?.USDT.symbol, listOfTokens),
 				},
 			];
 			setCoins(newCoin);
@@ -40,7 +44,7 @@ export const FundsPageComponent = () => {
 
 	useEffect(() => {
 		createCoin();
-	}, [coinServiceTokens]);
+	}, [coinServiceTokens, listOfTokens]);
 
 	return (
 		<AppLayout right={<DepositOrWithdrawBanner />}>
