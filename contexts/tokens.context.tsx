@@ -2,7 +2,7 @@ import { COIN_SERVICE_ROUTES } from 'helpers';
 import debounce from 'lodash.debounce';
 import React, { createContext, useEffect, useMemo, useState } from 'react';
 import { OneInchService } from 'services';
-import { ISelectedCoin, ISwapTokenSelector, IToken } from 'types';
+import { ICoin, ISelectedCoin, ISwapTokenSelector, IToken } from 'types';
 import { coinClient } from 'utils';
 
 interface ITokensContext {
@@ -21,6 +21,8 @@ interface ITokensContext {
 	) => Promise<
 		Record<string, { value: number; change: number; symbol: string }>
 	>;
+	setCoins: React.Dispatch<React.SetStateAction<ICoin[]>>;
+	coins: ICoin[];
 }
 export const TokensContext = createContext({} as ITokensContext);
 
@@ -40,6 +42,7 @@ export const TokensProvider: React.FC<{ children: React.ReactNode }> = ({
 			receivedAmount: '',
 			receivedToken: '',
 		} as ISwapTokenSelector);
+	const [coins, setCoins] = useState<ICoin[]>([]);
 
 	// eslint-disable-next-line consistent-return
 	const getOneInchTokens = async () => {
@@ -109,16 +112,16 @@ export const TokensProvider: React.FC<{ children: React.ReactNode }> = ({
 			swapTokenSelector,
 			setSwapTokenSelector,
 			getCoinServiceTokens,
+			setCoins,
+			coins,
 		}),
 		[
-			setFilteredTokens,
 			filteredTokens,
 			handleSearchToken,
 			listOfTokens,
-			setChosenToken,
 			chosenToken,
 			swapTokenSelector,
-			setSwapTokenSelector,
+			coins,
 		]
 	);
 

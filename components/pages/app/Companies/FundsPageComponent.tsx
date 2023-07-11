@@ -1,4 +1,4 @@
-import { Flex, list, Text } from '@chakra-ui/react';
+import { Flex, Text } from '@chakra-ui/react';
 import { usePicasso, useTokens } from 'hooks';
 import { AppLayout } from 'layouts';
 import {
@@ -9,7 +9,7 @@ import {
 } from 'components';
 import useTranslation from 'next-translate/useTranslation';
 import { useQuery } from 'wagmi';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { ICoin } from 'types';
 import { getCoinLogo } from 'utils';
 
@@ -17,8 +17,8 @@ export const FundsPageComponent = () => {
 	const theme = usePicasso();
 	const { t: translate } = useTranslation('company-overall');
 	const { getCoinServiceTokens, listOfTokens } = useTokens();
-	const [coins, setCoins] = useState<ICoin[]>([]);
 	const symbols = ['usdt'];
+	const { coins, setCoins } = useTokens();
 
 	const { data: coinServiceTokens } = useQuery(['get-coin-data'], () =>
 		getCoinServiceTokens(symbols.toString())
