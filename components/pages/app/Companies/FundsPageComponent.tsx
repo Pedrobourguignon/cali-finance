@@ -1,5 +1,5 @@
 import { Flex, Text } from '@chakra-ui/react';
-import { usePicasso } from 'hooks';
+import { usePicasso, useTokens } from 'hooks';
 import { AppLayout } from 'layouts';
 import {
 	CoinCard,
@@ -7,57 +7,44 @@ import {
 	HistoryDashboard,
 	CompaniesHeader,
 } from 'components';
-import { ICoin } from 'types';
 import useTranslation from 'next-translate/useTranslation';
-
-const coinCard: ICoin[] = [
-	{
-		logo: '/icons/tether.svg',
-		symbol: 'USDT',
-		value: 1,
-		change: 0.6,
-	},
-	{
-		logo: '/icons/tether.svg',
-		symbol: 'USDT',
-		value: 1,
-		change: 0,
-	},
-	{
-		logo: '/icons/tether.svg',
-		symbol: 'USDT',
-		value: 1,
-		change: 0.6,
-	},
-	{
-		logo: '/icons/tether.svg',
-		symbol: 'USDT',
-		value: 1,
-		change: 0.6,
-	},
-	{
-		logo: '/icons/tether.svg',
-		symbol: 'USDT',
-		value: 1,
-		change: 0.6,
-	},
-	{
-		logo: '/icons/tether.svg',
-		symbol: 'USDT',
-		value: 1,
-		change: -0.6,
-	},
-	{
-		logo: '/icons/tether.svg',
-		symbol: 'USDT',
-		value: 1,
-		change: 0,
-	},
-];
+import { useQuery } from 'wagmi';
+import { useEffect } from 'react';
+import { ICoin } from 'types';
+import { getCoinLogo } from 'utils';
 
 export const FundsPageComponent = () => {
 	const theme = usePicasso();
 	const { t: translate } = useTranslation('company-overall');
+	const { getCoinServiceTokens, listOfTokens } = useTokens();
+	const symbols = ['usdt'];
+	const { coins, setCoins } = useTokens();
+
+	const { data: coinServiceTokens } = useQuery(['get-coin-data'], () =>
+		getCoinServiceTokens(symbols.toString())
+	);
+
+	const createCoin = async () => {
+		if (
+			coinServiceTokens &&
+			coinServiceTokens.USDT &&
+			listOfTokens.length !== 0
+		) {
+			const newCoin: ICoin[] = [
+				{
+					symbol: coinServiceTokens?.USDT.symbol,
+					change: coinServiceTokens?.USDT.change,
+					value: coinServiceTokens?.USDT.value,
+					logo: getCoinLogo(coinServiceTokens?.USDT.symbol, listOfTokens),
+				},
+			];
+			setCoins(newCoin);
+		}
+	};
+
+	useEffect(() => {
+		createCoin();
+	}, [coinServiceTokens, listOfTokens]);
 
 	return (
 		<AppLayout right={<DepositOrWithdrawBanner />}>
@@ -77,7 +64,7 @@ export const FundsPageComponent = () => {
 						<Text>{translate('coins')}</Text>
 					</Flex>
 					<Flex w="full" justify="flex-start" flexWrap="wrap" gap="4">
-						{coinCard.map((coin, index) => (
+						{coins.map((coin, index) => (
 							<CoinCard
 								coin={coin}
 								borderColor="gray.400"
