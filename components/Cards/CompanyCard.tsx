@@ -7,15 +7,16 @@ import {
 	Text,
 	useDisclosure,
 } from '@chakra-ui/react';
-import { useCompanies, usePicasso } from 'hooks';
+import { useCompanies, usePicasso, useTokens } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
-import React, { useEffect, useState } from 'react';
-import { getLogo, handleLogoImage, navigationPaths } from 'utils';
+import React from 'react';
+import { getCoinLogo, getLogo, handleLogoImage, navigationPaths } from 'utils';
 import NextLink from 'next/link';
 import { GetUserCompaniesRes } from 'types/interfaces/main-server/ICompany';
 import { WithdrawModal } from 'components';
-import { useAccount, useContractRead } from 'wagmi';
+import { useAccount, useContractRead, useToken } from 'wagmi';
 import companyAbi from 'utils/abi/company.json';
+import { WithdrawModalMobile } from 'components/Modals';
 
 interface ICompanyCard {
 	company: GetUserCompaniesRes;
@@ -29,8 +30,14 @@ export const CompanyCard: React.FC<ICompanyCard> = ({
 	const theme = usePicasso();
 	const { t: translate } = useTranslation('companies');
 	const { isOpen, onOpen, onClose } = useDisclosure();
+	const {
+		isOpen: isOpenMobile,
+		onOpen: onOpenMobile,
+		onClose: onCloseMobile,
+	} = useDisclosure();
 	const { isLoadingCompanies } = useCompanies();
 	const { address } = useAccount();
+	const { listOfTokens } = useTokens();
 
 	const { data: employeeBalance } = useContractRead({
 		address: company.contract,
@@ -57,8 +64,16 @@ export const CompanyCard: React.FC<ICompanyCard> = ({
 			h="8.375rem"
 		>
 			<WithdrawModal
+				employeeBalance={employeeBalance as number}
 				isOpen={isOpen}
 				onClose={onClose}
+				userCompanies={userCompanies}
+				company={company}
+			/>
+			<WithdrawModalMobile
+				employeeBalance={employeeBalance as number}
+				isOpen={isOpenMobile}
+				onClose={onCloseMobile}
 				userCompanies={userCompanies}
 				company={company}
 			/>
@@ -89,42 +104,52 @@ export const CompanyCard: React.FC<ICompanyCard> = ({
 						{company?.name}
 					</Text>
 				</Flex>
-				<Flex pt={{ base: '3', xl: '3' }} justify="space-between" pr="6">
-					<Flex direction="column">
-						<Text
-							fontSize={{ base: 'xs', md: 'xs', xl: 'sm' }}
-							color="gray.500"
-						>
-							{company?.isAdmin
-								? translate('funds')
-								: translate('availableToWithdraw')}
-						</Text>
-						{company.isAdmin ? (
-							<Flex fontSize={{ base: 'sm', md: 'xs', xl: 'sm' }}>
-								{isLoadingCompanies ? (
-									<Skeleton w="10" h="4" />
-								) : (
+				{!company.isAdmin && (
+					<Flex pt={{ base: '3', xl: '3' }} justify="space-between" pr="6">
+						<Flex maxW="4.375rem">
+							<Text fontSize={{ base: 'xs', md: 'xs' }} color="gray.500">
+								{translate('availableToWithdraw')}
+							</Text>
+						</Flex>
+						<Flex fontSize={{ base: 'sm', md: 'xs', xl: 'sm' }}>
+							{isLoadingCompanies ? (
+								<Skeleton w="10" h="4" />
+							) : (
+								<Flex direction="column">
 									<Text>
-										{company.totalFundsUsd ? company.totalFundsUsd : 0}
+										$ {company.totalFundsUsd ? company.totalFundsUsd : 0}
 									</Text>
-								)}
-							</Flex>
-						) : (
-							<Flex fontSize={{ base: 'sm', md: 'xs', xl: 'sm' }}>
-								{isLoadingCompanies ? (
-									<Skeleton w="10" h="4" />
-								) : (
-									<Text>{Number(employeeBalance)}</Text>
-								)}
-							</Flex>
-						)}
+									<Flex align="center" gap="1">
+										<Text fontSize="xs">
+											{company.totalFundsUsd ? company.totalFundsUsd : 0}
+										</Text>
+										<Img src={getCoinLogo('USDT', listOfTokens)} boxSize="4" />
+									</Flex>
+								</Flex>
+							)}
+						</Flex>
 					</Flex>
-					{company?.isAdmin ? (
+				)}
+				{company.isAdmin ? (
+					<Flex pt={{ base: '3', xl: '3' }} justify="space-between" pr="6">
 						<Flex direction="column">
-							<Text
-								fontSize={{ base: 'xs', md: 'xs', xl: 'sm' }}
-								color="gray.500"
-							>
+							<Text fontSize={{ base: 'xs', md: 'sm' }} color="gray.500">
+								{translate('funds')}
+							</Text>
+							{isLoadingCompanies ? (
+								<Skeleton w="10" h="4" />
+							) : (
+								<Flex fontSize={{ base: 'sm', md: 'xs', xl: 'sm' }}>
+									{isLoadingCompanies ? (
+										<Skeleton w="10" h="4" />
+									) : (
+										<Text>{Number(employeeBalance)}</Text>
+									)}
+								</Flex>
+							)}
+						</Flex>
+						<Flex direction="column">
+							<Text fontSize={{ base: 'xs', md: 'sm' }} color="gray.500">
 								{translate('members')}
 							</Text>
 
@@ -136,10 +161,10 @@ export const CompanyCard: React.FC<ICompanyCard> = ({
 								</Text>
 							)}
 						</Flex>
-					) : (
-						''
-					)}
-				</Flex>
+					</Flex>
+				) : (
+					''
+				)}
 			</Flex>
 			<Flex
 				w="100%"
@@ -166,16 +191,30 @@ export const CompanyCard: React.FC<ICompanyCard> = ({
 						</Text>
 					</Link>
 				) : (
-					<Text
-						color={theme.branding.blue}
-						bg="none"
-						fontSize="xs"
-						fontWeight="medium"
-						cursor="pointer"
-						onClick={onOpen}
-					>
-						{translate('withdraw')}
-					</Text>
+					<>
+						<Text
+							display={{ base: 'none', sm: 'flex' }}
+							color={theme.branding.blue}
+							bg="none"
+							fontSize="xs"
+							fontWeight="medium"
+							cursor="pointer"
+							onClick={onOpen}
+						>
+							{translate('withdraw')}
+						</Text>
+						<Text
+							display={{ base: 'flex', sm: 'none' }}
+							color={theme.branding.blue}
+							bg="none"
+							fontSize="xs"
+							fontWeight="medium"
+							cursor="pointer"
+							onClick={onOpenMobile}
+						>
+							{translate('withdraw')}
+						</Text>
+					</>
 				)}
 			</Flex>
 		</Flex>

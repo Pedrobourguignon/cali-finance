@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { Flex, Img, Text, Link, Skeleton } from '@chakra-ui/react';
 import { useCompanies, usePath, usePicasso } from 'hooks';
 import { getLogo, handleLogoImage, navigationPaths, networkInfos } from 'utils';
@@ -121,10 +120,10 @@ export const CompaniesHeaderMobile = () => {
 				</Flex>
 				<Flex w="full" justify="space-between">
 					<Flex direction="column" gap="1">
-						{!amount ? (
+						{isLoadingSelectedCompany ? (
 							<Skeleton w="14" h="4" />
 						) : (
-							<Text fontSize="xl">{selectedCompany?.totalFundsUsd}</Text>
+							<Text fontSize="xl">${selectedCompany?.totalFundsUsd}</Text>
 						)}
 
 						<Text fontSize="sm">{translate('totalFunds')}</Text>
