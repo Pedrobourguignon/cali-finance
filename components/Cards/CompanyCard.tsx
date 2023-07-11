@@ -16,6 +16,7 @@ import { GetUserCompaniesRes } from 'types/interfaces/main-server/ICompany';
 import { WithdrawModal } from 'components';
 import { useAccount, useContractRead, useToken } from 'wagmi';
 import companyAbi from 'utils/abi/company.json';
+import { WithdrawModalMobile } from 'components/Modals';
 
 interface ICompanyCard {
 	company: GetUserCompaniesRes;
@@ -29,6 +30,11 @@ export const CompanyCard: React.FC<ICompanyCard> = ({
 	const theme = usePicasso();
 	const { t: translate } = useTranslation('companies');
 	const { isOpen, onOpen, onClose } = useDisclosure();
+	const {
+		isOpen: isOpenMobile,
+		onOpen: onOpenMobile,
+		onClose: onCloseMobile,
+	} = useDisclosure();
 	const { isLoadingCompanies } = useCompanies();
 	const { address } = useAccount();
 	const { listOfTokens } = useTokens();
@@ -61,6 +67,13 @@ export const CompanyCard: React.FC<ICompanyCard> = ({
 				employeeBalance={employeeBalance as number}
 				isOpen={isOpen}
 				onClose={onClose}
+				userCompanies={userCompanies}
+				company={company}
+			/>
+			<WithdrawModalMobile
+				employeeBalance={employeeBalance as number}
+				isOpen={isOpenMobile}
+				onClose={onCloseMobile}
 				userCompanies={userCompanies}
 				company={company}
 			/>
@@ -178,16 +191,30 @@ export const CompanyCard: React.FC<ICompanyCard> = ({
 						</Text>
 					</Link>
 				) : (
-					<Text
-						color={theme.branding.blue}
-						bg="none"
-						fontSize="xs"
-						fontWeight="medium"
-						cursor="pointer"
-						onClick={onOpen}
-					>
-						{translate('withdraw')}
-					</Text>
+					<>
+						<Text
+							display={{ base: 'none', sm: 'flex' }}
+							color={theme.branding.blue}
+							bg="none"
+							fontSize="xs"
+							fontWeight="medium"
+							cursor="pointer"
+							onClick={onOpen}
+						>
+							{translate('withdraw')}
+						</Text>
+						<Text
+							display={{ base: 'flex', sm: 'none' }}
+							color={theme.branding.blue}
+							bg="none"
+							fontSize="xs"
+							fontWeight="medium"
+							cursor="pointer"
+							onClick={onOpenMobile}
+						>
+							{translate('withdraw')}
+						</Text>
+					</>
 				)}
 			</Flex>
 		</Flex>
