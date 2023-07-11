@@ -23,7 +23,7 @@ export const BottomMenuMobile = () => {
 	const theme = usePicasso();
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const { t: translate } = useTranslation('sidebar');
-	const { isSamePath } = usePath();
+	const { isSamePath, includesPath } = usePath();
 	const menuOptions: IMenuItem[] = [
 		{
 			icon: DashboardIcon,
@@ -60,10 +60,10 @@ export const BottomMenuMobile = () => {
 			bg={theme.bg.primary}
 		>
 			{menuOptions.map((menuOption, index) => {
-				const comparedPath = isSamePath(menuOption.route);
+				const comparedPath = includesPath(menuOption.route);
 				const moreOptionsIsOpen = isOpen
 					? isSamePath('')
-					: isSamePath(menuOption.route);
+					: includesPath(menuOption.route);
 				return (
 					<Flex
 						key={+index}
