@@ -33,6 +33,8 @@ export const RecentActivities = () => {
 		}
 	);
 
+	console.log(allCompaniesRecentActivities);
+
 	return (
 		<Flex
 			boxShadow="md"
