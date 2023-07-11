@@ -10,3 +10,4 @@ export * from './WaitingConfirmation';
 export * from './WaitMetamaskFinishTransaction';
 export * from './Wallets';
 export * from './WithdrawModal';
+export * from './WithdrawModalMobile';
