@@ -27,6 +27,7 @@ import {
 interface IWithdrawModal extends IBasicModal {
 	userCompanies: ICompany[];
 	company: GetUserCompaniesRes;
+	employeeBalance: number;
 }
 
 export const WithdrawModal: React.FC<IWithdrawModal> = ({
@@ -34,12 +35,9 @@ export const WithdrawModal: React.FC<IWithdrawModal> = ({
 	onClose,
 	userCompanies,
 	company,
+	employeeBalance,
 }) => {
 	const theme = usePicasso();
-	const [token, setToken] = useState<ISelectedCoin>({
-		logo: 'https://assets.coingecko.com/coins/images/1/thumb/bitcoin.png?1547033579',
-		symbol: 'BTC',
-	} as ISelectedCoin);
 	const { t: translate } = useTranslation('dashboard');
 	const {
 		isOpen: isOpenSelector,
@@ -51,7 +49,7 @@ export const WithdrawModal: React.FC<IWithdrawModal> = ({
 		<Modal isOpen={isOpen} onClose={onClose}>
 			<ModalOverlay />
 			<ModalContent>
-				<OffsetShadow width="100%" top="0.5rem" left="0.5rem">
+				<OffsetShadow top="0.5rem" width="100%" left="0.5rem">
 					<Flex
 						borderRadius="base"
 						borderWidth="0.1rem"
@@ -61,25 +59,19 @@ export const WithdrawModal: React.FC<IWithdrawModal> = ({
 						h="100%"
 						w="100%"
 					>
-						<TokenSelector
-							isOpen={isOpenSelector}
-							onClose={onCloseSelector}
-							setToken={setToken}
-						/>
 						<ModalHeader color={theme.text.black2}>
 							{translate('withdraw')}
 						</ModalHeader>
 						<ModalCloseButton color="gray.400" />
-						<ModalBody>
+						<ModalBody py="0">
 							<WithdrawContent
-								coin={token}
+								employeeBalance={employeeBalance}
 								onOpen={onOpenSelector}
 								userCompanies={userCompanies}
 								company={company}
 							/>
 						</ModalBody>
-
-						<ModalFooter>
+						<ModalFooter py="6">
 							<WithdrawButton onClose={onClose} company={company} />
 						</ModalFooter>
 					</Flex>
