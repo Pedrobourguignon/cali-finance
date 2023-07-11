@@ -57,6 +57,7 @@ export const CompanyCard: React.FC<ICompanyCard> = ({
 			h="8.375rem"
 		>
 			<WithdrawModal
+				employeeBalance={employeeBalance as number}
 				isOpen={isOpen}
 				onClose={onClose}
 				userCompanies={userCompanies}

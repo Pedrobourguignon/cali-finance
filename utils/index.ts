@@ -5,6 +5,7 @@ export * from './clients';
 export * from './ColorHandler';
 export * from './dateHandler';
 export * from './firebaseConfig';
+export * from './getCoinLogo';
 export * from './getLogo';
 export * from './historyFilterOptions';
 export * from './logoHandler';

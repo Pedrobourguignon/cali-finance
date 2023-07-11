@@ -8,29 +8,32 @@ import {
 	Select,
 	Text,
 } from '@chakra-ui/react';
-import { usePicasso } from 'hooks';
+import { usePicasso, useTokens } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
 import { IoIosArrowDown } from 'react-icons/io';
 import {
 	GetUserCompaniesRes,
 	ICompany,
 } from 'types/interfaces/main-server/ICompany';
+import { getCoinLogo } from 'utils';
 
 interface ISelectedCoin {
-	coin: { logo?: string; symbol: string };
 	onOpen: () => void;
 	userCompanies: ICompany[];
 	company: GetUserCompaniesRes;
+	employeeBalance: number;
 }
 
 export const WithdrawContent: React.FC<ISelectedCoin> = ({
-	coin,
 	onOpen,
 	userCompanies,
 	company,
+	employeeBalance,
 }) => {
 	const theme = usePicasso();
 	const { t: translate } = useTranslation('dashboard');
+	const { t: translateCompanies } = useTranslation('companies');
+	const { listOfTokens } = useTokens();
 
 	return (
 		<Flex direction="column" gap="4">
@@ -42,7 +45,7 @@ export const WithdrawContent: React.FC<ISelectedCoin> = ({
 					borderWidth="1px"
 					borderStyle="solid"
 					borderColor={theme.bg.primary}
-					color="blackAlpha.500"
+					color="black"
 					_hover={{}}
 					h="8"
 				>
@@ -61,11 +64,26 @@ export const WithdrawContent: React.FC<ISelectedCoin> = ({
 					))}
 				</Select>
 			</Flex>
-			<Flex direction="column" gap="2">
-				<Text color="black" fontSize="sm">
-					{translate('amount')}
-				</Text>
-				<InputGroup h="max-content">
+			<Flex direction="column">
+				<Flex align="center" justify="space-between">
+					<Text fontSize="sm" color="black">
+						{translateCompanies('availableToWithdraw')}
+					</Text>
+					<Flex fontSize={{ base: 'sm', md: 'xs', xl: 'sm' }}>
+						<Flex direction="column">
+							<Text color="black">
+								$ {company.totalFundsUsd ? 'company.totalFundsUsd' : 0}
+							</Text>
+							<Flex align="center" gap="1">
+								<Text fontSize="xs" color="black">
+									{company.totalFundsUsd ? company.totalFundsUsd : 0}
+								</Text>
+								<Img src={getCoinLogo('USDT', listOfTokens)} boxSize="4" />
+							</Flex>
+						</Flex>
+					</Flex>
+				</Flex>
+				{/* <InputGroup h="max-content">
 					<Input
 						_placeholder={{
 							color: 'blackAlpha.500',
@@ -103,7 +121,7 @@ export const WithdrawContent: React.FC<ISelectedCoin> = ({
 							<Icon boxSize={{ lg: '2', xl: '4' }} as={IoIosArrowDown} />
 						</Flex>
 					</Button>
-				</InputGroup>
+				</InputGroup> */}
 			</Flex>
 		</Flex>
 	);
