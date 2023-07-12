@@ -1,4 +1,5 @@
 import { Flex, Text, useDisclosure, Button } from '@chakra-ui/react';
+import { readContract } from '@wagmi/core';
 import {
 	AddEmployee,
 	BlackButton,
@@ -11,20 +12,23 @@ import useTranslation from 'next-translate/useTranslation';
 import router, { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { useQuery } from 'react-query';
-import { ICompany } from 'types/interfaces/main-server/ICompany';
+import companyAbi from 'utils/abi/company.json';
 
 interface IEmployeeDashboard {
 	isGeneral: boolean;
-	selectedCompany: ICompany | undefined;
 }
 
 export const EmployeesDashboard: React.FC<IEmployeeDashboard> = ({
 	isGeneral,
-	selectedCompany,
 }) => {
 	const theme = usePicasso();
 	const { t: translate } = useTranslation('company-overall');
-	const { getAllCompanyEmployees } = useCompanies();
+	const {
+		getAllCompanyEmployees,
+		selectedCompany,
+		getCompanyById,
+		setEmployeesBalance,
+	} = useCompanies();
 	const { query } = useRouter();
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const {
@@ -41,6 +45,43 @@ export const EmployeesDashboard: React.FC<IEmployeeDashboard> = ({
 	} = useQuery('all-company-employees', () =>
 		getAllCompanyEmployees(Number(query.id))
 	);
+
+	const { data: selectedCompanyData } = useQuery(
+		'created-company-overview',
+		() => getCompanyById(Number(query.id))
+	);
+
+	const getEmployeesBalance = async () => {
+		const employeesWallet: string[] = [];
+		employees?.forEach(employee => {
+			if (!employeesWallet.includes(employee.wallet!)) {
+				employeesWallet.push(employee.wallet!);
+			}
+		});
+		if (selectedCompanyData?.contract) {
+			try {
+				const data = await readContract({
+					address: selectedCompanyData.contract,
+					abi: companyAbi,
+					functionName: 'getBulkBalance',
+					args: [employeesWallet],
+				});
+				const result = await Promise.all([...(data as number[])]);
+				const numberResult = result.map(item => Number(item));
+				const sum = numberResult.reduce(
+					(accumulator, currentValue) => accumulator + currentValue,
+					0
+				);
+				setEmployeesBalance(sum);
+			} catch (err) {
+				console.log(err);
+			}
+		}
+	};
+
+	useEffect(() => {
+		getEmployeesBalance();
+	}, [employees, selectedCompanyData]);
 
 	useEffect(() => {
 		if (error) {

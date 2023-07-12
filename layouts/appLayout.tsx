@@ -1,5 +1,5 @@
 import { Flex } from '@chakra-ui/react';
-import { MissingFundsWarning, Sidebar } from 'components';
+import { AlertsComponent, Sidebar } from 'components';
 import { AuthProvider, CompaniesProvider, ProfileProvider } from 'contexts';
 import { usePicasso } from 'hooks';
 
@@ -28,7 +28,7 @@ export const AppLayout: React.FC<ILanding> = ({
 						direction="column"
 						display={{ base: 'none', sm: 'flex' }}
 					>
-						<MissingFundsWarning />
+						<AlertsComponent />
 						<Flex
 							bg={theme.bg.primary}
 							py="6"

@@ -1,15 +1,12 @@
 import { Flex, Img, Text } from '@chakra-ui/react';
 import { useCompanies } from 'hooks';
 import React from 'react';
-import { MultipleCompaniesAlert, SingleCompanieAlert } from 'components';
 
-export const MissingFundsWarning = () => {
-	const {
-		setDisplayMissingFundsWarning,
-		displayMissingFundsWarning,
-		companiesWithMissingFunds,
-	} = useCompanies();
-	const missingValue = 23121423;
+export const MissingFundsWarning: React.FC<{
+	children: React.ReactNode;
+}> = ({ children }) => {
+	const { displayMissingFundsWarning, setDisplayMissingFundsWarning } =
+		useCompanies();
 
 	return (
 		<Flex
@@ -22,11 +19,7 @@ export const MissingFundsWarning = () => {
 		>
 			<Flex w="full" justify="center">
 				<Img src="/images/alert.png" boxSize="5" />
-				{companiesWithMissingFunds?.length > 1 ? (
-					<MultipleCompaniesAlert />
-				) : (
-					<SingleCompanieAlert missingValue={missingValue} />
-				)}
+				{children}
 			</Flex>
 			<Text
 				color="gray.700"
