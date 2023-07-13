@@ -99,9 +99,12 @@ export const EditCompanyComponent: React.FC<IEditCompanyComponent> = ({
 	useEffect(() => {
 		setSelectedType(company?.type);
 		setSelectedNetwork({
-			name: networkInfos(company?.network).name,
-			icon: networkInfos(company?.network).icon,
-			id: company?.network,
+			name: 'Polygon',
+			icon: '/images/polygon.png',
+			id: 137,
+			// name: networkInfos(company?.network).name,
+			// icon: networkInfos(company?.network).icon,
+			// id: company?.network,
 		});
 		setEditedSocialLinksInputValue({
 			websiteURL: company?.socialMedia![0].url,
@@ -251,7 +254,7 @@ export const EditCompanyComponent: React.FC<IEditCompanyComponent> = ({
 							>
 								<Flex gap="2" mb="2" align="center">
 									<Text {...labelStyle}>{translate('network')}</Text>
-									<Tooltip
+									{/* <Tooltip
 										label={
 											<NetworkTooltip>
 												{translate('choseTheMostSuitableNetwork')}
@@ -268,7 +271,7 @@ export const EditCompanyComponent: React.FC<IEditCompanyComponent> = ({
 										<span>
 											<Icon as={BsQuestionCircle} color="gray.400" />
 										</span>
-									</Tooltip>
+									</Tooltip> */}
 								</Flex>
 
 								<Menu>
@@ -280,7 +283,10 @@ export const EditCompanyComponent: React.FC<IEditCompanyComponent> = ({
 										_hover={{}}
 										_active={{}}
 										_focus={{}}
-										isDisabled={!session}
+										// isDisabled={!session}
+										isDisabled
+										_disabled={{ color: 'black' }}
+										cursor="not-allowed"
 										h="8"
 										as={Button}
 										rightIcon={<ChevronDownIcon />}
@@ -409,8 +415,7 @@ export const EditCompanyComponent: React.FC<IEditCompanyComponent> = ({
 				>
 					<Flex gap="2" mb="2" align="center">
 						<Text {...labelStyle}>{translate('network')}</Text>
-
-						<Tooltip
+						{/* <Tooltip
 							label={
 								<NetworkTooltip>
 									{translate('choseTheMostSuitableNetwork')}
@@ -427,7 +432,7 @@ export const EditCompanyComponent: React.FC<IEditCompanyComponent> = ({
 							<span>
 								<Icon as={BsQuestionCircle} color="gray.400" />
 							</span>
-						</Tooltip>
+						</Tooltip> */}
 					</Flex>
 					<Menu>
 						<MenuButton
@@ -439,7 +444,10 @@ export const EditCompanyComponent: React.FC<IEditCompanyComponent> = ({
 							_hover={{}}
 							_active={{}}
 							_focus={{}}
-							isDisabled={!session}
+							isDisabled
+							_disabled={{ color: 'black' }}
+							cursor="not-allowed"
+							// isDisabled={!session}
 							h="8"
 							as={Button}
 							rightIcon={<ChevronDownIcon />}
