@@ -32,7 +32,13 @@ export const MobileLayout: React.FC<IMobileLayout> = ({ children }) => {
 						{children}
 					</Flex>
 					<Flex>
-						<Flex w="full" position="fixed" bottom="0" pt="10">
+						<Flex
+							w="full"
+							position="fixed"
+							zIndex="dropdown"
+							bottom="0"
+							pt="10"
+						>
 							<BottomMenuMobile />
 						</Flex>
 					</Flex>

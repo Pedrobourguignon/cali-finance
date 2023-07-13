@@ -184,7 +184,7 @@ export const CreateCompanyComponent: React.FC<ICreateCompanyComponent> = ({
 							>
 								<Flex gap="2" mb="2" align="center">
 									<Text {...labelStyle}>{translate('network')}</Text>
-									<Tooltip
+									{/* <Tooltip
 										label={
 											<NetworkTooltip>
 												{translate('choseTheMostSuitableNetwork')}
@@ -206,7 +206,7 @@ export const CreateCompanyComponent: React.FC<ICreateCompanyComponent> = ({
 												mt="2"
 											/>
 										</span>
-									</Tooltip>
+									</Tooltip> */}
 								</Flex>
 
 								<Menu>
@@ -356,7 +356,7 @@ export const CreateCompanyComponent: React.FC<ICreateCompanyComponent> = ({
 						<Text {...labelStyle} mb="2">
 							{translate('network')}
 						</Text>
-						<Tooltip
+						{/* <Tooltip
 							label={
 								<NetworkTooltip>
 									{translate('choseTheMostSuitableNetwork')}
@@ -378,11 +378,14 @@ export const CreateCompanyComponent: React.FC<ICreateCompanyComponent> = ({
 									mb="1"
 								/>
 							</span>
-						</Tooltip>
+						</Tooltip> */}
 					</Flex>
 					<Menu>
 						<MenuButton
 							pl="3"
+							isDisabled
+							_disabled={{ color: 'black' }}
+							cursor="not-allowed"
 							w={{ md: '11.438rem' }}
 							border="1px solid black"
 							borderColor={errors.network ? 'red' : theme.bg.primary}
@@ -390,7 +393,7 @@ export const CreateCompanyComponent: React.FC<ICreateCompanyComponent> = ({
 							_hover={{}}
 							_active={{}}
 							_focus={{}}
-							isDisabled={!session}
+							// isDisabled={!session}
 							h="8"
 							as={Button}
 							rightIcon={<ChevronDownIcon />}
