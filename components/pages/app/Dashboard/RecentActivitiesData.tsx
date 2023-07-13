@@ -1,8 +1,10 @@
+/* eslint-disable no-nested-ternary */
 import { Flex, Grid, GridItem, Img, Text } from '@chakra-ui/react';
-import { usePicasso } from 'hooks';
+import { usePicasso, useProfile } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
 import { useRouter } from 'next/router';
 import React from 'react';
+import { useQuery } from 'react-query';
 import { IActivitiesData } from 'types';
 import {
 	activitieDescriptTranslation,
@@ -11,6 +13,7 @@ import {
 	handleLogoImage,
 	notificationIcons,
 } from 'utils';
+import { useAccount } from 'wagmi';
 
 export const RecentActivitiesData: React.FC<IActivitiesData> = ({
 	activities,
@@ -18,6 +21,16 @@ export const RecentActivitiesData: React.FC<IActivitiesData> = ({
 	const theme = usePicasso();
 	const { t: translate } = useTranslation('history-page');
 	const { locale } = useRouter();
+	const { getProfileData } = useProfile();
+	const { isConnected } = useAccount();
+
+	const { data: profileData } = useQuery(
+		'profile-data',
+		() => getProfileData(activities.wallet as `0x${string}`),
+		{
+			enabled: !!isConnected,
+		}
+	);
 
 	return (
 		// eslint-disable-next-line react/jsx-no-useless-fragment
@@ -33,7 +46,7 @@ export const RecentActivitiesData: React.FC<IActivitiesData> = ({
 						justifyContent="space-between"
 						alignItems="center"
 					>
-						<GridItem display="flex" alignContent="center" gap="2" flex="3.5">
+						<GridItem display="flex" alignItems="center" gap="2" flex="3.5">
 							{activities.event.name !== 'user_updated' &&
 							activities.event.name !== 'user_settings_updated' &&
 							activities.meta.data.companyLogo ? (
@@ -42,6 +55,24 @@ export const RecentActivitiesData: React.FC<IActivitiesData> = ({
 									boxSize="6"
 									borderRadius="base"
 								/>
+							) : activities.event.name === 'user_updated' ? (
+								<Flex
+									boxSize="6"
+									borderRadius="full"
+									align="center"
+									justify="center"
+									fontSize="xs"
+									fontWeight="bold"
+									bg={theme.bg.white2}
+									color={theme.text.primary}
+								>
+									<Img
+										src={getLogo(profileData?.picture)}
+										borderRadius="full"
+										boxSize="6"
+										objectFit="cover"
+									/>
+								</Flex>
 							) : (
 								activities.event.name !== 'user_updated' &&
 								activities.event.name !== 'user_settings_updated' && (
