@@ -1,11 +1,7 @@
 [
 	{
 		"inputs": [
-			{
-				"internalType": "address",
-				"name": "_ownerAddress",
-				"type": "address"
-			},
+			{ "internalType": "address", "name": "_ownerAddress", "type": "address" },
 			{
 				"internalType": "string",
 				"name": "_companyIdentifier",
@@ -15,16 +11,8 @@
 		"stateMutability": "nonpayable",
 		"type": "constructor"
 	},
-	{
-		"inputs": [],
-		"name": "NotCollaborators",
-		"type": "error"
-	},
-	{
-		"inputs": [],
-		"name": "NotOwner",
-		"type": "error"
-	},
+	{ "inputs": [], "name": "NotCollaborators", "type": "error" },
+	{ "inputs": [], "name": "NotOwner", "type": "error" },
 	{
 		"anonymous": false,
 		"inputs": [
@@ -158,99 +146,47 @@
 	},
 	{
 		"inputs": [],
+		"name": "_CaliToken",
+		"outputs": [{ "internalType": "address", "name": "", "type": "address" }],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
 		"name": "_CompanyAddress",
-		"outputs": [
-			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
-			}
-		],
+		"outputs": [{ "internalType": "address", "name": "", "type": "address" }],
 		"stateMutability": "view",
 		"type": "function"
 	},
 	{
 		"inputs": [],
 		"name": "_CompanyBalance",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
+		"outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
 		"stateMutability": "view",
 		"type": "function"
 	},
 	{
 		"inputs": [],
 		"name": "_CompanyIdentifier",
-		"outputs": [
-			{
-				"internalType": "string",
-				"name": "",
-				"type": "string"
-			}
-		],
+		"outputs": [{ "internalType": "string", "name": "", "type": "string" }],
 		"stateMutability": "view",
 		"type": "function"
 	},
 	{
 		"inputs": [],
 		"name": "_CompanyOwner",
-		"outputs": [
-			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
-			}
-		],
+		"outputs": [{ "internalType": "address", "name": "", "type": "address" }],
 		"stateMutability": "view",
 		"type": "function"
 	},
 	{
-		"inputs": [],
-		"name": "_EthPrice",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
-			}
-		],
+		"inputs": [{ "internalType": "address", "name": "", "type": "address" }],
 		"name": "_employees",
 		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "salary",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "balance",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "joinDate",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "lastWithdrawal",
-				"type": "uint256"
-			}
+			{ "internalType": "uint256", "name": "salary", "type": "uint256" },
+			{ "internalType": "uint256", "name": "lockedBalance", "type": "uint256" },
+			{ "internalType": "uint256", "name": "joinDate", "type": "uint256" },
+			{ "internalType": "uint256", "name": "lastWithdrawal", "type": "uint256" }
 		],
 		"stateMutability": "view",
 		"type": "function"
@@ -262,13 +198,19 @@
 				"name": "_employeeAddress",
 				"type": "address"
 			},
-			{
-				"internalType": "uint256",
-				"name": "_salary",
-				"type": "uint256"
-			}
+			{ "internalType": "uint256", "name": "_salary", "type": "uint256" }
 		],
 		"name": "addEmployee",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{ "internalType": "address", "name": "token", "type": "address" },
+			{ "internalType": "uint256", "name": "amount", "type": "uint256" }
+		],
+		"name": "deposit",
 		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"
@@ -283,11 +225,7 @@
 		],
 		"name": "getBulkBalance",
 		"outputs": [
-			{
-				"internalType": "uint256[]",
-				"name": "",
-				"type": "uint256[]"
-			}
+			{ "internalType": "uint256[]", "name": "", "type": "uint256[]" }
 		],
 		"stateMutability": "view",
 		"type": "function"
@@ -301,13 +239,7 @@
 			}
 		],
 		"name": "getSingleBalance",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
+		"outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
 		"stateMutability": "view",
 		"type": "function"
 	},
@@ -318,11 +250,7 @@
 				"name": "_employeeAddress",
 				"type": "address"
 			},
-			{
-				"internalType": "uint256",
-				"name": "_newSalary",
-				"type": "uint256"
-			}
+			{ "internalType": "uint256", "name": "_newSalary", "type": "uint256" }
 		],
 		"name": "updateEmployeeSalary",
 		"outputs": [],
@@ -336,8 +264,5 @@
 		"stateMutability": "nonpayable",
 		"type": "function"
 	},
-	{
-		"stateMutability": "payable",
-		"type": "receive"
-	}
+	{ "stateMutability": "payable", "type": "receive" }
 ]

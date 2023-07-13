@@ -12,12 +12,14 @@ import useTranslation from 'next-translate/useTranslation';
 import { Dispatch, SetStateAction, useState } from 'react';
 import { ITransaction } from 'types';
 import {
+	useContractWrite,
 	usePrepareSendTransaction,
 	useSendTransaction,
 	useWaitForTransaction,
 } from 'wagmi';
 import { useDebounce } from 'use-debounce';
 import { AlertToast, WaitMetamaskFinishTransaction } from 'components';
+import companyAbi from 'utils/abi/company.json';
 
 interface IConfirmTransaction {
 	transaction: ITransaction;
@@ -45,35 +47,16 @@ export const ConfirmTransaction: React.FC<IConfirmTransaction> = ({
 	const [enabledTransaction, setEnabledTransaction] = useState(false);
 	const { onClose } = useDisclosure();
 
-	const { config: sendTransactionConfig } = usePrepareSendTransaction({
-		enabled: enabledTransaction,
-		to: selectedCompany.contract,
-		value: debouncedAmount ? BigInt(debouncedAmount) : undefined,
-		onError: (error: any) => {
-			toast({
-				position: 'top',
-				render: () => (
-					<AlertToast
-						onClick={toast.closeAll}
-						text={
-							error.code === -32603
-								? 'insufficientFunds'
-								: 'weAreWorkingToSolve'
-						}
-						type="error"
-					/>
-				),
-			});
-			setConfirm(false);
-		},
-	});
+	const { write: createCompanyWrite, data: createCompanyData } =
+		useContractWrite({
+			address: '0xD6461dBAc2Bbd9214a04f46DDB3E9FdFd84b5B6b',
+			abi: companyAbi,
+			functionName: 'deposit',
+			args: [process.env.NEXT_PUBLIC_CALI_TOKEN, transaction.amount],
+		});
 
-	const { sendTransaction, data: sendTransactionData } = useSendTransaction(
-		sendTransactionConfig
-	);
-
-	const { data, isLoading: isLoadingTransaction } = useWaitForTransaction({
-		hash: sendTransactionData?.hash,
+	const { isLoading: isLoadingTransaction } = useWaitForTransaction({
+		hash: createCompanyData?.hash,
 		confirmations: 3,
 		onSuccess: () => {
 			toast({
@@ -90,7 +73,6 @@ export const ConfirmTransaction: React.FC<IConfirmTransaction> = ({
 					/>
 				),
 			});
-			setConfirm(false);
 		},
 		onError: () => {
 			toast({
@@ -107,8 +89,9 @@ export const ConfirmTransaction: React.FC<IConfirmTransaction> = ({
 	});
 
 	const handleSendTransaction = () => {
-		setEnabledTransaction(true);
-		sendTransaction?.();
+		if (transaction.type === 'Deposit') {
+			createCompanyWrite?.();
+		}
 	};
 
 	return (
