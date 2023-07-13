@@ -31,7 +31,7 @@ export const HaveProblemCard = () => {
 				position="relative"
 				display={{ base: 'flex', sm: 'none' }}
 			>
-				<Flex direction="column" zIndex="docked">
+				<Flex direction="column">
 					<Text
 						fontSize={{ lg: 'md', xl: 'xl' }}
 						lineHeight="7"
