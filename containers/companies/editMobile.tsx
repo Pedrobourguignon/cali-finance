@@ -56,9 +56,9 @@ export const EditCompanyMobile = () => {
 	});
 
 	const [selectedNetwork, setSelectedNetwork] = useState<ISelectedNetwork>({
-		name: companyToBeEdited?.name,
-		icon: '',
-		id: 0,
+		name: 'Polygon',
+		icon: '/images/polygon.png',
+		id: 137,
 	} as ISelectedNetwork);
 
 	const { mutate } = useMutation(

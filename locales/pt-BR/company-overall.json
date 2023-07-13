@@ -35,5 +35,6 @@
 	"fee": "Taxa",
 	"totalTransaction": "Total {{transactionType}}",
 	"cancel": "Cancelar",
-	"youDontHaveEmployee": "Você ainda não tem funcionários cadastrados"
+	"youDontHaveEmployee": "Você ainda não tem funcionários cadastrados",
+	"awaitingPolling": "Aguardando o polling com o endereço do contrato"
 }

@@ -5,13 +5,25 @@ import {
 	useDisclosure,
 	Link,
 	Skeleton,
+	Button,
+	Icon,
+	useToast,
+	useClipboard,
+	Spinner,
 } from '@chakra-ui/react';
 import { useCompanies, usePath, usePicasso } from 'hooks';
-import { getLogo, handleLogoImage, navigationPaths, networkInfos } from 'utils';
+import {
+	getLogo,
+	handleLogoImage,
+	navigationPaths,
+	networkInfos,
+	truncateWallet,
+} from 'utils';
 import {
 	NavigationBack,
 	NeedFundsCompaniesHeader,
 	NotificationPopover,
+	AlertToast,
 } from 'components';
 import useTranslation from 'next-translate/useTranslation';
 import { useSession } from 'next-auth/react';
@@ -19,6 +31,7 @@ import router, { useRouter } from 'next/router';
 import NextLink from 'next/link';
 import { useQuery } from 'react-query';
 import { useEffect } from 'react';
+import { MdContentCopy } from 'react-icons/md';
 
 export const CompaniesHeader = () => {
 	const theme = usePicasso();
@@ -27,6 +40,8 @@ export const CompaniesHeader = () => {
 	const { onClose, isOpen, onOpen } = useDisclosure();
 	const { t: translate } = useTranslation('company-overall');
 	const { getCompanyById, selectedCompany } = useCompanies();
+	const toast = useToast();
+	const { onCopy } = useClipboard(selectedCompany?.contract);
 
 	const { data: session } = useSession({
 		required: true,
@@ -57,6 +72,20 @@ export const CompaniesHeader = () => {
 		}
 	}, [selectedCompanyError]);
 
+	const handleCopyButton = () => {
+		onCopy();
+		toast({
+			position: 'top-right',
+			render: () => (
+				<AlertToast
+					onClick={toast.closeAll}
+					text="addressCopiedSuccessfully"
+					type="success"
+				/>
+			),
+		});
+	};
+
 	return (
 		<Flex direction="column" color={theme.text.primary} w="100%" gap="7">
 			<Flex w="100%" justify="space-between" align="center">
@@ -73,7 +102,7 @@ export const CompaniesHeader = () => {
 				</Flex>
 			</Flex>
 			<Flex w="100%" justify="space-between" align="center">
-				<Flex gap="3" align="center">
+				<Flex gap="3" align="end">
 					{!selectedCompany?.logo ? (
 						<Flex
 							boxSize="20"
@@ -92,14 +121,48 @@ export const CompaniesHeader = () => {
 					{isLoadingSelectedCompany ? (
 						<Skeleton w="44" h="4" />
 					) : (
-						<Text
-							maxW={{ md: '40', xl: '56' }}
-							maxH="20"
-							overflow="hidden"
-							fontSize="2xl"
-						>
-							{selectedCompany?.name}
-						</Text>
+						<Flex direction="column" gap="1">
+							<Text
+								maxW={{ md: '40', xl: '80' }}
+								maxH="20"
+								overflow="hidden"
+								fontSize="2xl"
+							>
+								{selectedCompany?.name}
+							</Text>
+							{selectedCompany.contract === null ? (
+								<Flex align="center" gap="2">
+									<Spinner size="sm" />
+									<Text color="gray.500" fontSize="sm">
+										{translate('awaitingPolling')}
+									</Text>
+								</Flex>
+							) : (
+								<Flex align="center">
+									<Text
+										color="gray.500"
+										fontSize="md"
+										cursor="pointer"
+										onClick={() =>
+											window.open(
+												`https://mumbai.polygonscan.com/address/${selectedCompany?.contract}`
+											)
+										}
+									>
+										{truncateWallet(selectedCompany?.contract)}
+									</Text>
+									<Button
+										boxSize="3"
+										bg="transparent"
+										onClick={() => {
+											handleCopyButton();
+										}}
+									>
+										<Icon as={MdContentCopy} boxSize="4" color="gray.500" />
+									</Button>
+								</Flex>
+							)}
+						</Flex>
 					)}
 					{}
 				</Flex>

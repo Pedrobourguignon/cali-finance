@@ -4,6 +4,7 @@ import {
 	HaveProblemCard,
 	DashboardHeader,
 	CompaniesDashboardMobile,
+	YourCompaniesMobile,
 } from 'components';
 import { MobileLayout } from 'layouts';
 import { useCompanies } from 'hooks';
@@ -30,7 +31,8 @@ export const CompaniesConnectedMobile: React.FC = () => {
 						totalFunds={67900}
 					/>
 				</Flex>
-				<Flex w="full" flexDir="column" gap="8" pt="10">
+				<YourCompaniesMobile />
+				<Flex w="full" flexDir="column" gap="8">
 					<RecentActivities />
 				</Flex>
 			</Flex>
