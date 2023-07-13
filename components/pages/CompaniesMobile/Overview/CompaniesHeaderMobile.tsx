@@ -1,28 +1,47 @@
-import { Flex, Img, Text, Link, Skeleton } from '@chakra-ui/react';
+import {
+	Flex,
+	Img,
+	Text,
+	Link,
+	Skeleton,
+	Spinner,
+	Button,
+	Icon,
+	useToast,
+	useClipboard,
+} from '@chakra-ui/react';
 import { useCompanies, usePath, usePicasso } from 'hooks';
-import { getLogo, handleLogoImage, navigationPaths, networkInfos } from 'utils';
-import { NavigationBack } from 'components';
+import {
+	getLogo,
+	handleLogoImage,
+	navigationPaths,
+	networkInfos,
+	truncateWallet,
+} from 'utils';
+import { NavigationBack, AlertToast } from 'components';
 import useTranslation from 'next-translate/useTranslation';
 import { useSession } from 'next-auth/react';
 import router, { useRouter } from 'next/router';
 import NextLink from 'next/link';
 import { useQuery } from 'react-query';
 import { useEffect } from 'react';
+import { MdContentCopy } from 'react-icons/md';
 
 export const CompaniesHeaderMobile = () => {
 	const theme = usePicasso();
 	const { isSamePath } = usePath();
 	const { query } = useRouter();
-	const { getCompanyById } = useCompanies();
+	const { getCompanyById, selectedCompany } = useCompanies();
+	const { onCopy } = useClipboard(selectedCompany?.contract);
 	const { t: translate } = useTranslation('company-overall');
+	const toast = useToast();
+
 	const { data: session } = useSession({
 		required: true,
 		onUnauthenticated() {
 			router.push(navigationPaths.dashboard.companies.home);
 		},
 	});
-
-	const amount = null;
 
 	const menuOptions = [
 		{
@@ -35,19 +54,30 @@ export const CompaniesHeaderMobile = () => {
 		},
 	];
 
-	const {
-		data: selectedCompany,
-		isLoading: isLoadingSelectedCompany,
-		error: selectedCompanyError,
-	} = useQuery('created-company-overview', () =>
-		getCompanyById(Number(query.id))
-	);
+	const { isLoading: isLoadingSelectedCompany, error: selectedCompanyError } =
+		useQuery('created-company-overview', () =>
+			getCompanyById(Number(query.id))
+		);
 
 	useEffect(() => {
 		if (selectedCompanyError) {
 			router.push('/404');
 		}
 	}, [selectedCompanyError]);
+
+	const handleCopyButton = () => {
+		onCopy();
+		toast({
+			position: 'top-right',
+			render: () => (
+				<AlertToast
+					onClick={toast.closeAll}
+					text="addressCopiedSuccessfully"
+					type="success"
+				/>
+			),
+		});
+	};
 
 	return (
 		<Flex
@@ -107,14 +137,49 @@ export const CompaniesHeaderMobile = () => {
 					{isLoadingSelectedCompany ? (
 						<Skeleton w="44" h="4" />
 					) : (
-						<Text
-							maxW={{ md: '40', xl: '56' }}
-							maxH="20"
-							overflow="hidden"
-							fontSize="2xl"
-						>
-							{selectedCompany?.name}
-						</Text>
+						<Flex direction="column">
+							<Text
+								maxW={{ md: '40', xl: '56' }}
+								maxH="20"
+								overflow="hidden"
+								fontSize="2xl"
+								color={theme.text.primary}
+							>
+								{selectedCompany?.name}
+							</Text>
+							{selectedCompany?.contract === null ? (
+								<Flex align="center" gap="2">
+									<Spinner size="sm" />
+									<Text color="gray.500" fontSize="sm">
+										{translate('awaitingPolling')}
+									</Text>
+								</Flex>
+							) : (
+								<Flex align="center">
+									<Text
+										color="gray.500"
+										fontSize="md"
+										cursor="pointer"
+										onClick={() =>
+											window.open(
+												`https://mumbai.polygonscan.com/address/${selectedCompany?.contract}`
+											)
+										}
+									>
+										{truncateWallet(selectedCompany?.contract)}
+									</Text>
+									<Button
+										boxSize="3"
+										bg="transparent"
+										onClick={() => {
+											handleCopyButton();
+										}}
+									>
+										<Icon as={MdContentCopy} boxSize="4" color="gray.500" />
+									</Button>
+								</Flex>
+							)}
+						</Flex>
 					)}
 					{}
 				</Flex>

@@ -35,5 +35,6 @@
 	"fee": "Fee",
 	"totalTransaction": "Total {{transactionType}}",
 	"cancel": "Cancel",
-	"youDontHaveEmployee": "You don’t have employees registered yet"
+	"youDontHaveEmployee": "You don’t have employees registered yet",
+	"awaitingPolling": "Awaiting the polling to get contract address"
 }
