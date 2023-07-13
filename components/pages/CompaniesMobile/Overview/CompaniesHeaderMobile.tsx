@@ -181,7 +181,6 @@ export const CompaniesHeaderMobile = () => {
 							)}
 						</Flex>
 					)}
-					{}
 				</Flex>
 				<Flex w="full" justify="space-between">
 					<Flex direction="column" gap="1">

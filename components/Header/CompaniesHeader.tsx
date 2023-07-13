@@ -164,7 +164,6 @@ export const CompaniesHeader = () => {
 							)}
 						</Flex>
 					)}
-					{}
 				</Flex>
 				<Flex direction="column" maxW="32">
 					{isLoadingSelectedCompany ? (

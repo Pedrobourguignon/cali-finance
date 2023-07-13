@@ -23,6 +23,7 @@ import { useContractWrite, useWaitForTransaction } from 'wagmi';
 import factoryAbi from 'utils/abi/factory.json';
 import { MAIN_SERVICE_ROUTES } from 'helpers';
 import { CompaniesProvider } from 'contexts';
+import { Hex } from 'viem';
 
 interface ISelectedNetwork {
 	name: string;
@@ -58,7 +59,7 @@ export const CreateCompanyContainer = () => {
 
 	const { write: createCompanyWrite, data: createCompanyData } =
 		useContractWrite({
-			address: '0xe6b7C4D29E3980F96EAc96689eB1154B10015339',
+			address: (process.env.NEXT_PUBLIC_FACTORY_CONTRACT || '') as Hex,
 			abi: factoryAbi,
 			functionName: 'createNewCompany',
 		});
