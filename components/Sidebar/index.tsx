@@ -311,7 +311,7 @@ export const Sidebar: React.FC = () => {
 					py="10"
 					w="full"
 					position="absolute"
-					bottom="0"
+					bottom="5"
 				>
 					<Flex gap="4" pl={{ md: '4', lg: '2', xl: '2' }}>
 						{languages.map((lang, index) => (

@@ -117,11 +117,16 @@ export const CompanyCard: React.FC<ICompanyCard> = ({
 							) : (
 								<Flex direction="column">
 									<Text>
-										$ {Number(employeeBalance) ? Number(employeeBalance) : 0}
+										${' '}
+										{Number(employeeBalance)
+											? Number(employeeBalance).toLocaleString('en-US')
+											: 0}
 									</Text>
 									<Flex align="center" gap="1">
 										<Text fontSize="xs">
-											{Number(employeeBalance) ? Number(employeeBalance) : 0}
+											{Number(employeeBalance)
+												? Number(employeeBalance).toLocaleString('en-US')
+												: 0}
 										</Text>
 										<Img src={getCoinLogo('USDT', listOfTokens)} boxSize="4" />
 									</Flex>
@@ -143,7 +148,9 @@ export const CompanyCard: React.FC<ICompanyCard> = ({
 									{isLoadingCompanies ? (
 										<Skeleton w="10" h="4" />
 									) : (
-										<Text>{company.totalFundsUsd}</Text>
+										<Text>
+											{company.totalFundsUsd?.toLocaleString('en-US')}
+										</Text>
 									)}
 								</Flex>
 							)}

@@ -2,7 +2,6 @@ import { Flex } from '@chakra-ui/react';
 import { readContract } from '@wagmi/core';
 import { useCompanies } from 'hooks';
 import { useEffect, useState } from 'react';
-import { useQuery } from 'react-query';
 import companyAbi from 'utils/abi/company.json';
 import {
 	MissingFundsWarning,
@@ -54,16 +53,19 @@ export const AlertsComponent = () => {
 		calculateMissingFunds();
 	}, [employees]);
 
-	// eslint-disable-next-line no-nested-ternary
-	return companiesWithMissingFunds.length > 1 ? (
-		<MissingFundsWarning>
-			<MultipleCompaniesAlert />
-		</MissingFundsWarning>
-	) : missingValue ? (
-		<MissingFundsWarning>
-			<SingleCompanyAlert missingValue={missingValue} />
-		</MissingFundsWarning>
-	) : (
-		<Flex />
-	);
+	if (companiesWithMissingFunds.length > 1) {
+		return (
+			<MissingFundsWarning>
+				<MultipleCompaniesAlert />
+			</MissingFundsWarning>
+		);
+	}
+	if (missingValue) {
+		return (
+			<MissingFundsWarning>
+				<SingleCompanyAlert missingValue={missingValue} />
+			</MissingFundsWarning>
+		);
+	}
+	return <Flex />;
 };
