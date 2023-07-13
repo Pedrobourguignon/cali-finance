@@ -20,7 +20,7 @@ export const SingleCompanyAlert: React.FC<{ missingValue: number }> = ({
 				whiteSpace="nowrap"
 			>
 				{translate('yourCompanieIsMissing', {
-					companie: companiesWithMissingFunds[0]?.name,
+					company: companiesWithMissingFunds[0]?.name,
 				})}
 			</Text>
 
