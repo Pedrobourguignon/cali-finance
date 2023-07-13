@@ -261,7 +261,7 @@ export const CreateCompanyMobile: React.FC<ICreateCompanyComponent> = ({
 							>
 								<Flex gap="2" mb="2" align="center">
 									<Text {...labelStyle}>Network *</Text>
-									<Tooltip
+									{/* <Tooltip
 										label={
 											<NetworkTooltip>
 												{translate('choseTheMostSuitableNetwork')}
@@ -283,18 +283,21 @@ export const CreateCompanyMobile: React.FC<ICreateCompanyComponent> = ({
 												mt="2"
 											/>
 										</span>
-									</Tooltip>
+									</Tooltip> */}
 								</Flex>
 								<Menu>
 									<MenuButton
 										w="full"
 										border="1px solid black"
+										isDisabled
+										_disabled={{ color: 'black' }}
+										cursor="not-allowed"
 										borderColor={errors.network ? 'red' : theme.bg.primary}
 										fontWeight="normal"
 										_hover={{}}
 										_active={{}}
 										_focus={{}}
-										isDisabled={!session}
+										// isDisabled={!session}
 										h="8"
 										as={Button}
 										rightIcon={<ChevronDownIcon />}

@@ -23,6 +23,7 @@ import {
 	GetUserCompaniesRes,
 	ICompany,
 } from 'types/interfaces/main-server/ICompany';
+import { MobileModalLayout } from 'layouts';
 
 interface IWithdrawModal extends IBasicModal {
 	userCompanies: ICompany[];
@@ -30,7 +31,7 @@ interface IWithdrawModal extends IBasicModal {
 	employeeBalance: number;
 }
 
-export const WithdrawModal: React.FC<IWithdrawModal> = ({
+export const WithdrawModalMobile: React.FC<IWithdrawModal> = ({
 	isOpen,
 	onClose,
 	userCompanies,
@@ -46,38 +47,33 @@ export const WithdrawModal: React.FC<IWithdrawModal> = ({
 	} = useDisclosure();
 
 	return (
-		<Modal isOpen={isOpen} onClose={onClose}>
-			<ModalOverlay />
-			<ModalContent>
-				<OffsetShadow top="0.5rem" width="100%" left="0.5rem">
-					<Flex
-						borderRadius="base"
-						borderWidth="0.1rem"
-						borderColor={theme.bg.primary}
-						direction="column"
-						bg="white"
-						h="100%"
-						w="100%"
-					>
-						<ModalHeader color={theme.text.black2}>
-							{translate('withdraw')}
-						</ModalHeader>
-						<ModalCloseButton color="gray.400" />
-						<ModalBody py="0">
-							<WithdrawContent
-								employeeBalance={employeeBalance}
-								onOpen={onOpenSelector}
-								userCompanies={userCompanies}
-								company={company}
-							/>
-						</ModalBody>
-						<ModalFooter py="6">
-							<WithdrawButton onClose={onClose} company={company} />
-						</ModalFooter>
-					</Flex>
-				</OffsetShadow>
-			</ModalContent>
-		</Modal>
+		<MobileModalLayout isOpen={isOpen} onClose={onClose}>
+			<Flex
+				borderTopRadius="2xl"
+				borderWidth="0.1rem"
+				borderColor={theme.bg.primary}
+				direction="column"
+				bg="white"
+				h="100%"
+				w="100%"
+			>
+				<ModalHeader color={theme.text.black2}>
+					{translate('withdraw')}
+				</ModalHeader>
+				<ModalCloseButton color="gray.400" />
+				<ModalBody py="0">
+					<WithdrawContent
+						employeeBalance={employeeBalance}
+						onOpen={onOpenSelector}
+						userCompanies={userCompanies}
+						company={company}
+					/>
+				</ModalBody>
+				<ModalFooter py="6">
+					<WithdrawButton onClose={onClose} company={company} />
+				</ModalFooter>
+			</Flex>
+		</MobileModalLayout>
 	);
 };
-export default WithdrawModal;
+export default WithdrawModalMobile;

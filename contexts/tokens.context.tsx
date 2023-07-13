@@ -1,7 +1,8 @@
+import { COIN_SERVICE_ROUTES } from 'helpers';
 import debounce from 'lodash.debounce';
 import React, { createContext, useEffect, useMemo, useState } from 'react';
-import { OneInchService, CoingeckoService } from 'services';
-import { ISelectedCoin, ISwapTokenSelector, IToken } from 'types';
+import { OneInchService } from 'services';
+import { ICoin, ISelectedCoin, ISwapTokenSelector, IToken } from 'types';
 import { coinClient } from 'utils';
 
 interface ITokensContext {
@@ -20,6 +21,8 @@ interface ITokensContext {
 	) => Promise<
 		Record<string, { value: number; change: number; symbol: string }>
 	>;
+	setCoins: React.Dispatch<React.SetStateAction<ICoin[]>>;
+	coins: ICoin[];
 }
 export const TokensContext = createContext({} as ITokensContext);
 
@@ -39,6 +42,7 @@ export const TokensProvider: React.FC<{ children: React.ReactNode }> = ({
 			receivedAmount: '',
 			receivedToken: '',
 		} as ISwapTokenSelector);
+	const [coins, setCoins] = useState<ICoin[]>([]);
 
 	// eslint-disable-next-line consistent-return
 	const getOneInchTokens = async () => {
@@ -64,14 +68,6 @@ export const TokensProvider: React.FC<{ children: React.ReactNode }> = ({
 		getOneInchTokens();
 	}, []);
 
-	const getTokenDataById = async (tokenName: string) => {
-		try {
-			const tokenData = await CoingeckoService.tokenInfoByTokenId(tokenName);
-		} catch (error) {
-			console.error(error);
-		}
-	};
-
 	const handleSearchToken = debounce(
 		(searchValue: string, tokens: IToken[]) => {
 			if (!searchValue) {
@@ -94,7 +90,12 @@ export const TokensProvider: React.FC<{ children: React.ReactNode }> = ({
 
 	const getCoinServiceTokens = async (symbols: string) => {
 		if (symbols) {
-			const response = await coinClient.get(`/coin?symbols=${symbols}`);
+			const response = await coinClient.get(
+				COIN_SERVICE_ROUTES.getCoinService,
+				{
+					params: { symbols },
+				}
+			);
 			return response.data;
 		}
 		return null;
@@ -111,16 +112,16 @@ export const TokensProvider: React.FC<{ children: React.ReactNode }> = ({
 			swapTokenSelector,
 			setSwapTokenSelector,
 			getCoinServiceTokens,
+			setCoins,
+			coins,
 		}),
 		[
-			setFilteredTokens,
 			filteredTokens,
 			handleSearchToken,
 			listOfTokens,
-			setChosenToken,
 			chosenToken,
 			swapTokenSelector,
-			setSwapTokenSelector,
+			coins,
 		]
 	);
 

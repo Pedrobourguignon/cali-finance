@@ -38,3 +38,6 @@ export const MAIN_SERVICE_ROUTES = {
 	allCompaniesUserActivities: () =>
 		path(API_URLS.main, '/company/all/recent-activity'),
 };
+export const COIN_SERVICE_ROUTES = {
+	getCoinService: path(API_URLS.main, '/coin'),
+};

@@ -15,6 +15,7 @@ import {
 	IEditedEmployeeInfo,
 	IHistoryNotifications,
 	IUseBalance,
+	IAssetsOptions,
 } from 'types';
 import { mainClient, navigationPaths } from 'utils';
 import { useQuery } from 'react-query';
@@ -68,6 +69,7 @@ interface ICompanyContext {
 	isLoadingCompanies: boolean;
 	setAllUserBalance: Dispatch<SetStateAction<number[]>>;
 	allUserBalance: number[];
+	getUsdtBalance: number;
 }
 
 export const CompaniesContext = createContext({} as ICompanyContext);
@@ -76,7 +78,6 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 	children,
 }) => {
 	const { query } = useRouter();
-	const { getCoinServiceTokens } = useTokens();
 	const { isConnected } = useAccount();
 	const { address: wallet } = useAccount();
 	const [displayNeedFundsCard, setDisplayNeedFundsCard] = useState('none');
@@ -92,6 +93,24 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 	>([]);
 	const neededFunds = 0;
 	const [allUserBalance, setAllUserBalance] = useState<number[]>([]);
+	const [assetOptions, setAssetOptions] = useState<IAssetsOptions[]>([]);
+
+	const sumAvailableToWithdraw = () => {
+		const total = allUserBalance.reduce((acc, balance) => acc + balance, 0);
+		const newAssetOptions = [
+			{
+				name: 'USDT',
+				value: total,
+			},
+		];
+		setAssetOptions(newAssetOptions);
+	};
+
+	useEffect(() => {
+		sumAvailableToWithdraw();
+	}, [allUserBalance.length]);
+
+	const getUsdtBalance = useMemo(() => assetOptions[0]?.value, [assetOptions]);
 
 	const getAllUserCompanies: () => Promise<
 		GetUserCompaniesRes[]
@@ -286,6 +305,7 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 			companiesWithMissingFunds,
 			getAllUserCompanies,
 			createCompany,
+			getUsdtBalance,
 			socialMediasData,
 			setSocialMediasData,
 			getCompanyById,
@@ -316,6 +336,7 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 			getAllUserCompanies,
 			createCompany,
 			socialMediasData,
+			getUsdtBalance,
 			setSocialMediasData,
 			getCompanyById,
 			setSelectedCompany,
@@ -326,10 +347,6 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 			allUserCompanies,
 			updateCompany,
 			isLoadingCompanies,
-			getCompanieActivities,
-			getAllCompanyTeams,
-			getAllCompaniesUserActivities,
-			getCompaniesOverview,
 			selectedCompany,
 			setAllUserBalance,
 			allUserBalance,

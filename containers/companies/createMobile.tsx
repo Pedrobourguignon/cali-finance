@@ -41,9 +41,9 @@ export const CreateCompanyMobileContainer = () => {
 		useState<ISociaLinksInputValue>({} as ISociaLinksInputValue);
 
 	const [selectedNetwork, setSelectedNetwork] = useState<ISelectedNetwork>({
-		name: translate('pleaseSelect'),
-		icon: '',
-		id: 0,
+		name: 'Polygon',
+		icon: '/images/polygon.png',
+		id: 137,
 	});
 	const {
 		handleSubmit,

@@ -1,5 +1,6 @@
+/* eslint-disable no-nested-ternary */
 import { Flex, Grid, GridItem, Img, Text } from '@chakra-ui/react';
-import { useCompanies, usePicasso } from 'hooks';
+import { useCompanies, usePicasso, useProfile } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
 import { useRouter } from 'next/router';
 import React from 'react';
@@ -13,17 +14,23 @@ import {
 	handleLogoImage,
 	dateHandler,
 } from 'utils';
+import { useAccount } from 'wagmi';
 
 export const HistoryActivityData: React.FC<IActivitiesData> = ({
 	activities,
 }) => {
 	const theme = usePicasso();
 	const { t: translate } = useTranslation('history-page');
-	const { getCompanyById } = useCompanies();
+	const { getProfileData } = useProfile();
+	const { isConnected } = useAccount();
 	const { locale } = useRouter();
 
-	const { data: company } = useQuery('get-company-data', () =>
-		getCompanyById(activities.meta.data.companyId)
+	const { data: profileData } = useQuery(
+		'profile-data',
+		() => getProfileData(activities.wallet as `0x${string}`),
+		{
+			enabled: !!isConnected,
+		}
 	);
 
 	return (
@@ -49,7 +56,7 @@ export const HistoryActivityData: React.FC<IActivitiesData> = ({
 							justifyContent="space-between"
 							alignItems="center"
 						>
-							<GridItem display="flex" alignContent="center" gap="2" flex="2.5">
+							<GridItem display="flex" alignItems="center" gap="2" flex="2.5">
 								{activities.event.name !== 'user_updated' &&
 								activities.event.name !== 'user_settings_updated' &&
 								activities.meta.data.companyLogo ? (
@@ -58,22 +65,37 @@ export const HistoryActivityData: React.FC<IActivitiesData> = ({
 										boxSize="6"
 										borderRadius="base"
 									/>
-								) : (
-									activities.event.name !== 'user_updated' &&
-									activities.event.name !== 'user_settings_updated' && (
-										<Flex
-											boxSize="6"
+								) : activities.event.name === 'user_updated' ? (
+									<Flex
+										boxSize="6"
+										borderRadius="full"
+										align="center"
+										justify="center"
+										fontSize="xs"
+										fontWeight="bold"
+										bg={theme.bg.white2}
+										color={theme.text.primary}
+									>
+										<Img
+											src={getLogo(profileData?.picture)}
 											borderRadius="full"
-											align="center"
-											justify="center"
-											fontSize="xs"
-											fontWeight="bold"
-											bg={theme.bg.white2}
-											color={theme.text.primary}
-										>
-											{handleLogoImage(activities.meta.data.companyName)}
-										</Flex>
-									)
+											boxSize="6"
+											objectFit="cover"
+										/>
+									</Flex>
+								) : (
+									<Flex
+										boxSize="6"
+										borderRadius="full"
+										align="center"
+										justify="center"
+										fontSize="xs"
+										fontWeight="bold"
+										bg={theme.bg.white2}
+										color={theme.text.primary}
+									>
+										{handleLogoImage(activities.meta.data.companyName)}
+									</Flex>
 								)}
 								{activities.event.name === 'user_updated' ||
 								activities.event.name === 'user_settings_updated' ? (
@@ -91,10 +113,16 @@ export const HistoryActivityData: React.FC<IActivitiesData> = ({
 								)}
 							</GridItem>
 							<GridItem display="flex" flex="2.5" gap="2">
-								{activities.event.name !== 'company_created' && (
-									<Img src="/images/avatar.png" boxSize="6" />
-								)}
+								<Img
+									src={getLogo(profileData?.picture)}
+									borderRadius="full"
+									boxSize="6"
+									objectFit="cover"
+								/>
+
 								{activities.event.name === 'user_updated' ||
+								activities.event.name === 'company_updated' ||
+								activities.event.name === 'company_created' ||
 								activities.event.name === 'user_settings_updated' ? (
 									<Text
 										h="max-content"

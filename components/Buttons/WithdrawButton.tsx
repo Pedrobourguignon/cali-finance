@@ -67,7 +67,7 @@ export const WithdrawButton: React.FC<{
 				w="100%"
 				bg={theme.bg.primary}
 				_hover={{}}
-				h="full"
+				// h="full"
 				maxH="8"
 				onClick={() => writeWithdraw?.()}
 				py={{ lg: '1', xl: '1.5' }}
