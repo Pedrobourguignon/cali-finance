@@ -149,7 +149,7 @@ export const CompanyCard: React.FC<ICompanyCard> = ({
 										<Skeleton w="10" h="4" />
 									) : (
 										<Text>
-											{company.totalFundsUsd?.toLocaleString('en-US')}
+											${company.totalFundsUsd?.toLocaleString('en-US')}
 										</Text>
 									)}
 								</Flex>
