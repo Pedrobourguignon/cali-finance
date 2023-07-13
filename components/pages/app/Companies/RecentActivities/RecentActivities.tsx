@@ -84,7 +84,7 @@ export const RecentActivities = () => {
 			)}
 
 			<Flex gap="2" direction="column" display={{ base: 'flex', sm: 'none' }}>
-				{recentActivities?.map((activity, index) => (
+				{recentActivities?.slice(0, 5).map((activity, index) => (
 					<ActivitiesDataMobile key={+index} activities={activity} />
 				))}
 			</Flex>
