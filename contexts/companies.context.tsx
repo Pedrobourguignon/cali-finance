@@ -215,17 +215,17 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 	const handleMissingFunds = () => {
 		let employeesWallet: string[] = [];
 		if (allUserCompanies)
-			allUserCompanies.forEach(async companie => {
-				if (companie.id) {
-					const employees = await getAllCompanyEmployees(companie.id);
+			allUserCompanies.forEach(async company => {
+				if (company.id && company.isAdmin) {
+					const employees = await getAllCompanyEmployees(company.id);
 					if (employees.length !== 0) {
 						employees.map((employee: IEmployee) =>
 							employeesWallet.push(employee.wallet!)
 						);
-						if (companie.contract) {
+						if (company.contract) {
 							try {
 								const data = await readContract({
-									address: companie.contract,
+									address: company.contract,
 									abi: companyAbi,
 									functionName: 'getBulkBalance',
 									args: [employeesWallet],
@@ -236,9 +236,9 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 									(accumulator, currentValue) => accumulator + currentValue,
 									0
 								);
-								if (companie.totalFundsUsd! < sum)
+								if (company.totalFundsUsd! < sum)
 									setCompaniesWithMissingFunds(prevState =>
-										prevState.concat(companie)
+										prevState.concat(company)
 									);
 							} catch (err) {
 								console.log(err);
