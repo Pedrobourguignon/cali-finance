@@ -169,7 +169,9 @@ export const CompaniesHeader = () => {
 					{isLoadingSelectedCompany ? (
 						<Skeleton w="14" h="6" />
 					) : (
-						<Text>{`$ ${selectedCompany?.totalFundsUsd}`}</Text>
+						<Text>{`$ ${selectedCompany?.totalFundsUsd?.toLocaleString(
+							'en-US'
+						)}`}</Text>
 					)}
 					<Text fontSize="sm">{translate('totalFunds')}</Text>
 				</Flex>

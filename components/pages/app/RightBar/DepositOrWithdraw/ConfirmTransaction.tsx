@@ -12,12 +12,14 @@ import useTranslation from 'next-translate/useTranslation';
 import { Dispatch, SetStateAction, useState } from 'react';
 import { ITransaction } from 'types';
 import {
+	useContractWrite,
 	usePrepareSendTransaction,
 	useSendTransaction,
 	useWaitForTransaction,
 } from 'wagmi';
 import { useDebounce } from 'use-debounce';
 import { AlertToast, WaitMetamaskFinishTransaction } from 'components';
+import companyAbi from 'utils/abi/company.json';
 
 interface IConfirmTransaction {
 	transaction: ITransaction;
@@ -36,44 +38,28 @@ export const ConfirmTransaction: React.FC<IConfirmTransaction> = ({
 	const [selectedOption, setSelectedOption] = useState<string | undefined>(
 		transaction.type
 	);
-	const [debouncedAmount] = useDebounce(transaction.amount, 500);
 	const theme = usePicasso();
 	const handleSelectedButton = (btnName: string) => {
 		const selectedButton = buttonOptions.find(item => item === btnName);
 		setSelectedOption(selectedButton);
 	};
-	const [enabledTransaction, setEnabledTransaction] = useState(false);
 	const { onClose } = useDisclosure();
 
-	const { config: sendTransactionConfig } = usePrepareSendTransaction({
-		enabled: enabledTransaction,
-		to: selectedCompany.contract,
-		value: debouncedAmount ? BigInt(debouncedAmount) : undefined,
-		onError: (error: any) => {
-			toast({
-				position: 'top',
-				render: () => (
-					<AlertToast
-						onClick={toast.closeAll}
-						text={
-							error.code === -32603
-								? 'insufficientFunds'
-								: 'weAreWorkingToSolve'
-						}
-						type="error"
-					/>
-				),
-			});
-			setConfirm(false);
-		},
+	const { write: depositFunds, data: depositFundsData } = useContractWrite({
+		address: selectedCompany.contract,
+		abi: companyAbi,
+		functionName: 'deposit',
+		args: [process.env.NEXT_PUBLIC_CALI_TOKEN, transaction.amount],
 	});
 
-	const { sendTransaction, data: sendTransactionData } = useSendTransaction(
-		sendTransactionConfig
-	);
+	const { write: withdrawFunds, data: withdrawFundsData } = useContractWrite({
+		address: selectedCompany.contract,
+		abi: companyAbi,
+		functionName: 'withdrawToken',
+	});
 
-	const { data, isLoading: isLoadingTransaction } = useWaitForTransaction({
-		hash: sendTransactionData?.hash,
+	const { isLoading: isLoadingWithdrawTransaction } = useWaitForTransaction({
+		hash: withdrawFundsData?.hash,
 		confirmations: 3,
 		onSuccess: () => {
 			toast({
@@ -81,16 +67,40 @@ export const ConfirmTransaction: React.FC<IConfirmTransaction> = ({
 				render: () => (
 					<AlertToast
 						onClick={toast.closeAll}
-						text={
-							transaction.type === 'Deposit'
-								? 'depositSuccessfully'
-								: 'successfulWithdrawal'
-						}
+						text="successfulWithdrawal"
 						type="success"
 					/>
 				),
 			});
-			setConfirm(false);
+		},
+		onError: () => {
+			toast({
+				position: 'top',
+				render: () => (
+					<AlertToast
+						onClick={toast.closeAll}
+						text="weAreWorkingToSolve"
+						type="error"
+					/>
+				),
+			});
+		},
+	});
+
+	const { isLoading: isLoadingDepositTransaction } = useWaitForTransaction({
+		hash: depositFundsData?.hash,
+		confirmations: 3,
+		onSuccess: () => {
+			toast({
+				position: 'top',
+				render: () => (
+					<AlertToast
+						onClick={toast.closeAll}
+						text="depositSuccessfully"
+						type="success"
+					/>
+				),
+			});
 		},
 		onError: () => {
 			toast({
@@ -107,8 +117,9 @@ export const ConfirmTransaction: React.FC<IConfirmTransaction> = ({
 	});
 
 	const handleSendTransaction = () => {
-		setEnabledTransaction(true);
-		sendTransaction?.();
+		if (transaction.type === 'Deposit') {
+			depositFunds?.();
+		} else withdrawFunds?.();
 	};
 
 	return (
@@ -122,7 +133,7 @@ export const ConfirmTransaction: React.FC<IConfirmTransaction> = ({
 			w="100%"
 		>
 			<WaitMetamaskFinishTransaction
-				isOpen={isLoadingTransaction}
+				isOpen={isLoadingDepositTransaction || isLoadingWithdrawTransaction}
 				onClose={onClose}
 			/>
 			<Flex w="100%" justify="center" direction="row">
