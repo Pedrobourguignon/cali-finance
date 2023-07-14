@@ -42,12 +42,28 @@ export const LandingFooter = () => {
 			position="relative"
 			bg={theme.bg.primary}
 			w="full"
-			h="25.125rem"
+			h={{ base: '16rem', sm: '25.125rem' }}
 			direction="column"
 			justify="center"
 			align="center"
 		>
-			<Flex gap="20">
+			<Flex
+				gap={{ base: '4', sm: '20' }}
+				display={{ base: 'flex', sm: 'none' }}
+			>
+				{socialMedias.slice(0, 3).map((media, index) => (
+					<SocialMediaFooter
+						key={+index}
+						name={media.name}
+						icon={media.icon}
+						url={media.url}
+					/>
+				))}
+			</Flex>
+			<Flex
+				gap={{ base: '4', sm: '20' }}
+				display={{ base: 'none', sm: 'flex' }}
+			>
 				{socialMedias.map((media, index) => (
 					<SocialMediaFooter
 						key={+index}
@@ -59,17 +75,20 @@ export const LandingFooter = () => {
 			</Flex>
 			<Flex
 				w="full"
-				px="20"
+				px={{ base: '4', sm: '20' }}
 				pb="6"
 				justify="space-between"
 				position="absolute"
 				bottom="0"
 			>
-				<Text color={theme.text.white}>© CALI {currentYear}</Text>
+				<Text color={theme.text.white} fontSize={{ base: 'xs', sm: 'md' }}>
+					© CALI {currentYear}
+				</Text>
 				<Text
 					cursor="pointer"
 					color={theme.text.white}
 					onClick={() => window.open(usefulLinks.privacyPolicy)}
+					fontSize={{ base: 'xs', sm: 'md' }}
 				>
 					{translate('privacyPolicy')}
 				</Text>
