@@ -1,4 +1,3 @@
-/* eslint-disable import/extensions */
 import {
 	Button,
 	Flex,
@@ -11,13 +10,7 @@ import { useCompanies, usePicasso } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
 import { Dispatch, SetStateAction, useState } from 'react';
 import { ITransaction } from 'types';
-import {
-	useContractWrite,
-	usePrepareSendTransaction,
-	useSendTransaction,
-	useWaitForTransaction,
-} from 'wagmi';
-import { useDebounce } from 'use-debounce';
+import { useContractWrite, useWaitForTransaction } from 'wagmi';
 import { AlertToast, WaitMetamaskFinishTransaction } from 'components';
 import companyAbi from 'utils/abi/company.json';
 
@@ -214,7 +207,7 @@ export const ConfirmTransaction: React.FC<IConfirmTransaction> = ({
 					h="8"
 					px="6"
 					whiteSpace="normal"
-					fontSize={{ base: 'xs', xl: 'md' }}
+					fontSize="sm"
 					_hover={{
 						opacity: 0.8,
 					}}

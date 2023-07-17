@@ -11,7 +11,7 @@ export * from './historyFilterOptions';
 export * from './logoHandler';
 export * from './navigationPaths';
 export * from './networkInfos';
-export * from './notificationIcons';
+export * from './notificationsData';
 export * from './socialMediaLinks';
 export * from './truncateWallet';
 export * from './usefulLinks';

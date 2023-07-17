@@ -9,7 +9,7 @@ import {
 	dateHandler,
 	getLogo,
 	handleLogoImage,
-	notificationIcons,
+	notificationsData,
 	truncateWallet,
 } from 'utils';
 
@@ -65,7 +65,7 @@ export const HistoryActivityDataMobile: React.FC<IActivitiesData> = ({
 								{activities.event.name === 'user_updated' ||
 								activities.event.name === 'user_settings_updated' ? (
 									<Text fontSize="sm" color={theme.text.primary}>
-										{activities.meta.description[locale!]}
+										{locale && activities.meta.description[locale]}
 									</Text>
 								) : (
 									<Text
@@ -111,7 +111,7 @@ export const HistoryActivityDataMobile: React.FC<IActivitiesData> = ({
 						</Flex>
 						<Flex align="center" gap="3" w="full">
 							<Img
-								src={notificationIcons[activities.event.name].icon}
+								src={notificationsData[activities.event.name].icon}
 								boxSize="4"
 							/>
 							<Flex direction="column">
@@ -126,7 +126,7 @@ export const HistoryActivityDataMobile: React.FC<IActivitiesData> = ({
 										)}
 								</Text>
 								<Text color="gray.500" fontSize="xs" whiteSpace="nowrap">
-									{dateHandler(activities.created_at)}
+									{locale && dateHandler(activities.created_at, locale)}
 								</Text>
 							</Flex>
 						</Flex>

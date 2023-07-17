@@ -1,13 +1,13 @@
 /* eslint-disable no-nested-ternary */
 import { Flex, Grid, GridItem, Img, Text } from '@chakra-ui/react';
-import { useCompanies, usePicasso, useProfile } from 'hooks';
+import { usePicasso, useProfile } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
 import { useRouter } from 'next/router';
 import React from 'react';
 import { useQuery } from 'react-query';
 import { IActivitiesData } from 'types';
 import {
-	notificationIcons,
+	notificationsData,
 	truncateWallet,
 	activitieDescriptTranslation,
 	getLogo,
@@ -100,7 +100,7 @@ export const HistoryActivityData: React.FC<IActivitiesData> = ({
 								{activities.event.name === 'user_updated' ||
 								activities.event.name === 'user_settings_updated' ? (
 									<Text fontSize="sm" color={theme.text.primary}>
-										{activities.meta.description[locale!]}
+										{locale && activities.meta.description[locale]}
 									</Text>
 								) : (
 									<Text
@@ -149,7 +149,7 @@ export const HistoryActivityData: React.FC<IActivitiesData> = ({
 							<GridItem flex="2.5">
 								<Flex align="center" gap="2">
 									<Img
-										src={notificationIcons[activities.event.name].icon}
+										src={notificationsData[activities.event.name].icon}
 										boxSize="4"
 									/>
 									<Flex direction="column">
@@ -165,7 +165,7 @@ export const HistoryActivityData: React.FC<IActivitiesData> = ({
 												)}
 										</Text>
 										<Text color="gray.500" fontSize="xs" whiteSpace="nowrap">
-											{dateHandler(activities.created_at)}
+											{locale && dateHandler(activities.created_at, locale)}
 										</Text>
 									</Flex>
 								</Flex>

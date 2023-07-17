@@ -14,9 +14,13 @@ export const DashboardHeader: React.FC = () => {
 	const { getProfileData } = useProfile();
 	const percentage = 0;
 	const theme = usePicasso();
-	const { address } = useAccount();
-	const { data: profileData } = useQuery('profile-data', () =>
-		getProfileData(address)
+	const { address, isConnected } = useAccount();
+	const { data: profileData } = useQuery(
+		['profile-data'],
+		() => getProfileData(address),
+		{
+			enabled: !!isConnected,
+		}
 	);
 
 	const greetingMessage = useMemo(() => {

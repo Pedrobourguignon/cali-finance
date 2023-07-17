@@ -169,17 +169,20 @@ export const CompaniesHeader = () => {
 					{isLoadingSelectedCompany ? (
 						<Skeleton w="14" h="6" />
 					) : (
-						<Text>{`$ ${selectedCompany?.totalFundsUsd?.toLocaleString(
+						<Text fontSize="xl">{`$ ${selectedCompany?.totalFundsUsd?.toLocaleString(
 							'en-US'
 						)}`}</Text>
 					)}
-					<Text fontSize="sm">{translate('totalFunds')}</Text>
+					<Text fontSize="sm" fontWeight="semibold">
+						{translate('totalFunds')}
+					</Text>
 				</Flex>
 				<Link
 					href={navigationPaths.dashboard.companies.editOrg(
 						query.id?.toString()
 					)}
 					as={NextLink}
+					_hover={{ textDecor: 'none', opacity: '80%' }}
 				>
 					<Text
 						borderRadius="base"
