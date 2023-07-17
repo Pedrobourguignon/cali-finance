@@ -1,4 +1,4 @@
-export * from './activitieDescriptTranslation';
+export * from './notificationsData';
 export * from './chainList';
 export * from './chainLogo';
 export * from './clients';
@@ -11,7 +11,6 @@ export * from './historyFilterOptions';
 export * from './logoHandler';
 export * from './navigationPaths';
 export * from './networkInfos';
-export * from './notificationsData';
 export * from './socialMediaLinks';
 export * from './truncateWallet';
 export * from './usefulLinks';

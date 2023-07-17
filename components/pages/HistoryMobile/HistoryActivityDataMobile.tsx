@@ -5,11 +5,10 @@ import { useRouter } from 'next/router';
 import React from 'react';
 import { IActivitiesData } from 'types';
 import {
-	activitieDescriptTranslation,
+	notificationsData,
 	dateHandler,
 	getLogo,
 	handleLogoImage,
-	notificationsData,
 	truncateWallet,
 } from 'utils';
 
@@ -121,9 +120,7 @@ export const HistoryActivityDataMobile: React.FC<IActivitiesData> = ({
 									color={theme.text.primary}
 								>
 									{activities &&
-										translate(
-											activitieDescriptTranslation[activities.event.name].text
-										)}
+										translate(notificationsData[activities.event.name].text)}
 								</Text>
 								<Text color="gray.500" fontSize="xs" whiteSpace="nowrap">
 									{locale && dateHandler(activities.created_at, locale)}

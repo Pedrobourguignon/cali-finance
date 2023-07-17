@@ -9,7 +9,6 @@ import { IActivitiesData } from 'types';
 import {
 	notificationsData,
 	truncateWallet,
-	activitieDescriptTranslation,
 	getLogo,
 	handleLogoImage,
 	dateHandler,
@@ -160,8 +159,7 @@ export const HistoryActivityData: React.FC<IActivitiesData> = ({
 										>
 											{activities &&
 												translate(
-													activitieDescriptTranslation[activities.event.name]
-														?.text
+													notificationsData[activities.event.name]?.text
 												)}
 										</Text>
 										<Text color="gray.500" fontSize="xs" whiteSpace="nowrap">
