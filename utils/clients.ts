@@ -4,6 +4,7 @@ import { getCookie } from 'cookies-next';
 
 export const checkJwt = () => {
 	const jwt = getCookie('cali-finance-authorization');
+	console.log(jwt);
 	return jwt ? `Bearer ${jwt}` : false;
 };
 

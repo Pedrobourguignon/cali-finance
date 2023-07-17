@@ -8,18 +8,20 @@ import NextLink from 'next/link';
 import { useQuery } from 'react-query';
 import { useAccount } from 'wagmi';
 import { RecentActivitiesData } from 'components';
+import { useSession } from 'next-auth/react';
 
 export const RecentActivitiesDashboard = () => {
 	const { t: translate } = useTranslation('dashboard');
 	const theme = usePicasso();
 	const { isConnected } = useAccount();
+	const { data: session } = useSession();
 	const { getUserActivities } = useProfile();
 
 	const { data: allCompaniesRecentActivities } = useQuery(
 		'recent-activities',
 		() => getUserActivities(999),
 		{
-			enabled: !!isConnected,
+			enabled: !!isConnected && !!session,
 		}
 	);
 

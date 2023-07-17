@@ -57,7 +57,7 @@ export const EditProfileComponent = () => {
 		'profile-data',
 		() => getProfileData(address),
 		{
-			enabled: !!isConnected,
+			enabled: !!isConnected && !!session,
 		}
 	);
 

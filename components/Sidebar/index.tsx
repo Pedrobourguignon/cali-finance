@@ -34,6 +34,7 @@ import { useSession, signOut } from 'next-auth/react';
 import NextLink from 'next/link';
 import { useQuery } from 'react-query';
 import { useAccount, useDisconnect } from 'wagmi';
+import { deleteCookie } from 'cookies-next';
 
 interface IMenuItem {
 	icon: typeof Icon;
@@ -122,12 +123,14 @@ export const Sidebar: React.FC = () => {
 		'profile-data',
 		() => getProfileData(walletAddress),
 		{
-			enabled: !!isConnected,
+			enabled: !!isConnected && !!session,
 		}
 	);
 	const handleSignOut = () => {
 		disconnect();
 		signOut();
+		deleteCookie('cali-finance-authorization');
+		localStorage.removeItem('cali-finance-authorization');
 	};
 
 	return (

@@ -71,7 +71,7 @@ export const MobileHeader = () => {
 		['profile-data'],
 		() => getProfileData(walletAddress),
 		{
-			enabled: !!isConnected,
+			enabled: !!isConnected && !!session,
 		}
 	);
 

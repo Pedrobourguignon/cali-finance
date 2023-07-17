@@ -27,6 +27,7 @@ import router, { useRouter } from 'next/router';
 import { MAIN_SERVICE_ROUTES } from 'helpers';
 import { readContract } from '@wagmi/core';
 import companyAbi from 'utils/abi/company.json';
+import { useSession } from 'next-auth/react';
 
 interface ICompanyContext {
 	setSelectedCompany: Dispatch<SetStateAction<GetUserCompaniesRes>>;
@@ -80,6 +81,7 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 	const { query } = useRouter();
 	const { isConnected } = useAccount();
 	const { address: wallet } = useAccount();
+	const { data: session } = useSession();
 	const [displayNeedFundsCard, setDisplayNeedFundsCard] = useState('none');
 	const [socialMediasData, setSocialMediasData] = useState<ISocialMedia[]>([]);
 	const [editedInfo, setEditedInfo] = useState<ICompany>({} as ICompany);
@@ -125,7 +127,7 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 		['all-companies'],
 		getAllUserCompanies,
 		{
-			enabled: !!isConnected,
+			enabled: !!isConnected && !!session,
 		}
 	);
 

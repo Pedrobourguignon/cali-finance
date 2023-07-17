@@ -11,12 +11,17 @@ export const DashboardHeader: React.FC = () => {
 	const { onClose, isOpen, onOpen } = useDisclosure();
 	const { t: translate } = useTranslation('app-header');
 	const { data: session } = useSession();
+	const { isConnected } = useAccount();
 	const { getProfileData } = useProfile();
 	const percentage = 0;
 	const theme = usePicasso();
 	const { address } = useAccount();
-	const { data: profileData } = useQuery('profile-data', () =>
-		getProfileData(address)
+	const { data: profileData } = useQuery(
+		'profile-data',
+		() => getProfileData(address),
+		{
+			enabled: !!isConnected && !!session,
+		}
 	);
 
 	const greetingMessage = useMemo(() => {

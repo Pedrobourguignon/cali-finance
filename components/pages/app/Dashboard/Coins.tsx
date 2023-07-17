@@ -5,6 +5,7 @@ import useTranslation from 'next-translate/useTranslation';
 import { usePicasso, useProfile, useTokens } from 'hooks';
 import { ICoin } from 'types';
 import { useAccount, useMutation, useQuery } from 'wagmi';
+import { useSession } from 'next-auth/react';
 
 export const Coins = () => {
 	const { t: translate } = useTranslation('dashboard');
@@ -12,6 +13,7 @@ export const Coins = () => {
 	const theme = usePicasso();
 	const { isOpen, onClose, onOpen } = useDisclosure();
 	const { getCoinServiceTokens } = useTokens();
+	const { data: session } = useSession();
 	const [flexWidth, setFlexWidth] = useState<number>();
 	const {
 		setSelectedToken,
@@ -64,7 +66,7 @@ export const Coins = () => {
 		refetch: refetchUserData,
 		isLoading: isLoadingUserData,
 	} = useQuery(['get-user-data'], () => getProfileData(walletAddress), {
-		enabled: !!isConnected,
+		enabled: !!isConnected && !!session,
 	});
 
 	const favoriteCoins = userData?.settings?.coin as ICoin[];

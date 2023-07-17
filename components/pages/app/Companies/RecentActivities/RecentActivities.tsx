@@ -7,11 +7,13 @@ import NextLink from 'next/link';
 import { useAccount } from 'wagmi';
 import { useQuery } from 'react-query';
 import { useRouter } from 'next/router';
+import { useSession } from 'next-auth/react';
 
 export const RecentActivities = () => {
 	const { getCompanieActivities } = useCompanies();
 	const theme = usePicasso();
 	const { query } = useRouter();
+	const { data: session } = useSession();
 	const { isConnected } = useAccount();
 	const { t: translate } = useTranslation('companies');
 	const { t: translateDashboard } = useTranslation('dashboard');
@@ -21,7 +23,7 @@ export const RecentActivities = () => {
 		'recent-activities',
 		() => getCompanieActivities(Number(query.id)),
 		{
-			enabled: !!isConnected && !!query.id,
+			enabled: !!isConnected && !!query.id && !!session,
 		}
 	);
 
@@ -29,7 +31,7 @@ export const RecentActivities = () => {
 		'all-companies-recent-activities',
 		getAllCompaniesUserActivities,
 		{
-			enabled: !!isConnected,
+			enabled: !!isConnected && !!session,
 		}
 	);
 
