@@ -66,6 +66,7 @@ export const CompanyCard: React.FC<ICompanyCard> = ({
 			<WithdrawModal
 				employeeBalance={employeeBalance as number}
 				isOpen={isOpen}
+				// isOpen
 				onClose={onClose}
 				userCompanies={userCompanies}
 				company={company}

@@ -1,5 +1,6 @@
 import { Button, Icon } from '@chakra-ui/react';
 import { OffsetShadow } from 'components/OffsetShadow';
+import { useSession } from 'next-auth/react';
 import useTranslation from 'next-translate/useTranslation';
 import { useRouter } from 'next/router';
 import React from 'react';
@@ -12,6 +13,8 @@ interface ICoinButton {
 export const NewCoinButton: React.FC<ICoinButton> = ({ onOpen }) => {
 	const { t: translate } = useTranslation('dashboard');
 	const { locale } = useRouter();
+	const { data: session } = useSession();
+
 	return (
 		<OffsetShadow
 			borderColor="white"
@@ -36,6 +39,8 @@ export const NewCoinButton: React.FC<ICoinButton> = ({ onOpen }) => {
 				color="black"
 				borderRadius="base"
 				bg="white"
+				isDisabled={!session}
+				_disabled={{ bg: 'white', cursor: 'not-allowed' }}
 				_hover={{ background: 'white' }}
 				_focus={{ background: 'white' }}
 				_active={{

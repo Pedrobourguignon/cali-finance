@@ -110,7 +110,11 @@ export const EmployeesDashboard: React.FC<IEmployeeDashboard> = ({
 				) : (
 					<Flex fontWeight="medium" gap="1">
 						<Text>{employees?.length}</Text>
-						<Text>{translate('employees')}</Text>
+						<Text>
+							{employees?.length === 1
+								? translate('employee')
+								: translate('employees')}
+						</Text>
 					</Flex>
 				)}
 				<Flex gap="8" align="center" display={{ base: 'none', sm: 'flex' }}>
@@ -122,12 +126,12 @@ export const EmployeesDashboard: React.FC<IEmployeeDashboard> = ({
 						</Button>
 					)}
 					<BlackButton
-						px="3"
+						px="4"
 						onClick={onOpen}
-						fontSize="xs"
+						fontSize="sm"
 						gap="2.5"
 						fontWeight="medium"
-						py="1"
+						py="2"
 						borderRadius="base"
 					>
 						<Text>+</Text>
@@ -143,12 +147,12 @@ export const EmployeesDashboard: React.FC<IEmployeeDashboard> = ({
 						</Button>
 					)}
 					<BlackButton
-						px="3"
+						px="4"
 						onClick={onOpenMobile}
-						fontSize="xs"
+						fontSize="sm"
 						gap="2.5"
 						fontWeight="medium"
-						py="1"
+						py="2"
 						borderRadius="base"
 					>
 						<Text>+</Text>
@@ -161,7 +165,7 @@ export const EmployeesDashboard: React.FC<IEmployeeDashboard> = ({
 					<Flex justify="space-between" fontSize="sm">
 						<Text>{translate('nameAddress')}</Text>
 						{isGeneral && <Text>{translate('team')}</Text>}
-						<Text w="24">{translate('amount')}</Text>
+						<Text>{translate('amount')}</Text>
 					</Flex>
 					<Flex direction="column" gap="2">
 						<>
@@ -176,7 +180,7 @@ export const EmployeesDashboard: React.FC<IEmployeeDashboard> = ({
 					<Flex justify="space-between" fontSize="sm">
 						<Text>{translate('nameAddress')}</Text>
 						{isGeneral && <Text>{translate('team')}</Text>}
-						<Text w="24">{translate('amount')}</Text>
+						<Text>{translate('amount')}</Text>
 					</Flex>
 					<Flex direction="column" gap="2">
 						{employees

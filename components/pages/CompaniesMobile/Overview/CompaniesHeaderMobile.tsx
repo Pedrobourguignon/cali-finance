@@ -157,7 +157,8 @@ export const CompaniesHeaderMobile = () => {
 							) : (
 								<Flex align="center">
 									<Text
-										color="gray.500"
+										color="blue.300"
+										as="u"
 										fontSize="md"
 										cursor="pointer"
 										onClick={() =>
