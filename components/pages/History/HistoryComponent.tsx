@@ -38,7 +38,7 @@ export const HistoryComponent: React.FC<IHistoryPage> = ({ history }) => {
 		IHistoryNotifications[]
 	>(history!);
 
-	const notificationPerPage = 14;
+	const notificationPerPage = 13;
 	const maxPage = useMemo(
 		() => Math.ceil(filteredActivities?.length / notificationPerPage),
 		[filteredActivities?.length]
@@ -107,11 +107,12 @@ export const HistoryComponent: React.FC<IHistoryPage> = ({ history }) => {
 						</Text>
 						<Menu gutter={0} autoSelect={false}>
 							<MenuButton
+								display="flex"
+								justifyItems="space-between"
 								h="max-content"
 								py="2"
 								px="3"
-								w="11.875rem"
-								gap="32"
+								minW="11.875rem"
 								fontWeight="normal"
 								fontSize={{ md: 'sm', '2xl': 'md' }}
 								color={theme.text.primary}
@@ -123,7 +124,9 @@ export const HistoryComponent: React.FC<IHistoryPage> = ({ history }) => {
 								_active={{}}
 								_focus={{}}
 							>
-								{!session ? translate('all') : selectedFilterOption}
+								<Flex>
+									{!session ? translate('all') : selectedFilterOption}
+								</Flex>
 							</MenuButton>
 							<MenuList
 								p="0"
@@ -152,6 +155,7 @@ export const HistoryComponent: React.FC<IHistoryPage> = ({ history }) => {
 							</MenuList>
 						</Menu>
 					</Flex>
+					{history?.length === 0 && <HistorySkeletons />}
 					{!session ? (
 						<>
 							<Text fontSize="sm" color={theme.text.primary}>
@@ -172,7 +176,7 @@ export const HistoryComponent: React.FC<IHistoryPage> = ({ history }) => {
 								<Flex justify="center" pt="5" pb="6">
 									<Paginator
 										actualPage={pageNumber + 1}
-										maxPage={maxPage}
+										maxPage={maxPage - 1}
 										previous={previous}
 										next={next}
 									/>
