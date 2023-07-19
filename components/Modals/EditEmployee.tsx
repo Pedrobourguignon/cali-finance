@@ -82,7 +82,30 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 		color: 'blackAlpha.500',
 	};
 
-	const expenseCalculation = () => ` ${translate('more')}`;
+	const expenseCalculation = () => {
+		if (employee.revenue && editedEmployeeData.amountInDollar > 0) {
+			const newEmployeesRevenue =
+				employeesRevenue - employee.revenue + editedEmployeeData.amountInDollar;
+			const expense = newEmployeesRevenue - employeesRevenue;
+			const percentExpenses = (expense / employeesRevenue) * 100;
+			if (percentExpenses > 0) {
+				return {
+					text: `${percentExpenses.toFixed(0)}% ${translate('more')}`,
+					amount: expense.toString(),
+				};
+			}
+			const negativeExpensesPercent =
+				((employeesRevenue - newEmployeesRevenue) / employeesRevenue) * 100;
+			return {
+				text: `${negativeExpensesPercent.toFixed(0)}% ${translate('less')}`,
+				amount: '0',
+			};
+		}
+		return {
+			text: `0% ${translate('more')}`,
+			amount: '0',
+		};
+	};
 
 	const converterToDollar = (amountInDollar: number) => {
 		setEditedEmployeeData(prevState => ({
@@ -333,7 +356,7 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 											fontWeight="bold"
 										>
 											&nbsp;
-											{expenseCalculation()}
+											{expenseCalculation().text}
 										</Text>
 										<Text fontSize="sm" color={theme.text.primary}>
 											&nbsp;
@@ -341,7 +364,9 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 										</Text>
 									</Flex>
 									<Text fontSize="xs" color={theme.text.primary}>
-										{translate('pleaseNote')}
+										{translate('pleaseNote', {
+											expense: expenseCalculation().amount,
+										})}
 									</Text>
 								</Flex>
 								<BlackButton
