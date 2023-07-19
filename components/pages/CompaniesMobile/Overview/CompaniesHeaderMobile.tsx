@@ -40,16 +40,16 @@ export const CompaniesHeaderMobile = () => {
 		if (!session) router.push(navigationPaths.dashboard.companies.home);
 	}, []);
 
+	const companyId = query.id?.toString();
+
 	const menuOptions = [
 		{
 			name: translate('overview'),
-			route: navigationPaths.dashboard.companies.overview(
-				'query.id!.toString()'
-			),
+			route: navigationPaths.dashboard.companies.overview(companyId),
 		},
 		{
 			name: translate('funds'),
-			route: navigationPaths.dashboard.companies.funds('query.id!.toString()'),
+			route: navigationPaths.dashboard.companies.funds(companyId),
 		},
 	];
 
@@ -192,9 +192,7 @@ export const CompaniesHeaderMobile = () => {
 						<Text fontSize="sm">{translate('totalFunds')}</Text>
 					</Flex>
 					<Link
-						href={navigationPaths.dashboard.companies.editOrg(
-							'query.id!.toString()'
-						)}
+						href={navigationPaths.dashboard.companies.editOrg(companyId)}
 						as={NextLink}
 					>
 						<Text
