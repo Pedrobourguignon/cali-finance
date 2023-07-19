@@ -3,18 +3,17 @@ import { Flex, Text, Link } from '@chakra-ui/react';
 import React from 'react';
 import useTranslation from 'next-translate/useTranslation';
 import { navigationPaths } from 'utils';
-import { usePicasso, useProfile } from 'hooks';
+import { useAuth, usePicasso, useProfile } from 'hooks';
 import NextLink from 'next/link';
 import { useQuery } from 'react-query';
 import { useAccount } from 'wagmi';
 import { RecentActivitiesData } from 'components';
-import { useSession } from 'next-auth/react';
 
 export const RecentActivitiesDashboard = () => {
 	const { t: translate } = useTranslation('dashboard');
 	const theme = usePicasso();
 	const { isConnected } = useAccount();
-	const { data: session } = useSession();
+	const { session } = useAuth();
 	const { getUserActivities } = useProfile();
 
 	const { data: allCompaniesRecentActivities } = useQuery(

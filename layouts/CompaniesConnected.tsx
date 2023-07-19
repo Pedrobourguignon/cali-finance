@@ -8,18 +8,17 @@ import {
 	CompaniesListFixed,
 } from 'components';
 import { AppLayout } from 'layouts';
-import { useCompanies, usePicasso } from 'hooks';
+import { useAuth, useCompanies, usePicasso } from 'hooks';
 import { useQuery } from 'react-query';
 import { useAccount } from 'wagmi';
 import useTranslation from 'next-translate/useTranslation';
-import { useSession } from 'next-auth/react';
 
 export const CompaniesConnected: React.FC = () => {
 	const { getCompaniesOverview } = useCompanies();
 	const { isConnected } = useAccount();
 	const { t: translate } = useTranslation('dashboard');
 	const theme = usePicasso();
-	const { data: session } = useSession();
+	const { session } = useAuth();
 
 	const { data: companies } = useQuery(
 		'all-companies-overview',

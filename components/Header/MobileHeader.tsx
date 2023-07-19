@@ -19,8 +19,7 @@ import {
 	ChangeNetworkMobile,
 	NotificationModalMobile,
 } from 'components';
-import { usePicasso, useProfile } from 'hooks';
-import { useSession, signOut } from 'next-auth/react';
+import { useAuth, useCompanies, usePicasso, useProfile } from 'hooks';
 import { useState } from 'react';
 import { INetwork } from 'types';
 import NextLink from 'next/link';
@@ -29,6 +28,7 @@ import { getLogo, truncateWallet } from 'utils';
 import { useAccount, useDisconnect, useQuery } from 'wagmi';
 import { MobileModalLayout } from 'layouts';
 import { VscBell, VscBellDot } from 'react-icons/vsc';
+import { deleteCookie } from 'cookies-next';
 
 const networks: INetwork[] = [
 	{
@@ -48,9 +48,10 @@ const networks: INetwork[] = [
 export const MobileHeader = () => {
 	const theme = usePicasso();
 	const { t: translate } = useTranslation('sidebar');
-	const { getProfileData, notificationsList } = useProfile();
+	const { getProfileData, notificationsList, setCardItems } = useProfile();
+	const { setCompaniesWithMissingFunds } = useCompanies();
 	const { address: walletAddress, isConnected } = useAccount();
-	const { data: session } = useSession();
+	const { session, setSession } = useAuth();
 	const { disconnect } = useDisconnect();
 	const {
 		isOpen: isOpenMenu,
@@ -82,7 +83,11 @@ export const MobileHeader = () => {
 
 	const handleSignOut = () => {
 		disconnect();
-		signOut();
+		deleteCookie('cali-finance-authorization');
+		localStorage.removeItem('cali-finance-authorization');
+		setSession(false);
+		setCardItems([]);
+		setCompaniesWithMissingFunds([]);
 	};
 
 	const handleSetNetworkData = (icon: string, name: string) => {

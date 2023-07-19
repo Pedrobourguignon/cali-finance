@@ -2,10 +2,9 @@ import { Flex, Text, useDisclosure } from '@chakra-ui/react';
 import { NewCoinButton, CoinCard, TokenSelector } from 'components';
 import React, { useEffect, useState } from 'react';
 import useTranslation from 'next-translate/useTranslation';
-import { usePicasso, useProfile, useTokens } from 'hooks';
+import { useAuth, usePicasso, useProfile, useTokens } from 'hooks';
 import { ICoin } from 'types';
 import { useAccount, useMutation, useQuery } from 'wagmi';
-import { useSession } from 'next-auth/react';
 
 export const Coins = () => {
 	const { t: translate } = useTranslation('dashboard');
@@ -13,7 +12,7 @@ export const Coins = () => {
 	const theme = usePicasso();
 	const { isOpen, onClose, onOpen } = useDisclosure();
 	const { getCoinServiceTokens } = useTokens();
-	const { data: session } = useSession();
+	const { session } = useAuth();
 	const [flexWidth, setFlexWidth] = useState<number>();
 	const {
 		setSelectedToken,

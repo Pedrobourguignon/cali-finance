@@ -2,10 +2,9 @@ import { Flex, Grid, Text, useDisclosure } from '@chakra-ui/react';
 import { NewCoinButton, TokenSelectorMobile, CoinCardMobile } from 'components';
 import React, { useEffect, useState } from 'react';
 import useTranslation from 'next-translate/useTranslation';
-import { usePicasso, useProfile, useTokens } from 'hooks';
+import { useAuth, usePicasso, useProfile, useTokens } from 'hooks';
 import { useAccount, useMutation, useQuery } from 'wagmi';
 import { ICoin } from 'types';
-import { useSession } from 'next-auth/react';
 
 export const CoinsMobile = () => {
 	const { t: translate } = useTranslation('dashboard');
@@ -21,7 +20,7 @@ export const CoinsMobile = () => {
 		setCardItems,
 		cardItems,
 	} = useProfile();
-	const { data: session } = useSession();
+	const { session } = useAuth();
 
 	const [listOfTokens, setListOfTokens] = useState<ICoin[]>([]);
 

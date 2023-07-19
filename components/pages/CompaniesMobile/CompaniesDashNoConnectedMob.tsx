@@ -1,13 +1,13 @@
 import { Button, Flex, Text } from '@chakra-ui/react';
 import useTranslation from 'next-translate/useTranslation';
-import { usePicasso } from 'hooks';
-import { useSession } from 'next-auth/react';
+import { useAuth, usePicasso } from 'hooks';
+
 import router from 'next/router';
 
 export const CompaniesDashNoConnectedMob = () => {
 	const theme = usePicasso();
 	const { t: translate } = useTranslation('companies');
-	const { data: session } = useSession();
+	const { session } = useAuth();
 	return (
 		<Flex
 			justify="space-between"

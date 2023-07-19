@@ -2,25 +2,26 @@ import { Flex, Text, useDisclosure } from '@chakra-ui/react';
 import { NotificationPopover } from 'components';
 import { useMemo } from 'react';
 import useTranslation from 'next-translate/useTranslation';
-import { usePicasso, useProfile } from 'hooks';
-import { useSession } from 'next-auth/react';
+import { useAuth, usePicasso, useProfile } from 'hooks';
+
 import { useQuery } from 'react-query';
 import { useAccount } from 'wagmi';
 
 export const DashboardHeader: React.FC = () => {
 	const { onClose, isOpen, onOpen } = useDisclosure();
 	const { t: translate } = useTranslation('app-header');
-	const { data: session } = useSession();
+	const { session } = useAuth();
 	const { isConnected } = useAccount();
 	const { getProfileData } = useProfile();
 	const percentage = 0;
 	const theme = usePicasso();
 	const { address } = useAccount();
+	// console.log(session, isConnected);
 	const { data: profileData } = useQuery(
 		'profile-data',
 		() => getProfileData(address),
 		{
-			enabled: !!isConnected && !!session,
+			enabled: Boolean(isConnected && session),
 		}
 	);
 

@@ -8,10 +8,11 @@ import {
 	DashboardHeader,
 } from 'components';
 import React from 'react';
-import { useSession } from 'next-auth/react';
+
+import { useAuth } from 'hooks';
 
 export const DashboardComponent: React.FC = () => {
-	const { data: session } = useSession();
+	const { session } = useAuth();
 
 	return (
 		<Flex w="full">

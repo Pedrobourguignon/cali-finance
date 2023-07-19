@@ -1,8 +1,9 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { Img, Input, InputGroup, InputLeftElement } from '@chakra-ui/react';
 import { ISociaLinksInputValue, ISocialMediaInput } from 'types';
-import { useSession } from 'next-auth/react';
+
 import { Dispatch, SetStateAction } from 'react';
+import { useAuth } from 'hooks';
 
 interface ISocialLink {
 	socialLink: ISocialMediaInput;
@@ -17,7 +18,7 @@ export const EditPageSocialMediaInput: React.FC<ISocialLink> = ({
 	defaultValue,
 	setEditedSocialLinksInputValue,
 }) => {
-	const { data: session } = useSession();
+	const { session } = useAuth();
 
 	return (
 		<InputGroup bg="whiteAlpha.200" h="8">

@@ -1,7 +1,7 @@
 /* eslint-disable no-nested-ternary */
 import { Flex, Grid, GridItem, Img, Text } from '@chakra-ui/react';
-import { useCompanies, usePicasso, useProfile } from 'hooks';
-import { useSession } from 'next-auth/react';
+import { useAuth, useCompanies, usePicasso, useProfile } from 'hooks';
+
 import useTranslation from 'next-translate/useTranslation';
 import { useRouter } from 'next/router';
 import React from 'react';
@@ -25,7 +25,7 @@ export const HistoryActivityData: React.FC<IActivitiesData> = ({
 	const { getProfileData } = useProfile();
 	const { isConnected } = useAccount();
 	const { locale } = useRouter();
-	const { data: session } = useSession();
+	const { session } = useAuth();
 
 	const { data: profileData } = useQuery(
 		'profile-data',
