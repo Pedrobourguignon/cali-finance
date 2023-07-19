@@ -27,6 +27,7 @@ import router, { useRouter } from 'next/router';
 import { MAIN_SERVICE_ROUTES } from 'helpers';
 import { readContract } from '@wagmi/core';
 import companyAbi from 'utils/abi/company.json';
+import { GetCompanyUsersRes } from 'types/interfaces/main-server/IUser';
 
 interface ICompanyContext {
 	setSelectedCompany: Dispatch<SetStateAction<GetUserCompaniesRes>>;
@@ -42,7 +43,7 @@ interface ICompanyContext {
 	setSocialMediasData: Dispatch<SetStateAction<ISocialMedia[]>>;
 	getCompanyById: (id: number) => Promise<GetUserCompaniesRes>;
 	updateCompany: (company: ICompany) => Promise<void>;
-	getAllCompanyEmployees: (id: number) => Promise<IEmployee[]>;
+	getAllCompanyEmployees: (id: number) => Promise<GetCompanyUsersRes[]>;
 	addEmployeeToTeam: (employee: INewEmployee) => Promise<void>;
 	allUserCompanies: GetUserCompaniesRes[] | undefined;
 	selectedCompany: GetUserCompaniesRes;
@@ -70,6 +71,8 @@ interface ICompanyContext {
 	getUsdtBalance: number;
 	setEmployeesBalance: Dispatch<SetStateAction<number>>;
 	employeesBalance: number;
+	setEmployeesRevenue: Dispatch<SetStateAction<number>>;
+	employeesRevenue: number;
 }
 
 export const CompaniesContext = createContext({} as ICompanyContext);
@@ -94,6 +97,7 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 	const [allUserBalance, setAllUserBalance] = useState<number[]>([]);
 	const [assetOptions, setAssetOptions] = useState<IAssetsOptions[]>([]);
 	const [employeesBalance, setEmployeesBalance] = useState<number>(0);
+	const [employeesRevenue, setEmployeesRevenue] = useState<number>(0);
 
 	const sumAvailableToWithdraw = () => {
 		const total = allUserBalance.reduce((acc, balance) => acc + balance, 0);
@@ -355,6 +359,8 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 			allUserBalance,
 			employeesBalance,
 			setEmployeesBalance,
+			setEmployeesRevenue,
+			employeesRevenue,
 		}),
 		[
 			editedInfo,
@@ -373,6 +379,8 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 			selectedCompany,
 			allUserBalance,
 			employeesBalance,
+			setEmployeesRevenue,
+			employeesRevenue,
 		]
 	);
 

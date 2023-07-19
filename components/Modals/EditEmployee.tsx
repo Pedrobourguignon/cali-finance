@@ -54,7 +54,7 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 	const queryClient = useQueryClient();
 	const toast = useToast();
 	const { editEmployeeSchema } = useSchema();
-	const { updateEmployee, selectedCompany } = useCompanies();
+	const { updateEmployee, selectedCompany, employeesRevenue } = useCompanies();
 	const [editedEmployeeData, setEditedEmployeeData] = useState({
 		amount: 0,
 		amountInDollar: 0,
@@ -63,7 +63,6 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 		logo: 'https://assets.coingecko.com/coins/images/1/thumb/bitcoin.png?1547033579',
 		symbol: 'BTC',
 	} as ISelectedCoin);
-	const bitcoinPrice = 87586;
 	const debouncedEmployeeAmount = useDebounce(editedEmployeeData.amount, 500);
 
 	const {
@@ -83,12 +82,12 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 		color: 'blackAlpha.500',
 	};
 
-	const expenseCalculation = () => `30% ${translate('more')}`;
+	const expenseCalculation = () => ` ${translate('more')}`;
 
 	const converterToDollar = (amountInDollar: number) => {
 		setEditedEmployeeData(prevState => ({
 			...prevState,
-			amountInDollar: amountInDollar * bitcoinPrice,
+			amountInDollar,
 		}));
 	};
 	const {
@@ -337,6 +336,7 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 											{expenseCalculation()}
 										</Text>
 										<Text fontSize="sm" color={theme.text.primary}>
+											&nbsp;
 											{translate('expenses')}
 										</Text>
 									</Flex>
