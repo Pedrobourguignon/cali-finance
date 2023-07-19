@@ -8,7 +8,7 @@ import {
 	CompaniesListFixed,
 } from 'components';
 import { AppLayout } from 'layouts';
-import { useCompanies, usePicasso } from 'hooks';
+import { useAuth, useCompanies, usePicasso } from 'hooks';
 import { useQuery } from 'react-query';
 import { useAccount } from 'wagmi';
 import useTranslation from 'next-translate/useTranslation';
@@ -18,12 +18,13 @@ export const CompaniesConnected: React.FC = () => {
 	const { isConnected } = useAccount();
 	const { t: translate } = useTranslation('dashboard');
 	const theme = usePicasso();
+	const { session } = useAuth();
 
 	const { data: companies } = useQuery(
 		'all-companies-overview',
 		getCompaniesOverview,
 		{
-			enabled: !!isConnected,
+			enabled: !!isConnected && !!session,
 		}
 	);
 

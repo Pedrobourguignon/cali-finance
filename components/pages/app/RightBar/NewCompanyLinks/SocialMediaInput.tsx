@@ -1,7 +1,8 @@
 import { Img, Input, InputGroup, InputLeftElement } from '@chakra-ui/react';
 import { ISociaLinksInputValue, ISocialMediaInput } from 'types';
-import { useSession } from 'next-auth/react';
+
 import { Dispatch, SetStateAction } from 'react';
+import { useAuth } from 'hooks';
 
 interface ISocialLink {
 	setSocialMediasInput: (name: string[], url: string) => void;
@@ -14,7 +15,7 @@ export const SocialMediaInput: React.FC<ISocialLink> = ({
 	defaultValue,
 	setSocialMediasInput,
 }) => {
-	const { data: session } = useSession();
+	const { session } = useAuth();
 
 	return (
 		<InputGroup bg="whiteAlpha.200" h="8">

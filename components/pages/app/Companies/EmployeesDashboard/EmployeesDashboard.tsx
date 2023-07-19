@@ -7,7 +7,7 @@ import {
 	NoEmployeeSkeleton,
 	AddEmployeeMobile,
 } from 'components';
-import { useCompanies, usePicasso } from 'hooks';
+import { useAuth, useCompanies, usePicasso } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
 import router, { useRouter } from 'next/router';
 import { useEffect } from 'react';
@@ -37,6 +37,7 @@ export const EmployeesDashboard: React.FC<IEmployeeDashboard> = ({
 		onClose: onCloseMobile,
 	} = useDisclosure();
 	const { isOpen: isFullList, onToggle: toggleListView } = useDisclosure();
+	const { session } = useAuth();
 
 	const {
 		data: employees,
@@ -58,7 +59,7 @@ export const EmployeesDashboard: React.FC<IEmployeeDashboard> = ({
 				employeesWallet.push(employee.wallet!);
 			}
 		});
-		if (selectedCompanyData?.contract) {
+		if (selectedCompanyData?.contract && session) {
 			try {
 				const data = await readContract({
 					address: selectedCompanyData.contract,
