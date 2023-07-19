@@ -69,7 +69,7 @@ export const notificationsData: {
 		icon: '/icons/deposit.svg',
 		text: 'deposit',
 	},
-	employee_withdraw: {
+	user_withdraw: {
 		icon: '/icons/withdraw.svg',
 		text: 'withdrawal',
 	},
