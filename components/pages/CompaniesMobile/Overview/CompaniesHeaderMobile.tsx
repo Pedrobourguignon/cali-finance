@@ -10,7 +10,7 @@ import {
 	useToast,
 	useClipboard,
 } from '@chakra-ui/react';
-import { useCompanies, usePath, usePicasso } from 'hooks';
+import { useAuth, useCompanies, usePath, usePicasso } from 'hooks';
 import {
 	getLogo,
 	handleLogoImage,
@@ -20,7 +20,6 @@ import {
 } from 'utils';
 import { NavigationBack, AlertToast } from 'components';
 import useTranslation from 'next-translate/useTranslation';
-import { useSession } from 'next-auth/react';
 import router, { useRouter } from 'next/router';
 import NextLink from 'next/link';
 import { useQuery } from 'react-query';
@@ -35,22 +34,22 @@ export const CompaniesHeaderMobile = () => {
 	const { onCopy } = useClipboard(selectedCompany?.contract);
 	const { t: translate } = useTranslation('company-overall');
 	const toast = useToast();
+	const { session } = useAuth();
 
-	const { data: session } = useSession({
-		required: true,
-		onUnauthenticated() {
-			router.push(navigationPaths.dashboard.companies.home);
-		},
-	});
+	useEffect(() => {
+		if (!session) router.push(navigationPaths.dashboard.companies.home);
+	}, []);
+
+	const companyId = query.id?.toString();
 
 	const menuOptions = [
 		{
 			name: translate('overview'),
-			route: navigationPaths.dashboard.companies.overview(query.id!.toString()),
+			route: navigationPaths.dashboard.companies.overview(companyId),
 		},
 		{
 			name: translate('funds'),
-			route: navigationPaths.dashboard.companies.funds(query.id!.toString()),
+			route: navigationPaths.dashboard.companies.funds(companyId),
 		},
 	];
 
@@ -193,9 +192,7 @@ export const CompaniesHeaderMobile = () => {
 						<Text fontSize="sm">{translate('totalFunds')}</Text>
 					</Flex>
 					<Link
-						href={navigationPaths.dashboard.companies.editOrg(
-							query.id!.toString()
-						)}
+						href={navigationPaths.dashboard.companies.editOrg(companyId)}
 						as={NextLink}
 					>
 						<Text

@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { Flex, Img } from '@chakra-ui/react';
 import { EditPageSocialMediaInput } from 'components';
-import { useCompanies, usePicasso } from 'hooks';
+import { useAuth, useCompanies, usePicasso } from 'hooks';
 import { MobileModalLayout } from 'layouts';
-import { useSession } from 'next-auth/react';
+
 import useTranslation from 'next-translate/useTranslation';
 import { Dispatch, SetStateAction } from 'react';
 import { ISocialMediaInput, ISociaLinksInputValue } from 'types';
@@ -78,7 +78,7 @@ export const EditCompanyLinkModal: React.FC<{
 	const theme = usePicasso();
 	const { editedInfo } = useCompanies();
 	const { t: translate } = useTranslation('create-company');
-	const { data: session } = useSession();
+	const { session } = useAuth();
 
 	const socialLinks: ISocialMediaInput[] = [
 		{

@@ -3,7 +3,7 @@ import { Flex, Text, Link } from '@chakra-ui/react';
 import React from 'react';
 import useTranslation from 'next-translate/useTranslation';
 import { navigationPaths } from 'utils';
-import { usePicasso, useProfile } from 'hooks';
+import { useAuth, usePicasso, useProfile } from 'hooks';
 import NextLink from 'next/link';
 import { useQuery } from 'react-query';
 import { useAccount } from 'wagmi';
@@ -13,13 +13,14 @@ export const RecentActivitiesDashboard = () => {
 	const { t: translate } = useTranslation('dashboard');
 	const theme = usePicasso();
 	const { isConnected } = useAccount();
+	const { session } = useAuth();
 	const { getUserActivities } = useProfile();
 
 	const { data: allCompaniesRecentActivities } = useQuery(
 		'recent-activities',
 		() => getUserActivities(999),
 		{
-			enabled: !!isConnected,
+			enabled: !!isConnected && !!session,
 		}
 	);
 

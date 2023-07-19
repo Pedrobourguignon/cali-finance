@@ -11,12 +11,13 @@ import {
 	CoinsMobile,
 } from 'components';
 import { CompaniesProvider, ProfileProvider, TokensProvider } from 'contexts';
+import { useAuth } from 'hooks';
 import { AppLayout, MobileLayout } from 'layouts';
-import { useSession } from 'next-auth/react';
+
 import React from 'react';
 
 export const DashboardContainer = () => {
-	const { data: session } = useSession();
+	const { session } = useAuth();
 
 	return (
 		<CompaniesProvider>
