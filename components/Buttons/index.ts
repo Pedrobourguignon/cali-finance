@@ -3,7 +3,6 @@ export * from './BlackButton';
 export * from './ChangeNetworkButton';
 export * from './ChangeNetworkMobile';
 export * from './ConnectWalletButton';
-export * from './LogoutButton';
 export * from './NavigationBack';
 export * from './NewCoinButton';
 export * from './NotificationButton';

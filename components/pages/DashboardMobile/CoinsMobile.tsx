@@ -2,7 +2,7 @@ import { Flex, Grid, Text, useDisclosure } from '@chakra-ui/react';
 import { NewCoinButton, TokenSelectorMobile, CoinCardMobile } from 'components';
 import React, { useEffect, useState } from 'react';
 import useTranslation from 'next-translate/useTranslation';
-import { usePicasso, useProfile, useTokens } from 'hooks';
+import { useAuth, usePicasso, useProfile, useTokens } from 'hooks';
 import { useAccount, useMutation, useQuery } from 'wagmi';
 import { ICoin } from 'types';
 
@@ -20,6 +20,8 @@ export const CoinsMobile = () => {
 		setCardItems,
 		cardItems,
 	} = useProfile();
+	const { session } = useAuth();
+
 	const [listOfTokens, setListOfTokens] = useState<ICoin[]>([]);
 
 	const symbols: string[] = [];
@@ -29,7 +31,7 @@ export const CoinsMobile = () => {
 		refetch: refetchUserData,
 		isLoading: isLoadingUserData,
 	} = useQuery(['get-user-data'], () => getProfileData(walletAddress), {
-		enabled: !!isConnected,
+		enabled: !!isConnected && !!session,
 	});
 
 	const favoriteCoins = userData?.settings?.coin as ICoin[];

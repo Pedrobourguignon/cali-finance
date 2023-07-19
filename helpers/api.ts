@@ -12,6 +12,7 @@ export const AUTH_SERVICE_ROUTES = {
 	nonce: (wallet: string) =>
 		path(API_URLS.main, `/auth/${wallet}/auth-message`),
 	signature: path(API_URLS.main, `/auth/`),
+	checkToken: path(API_URLS.main, `/auth/user`),
 };
 
 export const MAIN_SERVICE_ROUTES = {
