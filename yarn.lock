@@ -9776,10 +9776,17 @@ next-tick@^1.1.0:
   resolved "https://registry.yarnpkg.com/next-tick/-/next-tick-1.1.0.tgz#1836ee30ad56d67ef281b22bd199f709449b35eb"
   integrity sha512-CXdUiJembsNjuToQvxayPZF9Vqht7hewsvy2sOWafLvi2awflj9mOC6bHIg50orX8IJvWKY9wYQ/zB2kogPslQ==
 
-next-translate@^1.5.0:
-  version "1.6.0"
-  resolved "https://registry.yarnpkg.com/next-translate/-/next-translate-1.6.0.tgz#28329d9970030c573c529a1a6d5c6b4e75146164"
-  integrity sha512-rmRBYOwPHvokN+5uH3O/SZqfRUVORLkgt/097mSaq3+CWcEtXEjkVrfBZpYwZ8W3og4QVd+uphYX//qegnIbRg==
+next-translate-plugin@^2.5.0:
+  version "2.5.0"
+  resolved "https://registry.yarnpkg.com/next-translate-plugin/-/next-translate-plugin-2.5.0.tgz#126b6f86c6c8a7e7c2a4989eabee0e748963b646"
+  integrity sha512-zQKiyCudj5uFd77GmJnqv1G+AwVU4NfSA6axtn5NOnwbVxPDLEfXaXrCItAI6gaV2C1zq3+xcUp6ml/trp0hJg==
+  dependencies:
+    typescript "4.5.2"
+
+next-translate@^2.5.0:
+  version "2.5.0"
+  resolved "https://registry.yarnpkg.com/next-translate/-/next-translate-2.5.0.tgz#b02d5985172646bd50ad567d7a17be9cddf5abd8"
+  integrity sha512-ViXaksH4Al+zwBbriV8wa7j3Y7ruq3LMnF35uPqxdFXbKAKrx/NYM4XdMEB0pIcddfo57aLqS7WM3z1935ZO+g==
 
 next@^13.1.6:
   version "13.1.6"
@@ -12802,6 +12809,11 @@ typedarray@^0.0.6:
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
   integrity sha512-/aCDEGatGvZ2BIk+HmLf4ifCJFwvKFNb9/JeZPMulfgFracn9QFcAf5GO8B/mweUjSoblS5In0cWhqpfs/5PQA==
+
+typescript@4.5.2:
+  version "4.5.2"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.5.2.tgz#8ac1fba9f52256fdb06fb89e4122fa6a346c2998"
+  integrity sha512-5BlMof9H1yGt0P8/WF+wPNw6GfctgGjXp5hkblpyT+8rkASSmkUKMXrxR0Xg8ThVCi/JnHQiKXeBaEwCeQwMFw==
 
 typescript@4.7.4:
   version "4.7.4"
