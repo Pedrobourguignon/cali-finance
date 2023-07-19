@@ -1,14 +1,14 @@
 import { Button, Flex, Text } from '@chakra-ui/react';
 import { CircularProgressBar } from 'components';
-import { usePicasso } from 'hooks';
-import { useSession } from 'next-auth/react';
+import { useAuth, usePicasso } from 'hooks';
+
 import useTranslation from 'next-translate/useTranslation';
 import { useState } from 'react';
 
 const withdrawnPercentage = 50;
 export const WithdrawsBarMobile = () => {
 	const theme = usePicasso();
-	const { data: session } = useSession();
+	const { session } = useAuth();
 	const { t: translate } = useTranslation('company-overall');
 	const [selectedOption, setSelectedOption] = useState<string | undefined>(
 		translate('thisWeek')

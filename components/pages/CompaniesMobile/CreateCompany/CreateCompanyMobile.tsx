@@ -14,7 +14,7 @@ import {
 	Tooltip,
 	useDisclosure,
 } from '@chakra-ui/react';
-import { usePicasso } from 'hooks';
+import { useAuth, usePicasso } from 'hooks';
 import { BsQuestionCircle } from 'react-icons/bs';
 import useTranslation from 'next-translate/useTranslation';
 import {
@@ -23,7 +23,7 @@ import {
 	NewCompanyLinksModal,
 	ImageUploaderModalMobile,
 } from 'components';
-import { useSession } from 'next-auth/react';
+
 import { ChevronDownIcon } from '@chakra-ui/icons';
 import { Dispatch, SetStateAction } from 'react';
 import { ICompany } from 'types/interfaces/main-server/ICompany';
@@ -101,7 +101,7 @@ export const CreateCompanyMobile: React.FC<ICreateCompanyComponent> = ({
 }) => {
 	const theme = usePicasso();
 	const { t: translate } = useTranslation('create-company');
-	const { data: session } = useSession();
+	const { session } = useAuth();
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const {
 		isOpen: isOpenUploader,

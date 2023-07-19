@@ -28,6 +28,7 @@ import { MAIN_SERVICE_ROUTES } from 'helpers';
 import { readContract } from '@wagmi/core';
 import companyAbi from 'utils/abi/company.json';
 import { GetCompanyUsersRes } from 'types/interfaces/main-server/IUser';
+import { useAuth } from 'hooks';
 
 interface ICompanyContext {
 	setSelectedCompany: Dispatch<SetStateAction<GetUserCompaniesRes>>;
@@ -47,6 +48,7 @@ interface ICompanyContext {
 	addEmployeeToTeam: (employee: INewEmployee) => Promise<void>;
 	allUserCompanies: GetUserCompaniesRes[] | undefined;
 	selectedCompany: GetUserCompaniesRes;
+	setCompaniesWithMissingFunds: Dispatch<SetStateAction<GetUserCompaniesRes[]>>;
 	companiesWithMissingFunds: GetUserCompaniesRes[];
 	getCompanieActivities: (
 		companyId: number
@@ -83,6 +85,7 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 	const { query } = useRouter();
 	const { isConnected } = useAccount();
 	const { address: wallet } = useAccount();
+	const { session } = useAuth();
 	const [displayNeedFundsCard, setDisplayNeedFundsCard] = useState('none');
 	const [socialMediasData, setSocialMediasData] = useState<ISocialMedia[]>([]);
 	const [editedInfo, setEditedInfo] = useState<ICompany>({} as ICompany);
@@ -129,12 +132,12 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 		['all-companies'],
 		getAllUserCompanies,
 		{
-			enabled: !!isConnected,
+			enabled: !!isConnected && !!session,
 		}
 	);
 
 	const getEmployeeBalance = async () => {
-		if (allUserCompanies) {
+		if (allUserCompanies && session) {
 			const filteredCompanies = allUserCompanies.filter(
 				company => Boolean(company.isAdmin) === false
 			);
@@ -226,7 +229,7 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 						employees.map((employee: IEmployee) =>
 							employeesWallet.push(employee.wallet!)
 						);
-						if (company.contract) {
+						if (company.contract && session) {
 							try {
 								const data = await readContract({
 									address: company.contract,
@@ -359,8 +362,9 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 			allUserBalance,
 			employeesBalance,
 			setEmployeesBalance,
-			setEmployeesRevenue,
+			setCompaniesWithMissingFunds,
 			employeesRevenue,
+			setEmployeesRevenue,
 		}),
 		[
 			editedInfo,
@@ -379,7 +383,6 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 			selectedCompany,
 			allUserBalance,
 			employeesBalance,
-			setEmployeesRevenue,
 			employeesRevenue,
 		]
 	);

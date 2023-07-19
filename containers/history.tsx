@@ -1,7 +1,8 @@
 import { Flex } from '@chakra-ui/react';
 import { HistoryComponent, HistoryComponentMobile } from 'components';
 import { CompaniesProvider, ProfileProvider } from 'contexts';
-import { usePicasso, useProfile } from 'hooks';
+import { useAuth, usePicasso, useProfile } from 'hooks';
+
 import React from 'react';
 import { useQuery } from 'react-query';
 import { useAccount } from 'wagmi';
@@ -10,12 +11,13 @@ export const HistoryContainer = () => {
 	const theme = usePicasso();
 	const { isConnected } = useAccount();
 	const { getUserActivities } = useProfile();
+	const { session } = useAuth();
 
 	const { data: historyNotifications } = useQuery(
 		'all-activities',
 		() => getUserActivities(999),
 		{
-			enabled: !!isConnected,
+			enabled: !!isConnected && !!session,
 		}
 	);
 

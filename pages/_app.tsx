@@ -2,15 +2,11 @@ import Head from 'next/head';
 import type { AppProps } from 'next/app';
 import { ColorHandler } from 'utils';
 import { WagmiWrapper } from 'wrappers';
-import { SessionProvider } from 'next-auth/react';
 import { QueryClient, QueryClientProvider } from 'react-query';
 
 const queryClient = new QueryClient();
 
-const MyApp = ({
-	Component,
-	pageProps: { session, ...pageProps },
-}: AppProps) => (
+const MyApp = ({ Component, pageProps: { ...pageProps } }: AppProps) => (
 	<>
 		<Head>
 			{/* Primary Meta Tags */}
@@ -39,11 +35,9 @@ const MyApp = ({
 		</Head>
 		<WagmiWrapper>
 			<QueryClientProvider client={queryClient}>
-				<SessionProvider session={session}>
-					<ColorHandler cookies={pageProps.cookies}>
-						<Component {...pageProps} />
-					</ColorHandler>
-				</SessionProvider>
+				<ColorHandler cookies={pageProps.cookies}>
+					<Component {...pageProps} />
+				</ColorHandler>
 			</QueryClientProvider>
 		</WagmiWrapper>
 	</>
