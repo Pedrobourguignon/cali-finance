@@ -2,7 +2,7 @@ import { Flex, Text, useDisclosure } from '@chakra-ui/react';
 import { NotificationPopover } from 'components';
 import { useMemo } from 'react';
 import useTranslation from 'next-translate/useTranslation';
-import { usePicasso, useProfile } from 'hooks';
+import { usePicasso, useProfile, useTokens } from 'hooks';
 import { useSession } from 'next-auth/react';
 import { useQuery } from 'react-query';
 import { useAccount } from 'wagmi';
@@ -12,12 +12,19 @@ export const DashboardHeader: React.FC = () => {
 	const { t: translate } = useTranslation('app-header');
 	const { data: session } = useSession();
 	const { getProfileData } = useProfile();
-	const percentage = 0;
+	const { getCoinServiceTokens } = useTokens();
+	const symbols = ['usdt'];
 	const theme = usePicasso();
 	const { address } = useAccount();
 	const { data: profileData } = useQuery('profile-data', () =>
 		getProfileData(address)
 	);
+
+	const { data: coinServiceTokens } = useQuery(['get-coin-data'], () =>
+		getCoinServiceTokens(symbols.toString())
+	);
+
+	const variation = coinServiceTokens?.USDT.change;
 
 	const greetingMessage = useMemo(() => {
 		const hour = new Date().getHours();
@@ -27,9 +34,9 @@ export const DashboardHeader: React.FC = () => {
 	}, [translate]);
 
 	const dynamicAssetInfo = () => {
-		if (percentage < 0)
+		if (variation && variation < 0)
 			return { status: translate('bearish'), color: 'red.500' };
-		if (percentage === 0)
+		if (!variation && variation === 0)
 			return { status: translate('neutral'), color: 'gray.500' };
 		return { status: translate('bullish'), color: 'blue.500' };
 	};
@@ -80,7 +87,7 @@ export const DashboardHeader: React.FC = () => {
 					{translate('increased')}
 					<Text as="span" fontSize="sm" color={dynamicAssetInfo()?.color}>
 						{'\u00A0'}
-						{translate('percentage', { percentage })}
+						{variation}%
 					</Text>
 				</Text>
 			</Flex>
@@ -95,7 +102,7 @@ export const DashboardHeader: React.FC = () => {
 							{translate('increased')}
 						</Text>
 						{'\u00A0'}
-						{translate('percentage', { percentage })}
+						{variation}%
 					</Text>
 				</Text>
 			</Flex>
