@@ -16,7 +16,7 @@ export const DashboardHeader: React.FC = () => {
 	const percentage = 0;
 	const theme = usePicasso();
 	const { address } = useAccount();
-	// console.log(session, isConnected);
+
 	const { data: profileData } = useQuery(
 		'profile-data',
 		() => getProfileData(address),
