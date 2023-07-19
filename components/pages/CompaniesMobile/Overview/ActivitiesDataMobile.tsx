@@ -63,7 +63,7 @@ export const ActivitiesDataMobile: React.FC<IActivitiesData> = ({
 					<Flex w="full" justify="space-between">
 						<Flex align="center" gap="2">
 							<Img
-								src={notificationIcons[activities.event.name].icon}
+								// src={notificationIcons[activities.event.name].icon}
 								boxSize="4"
 							/>
 							<Flex direction="column">
