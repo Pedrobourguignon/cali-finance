@@ -70,11 +70,11 @@ export const notificationsData: {
 		text: 'deposit',
 	},
 	user_withdraw: {
-		icon: '/icons/withdraw.svg',
+		icon: '/icons/withdrawal.svg',
 		text: 'withdrawal',
 	},
 	company_withdraw: {
-		icon: '/icons/withdraw.svg',
+		icon: '/icons/withdrawal.svg',
 		text: 'withdrawal',
 	},
 };
