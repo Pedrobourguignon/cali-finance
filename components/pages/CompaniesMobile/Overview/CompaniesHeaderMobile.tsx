@@ -23,7 +23,6 @@ import useTranslation from 'next-translate/useTranslation';
 import router, { useRouter } from 'next/router';
 import NextLink from 'next/link';
 import { useQuery } from 'react-query';
-import { useEffect } from 'react';
 import { MdContentCopy } from 'react-icons/md';
 
 export const CompaniesHeaderMobile = () => {
@@ -34,11 +33,6 @@ export const CompaniesHeaderMobile = () => {
 	const { onCopy } = useClipboard(selectedCompany?.contract);
 	const { t: translate } = useTranslation('company-overall');
 	const toast = useToast();
-	const { session } = useAuth();
-
-	// useEffect(() => {
-	// 	if (!session) router.push(navigationPaths.dashboard.companies.home);
-	// }, []);
 
 	const companyId = query.id?.toString();
 
@@ -61,12 +55,6 @@ export const CompaniesHeaderMobile = () => {
 				onError: () => router.push('/404'),
 			}
 		);
-
-	// useEffect(() => {
-	// 	if (selectedCompanyError) {
-	// 		router.push('/404');
-	// 	}
-	// }, [selectedCompanyError]);
 
 	const handleCopyButton = () => {
 		onCopy();

@@ -61,13 +61,6 @@ export const CompaniesHeader = () => {
 			}
 		);
 
-	// useEffect(() => {
-	// 	console.log(selectedCompanyError);
-	// 	if (selectedCompanyError) {
-	// 		router.push('/404');
-	// 	}
-	// }, [selectedCompanyError]);
-
 	const handleCopyButton = () => {
 		onCopy();
 		toast({
