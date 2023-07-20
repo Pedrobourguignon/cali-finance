@@ -1,7 +1,7 @@
 import { Flex, Img, Text } from '@chakra-ui/react';
 import { usePicasso } from 'hooks';
 import { INotificationList } from 'types';
-import { dateHandler, notificationIcons } from 'utils';
+import { dateHandler, notificationsData } from 'utils';
 import { useRouter } from 'next/router';
 
 export const NotificationComponent: React.FC<{
@@ -22,7 +22,7 @@ export const NotificationComponent: React.FC<{
 		>
 			<Flex gap="2" align="center" w="full">
 				<Img
-					src={notificationIcons[notification.meta.data.event]?.icon}
+					src={notificationsData[notification.meta.data.event]?.icon}
 					boxSize="4"
 					color="black"
 				/>

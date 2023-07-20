@@ -4,7 +4,7 @@ import {
 	dateHandler,
 	getLogo,
 	handleLogoImage,
-	notificationIcons,
+	notificationsData,
 	truncateWallet,
 } from 'utils';
 import useTranslation from 'next-translate/useTranslation';
@@ -70,7 +70,7 @@ export const ActivitiesData: React.FC<IActivitiesData> = ({ activities }) => {
 					</Flex>
 					<Flex align="center" gap="3" flex="1">
 						<Img
-							src={notificationIcons[activities.event.name].icon}
+							src={notificationsData[activities.event.name].icon}
 							boxSize="4"
 						/>
 						<Flex direction="column">

@@ -2,7 +2,7 @@ import { Flex, Img, Text } from '@chakra-ui/react';
 import { usePicasso } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
 import { IHistoryNotifications } from 'types';
-import { dateHandler, notificationIcons, truncateWallet } from 'utils';
+import { dateHandler, notificationsData, truncateWallet } from 'utils';
 
 interface IActivitiesData {
 	activities: IHistoryNotifications;
@@ -63,7 +63,7 @@ export const ActivitiesDataMobile: React.FC<IActivitiesData> = ({
 					<Flex w="full" justify="space-between">
 						<Flex align="center" gap="2">
 							<Img
-								src={notificationIcons[activities.event.name].icon}
+								src={notificationsData[activities.event.name].icon}
 								boxSize="4"
 							/>
 							<Flex direction="column">

@@ -11,7 +11,7 @@ import {
 	useClipboard,
 	Spinner,
 } from '@chakra-ui/react';
-import { useAuth, useCompanies, usePath, usePicasso } from 'hooks';
+import { useCompanies, usePath, usePicasso } from 'hooks';
 import {
 	getLogo,
 	handleLogoImage,
@@ -26,11 +26,9 @@ import {
 	AlertToast,
 } from 'components';
 import useTranslation from 'next-translate/useTranslation';
-
 import router, { useRouter } from 'next/router';
 import NextLink from 'next/link';
 import { useQuery } from 'react-query';
-import { useEffect } from 'react';
 import { MdContentCopy } from 'react-icons/md';
 
 export const CompaniesHeader = () => {
@@ -42,11 +40,6 @@ export const CompaniesHeader = () => {
 	const { getCompanyById, selectedCompany } = useCompanies();
 	const toast = useToast();
 	const { onCopy } = useClipboard(selectedCompany?.contract);
-	const { session } = useAuth();
-
-	useEffect(() => {
-		if (!session) router.push(navigationPaths.dashboard.companies.home);
-	}, []);
 
 	const menuOptions = [
 		{
@@ -60,15 +53,20 @@ export const CompaniesHeader = () => {
 	];
 
 	const { isLoading: isLoadingSelectedCompany, error: selectedCompanyError } =
-		useQuery('created-company-overview', () =>
-			getCompanyById(Number(query.id))
+		useQuery(
+			'created-company-overview',
+			() => getCompanyById(Number(query.id)),
+			{
+				onError: () => router.push('/404'),
+			}
 		);
 
-	useEffect(() => {
-		if (selectedCompanyError) {
-			router.push('/404');
-		}
-	}, [selectedCompanyError]);
+	// useEffect(() => {
+	// 	console.log(selectedCompanyError);
+	// 	if (selectedCompanyError) {
+	// 		router.push('/404');
+	// 	}
+	// }, [selectedCompanyError]);
 
 	const handleCopyButton = () => {
 		onCopy();

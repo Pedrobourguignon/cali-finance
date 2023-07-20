@@ -5,11 +5,10 @@ import { useRouter } from 'next/router';
 import React from 'react';
 import { IActivitiesData } from 'types';
 import {
-	activitieDescriptTranslation,
+	notificationsData,
 	dateHandler,
 	getLogo,
 	handleLogoImage,
-	notificationIcons,
 	truncateWallet,
 } from 'utils';
 
@@ -111,7 +110,7 @@ export const HistoryActivityDataMobile: React.FC<IActivitiesData> = ({
 						</Flex>
 						<Flex align="center" gap="3" w="full">
 							<Img
-								src={notificationIcons[activities.event.name].icon}
+								src={notificationsData[activities.event.name].icon}
 								boxSize="4"
 							/>
 							<Flex direction="column">
@@ -121,9 +120,7 @@ export const HistoryActivityDataMobile: React.FC<IActivitiesData> = ({
 									color={theme.text.primary}
 								>
 									{activities &&
-										translate(
-											activitieDescriptTranslation[activities.event.name].text
-										)}
+										translate(notificationsData[activities.event.name].text)}
 								</Text>
 								<Text color="gray.500" fontSize="xs" whiteSpace="nowrap">
 									{dateHandler(activities.created_at)}

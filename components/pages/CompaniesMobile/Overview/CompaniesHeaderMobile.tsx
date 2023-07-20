@@ -36,9 +36,9 @@ export const CompaniesHeaderMobile = () => {
 	const toast = useToast();
 	const { session } = useAuth();
 
-	useEffect(() => {
-		if (!session) router.push(navigationPaths.dashboard.companies.home);
-	}, []);
+	// useEffect(() => {
+	// 	if (!session) router.push(navigationPaths.dashboard.companies.home);
+	// }, []);
 
 	const companyId = query.id?.toString();
 
@@ -54,15 +54,19 @@ export const CompaniesHeaderMobile = () => {
 	];
 
 	const { isLoading: isLoadingSelectedCompany, error: selectedCompanyError } =
-		useQuery('created-company-overview', () =>
-			getCompanyById(Number(query.id))
+		useQuery(
+			'created-company-overview',
+			() => getCompanyById(Number(query.id)),
+			{
+				onError: () => router.push('/404'),
+			}
 		);
 
-	useEffect(() => {
-		if (selectedCompanyError) {
-			router.push('/404');
-		}
-	}, [selectedCompanyError]);
+	// useEffect(() => {
+	// 	if (selectedCompanyError) {
+	// 		router.push('/404');
+	// 	}
+	// }, [selectedCompanyError]);
 
 	const handleCopyButton = () => {
 		onCopy();
