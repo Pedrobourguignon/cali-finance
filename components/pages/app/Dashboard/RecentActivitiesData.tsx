@@ -104,7 +104,7 @@ export const RecentActivitiesData: React.FC<IActivitiesData> = ({
 						<GridItem flex={{ base: '3.2', md: '2.5' }}>
 							<Flex align="center" gap="2">
 								<Img
-									// src={notificationIcons[activities.event.name].icon}
+									src={notificationIcons[activities.event.name].icon}
 									boxSize="4"
 								/>
 								<Flex direction="column">
@@ -113,10 +113,10 @@ export const RecentActivitiesData: React.FC<IActivitiesData> = ({
 										fontWeight="normal"
 										color={theme.text.primary}
 									>
-										{/* {activities &&
-											translate()
-											activitieDescriptTranslation[activities.event.name].text
-										} */}
+										{activities &&
+											translate(
+												activitieDescriptTranslation[activities.event.name].text
+											)}
 									</Text>
 									<Text color="gray.500" fontSize="xs" whiteSpace="nowrap">
 										{dateHandler(activities.created_at)}
