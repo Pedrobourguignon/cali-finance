@@ -21,5 +21,6 @@
 	"successfulWithdrawal": "Successful withdrawal",
 	"insufficientFunds": "You don't have enough funds for this transaction",
 	"yourCredentials": "Your credentials have expired. Please try again",
-	"signatureCanceled": "The signature was cancelled. Please try again."
+	"signatureCanceled": "The signature was cancelled. Please try again.",
+	"approveSuccessfully": "Deposit approve successfully"
 }

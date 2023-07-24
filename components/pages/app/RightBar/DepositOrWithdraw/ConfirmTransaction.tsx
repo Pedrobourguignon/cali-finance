@@ -13,7 +13,10 @@ import { ITransaction } from 'types';
 import { useContractWrite, useWaitForTransaction } from 'wagmi';
 import { AlertToast, WaitMetamaskFinishTransaction } from 'components';
 import companyAbi from 'utils/abi/company.json';
+import caliTokenAbi from 'utils/abi/caliToken.json';
 import { useRouter } from 'next/router';
+import { Hex } from 'viem';
+import { putDecimals } from 'utils';
 
 interface IConfirmTransaction {
 	transaction: ITransaction;
@@ -46,7 +49,14 @@ export const ConfirmTransaction: React.FC<IConfirmTransaction> = ({
 		address: selectedCompany.contract,
 		abi: companyAbi,
 		functionName: 'deposit',
-		args: [process.env.NEXT_PUBLIC_CALI_TOKEN, transaction.amount],
+		args: [process.env.NEXT_PUBLIC_CALI_TOKEN, putDecimals(transaction.amount)],
+	});
+
+	const { write: approveDeposit, data: approvedData } = useContractWrite({
+		address: (process.env.NEXT_PUBLIC_CALI_TOKEN || '') as Hex,
+		abi: caliTokenAbi,
+		functionName: 'approve',
+		args: [selectedCompany.contract, putDecimals(transaction.amount)],
 	});
 
 	const { write: withdrawFunds, data: withdrawFundsData } = useContractWrite({
@@ -84,8 +94,8 @@ export const ConfirmTransaction: React.FC<IConfirmTransaction> = ({
 		},
 	});
 
-	const { isLoading: isLoadingDepositTransaction } = useWaitForTransaction({
-		hash: depositFundsData?.hash,
+	const { isLoading: isLoadingApproveTransaction } = useWaitForTransaction({
+		hash: approvedData?.hash,
 		confirmations: 3,
 		onSuccess: () => {
 			toast({
@@ -93,11 +103,12 @@ export const ConfirmTransaction: React.FC<IConfirmTransaction> = ({
 				render: () => (
 					<AlertToast
 						onClick={toast.closeAll}
-						text="depositSuccessfully"
+						text="approveSuccessfully"
 						type="success"
 					/>
 				),
 			});
+			depositFunds?.();
 		},
 		onError: () => {
 			toast({
@@ -113,16 +124,47 @@ export const ConfirmTransaction: React.FC<IConfirmTransaction> = ({
 		},
 	});
 
+	const { isLoading: isLoadingDepositTransaction } = useWaitForTransaction({
+		hash: depositFundsData?.hash,
+		confirmations: 3,
+		onSuccess: () => {
+			toast({
+				position: 'top',
+				render: () => (
+					<AlertToast
+						onClick={toast.closeAll}
+						text="depositSuccessfully"
+						type="success"
+					/>
+				),
+			});
+			setConfirm(false);
+		},
+		onError: () => {
+			toast({
+				position: 'top',
+				render: () => (
+					<AlertToast
+						onClick={toast.closeAll}
+						text="weAreWorkingToSolve"
+						type="error"
+					/>
+				),
+			});
+			setConfirm(false);
+		},
+	});
+
 	const handleSendTransaction = () => {
 		if (transaction.type === 'Deposit') {
-			depositFunds?.();
+			approveDeposit?.();
 		} else withdrawFunds?.();
 	};
 
 	const subtractFee = () =>
 		Number(
-			(transaction.amount - transaction.amount * 0.005).toLocaleString(locale)
-		).toFixed(3);
+			(transaction.amount - transaction.amount * 0.005).toFixed(3)
+		).toLocaleString(locale);
 
 	return (
 		<Flex
@@ -135,7 +177,11 @@ export const ConfirmTransaction: React.FC<IConfirmTransaction> = ({
 			w="100%"
 		>
 			<WaitMetamaskFinishTransaction
-				isOpen={isLoadingDepositTransaction || isLoadingWithdrawTransaction}
+				isOpen={
+					isLoadingDepositTransaction ||
+					isLoadingWithdrawTransaction ||
+					isLoadingApproveTransaction
+				}
 				onClose={onClose}
 			/>
 			<Flex w="100%" justify="center" direction="row">
