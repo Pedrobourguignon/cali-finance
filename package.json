@@ -30,8 +30,7 @@
 		"latest": "^0.2.0",
 		"lodash.debounce": "^4.0.8",
 		"next": "^13.1.6",
-		"next-auth": "^4.19.2",
-		"next-translate": "^1.5.0",
+		"next-translate": "^2.5.0",
 		"react": "^18.2.0",
 		"react-dom": "^18.2.0",
 		"react-drag-drop-files": "^2.3.7",
@@ -60,6 +59,7 @@
 		"eslint-plugin-prettier": "^4.2.1",
 		"eslint-plugin-react-hooks": "^4.6.0",
 		"husky": "^8.0.1",
+		"next-translate-plugin": "^2.5.2",
 		"prettier": "^2.7.1",
 		"typescript": "4.7.4"
 	}

@@ -11,11 +11,11 @@ import { mainClient, navigationPaths } from 'utils';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import useTranslation from 'next-translate/useTranslation';
-import { useSession } from 'next-auth/react';
+
 import router from 'next/router';
-import { useSchema } from 'hooks';
+import { useAuth, useSchema } from 'hooks';
 import { ICompany } from 'types/interfaces/main-server/ICompany';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useMutation } from 'react-query';
 import { ISociaLinksInputValue } from 'types';
 import { AxiosError } from 'axios';
@@ -43,6 +43,7 @@ export const CreateCompanyContainer = () => {
 	const [selectedType, setSelectedType] = useState<string>(
 		translate('pleaseSelect')
 	);
+	const { session } = useAuth();
 
 	const [selectedNetwork, setSelectedNetwork] = useState<ISelectedNetwork>({
 		name: 'Polygon',
@@ -87,12 +88,9 @@ export const CreateCompanyContainer = () => {
 		}
 	};
 
-	const { data: session } = useSession({
-		required: true,
-		onUnauthenticated() {
-			router.push(navigationPaths.dashboard.companies.home);
-		},
-	});
+	useEffect(() => {
+		if (!session) router.push(navigationPaths.dashboard.companies.home);
+	}, []);
 
 	const { isLoading } = useWaitForTransaction({
 		hash: createCompanyData?.hash,

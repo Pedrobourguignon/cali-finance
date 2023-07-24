@@ -1,6 +1,6 @@
 import { Flex } from '@chakra-ui/react';
 import { readContract } from '@wagmi/core';
-import { useCompanies } from 'hooks';
+import { useAuth, useCompanies } from 'hooks';
 import { useEffect, useState } from 'react';
 import companyAbi from 'utils/abi/company.json';
 import {
@@ -8,11 +8,12 @@ import {
 	MultipleCompaniesAlert,
 	SingleCompanyAlert,
 } from 'components';
-import { IEmployee } from 'types';
+import { GetCompanyUsersRes } from 'types/interfaces/main-server/IUser';
 
 export const AlertsComponent = () => {
 	const { companiesWithMissingFunds, getAllCompanyEmployees } = useCompanies();
-	const [employees, setEmployees] = useState<IEmployee[]>([]);
+	const [employees, setEmployees] = useState<GetCompanyUsersRes[]>([]);
+	const { session } = useAuth();
 
 	const [missingValue, setMissingValue] = useState<number>(0);
 
@@ -29,7 +30,7 @@ export const AlertsComponent = () => {
 				employeesWallet.push(employee.wallet);
 			}
 		});
-		if (companiesWithMissingFunds[0]?.contract) {
+		if (companiesWithMissingFunds[0]?.contract && session) {
 			try {
 				const data = await readContract({
 					address: companiesWithMissingFunds[0].contract,

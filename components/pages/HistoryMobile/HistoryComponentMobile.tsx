@@ -13,9 +13,9 @@ import {
 	Paginator,
 	DisplayedNotificationsMobile,
 } from 'components';
-import { usePicasso } from 'hooks';
+import { useAuth, usePicasso } from 'hooks';
 import { MobileLayout } from 'layouts';
-import { useSession } from 'next-auth/react';
+
 import useTranslation from 'next-translate/useTranslation';
 import React, { useMemo, useState, useEffect } from 'react';
 import { BiChevronDown } from 'react-icons/bi';
@@ -28,7 +28,7 @@ export const HistoryComponentMobile: React.FC<IHistoryPage> = ({ history }) => {
 		translate('all')
 	);
 	const [pageNumber, setPageNumber] = useState(0);
-	const { data: session } = useSession();
+	const { session } = useAuth();
 	const [filteredActivities, setFilteredActivities] = useState<
 		IHistoryNotifications[]
 	>(history!);

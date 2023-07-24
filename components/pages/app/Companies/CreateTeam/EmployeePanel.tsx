@@ -6,13 +6,11 @@ import useTranslation from 'next-translate/useTranslation';
 import { Dispatch, SetStateAction } from 'react';
 
 interface IEmployeePanel {
-	companyName?: string;
 	employees: IEmployee[];
 	setEmployees: Dispatch<SetStateAction<IEmployee[]>>;
 }
 
 export const EmployeePanel: React.FC<IEmployeePanel> = ({
-	companyName,
 	employees,
 	setEmployees,
 }) => {

@@ -14,13 +14,13 @@ import {
 	TextProps,
 	Tooltip,
 } from '@chakra-ui/react';
-import { usePicasso } from 'hooks';
+import { useAuth, usePicasso } from 'hooks';
 import { FieldErrors, UseFormRegister } from 'react-hook-form';
 import { BsQuestionCircle } from 'react-icons/bs';
 import useTranslation from 'next-translate/useTranslation';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { BlackButton, NetworkTooltip } from 'components';
-import { useSession } from 'next-auth/react';
+
 import { ChevronDownIcon } from '@chakra-ui/icons';
 import { ICompany } from 'types/interfaces/main-server/ICompany';
 import { networkInfos } from 'utils';
@@ -84,7 +84,7 @@ export const EditCompanyComponent: React.FC<IEditCompanyComponent> = ({
 	const [editedInfo, setEditedInfo] = useState<ICompany>({} as ICompany);
 	const theme = usePicasso();
 	const { t: translate } = useTranslation('create-company');
-	const { data: session } = useSession();
+	const { session } = useAuth();
 
 	useEffect(() => {
 		setEditedInfo(company!);

@@ -1,6 +1,7 @@
 /* eslint-disable no-nested-ternary */
 import { Flex, Grid, GridItem, Img, Text } from '@chakra-ui/react';
-import { usePicasso, useProfile } from 'hooks';
+import { useAuth, usePicasso, useProfile } from 'hooks';
+
 import useTranslation from 'next-translate/useTranslation';
 import { useRouter } from 'next/router';
 import React from 'react';
@@ -23,12 +24,13 @@ export const RecentActivitiesData: React.FC<IActivitiesData> = ({
 	const { locale } = useRouter();
 	const { getProfileData } = useProfile();
 	const { isConnected } = useAccount();
+	const { session } = useAuth();
 
 	const { data: profileData } = useQuery(
 		'profile-data',
 		() => getProfileData(activities.wallet as `0x${string}`),
 		{
-			enabled: !!isConnected,
+			enabled: !!isConnected && !!session,
 		}
 	);
 
@@ -104,7 +106,7 @@ export const RecentActivitiesData: React.FC<IActivitiesData> = ({
 						<GridItem flex={{ base: '3.2', md: '2.5' }}>
 							<Flex align="center" gap="2">
 								<Img
-									src={notificationIcons[activities.event.name].icon}
+									// src={notificationIcons[activities.event.name].icon}
 									boxSize="4"
 								/>
 								<Flex direction="column">
@@ -113,10 +115,10 @@ export const RecentActivitiesData: React.FC<IActivitiesData> = ({
 										fontWeight="normal"
 										color={theme.text.primary}
 									>
-										{activities &&
+										{/* {activities &&
 											translate(
 												activitieDescriptTranslation[activities.event.name].text
-											)}
+											)} */}
 									</Text>
 									<Text color="gray.500" fontSize="xs" whiteSpace="nowrap">
 										{dateHandler(activities.created_at)}
