@@ -6,7 +6,7 @@
 	"companyName": "Company Name *",
 	"type": "Type *",
 	"pleaseSelect": "Please select",
-	"financial": "financial",
+	"financial": "Financial",
 	"others": "Others",
 	"corporativeEmail": "Corporative e-mail *",
 	"exampleEmail": "example@company.io",

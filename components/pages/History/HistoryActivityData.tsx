@@ -13,7 +13,6 @@ import {
 	Text,
 } from '@chakra-ui/react';
 import { useAuth, usePicasso, useProfile } from 'hooks';
-
 import useTranslation from 'next-translate/useTranslation';
 import { useRouter } from 'next/router';
 import React from 'react';
@@ -21,9 +20,8 @@ import { AiOutlineArrowDown, AiOutlineArrowUp } from 'react-icons/ai';
 import { useQuery } from 'react-query';
 import { IActivitiesData } from 'types';
 import {
-	notificationIcons,
+	notificationsData,
 	truncateWallet,
-	activitieDescriptTranslation,
 	getLogo,
 	handleLogoImage,
 	dateHandler,
@@ -211,7 +209,7 @@ export const HistoryActivityData: React.FC<IActivitiesData> = ({
 							<GridItem flex="2.5">
 								<Flex align="center" gap="2">
 									<Img
-										src={notificationIcons[activities.event.name].icon}
+										src={notificationsData[activities.event.name].icon}
 										boxSize="4"
 									/>
 									<Flex direction="column">
@@ -222,12 +220,11 @@ export const HistoryActivityData: React.FC<IActivitiesData> = ({
 										>
 											{activities &&
 												translate(
-													activitieDescriptTranslation[activities.event.name]
-														?.text
+													notificationsData[activities.event.name]?.text
 												)}
 										</Text>
 										<Text color="gray.500" fontSize="xs" whiteSpace="nowrap">
-											{dateHandler(activities.created_at)}
+											{locale && dateHandler(activities.created_at, locale)}
 										</Text>
 									</Flex>
 								</Flex>

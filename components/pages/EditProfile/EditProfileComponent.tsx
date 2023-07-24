@@ -183,7 +183,7 @@ export const EditProfileComponent = () => {
 						_hover={{}}
 						_focus={{ bg: theme.text.primary }}
 						onClick={onOpen}
-						disabled={!session}
+						isDisabled={!session}
 					>
 						{translate('editProfileImage')}
 					</Button>

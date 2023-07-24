@@ -64,7 +64,8 @@ export const CompaniesDashboardNoConnected = () => {
 				<OffsetButton
 					name={translate('createCompany')}
 					route="companies/create"
-					disabled={!session}
+					isDisabled={!session}
+					_disabled={{ bg: 'white', cursor: 'not-allowed' }}
 				/>
 			</Flex>
 		</Flex>

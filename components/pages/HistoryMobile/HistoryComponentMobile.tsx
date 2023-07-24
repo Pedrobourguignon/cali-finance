@@ -105,7 +105,7 @@ export const HistoryComponentMobile: React.FC<IHistoryPage> = ({ history }) => {
 								as={Button}
 								rightIcon={<BiChevronDown />}
 								bg="white"
-								disabled={!session}
+								isDisabled={!session}
 								_hover={{}}
 								_active={{}}
 								_focus={{}}

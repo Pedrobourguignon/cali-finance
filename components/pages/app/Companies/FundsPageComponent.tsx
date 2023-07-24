@@ -6,6 +6,7 @@ import {
 	DepositOrWithdrawBanner,
 	HistoryDashboard,
 	CompaniesHeader,
+	CoinCardSkeleton,
 } from 'components';
 import useTranslation from 'next-translate/useTranslation';
 import { useQuery } from 'wagmi';
@@ -59,7 +60,11 @@ export const FundsPageComponent = () => {
 				<CompaniesHeader />
 			</Flex>
 			<Flex color={theme.text.primary} py="12" direction="column" gap="10">
-				<Flex direction="column" gap="4">
+				<Flex
+					direction="column"
+					gap="4"
+					display={coins.length === 0 ? 'none' : 'flex'}
+				>
 					<Flex fontWeight="medium" gap="1">
 						<Text>{translate('coins')}</Text>
 					</Flex>
@@ -74,6 +79,9 @@ export const FundsPageComponent = () => {
 								key={+index}
 							/>
 						))}
+						{/* {coins.map((coin, index) => (
+							<CoinCardSkeleton key={+index} />
+						))} */}
 					</Flex>
 				</Flex>
 				<HistoryDashboard />

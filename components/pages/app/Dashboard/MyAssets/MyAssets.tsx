@@ -1,4 +1,4 @@
-import { Button, Flex, Text, useDisclosure } from '@chakra-ui/react';
+import { Button, Flex, Skeleton, Text, useDisclosure } from '@chakra-ui/react';
 import { Asset, OffsetShadow } from 'components';
 import { useCompanies, usePicasso } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
@@ -60,25 +60,31 @@ export const MyAssets = () => {
 							>
 								{translate('myAssets')}
 							</Text>
-							<Text
-								fontSize={{ base: 'sm', md: 'xs', lg: 'sm' }}
-								color={theme.text.primary}
-							>
-								${getUsdtBalance?.toLocaleString('en-US')}
-							</Text>
+							{allUserBalance.length > 0 ? (
+								<Text
+									fontSize={{ base: 'sm', md: 'xs', lg: 'sm' }}
+									color={theme.text.primary}
+								>
+									${getUsdtBalance?.toLocaleString('en-US')}
+								</Text>
+							) : (
+								<Skeleton w="10" h="3" />
+							)}
 						</Flex>
-						<Button
-							fontWeight="medium"
-							fontSize="xs"
-							cursor="pointer"
-							color="gray.500"
-							h="0"
-							py="3"
-							pr="0"
-							onClick={() => toggleListView()}
-						>
-							{isFullList ? translate('seeLess') : translate('seeAll')}
-						</Button>
+						{assetOptions.length > 3 && (
+							<Button
+								fontWeight="medium"
+								fontSize="xs"
+								cursor="pointer"
+								color="gray.500"
+								h="0"
+								py="3"
+								pr="0"
+								onClick={() => toggleListView()}
+							>
+								{isFullList ? translate('seeLess') : translate('seeAll')}
+							</Button>
+						)}
 					</Flex>
 					<Flex direction="column" px="4" gap="2" py="3">
 						{assetOptions

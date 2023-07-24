@@ -5,6 +5,7 @@ import useTranslation from 'next-translate/useTranslation';
 import { useAuth, usePicasso, useProfile, useTokens } from 'hooks';
 import { useQuery } from 'react-query';
 import { useAccount } from 'wagmi';
+import { truncateWallet } from 'utils';
 
 export const DashboardHeader: React.FC = () => {
 	const { onClose, isOpen, onOpen } = useDisclosure();
@@ -46,6 +47,13 @@ export const DashboardHeader: React.FC = () => {
 		return { status: translate('bullish'), color: 'blue.500' };
 	};
 
+	const handleDisplayedProfileName = () => {
+		if (profileData?.name === '' || profileData?.name.length === 42) {
+			return truncateWallet(profileData?.wallet);
+		}
+		return profileData?.name;
+	};
+
 	return (
 		<Flex direction="column" pb="6">
 			<Flex justify="space-between">
@@ -58,7 +66,7 @@ export const DashboardHeader: React.FC = () => {
 						lineHeight="8"
 						fontStyle="normal"
 					>
-						{greetingMessage} {session && profileData?.name}
+						{greetingMessage} {session && handleDisplayedProfileName()}
 					</Text>
 					<Text
 						display={{ base: 'flex', md: 'none' }}

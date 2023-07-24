@@ -48,7 +48,7 @@ export const NotificationPopover: React.FC<INotificationPopover> = ({
 					h="6"
 					p="0"
 					minW="max-content"
-					disabled={!session}
+					isDisabled={!session}
 				>
 					<Icon
 						as={notificationsList.length > 0 ? VscBellDot : VscBell}
