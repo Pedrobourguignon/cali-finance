@@ -20,11 +20,11 @@ import { AiOutlineArrowDown, AiOutlineArrowUp } from 'react-icons/ai';
 import { useQuery } from 'react-query';
 import { IActivitiesData } from 'types';
 import {
-	notificationsData,
 	truncateWallet,
 	getLogo,
 	handleLogoImage,
 	dateHandler,
+	notificationsData,
 } from 'utils';
 import { useAccount } from 'wagmi';
 

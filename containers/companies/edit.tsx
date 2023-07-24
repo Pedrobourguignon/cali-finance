@@ -50,10 +50,6 @@ export const EditCompany = () => {
 		resolver: yupResolver(editCompanySchema),
 	});
 
-	useEffect(() => {
-		if (!session) router.push(navigationPaths.dashboard.companies.home);
-	}, []);
-
 	const [selectedNetwork, setSelectedNetwork] = useState<ISelectedNetwork>({
 		name: 'Polygon',
 		icon: '/images/polygon.png',

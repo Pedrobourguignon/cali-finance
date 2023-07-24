@@ -16,7 +16,7 @@ import {
 	IHistoryNotifications,
 	IAssetsOptions,
 } from 'types';
-import { mainClient, navigationPaths } from 'utils';
+import { checkJwt, mainClient, navigationPaths } from 'utils';
 import { useQuery } from 'react-query';
 import { useAccount } from 'wagmi';
 import {
@@ -179,6 +179,7 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 	}, [companiesWithMissingFunds]);
 
 	const getCompanyById = async (id: number) => {
+		checkJwt();
 		const response = await mainClient.get(`/company/${id}`);
 		setSelectedCompany(response.data);
 		return response.data;
