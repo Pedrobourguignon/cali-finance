@@ -1,9 +1,22 @@
 /* eslint-disable no-nested-ternary */
-import { Flex, Grid, GridItem, Img, Text } from '@chakra-ui/react';
+import {
+	Accordion,
+	AccordionButton,
+	AccordionItem,
+	AccordionPanel,
+	Box,
+	Flex,
+	Grid,
+	GridItem,
+	Icon,
+	Img,
+	Text,
+} from '@chakra-ui/react';
 import { useAuth, usePicasso, useProfile } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
 import { useRouter } from 'next/router';
 import React from 'react';
+import { AiOutlineArrowDown, AiOutlineArrowUp } from 'react-icons/ai';
 import { useQuery } from 'react-query';
 import { IActivitiesData } from 'types';
 import {
@@ -65,7 +78,8 @@ export const HistoryActivityData: React.FC<IActivitiesData> = ({
 										boxSize="6"
 										borderRadius="base"
 									/>
-								) : activities.event.name === 'user_updated' ? (
+								) : activities.event.name === 'user_updated' ||
+								  activities.event.name === 'team_member_updated' ? (
 									<Flex
 										boxSize="6"
 										borderRadius="full"
@@ -77,7 +91,11 @@ export const HistoryActivityData: React.FC<IActivitiesData> = ({
 										color={theme.text.primary}
 									>
 										<Img
-											src={getLogo(profileData?.picture)}
+											src={
+												profileData?.picture === null
+													? '/images/avatar.png'
+													: getLogo(profileData?.picture)
+											}
 											borderRadius="full"
 											boxSize="6"
 											objectFit="cover"
@@ -98,10 +116,51 @@ export const HistoryActivityData: React.FC<IActivitiesData> = ({
 									</Flex>
 								)}
 								{activities.event.name === 'user_updated' ||
+								activities.event.name === 'team_member_updated' ||
 								activities.event.name === 'user_settings_updated' ? (
-									<Text fontSize="sm" color={theme.text.primary}>
-										{locale && activities.meta.description[locale]}
-									</Text>
+									<Accordion allowToggle w="full">
+										<AccordionItem w="full">
+											{({ isExpanded }) => (
+												<>
+													<AccordionButton
+														p="0"
+														w="full"
+														justifyContent="space-between"
+													>
+														<Box
+															as="span"
+															fontSize="sm"
+															textAlign="left"
+															color={theme.text.primary}
+															fontWeight="bold"
+														>
+															{truncateWallet(activities.wallet)}
+														</Box>
+														{isExpanded ? (
+															<Icon
+																as={AiOutlineArrowUp}
+																color="black"
+																boxSize="4"
+															/>
+														) : (
+															<Icon
+																as={AiOutlineArrowDown}
+																color="black"
+																boxSize="4"
+															/>
+														)}
+													</AccordionButton>
+													<AccordionPanel
+														p="0"
+														color={theme.text.primary}
+														fontSize="sm"
+													>
+														{activities.meta.description[locale!]}
+													</AccordionPanel>
+												</>
+											)}
+										</AccordionItem>
+									</Accordion>
 								) : (
 									<Text
 										fontSize="sm"
@@ -122,6 +181,7 @@ export const HistoryActivityData: React.FC<IActivitiesData> = ({
 
 								{activities.event.name === 'user_updated' ||
 								activities.event.name === 'company_updated' ||
+								activities.event.name === 'team_member_updated' ||
 								activities.event.name === 'company_created' ||
 								activities.event.name === 'user_settings_updated' ? (
 									<Text
