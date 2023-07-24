@@ -1,6 +1,7 @@
 import { Flex, Img, Text } from '@chakra-ui/react';
 import { usePicasso } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
+import { useRouter } from 'next/router';
 import { IHistoryNotifications } from 'types';
 import { dateHandler, notificationsData, truncateWallet } from 'utils';
 
@@ -13,6 +14,7 @@ export const ActivitiesDataMobile: React.FC<IActivitiesData> = ({
 }) => {
 	const { t: translate } = useTranslation('companies');
 	const theme = usePicasso();
+	const { locale } = useRouter();
 
 	return (
 		// eslint-disable-next-line react/jsx-no-useless-fragment
@@ -71,7 +73,7 @@ export const ActivitiesDataMobile: React.FC<IActivitiesData> = ({
 									{activities.event.description}
 								</Text>
 								<Text color="gray.500" fontSize="xs" whiteSpace="nowrap">
-									{dateHandler(activities.created_at)}
+									{locale && dateHandler(activities.created_at, locale)}
 								</Text>
 							</Flex>
 						</Flex>

@@ -185,8 +185,21 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 		return response.data;
 	};
 
+	// eslint-disable-next-line consistent-return
 	useEffect(() => {
-		if (selectedCompany.totalFundsUsd! < employeesBalance) {
+		if (query.id !== undefined) {
+			const refetchCompanyData = setInterval(() => {
+				getCompanyById(Number(query.id));
+			}, 3000);
+			return () => clearInterval(refetchCompanyData);
+		}
+	}, []);
+
+	useEffect(() => {
+		if (
+			selectedCompany.totalFundsUsd &&
+			selectedCompany.totalFundsUsd < employeesBalance
+		) {
 			setDisplayNeedFundsCard('flex');
 		} else setDisplayNeedFundsCard('none');
 	}, [employeesBalance, selectedCompany]);
@@ -372,7 +385,6 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 			displayMissingFundsWarning,
 			displayNeedFundsCard,
 			companiesWithMissingFunds,
-			getAllUserCompanies,
 			getUsdtBalance,
 			socialMediasData,
 			addEmployeeToTeam,
@@ -380,7 +392,6 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 			allUserCompanies,
 			updateCompany,
 			isLoadingCompanies,
-			getCompaniesOverview,
 			selectedCompany,
 			allUserBalance,
 			employeesBalance,

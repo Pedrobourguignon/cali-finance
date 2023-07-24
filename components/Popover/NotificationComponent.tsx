@@ -34,10 +34,10 @@ export const NotificationComponent: React.FC<{
 						lineHeight="shorter"
 						noOfLines={1}
 					>
-						{notification.meta.description[locale!]}
+						{locale && notification.meta.description[locale]}
 					</Text>
 					<Text color="gray.500" fontSize="xs">
-						{dateHandler(notification.created_at, locale)}
+						{locale && dateHandler(notification.created_at, locale)}
 					</Text>
 				</Flex>
 			</Flex>

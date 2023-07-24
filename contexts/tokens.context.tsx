@@ -1,10 +1,18 @@
 import { COIN_SERVICE_ROUTES } from 'helpers';
 import debounce from 'lodash.debounce';
 import React, { createContext, useEffect, useMemo, useState } from 'react';
+import { useQuery } from 'react-query';
 import { OneInchService } from 'services';
 import { ICoin, ISelectedCoin, ISwapTokenSelector, IToken } from 'types';
 import { coinClient } from 'utils';
 
+interface IUsdtQuotation {
+	USDT: {
+		value: number;
+		change: number;
+		symbol: string;
+	};
+}
 interface ITokensContext {
 	setFilteredTokens: (tokens: IToken[]) => void;
 	filteredTokens: IToken[];
@@ -23,7 +31,9 @@ interface ITokensContext {
 	>;
 	setCoins: React.Dispatch<React.SetStateAction<ICoin[]>>;
 	coins: ICoin[];
+	usdtQuotation: IUsdtQuotation;
 }
+
 export const TokensContext = createContext({} as ITokensContext);
 
 export const TokensProvider: React.FC<{ children: React.ReactNode }> = ({
@@ -43,6 +53,9 @@ export const TokensProvider: React.FC<{ children: React.ReactNode }> = ({
 			receivedToken: '',
 		} as ISwapTokenSelector);
 	const [coins, setCoins] = useState<ICoin[]>([]);
+	const [usdtQuotation, setUsdtQuotation] = useState<IUsdtQuotation>(
+		{} as IUsdtQuotation
+	);
 
 	// eslint-disable-next-line consistent-return
 	const getOneInchTokens = async () => {
@@ -101,6 +114,16 @@ export const TokensProvider: React.FC<{ children: React.ReactNode }> = ({
 		return null;
 	};
 
+	const { data: usdtPrice } = useQuery('usdt-quotation', () =>
+		getCoinServiceTokens('USDT')
+	);
+
+	useEffect(() => {
+		if (usdtPrice) {
+			setUsdtQuotation(usdtPrice);
+		}
+	}, []);
+
 	const contextStates = useMemo(
 		() => ({
 			setFilteredTokens,
@@ -114,6 +137,7 @@ export const TokensProvider: React.FC<{ children: React.ReactNode }> = ({
 			getCoinServiceTokens,
 			setCoins,
 			coins,
+			usdtQuotation,
 		}),
 		[
 			filteredTokens,
@@ -122,6 +146,7 @@ export const TokensProvider: React.FC<{ children: React.ReactNode }> = ({
 			chosenToken,
 			swapTokenSelector,
 			coins,
+			usdtQuotation,
 		]
 	);
 

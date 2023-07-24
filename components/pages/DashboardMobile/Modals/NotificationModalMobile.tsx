@@ -83,10 +83,10 @@ export const NotificationModalMobile: React.FC<INotificationPopover> = ({
 										fontSize="sm"
 										fontWeight="normal"
 									>
-										{notification.meta.description[locale!]}
+										{locale && notification.meta.description[locale]}
 									</Text>
 									<Text color="gray.500" fontSize="xs">
-										{dateHandler(notification.created_at)}
+										{locale && dateHandler(notification.created_at, locale)}
 									</Text>
 								</Flex>
 							</Flex>

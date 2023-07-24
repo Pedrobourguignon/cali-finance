@@ -64,7 +64,7 @@ export const HistoryActivityDataMobile: React.FC<IActivitiesData> = ({
 								{activities.event.name === 'user_updated' ||
 								activities.event.name === 'user_settings_updated' ? (
 									<Text fontSize="sm" color={theme.text.primary}>
-										{activities.meta.description[locale!]}
+										{locale && activities.meta.description[locale]}
 									</Text>
 								) : (
 									<Text
@@ -123,7 +123,7 @@ export const HistoryActivityDataMobile: React.FC<IActivitiesData> = ({
 										translate(notificationsData[activities.event.name].text)}
 								</Text>
 								<Text color="gray.500" fontSize="xs" whiteSpace="nowrap">
-									{dateHandler(activities.created_at)}
+									{locale && dateHandler(activities.created_at, locale)}
 								</Text>
 							</Flex>
 						</Flex>

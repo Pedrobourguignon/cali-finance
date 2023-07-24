@@ -58,7 +58,7 @@ export const ActivitiesData: React.FC<IActivitiesData> = ({ activities }) => {
 						{activities.event.name === 'user_added_to_company' ||
 						activities.event.name === 'user_added_to_team' ? (
 							<Text fontSize="sm" color={theme.text.primary}>
-								{activities.meta.description[locale!]}
+								{locale && activities.meta.description[locale]}
 							</Text>
 						) : (
 							<Text fontSize="sm" color={theme.text.primary}>
@@ -82,7 +82,7 @@ export const ActivitiesData: React.FC<IActivitiesData> = ({ activities }) => {
 								{activities.event.description}
 							</Text>
 							<Text color="gray.500" fontSize="xs" whiteSpace="nowrap">
-								{dateHandler(activities.created_at)}
+								{locale && dateHandler(activities.created_at, locale)}
 							</Text>
 						</Flex>
 					</Flex>
