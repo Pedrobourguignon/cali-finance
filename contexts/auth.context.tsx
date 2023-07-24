@@ -37,7 +37,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 	const getSignature = async (nonce: string) => {
 		try {
 			const signature = await signMessageAsync({
-				message: nonce,
+				message: `Please, sign this message to proceed: ${nonce}`,
 			});
 			return signature;
 		} catch (error: any) {
@@ -61,22 +61,23 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 	};
 
 	const checkSession = async () => {
-		try {
-			checkJwt();
-			await authClient.get(AUTH_SERVICE_ROUTES.checkToken);
-			setSession(true);
-		} catch (error: any) {
-			toast({
-				position: 'top',
-				render: () => (
-					<AlertToast
-						onClick={toast.closeAll}
-						text="yourCredentials"
-						type="error"
-					/>
-				),
-			});
-		}
+		if (getCookie('cali-finance-authorization'))
+			try {
+				checkJwt();
+				await authClient.get(AUTH_SERVICE_ROUTES.checkToken);
+				setSession(true);
+			} catch (error: any) {
+				toast({
+					position: 'top',
+					render: () => (
+						<AlertToast
+							onClick={toast.closeAll}
+							text="yourCredentials"
+							type="error"
+						/>
+					),
+				});
+			}
 	};
 
 	const handleSignIn = async (account: `0x${string}` | undefined) => {
