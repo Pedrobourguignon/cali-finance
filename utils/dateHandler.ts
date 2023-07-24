@@ -1,4 +1,4 @@
-export const dateHandler = (date: string, locale = 'en-US') => {
+export const dateHandler = (date: string, locale: string) => {
 	const originalDate = new Date(date);
 	const formatedDate = new Intl.DateTimeFormat(locale, {
 		dateStyle: 'medium',

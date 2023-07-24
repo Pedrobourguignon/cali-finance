@@ -5,7 +5,6 @@ import {
 	RecentActivities,
 } from 'components';
 import { TokensProvider } from 'contexts';
-import { useCompanies } from 'hooks';
 
 export const OverviewComponent = () => (
 	<TokensProvider>

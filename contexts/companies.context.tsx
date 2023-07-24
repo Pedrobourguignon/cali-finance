@@ -185,7 +185,10 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 	};
 
 	useEffect(() => {
-		if (selectedCompany.totalFundsUsd! < employeesBalance) {
+		if (
+			selectedCompany.totalFundsUsd &&
+			selectedCompany.totalFundsUsd < employeesBalance
+		) {
 			setDisplayNeedFundsCard('flex');
 		} else setDisplayNeedFundsCard('none');
 	}, [employeesBalance, selectedCompany]);
@@ -371,7 +374,6 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 			displayMissingFundsWarning,
 			displayNeedFundsCard,
 			companiesWithMissingFunds,
-			getAllUserCompanies,
 			getUsdtBalance,
 			socialMediasData,
 			addEmployeeToTeam,
@@ -379,7 +381,6 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 			allUserCompanies,
 			updateCompany,
 			isLoadingCompanies,
-			getCompaniesOverview,
 			selectedCompany,
 			allUserBalance,
 			employeesBalance,

@@ -128,7 +128,7 @@ export const EmployeesDashboard: React.FC<IEmployeeDashboard> = ({
 					</Flex>
 				)}
 				<Flex gap="8" align="center" display={{ base: 'none', sm: 'flex' }}>
-					{employees && (
+					{employees && employees?.length > 3 && (
 						<Button h="max-content" onClick={() => toggleListView()}>
 							<Text fontSize="xs" color="gray.500" fontWeight="medium">
 								{isFullList ? translate('seeLess') : translate('seeAll')}
@@ -149,7 +149,7 @@ export const EmployeesDashboard: React.FC<IEmployeeDashboard> = ({
 					</BlackButton>
 				</Flex>
 				<Flex gap="8" align="center" display={{ base: 'flex', sm: 'none' }}>
-					{employees && (
+					{employees && employees?.length > 3 && (
 						<Button h="max-content" onClick={() => toggleListView()}>
 							<Text fontSize="xs" color="gray.500" fontWeight="medium">
 								{isFullList ? translate('seeLess') : translate('seeAll')}
