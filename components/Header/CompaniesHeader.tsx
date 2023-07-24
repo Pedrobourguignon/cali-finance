@@ -11,7 +11,7 @@ import {
 	useClipboard,
 	Spinner,
 } from '@chakra-ui/react';
-import { useAuth, useCompanies, usePath, usePicasso } from 'hooks';
+import { useCompanies, usePath, usePicasso } from 'hooks';
 import {
 	getLogo,
 	handleLogoImage,
@@ -26,12 +26,11 @@ import {
 	AlertToast,
 } from 'components';
 import useTranslation from 'next-translate/useTranslation';
-
 import router, { useRouter } from 'next/router';
 import NextLink from 'next/link';
 import { useQuery } from 'react-query';
-import { useEffect } from 'react';
 import { MdContentCopy } from 'react-icons/md';
+import { useEffect } from 'react';
 
 export const CompaniesHeader = () => {
 	const theme = usePicasso();
@@ -42,11 +41,6 @@ export const CompaniesHeader = () => {
 	const { getCompanyById, selectedCompany } = useCompanies();
 	const toast = useToast();
 	const { onCopy } = useClipboard(selectedCompany?.contract);
-	const { session } = useAuth();
-
-	useEffect(() => {
-		if (!session) router.push(navigationPaths.dashboard.companies.home);
-	}, []);
 
 	const menuOptions = [
 		{
@@ -60,15 +54,13 @@ export const CompaniesHeader = () => {
 	];
 
 	const { isLoading: isLoadingSelectedCompany, error: selectedCompanyError } =
-		useQuery('created-company-overview', () =>
-			getCompanyById(Number(query.id))
+		useQuery(
+			'created-company-overview',
+			() => getCompanyById(Number(query.id)),
+			{
+				onError: () => router.push('/404'),
+			}
 		);
-
-	useEffect(() => {
-		if (selectedCompanyError) {
-			router.push('/404');
-		}
-	}, [selectedCompanyError]);
 
 	const handleCopyButton = () => {
 		onCopy();
@@ -83,6 +75,51 @@ export const CompaniesHeader = () => {
 			),
 		});
 	};
+
+	const contractAddress = () => {
+		if (selectedCompany?.contract === null) {
+			return (
+				<Flex align="center" gap="2">
+					<Spinner size="sm" />
+					<Text color="gray.500" fontSize="sm">
+						{translate('awaitingPolling')}
+					</Text>
+				</Flex>
+			);
+		}
+		return (
+			<Flex align="center">
+				<Text
+					color="blue.300"
+					as="u"
+					fontSize="md"
+					cursor="pointer"
+					onClick={() =>
+						window.open(
+							`https://mumbai.polygonscan.com/address/${selectedCompany?.contract}`
+						)
+					}
+				>
+					{truncateWallet(selectedCompany?.contract)}
+				</Text>
+				<Button
+					boxSize="3"
+					bg="transparent"
+					onClick={() => {
+						handleCopyButton();
+					}}
+				>
+					<Icon as={MdContentCopy} boxSize="4" color="gray.500" />
+				</Button>
+			</Flex>
+		);
+	};
+	useEffect(() => {
+		const refetchContractAddress = setInterval(() => {
+			contractAddress();
+		}, 3000);
+		return () => clearInterval(refetchContractAddress);
+	}, []);
 
 	return (
 		<Flex direction="column" color={theme.text.primary} w="100%" gap="7">
@@ -128,38 +165,7 @@ export const CompaniesHeader = () => {
 							>
 								{selectedCompany?.name}
 							</Text>
-							{selectedCompany.contract === null ? (
-								<Flex align="center" gap="2">
-									<Spinner size="sm" />
-									<Text color="gray.500" fontSize="sm">
-										{translate('awaitingPolling')}
-									</Text>
-								</Flex>
-							) : (
-								<Flex align="center">
-									<Text
-										color="gray.500"
-										fontSize="md"
-										cursor="pointer"
-										onClick={() =>
-											window.open(
-												`https://mumbai.polygonscan.com/address/${selectedCompany?.contract}`
-											)
-										}
-									>
-										{truncateWallet(selectedCompany?.contract)}
-									</Text>
-									<Button
-										boxSize="3"
-										bg="transparent"
-										onClick={() => {
-											handleCopyButton();
-										}}
-									>
-										<Icon as={MdContentCopy} boxSize="4" color="gray.500" />
-									</Button>
-								</Flex>
-							)}
+							{contractAddress()}
 						</Flex>
 					)}
 				</Flex>
@@ -167,17 +173,20 @@ export const CompaniesHeader = () => {
 					{isLoadingSelectedCompany ? (
 						<Skeleton w="14" h="6" />
 					) : (
-						<Text>{`$ ${selectedCompany?.totalFundsUsd?.toLocaleString(
+						<Text fontSize="xl">{`$ ${selectedCompany?.totalFundsUsd?.toLocaleString(
 							'en-US'
 						)}`}</Text>
 					)}
-					<Text fontSize="sm">{translate('totalFunds')}</Text>
+					<Text fontSize="sm" fontWeight="semibold">
+						{translate('totalFunds')}
+					</Text>
 				</Flex>
 				<Link
 					href={navigationPaths.dashboard.companies.editOrg(
 						query.id?.toString()
 					)}
 					as={NextLink}
+					_hover={{ textDecor: 'none', opacity: '80%' }}
 				>
 					<Text
 						borderRadius="base"

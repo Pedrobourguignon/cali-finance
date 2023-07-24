@@ -5,7 +5,7 @@ import useTranslation from 'next-translate/useTranslation';
 import { useRouter } from 'next/router';
 import React from 'react';
 import { INotificationPopover } from 'types';
-import { dateHandler, notificationIcons } from 'utils';
+import { dateHandler, notificationsData } from 'utils';
 
 export const NotificationModalMobile: React.FC<INotificationPopover> = ({
 	onClose,
@@ -74,7 +74,7 @@ export const NotificationModalMobile: React.FC<INotificationPopover> = ({
 						>
 							<Flex gap="2" align="center" py="1" w="full">
 								<Img
-									src={notificationIcons[notification.meta.data.event]?.icon}
+									src={notificationsData[notification.meta.data.event]?.icon}
 									boxSize="4"
 								/>
 								<Flex direction="column" justify="center">
@@ -83,10 +83,10 @@ export const NotificationModalMobile: React.FC<INotificationPopover> = ({
 										fontSize="sm"
 										fontWeight="normal"
 									>
-										{notification.meta.description[locale!]}
+										{locale && notification.meta.description[locale]}
 									</Text>
 									<Text color="gray.500" fontSize="xs">
-										{dateHandler(notification.created_at)}
+										{locale && dateHandler(notification.created_at, locale)}
 									</Text>
 								</Flex>
 							</Flex>

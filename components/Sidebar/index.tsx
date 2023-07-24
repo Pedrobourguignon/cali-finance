@@ -90,7 +90,7 @@ export const Sidebar: React.FC = () => {
 	const { session, setSession } = useAuth();
 	const { disconnect } = useDisconnect();
 	const languages: ILanguage[] = ['en-US', 'pt-BR'];
-	const { isOpen, onOpen, onClose } = useDisclosure();
+	const { onOpen } = useDisclosure();
 	const {
 		isOpen: isOpenMenu,
 		onOpen: onOpenMenu,
@@ -113,8 +113,9 @@ export const Sidebar: React.FC = () => {
 	};
 
 	useEffect(() => {
-		if (!pathname.includes('404')) {
-			changeLanguage(localStorage.getItem('language')!);
+		const currentLanguage = localStorage.getItem('language');
+		if (!pathname.includes('404') && currentLanguage) {
+			changeLanguage(currentLanguage);
 		}
 	}, [locale]);
 
@@ -188,18 +189,27 @@ export const Sidebar: React.FC = () => {
 									_focus={{}}
 								>
 									<Flex align="center" gap="2" justify="center">
-										<Img
-											src={
-												!profileData?.picture
-													? '/images/editImage.png'
-													: getLogo(profileData?.picture)
-											}
-											borderRadius="full"
-											boxSize="6"
-											objectFit="cover"
-										/>
+										{walletAddress ? (
+											<Img
+												src={
+													!profileData?.picture
+														? '/images/editImage.png'
+														: getLogo(profileData?.picture)
+												}
+												borderRadius="full"
+												boxSize="6"
+												objectFit="cover"
+											/>
+										) : (
+											<Img
+												src="/images/editImage.png"
+												borderRadius="full"
+												boxSize="6"
+												objectFit="cover"
+											/>
+										)}
 										<Text fontWeight="medium" fontSize={{ md: 'xs', xl: 'sm' }}>
-											{truncateWallet(walletAddress)}
+											{walletAddress && truncateWallet(walletAddress)}
 										</Text>
 									</Flex>
 								</MenuButton>

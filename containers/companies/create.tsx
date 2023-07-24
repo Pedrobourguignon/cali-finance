@@ -88,10 +88,6 @@ export const CreateCompanyContainer = () => {
 		}
 	};
 
-	useEffect(() => {
-		if (!session) router.push(navigationPaths.dashboard.companies.home);
-	}, []);
-
 	const { isLoading } = useWaitForTransaction({
 		hash: createCompanyData?.hash,
 		confirmations: 3,

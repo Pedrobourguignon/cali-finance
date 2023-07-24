@@ -98,20 +98,21 @@ export const HistoryComponentMobile: React.FC<IHistoryPage> = ({ history }) => {
 								h="max-content"
 								py="2"
 								px="3"
-								w="11.875rem"
-								gap="32"
+								minW="11.875rem"
 								fontWeight="normal"
 								fontSize={{ base: 'xs', md: 'sm', '2xl': 'md' }}
 								color={theme.text.primary}
 								as={Button}
 								rightIcon={<BiChevronDown />}
 								bg="white"
-								disabled={!session}
+								isDisabled={!session}
 								_hover={{}}
 								_active={{}}
 								_focus={{}}
 							>
-								{!session ? translate('all') : selectedFilterOption}
+								<Flex>
+									{!session ? translate('all') : selectedFilterOption}
+								</Flex>
 							</MenuButton>
 							<MenuList
 								p="0"

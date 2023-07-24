@@ -22,6 +22,9 @@ const PaginatorButton: FC<IPaginatorProps> = ({ children, ...props }) => {
 			color={theme.text.primary}
 			size="xs"
 			boxSize="6"
+			_hover={{ opacity: 0.8 }}
+			_active={{}}
+			_focus={{}}
 		>
 			{children}
 		</Button>

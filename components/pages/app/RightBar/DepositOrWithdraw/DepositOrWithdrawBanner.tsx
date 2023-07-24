@@ -35,6 +35,7 @@ export const DepositOrWithdrawBanner = () => {
 				>
 					{confirm ? (
 						<ConfirmTransaction
+							confirm={confirm}
 							setConfirm={setConfirm}
 							transaction={transaction}
 						/>

@@ -2,10 +2,10 @@ import { Flex, Text, useDisclosure } from '@chakra-ui/react';
 import { NotificationPopover } from 'components';
 import { useMemo } from 'react';
 import useTranslation from 'next-translate/useTranslation';
-import { useAuth, usePicasso, useProfile } from 'hooks';
-
+import { useAuth, usePicasso, useProfile, useTokens } from 'hooks';
 import { useQuery } from 'react-query';
 import { useAccount } from 'wagmi';
+import { truncateWallet } from 'utils';
 
 export const DashboardHeader: React.FC = () => {
 	const { onClose, isOpen, onOpen } = useDisclosure();
@@ -13,7 +13,8 @@ export const DashboardHeader: React.FC = () => {
 	const { session } = useAuth();
 	const { isConnected } = useAccount();
 	const { getProfileData } = useProfile();
-	const percentage = 0;
+	const { getCoinServiceTokens } = useTokens();
+	const symbols = ['usdt'];
 	const theme = usePicasso();
 	const { address } = useAccount();
 
@@ -25,6 +26,12 @@ export const DashboardHeader: React.FC = () => {
 		}
 	);
 
+	const { data: coinServiceTokens } = useQuery(['get-coin-data'], () =>
+		getCoinServiceTokens(symbols.toString())
+	);
+
+	const variation = coinServiceTokens?.USDT.change;
+
 	const greetingMessage = useMemo(() => {
 		const hour = new Date().getHours();
 		if (hour >= 6 && hour < 12) return translate('greetings.morning');
@@ -33,11 +40,18 @@ export const DashboardHeader: React.FC = () => {
 	}, [translate]);
 
 	const dynamicAssetInfo = () => {
-		if (percentage < 0)
+		if (variation && variation < 0)
 			return { status: translate('bearish'), color: 'red.500' };
-		if (percentage === 0)
+		if (!variation && variation === 0)
 			return { status: translate('neutral'), color: 'gray.500' };
 		return { status: translate('bullish'), color: 'blue.500' };
+	};
+
+	const handleDisplayedProfileName = () => {
+		if (profileData?.name === '' || profileData?.name.length === 42) {
+			return truncateWallet(profileData?.wallet);
+		}
+		return profileData?.name;
 	};
 
 	return (
@@ -52,7 +66,7 @@ export const DashboardHeader: React.FC = () => {
 						lineHeight="8"
 						fontStyle="normal"
 					>
-						{greetingMessage} {session && profileData?.name}
+						{greetingMessage} {session && handleDisplayedProfileName()}
 					</Text>
 					<Text
 						display={{ base: 'flex', md: 'none' }}
@@ -86,7 +100,7 @@ export const DashboardHeader: React.FC = () => {
 					{translate('increased')}
 					<Text as="span" fontSize="sm" color={dynamicAssetInfo()?.color}>
 						{'\u00A0'}
-						{translate('percentage', { percentage })}
+						{variation}%
 					</Text>
 				</Text>
 			</Flex>
@@ -101,7 +115,7 @@ export const DashboardHeader: React.FC = () => {
 							{translate('increased')}
 						</Text>
 						{'\u00A0'}
-						{translate('percentage', { percentage })}
+						{variation}%
 					</Text>
 				</Text>
 			</Flex>

@@ -16,7 +16,7 @@ import {
 	IHistoryNotifications,
 	IAssetsOptions,
 } from 'types';
-import { mainClient, navigationPaths } from 'utils';
+import { checkJwt, mainClient, navigationPaths } from 'utils';
 import { useQuery } from 'react-query';
 import { useAccount } from 'wagmi';
 import {
@@ -27,7 +27,7 @@ import router, { useRouter } from 'next/router';
 import { MAIN_SERVICE_ROUTES } from 'helpers';
 import { readContract } from '@wagmi/core';
 import companyAbi from 'utils/abi/company.json';
-
+import { GetCompanyUsersRes } from 'types/interfaces/main-server/IUser';
 import { useAuth } from 'hooks';
 
 interface ICompanyContext {
@@ -44,10 +44,11 @@ interface ICompanyContext {
 	setSocialMediasData: Dispatch<SetStateAction<ISocialMedia[]>>;
 	getCompanyById: (id: number) => Promise<GetUserCompaniesRes>;
 	updateCompany: (company: ICompany) => Promise<void>;
-	getAllCompanyEmployees: (id: number) => Promise<IEmployee[]>;
+	getAllCompanyEmployees: (id: number) => Promise<GetCompanyUsersRes[]>;
 	addEmployeeToTeam: (employee: INewEmployee) => Promise<void>;
 	allUserCompanies: GetUserCompaniesRes[] | undefined;
 	selectedCompany: GetUserCompaniesRes;
+	setCompaniesWithMissingFunds: Dispatch<SetStateAction<GetUserCompaniesRes[]>>;
 	companiesWithMissingFunds: GetUserCompaniesRes[];
 	getCompanieActivities: (
 		companyId: number
@@ -72,7 +73,8 @@ interface ICompanyContext {
 	getUsdtBalance: number;
 	setEmployeesBalance: Dispatch<SetStateAction<number>>;
 	employeesBalance: number;
-	setCompaniesWithMissingFunds: Dispatch<SetStateAction<GetUserCompaniesRes[]>>;
+	setEmployeesRevenue: Dispatch<SetStateAction<number>>;
+	employeesRevenue: number;
 }
 
 export const CompaniesContext = createContext({} as ICompanyContext);
@@ -98,6 +100,7 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 	const [allUserBalance, setAllUserBalance] = useState<number[]>([]);
 	const [assetOptions, setAssetOptions] = useState<IAssetsOptions[]>([]);
 	const [employeesBalance, setEmployeesBalance] = useState<number>(0);
+	const [employeesRevenue, setEmployeesRevenue] = useState<number>(0);
 
 	const sumAvailableToWithdraw = () => {
 		const total = allUserBalance.reduce((acc, balance) => acc + balance, 0);
@@ -176,13 +179,27 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 	}, [companiesWithMissingFunds]);
 
 	const getCompanyById = async (id: number) => {
+		checkJwt();
 		const response = await mainClient.get(`/company/${id}`);
 		setSelectedCompany(response.data);
 		return response.data;
 	};
 
+	// eslint-disable-next-line consistent-return
 	useEffect(() => {
-		if (selectedCompany.totalFundsUsd! < employeesBalance) {
+		if (query.id !== undefined) {
+			const refetchCompanyData = setInterval(() => {
+				getCompanyById(Number(query.id));
+			}, 3000);
+			return () => clearInterval(refetchCompanyData);
+		}
+	}, []);
+
+	useEffect(() => {
+		if (
+			selectedCompany.totalFundsUsd &&
+			selectedCompany.totalFundsUsd < employeesBalance
+		) {
 			setDisplayNeedFundsCard('flex');
 		} else setDisplayNeedFundsCard('none');
 	}, [employeesBalance, selectedCompany]);
@@ -360,13 +377,14 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 			employeesBalance,
 			setEmployeesBalance,
 			setCompaniesWithMissingFunds,
+			employeesRevenue,
+			setEmployeesRevenue,
 		}),
 		[
 			editedInfo,
 			displayMissingFundsWarning,
 			displayNeedFundsCard,
 			companiesWithMissingFunds,
-			getAllUserCompanies,
 			getUsdtBalance,
 			socialMediasData,
 			addEmployeeToTeam,
@@ -374,10 +392,10 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 			allUserCompanies,
 			updateCompany,
 			isLoadingCompanies,
-			getCompaniesOverview,
 			selectedCompany,
 			allUserBalance,
 			employeesBalance,
+			employeesRevenue,
 		]
 	);
 

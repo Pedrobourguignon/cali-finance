@@ -8,11 +8,10 @@ import React from 'react';
 import { useQuery } from 'react-query';
 import { IActivitiesData } from 'types';
 import {
-	activitieDescriptTranslation,
 	dateHandler,
 	getLogo,
 	handleLogoImage,
-	notificationIcons,
+	notificationsData,
 } from 'utils';
 import { useAccount } from 'wagmi';
 
@@ -95,7 +94,7 @@ export const RecentActivitiesData: React.FC<IActivitiesData> = ({
 							{activities.event.name === 'user_updated' ||
 							activities.event.name === 'user_settings_updated' ? (
 								<Text fontSize="sm" color={theme.text.primary}>
-									{activities.meta.description[locale!]}
+									{locale && activities.meta.description[locale]}
 								</Text>
 							) : (
 								<Text fontSize="sm" color={theme.text.primary}>
@@ -103,25 +102,24 @@ export const RecentActivitiesData: React.FC<IActivitiesData> = ({
 								</Text>
 							)}
 						</GridItem>
-						<GridItem flex={{ base: '3.2', md: '2.5' }}>
+						<GridItem flex={{ base: '3.2', md: '2.8' }}>
 							<Flex align="center" gap="2">
 								<Img
-									// src={notificationIcons[activities.event.name].icon}
+									src={notificationsData[activities.event.name].icon}
 									boxSize="4"
 								/>
 								<Flex direction="column">
 									<Text
 										fontSize="xs"
 										fontWeight="normal"
+										whiteSpace="nowrap"
 										color={theme.text.primary}
 									>
-										{/* {activities &&
-											translate(
-												activitieDescriptTranslation[activities.event.name].text
-											)} */}
+										{activities &&
+											translate(notificationsData[activities.event.name].text)}
 									</Text>
 									<Text color="gray.500" fontSize="xs" whiteSpace="nowrap">
-										{dateHandler(activities.created_at)}
+										{locale && dateHandler(activities.created_at, locale)}
 									</Text>
 								</Flex>
 							</Flex>

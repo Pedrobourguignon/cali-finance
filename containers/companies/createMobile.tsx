@@ -54,10 +54,6 @@ export const CreateCompanyMobileContainer = () => {
 		resolver: yupResolver(createCompanySchema),
 	});
 
-	useEffect(() => {
-		if (!session) router.push(navigationPaths.dashboard.companies.home);
-	}, []);
-
 	const { mutate } = useMutation(
 		(createdCompanyData: ICompany) => createCompany(createdCompanyData),
 		{

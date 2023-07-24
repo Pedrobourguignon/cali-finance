@@ -27,8 +27,9 @@
 	"editEmployee": "Editar funcionário",
 	"perMonth": "por mês",
 	"thisChange": "Esta mudança causará",
-	"pleaseNote": "Observe que você terá que depositar mais 0,0002 BTC nos fundos da empresa.",
+	"pleaseNote": "Observe que você terá que depositar mais {{expense}} USDT nos fundos da empresa.",
 	"updateEmployee": "Atualizar dados do funcionário",
 	"more": "a mais",
+	"less": "a menos",
 	"expenses": "de despesas"
 }

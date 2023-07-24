@@ -9,11 +9,18 @@ export const DisplayedNotifications: React.FC<IDisplayedNotifications> = ({
 	pagesVisited,
 	notificationPerPage,
 }) => {
-	const displayNotifications = filteredNotifications?.slice(
+	const filterTeamNotifications = filteredNotifications?.filter(
+		notification =>
+			notification.event.name !== 'team_member_added' &&
+			notification.event.name !== 'user_added_to_company' &&
+			notification.event.name !== 'user_added_to_team'
+	);
+	const displayNotifications = filterTeamNotifications?.slice(
 		pagesVisited,
 		pagesVisited + notificationPerPage
 	);
 
+	console.log(filterTeamNotifications);
 	return (
 		<CompaniesProvider>
 			<Flex direction="column" gap="2">

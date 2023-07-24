@@ -37,7 +37,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 	const getSignature = async (nonce: string) => {
 		try {
 			const signature = await signMessageAsync({
-				message: nonce,
+				message: `Please, sign this message to proceed: ${nonce}`,
 			});
 			return signature;
 		} catch (error: any) {

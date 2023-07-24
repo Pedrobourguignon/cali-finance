@@ -57,6 +57,7 @@ export const FundsPageComponentMobile = () => {
 			<Flex pt="8">
 				{confirm ? (
 					<ConfirmTransaction
+						confirm={confirm}
 						setConfirm={setConfirm}
 						transaction={transaction}
 					/>

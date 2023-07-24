@@ -9776,10 +9776,10 @@ next-tick@^1.1.0:
   resolved "https://registry.yarnpkg.com/next-tick/-/next-tick-1.1.0.tgz#1836ee30ad56d67ef281b22bd199f709449b35eb"
   integrity sha512-CXdUiJembsNjuToQvxayPZF9Vqht7hewsvy2sOWafLvi2awflj9mOC6bHIg50orX8IJvWKY9wYQ/zB2kogPslQ==
 
-next-translate-plugin@^2.5.0:
-  version "2.5.0"
-  resolved "https://registry.yarnpkg.com/next-translate-plugin/-/next-translate-plugin-2.5.0.tgz#126b6f86c6c8a7e7c2a4989eabee0e748963b646"
-  integrity sha512-zQKiyCudj5uFd77GmJnqv1G+AwVU4NfSA6axtn5NOnwbVxPDLEfXaXrCItAI6gaV2C1zq3+xcUp6ml/trp0hJg==
+next-translate-plugin@^2.5.2:
+  version "2.5.2"
+  resolved "https://registry.yarnpkg.com/next-translate-plugin/-/next-translate-plugin-2.5.2.tgz#44d81c8d791443370f8f27ec114c8c2bac69b6bc"
+  integrity sha512-I2PDkbUM91CrOYNPVxhWxfQituSN62Y6f5EQfrZwtJToWc5HqnKs9dFjyQ+VGY3EXx6rPYgK03MVNtI+pc1HBA==
   dependencies:
     typescript "4.5.2"
 

@@ -28,6 +28,7 @@ export const EmployeesDashboard: React.FC<IEmployeeDashboard> = ({
 		selectedCompany,
 		getCompanyById,
 		setEmployeesBalance,
+		setEmployeesRevenue,
 	} = useCompanies();
 	const { query } = useRouter();
 	const { isOpen, onOpen, onClose } = useDisclosure();
@@ -46,6 +47,17 @@ export const EmployeesDashboard: React.FC<IEmployeeDashboard> = ({
 	} = useQuery('all-company-employees', () =>
 		getAllCompanyEmployees(Number(query.id))
 	);
+
+	const calculateEmployeeRevenue = () => {
+		if (employees) {
+			const sum = employees.reduce(
+				(prevVal, currentVal) =>
+					currentVal.revenue ? prevVal + currentVal.revenue : 0,
+				0
+			);
+			setEmployeesRevenue(sum);
+		}
+	};
 
 	const { data: selectedCompanyData } = useQuery(
 		'created-company-overview',
@@ -82,6 +94,7 @@ export const EmployeesDashboard: React.FC<IEmployeeDashboard> = ({
 
 	useEffect(() => {
 		getEmployeesBalance();
+		calculateEmployeeRevenue();
 	}, [employees, selectedCompanyData]);
 
 	useEffect(() => {
@@ -111,11 +124,15 @@ export const EmployeesDashboard: React.FC<IEmployeeDashboard> = ({
 				) : (
 					<Flex fontWeight="medium" gap="1">
 						<Text>{employees?.length}</Text>
-						<Text>{translate('employees')}</Text>
+						<Text>
+							{employees?.length === 1
+								? translate('employee')
+								: translate('employees')}
+						</Text>
 					</Flex>
 				)}
 				<Flex gap="8" align="center" display={{ base: 'none', sm: 'flex' }}>
-					{employees && (
+					{employees && employees?.length > 3 && (
 						<Button h="max-content" onClick={() => toggleListView()}>
 							<Text fontSize="xs" color="gray.500" fontWeight="medium">
 								{isFullList ? translate('seeLess') : translate('seeAll')}
@@ -123,12 +140,12 @@ export const EmployeesDashboard: React.FC<IEmployeeDashboard> = ({
 						</Button>
 					)}
 					<BlackButton
-						px="3"
+						px="4"
 						onClick={onOpen}
-						fontSize="xs"
+						fontSize="sm"
 						gap="2.5"
 						fontWeight="medium"
-						py="1"
+						py="2"
 						borderRadius="base"
 					>
 						<Text>+</Text>
@@ -136,7 +153,7 @@ export const EmployeesDashboard: React.FC<IEmployeeDashboard> = ({
 					</BlackButton>
 				</Flex>
 				<Flex gap="8" align="center" display={{ base: 'flex', sm: 'none' }}>
-					{employees && (
+					{employees && employees?.length > 3 && (
 						<Button h="max-content" onClick={() => toggleListView()}>
 							<Text fontSize="xs" color="gray.500" fontWeight="medium">
 								{isFullList ? translate('seeLess') : translate('seeAll')}
@@ -144,12 +161,12 @@ export const EmployeesDashboard: React.FC<IEmployeeDashboard> = ({
 						</Button>
 					)}
 					<BlackButton
-						px="3"
+						px="4"
 						onClick={onOpenMobile}
-						fontSize="xs"
+						fontSize="sm"
 						gap="2.5"
 						fontWeight="medium"
-						py="1"
+						py="2"
 						borderRadius="base"
 					>
 						<Text>+</Text>
@@ -162,7 +179,7 @@ export const EmployeesDashboard: React.FC<IEmployeeDashboard> = ({
 					<Flex justify="space-between" fontSize="sm">
 						<Text>{translate('nameAddress')}</Text>
 						{isGeneral && <Text>{translate('team')}</Text>}
-						<Text w="24">{translate('amount')}</Text>
+						<Text>{translate('amount')}</Text>
 					</Flex>
 					<Flex direction="column" gap="2">
 						<>
@@ -177,7 +194,7 @@ export const EmployeesDashboard: React.FC<IEmployeeDashboard> = ({
 					<Flex justify="space-between" fontSize="sm">
 						<Text>{translate('nameAddress')}</Text>
 						{isGeneral && <Text>{translate('team')}</Text>}
-						<Text w="24">{translate('amount')}</Text>
+						<Text>{translate('amount')}</Text>
 					</Flex>
 					<Flex direction="column" gap="2">
 						{employees

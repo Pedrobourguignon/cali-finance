@@ -15,7 +15,7 @@ import { useAuth, useCompanies, useSchema } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
 
 import router, { useRouter } from 'next/router';
-import { CompaniesProvider } from 'contexts';
+import { CompaniesProvider, TokensProvider } from 'contexts';
 import { useMutation, useQuery } from 'react-query';
 import { ICompany } from 'types/interfaces/main-server/ICompany';
 import { useEffect, useState } from 'react';
@@ -49,10 +49,6 @@ export const EditCompany = () => {
 	} = useForm<ICompany>({
 		resolver: yupResolver(editCompanySchema),
 	});
-
-	useEffect(() => {
-		if (!session) router.push(navigationPaths.dashboard.companies.home);
-	}, []);
 
 	const [selectedNetwork, setSelectedNetwork] = useState<ISelectedNetwork>({
 		name: 'Polygon',
@@ -154,45 +150,53 @@ export const EditCompany = () => {
 
 	return (
 		<CompaniesProvider>
-			<form onSubmit={handleSubmit(handleEditCompany)}>
-				<FormControl>
-					<AppLayout
-						right={
-							<EditCompanyLink
-								displayedEditedPicture={displayedEditedPicture}
-								editedCompanyPicture={editedCompanyPicture}
-								logo={editedCompanyPicture}
-								setEditedSocialLinksInputValue={setEditedSocialLinksInputValue}
-								company={companyToBeEdited}
-								handleEditedPicture={handleEditedPicture}
-							/>
-						}
-					>
-						<CompanyWhiteBackground />
-						<Flex direction="column" gap="10" zIndex="docked" pt="6" w="100%">
-							<Flex w="100%">
-								<NavigationBack
-									href={navigationPaths.dashboard.companies.overview(query.id)}
-								>
-									{translate('backToCompany')}
-								</NavigationBack>
+			<TokensProvider>
+				<form onSubmit={handleSubmit(handleEditCompany)}>
+					<FormControl>
+						<AppLayout
+							right={
+								<EditCompanyLink
+									displayedEditedPicture={displayedEditedPicture}
+									editedCompanyPicture={editedCompanyPicture}
+									logo={editedCompanyPicture}
+									setEditedSocialLinksInputValue={
+										setEditedSocialLinksInputValue
+									}
+									company={companyToBeEdited}
+									handleEditedPicture={handleEditedPicture}
+								/>
+							}
+						>
+							<CompanyWhiteBackground />
+							<Flex direction="column" gap="10" zIndex="docked" pt="6" w="100%">
+								<Flex w="100%">
+									<NavigationBack
+										href={navigationPaths.dashboard.companies.overview(
+											query.id
+										)}
+									>
+										{translate('backToCompany')}
+									</NavigationBack>
+								</Flex>
+								<EditCompanyComponent
+									setEditedSocialLinksInputValue={
+										setEditedSocialLinksInputValue
+									}
+									editedSocialLinksInputValue={editedSocialLinksInputValue}
+									editedCompanyPicture={displayedEditedPicture}
+									setSelectedNetwork={setSelectedNetwork}
+									setSelectedType={setSelectedType}
+									selectedNetwork={selectedNetwork}
+									selectedType={selectedType}
+									errors={errors}
+									register={register}
+									company={companyToBeEdited}
+								/>
 							</Flex>
-							<EditCompanyComponent
-								setEditedSocialLinksInputValue={setEditedSocialLinksInputValue}
-								editedSocialLinksInputValue={editedSocialLinksInputValue}
-								editedCompanyPicture={displayedEditedPicture}
-								setSelectedNetwork={setSelectedNetwork}
-								setSelectedType={setSelectedType}
-								selectedNetwork={selectedNetwork}
-								selectedType={selectedType}
-								errors={errors}
-								register={register}
-								company={companyToBeEdited}
-							/>
-						</Flex>
-					</AppLayout>
-				</FormControl>
-			</form>
+						</AppLayout>
+					</FormControl>
+				</form>
+			</TokensProvider>
 		</CompaniesProvider>
 	);
 };

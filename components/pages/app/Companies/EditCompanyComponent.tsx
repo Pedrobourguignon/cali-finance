@@ -2,7 +2,6 @@
 import {
 	Button,
 	Flex,
-	Icon,
 	Img,
 	Input,
 	Menu,
@@ -12,18 +11,14 @@ import {
 	Text,
 	Textarea,
 	TextProps,
-	Tooltip,
 } from '@chakra-ui/react';
 import { useAuth, usePicasso } from 'hooks';
 import { FieldErrors, UseFormRegister } from 'react-hook-form';
-import { BsQuestionCircle } from 'react-icons/bs';
 import useTranslation from 'next-translate/useTranslation';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { BlackButton, NetworkTooltip } from 'components';
-
 import { ChevronDownIcon } from '@chakra-ui/icons';
 import { ICompany } from 'types/interfaces/main-server/ICompany';
-import { networkInfos } from 'utils';
 import { ISociaLinksInputValue } from 'types';
 
 interface IEditCompanyComponent {
