@@ -1,6 +1,5 @@
 import { Button, ButtonProps } from '@chakra-ui/react';
-import { usePicasso } from 'hooks';
-import { useSession } from 'next-auth/react';
+import { useAuth, usePicasso } from 'hooks';
 import React from 'react';
 
 interface IBlackButton extends ButtonProps {
@@ -14,7 +13,7 @@ export const BlackButton: React.FC<IBlackButton> = ({
 	...rest
 }) => {
 	const theme = usePicasso();
-	const { data: session } = useSession();
+	const { session } = useAuth();
 	return (
 		<Button
 			bg={theme.bg.primary}

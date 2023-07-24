@@ -14,7 +14,7 @@ import {
 	useDisclosure,
 } from '@chakra-ui/react';
 import React, { useState, useEffect } from 'react';
-import { usePath, usePicasso, useProfile } from 'hooks';
+import { useAuth, useCompanies, usePath, usePicasso, useProfile } from 'hooks';
 import router, { useRouter } from 'next/router';
 import {
 	DashboardIcon,
@@ -23,17 +23,16 @@ import {
 	HistoryIcon,
 	ConnectWalletButton,
 	ChangeNetworkButton,
-	NetworkModal,
 	SocialMediasButtons,
 	HelpAndDocsButton,
 } from 'components';
 import { getLogo, navigationPaths, truncateWallet } from 'utils';
 import { INetwork } from 'types';
 import useTranslation from 'next-translate/useTranslation';
-import { useSession, signOut } from 'next-auth/react';
 import NextLink from 'next/link';
 import { useQuery } from 'react-query';
 import { useAccount, useDisconnect } from 'wagmi';
+import { deleteCookie } from 'cookies-next';
 
 interface IMenuItem {
 	icon: typeof Icon;
@@ -84,10 +83,11 @@ export const Sidebar: React.FC = () => {
 	];
 	const theme = usePicasso();
 	const { includesPath } = usePath();
-	const { getProfileData } = useProfile();
+	const { getProfileData, setCardItems } = useProfile();
+	const { setCompaniesWithMissingFunds } = useCompanies();
 	const { address: walletAddress, isConnected } = useAccount();
 	const { locale, asPath, pathname } = useRouter();
-	const { data: session } = useSession();
+	const { session, setSession } = useAuth();
 	const { disconnect } = useDisconnect();
 	const languages: ILanguage[] = ['en-US', 'pt-BR'];
 	const { isOpen, onOpen, onClose } = useDisclosure();
@@ -122,12 +122,16 @@ export const Sidebar: React.FC = () => {
 		'profile-data',
 		() => getProfileData(walletAddress),
 		{
-			enabled: !!isConnected,
+			enabled: !!isConnected && !!session,
 		}
 	);
 	const handleSignOut = () => {
 		disconnect();
-		signOut();
+		deleteCookie('cali-finance-authorization');
+		localStorage.removeItem('cali-finance-authorization');
+		setSession(false);
+		setCardItems([]);
+		setCompaniesWithMissingFunds([]);
 	};
 
 	return (

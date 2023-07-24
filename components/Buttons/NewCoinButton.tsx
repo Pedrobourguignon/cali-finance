@@ -1,6 +1,6 @@
 import { Button, Icon } from '@chakra-ui/react';
 import { OffsetShadow } from 'components/OffsetShadow';
-import { useSession } from 'next-auth/react';
+import { useAuth } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
 import { useRouter } from 'next/router';
 import React from 'react';
@@ -13,7 +13,7 @@ interface ICoinButton {
 export const NewCoinButton: React.FC<ICoinButton> = ({ onOpen }) => {
 	const { t: translate } = useTranslation('dashboard');
 	const { locale } = useRouter();
-	const { data: session } = useSession();
+	const { session } = useAuth();
 
 	return (
 		<OffsetShadow

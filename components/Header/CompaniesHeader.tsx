@@ -11,7 +11,7 @@ import {
 	useClipboard,
 	Spinner,
 } from '@chakra-ui/react';
-import { useCompanies, usePath, usePicasso } from 'hooks';
+import { useAuth, useCompanies, usePath, usePicasso } from 'hooks';
 import {
 	getLogo,
 	handleLogoImage,
@@ -26,7 +26,7 @@ import {
 	AlertToast,
 } from 'components';
 import useTranslation from 'next-translate/useTranslation';
-import { useSession } from 'next-auth/react';
+
 import router, { useRouter } from 'next/router';
 import NextLink from 'next/link';
 import { useQuery } from 'react-query';
@@ -42,13 +42,11 @@ export const CompaniesHeader = () => {
 	const { getCompanyById, selectedCompany } = useCompanies();
 	const toast = useToast();
 	const { onCopy } = useClipboard(selectedCompany?.contract);
+	const { session } = useAuth();
 
-	const { data: session } = useSession({
-		required: true,
-		onUnauthenticated() {
-			router.push(navigationPaths.dashboard.companies.home);
-		},
-	});
+	useEffect(() => {
+		if (!session) router.push(navigationPaths.dashboard.companies.home);
+	}, []);
 
 	const menuOptions = [
 		{

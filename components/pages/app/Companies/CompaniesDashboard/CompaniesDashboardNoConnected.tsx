@@ -1,13 +1,12 @@
 import { Flex, Text } from '@chakra-ui/react';
 import { OffsetButton } from 'components';
 import useTranslation from 'next-translate/useTranslation';
-import { usePicasso } from 'hooks';
-import { useSession } from 'next-auth/react';
+import { useAuth, usePicasso } from 'hooks';
 
 export const CompaniesDashboardNoConnected = () => {
 	const theme = usePicasso();
 	const { t: translate } = useTranslation('companies');
-	const { data: session } = useSession();
+	const { session } = useAuth();
 	return (
 		<Flex
 			bg={theme.bg.primary}

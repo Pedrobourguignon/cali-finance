@@ -1,6 +1,6 @@
 import { Flex, Text, Link } from '@chakra-ui/react';
 import { ActivitiesData, ActivitiesDataMobile } from 'components';
-import { useCompanies, usePicasso } from 'hooks';
+import { useAuth, useCompanies, usePicasso } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
 import { navigationPaths } from 'utils';
 import NextLink from 'next/link';
@@ -12,6 +12,7 @@ export const RecentActivities = () => {
 	const { getCompanieActivities } = useCompanies();
 	const theme = usePicasso();
 	const { query } = useRouter();
+	const { session } = useAuth();
 	const { isConnected } = useAccount();
 	const { t: translate } = useTranslation('companies');
 	const { t: translateDashboard } = useTranslation('dashboard');
@@ -21,7 +22,7 @@ export const RecentActivities = () => {
 		'recent-activities',
 		() => getCompanieActivities(Number(query.id)),
 		{
-			enabled: !!isConnected && !!query.id,
+			enabled: !!isConnected && !!query.id && !!session,
 		}
 	);
 
@@ -29,7 +30,7 @@ export const RecentActivities = () => {
 		'all-companies-recent-activities',
 		getAllCompaniesUserActivities,
 		{
-			enabled: !!isConnected,
+			enabled: !!isConnected && !!session,
 		}
 	);
 

@@ -7,19 +7,20 @@ import {
 	YourCompaniesMobile,
 } from 'components';
 import { MobileLayout } from 'layouts';
-import { useCompanies } from 'hooks';
+import { useAuth, useCompanies } from 'hooks';
 import { useQuery } from 'react-query';
 import { useAccount } from 'wagmi';
 
 export const CompaniesConnectedMobile: React.FC = () => {
 	const { getCompaniesOverview } = useCompanies();
 	const { isConnected } = useAccount();
+	const { session } = useAuth();
 
 	const { data: companies } = useQuery(
 		'all-companies-overview',
 		getCompaniesOverview,
 		{
-			enabled: !!isConnected,
+			enabled: !!isConnected && !!session,
 		}
 	);
 

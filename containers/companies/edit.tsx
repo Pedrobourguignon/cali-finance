@@ -11,14 +11,14 @@ import { navigationPaths } from 'utils';
 import { ISociaLinksInputValue } from 'types';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useCompanies, useSchema } from 'hooks';
+import { useAuth, useCompanies, useSchema } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
-import { useSession } from 'next-auth/react';
+
 import router, { useRouter } from 'next/router';
 import { CompaniesProvider, TokensProvider } from 'contexts';
 import { useMutation, useQuery } from 'react-query';
 import { ICompany } from 'types/interfaces/main-server/ICompany';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { AxiosError } from 'axios';
 
 interface ISelectedNetwork {
@@ -31,6 +31,7 @@ export const EditCompany = () => {
 	const toast = useToast();
 	const { t: translate } = useTranslation('create-company');
 	const { query } = useRouter();
+	const { session } = useAuth();
 	const { editCompanySchema } = useSchema();
 	const { getCompanyById, updateCompany } = useCompanies();
 	const [selectedType, setSelectedType] = useState<string | undefined>('');
@@ -49,12 +50,9 @@ export const EditCompany = () => {
 		resolver: yupResolver(editCompanySchema),
 	});
 
-	const { data: session } = useSession({
-		required: true,
-		onUnauthenticated() {
-			router.push(navigationPaths.dashboard.companies.home);
-		},
-	});
+	useEffect(() => {
+		if (!session) router.push(navigationPaths.dashboard.companies.home);
+	}, []);
 
 	const [selectedNetwork, setSelectedNetwork] = useState<ISelectedNetwork>({
 		name: 'Polygon',

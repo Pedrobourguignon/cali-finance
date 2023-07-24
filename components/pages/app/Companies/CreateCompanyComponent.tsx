@@ -13,11 +13,11 @@ import {
 	TextProps,
 	Tooltip,
 } from '@chakra-ui/react';
-import { usePicasso } from 'hooks';
+import { useAuth, usePicasso } from 'hooks';
 import { BsQuestionCircle } from 'react-icons/bs';
 import useTranslation from 'next-translate/useTranslation';
 import { BlackButton, NetworkTooltip } from 'components';
-import { useSession } from 'next-auth/react';
+
 import { ChevronDownIcon } from '@chakra-ui/icons';
 import { Dispatch, SetStateAction } from 'react';
 import { ICompany } from 'types/interfaces/main-server/ICompany';
@@ -75,7 +75,7 @@ export const CreateCompanyComponent: React.FC<ICreateCompanyComponent> = ({
 }) => {
 	const theme = usePicasso();
 	const { t: translate } = useTranslation('create-company');
-	const { data: session } = useSession();
+	const { session } = useAuth();
 
 	const companiesType: IBasicSelect[] = [
 		{ value: 'DAO' },

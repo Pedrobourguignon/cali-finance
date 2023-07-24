@@ -5,8 +5,8 @@ import {
 	EditPageSocialMediaInput,
 	ImageUploader,
 } from 'components';
-import { useCompanies, usePicasso } from 'hooks';
-import { useSession } from 'next-auth/react';
+import { useAuth, useCompanies, usePicasso } from 'hooks';
+
 import useTranslation from 'next-translate/useTranslation';
 import { Dispatch, SetStateAction } from 'react';
 import { ISocialMediaInput, ISociaLinksInputValue } from 'types';
@@ -86,7 +86,7 @@ export const EditCompanyLink: React.FC<{
 	const theme = usePicasso();
 	const { editedInfo } = useCompanies();
 	const { t: translate } = useTranslation('create-company');
-	const { data: session } = useSession();
+	const { session } = useAuth();
 
 	const socialLinks: ISocialMediaInput[] = [
 		{

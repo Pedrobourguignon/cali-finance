@@ -9,8 +9,8 @@ import {
 	Text,
 	PopoverCloseButton,
 } from '@chakra-ui/react';
-import { usePicasso, useProfile } from 'hooks';
-import { useSession } from 'next-auth/react';
+import { useAuth, usePicasso, useProfile } from 'hooks';
+
 import useTranslation from 'next-translate/useTranslation';
 import React from 'react';
 import { VscBellDot, VscBell } from 'react-icons/vsc';
@@ -26,7 +26,7 @@ export const NotificationPopover: React.FC<INotificationPopover> = ({
 	onOpen,
 }) => {
 	const theme = usePicasso();
-	const { data: session } = useSession();
+	const { session } = useAuth();
 	const { t: translate } = useTranslation('dashboard');
 	const { address } = useAccount();
 	const { setNotificationsList, notificationsList } = useProfile();

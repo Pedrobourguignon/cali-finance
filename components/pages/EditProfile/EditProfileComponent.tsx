@@ -10,13 +10,13 @@ import {
 	useDisclosure,
 	useToast,
 } from '@chakra-ui/react';
-import { usePicasso, useProfile, useSchema } from 'hooks';
+import { useAuth, usePicasso, useProfile, useSchema } from 'hooks';
 import React, { useEffect, useState } from 'react';
 import useTranslation from 'next-translate/useTranslation';
 import { AlertToast, BlackButton, ImageUploaderModal } from 'components';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
-import { useSession } from 'next-auth/react';
+
 import { IUser } from 'types/interfaces/main-server/IUser';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { getLogo } from 'utils';
@@ -30,7 +30,7 @@ interface IEditedInfo {
 
 export const EditProfileComponent = () => {
 	const { t: translate } = useTranslation('edit-profile');
-	const { data: session } = useSession();
+	const { session } = useAuth();
 	const { updateProfile, getProfileData } = useProfile();
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const { editProfileSchema } = useSchema();
@@ -57,7 +57,7 @@ export const EditProfileComponent = () => {
 		'profile-data',
 		() => getProfileData(address),
 		{
-			enabled: !!isConnected,
+			enabled: !!isConnected && !!session,
 		}
 	);
 

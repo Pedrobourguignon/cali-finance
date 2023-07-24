@@ -19,5 +19,7 @@
 	"userAlreadyExists": "O usuário já existe nesta empresa",
 	"depositSuccessfully": "Depósito realizado com sucesso",
 	"successfulWithdrawal": "Saque realizado com sucesso",
-	"insufficientFunds": "Você não tem saldo suficiente para a transação"
+	"insufficientFunds": "Você não tem saldo suficiente para a transação",
+	"yourCredentials": "Suas credenciais expiraram. Por favor, tente novamente.",
+	"signatureCanceled": "A assinatura foi cancelada. Por favor, tente novamente."
 }

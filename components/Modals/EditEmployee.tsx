@@ -53,7 +53,7 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 	const toast = useToast();
 	const { listOfTokens, usdtQuotation } = useTokens();
 	const { editEmployeeSchema } = useSchema();
-	const { updateEmployee, selectedCompany } = useCompanies();
+	const { updateEmployee, selectedCompany, employeesRevenue } = useCompanies();
 	const [editedEmployeeData, setEditedEmployeeData] = useState({
 		amount: 0,
 		amountInDollar: 0,
@@ -62,7 +62,6 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 		logo: 'https://assets.coingecko.com/coins/images/1/thumb/bitcoin.png?1547033579',
 		symbol: 'BTC',
 	} as ISelectedCoin);
-	const bitcoinPrice = 87586;
 	const debouncedEmployeeAmount = useDebounce(editedEmployeeData.amount, 500);
 
 	const {
@@ -82,7 +81,30 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 		color: 'blackAlpha.500',
 	};
 
-	const expenseCalculation = () => `30% ${translate('more')}`;
+	const expenseCalculation = () => {
+		if (employee.revenue && editedEmployeeData.amountInDollar > 0) {
+			const newEmployeesRevenue =
+				employeesRevenue - employee.revenue + editedEmployeeData.amountInDollar;
+			const expense = newEmployeesRevenue - employeesRevenue;
+			const percentExpenses = (expense / employeesRevenue) * 100;
+			if (percentExpenses > 0) {
+				return {
+					text: `${percentExpenses.toFixed(0)}% ${translate('more')}`,
+					amount: expense.toString(),
+				};
+			}
+			const negativeExpensesPercent =
+				((employeesRevenue - newEmployeesRevenue) / employeesRevenue) * 100;
+			return {
+				text: `${negativeExpensesPercent.toFixed(0)}% ${translate('less')}`,
+				amount: '0',
+			};
+		}
+		return {
+			text: `0% ${translate('more')}`,
+			amount: '0',
+		};
+	};
 
 	const converterToDollar = (amountInDollar: number) => {
 		if (usdtQuotation.USDT?.value) {
@@ -346,14 +368,17 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 											fontWeight="bold"
 										>
 											&nbsp;
-											{expenseCalculation()}
+											{expenseCalculation().text}
 										</Text>
 										<Text fontSize="sm" color={theme.text.primary}>
+											&nbsp;
 											{translate('expenses')}
 										</Text>
 									</Flex>
 									<Text fontSize="xs" color={theme.text.primary}>
-										{translate('pleaseNote')}
+										{translate('pleaseNote', {
+											expense: expenseCalculation().amount,
+										})}
 									</Text>
 								</Flex>
 								<BlackButton

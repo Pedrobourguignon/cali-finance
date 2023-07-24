@@ -1,4 +1,6 @@
 import { MAIN_SERVICE_ROUTES } from 'helpers';
+import { useAuth } from 'hooks';
+
 import React, { createContext, useState, useMemo, useEffect } from 'react';
 import { getNotifications } from 'services';
 import {
@@ -53,6 +55,7 @@ export const ProfileProvider: React.FC<{ children: React.ReactNode }> = ({
 	);
 
 	const [cardItems, setCardItems] = useState<ICoin[]>([]);
+	const { session } = useAuth();
 
 	const getProfileData = async (wallet: `0x${string}` | undefined) => {
 		if (!wallet) throw new Error('User not connected');
@@ -120,7 +123,15 @@ export const ProfileProvider: React.FC<{ children: React.ReactNode }> = ({
 			setCardItems,
 			cardItems,
 		}),
-		[walletData, updateProfile, notificationsList, selectedToken, cardItems]
+		[
+			walletData,
+			updateProfile,
+			notificationsList,
+			selectedToken,
+			cardItems,
+			getProfileData,
+			session,
+		]
 	);
 
 	return (

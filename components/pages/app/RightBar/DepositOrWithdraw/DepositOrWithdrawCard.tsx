@@ -10,13 +10,14 @@ import {
 	useDisclosure,
 } from '@chakra-ui/react';
 import { BlackButton, TokenSelector } from 'components';
-import { usePicasso, useSchema } from 'hooks';
+import { usePicasso, useSchema, useTokens } from 'hooks';
 import { useForm } from 'react-hook-form';
 import useTranslation from 'next-translate/useTranslation';
 import { Dispatch, SetStateAction, useState } from 'react';
 import { IoIosArrowDown } from 'react-icons/io';
 import { ISelectedCoin, ITransaction } from 'types';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { getCoinLogo } from 'utils';
 
 interface IDepositOrWithdrawCard {
 	setTransaction: Dispatch<SetStateAction<ITransaction>>;
@@ -35,6 +36,7 @@ export const DepositOrWithdrawCard: React.FC<IDepositOrWithdrawCard> = ({
 	const { transactionSchema } = useSchema();
 	const theme = usePicasso();
 	const { onClose, isOpen, onOpen } = useDisclosure();
+	const { listOfTokens } = useTokens();
 	const buttonOptions = [translate('deposit'), translate('withdrawal')];
 	const [selectedOption, setSelectedOption] = useState<string>(
 		translate('deposit')
@@ -49,7 +51,7 @@ export const DepositOrWithdrawCard: React.FC<IDepositOrWithdrawCard> = ({
 
 	const [token, setToken] = useState<ISelectedCoin>({
 		logo: 'https://assets.coingecko.com/coins/images/1/thumb/bitcoin.png?1547033579',
-		symbol: 'BTC',
+		symbol: 'USDT',
 	} as ISelectedCoin);
 
 	const handleSelectedButton = (btnName: string) => {
@@ -57,11 +59,13 @@ export const DepositOrWithdrawCard: React.FC<IDepositOrWithdrawCard> = ({
 		setSelectedOption(selectedButton!);
 	};
 
+	const [bool, setBool] = useState(false);
+	console.log(bool);
 	const handleDeposit = (transaction: IDepositOrWithdrawnForm) => {
 		setTransaction({
 			amount: transaction.amount,
-			logo: token.logo,
-			symbol: token.symbol,
+			logo: getCoinLogo('USDT', listOfTokens),
+			symbol: 'USDT',
 			type: selectedOption,
 		});
 		setConfirm(true);
@@ -79,11 +83,11 @@ export const DepositOrWithdrawCard: React.FC<IDepositOrWithdrawCard> = ({
 					gap="4"
 					w="100%"
 				>
-					<TokenSelector
+					{/* <TokenSelector
 						isOpen={isOpen}
 						onClose={onClose}
 						setToken={setToken}
-					/>
+					/> */}
 					<Flex w="100%" justify="center" direction="row">
 						{buttonOptions.map((item, index) => (
 							<Button
@@ -117,29 +121,35 @@ export const DepositOrWithdrawCard: React.FC<IDepositOrWithdrawCard> = ({
 									zIndex="docked"
 									{...register('amount')}
 								/>
-								<Button
+								<Flex
 									borderLeftRadius="none"
+									borderRightRadius="md"
 									bg={theme.bg.primary}
-									_hover={{ opacity: '80%' }}
 									h="8"
 									_active={{}}
 									_focus={{}}
-									onClick={onOpen}
+									// _hover={{ opacity: '80%' }}
+									// onClick={onOpen}
 								>
-									<Flex gap="2" align="center" color="white">
-										<Img boxSize="4" src={token.logo} />
+									<Flex gap="2" align="center" color="white" px="3">
+										<Img boxSize="4" src={getCoinLogo('USDT', listOfTokens)} />
 										<Text fontSize="sm" whiteSpace="nowrap">
 											{token.symbol}
 										</Text>
-										<Icon boxSize="4" as={IoIosArrowDown} />
+										{/* <Icon boxSize="4" as={IoIosArrowDown} /> */}
 									</Flex>
-								</Button>
+								</Flex>
 							</InputGroup>
 							<Text color="red" fontSize="sm">
 								{errors.amount?.message}
 							</Text>
 						</Flex>
-						<BlackButton py="1.5" type="submit" whiteSpace="normal">
+						<BlackButton
+							py="1.5"
+							type="submit"
+							whiteSpace="normal"
+							onClick={() => setBool(true)}
+						>
 							{selectedOption === translate('deposit')
 								? translate('addFunds')
 								: translate('withdrawFunds')}

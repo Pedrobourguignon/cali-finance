@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { Button, Flex, useDisclosure } from '@chakra-ui/react';
 import { ImageUploaderModal } from 'components';
-import { usePicasso } from 'hooks';
-import { useSession } from 'next-auth/react';
+import { useAuth, usePicasso } from 'hooks';
+
 import useTranslation from 'next-translate/useTranslation';
 
 interface IImageUploader {
@@ -25,7 +25,7 @@ export const ImageUploader: React.FC<IImageUploader> = ({
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const theme = usePicasso();
 	const { t: translate } = useTranslation('create-company');
-	const { data: session } = useSession();
+	const { session } = useAuth();
 
 	return (
 		<Flex w="full" justify="space-evenly">
