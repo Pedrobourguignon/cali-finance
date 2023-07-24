@@ -8,7 +8,6 @@ import {
 	ModalCloseButton,
 	Text,
 	Icon,
-	Button,
 	TextProps,
 	Input,
 	FormControl,
@@ -17,10 +16,9 @@ import {
 	useDisclosure,
 	useToast,
 } from '@chakra-ui/react';
-import { useCompanies, usePicasso, useSchema } from 'hooks';
+import { useCompanies, usePicasso, useSchema, useTokens } from 'hooks';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
-import { IoIosArrowDown } from 'react-icons/io';
 import { IEditedEmployeeInfo, IEditEmployee, ISelectedCoin } from 'types';
 import {
 	BlackButton,
@@ -31,7 +29,7 @@ import {
 } from 'components';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { mainClient, truncateWallet } from 'utils';
+import { getCoinLogo, mainClient, truncateWallet } from 'utils';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { AxiosError } from 'axios';
 import useTranslation from 'next-translate/useTranslation';
@@ -53,6 +51,7 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 	const { query } = useRouter();
 	const queryClient = useQueryClient();
 	const toast = useToast();
+	const { listOfTokens, usdtQuotation } = useTokens();
 	const { editEmployeeSchema } = useSchema();
 	const { updateEmployee, selectedCompany, employeesRevenue } = useCompanies();
 	const [editedEmployeeData, setEditedEmployeeData] = useState({
@@ -108,10 +107,13 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 	};
 
 	const converterToDollar = (amountInDollar: number) => {
-		setEditedEmployeeData(prevState => ({
-			...prevState,
-			amountInDollar,
-		}));
+		if (usdtQuotation.USDT?.value) {
+			setEditedEmployeeData(prevState => ({
+				...prevState,
+				// eslint-disable-next-line no-unsafe-optional-chaining
+				amountInDollar: amountInDollar * usdtQuotation.USDT?.value,
+			}));
+		}
 	};
 	const {
 		handleSubmit,
@@ -128,6 +130,7 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 		setEditedEmployeeData(prevState => ({
 			...prevState,
 			amount: 0,
+			amountInDollar: 0,
 		}));
 	};
 
@@ -223,7 +226,7 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 
 	const handleEditEmployee = (editedEmployee: IEditedEmployeeInfo) => {
 		mutate({
-			asset: token.symbol,
+			asset: 'USDT',
 			revenue: editedEmployee.revenue,
 			userAddress: employee.wallet,
 		});
@@ -269,8 +272,16 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 								>
 									{translate('editEmployee')}
 								</Text>
-								<Text color={theme.text.primary} fontSize="sm" maxW="72">
-									{employee.name} - {truncateWallet(employee?.wallet)}
+								<Text
+									color={theme.text.primary}
+									fontSize="sm"
+									maxW="72"
+									fontWeight="medium"
+								>
+									{employee.name?.length !== 42
+										? employee.name
+										: truncateWallet(employee.name)}{' '}
+									- {truncateWallet(employee?.wallet)}
 								</Text>
 							</Flex>
 							<ModalCloseButton color="gray.400" py="7" />
@@ -320,8 +331,9 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 												);
 											}}
 										/>
-										<Button
+										<Flex
 											borderLeftRadius="none"
+											borderRightRadius="md"
 											bg={theme.bg.primary}
 											_hover={{ opacity: '80%' }}
 											_active={{}}
@@ -329,14 +341,14 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 											_focus={{}}
 											onClick={onOpenTokenSelector}
 										>
-											<Flex gap="2" align="center">
-												<Img boxSize="4" src={token.logo} />
-												<Text fontSize="sm" width="8" lineHeight="5">
-													{token.symbol.toUpperCase()}
-												</Text>
-												<Icon boxSize="4" as={IoIosArrowDown} />
+											<Flex gap="2" align="center" px="4">
+												<Img
+													boxSize="4"
+													src={getCoinLogo('USDT', listOfTokens)}
+												/>
+												<Text fontSize="sm">USDT</Text>
 											</Flex>
-										</Button>
+										</Flex>
 									</InputGroup>
 									<Text fontSize="xs" color="red">
 										{errors.revenue?.message}

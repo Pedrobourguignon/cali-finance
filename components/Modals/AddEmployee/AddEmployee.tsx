@@ -21,24 +21,17 @@ import {
 import {
 	AlertToast,
 	BlackButton,
-	TokenSelector,
 	UploadCsv,
 	WaitMetamaskFinishTransaction,
 } from 'components';
-import { useCompanies, usePicasso, useSchema } from 'hooks';
+import { useCompanies, usePicasso, useSchema, useTokens } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
 import React, { useState } from 'react';
-import {
-	IAddEmployee,
-	IAddEmployeeForm,
-	INewEmployee,
-	ISelectedCoin,
-} from 'types';
+import { IAddEmployee, IAddEmployeeForm, INewEmployee } from 'types';
 import { IoPersonAddOutline } from 'react-icons/io5';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { IoIosArrowDown } from 'react-icons/io';
-import { navigationPaths } from 'utils';
+import { getCoinLogo, navigationPaths } from 'utils';
 import NextLink from 'next/link';
 import { useMutation, useQueryClient } from 'react-query';
 import { AxiosError } from 'axios';
@@ -60,11 +53,7 @@ export const AddEmployee: React.FC<IAddEmployee> = ({ isOpen, onClose }) => {
 		amount: 0,
 		amountInDollar: 0,
 	});
-	const [token, setToken] = useState<ISelectedCoin>({
-		logo: 'https://assets.coingecko.com/coins/images/1/thumb/bitcoin.png?1547033579',
-		symbol: 'BTC',
-	} as ISelectedCoin);
-	const bitcoinPrice = 87.586;
+	const { listOfTokens, usdtQuotation } = useTokens();
 	const { selectedCompany, addEmployeeToTeam } = useCompanies();
 	const { addEmployeeSchema } = useSchema();
 	const queryClient = useQueryClient();
@@ -77,11 +66,11 @@ export const AddEmployee: React.FC<IAddEmployee> = ({ isOpen, onClose }) => {
 
 	const toast = useToast();
 	const theme = usePicasso();
-	const {
-		isOpen: isOpenTokenSelector,
-		onOpen: onOpenTokenSelector,
-		onClose: onCloseTokenSelector,
-	} = useDisclosure();
+	// const {
+	// 	isOpen: isOpenTokenSelector,
+	// 	onOpen: onOpenTokenSelector,
+	// 	onClose: onCloseTokenSelector,
+	// } = useDisclosure();
 	const { onClose: onCloseLoadingConfirmation } = useDisclosure();
 
 	const {
@@ -116,10 +105,13 @@ export const AddEmployee: React.FC<IAddEmployee> = ({ isOpen, onClose }) => {
 	};
 
 	const converterToDollar = (amountInDollar: number) => {
-		setAddedEmployeeData(prevState => ({
-			...prevState,
-			amountInDollar: amountInDollar * bitcoinPrice,
-		}));
+		if (usdtQuotation.USDT?.value) {
+			setAddedEmployeeData(prevState => ({
+				...prevState,
+				// eslint-disable-next-line no-unsafe-optional-chaining
+				amountInDollar: amountInDollar * usdtQuotation.USDT?.value,
+			}));
+		}
 	};
 	const handleResetFormInputs = () => {
 		reset();
@@ -128,6 +120,7 @@ export const AddEmployee: React.FC<IAddEmployee> = ({ isOpen, onClose }) => {
 			...prevState,
 			amount: 0,
 			walletAddress: '',
+			amountInDollar: 0,
 		}));
 	};
 
@@ -218,17 +211,17 @@ export const AddEmployee: React.FC<IAddEmployee> = ({ isOpen, onClose }) => {
 		mutate({
 			userAddress: newEmployeeData.walletAddress,
 			revenue: newEmployeeData.amount,
-			asset: token.symbol,
+			asset: 'USDT',
 		});
 	};
 
 	return (
 		<Modal isOpen={isOpen} onClose={handleResetFormInputs} size="sm">
-			<TokenSelector
+			{/* <TokenSelector
 				isOpen={isOpenTokenSelector}
 				onClose={onCloseTokenSelector}
 				setToken={setToken}
-			/>
+			/> */}
 			<ModalOverlay />
 			<ModalContent
 				m="auto"
@@ -368,6 +361,7 @@ export const AddEmployee: React.FC<IAddEmployee> = ({ isOpen, onClose }) => {
 									</Flex>
 									<InputGroup>
 										<Input
+											type="number"
 											{...register('amount')}
 											_placeholder={{ ...placeholderStyle }}
 											placeholder="0.00"
@@ -397,23 +391,20 @@ export const AddEmployee: React.FC<IAddEmployee> = ({ isOpen, onClose }) => {
 												);
 											}}
 										/>
-										<Button
+										<Flex
 											borderLeftRadius="none"
+											borderRightRadius="md"
 											bg={theme.bg.primary}
-											_hover={{ opacity: '80%' }}
-											_active={{}}
-											_focus={{}}
 											h="2.136rem"
-											onClick={onOpenTokenSelector}
 										>
-											<Flex gap="2" align="center">
-												<Img boxSize="4" src={token.logo} />
-												<Text fontSize="sm" width="8" lineHeight="5">
-													{token.symbol}
-												</Text>
-												<Icon boxSize="4" as={IoIosArrowDown} />
+											<Flex gap="2" align="center" px="4">
+												<Img
+													src={getCoinLogo('USDT', listOfTokens)}
+													boxSize="4"
+												/>
+												<Text fontSize="sm">USDT</Text>
 											</Flex>
-										</Button>
+										</Flex>
 									</InputGroup>
 									<Text fontSize="xs" color="red">
 										{errors.amount?.message}
