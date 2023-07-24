@@ -66,16 +66,19 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 			await authClient.get(AUTH_SERVICE_ROUTES.checkToken);
 			setSession(true);
 		} catch (error: any) {
-			toast({
-				position: 'top',
-				render: () => (
-					<AlertToast
-						onClick={toast.closeAll}
-						text="yourCredentials"
-						type="error"
-					/>
-				),
-			});
+			if (!toast.isActive('credentials-toast')) {
+				toast({
+					position: 'top',
+					id: 'credentials-toast',
+					render: () => (
+						<AlertToast
+							onClick={toast.closeAll}
+							text="yourCredentials"
+							type="error"
+						/>
+					),
+				});
+			}
 		}
 	};
 
