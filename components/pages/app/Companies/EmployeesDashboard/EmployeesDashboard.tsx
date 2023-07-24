@@ -28,6 +28,7 @@ export const EmployeesDashboard: React.FC<IEmployeeDashboard> = ({
 		selectedCompany,
 		getCompanyById,
 		setEmployeesBalance,
+		setEmployeesRevenue,
 	} = useCompanies();
 	const { query } = useRouter();
 	const { isOpen, onOpen, onClose } = useDisclosure();
@@ -46,6 +47,17 @@ export const EmployeesDashboard: React.FC<IEmployeeDashboard> = ({
 	} = useQuery('all-company-employees', () =>
 		getAllCompanyEmployees(Number(query.id))
 	);
+
+	const calculateEmployeeRevenue = () => {
+		if (employees) {
+			const sum = employees.reduce(
+				(prevVal, currentVal) =>
+					currentVal.revenue ? prevVal + currentVal.revenue : 0,
+				0
+			);
+			setEmployeesRevenue(sum);
+		}
+	};
 
 	const { data: selectedCompanyData } = useQuery(
 		'created-company-overview',
@@ -82,6 +94,7 @@ export const EmployeesDashboard: React.FC<IEmployeeDashboard> = ({
 
 	useEffect(() => {
 		getEmployeesBalance();
+		calculateEmployeeRevenue();
 	}, [employees, selectedCompanyData]);
 
 	useEffect(() => {
