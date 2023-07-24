@@ -13,20 +13,24 @@ import { ITransaction } from 'types';
 import { useContractWrite, useWaitForTransaction } from 'wagmi';
 import { AlertToast, WaitMetamaskFinishTransaction } from 'components';
 import companyAbi from 'utils/abi/company.json';
+import { useRouter } from 'next/router';
 
 interface IConfirmTransaction {
 	transaction: ITransaction;
+	confirm: boolean;
 	setConfirm: Dispatch<SetStateAction<boolean>>;
 }
 
 export const ConfirmTransaction: React.FC<IConfirmTransaction> = ({
 	transaction,
+	confirm,
 	setConfirm,
 }) => {
 	const { t: translate } = useTranslation('company-overall');
 	const buttonOptions = [translate('deposit'), translate('withdrawal')];
 	const toast = useToast();
 	const { selectedCompany } = useCompanies();
+	const { locale } = useRouter();
 
 	const [selectedOption, setSelectedOption] = useState<string | undefined>(
 		transaction.type
@@ -115,6 +119,11 @@ export const ConfirmTransaction: React.FC<IConfirmTransaction> = ({
 		} else withdrawFunds?.();
 	};
 
+	const subtractFee = () =>
+		Number(
+			(transaction.amount - transaction.amount * 0.005).toLocaleString(locale)
+		).toFixed(3);
+
 	return (
 		<Flex
 			bg="white"
@@ -142,6 +151,7 @@ export const ConfirmTransaction: React.FC<IConfirmTransaction> = ({
 						_hover={{}}
 						_focus={{}}
 						fontSize="sm"
+						isDisabled={confirm}
 					>
 						{item}
 					</Button>
@@ -188,9 +198,7 @@ export const ConfirmTransaction: React.FC<IConfirmTransaction> = ({
 							})}
 						</Text>
 						<Flex align="center" gap="1">
-							<Text fontSize="sm">
-								{transaction.amount.toLocaleString('en-US')}
-							</Text>
+							<Text fontSize="sm">{subtractFee()}</Text>
 							<Img src={transaction.logo} boxSize="4" />
 						</Flex>
 					</Flex>

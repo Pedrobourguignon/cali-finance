@@ -8,11 +8,11 @@ import {
 	MultipleCompaniesAlert,
 	SingleCompanyAlert,
 } from 'components';
-import { IEmployee } from 'types';
+import { GetCompanyUsersRes } from 'types/interfaces/main-server/IUser';
 
 export const AlertsComponent = () => {
 	const { companiesWithMissingFunds, getAllCompanyEmployees } = useCompanies();
-	const [employees, setEmployees] = useState<IEmployee[]>([]);
+	const [employees, setEmployees] = useState<GetCompanyUsersRes[]>([]);
 	const { session } = useAuth();
 
 	const [missingValue, setMissingValue] = useState<number>(0);
