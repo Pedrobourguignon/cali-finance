@@ -20,7 +20,6 @@ export const DisplayedNotifications: React.FC<IDisplayedNotifications> = ({
 		pagesVisited + notificationPerPage
 	);
 
-	console.log(filterTeamNotifications);
 	return (
 		<CompaniesProvider>
 			<Flex direction="column" gap="2">

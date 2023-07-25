@@ -147,7 +147,10 @@ export const CompanyCard: React.FC<ICompanyCard> = ({
 										<Skeleton w="10" h="4" />
 									) : (
 										<Text>
-											${company.totalFundsUsd?.toLocaleString('en-US')}
+											$
+											{company.totalFundsUsd
+												? company.totalFundsUsd?.toLocaleString('en-US')
+												: 0}
 										</Text>
 									)}
 								</Flex>
@@ -181,7 +184,7 @@ export const CompanyCard: React.FC<ICompanyCard> = ({
 				{company?.isAdmin ? (
 					<Link
 						href={navigationPaths.dashboard.companies.overview(
-							company.id!.toString()
+							company.id?.toString()
 						)}
 						as={NextLink}
 					>

@@ -1,11 +1,13 @@
 import { DashboardContainer } from 'containers';
-import { CompaniesProvider, TokensProvider } from 'contexts';
+import { AuthProvider, CompaniesProvider, TokensProvider } from 'contexts';
 import React from 'react';
 
 const Dashboard = () => (
 	<TokensProvider>
 		<CompaniesProvider>
-			<DashboardContainer />
+			<AuthProvider>
+				<DashboardContainer />
+			</AuthProvider>
 		</CompaniesProvider>
 	</TokensProvider>
 );

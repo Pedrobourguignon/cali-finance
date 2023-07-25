@@ -1,6 +1,6 @@
 import { Flex } from '@chakra-ui/react';
 import { HistoryComponent, HistoryComponentMobile } from 'components';
-import { CompaniesProvider, ProfileProvider } from 'contexts';
+import { AuthProvider, CompaniesProvider, ProfileProvider } from 'contexts';
 import { useAuth, usePicasso, useProfile } from 'hooks';
 
 import React from 'react';
@@ -24,12 +24,14 @@ export const HistoryContainer = () => {
 	return (
 		<CompaniesProvider>
 			<ProfileProvider>
-				<Flex bg={theme.bg.primary} display={{ base: 'none', sm: 'flex' }}>
-					<HistoryComponent history={historyNotifications} />
-				</Flex>
-				<Flex bg={theme.bg.primary} display={{ base: 'flex', sm: 'none' }}>
-					<HistoryComponentMobile history={historyNotifications} />
-				</Flex>
+				<AuthProvider>
+					<Flex bg={theme.bg.primary} display={{ base: 'none', sm: 'flex' }}>
+						<HistoryComponent history={historyNotifications} />
+					</Flex>
+					<Flex bg={theme.bg.primary} display={{ base: 'flex', sm: 'none' }}>
+						<HistoryComponentMobile history={historyNotifications} />
+					</Flex>
+				</AuthProvider>
 			</ProfileProvider>
 		</CompaniesProvider>
 	);

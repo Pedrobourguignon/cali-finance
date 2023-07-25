@@ -1,4 +1,4 @@
-import { Button, Flex, Skeleton, Text, useDisclosure } from '@chakra-ui/react';
+import { Button, Flex, Text, useDisclosure } from '@chakra-ui/react';
 import { Asset, OffsetShadow } from 'components';
 import { useCompanies, usePicasso } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
@@ -60,16 +60,12 @@ export const MyAssets = () => {
 							>
 								{translate('myAssets')}
 							</Text>
-							{allUserBalance.length > 0 ? (
-								<Text
-									fontSize={{ base: 'sm', md: 'xs', lg: 'sm' }}
-									color={theme.text.primary}
-								>
-									${getUsdtBalance?.toLocaleString('en-US')}
-								</Text>
-							) : (
-								<Skeleton w="10" h="3" />
-							)}
+							<Text
+								fontSize={{ base: 'sm', md: 'xs', lg: 'sm' }}
+								color={theme.text.primary}
+							>
+								${getUsdtBalance?.toLocaleString('en-US')}
+							</Text>
 						</Flex>
 						{assetOptions.length > 3 && (
 							<Button

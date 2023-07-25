@@ -39,6 +39,7 @@ export const Paginator: FC<IPaginatorProps> = ({
 }) => {
 	const { t: translate } = useTranslation('dashboard');
 	const theme = usePicasso();
+
 	return (
 		<Flex justifyContent="space-between" align="center" gap="2">
 			<PaginatorButton
