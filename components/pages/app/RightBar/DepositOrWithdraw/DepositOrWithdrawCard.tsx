@@ -60,7 +60,6 @@ export const DepositOrWithdrawCard: React.FC<IDepositOrWithdrawCard> = ({
 	};
 
 	const [bool, setBool] = useState(false);
-	console.log(bool);
 	const handleDeposit = (transaction: IDepositOrWithdrawnForm) => {
 		setTransaction({
 			amount: transaction.amount,

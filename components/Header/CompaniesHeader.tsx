@@ -53,14 +53,13 @@ export const CompaniesHeader = () => {
 		},
 	];
 
-	const { isLoading: isLoadingSelectedCompany, error: selectedCompanyError } =
-		useQuery(
-			'created-company-overview',
-			() => getCompanyById(Number(query.id)),
-			{
-				onError: () => router.push('/404'),
-			}
-		);
+	const { isLoading: isLoadingSelectedCompany } = useQuery(
+		'created-company-overview',
+		() => getCompanyById(Number(query.id)),
+		{
+			onError: () => router.push('/404'),
+		}
+	);
 
 	const handleCopyButton = () => {
 		onCopy();
@@ -88,30 +87,32 @@ export const CompaniesHeader = () => {
 			);
 		}
 		return (
-			<Flex align="center">
-				<Text
-					color="blue.300"
-					as="u"
-					fontSize="md"
-					cursor="pointer"
-					onClick={() =>
-						window.open(
-							`https://mumbai.polygonscan.com/address/${selectedCompany?.contract}`
-						)
-					}
-				>
-					{truncateWallet(selectedCompany?.contract)}
-				</Text>
-				<Button
-					boxSize="3"
-					bg="transparent"
-					onClick={() => {
-						handleCopyButton();
-					}}
-				>
-					<Icon as={MdContentCopy} boxSize="4" color="gray.500" />
-				</Button>
-			</Flex>
+			selectedCompany.contract && (
+				<Flex align="center">
+					<Text
+						color="blue.300"
+						as="u"
+						fontSize="md"
+						cursor="pointer"
+						onClick={() =>
+							window.open(
+								`https://mumbai.polygonscan.com/address/${selectedCompany?.contract}`
+							)
+						}
+					>
+						{truncateWallet(selectedCompany?.contract)}
+					</Text>
+					<Button
+						boxSize="3"
+						bg="transparent"
+						onClick={() => {
+							handleCopyButton();
+						}}
+					>
+						<Icon as={MdContentCopy} boxSize="4" color="gray.500" />
+					</Button>
+				</Flex>
+			)
 		);
 	};
 	useEffect(() => {
@@ -173,9 +174,11 @@ export const CompaniesHeader = () => {
 					{isLoadingSelectedCompany ? (
 						<Skeleton w="14" h="6" />
 					) : (
-						<Text fontSize="xl">{`$ ${selectedCompany?.totalFundsUsd?.toLocaleString(
-							'en-US'
-						)}`}</Text>
+						selectedCompany.totalFundsUsd && (
+							<Text fontSize="xl">{`$ ${selectedCompany?.totalFundsUsd?.toLocaleString(
+								'en-US'
+							)}`}</Text>
+						)
 					)}
 					<Text fontSize="sm" fontWeight="semibold">
 						{translate('totalFunds')}
