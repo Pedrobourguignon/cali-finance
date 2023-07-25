@@ -222,7 +222,7 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 				company,
 			})
 			.then(id =>
-				router.push(navigationPaths.dashboard.companies.overview(query.id!))
+				router.push(navigationPaths.dashboard.companies.overview(query.id))
 			);
 	};
 

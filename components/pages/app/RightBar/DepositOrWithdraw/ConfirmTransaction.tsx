@@ -50,6 +50,19 @@ export const ConfirmTransaction: React.FC<IConfirmTransaction> = ({
 		abi: companyAbi,
 		functionName: 'deposit',
 		args: [process.env.NEXT_PUBLIC_CALI_TOKEN, putDecimals(transaction.amount)],
+		onError() {
+			toast({
+				position: 'top',
+				render: () => (
+					<AlertToast
+						onClick={toast.closeAll}
+						text="insufficientFunds"
+						type="error"
+					/>
+				),
+			});
+			setConfirm(false);
+		},
 	});
 
 	const { write: approveDeposit, data: approvedData } = useContractWrite({
