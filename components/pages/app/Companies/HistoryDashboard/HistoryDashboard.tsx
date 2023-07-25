@@ -7,16 +7,21 @@ import {
 	MenuList,
 	Text,
 } from '@chakra-ui/react';
-import { usePicasso } from 'hooks';
+import { useAuth, useCompanies, usePicasso } from 'hooks';
 import { HistoryData } from 'components';
-import { IUserHistory } from 'types';
+import { IHistoryNotifications, IUserHistory } from 'types';
 import { useState } from 'react';
 import useTranslation from 'next-translate/useTranslation';
 import { BiChevronDown } from 'react-icons/bi';
+import { useQuery } from 'react-query';
+import { useRouter } from 'next/router';
 
 export const HistoryDashboard = () => {
 	const { t: translate } = useTranslation('company-overall');
 	const { t: translateHistory } = useTranslation('history-page');
+	const { getCompanieActivities } = useCompanies();
+	const { session } = useAuth();
+	const { query } = useRouter();
 	const userHistory: IUserHistory[] = [
 		{
 			icon: '',
@@ -80,6 +85,23 @@ export const HistoryDashboard = () => {
 		translate('withdrawal'),
 		translate('deposit'),
 	];
+
+	const { data: companyFinancialActivities } = useQuery(
+		'recent-activities',
+		() => getCompanieActivities(Number(query.id)),
+		{
+			enabled: !!query.id && !!session,
+		}
+	);
+
+	// const [financialNotifications, setFinancialNotifications] =
+	// 	useState<IHistoryNotifications[]>();
+	const financialNotifications = companyFinancialActivities?.filter(
+		notification =>
+			notification.event.name === 'user_withdraw' ||
+			notification.event.name === 'company_withdraw' ||
+			notification.event.name === 'company_deposit_received'
+	);
 
 	return (
 		<Flex direction="column" gap="4" w="full">
