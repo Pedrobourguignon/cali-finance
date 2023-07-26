@@ -22,18 +22,18 @@ export const HistoryContainer = () => {
 	);
 
 	return (
-		<AuthProvider>
-			<CompaniesProvider>
-				<ProfileProvider>
+		<CompaniesProvider>
+			<ProfileProvider>
+				<AuthProvider>
 					<Flex bg={theme.bg.primary} display={{ base: 'none', sm: 'flex' }}>
 						<HistoryComponent history={historyNotifications} />
 					</Flex>
 					<Flex bg={theme.bg.primary} display={{ base: 'flex', sm: 'none' }}>
 						<HistoryComponentMobile history={historyNotifications} />
 					</Flex>
-				</ProfileProvider>
-			</CompaniesProvider>
-		</AuthProvider>
+				</AuthProvider>
+			</ProfileProvider>
+		</CompaniesProvider>
 	);
 };
 

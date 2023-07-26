@@ -40,7 +40,7 @@ export const ContactOptionsModal: React.FC<IBasicModal> = ({
 						borderColor={theme.bg.primary}
 					>
 						<ModalHeader
-							bgImage="/images/Rectangle-40475.png"
+							bgImage="/images/haveproblem.png"
 							bgRepeat="no-repeat"
 							bgSize="cover"
 							py="5"

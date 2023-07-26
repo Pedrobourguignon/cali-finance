@@ -30,7 +30,7 @@ export const DashboardHeader: React.FC = () => {
 		getCoinServiceTokens(symbols.toString())
 	);
 
-	const variation = coinServiceTokens?.USDT.change;
+	const variation = coinServiceTokens?.USDT?.change;
 
 	const greetingMessage = useMemo(() => {
 		const hour = new Date().getHours();

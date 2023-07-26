@@ -9,6 +9,7 @@ export interface IHistoryNotifications {
 	id: number;
 	meta: {
 		data: {
+			amount: number;
 			companyId: number;
 			companyName: string;
 			companyLogo: string;
@@ -16,7 +17,6 @@ export interface IHistoryNotifications {
 			teamId: number;
 			userAddedWallet: string;
 			userId: number;
-			amount: number;
 		};
 		description: ILanguages;
 	};

@@ -51,7 +51,12 @@ export const RecentActivitiesData: React.FC<IActivitiesData> = ({
 		// eslint-disable-next-line react/jsx-no-useless-fragment
 		<>
 			<Grid
-				display={activities.event.name === 'user_withdraw' ? 'flex' : 'none'}
+				display={
+					activities.event.name === 'user_withdraw' ||
+					activities.event.name === 'company_deposit_received'
+						? 'flex'
+						: 'none'
+				}
 				templateColumns="repeat(2, 1fr)"
 				w="full"
 				justifyContent="space-between"

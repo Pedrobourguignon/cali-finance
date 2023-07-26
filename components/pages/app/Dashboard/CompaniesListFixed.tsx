@@ -38,6 +38,17 @@ export const CompaniesListFixed = () => {
 		};
 	}, []);
 
+	const showSeeAllOrLess = () => {
+		if (allUserCompanies && allUserCompanies.length > flexWidth) {
+			return (
+				<Text fontSize="xs" color="gray.500" fontWeight="medium">
+					{isFullList ? translate('seeLess') : translate('seeAll')}
+				</Text>
+			);
+		}
+		return <Flex />;
+	};
+
 	return (
 		<Flex direction="column" pt="10" w="100%">
 			<Flex justify="space-between" align="center">
@@ -59,9 +70,7 @@ export const CompaniesListFixed = () => {
 						(window.innerWidth > 1768 && allUserCompanies?.length === 5)
 					}
 				>
-					<Text fontSize="xs" color="gray.500" fontWeight="medium">
-						{isFullList ? translate('seeLess') : translate('seeAll')}
-					</Text>
+					{showSeeAllOrLess()}
 				</Button>
 			</Flex>
 			<Flex justify="flex-start" wrap="wrap" gap={{ md: '4', '2xl': '6' }}>

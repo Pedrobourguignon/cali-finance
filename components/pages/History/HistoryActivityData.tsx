@@ -49,18 +49,25 @@ export const HistoryActivityData: React.FC<IActivitiesData> = ({
 	return (
 		// eslint-disable-next-line react/jsx-no-useless-fragment
 		<>
-			<Grid
+			{/* <Grid
 				display={activities.event.name === 'user_withdraw' ? 'flex' : 'none'}
 				templateColumns="repeat(2, 1fr)"
 				w="full"
 				justifyContent="space-between"
 				alignItems="center"
-				bg="gray.50"
+				bg="white"
 				px="3"
+				py="2"
+				minH="3.25rem"
+				borderRadius="base"
+				gap={{ md: '0', lg: '7' }}
 			>
+				<GridItem flex="2.5">a</GridItem>
+				<GridItem flex="2.5">b</GridItem>
 				<GridItem
 					display="flex"
 					flexDirection="row"
+					flex="2.5"
 					alignItems="center"
 					gap="2"
 				>
@@ -82,6 +89,7 @@ export const HistoryActivityData: React.FC<IActivitiesData> = ({
 					flexDirection="column"
 					alignItems="center"
 					gap="2"
+					flex="2.5"
 				>
 					<Flex direction="column" align="end">
 						<Text fontSize="xs" color={theme.text.black}>
@@ -92,7 +100,7 @@ export const HistoryActivityData: React.FC<IActivitiesData> = ({
 						</Text>
 					</Flex>
 				</GridItem>
-			</Grid>
+			</Grid> */}
 			{activities.event.name !== 'team_member_added' &&
 				activities.event.name !== 'user_added_to_company' &&
 				activities.event.name !== 'user_added_to_team' && (
@@ -104,9 +112,9 @@ export const HistoryActivityData: React.FC<IActivitiesData> = ({
 						borderRadius="base"
 						align="center"
 						gap={{ md: '0', lg: '7' }}
-						display={
-							activities.event.name === 'user_withdraw' ? 'none' : 'flex'
-						}
+						// display={
+						// 	activities.event.name === 'user_withdraw' ? 'none' : 'flex'
+						// }
 					>
 						<Grid
 							templateColumns="repeat(4, 1fr)"
@@ -148,7 +156,7 @@ export const HistoryActivityData: React.FC<IActivitiesData> = ({
 											objectFit="cover"
 										/>
 									</Flex>
-								) : (
+								) : activities.meta.data.companyName ? (
 									<Flex
 										boxSize="6"
 										borderRadius="full"
@@ -161,12 +169,23 @@ export const HistoryActivityData: React.FC<IActivitiesData> = ({
 									>
 										{handleLogoImage(activities.meta.data.companyName)}
 									</Flex>
+								) : (
+									<Img
+										src={
+											profileData?.picture === null
+												? '/images/avatar.png'
+												: getLogo(profileData?.picture)
+										}
+										borderRadius="full"
+										boxSize="6"
+										objectFit="cover"
+									/>
 								)}
 								{activities.event.name === 'user_updated' ||
 								activities.event.name === 'team_member_updated' ||
 								activities.event.name === 'user_settings_updated' ? (
 									<Accordion allowToggle w="full">
-										<AccordionItem w="full">
+										<AccordionItem w="full" _hover={{ opacity: 0.8 }}>
 											{({ isExpanded }) => (
 												<>
 													<AccordionButton
@@ -201,8 +220,9 @@ export const HistoryActivityData: React.FC<IActivitiesData> = ({
 														p="0"
 														color={theme.text.primary}
 														fontSize="sm"
+														maxW="60"
 													>
-														{activities.meta.description[locale!]}
+														{locale && activities.meta.description[locale]}
 													</AccordionPanel>
 												</>
 											)}
@@ -220,7 +240,11 @@ export const HistoryActivityData: React.FC<IActivitiesData> = ({
 							</GridItem>
 							<GridItem display="flex" flex="2.5" gap="2">
 								<Img
-									src={getLogo(profileData?.picture)}
+									src={
+										profileData.picture
+											? getLogo(profileData?.picture)
+											: '/images/avatar.png'
+									}
 									borderRadius="full"
 									boxSize="6"
 									objectFit="cover"
@@ -230,7 +254,10 @@ export const HistoryActivityData: React.FC<IActivitiesData> = ({
 								activities.event.name === 'company_updated' ||
 								activities.event.name === 'team_member_updated' ||
 								activities.event.name === 'company_created' ||
-								activities.event.name === 'user_settings_updated' ? (
+								activities.event.name === 'user_settings_updated' ||
+								activities.event.name === 'user_withdraw' ||
+								activities.event.name === 'company_deposit_received' ||
+								activities.event.name === 'user_created' ? (
 									<Text
 										h="max-content"
 										fontSize="sm"
@@ -253,7 +280,7 @@ export const HistoryActivityData: React.FC<IActivitiesData> = ({
 									</Text>
 								)}
 							</GridItem>
-							<GridItem flex="2.5">
+							<GridItem flex="2.5" maxW={{ base: '70px', md: 'full' }}>
 								<Flex align="center" gap="2">
 									<Img
 										src={notificationsData[activities.event.name].icon}
@@ -270,12 +297,44 @@ export const HistoryActivityData: React.FC<IActivitiesData> = ({
 													notificationsData[activities.event.name]?.text
 												)}
 										</Text>
-										<Text color="gray.500" fontSize="xs" whiteSpace="nowrap">
+										<Text color="gray.500" fontSize="xs" wordBreak="break-word">
 											{locale && dateHandler(activities.created_at, locale)}
 										</Text>
 									</Flex>
 								</Flex>
 							</GridItem>
+							{activities.event.name === 'user_withdraw' ||
+							activities.event.name === 'company_deposit_received' ? (
+								<GridItem flex="2.5" maxW={{ base: '85px', md: 'full' }}>
+									<Flex align="end" direction="column">
+										<Flex gap="1">
+											<Text
+												wordBreak="break-all"
+												fontSize="xs"
+												fontWeight="normal"
+												color={theme.text.primary}
+											>
+												{activities.meta.data.amount &&
+													Number(
+														activities.meta.data.amount.toLocaleString(locale)
+													).toFixed(2)}
+											</Text>
+											<Text
+												fontSize="xs"
+												fontWeight="normal"
+												color={theme.text.primary}
+											>
+												USDT
+											</Text>
+										</Flex>
+										<Text fontSize="xs" fontWeight="normal" color="green.400">
+											Completed
+										</Text>
+									</Flex>
+								</GridItem>
+							) : (
+								<GridItem flex="2.5" />
+							)}
 						</Grid>
 					</Flex>
 				)}
