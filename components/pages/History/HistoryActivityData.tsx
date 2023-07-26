@@ -49,6 +49,50 @@ export const HistoryActivityData: React.FC<IActivitiesData> = ({
 	return (
 		// eslint-disable-next-line react/jsx-no-useless-fragment
 		<>
+			<Grid
+				display={activities.event.name === 'user_withdraw' ? 'flex' : 'none'}
+				templateColumns="repeat(2, 1fr)"
+				w="full"
+				justifyContent="space-between"
+				alignItems="center"
+				bg="gray.50"
+				px="3"
+			>
+				<GridItem
+					display="flex"
+					flexDirection="row"
+					alignItems="center"
+					gap="2"
+				>
+					<Img
+						src={notificationsData[activities.event.name].icon}
+						boxSize="4"
+					/>
+					<Flex direction="column">
+						<Text fontSize="sm" color={theme.text.black}>
+							{activities.event.description}
+						</Text>
+						<Text color="gray.500" fontSize="xs" whiteSpace="nowrap">
+							{locale && dateHandler(activities.created_at, locale)}
+						</Text>
+					</Flex>
+				</GridItem>
+				<GridItem
+					display="flex"
+					flexDirection="column"
+					alignItems="center"
+					gap="2"
+				>
+					<Flex direction="column" align="end">
+						<Text fontSize="xs" color={theme.text.black}>
+							{Number(activities.meta.data.amount).toFixed(2)} USDT
+						</Text>
+						<Text color="green.400 " fontSize="xs" whiteSpace="nowrap">
+							Completed
+						</Text>
+					</Flex>
+				</GridItem>
+			</Grid>
 			{activities.event.name !== 'team_member_added' &&
 				activities.event.name !== 'user_added_to_company' &&
 				activities.event.name !== 'user_added_to_team' && (
@@ -60,6 +104,9 @@ export const HistoryActivityData: React.FC<IActivitiesData> = ({
 						borderRadius="base"
 						align="center"
 						gap={{ md: '0', lg: '7' }}
+						display={
+							activities.event.name === 'user_withdraw' ? 'none' : 'flex'
+						}
 					>
 						<Grid
 							templateColumns="repeat(4, 1fr)"
