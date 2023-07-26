@@ -11,7 +11,7 @@ export * from './logoHandler';
 export * from './navigationPaths';
 export * from './networkInfos';
 export * from './notificationsData';
-export * from './putDecimals';
+export * from './formatDecimals';
 export * from './socialMediaLinks';
 export * from './truncateWallet';
 export * from './usefulLinks';
