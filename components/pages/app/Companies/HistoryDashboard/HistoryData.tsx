@@ -1,26 +1,28 @@
 import { Flex, Img, Text } from '@chakra-ui/react';
 import { usePicasso } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
-import { IUserHistory } from 'types';
-import { truncateWallet } from 'utils';
+import { useRouter } from 'next/router';
+import { IHistoryNotifications } from 'types';
+import { dateHandler, notificationsData, truncateWallet } from 'utils';
 
 interface IHistoryData {
-	userHistory: IUserHistory;
+	userHistory: IHistoryNotifications;
 }
 
 export const HistoryData: React.FC<IHistoryData> = ({ userHistory }) => {
 	const theme = usePicasso();
 	const { t: translate } = useTranslation('company-overall');
+	const { locale } = useRouter();
 
 	const handleIcon = () => {
-		if (userHistory.type === 'Withdrawal') return '/icons/withdrawal.svg';
+		if (
+			userHistory.event.name === 'user_withdraw' ||
+			userHistory.event.name === 'company_withdraw'
+		)
+			return '/icons/withdrawal.svg';
 		return '/icons/deposit.svg';
 	};
 
-	const getStatusColor = () => {
-		if (userHistory.status === translate('completed')) return 'green.400';
-		return 'yellow.600';
-	};
 	return (
 		<Flex direction="column" gap="2">
 			<Flex
@@ -36,25 +38,29 @@ export const HistoryData: React.FC<IHistoryData> = ({ userHistory }) => {
 				<Flex align="center" gap="4">
 					<Img src="/images/avatar.png" boxSize="6" />
 					<Flex direction="column">
-						<Text fontSize="sm">{truncateWallet(userHistory.wallet)}</Text>
+						<Text fontSize="sm">
+							{truncateWallet(userHistory.meta.data.userWallet)}
+						</Text>
 					</Flex>
 				</Flex>
 				<Flex align="center" gap="4">
 					<Img src={handleIcon()} boxSize="4" />
 					<Flex direction="column">
-						<Text fontSize="sm">{userHistory.type}</Text>
+						<Text fontSize="sm">
+							{translate(notificationsData[userHistory.event.name]?.text)}
+						</Text>
 						<Text color="gray.500" fontSize="xs">
-							{userHistory.date}
+							{locale && dateHandler(userHistory.created_at, locale)}
 						</Text>
 					</Flex>
 				</Flex>
 				<Flex direction="column" fontSize="xs">
 					<Flex gap="1">
-						<Text>{userHistory.amount.toLocaleString('en-US')}</Text>
-						<Text>{userHistory.coin}</Text>
+						<Text>{userHistory.meta.data.amount.toLocaleString('en-US')}</Text>
+						<Text>USDT</Text>
 					</Flex>
-					<Text textAlign="end" color={getStatusColor()}>
-						{userHistory.status}
+					<Text textAlign="end" color="green.400">
+						{translate('completed')}
 					</Text>
 				</Flex>
 			</Flex>
@@ -77,16 +83,18 @@ export const HistoryData: React.FC<IHistoryData> = ({ userHistory }) => {
 							borderRadius="full"
 						>
 							<Text fontSize="2xs" color={theme.text.white} px="2">
-								{truncateWallet(userHistory.wallet)}
+								{truncateWallet(userHistory.meta.data.userWallet)}
 							</Text>
 						</Flex>
 					</Flex>
 					<Flex align="center" gap="4">
 						<Img src={handleIcon()} boxSize="4" />
 						<Flex direction="column">
-							<Text fontSize="xs">{userHistory.type}</Text>
+							<Text fontSize="xs">
+								{translate(notificationsData[userHistory.event.name]?.text)}
+							</Text>
 							<Text color="gray.500" fontSize="xs">
-								{userHistory.date}
+								{locale && dateHandler(userHistory.created_at, locale)}
 							</Text>
 						</Flex>
 					</Flex>
@@ -94,11 +102,15 @@ export const HistoryData: React.FC<IHistoryData> = ({ userHistory }) => {
 
 				<Flex direction="column" fontSize="xs">
 					<Flex gap="1">
-						<Text>{userHistory.amount.toLocaleString('en-US')}</Text>
-						<Text>{userHistory.coin}</Text>
+						<Text>
+							{Number(
+								userHistory.meta.data.amount.toLocaleString(locale)
+							).toFixed(2)}
+						</Text>
+						<Text>USDT</Text>
 					</Flex>
-					<Text textAlign="end" color={getStatusColor()}>
-						{userHistory.status}
+					<Text textAlign="end" color="green.400">
+						{translate('completed')}
 					</Text>
 				</Flex>
 			</Flex>
