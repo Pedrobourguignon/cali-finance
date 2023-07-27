@@ -12,7 +12,7 @@ export const GetInTouchFooterCardMobile = () => {
 			top="32"
 			zIndex="1"
 			w={{ md: '35rem', lg: '51rem' }}
-			h="7.688rem"
+			h="7.7rem"
 			borderRadius="base"
 			bgGradient="linear(to-r, #1A94E1, #09CFD6)"
 		>

@@ -2,7 +2,6 @@ import { Flex, Img, Text, Icon, Button } from '@chakra-ui/react';
 import { OffsetShadow } from 'components/OffsetShadow';
 import { usePicasso } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
-import { useRouter } from 'next/router';
 import React from 'react';
 import { BsCheckCircleFill } from 'react-icons/bs';
 import { usefulLinks } from 'utils';
@@ -10,7 +9,6 @@ import { usefulLinks } from 'utils';
 export const GetStartedSession = () => {
 	const theme = usePicasso();
 	const { t: translate } = useTranslation('landing');
-	const { locale } = useRouter();
 	return (
 		<Flex
 			w="full"
@@ -33,12 +31,7 @@ export const GetStartedSession = () => {
 					>
 						{translate('getStarted')}
 					</Text>
-					<Flex
-						direction="column"
-						gap="4"
-						w="full"
-						// px={locale === 'pt-BR' && '4'}
-					>
+					<Flex direction="column" gap="4" w="full">
 						<Flex gap="3" align="center">
 							<Icon as={BsCheckCircleFill} color="#A2A9B5" boxSize="5" />
 							<Text
