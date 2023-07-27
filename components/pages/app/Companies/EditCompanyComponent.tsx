@@ -2,7 +2,6 @@
 import {
 	Button,
 	Flex,
-	Icon,
 	Img,
 	Input,
 	Menu,
@@ -12,18 +11,14 @@ import {
 	Text,
 	Textarea,
 	TextProps,
-	Tooltip,
 } from '@chakra-ui/react';
-import { usePicasso } from 'hooks';
+import { useAuth, usePicasso } from 'hooks';
 import { FieldErrors, UseFormRegister } from 'react-hook-form';
-import { BsQuestionCircle } from 'react-icons/bs';
 import useTranslation from 'next-translate/useTranslation';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { BlackButton, NetworkTooltip } from 'components';
-import { useSession } from 'next-auth/react';
 import { ChevronDownIcon } from '@chakra-ui/icons';
 import { ICompany } from 'types/interfaces/main-server/ICompany';
-import { networkInfos } from 'utils';
 import { ISociaLinksInputValue } from 'types';
 
 interface IEditCompanyComponent {
@@ -84,7 +79,7 @@ export const EditCompanyComponent: React.FC<IEditCompanyComponent> = ({
 	const [editedInfo, setEditedInfo] = useState<ICompany>({} as ICompany);
 	const theme = usePicasso();
 	const { t: translate } = useTranslation('create-company');
-	const { data: session } = useSession();
+	const { session } = useAuth();
 
 	useEffect(() => {
 		setEditedInfo(company!);
@@ -99,9 +94,12 @@ export const EditCompanyComponent: React.FC<IEditCompanyComponent> = ({
 	useEffect(() => {
 		setSelectedType(company?.type);
 		setSelectedNetwork({
-			name: networkInfos(company?.network).name,
-			icon: networkInfos(company?.network).icon,
-			id: company?.network,
+			name: 'Polygon',
+			icon: '/images/polygon.png',
+			id: 137,
+			// name: networkInfos(company?.network).name,
+			// icon: networkInfos(company?.network).icon,
+			// id: company?.network,
 		});
 		setEditedSocialLinksInputValue({
 			websiteURL: company?.socialMedia![0].url,
@@ -251,7 +249,7 @@ export const EditCompanyComponent: React.FC<IEditCompanyComponent> = ({
 							>
 								<Flex gap="2" mb="2" align="center">
 									<Text {...labelStyle}>{translate('network')}</Text>
-									<Tooltip
+									{/* <Tooltip
 										label={
 											<NetworkTooltip>
 												{translate('choseTheMostSuitableNetwork')}
@@ -268,7 +266,7 @@ export const EditCompanyComponent: React.FC<IEditCompanyComponent> = ({
 										<span>
 											<Icon as={BsQuestionCircle} color="gray.400" />
 										</span>
-									</Tooltip>
+									</Tooltip> */}
 								</Flex>
 
 								<Menu>
@@ -280,7 +278,10 @@ export const EditCompanyComponent: React.FC<IEditCompanyComponent> = ({
 										_hover={{}}
 										_active={{}}
 										_focus={{}}
-										isDisabled={!session}
+										// isDisabled={!session}
+										isDisabled
+										_disabled={{ color: 'black' }}
+										cursor="not-allowed"
 										h="8"
 										as={Button}
 										rightIcon={<ChevronDownIcon />}
@@ -409,8 +410,7 @@ export const EditCompanyComponent: React.FC<IEditCompanyComponent> = ({
 				>
 					<Flex gap="2" mb="2" align="center">
 						<Text {...labelStyle}>{translate('network')}</Text>
-
-						<Tooltip
+						{/* <Tooltip
 							label={
 								<NetworkTooltip>
 									{translate('choseTheMostSuitableNetwork')}
@@ -427,7 +427,7 @@ export const EditCompanyComponent: React.FC<IEditCompanyComponent> = ({
 							<span>
 								<Icon as={BsQuestionCircle} color="gray.400" />
 							</span>
-						</Tooltip>
+						</Tooltip> */}
 					</Flex>
 					<Menu>
 						<MenuButton
@@ -439,7 +439,10 @@ export const EditCompanyComponent: React.FC<IEditCompanyComponent> = ({
 							_hover={{}}
 							_active={{}}
 							_focus={{}}
-							isDisabled={!session}
+							isDisabled
+							_disabled={{ color: 'black' }}
+							cursor="not-allowed"
+							// isDisabled={!session}
 							h="8"
 							as={Button}
 							rightIcon={<ChevronDownIcon />}

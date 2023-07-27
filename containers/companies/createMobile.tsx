@@ -12,11 +12,11 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { CompaniesProvider } from 'contexts';
 import useTranslation from 'next-translate/useTranslation';
-import { useSession } from 'next-auth/react';
+
 import router from 'next/router';
-import { useCompanies, useSchema } from 'hooks';
+import { useAuth, useCompanies, useSchema } from 'hooks';
 import { ICompany } from 'types/interfaces/main-server/ICompany';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useMutation } from 'react-query';
 import { ISociaLinksInputValue } from 'types';
 import { AxiosError } from 'axios';
@@ -41,23 +41,17 @@ export const CreateCompanyMobileContainer = () => {
 		useState<ISociaLinksInputValue>({} as ISociaLinksInputValue);
 
 	const [selectedNetwork, setSelectedNetwork] = useState<ISelectedNetwork>({
-		name: translate('pleaseSelect'),
-		icon: '',
-		id: 0,
+		name: 'Polygon',
+		icon: '/images/polygon.png',
+		id: 137,
 	});
+	const { session } = useAuth();
 	const {
 		handleSubmit,
 		register,
 		formState: { errors },
 	} = useForm<ICompany>({
 		resolver: yupResolver(createCompanySchema),
-	});
-
-	const { data: session } = useSession({
-		required: true,
-		onUnauthenticated() {
-			router.push(navigationPaths.dashboard.companies.home);
-		},
 	});
 
 	const { mutate } = useMutation(

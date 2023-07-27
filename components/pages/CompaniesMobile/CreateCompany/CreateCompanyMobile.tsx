@@ -14,7 +14,7 @@ import {
 	Tooltip,
 	useDisclosure,
 } from '@chakra-ui/react';
-import { usePicasso } from 'hooks';
+import { useAuth, usePicasso } from 'hooks';
 import { BsQuestionCircle } from 'react-icons/bs';
 import useTranslation from 'next-translate/useTranslation';
 import {
@@ -23,7 +23,7 @@ import {
 	NewCompanyLinksModal,
 	ImageUploaderModalMobile,
 } from 'components';
-import { useSession } from 'next-auth/react';
+
 import { ChevronDownIcon } from '@chakra-ui/icons';
 import { Dispatch, SetStateAction } from 'react';
 import { ICompany } from 'types/interfaces/main-server/ICompany';
@@ -101,7 +101,7 @@ export const CreateCompanyMobile: React.FC<ICreateCompanyComponent> = ({
 }) => {
 	const theme = usePicasso();
 	const { t: translate } = useTranslation('create-company');
-	const { data: session } = useSession();
+	const { session } = useAuth();
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const {
 		isOpen: isOpenUploader,
@@ -261,7 +261,7 @@ export const CreateCompanyMobile: React.FC<ICreateCompanyComponent> = ({
 							>
 								<Flex gap="2" mb="2" align="center">
 									<Text {...labelStyle}>Network *</Text>
-									<Tooltip
+									{/* <Tooltip
 										label={
 											<NetworkTooltip>
 												{translate('choseTheMostSuitableNetwork')}
@@ -283,18 +283,21 @@ export const CreateCompanyMobile: React.FC<ICreateCompanyComponent> = ({
 												mt="2"
 											/>
 										</span>
-									</Tooltip>
+									</Tooltip> */}
 								</Flex>
 								<Menu>
 									<MenuButton
 										w="full"
 										border="1px solid black"
+										isDisabled
+										_disabled={{ color: 'black' }}
+										cursor="not-allowed"
 										borderColor={errors.network ? 'red' : theme.bg.primary}
 										fontWeight="normal"
 										_hover={{}}
 										_active={{}}
 										_focus={{}}
-										isDisabled={!session}
+										// isDisabled={!session}
 										h="8"
 										as={Button}
 										rightIcon={<ChevronDownIcon />}

@@ -1,16 +1,19 @@
+/* eslint-disable no-nested-ternary */
 import { Flex, Grid, GridItem, Img, Text } from '@chakra-ui/react';
-import { usePicasso } from 'hooks';
+import { useAuth, usePicasso, useProfile } from 'hooks';
+
 import useTranslation from 'next-translate/useTranslation';
 import { useRouter } from 'next/router';
 import React from 'react';
+import { useQuery } from 'react-query';
 import { IActivitiesData } from 'types';
 import {
-	activitieDescriptTranslation,
 	dateHandler,
 	getLogo,
 	handleLogoImage,
-	notificationIcons,
+	notificationsData,
 } from 'utils';
+import { useAccount } from 'wagmi';
 
 export const RecentActivitiesData: React.FC<IActivitiesData> = ({
 	activities,
@@ -18,6 +21,17 @@ export const RecentActivitiesData: React.FC<IActivitiesData> = ({
 	const theme = usePicasso();
 	const { t: translate } = useTranslation('history-page');
 	const { locale } = useRouter();
+	const { getProfileData } = useProfile();
+	const { isConnected } = useAccount();
+	const { session } = useAuth();
+
+	const { data: profileData } = useQuery(
+		'profile-data',
+		() => getProfileData(activities.wallet as `0x${string}`),
+		{
+			enabled: !!isConnected && !!session,
+		}
+	);
 
 	return (
 		// eslint-disable-next-line react/jsx-no-useless-fragment
@@ -33,7 +47,7 @@ export const RecentActivitiesData: React.FC<IActivitiesData> = ({
 						justifyContent="space-between"
 						alignItems="center"
 					>
-						<GridItem display="flex" alignContent="center" gap="2" flex="3.5">
+						<GridItem display="flex" alignItems="center" gap="2" flex="3.5">
 							{activities.event.name !== 'user_updated' &&
 							activities.event.name !== 'user_settings_updated' &&
 							activities.meta.data.companyLogo ? (
@@ -42,6 +56,24 @@ export const RecentActivitiesData: React.FC<IActivitiesData> = ({
 									boxSize="6"
 									borderRadius="base"
 								/>
+							) : activities.event.name === 'user_updated' ? (
+								<Flex
+									boxSize="6"
+									borderRadius="full"
+									align="center"
+									justify="center"
+									fontSize="xs"
+									fontWeight="bold"
+									bg={theme.bg.white2}
+									color={theme.text.primary}
+								>
+									<Img
+										src={getLogo(profileData?.picture)}
+										borderRadius="full"
+										boxSize="6"
+										objectFit="cover"
+									/>
+								</Flex>
 							) : (
 								activities.event.name !== 'user_updated' &&
 								activities.event.name !== 'user_settings_updated' && (
@@ -62,7 +94,7 @@ export const RecentActivitiesData: React.FC<IActivitiesData> = ({
 							{activities.event.name === 'user_updated' ||
 							activities.event.name === 'user_settings_updated' ? (
 								<Text fontSize="sm" color={theme.text.primary}>
-									{activities.meta.description[locale!]}
+									{locale && activities.meta.description[locale]}
 								</Text>
 							) : (
 								<Text fontSize="sm" color={theme.text.primary}>
@@ -70,25 +102,24 @@ export const RecentActivitiesData: React.FC<IActivitiesData> = ({
 								</Text>
 							)}
 						</GridItem>
-						<GridItem flex={{ base: '3.2', md: '2.5' }}>
+						<GridItem flex={{ base: '3.2', md: '2.8' }}>
 							<Flex align="center" gap="2">
 								<Img
-									src={notificationIcons[activities.event.name].icon}
+									src={notificationsData[activities.event.name].icon}
 									boxSize="4"
 								/>
 								<Flex direction="column">
 									<Text
 										fontSize="xs"
 										fontWeight="normal"
+										whiteSpace="nowrap"
 										color={theme.text.primary}
 									>
 										{activities &&
-											translate(
-												activitieDescriptTranslation[activities.event.name].text
-											)}
+											translate(notificationsData[activities.event.name].text)}
 									</Text>
 									<Text color="gray.500" fontSize="xs" whiteSpace="nowrap">
-										{dateHandler(activities.created_at)}
+										{locale && dateHandler(activities.created_at, locale)}
 									</Text>
 								</Flex>
 							</Flex>

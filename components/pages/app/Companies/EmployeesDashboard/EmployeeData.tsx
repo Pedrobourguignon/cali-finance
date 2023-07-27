@@ -84,7 +84,9 @@ export const EmployeeData: React.FC<IEmployeeData> = ({
 							: employee.name}
 					</Text>
 					<Text fontSize="sm" display={{ base: 'none', sm: 'flex' }}>
-						{employee.name?.length !== 40 ? employee.wallet : employee.name}
+						{employee.name?.length !== 40
+							? truncateWallet(employee.wallet)
+							: employee.name}
 					</Text>
 					<Flex align="center">
 						<Text fontSize="xs" color="gray.500">

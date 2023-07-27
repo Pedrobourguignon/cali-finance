@@ -19,6 +19,7 @@
 	"createTeam": "Create Team",
 	"members": "Members",
 	"employees": "Employees",
+	"employee": "Employee",
 	"seeAll": "See all",
 	"seeLess": "See less",
 	"addEmployee": "Add Employee",
@@ -35,5 +36,6 @@
 	"fee": "Fee",
 	"totalTransaction": "Total {{transactionType}}",
 	"cancel": "Cancel",
-	"youDontHaveEmployee": "You don’t have employees registered yet"
+	"youDontHaveEmployee": "You don’t have employees registered yet",
+	"awaitingPolling": "Waiting for the contract to be confirmed by the network."
 }

@@ -1,4 +1,3 @@
-/* eslint-disable import/extensions */
 import {
 	Button,
 	Flex,
@@ -11,69 +10,53 @@ import { useCompanies, usePicasso } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
 import { Dispatch, SetStateAction, useState } from 'react';
 import { ITransaction } from 'types';
-import {
-	usePrepareSendTransaction,
-	useSendTransaction,
-	useWaitForTransaction,
-} from 'wagmi';
-import { useDebounce } from 'use-debounce';
+import { useContractWrite, useWaitForTransaction } from 'wagmi';
 import { AlertToast, WaitMetamaskFinishTransaction } from 'components';
+import companyAbi from 'utils/abi/company.json';
+import { useRouter } from 'next/router';
 
 interface IConfirmTransaction {
 	transaction: ITransaction;
+	confirm: boolean;
 	setConfirm: Dispatch<SetStateAction<boolean>>;
 }
 
 export const ConfirmTransaction: React.FC<IConfirmTransaction> = ({
 	transaction,
+	confirm,
 	setConfirm,
 }) => {
 	const { t: translate } = useTranslation('company-overall');
 	const buttonOptions = [translate('deposit'), translate('withdrawal')];
 	const toast = useToast();
 	const { selectedCompany } = useCompanies();
+	const { locale } = useRouter();
 
 	const [selectedOption, setSelectedOption] = useState<string | undefined>(
 		transaction.type
 	);
-	const [debouncedAmount] = useDebounce(transaction.amount, 500);
 	const theme = usePicasso();
 	const handleSelectedButton = (btnName: string) => {
 		const selectedButton = buttonOptions.find(item => item === btnName);
 		setSelectedOption(selectedButton);
 	};
-	const [enabledTransaction, setEnabledTransaction] = useState(false);
 	const { onClose } = useDisclosure();
 
-	const { config: sendTransactionConfig } = usePrepareSendTransaction({
-		enabled: enabledTransaction,
-		to: selectedCompany.contract,
-		value: debouncedAmount ? BigInt(debouncedAmount) : undefined,
-		onError: (error: any) => {
-			toast({
-				position: 'top',
-				render: () => (
-					<AlertToast
-						onClick={toast.closeAll}
-						text={
-							error.code === -32603
-								? 'insufficientFunds'
-								: 'weAreWorkingToSolve'
-						}
-						type="error"
-					/>
-				),
-			});
-			setConfirm(false);
-		},
+	const { write: depositFunds, data: depositFundsData } = useContractWrite({
+		address: selectedCompany.contract,
+		abi: companyAbi,
+		functionName: 'deposit',
+		args: [process.env.NEXT_PUBLIC_CALI_TOKEN, transaction.amount],
 	});
 
-	const { sendTransaction, data: sendTransactionData } = useSendTransaction(
-		sendTransactionConfig
-	);
+	const { write: withdrawFunds, data: withdrawFundsData } = useContractWrite({
+		address: selectedCompany.contract,
+		abi: companyAbi,
+		functionName: 'withdrawToken',
+	});
 
-	const { data, isLoading: isLoadingTransaction } = useWaitForTransaction({
-		hash: sendTransactionData?.hash,
+	const { isLoading: isLoadingWithdrawTransaction } = useWaitForTransaction({
+		hash: withdrawFundsData?.hash,
 		confirmations: 3,
 		onSuccess: () => {
 			toast({
@@ -81,16 +64,40 @@ export const ConfirmTransaction: React.FC<IConfirmTransaction> = ({
 				render: () => (
 					<AlertToast
 						onClick={toast.closeAll}
-						text={
-							transaction.type === 'Deposit'
-								? 'depositSuccessfully'
-								: 'successfulWithdrawal'
-						}
+						text="successfulWithdrawal"
 						type="success"
 					/>
 				),
 			});
-			setConfirm(false);
+		},
+		onError: () => {
+			toast({
+				position: 'top',
+				render: () => (
+					<AlertToast
+						onClick={toast.closeAll}
+						text="weAreWorkingToSolve"
+						type="error"
+					/>
+				),
+			});
+		},
+	});
+
+	const { isLoading: isLoadingDepositTransaction } = useWaitForTransaction({
+		hash: depositFundsData?.hash,
+		confirmations: 3,
+		onSuccess: () => {
+			toast({
+				position: 'top',
+				render: () => (
+					<AlertToast
+						onClick={toast.closeAll}
+						text="depositSuccessfully"
+						type="success"
+					/>
+				),
+			});
 		},
 		onError: () => {
 			toast({
@@ -107,9 +114,15 @@ export const ConfirmTransaction: React.FC<IConfirmTransaction> = ({
 	});
 
 	const handleSendTransaction = () => {
-		setEnabledTransaction(true);
-		sendTransaction?.();
+		if (transaction.type === 'Deposit') {
+			depositFunds?.();
+		} else withdrawFunds?.();
 	};
+
+	const subtractFee = () =>
+		Number(
+			(transaction.amount - transaction.amount * 0.005).toLocaleString(locale)
+		).toFixed(3);
 
 	return (
 		<Flex
@@ -122,7 +135,7 @@ export const ConfirmTransaction: React.FC<IConfirmTransaction> = ({
 			w="100%"
 		>
 			<WaitMetamaskFinishTransaction
-				isOpen={isLoadingTransaction}
+				isOpen={isLoadingDepositTransaction || isLoadingWithdrawTransaction}
 				onClose={onClose}
 			/>
 			<Flex w="100%" justify="center" direction="row">
@@ -138,6 +151,7 @@ export const ConfirmTransaction: React.FC<IConfirmTransaction> = ({
 						_hover={{}}
 						_focus={{}}
 						fontSize="sm"
+						isDisabled={confirm}
 					>
 						{item}
 					</Button>
@@ -184,9 +198,7 @@ export const ConfirmTransaction: React.FC<IConfirmTransaction> = ({
 							})}
 						</Text>
 						<Flex align="center" gap="1">
-							<Text fontSize="sm">
-								{transaction.amount.toLocaleString('en-US')}
-							</Text>
+							<Text fontSize="sm">{subtractFee()}</Text>
 							<Img src={transaction.logo} boxSize="4" />
 						</Flex>
 					</Flex>
@@ -203,7 +215,7 @@ export const ConfirmTransaction: React.FC<IConfirmTransaction> = ({
 					h="8"
 					px="6"
 					whiteSpace="normal"
-					fontSize={{ base: 'xs', xl: 'md' }}
+					fontSize="sm"
 					_hover={{
 						opacity: 0.8,
 					}}

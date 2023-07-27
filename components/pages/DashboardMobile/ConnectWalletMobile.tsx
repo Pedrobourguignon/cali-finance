@@ -2,12 +2,11 @@ import { Button, Flex, Text, useDisclosure } from '@chakra-ui/react';
 import React from 'react';
 import useTranslation from 'next-translate/useTranslation';
 import { LoadingWalletMobile, WalletOptionsMobile } from 'components';
-import { useProfile } from 'hooks';
-import { useSession } from 'next-auth/react';
+import { useAuth, useProfile } from 'hooks';
 
 export const ConnectWalletMobile = () => {
 	const { t: translate } = useTranslation('sidebar');
-	const { data: session } = useSession();
+	const { session } = useAuth();
 	const shouldDisplay = session ? 'none' : 'flex';
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const { walletData, setWalletData } = useProfile();

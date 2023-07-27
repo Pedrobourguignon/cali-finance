@@ -11,11 +11,11 @@ import { mainClient, navigationPaths } from 'utils';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import useTranslation from 'next-translate/useTranslation';
-import { useSession } from 'next-auth/react';
+
 import router from 'next/router';
-import { useSchema } from 'hooks';
+import { useAuth, useSchema } from 'hooks';
 import { ICompany } from 'types/interfaces/main-server/ICompany';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useMutation } from 'react-query';
 import { ISociaLinksInputValue } from 'types';
 import { AxiosError } from 'axios';
@@ -23,6 +23,7 @@ import { useContractWrite, useWaitForTransaction } from 'wagmi';
 import factoryAbi from 'utils/abi/factory.json';
 import { MAIN_SERVICE_ROUTES } from 'helpers';
 import { CompaniesProvider } from 'contexts';
+import { Hex } from 'viem';
 
 interface ISelectedNetwork {
 	name: string;
@@ -42,11 +43,12 @@ export const CreateCompanyContainer = () => {
 	const [selectedType, setSelectedType] = useState<string>(
 		translate('pleaseSelect')
 	);
+	const { session } = useAuth();
 
 	const [selectedNetwork, setSelectedNetwork] = useState<ISelectedNetwork>({
-		name: translate('pleaseSelect'),
-		icon: '',
-		id: 0,
+		name: 'Polygon',
+		icon: '/images/polygon.png',
+		id: 137,
 	});
 	const {
 		handleSubmit,
@@ -58,7 +60,7 @@ export const CreateCompanyContainer = () => {
 
 	const { write: createCompanyWrite, data: createCompanyData } =
 		useContractWrite({
-			address: '0xe6b7C4D29E3980F96EAc96689eB1154B10015339',
+			address: (process.env.NEXT_PUBLIC_FACTORY_CONTRACT || '') as Hex,
 			abi: factoryAbi,
 			functionName: 'createNewCompany',
 		});
@@ -85,13 +87,6 @@ export const CreateCompanyContainer = () => {
 			});
 		}
 	};
-
-	const { data: session } = useSession({
-		required: true,
-		onUnauthenticated() {
-			router.push(navigationPaths.dashboard.companies.home);
-		},
-	});
 
 	const { isLoading } = useWaitForTransaction({
 		hash: createCompanyData?.hash,

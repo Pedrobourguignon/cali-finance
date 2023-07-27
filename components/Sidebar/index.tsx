@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable no-unused-expressions */
 import {
 	Box,
@@ -15,7 +14,7 @@ import {
 	useDisclosure,
 } from '@chakra-ui/react';
 import React, { useState, useEffect } from 'react';
-import { usePath, usePicasso, useProfile } from 'hooks';
+import { useAuth, useCompanies, usePath, usePicasso, useProfile } from 'hooks';
 import router, { useRouter } from 'next/router';
 import {
 	DashboardIcon,
@@ -24,17 +23,16 @@ import {
 	HistoryIcon,
 	ConnectWalletButton,
 	ChangeNetworkButton,
-	NetworkModal,
 	SocialMediasButtons,
 	HelpAndDocsButton,
 } from 'components';
 import { getLogo, navigationPaths, truncateWallet } from 'utils';
 import { INetwork } from 'types';
 import useTranslation from 'next-translate/useTranslation';
-import { useSession, signOut } from 'next-auth/react';
 import NextLink from 'next/link';
 import { useQuery } from 'react-query';
 import { useAccount, useDisconnect } from 'wagmi';
+import { deleteCookie } from 'cookies-next';
 
 interface IMenuItem {
 	icon: typeof Icon;
@@ -43,18 +41,18 @@ interface IMenuItem {
 }
 
 const networks: INetwork[] = [
-	{
-		name: 'Ethereum',
-		icon: '/images/eth.png',
-	},
+	// {
+	// 	name: 'Ethereum',
+	// 	icon: '/images/eth.png',
+	// },
 	{
 		name: 'Polygon',
 		icon: '/images/polygon.png',
 	},
-	{
-		name: 'BNB Chain',
-		icon: '/images/bnbchain.png',
-	},
+	// {
+	// 	name: 'BNB Chain',
+	// 	icon: '/images/bnbchain.png',
+	// },
 ];
 type ILanguage = 'pt-BR' | 'en-US';
 
@@ -85,21 +83,22 @@ export const Sidebar: React.FC = () => {
 	];
 	const theme = usePicasso();
 	const { includesPath } = usePath();
-	const { getProfileData } = useProfile();
+	const { getProfileData, setCardItems } = useProfile();
+	const { setCompaniesWithMissingFunds } = useCompanies();
 	const { address: walletAddress, isConnected } = useAccount();
 	const { locale, asPath, pathname } = useRouter();
-	const { data: session } = useSession();
+	const { session, setSession } = useAuth();
 	const { disconnect } = useDisconnect();
 	const languages: ILanguage[] = ['en-US', 'pt-BR'];
-	const { isOpen, onOpen, onClose } = useDisclosure();
+	const { onOpen } = useDisclosure();
 	const {
 		isOpen: isOpenMenu,
 		onOpen: onOpenMenu,
 		onClose: onCloseMenu,
 	} = useDisclosure();
 	const [networkData, setNetworkData] = useState<INetwork>({
-		name: 'Ethereum',
-		icon: '/images/eth.png',
+		name: 'Polygon',
+		icon: '/images/polygon.png',
 	} as INetwork);
 
 	useEffect(() => {
@@ -114,8 +113,9 @@ export const Sidebar: React.FC = () => {
 	};
 
 	useEffect(() => {
-		if (!pathname.includes('404')) {
-			changeLanguage(localStorage.getItem('language')!);
+		const currentLanguage = localStorage.getItem('language');
+		if (!pathname.includes('404') && currentLanguage) {
+			changeLanguage(currentLanguage);
 		}
 	}, [locale]);
 
@@ -123,22 +123,28 @@ export const Sidebar: React.FC = () => {
 		'profile-data',
 		() => getProfileData(walletAddress),
 		{
-			enabled: !!isConnected,
+			enabled: !!isConnected && !!session,
 		}
 	);
 	const handleSignOut = () => {
 		disconnect();
-		signOut();
+		deleteCookie('cali-finance-authorization');
+		localStorage.removeItem('cali-finance-authorization');
+		setSession(false);
+		setCardItems([]);
+		setCompaniesWithMissingFunds([]);
 	};
 
 	return (
-		<>
-			<NetworkModal
-				networks={networks}
-				isOpen={isOpen}
-				onClose={onClose}
-				setNetworkData={setNetworkData}
-			/>
+		<Flex
+			h="100vh"
+			flexDirection="column"
+			display={{ base: 'none', sm: 'flex' }}
+			bg={theme.bg.primary}
+			align="center"
+			color="white"
+			minW={{ md: '44', xl: '13.7rem', '2xl': '16.3rem' }}
+		>
 			<Flex
 				h="100vh"
 				flexDirection="column"
@@ -147,57 +153,43 @@ export const Sidebar: React.FC = () => {
 				align="center"
 				color="white"
 				minW={{ md: '44', xl: '13.7rem', '2xl': '16.3rem' }}
+				position="fixed"
 			>
-				<Flex
-					h="100vh"
-					flexDirection="column"
-					display={{ base: 'none', sm: 'flex' }}
-					bg={theme.bg.primary}
-					align="center"
-					color="white"
-					minW={{ md: '44', xl: '13.7rem', '2xl': '16.3rem' }}
-					position="fixed"
-				>
-					<Flex
-						justify="center"
-						pt="3"
-						direction="column"
-						align="center"
-						pb="2"
-					>
-						<Link as={NextLink} href={navigationPaths.dashboard.home} pb="6">
-							<Img src="/images/cali-logo.svg" h="8" w="20" cursor="pointer" />
-						</Link>
-						{session ? (
-							<Flex direction="column" gap="2">
-								<Menu
-									gutter={0}
-									autoSelect={false}
-									isOpen={isOpenMenu}
-									onClose={onCloseMenu}
-									placement="bottom"
+				<Flex justify="center" pt="3" direction="column" align="center" pb="2">
+					<Link as={NextLink} href={navigationPaths.dashboard.home} pb="6">
+						<Img src="/images/cali-logo.svg" h="8" w="20" cursor="pointer" />
+					</Link>
+					{session ? (
+						<Flex direction="column" gap="2">
+							<Menu
+								gutter={0}
+								autoSelect={false}
+								isOpen={isOpenMenu}
+								onClose={onCloseMenu}
+								placement="bottom"
+							>
+								<MenuButton
+									h="max-content"
+									borderBottomRadius={isOpenMenu ? 'none' : 'base'}
+									borderRadius="base"
+									w={{ md: '8.25rem', xl: '10.313rem', '2xl': '13rem' }}
+									justifyItems="center"
+									py="1"
+									px="3"
+									gap="32"
+									fontWeight="normal"
+									fontSize={{ md: 'sm', '2xl': 'md' }}
+									color={theme.text.primary}
+									as={Button}
+									bg="white"
+									disabled={!session}
+									onClick={onOpenMenu}
+									_hover={{}}
+									_active={{}}
+									_focus={{}}
 								>
-									<MenuButton
-										h="max-content"
-										borderBottomRadius={isOpenMenu ? 'none' : 'base'}
-										borderRadius="base"
-										w={{ md: '8.25rem', xl: '10.313rem', '2xl': '13rem' }}
-										justifyItems="center"
-										py="1"
-										px="3"
-										gap="32"
-										fontWeight="normal"
-										fontSize={{ md: 'sm', '2xl': 'md' }}
-										color={theme.text.primary}
-										as={Button}
-										bg="white"
-										disabled={!session}
-										onClick={onOpenMenu}
-										_hover={{}}
-										_active={{}}
-										_focus={{}}
-									>
-										<Flex align="center" gap="2" justify="center">
+									<Flex align="center" gap="2" justify="center">
+										{walletAddress ? (
 											<Img
 												src={
 													!profileData?.picture
@@ -208,153 +200,157 @@ export const Sidebar: React.FC = () => {
 												boxSize="6"
 												objectFit="cover"
 											/>
-											<Text
-												fontWeight="medium"
-												fontSize={{ md: 'xs', xl: 'sm' }}
-											>
-												{truncateWallet(walletAddress)}
-											</Text>
-										</Flex>
-									</MenuButton>
-									<MenuList
-										p="0"
-										borderTopRadius="none"
-										borderColor="white"
-										borderTopColor="black"
-										minW={{ md: '8.25rem', xl: '10.313rem', '2xl': '13rem' }}
-									>
-										<MenuItem
-											py="2.5"
-											bg="white"
-											justifyContent="center"
-											color={theme.text.primary}
-											_hover={{ opacity: '80%' }}
-											fontSize="sm"
-											borderBottomRadius="base"
-											_active={{}}
-											onClick={handleSignOut}
-											_focus={{}}
-										>
-											{translate('logOut')}
-										</MenuItem>
-									</MenuList>
-								</Menu>
-								{session && (
-									<ChangeNetworkButton
-										onClick={onOpen}
-										networkIcon={networkData.icon}
-										networkName={networkData.name}
-									/>
-								)}
-							</Flex>
-						) : (
-							<ConnectWalletButton />
-						)}
-					</Flex>
-					<Flex
-						direction="column"
-						gap="3"
-						w="full"
-						pb="6.4rem"
-						pt={session ? '6' : '16'}
-					>
-						{menuOptions.map((item, index) => {
-							const comparedPath = includesPath(item.route);
-							return (
-								<Link
-									as={NextLink}
-									href={item.route}
-									key={+index}
-									display="flex"
-									_hover={{
-										textDecoration: 'none',
-									}}
-								>
-									<Button
-										justifyContent="flex-start"
-										alignItems="center"
-										w="full"
-										p="0"
-										bgColor="transparent"
-										fontSize="sm"
-										borderRadius="none"
-										boxShadow={comparedPath ? theme.branding.blue : 'none'}
-										color={comparedPath ? theme.branding.blue : 'white'}
-									>
-										{comparedPath && (
-											<Box
-												position="absolute"
-												bgColor={theme.branding.blue}
-												w="1"
-												h="8"
-												borderLeftRadius="none"
-												borderRightRadius="sm"
+										) : (
+											<Img
+												src="/images/editImage.png"
+												borderRadius="full"
+												boxSize="6"
+												objectFit="cover"
 											/>
 										)}
-										<Flex
-											align="center"
-											justify="center"
-											gap="3"
-											fontWeight="normal"
-											fontSize="sm"
-										>
-											<>
-												<Icon
-													as={item.icon}
-													boxSize={{ md: '5', xl: '6' }}
-													ml="6"
-												/>
-												{item.option}
-											</>
-										</Flex>
-										<Flex
-											display={comparedPath ? 'flex' : 'none'}
-											w="full"
-											borderTop="1rem solid transparent"
-											borderBottom="1rem solid transparent"
-											borderRight="1.5rem solid"
-										/>
-									</Button>
-								</Link>
-							);
-						})}
-					</Flex>
-					<Flex
-						direction="column"
-						align="flex-start"
-						gap="3"
-						px={{ md: '2', lg: '4', xl: '5' }}
-						py="10"
-						w="full"
-						position="absolute"
-						bottom="0"
-					>
-						<Flex gap="4" pl={{ md: '4', lg: '2', xl: '2' }}>
-							{languages.map((lang, index) => (
-								<Text
-									key={+index}
-									cursor="pointer"
-									boxSize="max-content"
-									onClick={() => changeLanguage(lang)}
-									fontSize="sm"
-									fontWeight="semibold"
-									color={locale === lang ? theme.branding.blue : 'white'}
+										<Text fontWeight="medium" fontSize={{ md: 'xs', xl: 'sm' }}>
+											{walletAddress && truncateWallet(walletAddress)}
+										</Text>
+									</Flex>
+								</MenuButton>
+								<MenuList
+									p="0"
+									borderTopRadius="none"
+									borderColor="white"
+									borderTopColor="black"
+									minW={{ md: '8.25rem', xl: '10.313rem', '2xl': '13rem' }}
 								>
-									{locale === lang
-										? `[${lang.toUpperCase()}]`
-										: lang.toUpperCase()}
-								</Text>
-							))}
+									<MenuItem
+										py="2.5"
+										bg="white"
+										justifyContent="center"
+										color={theme.text.primary}
+										_hover={{ opacity: '80%' }}
+										fontSize="sm"
+										borderBottomRadius="base"
+										_active={{}}
+										onClick={handleSignOut}
+										_focus={{}}
+									>
+										{translate('logOut')}
+									</MenuItem>
+								</MenuList>
+							</Menu>
+							{session && (
+								<ChangeNetworkButton
+									onClick={onOpen}
+									networkIcon={networkData.icon}
+									networkName={networkData.name}
+								/>
+							)}
 						</Flex>
-						<HelpAndDocsButton gap="4" />
-						<SocialMediasButtons
-							pl={{ md: '2', lg: '0' }}
-							pt="5"
-							align="flex-start"
-						/>
+					) : (
+						<ConnectWalletButton />
+					)}
+				</Flex>
+				<Flex
+					direction="column"
+					gap="3"
+					w="full"
+					pb="6.4rem"
+					pt={session ? '6' : '16'}
+				>
+					{menuOptions.map((item, index) => {
+						const comparedPath = includesPath(item.route);
+						return (
+							<Link
+								as={NextLink}
+								href={item.route}
+								key={+index}
+								display="flex"
+								_hover={{
+									textDecoration: 'none',
+								}}
+							>
+								<Button
+									justifyContent="flex-start"
+									alignItems="center"
+									w="full"
+									p="0"
+									bgColor="transparent"
+									fontSize="sm"
+									borderRadius="none"
+									boxShadow={comparedPath ? theme.branding.blue : 'none'}
+									color={comparedPath ? theme.branding.blue : 'white'}
+								>
+									{comparedPath && (
+										<Box
+											position="absolute"
+											bgColor={theme.branding.blue}
+											w="1"
+											h="8"
+											borderLeftRadius="none"
+											borderRightRadius="sm"
+										/>
+									)}
+									<Flex
+										align="center"
+										justify="center"
+										gap="3"
+										fontWeight="normal"
+										fontSize="sm"
+									>
+										<>
+											<Icon
+												as={item.icon}
+												boxSize={{ md: '5', xl: '6' }}
+												ml="6"
+											/>
+											{item.option}
+										</>
+									</Flex>
+									<Flex
+										display={comparedPath ? 'flex' : 'none'}
+										w="full"
+										borderTop="1rem solid transparent"
+										borderBottom="1rem solid transparent"
+										borderRight="1.5rem solid"
+									/>
+								</Button>
+							</Link>
+						);
+					})}
+				</Flex>
+				<Flex
+					direction="column"
+					align="flex-start"
+					gap="3"
+					px={{ md: '2', lg: '4', xl: '5' }}
+					py="10"
+					w="full"
+					position="absolute"
+					bottom="5"
+				>
+					<Flex gap="4" pl={{ md: '4', lg: '2', xl: '2' }}>
+						{languages.map((lang, index) => (
+							<Text
+								key={+index}
+								cursor="pointer"
+								boxSize="max-content"
+								onClick={() => changeLanguage(lang)}
+								fontSize="sm"
+								fontWeight="semibold"
+								color={locale === lang ? theme.branding.blue : 'white'}
+							>
+								{locale === lang
+									? `[${lang.toUpperCase()}]`
+									: lang.toUpperCase()}
+							</Text>
+						))}
 					</Flex>
+					<HelpAndDocsButton gap="4" />
+					<SocialMediasButtons
+						pl={{ md: '2', lg: '0' }}
+						pt="5"
+						align="flex-start"
+					/>
 				</Flex>
 			</Flex>
-		</>
+		</Flex>
 	);
 };

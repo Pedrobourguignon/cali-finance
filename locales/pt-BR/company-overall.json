@@ -19,6 +19,7 @@
 	"createTeam": "Criar Time",
 	"members": "Membros",
 	"employees": "Funcionários",
+	"employee": "Funcionário",
 	"seeAll": "Ver tudo",
 	"seeLess": "Ver menos",
 	"addEmployee": "Adicionar funcionário",
@@ -35,5 +36,6 @@
 	"fee": "Taxa",
 	"totalTransaction": "Total {{transactionType}}",
 	"cancel": "Cancelar",
-	"youDontHaveEmployee": "Você ainda não tem funcionários cadastrados"
+	"youDontHaveEmployee": "Você ainda não tem funcionários cadastrados",
+	"awaitingPolling": "Aguardando a confirmação do contrato pela rede."
 }

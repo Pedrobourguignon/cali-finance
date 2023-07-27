@@ -1,17 +1,17 @@
 {
-	"yourCompanieIsMissing": "Your company {{companie}} is missing needed funds.",
+	"yourCompanieIsMissing": "Your company {{company}} is missing needed funds.",
 	"deposit": "Deposit",
 	"atLeast": "at least {{value}} at the company’s funds tab.",
 	"needingFunds": "Needing Funds! Please deposit now",
-	"yourCompanies": "Your companies are missing needed funds.",
-	"depositFunds": "Deposit funds",
-	"companiesPage": "at the companies page.",
+	"yourCompanies": "Some of your companies are low in funds. Please",
+	"depositFunds": "refill your funds",
+	"companiesPage": "in the companies page.",
 	"companyCreatedWithSuccess": "Company created with success",
 	"companyNameAlreadyExists": "Already exists a company with this name",
 	"unauthorized": "Unauthorized",
 	"weAreWorkingToSolve": "Error: we are working to solve",
 	"addressCopiedSuccessfully": "Address copied successfully",
-	"changesMadeWithSuccessfully": "Changes made with successfully",
+	"changesMadeWithSuccessfully": "Changes made successfully",
 	"employeeDataChangedWithSuccessfully": "Employee data changed with successfully",
 	"employeeAdded": "Added employee",
 	"employeesAdded": "Added employees",
@@ -19,5 +19,7 @@
 	"userAlreadyExists": "User already exists in this company",
 	"depositSuccessfully": "Deposit made successfully",
 	"successfulWithdrawal": "Successful withdrawal",
-	"insufficientFunds": "You don't have enough funds for this transaction"
+	"insufficientFunds": "You don't have enough funds for this transaction",
+	"yourCredentials": "Your credentials have expired. Please try again",
+	"signatureCanceled": "The signature was cancelled. Please try again."
 }

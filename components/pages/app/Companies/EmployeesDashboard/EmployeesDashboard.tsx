@@ -1,4 +1,5 @@
 import { Flex, Text, useDisclosure, Button } from '@chakra-ui/react';
+import { readContract } from '@wagmi/core';
 import {
 	AddEmployee,
 	BlackButton,
@@ -6,25 +7,29 @@ import {
 	NoEmployeeSkeleton,
 	AddEmployeeMobile,
 } from 'components';
-import { useCompanies, usePicasso } from 'hooks';
+import { useAuth, useCompanies, usePicasso } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
 import router, { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { useQuery } from 'react-query';
-import { ICompany } from 'types/interfaces/main-server/ICompany';
+import companyAbi from 'utils/abi/company.json';
 
 interface IEmployeeDashboard {
 	isGeneral: boolean;
-	selectedCompany: ICompany | undefined;
 }
 
 export const EmployeesDashboard: React.FC<IEmployeeDashboard> = ({
 	isGeneral,
-	selectedCompany,
 }) => {
 	const theme = usePicasso();
 	const { t: translate } = useTranslation('company-overall');
-	const { getAllCompanyEmployees } = useCompanies();
+	const {
+		getAllCompanyEmployees,
+		selectedCompany,
+		getCompanyById,
+		setEmployeesBalance,
+		setEmployeesRevenue,
+	} = useCompanies();
 	const { query } = useRouter();
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const {
@@ -33,6 +38,7 @@ export const EmployeesDashboard: React.FC<IEmployeeDashboard> = ({
 		onClose: onCloseMobile,
 	} = useDisclosure();
 	const { isOpen: isFullList, onToggle: toggleListView } = useDisclosure();
+	const { session } = useAuth();
 
 	const {
 		data: employees,
@@ -41,6 +47,55 @@ export const EmployeesDashboard: React.FC<IEmployeeDashboard> = ({
 	} = useQuery('all-company-employees', () =>
 		getAllCompanyEmployees(Number(query.id))
 	);
+
+	const calculateEmployeeRevenue = () => {
+		if (employees) {
+			const sum = employees.reduce(
+				(prevVal, currentVal) =>
+					currentVal.revenue ? prevVal + currentVal.revenue : 0,
+				0
+			);
+			setEmployeesRevenue(sum);
+		}
+	};
+
+	const { data: selectedCompanyData } = useQuery(
+		'created-company-overview',
+		() => getCompanyById(Number(query.id))
+	);
+
+	const getEmployeesBalance = async () => {
+		const employeesWallet: string[] = [];
+		employees?.forEach(employee => {
+			if (!employeesWallet.includes(employee.wallet!)) {
+				employeesWallet.push(employee.wallet!);
+			}
+		});
+		if (selectedCompanyData?.contract && session) {
+			try {
+				const data = await readContract({
+					address: selectedCompanyData.contract,
+					abi: companyAbi,
+					functionName: 'getBulkBalance',
+					args: [employeesWallet],
+				});
+				const result = await Promise.all([...(data as number[])]);
+				const numberResult = result.map(item => Number(item));
+				const sum = numberResult.reduce(
+					(accumulator, currentValue) => accumulator + currentValue,
+					0
+				);
+				setEmployeesBalance(sum);
+			} catch (err) {
+				console.log(err);
+			}
+		}
+	};
+
+	useEffect(() => {
+		getEmployeesBalance();
+		calculateEmployeeRevenue();
+	}, [employees, selectedCompanyData]);
 
 	useEffect(() => {
 		if (error) {
@@ -69,11 +124,15 @@ export const EmployeesDashboard: React.FC<IEmployeeDashboard> = ({
 				) : (
 					<Flex fontWeight="medium" gap="1">
 						<Text>{employees?.length}</Text>
-						<Text>{translate('employees')}</Text>
+						<Text>
+							{employees?.length === 1
+								? translate('employee')
+								: translate('employees')}
+						</Text>
 					</Flex>
 				)}
 				<Flex gap="8" align="center" display={{ base: 'none', sm: 'flex' }}>
-					{employees && (
+					{employees && employees?.length > 3 && (
 						<Button h="max-content" onClick={() => toggleListView()}>
 							<Text fontSize="xs" color="gray.500" fontWeight="medium">
 								{isFullList ? translate('seeLess') : translate('seeAll')}
@@ -81,12 +140,12 @@ export const EmployeesDashboard: React.FC<IEmployeeDashboard> = ({
 						</Button>
 					)}
 					<BlackButton
-						px="3"
+						px="4"
 						onClick={onOpen}
-						fontSize="xs"
+						fontSize="sm"
 						gap="2.5"
 						fontWeight="medium"
-						py="1"
+						py="2"
 						borderRadius="base"
 					>
 						<Text>+</Text>
@@ -94,7 +153,7 @@ export const EmployeesDashboard: React.FC<IEmployeeDashboard> = ({
 					</BlackButton>
 				</Flex>
 				<Flex gap="8" align="center" display={{ base: 'flex', sm: 'none' }}>
-					{employees && (
+					{employees && employees?.length > 3 && (
 						<Button h="max-content" onClick={() => toggleListView()}>
 							<Text fontSize="xs" color="gray.500" fontWeight="medium">
 								{isFullList ? translate('seeLess') : translate('seeAll')}
@@ -102,12 +161,12 @@ export const EmployeesDashboard: React.FC<IEmployeeDashboard> = ({
 						</Button>
 					)}
 					<BlackButton
-						px="3"
+						px="4"
 						onClick={onOpenMobile}
-						fontSize="xs"
+						fontSize="sm"
 						gap="2.5"
 						fontWeight="medium"
-						py="1"
+						py="2"
 						borderRadius="base"
 					>
 						<Text>+</Text>
@@ -120,7 +179,7 @@ export const EmployeesDashboard: React.FC<IEmployeeDashboard> = ({
 					<Flex justify="space-between" fontSize="sm">
 						<Text>{translate('nameAddress')}</Text>
 						{isGeneral && <Text>{translate('team')}</Text>}
-						<Text w="24">{translate('amount')}</Text>
+						<Text>{translate('amount')}</Text>
 					</Flex>
 					<Flex direction="column" gap="2">
 						<>
@@ -135,7 +194,7 @@ export const EmployeesDashboard: React.FC<IEmployeeDashboard> = ({
 					<Flex justify="space-between" fontSize="sm">
 						<Text>{translate('nameAddress')}</Text>
 						{isGeneral && <Text>{translate('team')}</Text>}
-						<Text w="24">{translate('amount')}</Text>
+						<Text>{translate('amount')}</Text>
 					</Flex>
 					<Flex direction="column" gap="2">
 						{employees

@@ -13,14 +13,14 @@ import {
 	Img,
 	useDisclosure,
 } from '@chakra-ui/react';
-import { usePicasso, useSchema } from 'hooks';
+import { usePicasso, useSchema, useTokens } from 'hooks';
 import React, { useState } from 'react';
 import { IoIosArrowDown } from 'react-icons/io';
 import { IEditEmployee, IEditEmployeeForm, ISelectedCoin } from 'types';
 import { BlackButton, EditProfileIcon, TokenSelector } from 'components';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { truncateWallet } from 'utils';
+import { getCoinLogo, truncateWallet } from 'utils';
 import { MobileModalLayout } from 'layouts';
 import useTranslation from 'next-translate/useTranslation';
 
@@ -39,8 +39,8 @@ export const EditEmployeeMobile: React.FC<IEditEmployee> = ({
 		logo: 'https://assets.coingecko.com/coins/images/1/thumb/bitcoin.png?1547033579',
 		symbol: 'bitcoin',
 	} as ISelectedCoin);
-	const bitcoinPrice = 87586;
 	const { editEmployeeSchema } = useSchema();
+	const { listOfTokens, usdtQuotation } = useTokens();
 
 	const {
 		isOpen: isOpenTokenSelector,
@@ -65,10 +65,13 @@ export const EditEmployeeMobile: React.FC<IEditEmployee> = ({
 		)} ${translate('expenses')}`;
 
 	const converterToDollar = (amountInDollar: number) => {
-		setEditedEmployeeData(prevState => ({
-			...prevState,
-			amountInDollar: amountInDollar * bitcoinPrice,
-		}));
+		if (usdtQuotation.USDT?.value) {
+			setEditedEmployeeData(prevState => ({
+				...prevState,
+				// eslint-disable-next-line no-unsafe-optional-chaining
+				amountInDollar: amountInDollar * usdtQuotation.USDT?.value,
+			}));
+		}
 	};
 
 	const {
@@ -86,6 +89,7 @@ export const EditEmployeeMobile: React.FC<IEditEmployee> = ({
 		setEditedEmployeeData(prevState => ({
 			...prevState,
 			amount: 0,
+			amountInDollar: 0,
 		}));
 	};
 
@@ -94,7 +98,7 @@ export const EditEmployeeMobile: React.FC<IEditEmployee> = ({
 	};
 
 	return (
-		<MobileModalLayout isOpen={isOpen} onClose={onClose}>
+		<MobileModalLayout isOpen={isOpen} onClose={handleResetFormInputs}>
 			<Flex
 				direction="column"
 				w="full"
@@ -121,8 +125,15 @@ export const EditEmployeeMobile: React.FC<IEditEmployee> = ({
 							>
 								{translate('editEmployee')}
 							</Text>
-							<Text color={theme.text.primary} fontSize="sm">
-								{employee.name} - {truncateWallet(employee?.wallet)}
+							<Text
+								color={theme.text.primary}
+								fontSize="sm"
+								fontWeight="medium"
+							>
+								{employee.name?.length !== 42
+									? employee.name
+									: truncateWallet(employee.name)}{' '}
+								- {truncateWallet(employee?.wallet)}
 							</Text>
 						</Flex>
 						<ModalCloseButton color="gray.400" py="7" />
@@ -185,12 +196,12 @@ export const EditEmployeeMobile: React.FC<IEditEmployee> = ({
 										_focus={{}}
 										onClick={onOpenTokenSelector}
 									>
-										<Flex gap="2" align="center">
-											<Img boxSize="4" src={token.logo} />
-											<Text fontSize="sm" width="8" lineHeight="5">
-												{token.symbol}
-											</Text>
-											<Icon boxSize="4" as={IoIosArrowDown} />
+										<Flex gap="2" align="center" px="4">
+											<Img
+												boxSize="4"
+												src={getCoinLogo('USDT', listOfTokens)}
+											/>
+											<Text fontSize="sm">USDT</Text>
 										</Flex>
 									</Button>
 								</InputGroup>

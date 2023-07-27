@@ -20,7 +20,6 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { swapTokensSchema } from 'utils';
 import { ISelectedCoin } from 'types';
-import { useSession } from 'next-auth/react';
 
 interface ISwapTokens {
 	youPay: string;
@@ -37,7 +36,7 @@ export const SwapToken = () => {
 	);
 	const [paidData, setPaidData] = useState<ISelectedCoin>({} as ISelectedCoin);
 	const theme = usePicasso();
-	const { data: session } = useSession();
+	const { session } = useAuth();
 	const { t: translate } = useTranslation('swap-token');
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const {

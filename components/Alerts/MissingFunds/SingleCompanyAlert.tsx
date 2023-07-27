@@ -5,11 +5,7 @@ import React from 'react';
 import NextLink from 'next/link';
 import { navigationPaths } from 'utils';
 
-interface ISingleCompanieAlert {
-	missingValue: number;
-}
-
-export const SingleCompanieAlert: React.FC<ISingleCompanieAlert> = ({
+export const SingleCompanyAlert: React.FC<{ missingValue: number }> = ({
 	missingValue,
 }) => {
 	const theme = usePicasso();
@@ -24,7 +20,7 @@ export const SingleCompanieAlert: React.FC<ISingleCompanieAlert> = ({
 				whiteSpace="nowrap"
 			>
 				{translate('yourCompanieIsMissing', {
-					companie: companiesWithMissingFunds[0]?.name,
+					company: companiesWithMissingFunds[0]?.name,
 				})}
 			</Text>
 
@@ -52,4 +48,4 @@ export const SingleCompanieAlert: React.FC<ISingleCompanieAlert> = ({
 	);
 };
 
-export default SingleCompanieAlert;
+export default SingleCompanyAlert;

@@ -1,4 +1,3 @@
-/* eslint-disable no-underscore-dangle */
 import {
 	Flex,
 	Img,
@@ -13,10 +12,9 @@ import React from 'react';
 import { getCoinLogo, getLogo, handleLogoImage, navigationPaths } from 'utils';
 import NextLink from 'next/link';
 import { GetUserCompaniesRes } from 'types/interfaces/main-server/ICompany';
-import { WithdrawModal } from 'components';
-import { useAccount, useContractRead, useToken } from 'wagmi';
+import { WithdrawModal, WithdrawModalMobile } from 'components';
+import { useAccount, useContractRead } from 'wagmi';
 import companyAbi from 'utils/abi/company.json';
-import { WithdrawModalMobile } from 'components/Modals';
 
 interface ICompanyCard {
 	company: GetUserCompaniesRes;
@@ -106,7 +104,7 @@ export const CompanyCard: React.FC<ICompanyCard> = ({
 				</Flex>
 				{!company.isAdmin && (
 					<Flex pt={{ base: '3', xl: '3' }} justify="space-between" pr="6">
-						<Flex maxW="4.375rem">
+						<Flex maxW="20">
 							<Text fontSize={{ base: 'xs', md: 'xs' }} color="gray.500">
 								{translate('availableToWithdraw')}
 							</Text>
@@ -117,11 +115,16 @@ export const CompanyCard: React.FC<ICompanyCard> = ({
 							) : (
 								<Flex direction="column">
 									<Text>
-										$ {company.totalFundsUsd ? company.totalFundsUsd : 0}
+										${' '}
+										{Number(employeeBalance)
+											? Number(employeeBalance).toLocaleString('en-US')
+											: 0}
 									</Text>
 									<Flex align="center" gap="1">
 										<Text fontSize="xs">
-											{company.totalFundsUsd ? company.totalFundsUsd : 0}
+											{Number(employeeBalance)
+												? Number(employeeBalance).toLocaleString('en-US')
+												: 0}
 										</Text>
 										<Img src={getCoinLogo('USDT', listOfTokens)} boxSize="4" />
 									</Flex>
@@ -143,7 +146,9 @@ export const CompanyCard: React.FC<ICompanyCard> = ({
 									{isLoadingCompanies ? (
 										<Skeleton w="10" h="4" />
 									) : (
-										<Text>{Number(employeeBalance)}</Text>
+										<Text>
+											${company.totalFundsUsd?.toLocaleString('en-US')}
+										</Text>
 									)}
 								</Flex>
 							)}
