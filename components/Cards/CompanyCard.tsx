@@ -9,12 +9,19 @@ import {
 import { useCompanies, usePicasso, useTokens } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
 import React from 'react';
-import { getCoinLogo, getLogo, handleLogoImage, navigationPaths } from 'utils';
+import {
+	formatNumbers,
+	getCoinLogo,
+	getLogo,
+	handleLogoImage,
+	navigationPaths,
+} from 'utils';
 import NextLink from 'next/link';
 import { GetUserCompaniesRes } from 'types/interfaces/main-server/ICompany';
 import { WithdrawModal, WithdrawModalMobile } from 'components';
 import { useAccount, useContractRead } from 'wagmi';
 import companyAbi from 'utils/abi/company.json';
+import { useRouter } from 'next/router';
 
 interface ICompanyCard {
 	company: GetUserCompaniesRes;
@@ -36,6 +43,7 @@ export const CompanyCard: React.FC<ICompanyCard> = ({
 	const { isLoadingCompanies } = useCompanies();
 	const { address } = useAccount();
 	const { listOfTokens } = useTokens();
+	const { locale } = useRouter();
 
 	const { data: employeeBalance } = useContractRead({
 		address: company.contract,
@@ -116,14 +124,14 @@ export const CompanyCard: React.FC<ICompanyCard> = ({
 								<Flex direction="column">
 									<Text>
 										${' '}
-										{Number(employeeBalance)
-											? Number(employeeBalance).toLocaleString('en-US')
+										{Number(employeeBalance) && locale
+											? formatNumbers(Number(employeeBalance), locale)
 											: 0}
 									</Text>
 									<Flex align="center" gap="1">
 										<Text fontSize="xs">
-											{Number(employeeBalance)
-												? Number(employeeBalance).toLocaleString('en-US')
+											{Number(employeeBalance) && locale
+												? formatNumbers(Number(employeeBalance), locale)
 												: 0}
 										</Text>
 										<Img src={getCoinLogo('USDT', listOfTokens)} boxSize="4" />
@@ -148,8 +156,8 @@ export const CompanyCard: React.FC<ICompanyCard> = ({
 									) : (
 										<Text>
 											$
-											{company.totalFundsUsd
-												? company.totalFundsUsd?.toLocaleString('en-US')
+											{company.totalFundsUsd && locale
+												? formatNumbers(company.totalFundsUsd, locale)
 												: 0}
 										</Text>
 									)}

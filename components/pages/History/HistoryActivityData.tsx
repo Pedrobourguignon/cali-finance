@@ -25,6 +25,7 @@ import {
 	handleLogoImage,
 	dateHandler,
 	notificationsData,
+	formatNumbers,
 } from 'utils';
 import { useAccount } from 'wagmi';
 
@@ -117,9 +118,9 @@ export const HistoryActivityData: React.FC<IActivitiesData> = ({
 								) : (
 									<Img
 										src={
-											profileData?.picture === null
-												? '/images/avatar.png'
-												: getLogo(profileData?.picture)
+											profileData?.picture
+												? getLogo(profileData?.picture)
+												: '/images/avatar.png'
 										}
 										borderRadius="full"
 										boxSize="6"
@@ -259,7 +260,8 @@ export const HistoryActivityData: React.FC<IActivitiesData> = ({
 												color={theme.text.primary}
 											>
 												{activities.meta.data.amount &&
-													activities.meta.data.amount.toLocaleString(locale)}
+													locale &&
+													formatNumbers(activities.meta.data.amount, locale)}
 											</Text>
 											<Text
 												fontSize="xs"
