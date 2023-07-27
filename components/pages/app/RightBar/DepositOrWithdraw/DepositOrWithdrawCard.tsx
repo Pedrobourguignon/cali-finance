@@ -60,7 +60,6 @@ export const DepositOrWithdrawCard: React.FC<IDepositOrWithdrawCard> = ({
 		setSelectedOption(selectedButton!);
 	};
 
-	const [bool, setBool] = useState(false);
 	const handleDeposit = (transaction: IDepositOrWithdrawnForm) => {
 		setTransaction({
 			amount: transaction.amount,
@@ -190,12 +189,7 @@ export const DepositOrWithdrawCard: React.FC<IDepositOrWithdrawCard> = ({
 								</Text>
 							</Flex>
 						)}
-						<BlackButton
-							h="8"
-							type="submit"
-							whiteSpace="normal"
-							onClick={() => setBool(true)}
-						>
+						<BlackButton h="8" type="submit" whiteSpace="normal">
 							{selectedOption === translate('deposit')
 								? translate('addFunds')
 								: translate('withdrawFunds')}
