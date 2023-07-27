@@ -22,6 +22,7 @@ import {
 	waitForTransaction,
 	writeContract,
 } from '@wagmi/core';
+import { subtractFee } from 'helpers';
 
 interface IConfirmTransaction {
 	transaction: ITransaction;
@@ -96,13 +97,16 @@ export const ConfirmTransaction: React.FC<IConfirmTransaction> = ({
 				abi: companyAbi,
 				functionName: 'deposit',
 				args: [
-					process.env.NEXT_PUBLIC_CALI_TOKEN,
-					await formatDecimals(`${transaction.amount}`),
+					selectedCompany.token,
+					await formatDecimals(
+						transaction.amount,
+						selectedCompany.token_decimals
+					),
 				],
 			});
 			const { hash } = await writeContract(request);
 			setIsLoadingDeposit(true);
-			const data = await waitForTransaction({
+			await waitForTransaction({
 				confirmations: 3,
 				hash,
 			});
@@ -120,7 +124,7 @@ export const ConfirmTransaction: React.FC<IConfirmTransaction> = ({
 			});
 		} catch (err) {
 			const error = err as IContractFunctionExecutionError;
-			if (error.cause.reason === 'ERC20: transfer amount exceeds balance') {
+			if (error.cause.reason.includes('transfer amount exceeds balance')) {
 				toast({
 					position: 'top',
 					render: () => (
@@ -151,12 +155,15 @@ export const ConfirmTransaction: React.FC<IConfirmTransaction> = ({
 	const handleApproveDeposit = async () => {
 		try {
 			const { request } = await prepareWriteContract({
-				address: (process.env.NEXT_PUBLIC_CALI_TOKEN || '') as Hex,
+				address: (selectedCompany.token || '') as Hex,
 				abi: caliTokenAbi,
 				functionName: 'approve',
 				args: [
 					selectedCompany.contract,
-					await formatDecimals(`${transaction.amount}`),
+					await formatDecimals(
+						transaction.amount,
+						selectedCompany.token_decimals
+					),
 				],
 			});
 			const { hash } = await writeContract(request);
@@ -198,11 +205,6 @@ export const ConfirmTransaction: React.FC<IConfirmTransaction> = ({
 			handleApproveDeposit();
 		} else withdrawFunds?.();
 	};
-
-	const subtractFee = () =>
-		Number(
-			(transaction.amount - transaction.amount * 0.005).toFixed(3)
-		).toLocaleString(locale);
 
 	return (
 		<Flex
@@ -282,7 +284,9 @@ export const ConfirmTransaction: React.FC<IConfirmTransaction> = ({
 							})}
 						</Text>
 						<Flex align="center" gap="1">
-							<Text fontSize="sm">{subtractFee()}</Text>
+							<Text fontSize="sm">
+								{locale && subtractFee(transaction.amount, locale)}
+							</Text>
 							<Img src={transaction.logo} boxSize="4" />
 						</Flex>
 					</Flex>
