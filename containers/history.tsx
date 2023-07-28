@@ -1,6 +1,6 @@
-import { Flex } from '@chakra-ui/react';
+import { Flex, useMediaQuery } from '@chakra-ui/react';
 import { HistoryComponent, HistoryComponentMobile } from 'components';
-import { CompaniesProvider, ProfileProvider } from 'contexts';
+import { AuthProvider, CompaniesProvider, ProfileProvider } from 'contexts';
 import { useAuth, usePicasso, useProfile } from 'hooks';
 
 import React from 'react';
@@ -20,16 +20,18 @@ export const HistoryContainer = () => {
 			enabled: !!isConnected && !!session,
 		}
 	);
+	const [isLargerThan480] = useMediaQuery('(min-width: 480px)');
 
 	return (
 		<CompaniesProvider>
 			<ProfileProvider>
-				<Flex bg={theme.bg.primary} display={{ base: 'none', sm: 'flex' }}>
-					<HistoryComponent history={historyNotifications} />
-				</Flex>
-				<Flex bg={theme.bg.primary} display={{ base: 'flex', sm: 'none' }}>
-					<HistoryComponentMobile history={historyNotifications} />
-				</Flex>
+				<AuthProvider>
+					{isLargerThan480 ? (
+						<HistoryComponent history={historyNotifications} />
+					) : (
+						<HistoryComponentMobile history={historyNotifications} />
+					)}
+				</AuthProvider>
 			</ProfileProvider>
 		</CompaniesProvider>
 	);

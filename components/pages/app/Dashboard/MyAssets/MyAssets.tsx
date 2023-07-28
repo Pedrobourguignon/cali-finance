@@ -1,15 +1,18 @@
-import { Button, Flex, Skeleton, Text, useDisclosure } from '@chakra-ui/react';
+import { Button, Flex, Text, useDisclosure } from '@chakra-ui/react';
 import { Asset, OffsetShadow } from 'components';
 import { useCompanies, usePicasso } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
+import { useRouter } from 'next/router';
 import React, { useRef, useState, useEffect, useMemo } from 'react';
 import { IAssetsOptions } from 'types';
+import { formatNumbers } from 'utils';
 
 export const MyAssets = () => {
 	const { t: translate } = useTranslation('dashboard');
 	const { isOpen: isFullList, onToggle: toggleListView } = useDisclosure();
 	const theme = usePicasso();
 	const { allUserBalance } = useCompanies();
+	const { locale } = useRouter();
 
 	const ref = useRef<HTMLDivElement>(null);
 
@@ -60,16 +63,12 @@ export const MyAssets = () => {
 							>
 								{translate('myAssets')}
 							</Text>
-							{allUserBalance.length > 0 ? (
-								<Text
-									fontSize={{ base: 'sm', md: 'xs', lg: 'sm' }}
-									color={theme.text.primary}
-								>
-									${getUsdtBalance?.toLocaleString('en-US')}
-								</Text>
-							) : (
-								<Skeleton w="10" h="3" />
-							)}
+							<Text
+								fontSize={{ base: 'sm', md: 'xs', lg: 'sm' }}
+								color={theme.text.primary}
+							>
+								${locale && formatNumbers(getUsdtBalance, locale)}
+							</Text>
 						</Flex>
 						{assetOptions.length > 3 && (
 							<Button
