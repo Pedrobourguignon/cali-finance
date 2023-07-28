@@ -37,5 +37,6 @@
 	"totalTransaction": "Total {{transactionType}}",
 	"cancel": "Cancel",
 	"youDontHaveEmployee": "You don’t have employees registered yet",
-	"awaitingPolling": "Waiting for the contract to be confirmed by the network."
+	"awaitingPolling": "Waiting for the contract to be confirmed by the network.",
+	"availableToWithdraw": "Available to withdraw"
 }
