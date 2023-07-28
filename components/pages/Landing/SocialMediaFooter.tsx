@@ -18,8 +18,17 @@ export const SocialMediaFooter: React.FC<ISocialMediaFooter> = ({
 			onClick={() => window.open(`${url}`)}
 			cursor="pointer"
 		>
-			<Icon as={icon} color={theme.branding.socialIcons} boxSize="12" />
-			<Text color={theme.branding.socialIcons}>{name}</Text>
+			<Icon
+				as={icon}
+				color={theme.branding.socialIcons}
+				boxSize={{ base: '7', sm: '12' }}
+			/>
+			<Text
+				fontSize={{ base: 'xs', sm: 'md' }}
+				color={theme.branding.socialIcons}
+			>
+				{name}
+			</Text>
 		</Flex>
 	);
 };
