@@ -25,6 +25,7 @@ import {
 	handleLogoImage,
 	dateHandler,
 	notificationsData,
+	formatNumbers,
 } from 'utils';
 import { useAccount } from 'wagmi';
 
@@ -101,7 +102,7 @@ export const HistoryActivityData: React.FC<IActivitiesData> = ({
 											objectFit="cover"
 										/>
 									</Flex>
-								) : (
+								) : activities.meta.data.companyName ? (
 									<Flex
 										boxSize="6"
 										borderRadius="full"
@@ -114,12 +115,23 @@ export const HistoryActivityData: React.FC<IActivitiesData> = ({
 									>
 										{handleLogoImage(activities.meta.data.companyName)}
 									</Flex>
+								) : (
+									<Img
+										src={
+											profileData?.picture
+												? getLogo(profileData?.picture)
+												: '/images/avatar.png'
+										}
+										borderRadius="full"
+										boxSize="6"
+										objectFit="cover"
+									/>
 								)}
 								{activities.event.name === 'user_updated' ||
 								activities.event.name === 'team_member_updated' ||
 								activities.event.name === 'user_settings_updated' ? (
 									<Accordion allowToggle w="full">
-										<AccordionItem w="full">
+										<AccordionItem w="full" _hover={{ opacity: 0.8 }}>
 											{({ isExpanded }) => (
 												<>
 													<AccordionButton
@@ -154,8 +166,9 @@ export const HistoryActivityData: React.FC<IActivitiesData> = ({
 														p="0"
 														color={theme.text.primary}
 														fontSize="sm"
+														maxW="60"
 													>
-														{activities.meta.description[locale!]}
+														{locale && activities.meta.description[locale]}
 													</AccordionPanel>
 												</>
 											)}
@@ -171,9 +184,13 @@ export const HistoryActivityData: React.FC<IActivitiesData> = ({
 									</Text>
 								)}
 							</GridItem>
-							<GridItem display="flex" flex="2.5" gap="2">
+							<GridItem display="flex" flex="2" gap="2">
 								<Img
-									src={getLogo(profileData?.picture)}
+									src={
+										profileData.picture
+											? getLogo(profileData?.picture)
+											: '/images/avatar.png'
+									}
 									borderRadius="full"
 									boxSize="6"
 									objectFit="cover"
@@ -183,7 +200,10 @@ export const HistoryActivityData: React.FC<IActivitiesData> = ({
 								activities.event.name === 'company_updated' ||
 								activities.event.name === 'team_member_updated' ||
 								activities.event.name === 'company_created' ||
-								activities.event.name === 'user_settings_updated' ? (
+								activities.event.name === 'user_settings_updated' ||
+								activities.event.name === 'user_withdraw' ||
+								activities.event.name === 'company_deposit_received' ||
+								activities.event.name === 'user_created' ? (
 									<Text
 										h="max-content"
 										fontSize="sm"
@@ -206,7 +226,7 @@ export const HistoryActivityData: React.FC<IActivitiesData> = ({
 									</Text>
 								)}
 							</GridItem>
-							<GridItem flex="2.5">
+							<GridItem flex="2">
 								<Flex align="center" gap="2">
 									<Img
 										src={notificationsData[activities.event.name].icon}
@@ -229,6 +249,36 @@ export const HistoryActivityData: React.FC<IActivitiesData> = ({
 									</Flex>
 								</Flex>
 							</GridItem>
+							{activities.event.name === 'user_withdraw' ||
+							activities.event.name === 'company_deposit_received' ? (
+								<GridItem flex="1">
+									<Flex align="end" direction="column">
+										<Flex gap="1">
+											<Text
+												fontSize="xs"
+												fontWeight="normal"
+												color={theme.text.primary}
+											>
+												{activities.meta.data.amount &&
+													locale &&
+													formatNumbers(activities.meta.data.amount, locale)}
+											</Text>
+											<Text
+												fontSize="xs"
+												fontWeight="normal"
+												color={theme.text.primary}
+											>
+												USDT
+											</Text>
+										</Flex>
+										<Text fontSize="xs" fontWeight="normal" color="green.400">
+											Completed
+										</Text>
+									</Flex>
+								</GridItem>
+							) : (
+								<GridItem flex="1" />
+							)}
 						</Grid>
 					</Flex>
 				)}

@@ -1,5 +1,4 @@
 /* eslint-disable no-unsafe-optional-chaining */
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import {
 	Flex,
 	Text,
@@ -36,7 +35,7 @@ export const HistoryComponent: React.FC<IHistoryPage> = ({ history }) => {
 	const { session } = useAuth();
 	const [filteredActivities, setFilteredActivities] = useState<
 		IHistoryNotifications[]
-	>(history!);
+	>(history || []);
 
 	const notificationPerPage = 13;
 	const maxPage = useMemo(
@@ -64,8 +63,8 @@ export const HistoryComponent: React.FC<IHistoryPage> = ({ history }) => {
 				)
 			);
 		}
-		if (filter === translate('all')) {
-			setFilteredActivities(history!);
+		if (filter === translate('all') && history) {
+			setFilteredActivities(history);
 		}
 		setSelectedFilterOption(filter);
 	};
@@ -75,7 +74,7 @@ export const HistoryComponent: React.FC<IHistoryPage> = ({ history }) => {
 	}, [filteredActivities]);
 
 	useEffect(() => {
-		setFilteredActivities(history!);
+		if (history) setFilteredActivities(history);
 	}, [history]);
 
 	return (
@@ -198,7 +197,7 @@ export const HistoryComponent: React.FC<IHistoryPage> = ({ history }) => {
 											fontWeight="semibold"
 											cursor="pointer"
 											onClick={() => {
-												setFilteredActivities(history!);
+												setFilteredActivities(history || []);
 												setSelectedFilterOption(translate('all'));
 											}}
 										>

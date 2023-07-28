@@ -67,8 +67,8 @@ export const EmployeesDashboard: React.FC<IEmployeeDashboard> = ({
 	const getEmployeesBalance = async () => {
 		const employeesWallet: string[] = [];
 		employees?.forEach(employee => {
-			if (!employeesWallet.includes(employee.wallet!)) {
-				employeesWallet.push(employee.wallet!);
+			if (employee.wallet && !employeesWallet.includes(employee.wallet)) {
+				employeesWallet.push(employee.wallet);
 			}
 		});
 		if (selectedCompanyData?.contract && session) {
@@ -191,11 +191,13 @@ export const EmployeesDashboard: React.FC<IEmployeeDashboard> = ({
 				</Flex>
 			) : (
 				<Flex w="100%" direction="column" gap="2">
-					<Flex justify="space-between" fontSize="sm">
-						<Text>{translate('nameAddress')}</Text>
-						{isGeneral && <Text>{translate('team')}</Text>}
-						<Text>{translate('amount')}</Text>
-					</Flex>
+					{employees!.length > 0 && (
+						<Flex justify="space-between" fontSize="sm">
+							<Text>{translate('nameAddress')}</Text>
+							{isGeneral && <Text>{translate('team')}</Text>}
+							<Text>{translate('amount')}</Text>
+						</Flex>
+					)}
 					<Flex direction="column" gap="2">
 						{employees
 							?.slice(0, isFullList ? employees.length : 3)
