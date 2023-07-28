@@ -2,19 +2,16 @@ import {
 	Button,
 	Flex,
 	FormControl,
-	Icon,
 	Img,
 	Input,
 	InputGroup,
 	Text,
-	useDisclosure,
 } from '@chakra-ui/react';
 import { BlackButton, TokenSelector } from 'components';
 import { useCompanies, usePicasso, useSchema, useTokens } from 'hooks';
 import { useForm } from 'react-hook-form';
 import useTranslation from 'next-translate/useTranslation';
 import { Dispatch, SetStateAction, useState } from 'react';
-import { IoIosArrowDown } from 'react-icons/io';
 import { ISelectedCoin, ITransaction } from 'types';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { getCoinLogo } from 'utils';
@@ -35,7 +32,6 @@ export const DepositOrWithdrawCard: React.FC<IDepositOrWithdrawCard> = ({
 	const { t: translate } = useTranslation('company-overall');
 	const { transactionSchema } = useSchema();
 	const theme = usePicasso();
-	const { onClose, isOpen, onOpen } = useDisclosure();
 	const { listOfTokens } = useTokens();
 	const { selectedCompany } = useCompanies();
 	const buttonOptions = [translate('deposit'), translate('withdrawal')];

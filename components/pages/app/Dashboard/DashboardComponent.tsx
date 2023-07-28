@@ -8,7 +8,6 @@ import {
 	DashboardHeader,
 } from 'components';
 import React from 'react';
-
 import { useAuth } from 'hooks';
 
 export const DashboardComponent: React.FC = () => {
