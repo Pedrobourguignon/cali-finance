@@ -50,22 +50,24 @@ export const FrequentlyQuestions = () => {
 			justify={{ md: 'space-evenly', lg: 'center', '2xl': 'center' }}
 			w="full"
 			gap={{ md: '3', lg: '12', xl: '40', '2xl': '52' }}
+			direction={{ base: 'column', sm: 'row' }}
 		>
 			<Flex
 				direction="column"
 				maxW={{ md: '15rem', lg: '20rem', xl: '25rem' }}
 				gap="6"
+				px={{ base: '4', sm: '0' }}
 			>
 				<Text
 					maxW={{ md: '14.375rem', lg: 'full' }}
 					fontWeight="bold"
-					fontSize="3xl"
+					fontSize={{ base: '2xl', sm: '3xl' }}
 					lineHeight="9"
 					color={theme.text.primary}
 				>
 					{translate('findTheAnswers')}
 				</Text>
-				<Link href="/" as={NextLink} w="max-content">
+				<Link href="/" as={NextLink} w="max-content" pb="14">
 					<Flex gap="2.5">
 						<Icon as={AiOutlinePlayCircle} boxSize="5" color="black" />
 						<Text fontSize="sm" color={theme.text.primary}>
