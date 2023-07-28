@@ -13,6 +13,7 @@ import {
 } from '@chakra-ui/react';
 import { useCompanies, usePath, usePicasso } from 'hooks';
 import {
+	formatNumbers,
 	getLogo,
 	handleLogoImage,
 	navigationPaths,
@@ -35,7 +36,7 @@ import { useEffect } from 'react';
 export const CompaniesHeader = () => {
 	const theme = usePicasso();
 	const { isSamePath } = usePath();
-	const { query } = useRouter();
+	const { query, locale } = useRouter();
 	const { onClose, isOpen, onOpen } = useDisclosure();
 	const { t: translate } = useTranslation('company-overall');
 	const { getCompanyById, selectedCompany } = useCompanies();
@@ -175,9 +176,9 @@ export const CompaniesHeader = () => {
 						<Skeleton w="14" h="6" />
 					) : (
 						selectedCompany.totalFundsUsd && (
-							<Text fontSize="xl">{`$ ${selectedCompany?.totalFundsUsd?.toLocaleString(
-								'en-US'
-							)}`}</Text>
+							<Text fontSize="xl">{`$ ${
+								locale && formatNumbers(selectedCompany?.totalFundsUsd, locale)
+							}`}</Text>
 						)
 					)}
 					<Text fontSize="sm" fontWeight="semibold">

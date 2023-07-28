@@ -222,7 +222,7 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 				company,
 			})
 			.then(id =>
-				router.push(navigationPaths.dashboard.companies.overview(query.id!))
+				router.push(navigationPaths.dashboard.companies.overview(query.id))
 			);
 	};
 
@@ -257,7 +257,7 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 									(accumulator, currentValue) => accumulator + currentValue,
 									0
 								);
-								if (company.totalFundsUsd! < sum)
+								if (company.totalFundsUsd && company.totalFundsUsd < sum)
 									setCompaniesWithMissingFunds(prevState =>
 										prevState.concat(company)
 									);

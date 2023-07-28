@@ -61,14 +61,15 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 	};
 
 	const checkSession = async () => {
-		if (getCookie('cali-finance-authorization'))
-			try {
-				checkJwt();
-				await authClient.get(AUTH_SERVICE_ROUTES.checkToken);
-				setSession(true);
-			} catch (error: any) {
+		try {
+			checkJwt();
+			await authClient.get(AUTH_SERVICE_ROUTES.checkToken);
+			setSession(true);
+		} catch (error: any) {
+			if (!toast.isActive('credentials-toast')) {
 				toast({
 					position: 'top',
+					id: 'credentials-toast',
 					render: () => (
 						<AlertToast
 							onClick={toast.closeAll}
@@ -78,6 +79,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 					),
 				});
 			}
+		}
 	};
 
 	const handleSignIn = async (account: `0x${string}` | undefined) => {

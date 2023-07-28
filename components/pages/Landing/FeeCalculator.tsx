@@ -47,7 +47,7 @@ export const FeeCalculator = () => {
 	return (
 		<OffsetShadow
 			borderRadius="xl"
-			width="22.125rem"
+			width={{ base: '21rem', sm: '22.125rem' }}
 			height="13.813rem"
 			borderColor={theme.bg.primary}
 			top="0.5rem"
@@ -58,7 +58,7 @@ export const FeeCalculator = () => {
 			<Flex
 				borderRadius="xl"
 				bg={theme.bg.white}
-				w={{ md: '22.125rem', '2xl': '35rem' }}
+				w={{ base: '21rem', md: '22.125rem', '2xl': '35rem' }}
 				h="13.813rem"
 			>
 				<Flex direction="column" p="6" w="full">
@@ -100,15 +100,19 @@ export const FeeCalculator = () => {
 							h="8"
 						>
 							<Flex gap="2" align="center">
-								<Img boxSize={{ md: '4' }} src={token.logo} />
+								<Img boxSize="4" src={token.logo} ml="2" />
 								<Text
-									fontSize={{ md: 'xs', xl: 'sm' }}
+									fontSize={{ base: 'sm', md: 'xs', xl: 'sm' }}
 									width={{ lg: '6', xl: '8' }}
 									lineHeight="5"
 								>
 									{token.symbol.toUpperCase()}
 								</Text>
-								<Icon boxSize={{ md: '2', xl: '4' }} as={IoIosArrowDown} />
+								<Icon
+									boxSize={{ md: '2', xl: '4' }}
+									as={IoIosArrowDown}
+									pr="2"
+								/>
 							</Flex>
 						</Button>
 					</InputGroup>

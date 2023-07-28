@@ -2,19 +2,16 @@ import {
 	Button,
 	Flex,
 	FormControl,
-	Icon,
 	Img,
 	Input,
 	InputGroup,
 	Text,
-	useDisclosure,
 } from '@chakra-ui/react';
-import { BlackButton, TokenSelector } from 'components';
-import { usePicasso, useSchema, useTokens } from 'hooks';
+import { BlackButton } from 'components';
+import { useCompanies, usePicasso, useSchema, useTokens } from 'hooks';
 import { useForm } from 'react-hook-form';
 import useTranslation from 'next-translate/useTranslation';
 import { Dispatch, SetStateAction, useState } from 'react';
-import { IoIosArrowDown } from 'react-icons/io';
 import { ISelectedCoin, ITransaction } from 'types';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { getCoinLogo } from 'utils';
@@ -35,8 +32,8 @@ export const DepositOrWithdrawCard: React.FC<IDepositOrWithdrawCard> = ({
 	const { t: translate } = useTranslation('company-overall');
 	const { transactionSchema } = useSchema();
 	const theme = usePicasso();
-	const { onClose, isOpen, onOpen } = useDisclosure();
 	const { listOfTokens } = useTokens();
+	const { selectedCompany } = useCompanies();
 	const buttonOptions = [translate('deposit'), translate('withdrawal')];
 	const [selectedOption, setSelectedOption] = useState<string>(
 		translate('deposit')
@@ -59,7 +56,6 @@ export const DepositOrWithdrawCard: React.FC<IDepositOrWithdrawCard> = ({
 		setSelectedOption(selectedButton!);
 	};
 
-	const [bool, setBool] = useState(false);
 	const handleDeposit = (transaction: IDepositOrWithdrawnForm) => {
 		setTransaction({
 			amount: transaction.amount,
@@ -81,6 +77,7 @@ export const DepositOrWithdrawCard: React.FC<IDepositOrWithdrawCard> = ({
 					p="4"
 					gap="4"
 					w="100%"
+					minH="12rem"
 				>
 					{/* <TokenSelector
 						isOpen={isOpen}
@@ -104,51 +101,91 @@ export const DepositOrWithdrawCard: React.FC<IDepositOrWithdrawCard> = ({
 							</Button>
 						))}
 					</Flex>
-					<Flex direction="column" gap={errors.amount ? '2' : '6'}>
-						<Flex direction="column" gap="2">
-							<Text fontSize="sm">{translate('amount')}</Text>
-							<InputGroup>
-								<Input
-									_placeholder={{ color: 'blackAlpha.500' }}
-									placeholder="0.00"
-									borderColor={errors.amount ? 'red' : theme.bg.primary}
-									h="8"
-									flex="3"
-									borderRightRadius="none"
-									_hover={{}}
-									color={theme.text.primary}
-									zIndex="docked"
-									{...register('amount')}
-								/>
-								<Flex
-									borderLeftRadius="none"
-									borderRightRadius="md"
-									bg={theme.bg.primary}
-									h="8"
-									_active={{}}
-									_focus={{}}
-									// _hover={{ opacity: '80%' }}
-									// onClick={onOpen}
-								>
-									<Flex gap="2" align="center" color="white" px="3">
-										<Img boxSize="4" src={getCoinLogo('USDT', listOfTokens)} />
-										<Text fontSize="sm" whiteSpace="nowrap">
-											{token.symbol}
+					<Flex direction="column" gap="2">
+						{selectedOption === translate('deposit') ? (
+							<Flex direction="column" gap="2">
+								<Text fontSize="sm">{translate('amount')}</Text>
+								<InputGroup>
+									<Input
+										_placeholder={{ color: 'blackAlpha.500' }}
+										placeholder="0.00"
+										borderColor={errors.amount ? 'red' : theme.bg.primary}
+										h="8"
+										flex="3"
+										borderRightRadius="none"
+										_hover={{}}
+										color={theme.text.primary}
+										zIndex="docked"
+										{...register('amount')}
+									/>
+									<Flex
+										borderLeftRadius="none"
+										borderRightRadius="md"
+										bg={theme.bg.primary}
+										h="8"
+										_active={{}}
+										_focus={{}}
+										// _hover={{ opacity: '80%' }}
+										// onClick={onOpen}
+									>
+										<Flex gap="2" align="center" color="white" px="3">
+											<Img
+												boxSize="4"
+												src={getCoinLogo('USDT', listOfTokens)}
+											/>
+											<Text fontSize="sm" whiteSpace="nowrap">
+												{token.symbol}
+											</Text>
+											{/* <Icon boxSize="4" as={IoIosArrowDown} /> */}
+										</Flex>
+									</Flex>
+								</InputGroup>
+								<Text color="red" fontSize="sm">
+									{errors.amount?.message}
+								</Text>
+							</Flex>
+						) : (
+							<Flex
+								gap="2"
+								w="full"
+								justify="space-between"
+								direction="column"
+								pb="4"
+							>
+								<Flex>
+									<Text fontSize="sm" w="full" color="gray.500">
+										{translate('availableToWithdraw')}
+									</Text>
+									<Flex direction="column" w="full" align="end">
+										<Text>
+											${' '}
+											{Number(selectedCompany.totalFundsUsd)
+												? Number(selectedCompany.totalFundsUsd).toLocaleString(
+														'en-US'
+												  )
+												: 0}
 										</Text>
-										{/* <Icon boxSize="4" as={IoIosArrowDown} /> */}
+										<Flex align="center" gap="1">
+											<Text fontSize="xs">
+												{Number(selectedCompany.totalFundsUsd)
+													? Number(
+															selectedCompany.totalFundsUsd
+													  ).toLocaleString('en-US')
+													: 0}
+											</Text>
+											<Img
+												src={getCoinLogo('USDT', listOfTokens)}
+												boxSize="4"
+											/>
+										</Flex>
 									</Flex>
 								</Flex>
-							</InputGroup>
-							<Text color="red" fontSize="sm">
-								{errors.amount?.message}
-							</Text>
-						</Flex>
-						<BlackButton
-							py="1.5"
-							type="submit"
-							whiteSpace="normal"
-							onClick={() => setBool(true)}
-						>
+								<Text color="red" fontSize="sm">
+									{errors.amount?.message}
+								</Text>
+							</Flex>
+						)}
+						<BlackButton h="8" type="submit" whiteSpace="normal">
 							{selectedOption === translate('deposit')
 								? translate('addFunds')
 								: translate('withdrawFunds')}

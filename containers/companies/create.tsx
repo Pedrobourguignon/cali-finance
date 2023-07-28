@@ -68,12 +68,12 @@ export const CreateCompanyContainer = () => {
 	const createCompany = async (company: ICompany) => {
 		try {
 			const {
-				data: { id },
+				data: { checksum, id },
 			} = await mainClient.post(MAIN_SERVICE_ROUTES.createCompany, {
 				company,
 			});
 			setNewCompanyId(id);
-			createCompanyWrite?.({ args: [id.toString(16)] });
+			createCompanyWrite?.({ args: [checksum] });
 		} catch (error) {
 			toast({
 				position: 'top',
