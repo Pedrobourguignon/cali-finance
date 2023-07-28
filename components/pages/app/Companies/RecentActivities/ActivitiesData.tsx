@@ -29,7 +29,7 @@ export const ActivitiesData: React.FC<IActivitiesData> = ({ activities }) => {
 					borderRadius="base"
 					justify="space-between"
 				>
-					<Flex display="flex" alignContent="center" gap="2" flex="3.5">
+					<Flex display="flex" alignContent="center" gap="2" flex="5">
 						{activities.event.name !== 'user_added_to_company' &&
 						activities.event.name !== 'user_added_to_team' &&
 						activities.meta.data.companyLogo ? (
@@ -68,7 +68,7 @@ export const ActivitiesData: React.FC<IActivitiesData> = ({ activities }) => {
 							</Text>
 						)}
 					</Flex>
-					<Flex align="center" gap="3" flex="1">
+					<Flex align="center" gap="3" flex="5">
 						<Img
 							src={notificationsData[activities.event.name].icon}
 							boxSize="4"

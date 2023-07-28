@@ -1,10 +1,23 @@
 /* eslint-disable no-nested-ternary */
-import { Flex, Grid, GridItem, Img, Text } from '@chakra-ui/react';
+import {
+	Accordion,
+	AccordionButton,
+	AccordionItem,
+	AccordionPanel,
+	Box,
+	Flex,
+	Grid,
+	GridItem,
+	Icon,
+	Img,
+	Text,
+} from '@chakra-ui/react';
 import { useAuth, usePicasso, useProfile } from 'hooks';
 
 import useTranslation from 'next-translate/useTranslation';
 import { useRouter } from 'next/router';
 import React from 'react';
+import { AiOutlineArrowDown, AiOutlineArrowUp } from 'react-icons/ai';
 import { useQuery } from 'react-query';
 import { IActivitiesData } from 'types';
 import {
@@ -12,6 +25,7 @@ import {
 	getLogo,
 	handleLogoImage,
 	notificationsData,
+	truncateWallet,
 } from 'utils';
 import { useAccount } from 'wagmi';
 
@@ -56,7 +70,8 @@ export const RecentActivitiesData: React.FC<IActivitiesData> = ({
 									boxSize="6"
 									borderRadius="base"
 								/>
-							) : activities.event.name === 'user_updated' ? (
+							) : activities.event.name === 'user_updated' ||
+							  activities.event.name === 'user_settings_updated' ? (
 								<Flex
 									boxSize="6"
 									borderRadius="full"
@@ -92,10 +107,47 @@ export const RecentActivitiesData: React.FC<IActivitiesData> = ({
 								)
 							)}
 							{activities.event.name === 'user_updated' ||
+							activities.event.name === 'team_member_updated' ||
 							activities.event.name === 'user_settings_updated' ? (
-								<Text fontSize="sm" color={theme.text.primary}>
-									{locale && activities.meta.description[locale]}
-								</Text>
+								<Accordion allowToggle w="full">
+									<AccordionItem>
+										{({ isExpanded }) => (
+											<>
+												<AccordionButton p="0" justifyContent="space-between">
+													<Box
+														as="span"
+														fontSize="sm"
+														textAlign="left"
+														color={theme.text.primary}
+													>
+														{truncateWallet(activities.wallet)}
+													</Box>
+													{isExpanded ? (
+														<Icon
+															as={AiOutlineArrowUp}
+															color="black"
+															boxSize="4"
+														/>
+													) : (
+														<Icon
+															as={AiOutlineArrowDown}
+															color="black"
+															boxSize="4"
+														/>
+													)}
+												</AccordionButton>
+												<AccordionPanel
+													p="2"
+													color={theme.text.primary}
+													fontSize="xs"
+													maxW="11.25rem"
+												>
+													{activities.meta.description[locale!]}
+												</AccordionPanel>
+											</>
+										)}
+									</AccordionItem>
+								</Accordion>
 							) : (
 								<Text fontSize="sm" color={theme.text.primary}>
 									{activities.meta.data.companyName}
