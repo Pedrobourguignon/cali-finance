@@ -40,5 +40,7 @@
 	"awaitingPolling": "Aguardando a confirmação do contrato pela rede.",
 	"companyWithdraw": "Retirada da organização",
 	"availableToWithdraw": "Disponível para retirada",
-	"needToAwaitThePolling": "Para adicionar um funcionario, é necessario aguardar o contrato ser confirmado na rede."
+	"needToAwaitThePolling": "Para adicionar um funcionario, é necessario aguardar o contrato ser confirmado na rede.",
+	"userWithdraw": "Retirada do usuário",
+	"companyDepositReceived": "Depósito recebido na organização"
 }

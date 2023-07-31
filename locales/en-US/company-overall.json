@@ -40,5 +40,7 @@
 	"awaitingPolling": "Waiting for the contract to be confirmed by the network.",
 	"companyWithdraw": "Company Withdrawal",
 	"availableToWithdraw": "Available to withdraw",
-	"needToAwaitThePolling": "To add an employee, it is necessary to wait for the contract to be confirmed on the network."
+	"needToAwaitThePolling": "To add an employee, it is necessary to wait for the contract to be confirmed on the network.",
+	"userWithdraw": "User withdraw",
+	"companyDepositReceived": "Company deposit received"
 }
