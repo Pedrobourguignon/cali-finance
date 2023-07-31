@@ -98,7 +98,7 @@ export const ConfirmTransaction: React.FC<IConfirmTransaction> = ({
 				functionName: 'deposit',
 				args: [
 					selectedCompany.token,
-					await formatDecimals(
+					formatDecimals(
 						transaction.amount,
 						selectedCompany.tokenDecimals ? selectedCompany.tokenDecimals : 0
 					),
@@ -160,7 +160,7 @@ export const ConfirmTransaction: React.FC<IConfirmTransaction> = ({
 				functionName: 'approve',
 				args: [
 					selectedCompany.contract,
-					await formatDecimals(
+					formatDecimals(
 						transaction.amount,
 						selectedCompany.tokenDecimals ? selectedCompany.tokenDecimals : 0
 					),
