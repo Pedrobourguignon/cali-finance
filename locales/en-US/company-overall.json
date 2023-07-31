@@ -38,9 +38,6 @@
 	"cancel": "Cancel",
 	"youDontHaveEmployee": "You don’t have employees registered yet",
 	"awaitingPolling": "Waiting for the contract to be confirmed by the network.",
-	"companyWithdraw": "Company Withdrawal",
-	"company_withdraw": "Company withdrawal",
-	"user_withdraw": "Withdraw",
-	"company_deposit_received": "Deposit",
-	"availableToWithdraw": "Available to withdraw"
+	"availableToWithdraw": "Available to withdraw",
+	"needToAwaitThePolling": "To add an employee, it is necessary to wait for the contract to be confirmed on the network."
 }
