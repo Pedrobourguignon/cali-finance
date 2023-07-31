@@ -161,7 +161,15 @@ export const CompanyCard: React.FC<ICompanyCard> = ({
 									{isLoadingCompanies ? (
 										<Skeleton w="10" h="4" />
 									) : (
-										<Text>${data ? formatUnits(data as bigint, 18) : 0}</Text>
+										<Text>
+											$
+											{data && locale
+												? formatNumbers(
+														Number(formatUnits(data as bigint, 18)),
+														locale
+												  )
+												: 0}
+										</Text>
 									)}
 								</Flex>
 							)}
