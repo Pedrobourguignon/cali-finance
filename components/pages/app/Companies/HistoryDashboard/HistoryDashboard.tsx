@@ -63,16 +63,13 @@ export const HistoryDashboard = () => {
 			filter: [translate('all'), translate('all')],
 		},
 		{
-			filter: [
-				'company_deposit_received',
-				translate('company_deposit_received'),
-			],
+			filter: ['company_deposit_received', translate('companyDepositReceived')],
 		},
 		{
-			filter: ['user_withdraw', translate('user_withdraw')],
+			filter: ['user_withdraw', translate('userWithdraw')],
 		},
 		{
-			filter: ['company_withdraw', translate('company_withdraw')],
+			filter: ['company_withdraw', translate('companyWithdraw')],
 		},
 	];
 
