@@ -22,6 +22,7 @@ import { WithdrawModal, WithdrawModalMobile } from 'components';
 import { useAccount, useContractRead } from 'wagmi';
 import companyAbi from 'utils/abi/company.json';
 import { useRouter } from 'next/router';
+import { formatUnits } from 'viem';
 
 interface ICompanyCard {
 	company: GetUserCompaniesRes;
@@ -50,6 +51,12 @@ export const CompanyCard: React.FC<ICompanyCard> = ({
 		abi: companyAbi,
 		functionName: 'getSingleBalance',
 		args: [address],
+	});
+
+	const { data } = useContractRead({
+		address: company.contract,
+		abi: companyAbi,
+		functionName: '_CompanyBalance',
 	});
 
 	return (
@@ -154,12 +161,7 @@ export const CompanyCard: React.FC<ICompanyCard> = ({
 									{isLoadingCompanies ? (
 										<Skeleton w="10" h="4" />
 									) : (
-										<Text>
-											$
-											{company.totalFundsUsd && locale
-												? formatNumbers(company.totalFundsUsd, locale)
-												: 0}
-										</Text>
+										<Text>${data ? formatUnits(data as bigint, 18) : 0}</Text>
 									)}
 								</Flex>
 							)}
