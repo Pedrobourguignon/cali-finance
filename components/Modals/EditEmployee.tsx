@@ -29,7 +29,7 @@ import {
 } from 'components';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { getCoinLogo, mainClient, truncateWallet } from 'utils';
+import { formatDecimals, getCoinLogo, mainClient, truncateWallet } from 'utils';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { AxiosError } from 'axios';
 import useTranslation from 'next-translate/useTranslation';
@@ -149,7 +149,10 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 		address: selectedCompany.contract,
 		abi: companyAbi,
 		functionName: 'updateEmployeeSalary',
-		args: [employee.wallet, debouncedEmployeeAmount[0]],
+		args: [
+			employee.wallet,
+			formatDecimals(debouncedEmployeeAmount[0], selectedCompany.tokenDecimals),
+		],
 		enabled: editedEmployeeData.amount !== 0,
 	});
 	const { data: editEmployeeData, write: editEmployeeWrite } =
