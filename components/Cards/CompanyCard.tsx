@@ -77,14 +77,22 @@ export const CompanyCard: React.FC<ICompanyCard> = ({
 			h="8.375rem"
 		>
 			<WithdrawModal
-				employeeBalance={employeeBalance as number}
+				employeeBalance={
+					company.tokenDecimals
+						? formatUnits(employeeBalance as bigint, company.tokenDecimals)
+						: '0'
+				}
 				isOpen={isOpen}
 				onClose={onClose}
 				userCompanies={userCompanies}
 				company={company}
 			/>
 			<WithdrawModalMobile
-				employeeBalance={employeeBalance as number}
+				employeeBalance={
+					company.tokenDecimals
+						? formatUnits(employeeBalance as bigint, company.tokenDecimals)
+						: '0'
+				}
 				isOpen={isOpenMobile}
 				onClose={onCloseMobile}
 				userCompanies={userCompanies}
@@ -131,14 +139,27 @@ export const CompanyCard: React.FC<ICompanyCard> = ({
 								<Flex direction="column">
 									<Text>
 										${' '}
-										{Number(employeeBalance) && locale
-											? formatNumbers(Number(employeeBalance), locale)
+										{employeeBalance && locale && company.tokenDecimals
+											? formatNumbers(
+													+Number(
+														formatUnits(
+															employeeBalance as bigint,
+															company.tokenDecimals
+														)
+													).toFixed(2),
+													locale
+											  )
 											: 0}
 									</Text>
 									<Flex align="center" gap="1">
 										<Text fontSize="xs">
-											{Number(employeeBalance) && locale
-												? formatNumbers(Number(employeeBalance), locale)
+											{employeeBalance && company.tokenDecimals
+												? Number(
+														formatUnits(
+															employeeBalance as bigint,
+															company.tokenDecimals
+														)
+												  ).toFixed(2)
 												: 0}
 										</Text>
 										<Img src={getCoinLogo('USDT', listOfTokens)} boxSize="4" />

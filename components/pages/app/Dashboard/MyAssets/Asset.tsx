@@ -1,8 +1,10 @@
 import { Flex, Img, Text } from '@chakra-ui/react';
 import { usePicasso, useTokens } from 'hooks';
+import { useRouter } from 'next/router';
 import React from 'react';
 import { IAssetsOptions } from 'types';
-import { getCoinLogo } from 'utils';
+import { formatNumbers, getCoinLogo } from 'utils';
+import { formatUnits } from 'viem';
 
 interface IAsset {
 	assetsOptions: IAssetsOptions;
@@ -11,6 +13,7 @@ interface IAsset {
 export const Asset: React.FC<IAsset> = ({ assetsOptions }) => {
 	const theme = usePicasso();
 	const { listOfTokens } = useTokens();
+	const { locale } = useRouter();
 
 	return (
 		<Flex
@@ -33,10 +36,15 @@ export const Asset: React.FC<IAsset> = ({ assetsOptions }) => {
 			</Flex>
 			<Flex direction="column" align="flex-end" p="0.5">
 				<Text fontSize={{ base: 'sm', md: 'xs', lg: 'sm' }}>
-					{assetsOptions.value.toLocaleString('en-US')}
+					{Number(formatUnits(BigInt(assetsOptions.value), 18)).toFixed(3)}
 				</Text>
 				<Text fontSize="xs" color="gray.400">
-					$ {assetsOptions.value.toLocaleString('en-US')}
+					${' '}
+					{locale &&
+						formatNumbers(
+							Number(formatUnits(BigInt(assetsOptions.value), 18)),
+							locale
+						)}
 				</Text>
 			</Flex>
 		</Flex>

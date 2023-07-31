@@ -6,6 +6,7 @@ import { useRouter } from 'next/router';
 import React, { useRef, useState, useEffect, useMemo } from 'react';
 import { IAssetsOptions } from 'types';
 import { formatNumbers } from 'utils';
+import { formatUnits } from 'viem';
 
 export const MyAssets = () => {
 	const { t: translate } = useTranslation('dashboard');
@@ -67,7 +68,12 @@ export const MyAssets = () => {
 								fontSize={{ base: 'sm', md: 'xs', lg: 'sm' }}
 								color={theme.text.primary}
 							>
-								${locale && formatNumbers(getUsdtBalance, locale)}
+								{getUsdtBalance &&
+									locale &&
+									formatNumbers(
+										Number(formatUnits(BigInt(getUsdtBalance), 18)),
+										locale
+									)}
 							</Text>
 						</Flex>
 						{assetOptions.length > 3 && (
