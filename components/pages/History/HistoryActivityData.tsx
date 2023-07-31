@@ -61,6 +61,9 @@ export const HistoryActivityData: React.FC<IActivitiesData> = ({
 						borderRadius="base"
 						align="center"
 						gap={{ md: '0', lg: '7' }}
+						// display={
+						// 	activities.event.name === 'user_withdraw' ? 'none' : 'flex'
+						// }
 					>
 						<Grid
 							templateColumns="repeat(4, 1fr)"
@@ -184,7 +187,7 @@ export const HistoryActivityData: React.FC<IActivitiesData> = ({
 									</Text>
 								)}
 							</GridItem>
-							<GridItem display="flex" flex="2" gap="2">
+							<GridItem display="flex" flex="2.5" gap="2">
 								<Img
 									src={
 										profileData.picture
@@ -226,7 +229,7 @@ export const HistoryActivityData: React.FC<IActivitiesData> = ({
 									</Text>
 								)}
 							</GridItem>
-							<GridItem flex="2">
+							<GridItem flex="2.5" maxW={{ base: '70px', md: 'full' }}>
 								<Flex align="center" gap="2">
 									<Img
 										src={notificationsData[activities.event.name].icon}
@@ -243,7 +246,7 @@ export const HistoryActivityData: React.FC<IActivitiesData> = ({
 													notificationsData[activities.event.name]?.text
 												)}
 										</Text>
-										<Text color="gray.500" fontSize="xs" whiteSpace="nowrap">
+										<Text color="gray.500" fontSize="xs" wordBreak="break-word">
 											{locale && dateHandler(activities.created_at, locale)}
 										</Text>
 									</Flex>
@@ -251,10 +254,11 @@ export const HistoryActivityData: React.FC<IActivitiesData> = ({
 							</GridItem>
 							{activities.event.name === 'user_withdraw' ||
 							activities.event.name === 'company_deposit_received' ? (
-								<GridItem flex="1">
+								<GridItem flex="2.5" maxW={{ base: '85px', md: 'full' }}>
 									<Flex align="end" direction="column">
 										<Flex gap="1">
 											<Text
+												wordBreak="break-all"
 												fontSize="xs"
 												fontWeight="normal"
 												color={theme.text.primary}
@@ -277,7 +281,7 @@ export const HistoryActivityData: React.FC<IActivitiesData> = ({
 									</Flex>
 								</GridItem>
 							) : (
-								<GridItem flex="1" />
+								<GridItem flex="2.5" />
 							)}
 						</Grid>
 					</Flex>

@@ -7,78 +7,73 @@ import {
 	MenuList,
 	Text,
 } from '@chakra-ui/react';
-import { usePicasso } from 'hooks';
+import { useAuth, useCompanies, usePicasso } from 'hooks';
 import { HistoryData } from 'components';
-import { IUserHistory } from 'types';
+import { IHistoryNotifications } from 'types';
 import { useState } from 'react';
 import useTranslation from 'next-translate/useTranslation';
 import { BiChevronDown } from 'react-icons/bi';
+import { useQuery } from 'react-query';
+import { useRouter } from 'next/router';
 
 export const HistoryDashboard = () => {
 	const { t: translate } = useTranslation('company-overall');
 	const { t: translateHistory } = useTranslation('history-page');
-	const userHistory: IUserHistory[] = [
+	const { getCompanieActivities } = useCompanies();
+	const { session } = useAuth();
+	const { query } = useRouter();
+
+	const { data: companyFinancialActivities } = useQuery(
+		'recent-activities',
+		() => getCompanieActivities(Number(query.id)),
 		{
-			icon: '',
-			wallet: '0x52908400098527886E0F7030069857D2E4169EE7',
-			team: 'Sales Team',
-			type: translate('withdrawal'),
-			date: '08 Aug 22, 20:57',
-			amount: 10000,
-			coin: 'USDT',
-			status: translate('completed'),
-		},
-		{
-			icon: '',
-			wallet: '0x52908400098527886E0F7030069857D2E4169EE7',
-			team: 'Sales Team',
-			type: translate('withdrawal'),
-			date: '08 Aug 22, 20:57',
-			amount: 10000,
-			coin: 'USDT',
-			status: translate('completed'),
-		},
-		{
-			icon: '',
-			wallet: '0x52908400098527886E0F7030069857D2E4169EE7',
-			team: 'Sales Team',
-			type: translate('withdrawal'),
-			date: '08 Aug 22, 20:57',
-			amount: 10000,
-			coin: 'USDT',
-			status: translate('completed'),
-		},
-		{
-			icon: '',
-			wallet: '0x52908400098527886E0F7030069857D2E4169EE7',
-			team: 'Sales Team',
-			type: translate('deposit'),
-			date: '08 Aug 22, 20:57',
-			amount: 10000,
-			coin: 'USDT',
-			status: translate('pending'),
-		},
-	];
+			enabled: !!query.id && !!session,
+		}
+	);
+
+	const financialNotifications = companyFinancialActivities?.filter(
+		notification =>
+			notification.event.name === 'user_withdraw' ||
+			notification.event.name === 'company_withdraw' ||
+			notification.event.name === 'company_deposit_received'
+	);
 
 	const theme = usePicasso();
-	const [filteredUserHistory, setFilteredUserHistory] =
-		useState<IUserHistory[]>(userHistory);
+	const [filteredUserHistory, setFilteredUserHistory] = useState<
+		IHistoryNotifications[] | undefined
+	>(financialNotifications);
 	const [selectedFilterOption, setSelectedFilterOption] = useState<string>(
 		translate('all')
 	);
 
-	const filterUserHistory = (filter: string) => {
-		setFilteredUserHistory(userHistory.filter(data => data.type === filter));
-		if (filter === translate('all')) {
-			setFilteredUserHistory(userHistory);
+	const filterUserHistory = (filter: string[]) => {
+		setFilteredUserHistory(
+			financialNotifications?.filter(
+				notification => notification.event.name === filter[0]
+			)
+		);
+		if (filter[0] === translate('all')) {
+			setFilteredUserHistory(financialNotifications);
 		}
-		setSelectedFilterOption(filter);
+		setSelectedFilterOption(filter[1]);
 	};
 
 	const selectOptions = [
-		translate('all'),
-		translate('withdrawal'),
-		translate('deposit'),
+		{
+			filter: [translate('all'), translate('all')],
+		},
+		{
+			filter: [
+				'company_deposit_received',
+				translate('company_deposit_received'),
+			],
+		},
+		{
+			filter: ['user_withdraw', translate('user_withdraw')],
+		},
+		{
+			filter: ['company_withdraw', translate('company_withdraw')],
+		},
 	];
 
 	return (
@@ -95,8 +90,7 @@ export const HistoryDashboard = () => {
 						h="max-content"
 						py="1.5"
 						px="3"
-						w="11.875rem"
-						gap="32"
+						minW="11.875rem"
 						fontWeight="normal"
 						fontSize={{ md: 'sm', '2xl': 'md' }}
 						color={theme.text.primary}
@@ -107,7 +101,7 @@ export const HistoryDashboard = () => {
 						_active={{}}
 						_focus={{}}
 					>
-						{selectedFilterOption}
+						<Flex>{selectedFilterOption}</Flex>
 					</MenuButton>
 					<MenuList
 						p="0"
@@ -124,24 +118,21 @@ export const HistoryDashboard = () => {
 								_hover={{ bg: theme.bg.black, color: 'white' }}
 								borderBottom="1px solid"
 								borderBottomColor="gray.200"
-								borderBottomRadius={
-									option === translate('teamCreated') ? 'base' : 'none'
-								}
-								onClick={() => filterUserHistory(option)}
+								onClick={() => filterUserHistory(option.filter)}
 								_active={{}}
 							>
-								{option}
+								{option.filter[1]}
 							</MenuItem>
 						))}
 					</MenuList>
 				</Menu>
 			</Flex>
 			<Flex direction="column" gap="2">
-				{filteredUserHistory.map((item, index) => (
+				{filteredUserHistory?.map((item, index) => (
 					<HistoryData key={+index} userHistory={item} />
 				))}
 			</Flex>
-			{!filteredUserHistory.length && (
+			{!filteredUserHistory?.length && (
 				<Flex whiteSpace="normal">
 					<Text color={theme.text.primary} fontSize="sm" whiteSpace="normal">
 						{translateHistory('noResults')}
@@ -154,13 +145,13 @@ export const HistoryDashboard = () => {
 							fontWeight="semibold"
 							cursor="pointer"
 							onClick={() => {
-								setFilteredUserHistory(userHistory);
+								setFilteredUserHistory(financialNotifications);
 								setSelectedFilterOption(translate('all'));
 							}}
 						>
-							{translateHistory('returnToAllResults')}
-						</Text>{' '}
-						{translateHistory('orSelectAnother')}
+							&nbsp;{translateHistory('returnToAllResults')}&nbsp;
+						</Text>
+						&nbsp;{translateHistory('orSelectAnother')}
 					</Text>
 				</Flex>
 			)}
