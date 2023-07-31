@@ -39,6 +39,6 @@
 	"youDontHaveEmployee": "Você ainda não tem funcionários cadastrados",
 	"awaitingPolling": "Aguardando a confirmação do contrato pela rede.",
 	"companyWithdraw": "Retirada da organização",
-
-	"availableToWithdraw": "Disponível para retirada"
+	"availableToWithdraw": "Disponível para retirada",
+	"needToAwaitThePolling": "Para adicionar um funcionario, é necessario aguardar o contrato ser confirmado na rede."
 }

@@ -147,6 +147,12 @@ export const EmployeesDashboard: React.FC<IEmployeeDashboard> = ({
 						fontWeight="medium"
 						py="2"
 						borderRadius="base"
+						isDisabled={selectedCompany.contract === null}
+						title={
+							selectedCompany.contract === null
+								? translate('needToAwaitThePolling')
+								: 'Add employee'
+						}
 					>
 						<Text>+</Text>
 						<Text>{translate('addEmployee')}</Text>
