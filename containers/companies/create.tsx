@@ -75,16 +75,42 @@ export const CreateCompanyContainer = () => {
 			setNewCompanyId(id);
 			createCompanyWrite?.({ args: [checksum] });
 		} catch (error) {
-			toast({
-				position: 'top',
-				render: () => (
-					<AlertToast
-						onClick={toast.closeAll}
-						text="weAreWorkingToSolve"
-						type="error"
-					/>
-				),
-			});
+			if (error instanceof AxiosError) {
+				if (error.response?.data.message === 'Unique company name') {
+					toast({
+						position: 'top',
+						render: () => (
+							<AlertToast
+								onClick={toast.closeAll}
+								text="companyNameAlreadyExists"
+								type="error"
+							/>
+						),
+					});
+				} else if (error.response?.status === 401) {
+					toast({
+						position: 'top',
+						render: () => (
+							<AlertToast
+								onClick={toast.closeAll}
+								text="unauthorized"
+								type="error"
+							/>
+						),
+					});
+				} else {
+					toast({
+						position: 'top',
+						render: () => (
+							<AlertToast
+								onClick={toast.closeAll}
+								text="weAreWorkingToSolve"
+								type="error"
+							/>
+						),
+					});
+				}
+			}
 		}
 	};
 
