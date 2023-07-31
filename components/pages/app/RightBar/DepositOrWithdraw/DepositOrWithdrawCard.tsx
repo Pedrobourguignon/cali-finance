@@ -7,7 +7,7 @@ import {
 	InputGroup,
 	Text,
 } from '@chakra-ui/react';
-import { BlackButton, TokenSelector } from 'components';
+import { BlackButton } from 'components';
 import { useCompanies, usePicasso, useSchema, useTokens } from 'hooks';
 import { useForm } from 'react-hook-form';
 import useTranslation from 'next-translate/useTranslation';
