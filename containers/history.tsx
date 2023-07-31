@@ -15,10 +15,10 @@ export const HistoryContainer = () => {
 
 	const { data: historyNotifications } = useQuery(
 		'all-activities',
-		() => getUserActivities(999),
-		{
-			enabled: !!isConnected && !!session,
-		}
+		() => getUserActivities(999)
+		// {
+		// 	enabled: !!isConnected && !!session,
+		// }
 	);
 	const [isLargerThan480] = useMediaQuery('(min-width: 480px)');
 

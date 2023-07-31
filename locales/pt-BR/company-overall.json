@@ -38,5 +38,9 @@
 	"cancel": "Cancelar",
 	"youDontHaveEmployee": "Você ainda não tem funcionários cadastrados",
 	"awaitingPolling": "Aguardando a confirmação do contrato pela rede.",
+	"companyWithdraw": "Retirada da organização",
+	"company_withdraw": "Retirada da organização",
+	"user_withdraw": "Retirada",
+	"company_deposit_received": "Depósito",
 	"availableToWithdraw": "Disponível para retirada"
 }

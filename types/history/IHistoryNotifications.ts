@@ -17,6 +17,7 @@ export interface IHistoryNotifications {
 			teamId: number;
 			userAddedWallet: string;
 			userId: number;
+			userWallet: string;
 		};
 		description: ILanguages;
 	};

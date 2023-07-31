@@ -75,6 +75,6 @@ export const notificationsData: {
 	},
 	company_withdraw: {
 		icon: '/icons/withdrawal.svg',
-		text: 'withdrawal',
+		text: 'companyWithdraw',
 	},
 };
