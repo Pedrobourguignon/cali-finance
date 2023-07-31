@@ -22,11 +22,10 @@ interface ISelectedCoin {
 	onOpen: () => void;
 	userCompanies: ICompany[];
 	company: GetUserCompaniesRes;
-	employeeBalance: number;
+	employeeBalance: string;
 }
 
 export const WithdrawContent: React.FC<ISelectedCoin> = ({
-	onOpen,
 	userCompanies,
 	company,
 	employeeBalance,
@@ -36,6 +35,8 @@ export const WithdrawContent: React.FC<ISelectedCoin> = ({
 	const { t: translateCompanies } = useTranslation('companies');
 	const { listOfTokens } = useTokens();
 	const { locale } = useRouter();
+
+	console.log(employeeBalance);
 
 	return (
 		<Flex direction="column" gap="4">
@@ -74,11 +75,13 @@ export const WithdrawContent: React.FC<ISelectedCoin> = ({
 					<Flex fontSize={{ base: 'sm', md: 'xs', xl: 'sm' }}>
 						<Flex direction="column">
 							<Text color="black">
-								$ {locale && formatNumbers(Number(employeeBalance), locale)}
+								${' '}
+								{locale &&
+									formatNumbers(+Number(employeeBalance).toFixed(2), locale)}
 							</Text>
 							<Flex align="center" gap="1">
 								<Text fontSize="xs" color="black">
-									{locale && formatNumbers(Number(employeeBalance), locale)}
+									{locale && Number(employeeBalance).toFixed(2)}
 								</Text>
 								<Img src={getCoinLogo('USDT', listOfTokens)} boxSize="4" />
 							</Flex>

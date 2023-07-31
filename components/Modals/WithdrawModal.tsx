@@ -9,16 +9,10 @@ import {
 	ModalOverlay,
 	useDisclosure,
 } from '@chakra-ui/react';
-import {
-	WithdrawContent,
-	OffsetShadow,
-	TokenSelector,
-	WithdrawButton,
-} from 'components';
+import { WithdrawContent, OffsetShadow, WithdrawButton } from 'components';
 import { usePicasso } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
-import { IBasicModal, ISelectedCoin } from 'types';
-import { useState } from 'react';
+import { IBasicModal } from 'types';
 import {
 	GetUserCompaniesRes,
 	ICompany,
@@ -27,7 +21,7 @@ import {
 interface IWithdrawModal extends IBasicModal {
 	userCompanies: ICompany[];
 	company: GetUserCompaniesRes;
-	employeeBalance: number;
+	employeeBalance: string;
 }
 
 export const WithdrawModal: React.FC<IWithdrawModal> = ({
@@ -39,11 +33,7 @@ export const WithdrawModal: React.FC<IWithdrawModal> = ({
 }) => {
 	const theme = usePicasso();
 	const { t: translate } = useTranslation('dashboard');
-	const {
-		isOpen: isOpenSelector,
-		onOpen: onOpenSelector,
-		onClose: onCloseSelector,
-	} = useDisclosure();
+	const { onOpen: onOpenSelector } = useDisclosure();
 
 	return (
 		<Modal isOpen={isOpen} onClose={onClose}>
