@@ -36,8 +36,6 @@ export const WithdrawContent: React.FC<ISelectedCoin> = ({
 	const { listOfTokens } = useTokens();
 	const { locale } = useRouter();
 
-	console.log(employeeBalance);
-
 	return (
 		<Flex direction="column" gap="4">
 			<Flex direction="column" gap="2">
