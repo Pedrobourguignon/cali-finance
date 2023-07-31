@@ -9,11 +9,20 @@ import {
 import { useCompanies, usePicasso } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
 import { Dispatch, SetStateAction, useState } from 'react';
-import { ITransaction } from 'types';
+import { IContractFunctionExecutionError, ITransaction } from 'types';
 import { useContractWrite, useWaitForTransaction } from 'wagmi';
 import { AlertToast, WaitMetamaskFinishTransaction } from 'components';
 import companyAbi from 'utils/abi/company.json';
+import caliTokenAbi from 'utils/abi/caliToken.json';
 import { useRouter } from 'next/router';
+import { Hex } from 'viem';
+import { formatDecimals } from 'utils';
+import {
+	prepareWriteContract,
+	waitForTransaction,
+	writeContract,
+} from '@wagmi/core';
+import { subtractFee } from 'helpers';
 
 interface IConfirmTransaction {
 	transaction: ITransaction;
@@ -35,19 +44,16 @@ export const ConfirmTransaction: React.FC<IConfirmTransaction> = ({
 	const [selectedOption, setSelectedOption] = useState<string | undefined>(
 		transaction.type
 	);
+	const [isLoadingApproveDeposit, setIsLoadingApproveDeposit] = useState(false);
+	const [isLoadingDeposit, setIsLoadingDeposit] = useState(false);
+
 	const theme = usePicasso();
 	const handleSelectedButton = (btnName: string) => {
 		const selectedButton = buttonOptions.find(item => item === btnName);
 		setSelectedOption(selectedButton);
 	};
-	const { onClose } = useDisclosure();
 
-	const { write: depositFunds, data: depositFundsData } = useContractWrite({
-		address: selectedCompany.contract,
-		abi: companyAbi,
-		functionName: 'deposit',
-		args: [process.env.NEXT_PUBLIC_CALI_TOKEN, transaction.amount],
-	});
+	const { onClose } = useDisclosure();
 
 	const { write: withdrawFunds, data: withdrawFundsData } = useContractWrite({
 		address: selectedCompany.contract,
@@ -84,10 +90,28 @@ export const ConfirmTransaction: React.FC<IConfirmTransaction> = ({
 		},
 	});
 
-	const { isLoading: isLoadingDepositTransaction } = useWaitForTransaction({
-		hash: depositFundsData?.hash,
-		confirmations: 3,
-		onSuccess: () => {
+	const handleDeposit = async () => {
+		try {
+			const { request } = await prepareWriteContract({
+				address: selectedCompany.contract,
+				abi: companyAbi,
+				functionName: 'deposit',
+				args: [
+					selectedCompany.token,
+					await formatDecimals(
+						transaction.amount,
+						selectedCompany.tokenDecimals ? selectedCompany.tokenDecimals : 0
+					),
+				],
+			});
+			const { hash } = await writeContract(request);
+			setIsLoadingDeposit(true);
+			await waitForTransaction({
+				confirmations: 3,
+				hash,
+			});
+			setIsLoadingDeposit(false);
+			setConfirm(false);
 			toast({
 				position: 'top',
 				render: () => (
@@ -98,8 +122,71 @@ export const ConfirmTransaction: React.FC<IConfirmTransaction> = ({
 					/>
 				),
 			});
-		},
-		onError: () => {
+		} catch (err) {
+			const error = err as IContractFunctionExecutionError;
+			if (error.cause.reason.includes('transfer amount exceeds balance')) {
+				toast({
+					position: 'top',
+					render: () => (
+						<AlertToast
+							onClick={toast.closeAll}
+							text="insufficientFunds"
+							type="error"
+						/>
+					),
+				});
+				setConfirm(false);
+			} else {
+				toast({
+					position: 'top',
+					render: () => (
+						<AlertToast
+							onClick={toast.closeAll}
+							text="weAreWorkingToSolve"
+							type="error"
+						/>
+					),
+				});
+				setConfirm(false);
+			}
+		}
+	};
+
+	const handleApproveDeposit = async () => {
+		try {
+			const { request } = await prepareWriteContract({
+				address: (selectedCompany.token || '') as Hex,
+				abi: caliTokenAbi,
+				functionName: 'approve',
+				args: [
+					selectedCompany.contract,
+					await formatDecimals(
+						transaction.amount,
+						selectedCompany.tokenDecimals ? selectedCompany.tokenDecimals : 0
+					),
+				],
+			});
+			const { hash } = await writeContract(request);
+			setIsLoadingApproveDeposit(true);
+			const data = await waitForTransaction({
+				confirmations: 3,
+				hash,
+			});
+			setIsLoadingApproveDeposit(false);
+			handleDeposit();
+			if (data) {
+				toast({
+					position: 'top',
+					render: () => (
+						<AlertToast
+							onClick={toast.closeAll}
+							text="approveSuccessfully"
+							type="success"
+						/>
+					),
+				});
+			}
+		} catch {
 			toast({
 				position: 'top',
 				render: () => (
@@ -110,19 +197,14 @@ export const ConfirmTransaction: React.FC<IConfirmTransaction> = ({
 					/>
 				),
 			});
-		},
-	});
-
-	const handleSendTransaction = () => {
-		if (transaction.type === 'Deposit') {
-			depositFunds?.();
-		} else withdrawFunds?.();
+		}
 	};
 
-	const subtractFee = () =>
-		Number(
-			(transaction.amount - transaction.amount * 0.005).toLocaleString(locale)
-		).toFixed(3);
+	const handleSendTransaction = async () => {
+		if (transaction.type === 'Deposit') {
+			handleApproveDeposit();
+		} else withdrawFunds?.();
+	};
 
 	return (
 		<Flex
@@ -135,7 +217,11 @@ export const ConfirmTransaction: React.FC<IConfirmTransaction> = ({
 			w="100%"
 		>
 			<WaitMetamaskFinishTransaction
-				isOpen={isLoadingDepositTransaction || isLoadingWithdrawTransaction}
+				isOpen={
+					isLoadingApproveDeposit ||
+					isLoadingDeposit ||
+					isLoadingWithdrawTransaction
+				}
 				onClose={onClose}
 			/>
 			<Flex w="100%" justify="center" direction="row">
@@ -198,7 +284,9 @@ export const ConfirmTransaction: React.FC<IConfirmTransaction> = ({
 							})}
 						</Text>
 						<Flex align="center" gap="1">
-							<Text fontSize="sm">{subtractFee()}</Text>
+							<Text fontSize="sm">
+								{locale && subtractFee(transaction.amount, locale)}
+							</Text>
 							<Img src={transaction.logo} boxSize="4" />
 						</Flex>
 					</Flex>

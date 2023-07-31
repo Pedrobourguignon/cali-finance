@@ -10,12 +10,13 @@ import {
 } from '@chakra-ui/react';
 import { usePicasso, useTokens } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
+import { useRouter } from 'next/router';
 import { IoIosArrowDown } from 'react-icons/io';
 import {
 	GetUserCompaniesRes,
 	ICompany,
 } from 'types/interfaces/main-server/ICompany';
-import { getCoinLogo } from 'utils';
+import { formatNumbers, getCoinLogo } from 'utils';
 
 interface ISelectedCoin {
 	onOpen: () => void;
@@ -34,6 +35,7 @@ export const WithdrawContent: React.FC<ISelectedCoin> = ({
 	const { t: translate } = useTranslation('dashboard');
 	const { t: translateCompanies } = useTranslation('companies');
 	const { listOfTokens } = useTokens();
+	const { locale } = useRouter();
 
 	return (
 		<Flex direction="column" gap="4">
@@ -72,11 +74,11 @@ export const WithdrawContent: React.FC<ISelectedCoin> = ({
 					<Flex fontSize={{ base: 'sm', md: 'xs', xl: 'sm' }}>
 						<Flex direction="column">
 							<Text color="black">
-								$ {company.totalFundsUsd ? 'company.totalFundsUsd' : 0}
+								$ {locale && formatNumbers(Number(employeeBalance), locale)}
 							</Text>
 							<Flex align="center" gap="1">
 								<Text fontSize="xs" color="black">
-									{company.totalFundsUsd ? company.totalFundsUsd : 0}
+									{locale && formatNumbers(Number(employeeBalance), locale)}
 								</Text>
 								<Img src={getCoinLogo('USDT', listOfTokens)} boxSize="4" />
 							</Flex>

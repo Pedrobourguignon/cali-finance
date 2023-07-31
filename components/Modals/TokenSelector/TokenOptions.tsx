@@ -1,5 +1,4 @@
 import { Button, Flex, Img, Text } from '@chakra-ui/react';
-import { usePicasso } from 'hooks';
 import { useMemo } from 'react';
 import { IToken } from 'types';
 
@@ -8,11 +7,8 @@ interface ITokenOption {
 	onClick: () => void;
 }
 
-const favoriteCoins = ['AAVE', 'ADS', 'ACYC'];
+const favoriteCoins = ['USDT'];
 export const TokenOptions: React.FC<ITokenOption> = ({ onClick, token }) => {
-	const theme = usePicasso();
-	const quantity = 1.356;
-
 	const handleColor = useMemo(
 		() => (favoriteCoins.includes(token.symbol) ? 'gray.100' : 'white'),
 		[token.symbol]
@@ -33,7 +29,6 @@ export const TokenOptions: React.FC<ITokenOption> = ({ onClick, token }) => {
 						<Img src={token.logoURI} w="6" h="6" />
 						<Text color="black"> {token.symbol}</Text>
 					</Flex>
-					<Text color="black">{quantity}</Text>
 				</Flex>
 			</Button>
 		</Flex>

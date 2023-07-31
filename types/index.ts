@@ -1,5 +1,6 @@
 export * from './companies';
 export * from './contexts';
+export * from './ContractFunctionExecutionError';
 export * from './dashboard';
 export * from './history';
 export * from './IChainDictionary';

@@ -70,7 +70,7 @@ export const TokenSelector: React.FC<ITokenSelector> = ({
 	};
 
 	return (
-		<Modal isOpen={isOpen} onClose={handleOnClose}>
+		<Modal isOpen={isOpen} onClose={handleOnClose} size="xs">
 			<ModalOverlay />
 			<ModalContent
 				bg="white"
@@ -109,7 +109,8 @@ export const TokenSelector: React.FC<ITokenSelector> = ({
 						direction="column"
 						id="scrollableDiv"
 						h="xs"
-						overflow="auto"
+						overflowX="hidden"
+						overflowY="auto"
 						gap="2"
 						sx={{
 							'&::-webkit-scrollbar': {

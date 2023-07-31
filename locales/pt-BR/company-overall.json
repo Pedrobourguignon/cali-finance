@@ -41,5 +41,6 @@
 	"companyWithdraw": "Retirada da organização",
 	"company_withdraw": "Retirada da organização",
 	"user_withdraw": "Retirada",
-	"company_deposit_received": "Depósito"
+	"company_deposit_received": "Depósito",
+	"availableToWithdraw": "Disponível para retirada"
 }
