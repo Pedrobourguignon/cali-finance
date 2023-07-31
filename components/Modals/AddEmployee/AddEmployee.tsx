@@ -31,7 +31,7 @@ import { IAddEmployee, IAddEmployeeForm, INewEmployee } from 'types';
 import { IoPersonAddOutline } from 'react-icons/io5';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { getCoinLogo, navigationPaths } from 'utils';
+import { formatDecimals, getCoinLogo, navigationPaths } from 'utils';
 import NextLink from 'next/link';
 import { useMutation, useQueryClient } from 'react-query';
 import { AxiosError } from 'axios';
@@ -128,7 +128,10 @@ export const AddEmployee: React.FC<IAddEmployee> = ({ isOpen, onClose }) => {
 		address: selectedCompany.contract,
 		abi: companyAbi,
 		functionName: 'addEmployee',
-		args: [debouncedEmployeeAddress[0], debouncedEmployeeAmount[0]],
+		args: [
+			debouncedEmployeeAddress[0],
+			formatDecimals(debouncedEmployeeAmount[0], selectedCompany.tokenDecimals),
+		],
 		enabled:
 			addedEmployeeData.walletAddress !== '' && addedEmployeeData.amount !== 0,
 	});

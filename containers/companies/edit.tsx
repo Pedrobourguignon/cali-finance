@@ -142,7 +142,7 @@ export const EditCompany = () => {
 					url: mediumURL!,
 				},
 			],
-			isPublic: false,
+			isPublic: 0,
 			color: '#121212',
 			logo: displayedEditedPicture,
 		});
