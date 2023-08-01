@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 import {
 	Flex,
 	Img,
@@ -174,12 +175,12 @@ export const CompaniesHeader = () => {
 				<Flex direction="column" maxW="32">
 					{isLoadingSelectedCompany ? (
 						<Skeleton w="14" h="6" />
+					) : selectedCompany.totalFundsUsd ? (
+						<Text fontSize="xl">{`$ ${
+							locale && formatNumbers(selectedCompany?.totalFundsUsd, locale)
+						}`}</Text>
 					) : (
-						selectedCompany.totalFundsUsd && (
-							<Text fontSize="xl">{`$ ${
-								locale && formatNumbers(selectedCompany?.totalFundsUsd, locale)
-							}`}</Text>
-						)
+						`$ 0`
 					)}
 					<Text fontSize="sm" fontWeight="semibold">
 						{translate('totalFunds')}

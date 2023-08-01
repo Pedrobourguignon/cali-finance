@@ -175,7 +175,7 @@ export const HistoryComponent: React.FC<IHistoryPage> = ({ history }) => {
 								<Flex justify="center" pt="5" pb="6">
 									<Paginator
 										actualPage={pageNumber + 1}
-										maxPage={maxPage - 1}
+										maxPage={maxPage}
 										previous={previous}
 										next={next}
 									/>
