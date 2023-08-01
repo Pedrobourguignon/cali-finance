@@ -38,5 +38,9 @@
 	"teamDeleted": "Team removed",
 	"userAddUserToTeam": "Added user to team",
 	"userAddUserToCompany": "Added user to company",
-	"addToCompany": "Added to company"
+	"addToCompany": "Added to company",
+	"companyWithdraw": "Company Withdrawal",
+	"needToAwaitThePolling": "To add an employee, it is necessary to wait for the contract to be confirmed on the network.",
+	"userWithdraw": "User withdraw",
+	"companyDepositReceived": "Company deposit received"
 }

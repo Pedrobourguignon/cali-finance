@@ -1,7 +1,8 @@
 export const historyPageFilterOptions = [
 	'all',
-	'deposit',
-	'withdrawal',
+	'companyDepositReceived',
+	'companyWithdraw',
+	'userWithdraw',
 	'createdCompany',
 	'addedToTeam',
 	'updatedCompany',

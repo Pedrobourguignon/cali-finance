@@ -61,9 +61,6 @@ export const HistoryActivityData: React.FC<IActivitiesData> = ({
 						borderRadius="base"
 						align="center"
 						gap={{ md: '0', lg: '7' }}
-						// display={
-						// 	activities.event.name === 'user_withdraw' ? 'none' : 'flex'
-						// }
 					>
 						<Grid
 							templateColumns="repeat(4, 1fr)"
@@ -190,7 +187,7 @@ export const HistoryActivityData: React.FC<IActivitiesData> = ({
 							<GridItem display="flex" flex="2.5" gap="2">
 								<Img
 									src={
-										profileData.picture
+										profileData?.picture
 											? getLogo(profileData?.picture)
 											: '/images/avatar.png'
 									}

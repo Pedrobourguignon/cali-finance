@@ -78,7 +78,7 @@ export const CompanyCard: React.FC<ICompanyCard> = ({
 		>
 			<WithdrawModal
 				employeeBalance={
-					company.tokenDecimals
+					company.tokenDecimals && employeeBalance
 						? formatUnits(employeeBalance as bigint, company.tokenDecimals)
 						: '0'
 				}
@@ -89,7 +89,7 @@ export const CompanyCard: React.FC<ICompanyCard> = ({
 			/>
 			<WithdrawModalMobile
 				employeeBalance={
-					company.tokenDecimals
+					company.tokenDecimals && employeeBalance
 						? formatUnits(employeeBalance as bigint, company.tokenDecimals)
 						: '0'
 				}

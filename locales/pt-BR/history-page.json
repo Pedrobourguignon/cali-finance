@@ -38,5 +38,9 @@
 	"teamDeleted": "Time removido",
 	"userAddUserToTeam": "Usuário adicionado ao time",
 	"userAddUserToCompany": "Usuário adicionado à organização",
-	"addToCompany": "Adicionado a organização"
+	"addToCompany": "Adicionado a organização",
+	"companyWithdraw": "Retirada da organização",
+	"needToAwaitThePolling": "Para adicionar um funcionario, é necessario aguardar o contrato ser confirmado na rede.",
+	"userWithdraw": "Retirada do usuário",
+	"companyDepositReceived": "Depósito recebido na organização"
 }
