@@ -33,13 +33,8 @@ import { formatDecimals, getCoinLogo, mainClient, truncateWallet } from 'utils';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { AxiosError } from 'axios';
 import useTranslation from 'next-translate/useTranslation';
-import {
-	useContractWrite,
-	usePrepareContractWrite,
-	useWaitForTransaction,
-} from 'wagmi';
+import { useContractWrite, useWaitForTransaction } from 'wagmi';
 import companyAbi from 'utils/abi/company.json';
-import { useDebounce } from 'use-debounce';
 
 export const EditEmployee: React.FC<IEditEmployee> = ({
 	isOpen,
@@ -62,7 +57,6 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 		logo: 'https://assets.coingecko.com/coins/images/1/thumb/bitcoin.png?1547033579',
 		symbol: 'BTC',
 	} as ISelectedCoin);
-	const debouncedEmployeeAmount = useDebounce(editedEmployeeData.amount, 500);
 
 	const {
 		isOpen: isOpenTokenSelector,
@@ -145,18 +139,13 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 		{ enabled: false }
 	);
 
-	const { config: editEmployeeConfig } = usePrepareContractWrite({
-		address: selectedCompany.contract,
-		abi: companyAbi,
-		functionName: 'updateEmployeeSalary',
-		args: [
-			employee.wallet,
-			formatDecimals(debouncedEmployeeAmount[0], selectedCompany.tokenDecimals),
-		],
-		enabled: editedEmployeeData.amount !== 0,
-	});
-	const { data: editEmployeeData, write: editEmployeeWrite } =
-		useContractWrite(editEmployeeConfig);
+	const { data: editEmployeeData, write: editEmployeeWrite } = useContractWrite(
+		{
+			address: selectedCompany.contract,
+			abi: companyAbi,
+			functionName: 'updateEmployeeSalary',
+		}
+	);
 
 	const { isLoading: useWaitForTransactionLoading } = useWaitForTransaction({
 		hash: editEmployeeData?.hash,
@@ -195,7 +184,15 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 		{
 			onSuccess: () => {
 				queryClient.invalidateQueries('all-company-employees');
-				editEmployeeWrite?.();
+				editEmployeeWrite?.({
+					args: [
+						employee.wallet,
+						formatDecimals(
+							editedEmployeeData.amount,
+							selectedCompany.tokenDecimals
+						),
+					],
+				});
 			},
 			onError: error => {
 				if (error instanceof AxiosError) {

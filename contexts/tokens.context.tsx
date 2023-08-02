@@ -122,7 +122,7 @@ export const TokensProvider: React.FC<{ children: React.ReactNode }> = ({
 		if (usdtPrice) {
 			setUsdtQuotation(usdtPrice);
 		}
-	}, []);
+	}, [usdtPrice]);
 
 	const contextStates = useMemo(
 		() => ({
