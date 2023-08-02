@@ -4,6 +4,8 @@ import {
 	ModalBody,
 	ModalCloseButton,
 	Text,
+	Img,
+	Spinner,
 } from '@chakra-ui/react';
 import { CaliLogoLoadingAnimation } from 'components';
 import { usePicasso } from 'hooks';
@@ -23,7 +25,7 @@ export const WaitConfirmationModalMobile: React.FC<IBasicModal> = ({
 			<Flex direction="column" w="full" bg={theme.bg.modal} borderRadius="2xl">
 				<ModalHeader display="flex" justifyContent="center" py="6">
 					<Flex>
-						<CaliLogoLoadingAnimation />
+						<Img src="/images/cali-logo.svg" w="16" h="10" />
 					</Flex>
 					<ModalCloseButton color="gray.400" py="6" />
 				</ModalHeader>
@@ -38,8 +40,12 @@ export const WaitConfirmationModalMobile: React.FC<IBasicModal> = ({
 						fontWeight="semibold"
 						fontSize="lg"
 						color={theme.text.mono}
+						display="flex"
+						gap="3"
+						alignItems="center"
 					>
 						{translate('waitingForConfirmation')}
+						<Spinner boxSize="5" />
 					</Text>
 					<Text fontSize="sm" color="black" textAlign="center" pb="4">
 						{translate('pleaseConfirmTransaction')}
