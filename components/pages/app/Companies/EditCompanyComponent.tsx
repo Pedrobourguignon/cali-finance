@@ -23,6 +23,8 @@ import { ISociaLinksInputValue } from 'types';
 
 interface IEditCompanyComponent {
 	editedSocialLinksInputValue: ISociaLinksInputValue;
+	setEditedInfo: Dispatch<SetStateAction<ICompany>>;
+	editedInfo: ICompany;
 	setEditedSocialLinksInputValue: Dispatch<
 		SetStateAction<ISociaLinksInputValue>
 	>;
@@ -75,8 +77,10 @@ export const EditCompanyComponent: React.FC<IEditCompanyComponent> = ({
 	editedCompanyPicture,
 	editedSocialLinksInputValue,
 	setEditedSocialLinksInputValue,
+	setEditedInfo,
+	editedInfo,
 }) => {
-	const [editedInfo, setEditedInfo] = useState<ICompany>({} as ICompany);
+	// const [editedInfo, setEditedInfo] = useState<ICompany>({} as ICompany);
 	const theme = usePicasso();
 	const { t: translate } = useTranslation('create-company');
 	const { session } = useAuth();
@@ -140,6 +144,8 @@ export const EditCompanyComponent: React.FC<IEditCompanyComponent> = ({
 		return false;
 	};
 
+	console.log(editedInfo?.name);
+
 	return (
 		<Flex direction="column" minW="24.2rem">
 			<Flex
@@ -152,9 +158,9 @@ export const EditCompanyComponent: React.FC<IEditCompanyComponent> = ({
 					{translate('editCompany')}
 				</Text>
 				<Input
-					{...register('name')}
-					defaultValue={company?.name}
+					defaultValue={company && company?.name}
 					color="black"
+					type="text"
 					placeholder={translate('companyName')}
 					borderBottomWidth="0,125rem"
 					borderBottomColor="black"
@@ -168,6 +174,7 @@ export const EditCompanyComponent: React.FC<IEditCompanyComponent> = ({
 						fontSize: '2xl',
 					}}
 					_hover={{}}
+					{...register('name')}
 					onChange={editedName =>
 						setEditedInfo(prevState => ({
 							...prevState,
@@ -337,7 +344,7 @@ export const EditCompanyComponent: React.FC<IEditCompanyComponent> = ({
 							</Text>
 							<Input
 								px="3"
-								{...register('contactEmail')}
+								defaultValue={company?.contactEmail}
 								disabled={!session}
 								placeholder={translate('exampleEmail')}
 								_placeholder={{
@@ -349,7 +356,7 @@ export const EditCompanyComponent: React.FC<IEditCompanyComponent> = ({
 								borderRadius="base"
 								_hover={{}}
 								borderColor={theme.bg.primary}
-								defaultValue={company?.contactEmail}
+								{...register('contactEmail')}
 								onChange={editedEmail =>
 									setEditedInfo(prevState => ({
 										...prevState,
@@ -367,7 +374,6 @@ export const EditCompanyComponent: React.FC<IEditCompanyComponent> = ({
 							</Text>
 							<Textarea
 								defaultValue={company?.description}
-								{...register('description')}
 								px="3"
 								disabled={!session}
 								_placeholder={{
@@ -380,6 +386,7 @@ export const EditCompanyComponent: React.FC<IEditCompanyComponent> = ({
 								placeholder={translate('exampleDescription')}
 								minH="7.2rem"
 								borderColor={theme.bg.primary}
+								{...register('description')}
 								onChange={editedDescription =>
 									setEditedInfo(prevState => ({
 										...prevState,
