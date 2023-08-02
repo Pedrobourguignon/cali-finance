@@ -185,16 +185,6 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 		return response.data;
 	};
 
-	// eslint-disable-next-line consistent-return
-	useEffect(() => {
-		if (query.id !== undefined) {
-			const refetchCompanyData = setInterval(() => {
-				getCompanyById(Number(query.id));
-			}, 3000);
-			return () => clearInterval(refetchCompanyData);
-		}
-	}, []);
-
 	useEffect(() => {
 		if (
 			selectedCompany.totalFundsUsd &&
