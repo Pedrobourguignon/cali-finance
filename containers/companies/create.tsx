@@ -98,7 +98,7 @@ export const CreateCompanyContainer = () => {
 					url: mediumURL,
 				},
 			],
-			isPublic: false,
+			isPublic: 0,
 			color: '#121212',
 			logo: newCompanyPicture,
 		});
