@@ -15,7 +15,7 @@ import useTranslation from 'next-translate/useTranslation';
 import router from 'next/router';
 import { useAuth, useSchema } from 'hooks';
 import { ICompany } from 'types/interfaces/main-server/ICompany';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useMutation } from 'react-query';
 import { ISociaLinksInputValue } from 'types';
 import { AxiosError } from 'axios';
