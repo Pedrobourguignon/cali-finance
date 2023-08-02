@@ -8,7 +8,7 @@
 	"priceImpact": "Price Impact",
 	"swap": "Swap",
 	"select": "Select",
-	"waitingForConfirmation": "Waiting for confirmation...",
+	"waitingForConfirmation": "Waiting for confirmation",
 	"pleaseConfirmTransaction": "Please wait while the transaction is confirmed",
 	"selectACoin": "Select a coin",
 	"searchName": "Search name",

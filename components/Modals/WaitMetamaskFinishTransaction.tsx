@@ -7,8 +7,10 @@ import {
 	ModalBody,
 	ModalCloseButton,
 	Text,
+	Img,
+	Spinner,
 } from '@chakra-ui/react';
-import { OffsetShadow, CaliLogoLoadingAnimation } from 'components';
+import { OffsetShadow } from 'components';
 import { usePicasso } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
 import React from 'react';
@@ -43,7 +45,7 @@ export const WaitMetamaskFinishTransaction: React.FC<IBasicModal> = ({
 					>
 						<ModalHeader display="flex" justifyContent="center" py="6">
 							<Flex>
-								<CaliLogoLoadingAnimation />
+								<Img src="/images/cali-logo.svg" w="16" h="10" />
 							</Flex>
 							<ModalCloseButton color="gray.400" py="6" />
 						</ModalHeader>
@@ -58,8 +60,12 @@ export const WaitMetamaskFinishTransaction: React.FC<IBasicModal> = ({
 								fontWeight="semibold"
 								fontSize="lg"
 								color={theme.text.mono}
+								display="flex"
+								gap="3"
+								alignItems="center"
 							>
 								{translate('waitingForConfirmation')}
+								<Spinner boxSize="5" />
 							</Text>
 							<Text
 								fontSize="sm"
