@@ -117,11 +117,15 @@ export const CompaniesHeader = () => {
 			)
 		);
 	};
+
+	// eslint-disable-next-line consistent-return
 	useEffect(() => {
-		const refetchContractAddress = setInterval(() => {
-			contractAddress();
-		}, 3000);
-		return () => clearInterval(refetchContractAddress);
+		if (selectedCompany.contract === null) {
+			const refetchContractAddress = setInterval(() => {
+				contractAddress();
+			}, 3000);
+			return () => clearInterval(refetchContractAddress);
+		}
 	}, []);
 
 	return (
