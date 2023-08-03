@@ -8,7 +8,7 @@ import {
 import { useAuth, useCompanies, usePicasso } from 'hooks';
 
 import useTranslation from 'next-translate/useTranslation';
-import { Dispatch, SetStateAction } from 'react';
+import { Dispatch, SetStateAction, useState } from 'react';
 import { ISocialMediaInput, ISociaLinksInputValue } from 'types';
 import { ICompany } from 'types/interfaces/main-server/ICompany';
 import { getLogo, handleLogoImage } from 'utils';
@@ -87,6 +87,8 @@ export const EditCompanyLink: React.FC<{
 	const { editedInfo } = useCompanies();
 	const { t: translate } = useTranslation('create-company');
 	const { session } = useAuth();
+	const [openImageUploaderModal, setOpenImageUploaderModal] =
+		useState<boolean>(false);
 
 	const socialLinks: ISocialMediaInput[] = [
 		{
@@ -136,17 +138,27 @@ export const EditCompanyLink: React.FC<{
 				zIndex="docked"
 			>
 				<Flex direction="column" align="center" gap="4" w="100%">
-					<CompanyLogo
-						company={company}
-						logo={logo}
-						displayedEditedPicture={displayedEditedPicture}
-					/>
-					<ImageUploader
-						displayedEditedPicture={displayedEditedPicture}
-						handleEditedPicture={handleEditedPicture}
-						sendImage={handleEditedPicture}
-						editedCompanyPicture={editedCompanyPicture}
-					/>
+					<Flex
+						direction="column"
+						gap="4"
+						align="center"
+						cursor="pointer"
+						onClick={() => setOpenImageUploaderModal(true)}
+					>
+						<CompanyLogo
+							company={company}
+							logo={logo}
+							displayedEditedPicture={displayedEditedPicture}
+						/>
+						<ImageUploader
+							openImageUploaderModal={openImageUploaderModal}
+							setOpenImageUploaderModal={setOpenImageUploaderModal}
+							displayedEditedPicture={displayedEditedPicture}
+							handleEditedPicture={handleEditedPicture}
+							sendImage={handleEditedPicture}
+							editedCompanyPicture={editedCompanyPicture}
+						/>
+					</Flex>
 				</Flex>
 				<Flex w="100%">
 					<Flex direction="column" gap="4" w="100%">

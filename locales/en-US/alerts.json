@@ -17,10 +17,10 @@
 	"employeesAdded": "Added employees",
 	"theContentOfTheCsv": "The contents of the CSV file don't conform to the required specifications.",
 	"userAlreadyExists": "User already exists in this company",
-	"depositSuccessfully": "Deposit made successfully",
+	"depositSuccessfully": "Finish: deposit made successfully",
 	"successfulWithdrawal": "Successful withdrawal",
 	"insufficientFunds": "You don't have enough funds for this transaction",
 	"yourCredentials": "Your credentials have expired. Please try again",
 	"signatureCanceled": "The signature was cancelled. Please try again.",
-	"approveSuccessfully": "Deposit approve successfully"
+	"approveSuccessfully": "First step: your deposit was successfully approved"
 }

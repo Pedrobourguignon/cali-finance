@@ -51,7 +51,7 @@ export const DragDrop: React.FC<IDragDrop> = ({ setPicture }) => {
 	return (
 		<Flex direction="column" align="center" gap="4">
 			<FileUploader handleChange={loadFile} name="file" types={fileTypes}>
-				<Img boxSize="40" objectFit="contain" src={fileLink} />
+				<Img boxSize="40" objectFit="contain" src={fileLink} cursor="pointer" />
 			</FileUploader>
 			{!sizeIsValid && (
 				<Flex bg="red.100" w="100%" py="2" pl="2.5" borderRadius="base">

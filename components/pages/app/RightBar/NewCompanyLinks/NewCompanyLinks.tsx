@@ -5,6 +5,7 @@ import { ISocialMediaInput } from 'types';
 import useTranslation from 'next-translate/useTranslation';
 import { FieldErrors } from 'react-hook-form';
 import { ICompany } from 'types/interfaces/main-server/ICompany';
+import { useState } from 'react';
 
 const socialLinks: ISocialMediaInput[] = [
 	{
@@ -36,6 +37,7 @@ const socialLinks: ISocialMediaInput[] = [
 
 const CompanyLogo: React.FC<{
 	logo: string;
+	onClick?: () => void;
 }> = ({ logo }) => {
 	if (logo) return <Img src={logo} boxSize="20" borderRadius="base" />;
 	return <Img src="/images/work.png" boxSize="20" borderRadius="base" />;
@@ -64,6 +66,8 @@ export const NewCompanyLinks: React.FC<{
 }) => {
 	const theme = usePicasso();
 	const { t: translate } = useTranslation('create-company');
+	const [openImageUploaderModal, setOpenImageUploaderModal] =
+		useState<boolean>(false);
 
 	return (
 		<Flex direction="column" align="center" zIndex="docked" w="100%" gap="8">
@@ -79,12 +83,22 @@ export const NewCompanyLinks: React.FC<{
 				w="100%"
 			>
 				<Flex direction="column" align="center" gap="4" w="100%">
-					<CompanyLogo logo={newCompanyPicture} />
-					<ImageUploader
-						sendImage={handleNewPicture}
-						handleNewPicture={handleNewPicture}
-						newCompanyPicture={newCompanyPicture}
-					/>
+					<Flex
+						direction="column"
+						gap="4"
+						align="center"
+						cursor="pointer"
+						onClick={() => setOpenImageUploaderModal(true)}
+					>
+						<CompanyLogo logo={newCompanyPicture} />
+						<ImageUploader
+							openImageUploaderModal={openImageUploaderModal}
+							setOpenImageUploaderModal={setOpenImageUploaderModal}
+							sendImage={handleNewPicture}
+							handleNewPicture={handleNewPicture}
+							newCompanyPicture={newCompanyPicture}
+						/>
+					</Flex>
 				</Flex>
 				<Flex w="100%">
 					<Flex direction="column" gap="4" w="100%">
