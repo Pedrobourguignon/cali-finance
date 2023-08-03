@@ -58,7 +58,8 @@ export const ConfirmTransaction: React.FC<IConfirmTransaction> = ({
 	const { write: withdrawFunds, data: withdrawFundsData } = useContractWrite({
 		address: selectedCompany.contract,
 		abi: companyAbi,
-		functionName: 'withdrawToken',
+		functionName: 'ownerWithdraw',
+		args: [formatDecimals(transaction.amount, selectedCompany.tokenDecimals)],
 	});
 
 	const { isLoading: isLoadingWithdrawTransaction } = useWaitForTransaction({
@@ -98,10 +99,7 @@ export const ConfirmTransaction: React.FC<IConfirmTransaction> = ({
 				functionName: 'deposit',
 				args: [
 					selectedCompany.token,
-					formatDecimals(
-						transaction.amount,
-						selectedCompany.tokenDecimals ? selectedCompany.tokenDecimals : 0
-					),
+					formatDecimals(transaction.amount, selectedCompany.tokenDecimals),
 				],
 			});
 			const { hash } = await writeContract(request);
@@ -264,10 +262,12 @@ export const ConfirmTransaction: React.FC<IConfirmTransaction> = ({
 								<Img src={transaction.logo} boxSize="4" />
 							</Flex>
 						</Flex>
-						<Flex justify="space-between">
-							<Text>{translate('fee')}</Text>
-							<Text>0.5%</Text>
-						</Flex>
+						{transaction.type === 'Deposit' && (
+							<Flex justify="space-between">
+								<Text>{translate('fee')}</Text>
+								<Text>0.5%</Text>
+							</Flex>
+						)}
 					</Flex>
 					<Flex
 						justify="space-between"
@@ -284,9 +284,13 @@ export const ConfirmTransaction: React.FC<IConfirmTransaction> = ({
 							})}
 						</Text>
 						<Flex align="center" gap="1">
-							<Text fontSize="sm">
-								{locale && subtractFee(transaction.amount, locale)}
-							</Text>
+							{transaction.type === 'Deposit' ? (
+								<Text fontSize="sm">
+									{locale && subtractFee(transaction.amount, locale)}
+								</Text>
+							) : (
+								<Text fontSize="sm">{transaction.amount}</Text>
+							)}
 							<Img src={transaction.logo} boxSize="4" />
 						</Flex>
 					</Flex>
