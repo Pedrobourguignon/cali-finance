@@ -48,6 +48,7 @@ export const EditCompany = () => {
 		formState: { errors },
 	} = useForm<ICompany>({
 		resolver: yupResolver(editCompanySchema),
+		defaultValues: { name: companyToBeEdited?.name },
 	});
 
 	const [selectedNetwork, setSelectedNetwork] = useState<ISelectedNetwork>({
@@ -110,8 +111,14 @@ export const EditCompany = () => {
 		setDisplayedEditedPicture(picture);
 	};
 
-	const handleEditCompany = (editedCompanyData: ICompany) => {
-		const { name, contactEmail, description } = editedCompanyData;
+	const [editedInfo, setEditedInfo] = useState<ICompany>({} as ICompany);
+
+	useEffect(() => {
+		setEditedInfo(companyToBeEdited!);
+	}, [companyToBeEdited]);
+
+	const handleEditCompany = () => {
+		const { name, contactEmail, description } = editedInfo;
 		const { websiteURL, instagramURL, twitterURL, telegramURL, mediumURL } =
 			editedSocialLinksInputValue;
 		mutate({
@@ -191,6 +198,8 @@ export const EditCompany = () => {
 									errors={errors}
 									register={register}
 									company={companyToBeEdited}
+									editedInfo={editedInfo}
+									setEditedInfo={setEditedInfo}
 								/>
 							</Flex>
 						</AppLayout>
