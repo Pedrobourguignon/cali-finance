@@ -57,9 +57,9 @@ const useSchema = () => {
 	const editCompanySchema = yup.object().shape({
 		name: yup
 			.string()
-			.required(translate('required'))
 			.matches(companyNameRegex, translate('nameDontAcceptNumber'))
-			.min(3),
+			.min(3)
+			.required(translate('required')),
 		contactEmail: yup
 			.string()
 			.lowercase()

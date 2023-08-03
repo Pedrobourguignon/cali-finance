@@ -18,7 +18,7 @@ import { useRouter } from 'next/router';
 import { CompaniesProvider, TokensProvider } from 'contexts';
 import { useMutation, useQuery } from 'react-query';
 import { ICompany } from 'types/interfaces/main-server/ICompany';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { AxiosError } from 'axios';
 
 interface ISelectedNetwork {
@@ -47,6 +47,7 @@ export const EditCompany = () => {
 		formState: { errors },
 	} = useForm<ICompany>({
 		resolver: yupResolver(editCompanySchema),
+		defaultValues: { name: companyToBeEdited?.name },
 	});
 
 	const [selectedNetwork, setSelectedNetwork] = useState<ISelectedNetwork>({
@@ -109,8 +110,14 @@ export const EditCompany = () => {
 		setDisplayedEditedPicture(picture);
 	};
 
-	const handleEditCompany = (editedCompanyData: ICompany) => {
-		const { name, contactEmail, description } = editedCompanyData;
+	const [editedInfo, setEditedInfo] = useState<ICompany>({} as ICompany);
+
+	useEffect(() => {
+		setEditedInfo(companyToBeEdited!);
+	}, [companyToBeEdited]);
+
+	const handleEditCompany = () => {
+		const { name, contactEmail, description } = editedInfo;
 		const { websiteURL, instagramURL, twitterURL, telegramURL, mediumURL } =
 			editedSocialLinksInputValue;
 		mutate({
@@ -190,6 +197,8 @@ export const EditCompany = () => {
 									errors={errors}
 									register={register}
 									company={companyToBeEdited}
+									editedInfo={editedInfo}
+									setEditedInfo={setEditedInfo}
 								/>
 							</Flex>
 						</AppLayout>
