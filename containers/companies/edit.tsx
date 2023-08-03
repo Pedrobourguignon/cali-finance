@@ -11,10 +11,10 @@ import { navigationPaths } from 'utils';
 import { ISociaLinksInputValue } from 'types';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useAuth, useCompanies, useSchema } from 'hooks';
+import { useCompanies, useSchema } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
 
-import router, { useRouter } from 'next/router';
+import { useRouter } from 'next/router';
 import { CompaniesProvider, TokensProvider } from 'contexts';
 import { useMutation, useQuery } from 'react-query';
 import { ICompany } from 'types/interfaces/main-server/ICompany';
@@ -31,7 +31,6 @@ export const EditCompany = () => {
 	const toast = useToast();
 	const { t: translate } = useTranslation('create-company');
 	const { query } = useRouter();
-	const { session } = useAuth();
 	const { editCompanySchema } = useSchema();
 	const { getCompanyById, updateCompany } = useCompanies();
 	const [selectedType, setSelectedType] = useState<string | undefined>('');

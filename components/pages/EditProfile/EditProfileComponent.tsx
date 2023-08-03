@@ -84,6 +84,9 @@ export const EditProfileComponent = () => {
 		{} as IEditedInfo
 	);
 
+	const [openImageUploaderModal, setOpenImageUploaderModal] =
+		useState<boolean>(false);
+
 	const [editedProfilePicture, setEditedProfilePicture] = useState<
 		string | null
 	>('/images/editImage.png');
@@ -123,6 +126,8 @@ export const EditProfileComponent = () => {
 	return (
 		<>
 			<ImageUploaderModal
+				openImageUploaderModal={openImageUploaderModal}
+				setOpenImageUploaderModal={setOpenImageUploaderModal}
 				isOpen={isOpen}
 				onClose={onClose}
 				sendImage={setEditedProfilePicture}
@@ -182,7 +187,7 @@ export const EditProfileComponent = () => {
 						py="1"
 						_hover={{}}
 						_focus={{ bg: theme.text.primary }}
-						onClick={onOpen}
+						onClick={() => setOpenImageUploaderModal(true)}
 						isDisabled={!session}
 					>
 						{translate('editProfileImage')}

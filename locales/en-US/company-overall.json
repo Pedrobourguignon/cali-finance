@@ -15,6 +15,7 @@
 	"pending": "Pending",
 	"amount": "Amount",
 	"addFunds": "Add Funds to Company",
+	"approveTokenSpend": "Approve token spend",
 	"withdrawFunds": "Withdraw Funds ",
 	"createTeam": "Create Team",
 	"members": "Members",

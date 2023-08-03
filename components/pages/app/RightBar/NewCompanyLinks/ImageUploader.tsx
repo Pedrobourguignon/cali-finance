@@ -4,9 +4,12 @@ import { ImageUploaderModal } from 'components';
 import { useAuth, usePicasso } from 'hooks';
 
 import useTranslation from 'next-translate/useTranslation';
+import { Dispatch, SetStateAction } from 'react';
 
 interface IImageUploader {
 	sendImage: (picture: string) => void;
+	openImageUploaderModal: boolean;
+	setOpenImageUploaderModal: Dispatch<SetStateAction<boolean>>;
 	newCompanyPicture?: string;
 	editedCompanyPicture?: string;
 	displayedEditedPicture?: string;
@@ -21,8 +24,10 @@ export const ImageUploader: React.FC<IImageUploader> = ({
 	handleEditedPicture,
 	editedCompanyPicture,
 	displayedEditedPicture,
+	openImageUploaderModal,
+	setOpenImageUploaderModal,
 }) => {
-	const { isOpen, onOpen, onClose } = useDisclosure();
+	const { onOpen, onClose } = useDisclosure();
 	const theme = usePicasso();
 	const { t: translate } = useTranslation('create-company');
 	const { session } = useAuth();
@@ -72,7 +77,9 @@ export const ImageUploader: React.FC<IImageUploader> = ({
 				</Button>
 			)}
 			<ImageUploaderModal
-				isOpen={isOpen}
+				openImageUploaderModal={openImageUploaderModal}
+				isOpen={openImageUploaderModal}
+				setOpenImageUploaderModal={setOpenImageUploaderModal}
 				onClose={onClose}
 				sendImage={sendImage}
 			/>

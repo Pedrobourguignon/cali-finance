@@ -13,17 +13,21 @@ import {
 import { usePicasso } from 'hooks';
 import { IBasicModal } from 'types';
 import { BlackButton, DragDrop } from 'components';
-import { useState } from 'react';
+import { Dispatch, SetStateAction, useState } from 'react';
 import useTranslation from 'next-translate/useTranslation';
 
 interface IImageUploader extends IBasicModal {
 	sendImage: React.Dispatch<React.SetStateAction<any>>;
+	setOpenImageUploaderModal: Dispatch<SetStateAction<boolean>>;
+	openImageUploaderModal: boolean;
 }
 
 export const ImageUploaderModal: React.FC<IImageUploader> = ({
 	isOpen,
 	onClose,
 	sendImage,
+	setOpenImageUploaderModal,
+	openImageUploaderModal,
 }) => {
 	const theme = usePicasso();
 	const [picture, setPicture] = useState('');
@@ -32,10 +36,11 @@ export const ImageUploaderModal: React.FC<IImageUploader> = ({
 	const handleUploadFile = () => {
 		sendImage(picture);
 		onClose();
+		setOpenImageUploaderModal(false);
 	};
 
 	return (
-		<Modal isOpen={isOpen} onClose={onClose} size="sm">
+		<Modal isOpen={openImageUploaderModal} onClose={onClose} size="sm">
 			<ModalOverlay />
 			<ModalContent
 				m="auto"
@@ -53,7 +58,11 @@ export const ImageUploaderModal: React.FC<IImageUploader> = ({
 				>
 					<ModalHeader display="flex">
 						<Text color={theme.text.primary}>{translate('dragAndDrop')}</Text>
-						<ModalCloseButton color="gray.400" py="6" />
+						<ModalCloseButton
+							color="gray.400"
+							py="6"
+							onClick={() => setOpenImageUploaderModal(false)}
+						/>
 					</ModalHeader>
 					<ModalBody
 						display="flex"
@@ -73,7 +82,7 @@ export const ImageUploaderModal: React.FC<IImageUploader> = ({
 				</Flex>
 				<ModalFooter display="flex" justifyContent="space-between">
 					<Button
-						onClick={onClose}
+						onClick={() => setOpenImageUploaderModal(false)}
 						borderRadius="sm"
 						color="black"
 						borderColor="black"

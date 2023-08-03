@@ -13,7 +13,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import useTranslation from 'next-translate/useTranslation';
 
 import router from 'next/router';
-import { useAuth, useSchema } from 'hooks';
+import { useSchema } from 'hooks';
 import { ICompany } from 'types/interfaces/main-server/ICompany';
 import { useState } from 'react';
 import { useMutation } from 'react-query';
@@ -43,7 +43,6 @@ export const CreateCompanyContainer = () => {
 	const [selectedType, setSelectedType] = useState<string>(
 		translate('pleaseSelect')
 	);
-	const { session } = useAuth();
 
 	const [selectedNetwork, setSelectedNetwork] = useState<ISelectedNetwork>({
 		name: 'Polygon',

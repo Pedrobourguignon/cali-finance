@@ -70,11 +70,6 @@ export const CreateTeamComponent: React.FC<ICreateTeamComponent> = ({
 							gap="20"
 						>
 							<Flex>
-								<ImageUploaderModal
-									onClose={onClose}
-									isOpen={isOpen}
-									sendImage={setNewTeamPicture}
-								/>
 								<Button
 									bgImage={
 										!newTeamPicture ? '/images/addImageBg.png' : newTeamPicture

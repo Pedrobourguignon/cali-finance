@@ -145,7 +145,7 @@ export const DepositOrWithdrawCard: React.FC<IDepositOrWithdrawCard> = ({
 						</Flex>
 						<BlackButton py="1.5" type="submit" whiteSpace="normal">
 							{selectedOption === translate('deposit')
-								? translate('addFunds')
+								? translate('approveTokenSpend')
 								: translate('withdrawFunds')}
 						</BlackButton>
 					</Flex>

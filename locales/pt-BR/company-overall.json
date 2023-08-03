@@ -15,6 +15,7 @@
 	"pending": "Pendente",
 	"amount": "Quantia",
 	"addFunds": "Adicionar fundos a organização",
+	"approveTokenSpend": "Aprovar gasto de token",
 	"withdrawFunds": "Retirar fundos ",
 	"createTeam": "Criar Time",
 	"members": "Membros",

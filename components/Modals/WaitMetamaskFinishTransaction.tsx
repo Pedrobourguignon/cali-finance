@@ -60,12 +60,11 @@ export const WaitMetamaskFinishTransaction: React.FC<IBasicModal> = ({
 								fontWeight="semibold"
 								fontSize="lg"
 								color={theme.text.mono}
-								display="flex"
-								gap="3"
-								alignItems="center"
 							>
-								{translate('waitingForConfirmation')}
-								<Spinner boxSize="5" />
+								<Flex w="full" align="center" gap="3">
+									{translate('waitingForConfirmation')}
+									<Spinner boxSize="5" />
+								</Flex>
 							</Text>
 							<Text
 								fontSize="sm"
