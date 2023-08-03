@@ -144,8 +144,6 @@ export const EditCompanyComponent: React.FC<IEditCompanyComponent> = ({
 		return false;
 	};
 
-	console.log(editedInfo?.name);
-
 	return (
 		<Flex direction="column" minW="24.2rem">
 			<Flex
