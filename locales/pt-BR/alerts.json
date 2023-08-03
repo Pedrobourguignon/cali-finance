@@ -17,10 +17,10 @@
 	"employeesAdded": "Funcionários adicionados",
 	"theContentOfTheCsv": "O conteúdo do arquivo CSV não está em conformidade com as especificações exigidas.",
 	"userAlreadyExists": "O usuário já existe nesta empresa",
-	"depositSuccessfully": "Finalizado: depósito realizado com sucesso",
+	"depositSuccessfully": "Depósito feito com sucesso",
 	"successfulWithdrawal": "Saque realizado com sucesso",
 	"insufficientFunds": "Você não tem saldo suficiente para a transação",
 	"yourCredentials": "Suas credenciais expiraram. Por favor, tente novamente.",
 	"signatureCanceled": "A assinatura foi cancelada. Por favor, tente novamente.",
-	"approveSuccessfully": "Primeiro passo: seu depósito foi aprovado com sucesso"
+	"approveSuccessfully": "Seu gasto de token foi aprovado com sucesso"
 }
