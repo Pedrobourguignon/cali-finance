@@ -12,17 +12,38 @@ import {
 	InputGroup,
 	Img,
 	useDisclosure,
+	useToast,
 } from '@chakra-ui/react';
-import { usePicasso, useSchema, useTokens } from 'hooks';
+import { useCompanies, usePicasso, useSchema, useTokens } from 'hooks';
 import React, { useState } from 'react';
 import { IoIosArrowDown } from 'react-icons/io';
-import { IEditEmployee, IEditEmployeeForm, ISelectedCoin } from 'types';
-import { BlackButton, EditProfileIcon, TokenSelector } from 'components';
+import {
+	IEditedEmployeeInfo,
+	IEditEmployee,
+	IEditEmployeeForm,
+	ISelectedCoin,
+} from 'types';
+import {
+	BlackButton,
+	EditProfileIcon,
+	TokenSelector,
+	AlertToast,
+} from 'components';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { getCoinLogo, truncateWallet } from 'utils';
+import { formatDecimals, getCoinLogo, mainClient, truncateWallet } from 'utils';
 import { MobileModalLayout } from 'layouts';
 import useTranslation from 'next-translate/useTranslation';
+import { useMutation, useQuery, useQueryClient } from 'react-query';
+import { useRouter } from 'next/router';
+import {
+	useContractWrite,
+	useNetwork,
+	useSwitchNetwork,
+	useWaitForTransaction,
+} from 'wagmi';
+import companyAbi from 'utils/abi/company.json';
+import { AxiosError } from 'axios';
 
 export const EditEmployeeMobile: React.FC<IEditEmployee> = ({
 	isOpen,
@@ -30,7 +51,11 @@ export const EditEmployeeMobile: React.FC<IEditEmployee> = ({
 	employee,
 }) => {
 	const theme = usePicasso();
+	const toast = useToast();
+	const queryClient = useQueryClient();
+	const { query } = useRouter();
 	const { t: translate } = useTranslation('create-team');
+	const { updateEmployee, selectedCompany, employeesRevenue } = useCompanies();
 	const [editedEmployeeData, setEditedEmployeeData] = useState({
 		amount: 0,
 		amountInDollar: 0,
@@ -47,6 +72,9 @@ export const EditEmployeeMobile: React.FC<IEditEmployee> = ({
 		onOpen: onOpenTokenSelector,
 		onClose: onCloseTokenSelector,
 	} = useDisclosure();
+
+	const { chain } = useNetwork();
+	const { chains, switchNetworkAsync, isLoading } = useSwitchNetwork();
 
 	const labelStyle: TextProps = {
 		color: 'black',
@@ -79,7 +107,7 @@ export const EditEmployeeMobile: React.FC<IEditEmployee> = ({
 		handleSubmit,
 		reset,
 		formState: { errors },
-	} = useForm<IEditEmployeeForm>({
+	} = useForm<IEditedEmployeeInfo>({
 		resolver: yupResolver(editEmployeeSchema),
 	});
 
@@ -93,10 +121,110 @@ export const EditEmployeeMobile: React.FC<IEditEmployee> = ({
 		}));
 	};
 
-	const handleEditEmployee = () => {
-		handleResetFormInputs();
+	const getSelectedCompanyTeams = async (id: number) => {
+		const response = await mainClient.get(`/company/${id}/teams`);
+		return response.data;
 	};
 
+	const { data: teams } = useQuery(
+		'all-company-teams',
+		() => getSelectedCompanyTeams(Number(query.id)),
+		{ enabled: false }
+	);
+
+	const { data: editEmployeeData, write: editEmployeeWrite } = useContractWrite(
+		{
+			address: selectedCompany.contract,
+			abi: companyAbi,
+			functionName: 'updateEmployeeSalary',
+		}
+	);
+
+	const { isLoading: useWaitForTransactionLoading } = useWaitForTransaction({
+		hash: editEmployeeData?.hash,
+		confirmations: 3,
+		onSuccess() {
+			handleResetFormInputs();
+			toast({
+				position: 'top',
+				render: () => (
+					<AlertToast
+						onClick={toast.closeAll}
+						text="employeeDataChangedWithSuccessfully"
+						type="success"
+					/>
+				),
+			});
+		},
+		onError() {
+			handleResetFormInputs();
+			toast({
+				position: 'top',
+				render: () => (
+					<AlertToast
+						onClick={toast.closeAll}
+						text="weAreWorkingToSolve"
+						type="error"
+					/>
+				),
+			});
+		},
+	});
+
+	const { mutate } = useMutation(
+		(newDataOfEmployee: IEditedEmployeeInfo) =>
+			updateEmployee(newDataOfEmployee, teams[0].id),
+		{
+			onSuccess: async () => {
+				queryClient.invalidateQueries('all-company-employees');
+				if (chain?.id !== 80001) await switchNetworkAsync?.(chains[2].id);
+				editEmployeeWrite?.({
+					args: [
+						employee.wallet,
+						formatDecimals(
+							editedEmployeeData.amount,
+							selectedCompany.tokenDecimals
+						),
+					],
+				});
+			},
+			onError: error => {
+				if (error instanceof AxiosError) {
+					if (error.response?.data.message === 'Unauthorized') {
+						toast({
+							position: 'top',
+							render: () => (
+								<AlertToast
+									onClick={toast.closeAll}
+									text="unauthorized"
+									type="error"
+								/>
+							),
+						});
+					} else {
+						toast({
+							position: 'top',
+							render: () => (
+								<AlertToast
+									onClick={toast.closeAll}
+									text="weAreWorkingToSolve"
+									type="error"
+								/>
+							),
+						});
+					}
+				}
+			},
+		}
+	);
+
+	const handleEditEmployee = (editedEmployee: IEditedEmployeeInfo) => {
+		mutate({
+			asset: 'USDT',
+			revenue: editedEmployee.revenue,
+			userAddress: employee.wallet,
+		});
+	};
 	return (
 		<MobileModalLayout isOpen={isOpen} onClose={handleResetFormInputs}>
 			<Flex
@@ -156,10 +284,10 @@ export const EditEmployeeMobile: React.FC<IEditEmployee> = ({
 										type="number"
 										h="max-content"
 										py="1"
-										{...register('amount')}
+										{...register('revenue')}
 										_placeholder={{ ...placeholderStyle }}
 										placeholder="0.00"
-										borderColor={errors.amount ? 'red' : theme.bg.primary}
+										borderColor={errors.revenue ? 'red' : theme.bg.primary}
 										flex="3"
 										borderRightRadius="none"
 										_hover={{}}
@@ -206,7 +334,7 @@ export const EditEmployeeMobile: React.FC<IEditEmployee> = ({
 									</Button>
 								</InputGroup>
 								<Text fontSize="xs" color="red">
-									{errors.amount?.message}
+									{errors.revenue?.message}
 								</Text>
 								<Flex bg="blue.50" py="2" justify="center" borderRadius="base">
 									<Text
