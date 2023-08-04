@@ -37,7 +37,9 @@ import { useMutation, useQueryClient } from 'react-query';
 import { AxiosError } from 'axios';
 import {
 	useContractWrite,
+	useNetwork,
 	usePrepareContractWrite,
+	useSwitchNetwork,
 	useWaitForTransaction,
 } from 'wagmi';
 import companyAbi from 'utils/abi/company.json';
@@ -85,6 +87,9 @@ export const AddEmployee: React.FC<IAddEmployee> = ({ isOpen, onClose }) => {
 	const [individuallyOrList, setIndividuallyOrList] = useState(true);
 	const shouldDisplay = individuallyOrList ? 'flex' : 'none';
 	const shouldntDisplay = individuallyOrList ? 'none' : 'flex';
+
+	const { chain } = useNetwork();
+	const { chains, switchNetworkAsync, isLoading } = useSwitchNetwork();
 
 	const labelStyle: TextProps = {
 		color: 'black',
@@ -176,8 +181,9 @@ export const AddEmployee: React.FC<IAddEmployee> = ({ isOpen, onClose }) => {
 	const { mutate } = useMutation(
 		(employee: INewEmployee) => addEmployeeToTeam(employee),
 		{
-			onSuccess: () => {
+			onSuccess: async () => {
 				queryClient.invalidateQueries({ queryKey: ['all-company-employees'] });
+				if (chain?.id !== 80001) await switchNetworkAsync?.(chains[2].id);
 				addEmployeeWrite?.();
 			},
 			onError: error => {
@@ -326,7 +332,7 @@ export const AddEmployee: React.FC<IAddEmployee> = ({ isOpen, onClose }) => {
 							<ModalBody display={shouldDisplay} flexDirection="column" gap="2">
 								<Flex direction="column" gap="2">
 									<WaitMetamaskFinishTransaction
-										isOpen={useWaitForTransactionLoading}
+										isOpen={useWaitForTransactionLoading || isLoading}
 										onClose={onCloseLoadingConfirmation}
 									/>
 									<Text {...labelStyle}>{translate('employeeWallet')}</Text>
