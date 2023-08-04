@@ -79,8 +79,9 @@ export const CreateCompanyComponent: React.FC<ICreateCompanyComponent> = ({
 
 	const companiesType: IBasicSelect[] = [
 		{ value: 'DAO' },
-		{ value: translate('financial') },
 		{ value: 'E-commerce' },
+		{ value: translate('financial') },
+		{ value: 'SaaS' },
 		{ value: translate('others') },
 	];
 
