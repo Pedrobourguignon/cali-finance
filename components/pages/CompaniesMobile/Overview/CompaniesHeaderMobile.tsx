@@ -10,7 +10,7 @@ import {
 	useToast,
 	useClipboard,
 } from '@chakra-ui/react';
-import { useAuth, useCompanies, usePath, usePicasso } from 'hooks';
+import { useCompanies, usePath, usePicasso } from 'hooks';
 import {
 	getLogo,
 	handleLogoImage,
@@ -29,8 +29,7 @@ export const CompaniesHeaderMobile = () => {
 	const theme = usePicasso();
 	const { isSamePath } = usePath();
 	const { query } = useRouter();
-	const { getCompanyById, selectedCompany } = useCompanies();
-	const { onCopy } = useClipboard(selectedCompany?.contract);
+	const { getCompanyById } = useCompanies();
 	const { t: translate } = useTranslation('company-overall');
 	const toast = useToast();
 
@@ -47,7 +46,7 @@ export const CompaniesHeaderMobile = () => {
 		},
 	];
 
-	const { isLoading: isLoadingSelectedCompany, error: selectedCompanyError } =
+	const { data: selectedCompany, isLoading: isLoadingSelectedCompany } =
 		useQuery(
 			'created-company-overview',
 			() => getCompanyById(Number(query.id)),
@@ -55,6 +54,7 @@ export const CompaniesHeaderMobile = () => {
 				onError: () => router.push('/404'),
 			}
 		);
+	const { onCopy } = useClipboard(selectedCompany?.contract as string);
 
 	const handleCopyButton = () => {
 		onCopy();
