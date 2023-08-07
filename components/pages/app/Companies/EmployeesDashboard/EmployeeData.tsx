@@ -51,6 +51,8 @@ export const EmployeeData: React.FC<IEmployeeData> = ({
 		});
 	};
 
+	console.log(employee.revenue);
+
 	return (
 		<Flex
 			w="100%"

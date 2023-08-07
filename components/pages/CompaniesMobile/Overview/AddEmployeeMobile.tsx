@@ -160,7 +160,7 @@ export const AddEmployeeMobile: React.FC<IAddEmployee> = ({
 	const handleAddEmployee = (newEmployeeData: IAddEmployeeForm) => {
 		mutate({
 			userAddress: newEmployeeData.walletAddress,
-			revenue: newEmployeeData.amount,
+			revenue: 0,
 			asset: 'USDT',
 		});
 		handleResetFormInputs();
