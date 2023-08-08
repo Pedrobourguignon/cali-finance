@@ -219,7 +219,7 @@ export const AddEmployee: React.FC<IAddEmployee> = ({ isOpen, onClose }) => {
 	const handleAddEmployee = (newEmployeeData: IAddEmployeeForm) => {
 		mutate({
 			userAddress: newEmployeeData.walletAddress,
-			revenue: newEmployeeData.amount,
+			revenue: 0,
 			asset: 'USDT',
 		});
 	};
