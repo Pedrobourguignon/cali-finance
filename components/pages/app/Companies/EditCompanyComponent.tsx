@@ -91,8 +91,10 @@ export const EditCompanyComponent: React.FC<IEditCompanyComponent> = ({
 
 	const companiesType = [
 		{ value: 'DAO' },
-		{ value: translate('financial') },
 		{ value: 'E-commerce' },
+		{ value: translate('financial') },
+		{ value: 'Saas' },
+		{ value: translate('others') },
 	];
 
 	useEffect(() => {
