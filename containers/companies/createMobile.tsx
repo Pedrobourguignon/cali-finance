@@ -6,20 +6,28 @@ import {
 	CreateCompanyMobile,
 	WaitConfirmationModalMobile,
 } from 'components';
+import {
+	useContractWrite,
+	useNetwork,
+	useSwitchNetwork,
+	useWaitForTransaction,
+} from 'wagmi';
 import { MobileLayout } from 'layouts';
-import { navigationPaths } from 'utils';
+import { mainClient, navigationPaths } from 'utils';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { CompaniesProvider } from 'contexts';
-import useTranslation from 'next-translate/useTranslation';
-
-import router from 'next/router';
-import { useAuth, useCompanies, useSchema } from 'hooks';
+import { useSchema } from 'hooks';
 import { ICompany } from 'types/interfaces/main-server/ICompany';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useMutation } from 'react-query';
 import { ISociaLinksInputValue } from 'types';
+import { Hex } from 'viem';
+import { MAIN_SERVICE_ROUTES } from 'helpers';
 import { AxiosError } from 'axios';
+import useTranslation from 'next-translate/useTranslation';
+import router from 'next/router';
+import factoryAbi from 'utils/abi/factory.json';
 
 interface ISelectedNetwork {
 	name: string;
@@ -29,9 +37,9 @@ interface ISelectedNetwork {
 
 export const CreateCompanyMobileContainer = () => {
 	const { createCompanySchema } = useSchema();
-	const { onClose, isOpen } = useDisclosure();
+	const { onClose } = useDisclosure();
+	const [newCompanyId, setNewCompanyId] = useState(0);
 	const toast = useToast();
-	const { createCompany } = useCompanies();
 	const { t: translate } = useTranslation('create-company');
 	const [selectedType, setSelectedType] = useState<string>(
 		translate('pleaseSelect')
@@ -45,7 +53,6 @@ export const CreateCompanyMobileContainer = () => {
 		icon: '/images/polygon.png',
 		id: 137,
 	});
-	const { session } = useAuth();
 	const {
 		handleSubmit,
 		register,
@@ -54,21 +61,105 @@ export const CreateCompanyMobileContainer = () => {
 		resolver: yupResolver(createCompanySchema),
 	});
 
+	const { chain } = useNetwork();
+	const {
+		chains,
+		switchNetworkAsync,
+		isLoading: isLoadingSwitchNetwork,
+	} = useSwitchNetwork();
+
+	const { write: createCompanyWrite, data: createCompanyData } =
+		useContractWrite({
+			address: (process.env.NEXT_PUBLIC_FACTORY_CONTRACT || '') as Hex,
+			abi: factoryAbi,
+			functionName: 'createNewCompany',
+		});
+
+	const createCompany = async (company: ICompany) => {
+		try {
+			if (chain?.id !== 80001) await switchNetworkAsync?.(chains[2].id);
+			const {
+				data: { checksum, id },
+			} = await mainClient.post(MAIN_SERVICE_ROUTES.createCompany, {
+				company,
+			});
+			setNewCompanyId(id);
+			createCompanyWrite?.({ args: [checksum] });
+		} catch (error) {
+			if (error instanceof AxiosError) {
+				if (error.response?.data.message === 'Unique company name') {
+					toast({
+						position: 'top',
+						render: () => (
+							<AlertToast
+								onClick={toast.closeAll}
+								text="companyNameAlreadyExists"
+								type="error"
+							/>
+						),
+					});
+				} else if (error.response?.status === 401) {
+					toast({
+						position: 'top',
+						render: () => (
+							<AlertToast
+								onClick={toast.closeAll}
+								text="unauthorized"
+								type="error"
+							/>
+						),
+					});
+				} else {
+					toast({
+						position: 'top',
+						render: () => (
+							<AlertToast
+								onClick={toast.closeAll}
+								text="weAreWorkingToSolve"
+								type="error"
+							/>
+						),
+					});
+				}
+			}
+		}
+	};
+
+	const { isLoading } = useWaitForTransaction({
+		hash: createCompanyData?.hash,
+		confirmations: 3,
+		onSuccess() {
+			toast({
+				position: 'top',
+				render: () => (
+					<AlertToast
+						onClick={toast.closeAll}
+						text="companyCreatedWithSuccess"
+						type="success"
+					/>
+				),
+			});
+			router.push(
+				navigationPaths.dashboard.companies.overview(newCompanyId.toString())
+			);
+		},
+		onError() {
+			toast({
+				position: 'top',
+				render: () => (
+					<AlertToast
+						onClick={toast.closeAll}
+						text="weAreWorkingToSolve"
+						type="error"
+					/>
+				),
+			});
+		},
+	});
+
 	const { mutate } = useMutation(
 		(createdCompanyData: ICompany) => createCompany(createdCompanyData),
 		{
-			onSuccess: () => {
-				toast({
-					position: 'top',
-					render: () => (
-						<AlertToast
-							onClick={toast.closeAll}
-							text="companyCreatedWithSuccess"
-							type="success"
-						/>
-					),
-				});
-			},
 			onError: error => {
 				if (error instanceof AxiosError) {
 					if (error.response?.data.message === 'Unique company name') {
@@ -114,10 +205,10 @@ export const CreateCompanyMobileContainer = () => {
 		setNewCompanyPicture(picture);
 	};
 
-	const handleCreateCompany = (companyData: ICompany) => {
-		const { name, contactEmail, description } = companyData;
+	const handleCreateCompany = async (companyData: ICompany) => {
 		const { websiteURL, instagramURL, twitterURL, telegramURL, mediumURL } =
 			socialLinksInputValue;
+		const { name, contactEmail, description } = companyData;
 		mutate({
 			name,
 			contactEmail,
@@ -127,28 +218,28 @@ export const CreateCompanyMobileContainer = () => {
 			socialMedia: [
 				{
 					name: 'website',
-					url: websiteURL!,
+					url: websiteURL,
 				},
 				{
 					name: 'instagram',
-					url: instagramURL!,
+					url: instagramURL,
 				},
 				{
 					name: 'twitter',
-					url: twitterURL!,
+					url: twitterURL,
 				},
 				{
 					name: 'telegram',
-					url: telegramURL!,
+					url: telegramURL,
 				},
 				{
 					name: 'medium',
-					url: mediumURL!,
+					url: mediumURL,
 				},
 			],
 			isPublic: 0,
 			color: '#121212',
-			logo: newCompanyPicture === '' ? undefined : newCompanyPicture,
+			logo: newCompanyPicture || undefined,
 		});
 	};
 
@@ -158,13 +249,12 @@ export const CreateCompanyMobileContainer = () => {
 			[`${name}`]: url,
 		}));
 	};
-
 	return (
 		<form onSubmit={handleSubmit(handleCreateCompany)}>
 			<CompaniesProvider>
 				<FormControl>
 					<MobileLayout>
-						<WaitConfirmationModalMobile isOpen={isOpen} onClose={onClose} />
+						<WaitConfirmationModalMobile isOpen={isLoading} onClose={onClose} />
 						<Flex direction="column" w="full">
 							<Flex
 								borderTopRadius="3xl"

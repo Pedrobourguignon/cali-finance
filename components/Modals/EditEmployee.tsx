@@ -36,6 +36,8 @@ import useTranslation from 'next-translate/useTranslation';
 import {
 	useContractWrite,
 	usePrepareContractWrite,
+	useNetwork,
+	useSwitchNetwork,
 	useWaitForTransaction,
 } from 'wagmi';
 import companyAbi from 'utils/abi/company.json';
@@ -78,6 +80,9 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 		fontSize: 'sm',
 		color: 'blackAlpha.500',
 	};
+
+	const { chain } = useNetwork();
+	const { chains, switchNetworkAsync, isLoading } = useSwitchNetwork();
 
 	const expenseCalculation = () => {
 		if (employee.revenue && editedEmployeeData.amountInDollar > 0) {
@@ -246,8 +251,9 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 		(newDataOfEmployee: IEditedEmployeeInfo) =>
 			updateEmployee(newDataOfEmployee, teams[0].id),
 		{
-			onSuccess: () => {
+			onSuccess: async () => {
 				queryClient.invalidateQueries('all-company-employees');
+				if (chain?.id !== 80001) await switchNetworkAsync?.(chains[2].id);
 				editEmployeeWrite?.({
 					args: [
 						employee.wallet,

@@ -19,7 +19,12 @@ import { useState } from 'react';
 import { useMutation } from 'react-query';
 import { ISociaLinksInputValue } from 'types';
 import { AxiosError } from 'axios';
-import { useContractWrite, useWaitForTransaction } from 'wagmi';
+import {
+	useContractWrite,
+	useNetwork,
+	useSwitchNetwork,
+	useWaitForTransaction,
+} from 'wagmi';
 import factoryAbi from 'utils/abi/factory.json';
 import { MAIN_SERVICE_ROUTES } from 'helpers';
 import { CompaniesProvider } from 'contexts';
@@ -57,6 +62,9 @@ export const CreateCompanyContainer = () => {
 		resolver: yupResolver(createCompanySchema),
 	});
 
+	const { chain } = useNetwork();
+	const { chains, switchNetworkAsync } = useSwitchNetwork();
+
 	const { write: createCompanyWrite, data: createCompanyData } =
 		useContractWrite({
 			address: (process.env.NEXT_PUBLIC_FACTORY_CONTRACT || '') as Hex,
@@ -66,6 +74,7 @@ export const CreateCompanyContainer = () => {
 
 	const createCompany = async (company: ICompany) => {
 		try {
+			if (chain?.id !== 80001) await switchNetworkAsync?.(chains[2].id);
 			const {
 				data: { checksum, id },
 			} = await mainClient.post(MAIN_SERVICE_ROUTES.createCompany, {

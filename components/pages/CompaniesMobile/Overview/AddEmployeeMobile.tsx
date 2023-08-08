@@ -28,6 +28,7 @@ import NextLink from 'next/link';
 import { useMutation, useQueryClient } from 'react-query';
 import { AxiosError } from 'axios';
 import { MobileModalLayout } from 'layouts';
+import { useNetwork, useSwitchNetwork } from 'wagmi';
 
 export const AddEmployeeMobile: React.FC<IAddEmployee> = ({
 	isOpen,
@@ -62,6 +63,9 @@ export const AddEmployeeMobile: React.FC<IAddEmployee> = ({
 	const [individuallyOrList, setIndividuallyOrList] = useState(true);
 	const shouldDisplay = individuallyOrList ? 'flex' : 'none';
 	const shouldntDisplay = individuallyOrList ? 'none' : 'flex';
+
+	const { chain } = useNetwork();
+	const { chains, switchNetworkAsync, isLoading } = useSwitchNetwork();
 
 	const labelStyle: TextProps = {
 		color: 'black',
@@ -103,8 +107,10 @@ export const AddEmployeeMobile: React.FC<IAddEmployee> = ({
 	const { mutate } = useMutation(
 		(employee: INewEmployee) => addEmployeeToTeam(employee),
 		{
-			onSuccess: () => {
+			onSuccess: async () => {
 				queryClient.invalidateQueries({ queryKey: ['all-company-employees'] });
+				if (chain?.id !== 80001) await switchNetworkAsync?.(chains[2].id);
+
 				toast({
 					position: 'top',
 					render: () => (
@@ -160,7 +166,7 @@ export const AddEmployeeMobile: React.FC<IAddEmployee> = ({
 	const handleAddEmployee = (newEmployeeData: IAddEmployeeForm) => {
 		mutate({
 			userAddress: newEmployeeData.walletAddress,
-			revenue: newEmployeeData.amount,
+			revenue: 0,
 			asset: 'USDT',
 		});
 		handleResetFormInputs();

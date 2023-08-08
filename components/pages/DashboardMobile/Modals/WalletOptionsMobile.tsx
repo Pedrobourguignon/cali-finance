@@ -12,7 +12,13 @@ import { useAuth, usePicasso, useToasty } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
 import { IWalletOptionsModal } from 'types';
 import { navigationPaths } from 'utils';
-import { useConnect, Connector, useAccount } from 'wagmi';
+import {
+	useConnect,
+	Connector,
+	useAccount,
+	useNetwork,
+	useSwitchNetwork,
+} from 'wagmi';
 import NextLink from 'next/link';
 import { useEffect } from 'react';
 import { MobileModalLayout } from 'layouts';
@@ -34,9 +40,13 @@ export const WalletOptionsMobile: React.FC<IWalletOptionsModal> = ({
 	const { handleSignIn } = useAuth();
 	const { isConnected, address } = useAccount();
 	const { toast } = useToasty();
+	const { chain } = useNetwork();
+	const { chains, switchNetworkAsync, isLoading } = useSwitchNetwork();
 	const { connectors, connectAsync, status } = useConnect({
 		async onSuccess(data) {
 			const account = data?.account;
+			if (chain?.id !== 80001) await switchNetworkAsync?.(chains[2].id);
+
 			await handleSignIn(account);
 			onCloseLoading();
 		},
