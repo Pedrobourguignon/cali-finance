@@ -1,4 +1,4 @@
-import { Flex, Text, Link } from '@chakra-ui/react';
+import { Flex, Text, Link, Button } from '@chakra-ui/react';
 import React from 'react';
 import useTranslation from 'next-translate/useTranslation';
 import { navigationPaths } from 'utils';
@@ -15,12 +15,18 @@ export const RecentActivitiesDashboard = () => {
 	const { session } = useAuth();
 	const { getUserActivities } = useProfile();
 
-	const { data: allCompaniesRecentActivities } = useQuery(
+	const { data: allCompaniesRecentActivities, isLoading } = useQuery(
 		'recent-activities',
 		() => getUserActivities(999),
 		{
 			enabled: !!isConnected && !!session,
 		}
+	);
+
+	const filteredFinancialNotifications = allCompaniesRecentActivities?.filter(
+		notification =>
+			notification.event.name === 'user_withdraw' ||
+			notification.event.name === 'company_deposit_received'
 	);
 
 	return (
@@ -44,17 +50,22 @@ export const RecentActivitiesDashboard = () => {
 					</Text>
 				</Flex>
 				<Link href={navigationPaths.dashboard.history} as={NextLink}>
-					<Text
+					<Button
+						p="0"
 						fontSize="xs"
 						cursor="pointer"
 						color="gray.500"
 						fontWeight="medium"
+						isDisabled={
+							filteredFinancialNotifications &&
+							filteredFinancialNotifications.length <= 5
+						}
 					>
 						{translate('seeAll')}
-					</Text>
+					</Button>
 				</Link>
 			</Flex>
-			{allCompaniesRecentActivities?.length === 0 ? (
+			{filteredFinancialNotifications?.length === 0 || isLoading ? (
 				<Flex py="24" justify="center">
 					<Text color={theme.text.primary} fontWeight="semibold">
 						{translate('dontHaveRecentActivities')}
@@ -62,9 +73,11 @@ export const RecentActivitiesDashboard = () => {
 				</Flex>
 			) : (
 				<Flex direction="column" gap="2" py="4">
-					{allCompaniesRecentActivities?.slice(0, 5).map((activity, index) => (
-						<RecentActivitiesData activities={activity} key={+index} />
-					))}
+					{filteredFinancialNotifications
+						?.slice(0, 5)
+						.map((activity, index) => (
+							<RecentActivitiesData activities={activity} key={+index} />
+						))}
 				</Flex>
 			)}
 		</Flex>

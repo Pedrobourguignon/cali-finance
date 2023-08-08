@@ -18,7 +18,7 @@ export const RecentActivities = () => {
 	const { t: translateDashboard } = useTranslation('dashboard');
 	const { getAllCompaniesUserActivities } = useCompanies();
 
-	const { data: recentActivities } = useQuery(
+	const { data: recentActivities, isLoading } = useQuery(
 		'recent-activities',
 		() => getCompanieActivities(Number(query.id)),
 		{
@@ -62,7 +62,7 @@ export const RecentActivities = () => {
 					</Text>
 				</Link>
 			</Flex>
-			{allCompaniesRecentActivities?.length === 0 ? (
+			{allCompaniesRecentActivities?.length === 0 || isLoading ? (
 				<Flex py="24" justify="center">
 					<Text color={theme.text.primary} fontWeight="semibold">
 						{translateDashboard('dontHaveCompaniesRecentActivities')}
