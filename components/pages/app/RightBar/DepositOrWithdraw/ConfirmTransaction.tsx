@@ -10,7 +10,12 @@ import { useCompanies, usePicasso } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
 import { Dispatch, SetStateAction, useState } from 'react';
 import { IContractFunctionExecutionError, ITransaction } from 'types';
-import { useContractWrite, useWaitForTransaction } from 'wagmi';
+import {
+	useContractWrite,
+	useNetwork,
+	useSwitchNetwork,
+	useWaitForTransaction,
+} from 'wagmi';
 import { AlertToast, WaitMetamaskFinishTransaction } from 'components';
 import companyAbi from 'utils/abi/company.json';
 import caliTokenAbi from 'utils/abi/caliToken.json';
@@ -46,6 +51,15 @@ export const ConfirmTransaction: React.FC<IConfirmTransaction> = ({
 	);
 	const [isLoadingApproveDeposit, setIsLoadingApproveDeposit] = useState(false);
 	const [isLoadingDeposit, setIsLoadingDeposit] = useState(false);
+
+	const { chain } = useNetwork();
+	const {
+		chains,
+		isLoading: isLoadingSwitchNetwork,
+		switchNetworkAsync,
+	} = useSwitchNetwork({
+		chainId: 8001,
+	});
 
 	const theme = usePicasso();
 	const handleSelectedButton = (btnName: string) => {
@@ -152,6 +166,7 @@ export const ConfirmTransaction: React.FC<IConfirmTransaction> = ({
 
 	const handleApproveDeposit = async () => {
 		try {
+			if (chain?.id !== 80001) await switchNetworkAsync?.(chains[2].id);
 			const { request } = await prepareWriteContract({
 				address: (selectedCompany.token || '') as Hex,
 				abi: caliTokenAbi,
@@ -201,7 +216,10 @@ export const ConfirmTransaction: React.FC<IConfirmTransaction> = ({
 	const handleSendTransaction = async () => {
 		if (transaction.type === 'Deposit') {
 			handleApproveDeposit();
-		} else withdrawFunds?.();
+		} else {
+			if (chain?.id !== 80001) await switchNetworkAsync?.(chains[2].id);
+			withdrawFunds?.();
+		}
 	};
 
 	return (
@@ -218,7 +236,8 @@ export const ConfirmTransaction: React.FC<IConfirmTransaction> = ({
 				isOpen={
 					isLoadingApproveDeposit ||
 					isLoadingDeposit ||
-					isLoadingWithdrawTransaction
+					isLoadingWithdrawTransaction ||
+					isLoadingSwitchNetwork
 				}
 				onClose={onClose}
 			/>
