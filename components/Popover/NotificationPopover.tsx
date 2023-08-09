@@ -19,6 +19,7 @@ import { NotificationComponent } from 'components';
 import { deleteNotifications } from 'services';
 import { useAccount } from 'wagmi';
 import { db } from 'utils';
+import { useQuery } from 'react-query';
 
 export const NotificationPopover: React.FC<INotificationPopover> = ({
 	onClose,
@@ -27,9 +28,10 @@ export const NotificationPopover: React.FC<INotificationPopover> = ({
 }) => {
 	const theme = usePicasso();
 	const { session } = useAuth();
+	const { isConnected } = useAccount();
 	const { t: translate } = useTranslation('dashboard');
 	const { address } = useAccount();
-	const { setNotificationsList, notificationsList } = useProfile();
+	const { setNotificationsList, getUserActivities } = useProfile();
 
 	const clearAllNotifications = () => {
 		if (address) {
@@ -38,6 +40,21 @@ export const NotificationPopover: React.FC<INotificationPopover> = ({
 			onClose();
 		}
 	};
+
+	const { data: historyNotifications } = useQuery(
+		'activities',
+		() => getUserActivities(999),
+		{
+			enabled: !!isConnected && !!session,
+		}
+	);
+
+	const filterTeamNotifications = historyNotifications?.filter(
+		notification =>
+			notification.event.name !== 'team_member_added' &&
+			notification.event.name !== 'user_added_to_company' &&
+			notification.event.name !== 'user_added_to_team'
+	);
 
 	return (
 		<Popover placement="bottom-end" onClose={onClose} isOpen={isOpen}>
@@ -51,7 +68,11 @@ export const NotificationPopover: React.FC<INotificationPopover> = ({
 					isDisabled={!session}
 				>
 					<Icon
-						as={notificationsList.length > 0 ? VscBellDot : VscBell}
+						as={
+							filterTeamNotifications && filterTeamNotifications.length > 0
+								? VscBellDot
+								: VscBell
+						}
 						boxSize="6"
 						color={{ base: 'white', sm: 'black' }}
 					/>
@@ -71,11 +92,14 @@ export const NotificationPopover: React.FC<INotificationPopover> = ({
 							px="1"
 							color={theme.text.primary}
 						>
-							{notificationsList.length} {translate('pendingNotifications')}
+							{filterTeamNotifications?.length}{' '}
+							{translate('pendingNotifications')}
 						</Text>
 
 						<PopoverCloseButton
-							disabled={notificationsList.length <= 0}
+							disabled={
+								filterTeamNotifications && filterTeamNotifications.length <= 0
+							}
 							fontSize="sm"
 							color={theme.branding.blue}
 							_hover={{ color: 'theme.branding.blue', bg: 'none' }}
@@ -106,8 +130,8 @@ export const NotificationPopover: React.FC<INotificationPopover> = ({
 							px: '1',
 						}}
 					>
-						{notificationsList.map((notification, index) => (
-							<NotificationComponent notification={notification} key={+index} />
+						{filterTeamNotifications?.map((notification, index) => (
+							<NotificationComponent activities={notification} key={+index} />
 						))}
 					</Flex>
 				</PopoverBody>
