@@ -6,7 +6,6 @@ import { getNotifications } from 'services';
 import {
 	ICoin,
 	IHistoryNotifications,
-	INotificationList,
 	ISelectedCoin,
 	IWalletData,
 } from 'types';
@@ -28,9 +27,9 @@ interface IProfileContext {
 	getUserActivities: (limit: number) => Promise<IHistoryNotifications[]>;
 	setSelectedToken: React.Dispatch<React.SetStateAction<ISelectedCoin>>;
 	setNotificationsList: React.Dispatch<
-		React.SetStateAction<INotificationList[]>
+		React.SetStateAction<IHistoryNotifications[]>
 	>;
-	notificationsList: INotificationList[];
+	notificationsList: IHistoryNotifications[];
 	selectedToken: ISelectedCoin;
 	setCardItems: React.Dispatch<React.SetStateAction<ICoin[]>>;
 	cardItems: ICoin[];
@@ -43,7 +42,7 @@ export const ProfileProvider: React.FC<{ children: React.ReactNode }> = ({
 }) => {
 	const { address: walletAddress, isConnected } = useAccount();
 	const [notificationsList, setNotificationsList] = useState<
-		INotificationList[]
+		IHistoryNotifications[]
 	>([]);
 
 	const [walletData, setWalletData] = useState<IWalletData>({
