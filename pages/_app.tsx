@@ -13,7 +13,7 @@ const MyApp = ({ Component, pageProps: { ...pageProps } }: AppProps) => (
 			<title>Cali Finance</title>
 			<meta name="title" content="Cali Finance" />
 			<meta name="description" content="Your money, any time." />
-			<link rel="icon" href="/favicon.png" />
+			<link rel="icon" href="/favicon.svg" />
 
 			{/* Open Graph / Facebook */}
 			<meta property="og:url" content="https://cali.finance" key="ogurl" />
