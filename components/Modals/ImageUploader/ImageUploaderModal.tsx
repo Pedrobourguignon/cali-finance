@@ -32,6 +32,7 @@ export const ImageUploaderModal: React.FC<IImageUploader> = ({
 	const theme = usePicasso();
 	const [picture, setPicture] = useState('');
 	const { t: translate } = useTranslation('edit-profile');
+	const [blockSvg, setBlockSvg] = useState<boolean>(false);
 
 	const handleUploadFile = () => {
 		sendImage(picture);
@@ -39,8 +40,14 @@ export const ImageUploaderModal: React.FC<IImageUploader> = ({
 		setOpenImageUploaderModal(false);
 	};
 
+	const handleClose = () => {
+		onClose();
+		setOpenImageUploaderModal(false);
+		setBlockSvg(false);
+	};
+
 	return (
-		<Modal isOpen={openImageUploaderModal} onClose={onClose} size="sm">
+		<Modal isOpen={openImageUploaderModal} onClose={handleClose} size="sm">
 			<ModalOverlay />
 			<ModalContent
 				m="auto"
@@ -76,13 +83,17 @@ export const ImageUploaderModal: React.FC<IImageUploader> = ({
 							</Text>
 						</Flex>
 						<Flex w="100%" justify="center">
-							<DragDrop setPicture={setPicture} />
+							<DragDrop
+								setPicture={setPicture}
+								blockSvg={blockSvg}
+								setBlockSvg={setBlockSvg}
+							/>
 						</Flex>
 					</ModalBody>
 				</Flex>
 				<ModalFooter display="flex" justifyContent="space-between">
 					<Button
-						onClick={() => setOpenImageUploaderModal(false)}
+						onClick={() => handleClose()}
 						borderRadius="sm"
 						color="black"
 						borderColor="black"
@@ -96,6 +107,7 @@ export const ImageUploaderModal: React.FC<IImageUploader> = ({
 						py="2.5"
 						onClick={handleUploadFile}
 						borderRadius="sm"
+						isDisabled={blockSvg}
 					>
 						{translate('uploadFile')}
 					</BlackButton>

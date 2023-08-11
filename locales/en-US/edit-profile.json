@@ -12,5 +12,6 @@
 	"uploadFile": "Upload File",
 	"cancel": "Cancel",
 	"theFileIsTooLarge": "The file is too large.",
-	"pleaseUploadAnother": "Please upload another image up to"
+	"pleaseUploadAnother": "Please upload another image up to",
+	"dontAcceptSvg": "We do not accept SVG. Please send a file of another type!"
 }

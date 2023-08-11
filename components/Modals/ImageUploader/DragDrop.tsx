@@ -14,9 +14,15 @@ interface IFile extends Blob {
 
 interface IDragDrop {
 	setPicture: Dispatch<SetStateAction<string>>;
+	blockSvg: boolean;
+	setBlockSvg: Dispatch<SetStateAction<boolean>>;
 }
 
-export const DragDrop: React.FC<IDragDrop> = ({ setPicture }) => {
+export const DragDrop: React.FC<IDragDrop> = ({
+	setPicture,
+	blockSvg,
+	setBlockSvg,
+}) => {
 	const theme = usePicasso();
 	const [sizeIsValid, setSizeIsValid] = useState(true);
 	const [fileLink, setFileLink] = useState('/images/add-image.png');
@@ -39,6 +45,11 @@ export const DragDrop: React.FC<IDragDrop> = ({ setPicture }) => {
 				file: event.target?.result,
 				ext,
 			};
+			if ((newFile.result as string).split('')[11] === 's') {
+				setBlockSvg(true);
+			} else {
+				setBlockSvg(false);
+			}
 			if (base64File.file) {
 				setFileLink(base64File.file.toString());
 				setPicture(base64File.file.toString());
@@ -60,6 +71,13 @@ export const DragDrop: React.FC<IDragDrop> = ({ setPicture }) => {
 						<Text as="span" fontWeight="normal" ml="2">
 							{translate('pleaseUploadAnother')} 5mb.
 						</Text>
+					</Text>
+				</Flex>
+			)}
+			{blockSvg && (
+				<Flex bg="red.100" w="100%" py="2" pl="2.5" borderRadius="base">
+					<Text color={theme.text.primary} fontWeight="semibold" fontSize="sm">
+						{translate('dontAcceptSvg')}
 					</Text>
 				</Flex>
 			)}

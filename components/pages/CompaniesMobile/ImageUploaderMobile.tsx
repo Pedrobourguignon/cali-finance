@@ -26,10 +26,16 @@ export const ImageUploaderModalMobile: React.FC<IImageUploader> = ({
 	const theme = usePicasso();
 	const [picture, setPicture] = useState('');
 	const { t: translate } = useTranslation('create-company');
+	const [blockSvg, setBlockSvg] = useState<boolean>(false);
 
 	const handleUploadFile = () => {
 		sendImage(picture);
 		onClose();
+	};
+
+	const handleClose = () => {
+		onClose();
+		setBlockSvg(false);
 	};
 
 	return (
@@ -67,13 +73,17 @@ export const ImageUploaderModalMobile: React.FC<IImageUploader> = ({
 						</Text>
 					</Flex>
 					<Flex w="100%" justify="center">
-						<DragDrop setPicture={setPicture} />
+						<DragDrop
+							setPicture={setPicture}
+							blockSvg={blockSvg}
+							setBlockSvg={setBlockSvg}
+						/>
 					</Flex>
 				</ModalBody>
 			</Flex>
 			<ModalFooter display="flex" justifyContent="space-between" pb="14">
 				<Button
-					onClick={onClose}
+					onClick={() => handleClose()}
 					borderRadius="sm"
 					color="black"
 					borderColor="black"
