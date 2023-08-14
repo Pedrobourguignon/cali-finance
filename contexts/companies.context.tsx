@@ -143,9 +143,8 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 
 	useEffect(() => {
 		if (
-			selectedCompany.totalFundsUsd === 0 ||
-			(selectedCompany.totalFundsUsd &&
-				selectedCompany.totalFundsUsd < employeesBalance)
+			selectedCompany.totalFundsUsd !== undefined &&
+			selectedCompany.totalFundsUsd < employeesBalance
 		) {
 			setDisplayNeedFundsCard('flex');
 		} else setDisplayNeedFundsCard('none');

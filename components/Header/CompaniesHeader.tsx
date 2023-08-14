@@ -122,7 +122,7 @@ export const CompaniesHeader = () => {
 
 	// eslint-disable-next-line consistent-return
 	useEffect(() => {
-		if (selectedCompany?.contract) {
+		if (!selectedCompany?.contract) {
 			const refetchContractAddress = setInterval(() => {
 				contractAddress();
 			}, 3000);
