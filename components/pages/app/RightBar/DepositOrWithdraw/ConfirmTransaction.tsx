@@ -86,6 +86,21 @@ export const ConfirmTransaction: React.FC<IConfirmTransaction> = ({
 		abi: companyAbi,
 		functionName: 'ownerWithdraw',
 		args: [formatDecimals(transaction.amount, selectedCompany.tokenDecimals)],
+		onError(error: any) {
+			console.log(error.cause.data.args[0]);
+			if (error.cause.data.args[0] === 'Insufficient Company Balance') {
+				toast({
+					position: 'top',
+					render: () => (
+						<AlertToast
+							onClick={toast.closeAll}
+							text="insufficientFunds"
+							type="error"
+						/>
+					),
+				});
+			}
+		},
 	});
 
 	const { isLoading: isLoadingWithdrawTransaction } = useWaitForTransaction({

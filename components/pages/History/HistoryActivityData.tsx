@@ -25,7 +25,7 @@ import {
 	handleLogoImage,
 	dateHandler,
 	notificationsData,
-	formatNumbers,
+	formatUsd,
 } from 'utils';
 import { useAccount } from 'wagmi';
 
@@ -262,7 +262,7 @@ export const HistoryActivityData: React.FC<IActivitiesData> = ({
 											>
 												{activities.meta.data.amount &&
 													locale &&
-													formatNumbers(activities.meta.data.amount, locale)}
+													formatUsd(activities.meta.data.amount, locale)}
 											</Text>
 											<Text
 												fontSize="xs"
