@@ -10,7 +10,6 @@ export class OneInchService {
 		const url = `1/tokens`;
 		try {
 			const result = await this.api.get(url);
-			console.log('aqui');
 			return result.data;
 		} catch (error) {
 			return '';
