@@ -1,11 +1,7 @@
 import { Button, Flex, Text, useDisclosure, useToast } from '@chakra-ui/react';
 import { usePicasso } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
-import {
-	useContractWrite,
-	usePrepareContractWrite,
-	useWaitForTransaction,
-} from 'wagmi';
+import { useContractWrite, useWaitForTransaction } from 'wagmi';
 import companyAbi from 'utils/abi/company.json';
 import { AlertToast, WaitMetamaskFinishTransaction } from 'components';
 import { GetUserCompaniesRes } from 'types/interfaces/main-server/ICompany';
@@ -19,13 +15,26 @@ export const WithdrawButton: React.FC<{
 	const toast = useToast();
 	const { onClose: onCloseConfirmationModal } = useDisclosure();
 
-	const { config: withdrawConfig } = usePrepareContractWrite({
+	const { write: writeWithdraw, data: withdrawData } = useContractWrite({
 		address: company.contract,
 		abi: companyAbi,
 		functionName: 'withdrawToken',
+		onError(error: any) {
+			if (error.cause.data.args[0].includes('Insufficient Company Balance')) {
+				toast({
+					position: 'top',
+					render: () => (
+						<AlertToast
+							onClick={toast.closeAll}
+							text="companyWithoutFunds"
+							type="error"
+						/>
+					),
+				});
+				onClose?.();
+			}
+		},
 	});
-	const { write: writeWithdraw, data: withdrawData } =
-		useContractWrite(withdrawConfig);
 
 	const { isLoading: isLoadingWaitForTransaction } = useWaitForTransaction({
 		hash: withdrawData?.hash,

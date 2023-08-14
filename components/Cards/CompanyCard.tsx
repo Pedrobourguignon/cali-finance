@@ -10,7 +10,7 @@ import { useCompanies, usePicasso, useTokens } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
 import React from 'react';
 import {
-	formatNumbers,
+	formatContractNumbers,
 	getCoinLogo,
 	getLogo,
 	handleLogoImage,
@@ -53,7 +53,7 @@ export const CompanyCard: React.FC<ICompanyCard> = ({
 		args: [address],
 	});
 
-	const { data } = useContractRead({
+	const { data: companyBalance } = useContractRead({
 		address: company.contract,
 		abi: companyAbi,
 		functionName: '_CompanyBalance',
@@ -77,22 +77,14 @@ export const CompanyCard: React.FC<ICompanyCard> = ({
 			h="8.375rem"
 		>
 			<WithdrawModal
-				employeeBalance={
-					company.tokenDecimals && employeeBalance
-						? formatUnits(employeeBalance as bigint, company.tokenDecimals)
-						: '0'
-				}
+				employeeBalance={employeeBalance as bigint}
 				isOpen={isOpen}
 				onClose={onClose}
 				userCompanies={userCompanies}
 				company={company}
 			/>
 			<WithdrawModalMobile
-				employeeBalance={
-					company.tokenDecimals && employeeBalance
-						? formatUnits(employeeBalance as bigint, company.tokenDecimals)
-						: '0'
-				}
+				employeeBalance={employeeBalance as bigint}
 				isOpen={isOpenMobile}
 				onClose={onCloseMobile}
 				userCompanies={userCompanies}
@@ -140,26 +132,23 @@ export const CompanyCard: React.FC<ICompanyCard> = ({
 									<Text>
 										${' '}
 										{employeeBalance && locale && company.tokenDecimals
-											? formatNumbers(
-													+Number(
-														formatUnits(
-															employeeBalance as bigint,
-															company.tokenDecimals
-														)
-													).toFixed(2),
-													locale
+											? formatContractNumbers(
+													employeeBalance as bigint,
+													locale,
+													company.tokenDecimals,
+													true
 											  )
 											: 0}
 									</Text>
 									<Flex align="center" gap="1">
 										<Text fontSize="xs">
-											{employeeBalance && company.tokenDecimals
-												? Number(
-														formatUnits(
-															employeeBalance as bigint,
-															company.tokenDecimals
-														)
-												  ).toFixed(2)
+											{employeeBalance && company.tokenDecimals && locale
+												? formatContractNumbers(
+														employeeBalance as bigint,
+														locale,
+														company.tokenDecimals,
+														false
+												  )
 												: 0}
 										</Text>
 										<Img src={getCoinLogo('USDT', listOfTokens)} boxSize="4" />
@@ -184,10 +173,12 @@ export const CompanyCard: React.FC<ICompanyCard> = ({
 									) : (
 										<Text>
 											$
-											{data && locale
-												? formatNumbers(
-														Number(formatUnits(data as bigint, 18)),
-														locale
+											{companyBalance && locale && company.tokenDecimals
+												? formatContractNumbers(
+														companyBalance as bigint,
+														locale,
+														company.tokenDecimals,
+														true
 												  )
 												: 0}
 										</Text>

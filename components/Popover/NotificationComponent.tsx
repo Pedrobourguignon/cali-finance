@@ -2,7 +2,7 @@
 import { Flex, Img, Text } from '@chakra-ui/react';
 import { usePicasso } from 'hooks';
 import { IHistoryNotifications } from 'types';
-import { dateHandler, formatNumbers, notificationsData } from 'utils';
+import { dateHandler, formatContractNumbers, notificationsData } from 'utils';
 import { useRouter } from 'next/router';
 
 export const NotificationComponent: React.FC<{
@@ -57,7 +57,12 @@ export const NotificationComponent: React.FC<{
 									>
 										{activities.meta.data.amount &&
 											locale &&
-											formatNumbers(activities.meta.data.amount, locale)}
+											formatContractNumbers(
+												BigInt(activities.meta.data.amount),
+												locale,
+												18,
+												false
+											)}
 									</Text>
 									<Text
 										fontSize="xs"
