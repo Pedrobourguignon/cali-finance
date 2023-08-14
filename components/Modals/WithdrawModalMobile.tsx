@@ -19,7 +19,7 @@ import { MobileModalLayout } from 'layouts';
 interface IWithdrawModal extends IBasicModal {
 	userCompanies: ICompany[];
 	company: GetUserCompaniesRes;
-	employeeBalance: string;
+	employeeBalance: bigint;
 }
 
 export const WithdrawModalMobile: React.FC<IWithdrawModal> = ({

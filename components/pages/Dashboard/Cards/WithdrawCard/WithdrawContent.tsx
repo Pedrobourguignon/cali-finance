@@ -16,13 +16,13 @@ import {
 	GetUserCompaniesRes,
 	ICompany,
 } from 'types/interfaces/main-server/ICompany';
-import { formatNumbers, getCoinLogo } from 'utils';
+import { formatContractNumbers, getCoinLogo } from 'utils';
 
 interface ISelectedCoin {
 	onOpen: () => void;
 	userCompanies: ICompany[];
 	company: GetUserCompaniesRes;
-	employeeBalance: string;
+	employeeBalance: bigint;
 }
 
 export const WithdrawContent: React.FC<ISelectedCoin> = ({
@@ -75,11 +75,24 @@ export const WithdrawContent: React.FC<ISelectedCoin> = ({
 							<Text color="black">
 								${' '}
 								{locale &&
-									formatNumbers(+Number(employeeBalance).toFixed(2), locale)}
+									company.tokenDecimals &&
+									formatContractNumbers(
+										employeeBalance,
+										locale,
+										company.tokenDecimals,
+										true
+									)}
 							</Text>
 							<Flex align="center" gap="1">
 								<Text fontSize="xs" color="black">
-									{locale && Number(employeeBalance).toFixed(2)}
+									{locale &&
+										company.tokenDecimals &&
+										formatContractNumbers(
+											employeeBalance,
+											locale,
+											company.tokenDecimals,
+											false
+										)}
 								</Text>
 								<Img src={getCoinLogo('USDT', listOfTokens)} boxSize="4" />
 							</Flex>

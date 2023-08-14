@@ -14,7 +14,7 @@ import {
 } from '@chakra-ui/react';
 import { useCompanies, usePath, usePicasso } from 'hooks';
 import {
-	formatNumbers,
+	formatUsd,
 	getLogo,
 	handleLogoImage,
 	navigationPaths,
@@ -181,7 +181,7 @@ export const CompaniesHeader = () => {
 						<Skeleton w="14" h="6" />
 					) : selectedCompany.totalFundsUsd ? (
 						<Text fontSize="xl">{`$ ${
-							locale && formatNumbers(selectedCompany?.totalFundsUsd, locale)
+							locale && formatUsd(selectedCompany.totalFundsUsd, locale)
 						}`}</Text>
 					) : (
 						`$ 0`
