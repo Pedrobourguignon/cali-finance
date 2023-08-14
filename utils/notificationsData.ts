@@ -77,4 +77,12 @@ export const notificationsData: {
 		icon: '/icons/withdrawal.svg',
 		text: 'companyWithdraw',
 	},
+	user_company_withdraw: {
+		icon: '/icons/withdrawal.svg',
+		text: 'companyWithdraw',
+	},
+	company_owner_withdraw: {
+		icon: '/icons/withdrawal.svg',
+		text: 'companyWithdraw',
+	},
 };

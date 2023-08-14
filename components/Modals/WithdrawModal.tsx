@@ -21,7 +21,7 @@ import {
 interface IWithdrawModal extends IBasicModal {
 	userCompanies: ICompany[];
 	company: GetUserCompaniesRes;
-	employeeBalance: string;
+	employeeBalance: bigint;
 }
 
 export const WithdrawModal: React.FC<IWithdrawModal> = ({

@@ -1,26 +1,65 @@
 import { Button, Flex, Text, useDisclosure } from '@chakra-ui/react';
+import { readContract } from '@wagmi/core';
 import { Asset, OffsetShadow } from 'components';
-import { useCompanies, usePicasso } from 'hooks';
+import { useAuth, useCompanies, usePicasso } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
 import { useRouter } from 'next/router';
 import React, { useRef, useState, useEffect, useMemo } from 'react';
 import { IAssetsOptions } from 'types';
-import { formatNumbers } from 'utils';
-import { formatUnits } from 'viem';
+import { formatContractNumbers } from 'utils';
+import companyAbi from 'utils/abi/company.json';
+import { useAccount } from 'wagmi';
 
 export const MyAssets = () => {
 	const { t: translate } = useTranslation('dashboard');
 	const { isOpen: isFullList, onToggle: toggleListView } = useDisclosure();
 	const theme = usePicasso();
-	const { allUserBalance } = useCompanies();
+	const { session } = useAuth();
+	const { allUserCompanies } = useCompanies();
 	const { locale } = useRouter();
+	const { address: wallet } = useAccount();
 
 	const ref = useRef<HTMLDivElement>(null);
 
 	const [assetOptions, setAssetOptions] = useState<IAssetsOptions[]>([]);
+	const [allUserBalance, setAllUserBalance] = useState<bigint[]>([]);
+
+	const getEmployeeBalance = async () => {
+		if (allUserCompanies && session) {
+			const filteredCompanies = allUserCompanies.filter(
+				company => Boolean(company.isAdmin) === false
+			);
+			const contractAddress = filteredCompanies.map(
+				filteredCompany => filteredCompany.contract
+			);
+
+			const data = contractAddress.map(item =>
+				readContract({
+					address: item,
+					abi: companyAbi,
+					functionName: 'getSingleBalance',
+					args: [wallet],
+				})
+			);
+			try {
+				const result = await Promise.all(data);
+				const availableToWithdraw = result.filter(number => number !== 0);
+				setAllUserBalance(availableToWithdraw as bigint[]);
+			} catch (err) {
+				console.log(err);
+			}
+		}
+	};
+
+	useEffect(() => {
+		getEmployeeBalance();
+	}, [allUserCompanies]);
 
 	const sumAvailableToWithdraw = () => {
-		const total = allUserBalance.reduce((acc, balance) => acc + balance, 0);
+		const total = allUserBalance.reduce(
+			(acc: bigint, balance) => acc + balance,
+			0n
+		);
 		const newAssetOptions = [
 			{
 				name: 'USDT',
@@ -68,12 +107,8 @@ export const MyAssets = () => {
 								fontSize={{ base: 'sm', md: 'xs', lg: 'sm' }}
 								color={theme.text.primary}
 							>
-								{getUsdtBalance &&
-									locale &&
-									formatNumbers(
-										Number(formatUnits(BigInt(getUsdtBalance), 18)),
-										locale
-									)}
+								{locale &&
+									formatContractNumbers(getUsdtBalance, locale, 18, true)}
 							</Text>
 						</Flex>
 						{assetOptions.length > 3 && (
