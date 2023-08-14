@@ -39,6 +39,13 @@ export const NotificationPopover: React.FC<INotificationPopover> = ({
 		}
 	};
 
+	const filterTeamNotifications = notificationsList?.filter(
+		notification =>
+			notification.event?.name !== 'team_member_added' &&
+			notification.event?.name !== 'user_added_to_company' &&
+			notification.event?.name !== 'user_added_to_team'
+	);
+
 	return (
 		<Popover placement="bottom-end" onClose={onClose} isOpen={isOpen}>
 			<PopoverTrigger>
@@ -51,7 +58,11 @@ export const NotificationPopover: React.FC<INotificationPopover> = ({
 					isDisabled={!session}
 				>
 					<Icon
-						as={notificationsList.length > 0 ? VscBellDot : VscBell}
+						as={
+							filterTeamNotifications && filterTeamNotifications.length > 0
+								? VscBellDot
+								: VscBell
+						}
 						boxSize="6"
 						color={{ base: 'white', sm: 'black' }}
 					/>
@@ -71,11 +82,14 @@ export const NotificationPopover: React.FC<INotificationPopover> = ({
 							px="1"
 							color={theme.text.primary}
 						>
-							{notificationsList.length} {translate('pendingNotifications')}
+							{filterTeamNotifications?.length}{' '}
+							{translate('pendingNotifications')}
 						</Text>
 
 						<PopoverCloseButton
-							disabled={notificationsList.length <= 0}
+							disabled={
+								filterTeamNotifications && filterTeamNotifications.length <= 0
+							}
 							fontSize="sm"
 							color={theme.branding.blue}
 							_hover={{ color: 'theme.branding.blue', bg: 'none' }}
@@ -106,8 +120,11 @@ export const NotificationPopover: React.FC<INotificationPopover> = ({
 							px: '1',
 						}}
 					>
-						{notificationsList.map((notification, index) => (
-							<NotificationComponent notification={notification} key={+index} />
+						{filterTeamNotifications?.map((notification, index) => (
+							<NotificationComponent
+								activities={notificationsList && notification}
+								key={+index}
+							/>
 						))}
 					</Flex>
 				</PopoverBody>
