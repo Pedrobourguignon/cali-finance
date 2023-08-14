@@ -138,18 +138,14 @@ export const EditCompanyLink: React.FC<{
 				zIndex="docked"
 			>
 				<Flex direction="column" align="center" gap="4" w="100%">
-					<Flex
-						direction="column"
-						gap="4"
-						align="center"
-						cursor="pointer"
-						onClick={() => setOpenImageUploaderModal(true)}
-					>
-						<CompanyLogo
-							company={company}
-							logo={logo}
-							displayedEditedPicture={displayedEditedPicture}
-						/>
+					<Flex direction="column" gap="4" align="center" cursor="pointer">
+						<Flex onClick={() => setOpenImageUploaderModal(true)}>
+							<CompanyLogo
+								company={company}
+								logo={logo}
+								displayedEditedPicture={displayedEditedPicture}
+							/>
+						</Flex>
 						<ImageUploader
 							openImageUploaderModal={openImageUploaderModal}
 							setOpenImageUploaderModal={setOpenImageUploaderModal}
