@@ -1,2 +1,2 @@
 export const formatUsd = (value: number, locale: string) =>
-	Number(value.toLocaleString(locale)).toFixed(2);
+	Number(value.toFixed(2)).toLocaleString(locale);

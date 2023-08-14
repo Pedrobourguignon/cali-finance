@@ -21,7 +21,7 @@ export const CompaniesConnected: React.FC = () => {
 	const { session } = useAuth();
 
 	const { data: companies } = useQuery(
-		'all-companies-overview',
+		['all-companies-overview'],
 		getCompaniesOverview,
 		{
 			enabled: !!isConnected && !!session,
