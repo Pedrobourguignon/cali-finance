@@ -6,7 +6,6 @@ import {
 	DepositOrWithdrawBanner,
 	HistoryDashboard,
 	CompaniesHeader,
-	CoinCardSkeleton,
 } from 'components';
 import useTranslation from 'next-translate/useTranslation';
 import { useQuery } from 'wagmi';

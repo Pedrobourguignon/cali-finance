@@ -10,7 +10,7 @@ import {
 import { useAuth, useCompanies, usePicasso } from 'hooks';
 import { HistoryData } from 'components';
 import { IHistoryNotifications } from 'types';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import useTranslation from 'next-translate/useTranslation';
 import { BiChevronDown } from 'react-icons/bi';
 import { useQuery } from 'react-query';
@@ -39,12 +39,15 @@ export const HistoryDashboard = () => {
 	);
 
 	const theme = usePicasso();
-	const [filteredUserHistory, setFilteredUserHistory] = useState<
-		IHistoryNotifications[] | undefined
-	>(financialNotifications);
+	const [filteredUserHistory, setFilteredUserHistory] =
+		useState<IHistoryNotifications[]>();
 	const [selectedFilterOption, setSelectedFilterOption] = useState<string>(
 		translate('all')
 	);
+
+	useEffect(() => {
+		if (financialNotifications) setFilteredUserHistory(financialNotifications);
+	}, [financialNotifications]);
 
 	const filterUserHistory = (filter: string[]) => {
 		setFilteredUserHistory(
