@@ -1,4 +1,3 @@
-/* eslint-disable no-nested-ternary */
 import { Flex, Img, Text } from '@chakra-ui/react';
 import { usePicasso } from 'hooks';
 import { IHistoryNotifications } from 'types';

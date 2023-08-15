@@ -87,7 +87,6 @@ export const ConfirmTransaction: React.FC<IConfirmTransaction> = ({
 		functionName: 'ownerWithdraw',
 		args: [formatDecimals(transaction.amount, selectedCompany.tokenDecimals)],
 		onError(error: any) {
-			console.log(error.cause.data.args[0]);
 			if (error.cause.data.args[0] === 'Insufficient Company Balance') {
 				toast({
 					position: 'top',
