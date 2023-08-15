@@ -9,11 +9,14 @@ import {
 	SingleCompanyAlert,
 } from 'components';
 import { GetCompanyUsersRes } from 'types/interfaces/main-server/IUser';
+import { formatContractNumbers, formatUsd } from 'utils';
+import { useRouter } from 'next/router';
 
 export const AlertsComponent = () => {
 	const { companiesWithMissingFunds, getAllCompanyEmployees } = useCompanies();
 	const [employees, setEmployees] = useState<GetCompanyUsersRes[]>([]);
 	const { session } = useAuth();
+	const { locale } = useRouter();
 
 	const [missingValue, setMissingValue] = useState<number>(0);
 
@@ -30,7 +33,7 @@ export const AlertsComponent = () => {
 				employeesWallet.push(employee.wallet);
 			}
 		});
-		if (companiesWithMissingFunds[0]?.contract && session) {
+		if (companiesWithMissingFunds[0]?.contract && session && locale) {
 			try {
 				const data = await readContract({
 					address: companiesWithMissingFunds[0].contract,
@@ -38,13 +41,22 @@ export const AlertsComponent = () => {
 					functionName: 'getBulkBalance',
 					args: [employeesWallet],
 				});
-				const result = await Promise.all([...(data as number[])]);
-				const numberResult = result.map(item => Number(item));
+				const result = await Promise.all([...(data as bigint[])]);
+				const numberResult = result.map(item =>
+					Number(
+						formatContractNumbers(
+							item,
+							locale,
+							companiesWithMissingFunds[0]?.tokenDecimals || 18,
+							false
+						)
+					)
+				);
 				const sum = numberResult.reduce(
 					(accumulator, currentValue) => accumulator + currentValue,
 					0
 				);
-				setMissingValue(sum);
+				setMissingValue(+formatUsd(sum, locale));
 			} catch (err) {
 				console.log(err);
 			}
