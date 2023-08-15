@@ -221,8 +221,7 @@ export const HistoryActivityData: React.FC<IActivitiesData> = ({
 										whiteSpace="nowrap"
 										color={theme.text.primary}
 									>
-										{activities.event.name !== 'company_created' &&
-											truncateWallet(activities.meta.data?.userAddedWallet)}
+										{truncateWallet(activities.meta.data?.userAddedWallet)}
 									</Text>
 								)}
 							</GridItem>

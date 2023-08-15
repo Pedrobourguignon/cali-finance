@@ -1,6 +1,9 @@
-export const notificationsData: {
-	[key: string]: { icon: string; text: string };
-} = {
+import { EventName } from 'types/interfaces/main-server/events';
+
+export const notificationsData: Record<
+	EventName,
+	{ icon: string; text: string }
+> = {
 	company_created: {
 		icon: '/icons/companies.svg',
 		text: 'createdCompany',

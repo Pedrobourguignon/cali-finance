@@ -1,10 +1,11 @@
 import { ILanguages } from 'types';
+import { EventName } from 'types/interfaces/main-server/events';
 
 export interface IHistoryNotifications {
 	created_at: string;
 	event: {
 		description: string;
-		name: string;
+		name: EventName;
 	};
 	id: number;
 	meta: {
@@ -13,7 +14,7 @@ export interface IHistoryNotifications {
 			companyId: number;
 			companyName: string;
 			companyLogo: string;
-			event: string;
+			event: EventName;
 			teamId: number;
 			userAddedWallet: string;
 			userId: number;
