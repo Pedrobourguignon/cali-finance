@@ -45,11 +45,8 @@ export const DragDrop: React.FC<IDragDrop> = ({
 				file: event.target?.result,
 				ext,
 			};
-			if ((newFile.result as string).split('')[11] === 's') {
-				setBlockSvg(true);
-			} else {
-				setBlockSvg(false);
-			}
+			const fileContent = newFile.result as string;
+			setBlockSvg(fileContent.substring(11, 14) === 'svg');
 			if (base64File.file) {
 				setFileLink(base64File.file.toString());
 				setPicture(base64File.file.toString());
