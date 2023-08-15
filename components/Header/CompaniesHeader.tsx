@@ -14,7 +14,7 @@ import {
 } from '@chakra-ui/react';
 import { useCompanies, usePath, usePicasso } from 'hooks';
 import {
-	formatNumbers,
+	formatUsd,
 	getLogo,
 	handleLogoImage,
 	navigationPaths,
@@ -40,9 +40,8 @@ export const CompaniesHeader = () => {
 	const { query, locale } = useRouter();
 	const { onClose, isOpen, onOpen } = useDisclosure();
 	const { t: translate } = useTranslation('company-overall');
-	const { getCompanyById, selectedCompany } = useCompanies();
+	const { getCompanyById } = useCompanies();
 	const toast = useToast();
-	const { onCopy } = useClipboard(selectedCompany?.contract);
 
 	const menuOptions = [
 		{
@@ -55,13 +54,16 @@ export const CompaniesHeader = () => {
 		},
 	];
 
-	const { isLoading: isLoadingSelectedCompany } = useQuery(
-		'created-company-overview',
-		() => getCompanyById(Number(query.id)),
-		{
-			onError: () => router.push('/404'),
-		}
-	);
+	const { data: selectedCompany, isLoading: isLoadingSelectedCompany } =
+		useQuery(
+			'created-company-overview',
+			() => getCompanyById(Number(query.id)),
+			{
+				onError: () => router.push('/404'),
+			}
+		);
+
+	const { onCopy } = useClipboard(selectedCompany?.contract || '');
 
 	const handleCopyButton = () => {
 		onCopy();
@@ -78,7 +80,7 @@ export const CompaniesHeader = () => {
 	};
 
 	const contractAddress = () => {
-		if (selectedCompany?.contract === null) {
+		if (!selectedCompany?.contract) {
 			return (
 				<Flex align="center" gap="2">
 					<Spinner size="sm" />
@@ -89,7 +91,7 @@ export const CompaniesHeader = () => {
 			);
 		}
 		return (
-			selectedCompany.contract && (
+			selectedCompany?.contract && (
 				<Flex align="center">
 					<Text
 						color="blue.300"
@@ -120,7 +122,7 @@ export const CompaniesHeader = () => {
 
 	// eslint-disable-next-line consistent-return
 	useEffect(() => {
-		if (selectedCompany.contract === null) {
+		if (!selectedCompany?.contract) {
 			const refetchContractAddress = setInterval(() => {
 				contractAddress();
 			}, 3000);
@@ -179,9 +181,9 @@ export const CompaniesHeader = () => {
 				<Flex direction="column" maxW="32">
 					{isLoadingSelectedCompany ? (
 						<Skeleton w="14" h="6" />
-					) : selectedCompany.totalFundsUsd ? (
+					) : selectedCompany?.totalFundsUsd ? (
 						<Text fontSize="xl">{`$ ${
-							locale && formatNumbers(selectedCompany?.totalFundsUsd, locale)
+							locale && formatUsd(selectedCompany.totalFundsUsd, locale)
 						}`}</Text>
 					) : (
 						`$ 0`

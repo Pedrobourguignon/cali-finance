@@ -14,7 +14,6 @@ import {
 	INewEmployee,
 	IEditedEmployeeInfo,
 	IHistoryNotifications,
-	IAssetsOptions,
 } from 'types';
 import { checkJwt, mainClient, navigationPaths } from 'utils';
 import { useQuery } from 'react-query';
@@ -29,6 +28,7 @@ import { readContract } from '@wagmi/core';
 import companyAbi from 'utils/abi/company.json';
 import { GetCompanyUsersRes } from 'types/interfaces/main-server/IUser';
 import { useAuth } from 'hooks';
+import { formatContractNumbers } from 'utils/formatContractNumbers';
 
 interface ICompanyContext {
 	setSelectedCompany: Dispatch<SetStateAction<GetUserCompaniesRes>>;
@@ -67,14 +67,11 @@ interface ICompanyContext {
 		members: number;
 		totalFunds: number;
 	}>;
-	isLoadingCompanies: boolean;
-	setAllUserBalance: Dispatch<SetStateAction<number[]>>;
-	allUserBalance: number[];
-	getUsdtBalance: number;
 	setEmployeesBalance: Dispatch<SetStateAction<number>>;
 	employeesBalance: number;
 	setEmployeesRevenue: Dispatch<SetStateAction<number>>;
 	employeesRevenue: number;
+	isLoadingCompanies: boolean;
 }
 
 export const CompaniesContext = createContext({} as ICompanyContext);
@@ -82,10 +79,10 @@ export const CompaniesContext = createContext({} as ICompanyContext);
 export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 	children,
 }) => {
-	const { query } = useRouter();
 	const { isConnected } = useAccount();
 	const { address: wallet } = useAccount();
 	const { session } = useAuth();
+	const { locale, query } = useRouter();
 	const [displayNeedFundsCard, setDisplayNeedFundsCard] = useState('none');
 	const [socialMediasData, setSocialMediasData] = useState<ISocialMedia[]>([]);
 	const [editedInfo, setEditedInfo] = useState<ICompany>({} as ICompany);
@@ -97,27 +94,8 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 	const [companiesWithMissingFunds, setCompaniesWithMissingFunds] = useState<
 		GetUserCompaniesRes[]
 	>([]);
-	const [allUserBalance, setAllUserBalance] = useState<number[]>([]);
-	const [assetOptions, setAssetOptions] = useState<IAssetsOptions[]>([]);
 	const [employeesBalance, setEmployeesBalance] = useState<number>(0);
 	const [employeesRevenue, setEmployeesRevenue] = useState<number>(0);
-
-	const sumAvailableToWithdraw = () => {
-		const total = allUserBalance.reduce((acc, balance) => acc + balance, 0);
-		const newAssetOptions = [
-			{
-				name: 'USDT',
-				value: total,
-			},
-		];
-		setAssetOptions(newAssetOptions);
-	};
-
-	useEffect(() => {
-		sumAvailableToWithdraw();
-	}, [allUserBalance.length]);
-
-	const getUsdtBalance = useMemo(() => assetOptions[0]?.value, [assetOptions]);
 
 	const getAllUserCompanies: () => Promise<
 		GetUserCompaniesRes[]
@@ -128,6 +106,7 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 		);
 		return response.data;
 	};
+
 	const { data: allUserCompanies, isLoading: isLoadingCompanies } = useQuery(
 		['all-companies'],
 		getAllUserCompanies,
@@ -135,34 +114,6 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 			enabled: !!isConnected && !!session,
 		}
 	);
-
-	const getEmployeeBalance = async () => {
-		if (allUserCompanies && session) {
-			const filteredCompanies = allUserCompanies.filter(
-				company => Boolean(company.isAdmin) === false
-			);
-			const contractAddress = filteredCompanies.map(
-				filteredCompany => filteredCompany.contract
-			);
-
-			const data = contractAddress.map(item =>
-				readContract({
-					address: item,
-					abi: companyAbi,
-					functionName: 'getSingleBalance',
-					args: [wallet],
-				})
-			);
-			try {
-				const result = await Promise.all(data);
-				const numberResult = result.map(item => Number(item));
-				const availableToWithdraw = numberResult.filter(number => number !== 0);
-				setAllUserBalance(availableToWithdraw);
-			} catch (err) {
-				console.log(err);
-			}
-		}
-	};
 
 	const getCompaniesOverview = async () => {
 		if (!wallet) throw new Error('User not connected');
@@ -186,8 +137,13 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 	};
 
 	useEffect(() => {
+		getAllUserCompanies();
+		if (query.id) getCompanyById(+query.id);
+	}, []);
+
+	useEffect(() => {
 		if (
-			selectedCompany.totalFundsUsd &&
+			selectedCompany.totalFundsUsd !== undefined &&
 			selectedCompany.totalFundsUsd < employeesBalance
 		) {
 			setDisplayNeedFundsCard('flex');
@@ -230,9 +186,12 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 				if (company.id && company.isAdmin) {
 					const employees = await getAllCompanyEmployees(company.id);
 					if (employees.length !== 0) {
-						employees.map((employee: IEmployee) =>
-							employeesWallet.push(employee.wallet!)
-						);
+						employees.map((employee: IEmployee) => {
+							if (employee.wallet) {
+								return employeesWallet.push(employee.wallet);
+							}
+							return null;
+						});
 						if (company.contract && session) {
 							try {
 								const data = await readContract({
@@ -241,16 +200,21 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 									functionName: 'getBulkBalance',
 									args: [employeesWallet],
 								});
-								const result = await Promise.all([...(data as number[])]);
-								const numberResult = result.map(item => Number(item));
-								const sum = numberResult.reduce(
-									(accumulator, currentValue) => accumulator + currentValue,
-									0
-								);
-								if (company.totalFundsUsd && company.totalFundsUsd < sum)
-									setCompaniesWithMissingFunds(prevState =>
-										prevState.concat(company)
+								const result = await Promise.all([...(data as bigint[])]);
+								if (locale) {
+									const numberResult = result.map(item =>
+										Number(formatContractNumbers(item, locale, 18, false))
 									);
+									const sum = numberResult.reduce(
+										(accumulator, currentValue) => accumulator + currentValue,
+										0
+									);
+
+									if (!company.totalFundsUsd || company.totalFundsUsd < sum)
+										setCompaniesWithMissingFunds(prevState =>
+											prevState.concat(company)
+										);
+								}
 							} catch (err) {
 								console.log(err);
 							}
@@ -262,7 +226,6 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 	};
 	useEffect(() => {
 		handleMissingFunds();
-		getEmployeeBalance();
 	}, [allUserCompanies]);
 
 	const getAllCompanyTeams = async (id: number) => {
@@ -345,7 +308,6 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 			companiesWithMissingFunds,
 			getAllUserCompanies,
 			createCompany,
-			getUsdtBalance,
 			socialMediasData,
 			setSocialMediasData,
 			getCompanyById,
@@ -356,36 +318,34 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 			updateEmployee,
 			allUserCompanies,
 			updateCompany,
-			isLoadingCompanies,
 			getCompanieActivities,
 			getAllCompanyTeams,
 			getAllCompaniesUserActivities,
 			getCompaniesOverview,
 			selectedCompany,
-			setAllUserBalance,
-			allUserBalance,
 			employeesBalance,
 			setEmployeesBalance,
 			setCompaniesWithMissingFunds,
 			employeesRevenue,
 			setEmployeesRevenue,
+			isLoadingCompanies,
 		}),
 		[
 			editedInfo,
 			displayMissingFundsWarning,
 			displayNeedFundsCard,
 			companiesWithMissingFunds,
-			getUsdtBalance,
+			getAllUserCompanies,
 			socialMediasData,
 			addEmployeeToTeam,
 			addEmployeeCsv,
 			allUserCompanies,
 			updateCompany,
-			isLoadingCompanies,
+			getCompaniesOverview,
 			selectedCompany,
-			allUserBalance,
 			employeesBalance,
 			employeesRevenue,
+			isLoadingCompanies,
 		]
 	);
 

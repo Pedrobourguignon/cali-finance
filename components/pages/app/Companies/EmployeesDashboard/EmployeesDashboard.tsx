@@ -25,7 +25,6 @@ export const EmployeesDashboard: React.FC<IEmployeeDashboard> = ({
 	const { t: translate } = useTranslation('company-overall');
 	const {
 		getAllCompanyEmployees,
-		selectedCompany,
 		getCompanyById,
 		setEmployeesBalance,
 		setEmployeesRevenue,
@@ -71,7 +70,7 @@ export const EmployeesDashboard: React.FC<IEmployeeDashboard> = ({
 				employeesWallet.push(employee.wallet);
 			}
 		});
-		if (selectedCompanyData?.contract && session) {
+		if (selectedCompanyData?.contract) {
 			try {
 				const data = await readContract({
 					address: selectedCompanyData.contract,
@@ -108,13 +107,13 @@ export const EmployeesDashboard: React.FC<IEmployeeDashboard> = ({
 			<AddEmployee
 				isOpen={isOpen}
 				onClose={onClose}
-				selectedCompany={selectedCompany}
+				selectedCompany={selectedCompanyData}
 			/>
 
 			<AddEmployeeMobile
 				isOpen={isOpenMobile}
 				onClose={onCloseMobile}
-				selectedCompany={selectedCompany}
+				selectedCompany={selectedCompanyData}
 			/>
 			<Flex justify="space-between" w="100%" align="center">
 				{employees?.length === 0 ? (
@@ -147,9 +146,9 @@ export const EmployeesDashboard: React.FC<IEmployeeDashboard> = ({
 						fontWeight="medium"
 						py="2"
 						borderRadius="base"
-						isDisabled={selectedCompany.contract === null}
+						isDisabled={selectedCompanyData?.contract === null}
 						title={
-							selectedCompany.contract === null
+							selectedCompanyData?.contract === null
 								? translate('needToAwaitThePolling')
 								: 'Add employee'
 						}
@@ -197,7 +196,7 @@ export const EmployeesDashboard: React.FC<IEmployeeDashboard> = ({
 				</Flex>
 			) : (
 				<Flex w="100%" direction="column" gap="2">
-					{employees!.length > 0 && (
+					{employees && employees.length > 0 && (
 						<Flex justify="space-between" fontSize="sm">
 							<Text>{translate('nameAddress')}</Text>
 							{isGeneral && <Text>{translate('team')}</Text>}

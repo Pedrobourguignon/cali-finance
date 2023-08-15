@@ -8,7 +8,7 @@ import {
 } from '@chakra-ui/react';
 import { useCompanies, usePicasso } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
-import { Dispatch, SetStateAction, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { IContractFunctionExecutionError, ITransaction } from 'types';
 import {
 	useContractWrite,
@@ -28,6 +28,7 @@ import {
 	writeContract,
 } from '@wagmi/core';
 import { subtractFee } from 'helpers';
+import { GetUserCompaniesRes } from 'types/interfaces/main-server/ICompany';
 
 interface IConfirmTransaction {
 	transaction: ITransaction;
@@ -43,14 +44,25 @@ export const ConfirmTransaction: React.FC<IConfirmTransaction> = ({
 	const { t: translate } = useTranslation('company-overall');
 	const buttonOptions = [translate('deposit'), translate('withdrawal')];
 	const toast = useToast();
-	const { selectedCompany } = useCompanies();
+	const { getCompanyById } = useCompanies();
 	const { locale } = useRouter();
-
 	const [selectedOption, setSelectedOption] = useState<string | undefined>(
 		transaction.type
 	);
 	const [isLoadingApproveDeposit, setIsLoadingApproveDeposit] = useState(false);
 	const [isLoadingDeposit, setIsLoadingDeposit] = useState(false);
+	const [selectedCompany, setSelectedCompany] = useState<GetUserCompaniesRes>(
+		{} as GetUserCompaniesRes
+	);
+	const { query } = useRouter();
+
+	const getSelectedCompany = async () => {
+		if (query.id) await getCompanyById(+query.id).then(setSelectedCompany);
+	};
+
+	useEffect(() => {
+		getSelectedCompany();
+	}, []);
 
 	const { chain } = useNetwork();
 	const {
@@ -74,6 +86,21 @@ export const ConfirmTransaction: React.FC<IConfirmTransaction> = ({
 		abi: companyAbi,
 		functionName: 'ownerWithdraw',
 		args: [formatDecimals(transaction.amount, selectedCompany.tokenDecimals)],
+		onError(error: any) {
+			console.log(error.cause.data.args[0]);
+			if (error.cause.data.args[0] === 'Insufficient Company Balance') {
+				toast({
+					position: 'top',
+					render: () => (
+						<AlertToast
+							onClick={toast.closeAll}
+							text="insufficientFunds"
+							type="error"
+						/>
+					),
+				});
+			}
+		},
 	});
 
 	const { isLoading: isLoadingWithdrawTransaction } = useWaitForTransaction({

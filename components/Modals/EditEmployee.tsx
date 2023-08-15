@@ -35,6 +35,7 @@ import { AxiosError } from 'axios';
 import useTranslation from 'next-translate/useTranslation';
 import {
 	useContractWrite,
+	usePrepareContractWrite,
 	useNetwork,
 	useSwitchNetwork,
 	useWaitForTransaction,
@@ -147,15 +148,75 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 		{ enabled: false }
 	);
 
+	const { config: addEmployeeConfig } = usePrepareContractWrite({
+		address: selectedCompany.contract,
+		abi: companyAbi,
+		functionName: 'addEmployee',
+		args: [
+			employee.wallet,
+			formatDecimals(editedEmployeeData.amount, selectedCompany.tokenDecimals),
+		],
+		enabled: employee.wallet !== '' && editedEmployeeData.amount !== 0,
+	});
+
+	const { data: addEmployeeData, write: addEmployeeWrite } =
+		useContractWrite(addEmployeeConfig);
+
+	const { isLoading: useWaitForTransactionLoading } = useWaitForTransaction({
+		hash: addEmployeeData?.hash,
+		confirmations: 3,
+		onSuccess() {
+			handleResetFormInputs();
+			toast({
+				position: 'top',
+				render: () => (
+					<AlertToast
+						onClick={toast.closeAll}
+						text="employeeAdded"
+						type="success"
+					/>
+				),
+			});
+		},
+		onError() {
+			handleResetFormInputs();
+			toast({
+				position: 'top',
+				render: () => (
+					<AlertToast
+						onClick={toast.closeAll}
+						text="weAreWorkingToSolve"
+						type="error"
+					/>
+				),
+			});
+		},
+	});
+
 	const { data: editEmployeeData, write: editEmployeeWrite } = useContractWrite(
 		{
 			address: selectedCompany.contract,
 			abi: companyAbi,
 			functionName: 'updateEmployeeSalary',
+			onError(error: any) {
+				if (error.cause.data.args[0] === "Employee doesn't exists.") {
+					toast({
+						position: 'top',
+						render: () => (
+							<AlertToast
+								onClick={toast.closeAll}
+								text="employeeNotYetDeployed"
+								type="warning"
+							/>
+						),
+					});
+					addEmployeeWrite?.();
+				}
+			},
 		}
 	);
 
-	const { isLoading: useWaitForTransactionLoading } = useWaitForTransaction({
+	const { isLoading: useWaitForTransactionEdit } = useWaitForTransaction({
 		hash: editEmployeeData?.hash,
 		confirmations: 3,
 		onSuccess() {
@@ -250,7 +311,7 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 				setToken={setToken}
 			/>
 			<WaitMetamaskFinishTransaction
-				isOpen={useWaitForTransactionLoading || isLoading}
+				isOpen={useWaitForTransactionLoading || useWaitForTransactionEdit}
 				onClose={onCloseLoadingConfirmation}
 			/>
 			<ModalContent

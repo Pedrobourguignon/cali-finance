@@ -22,5 +22,7 @@
 	"insufficientFunds": "You don't have enough funds for this transaction",
 	"yourCredentials": "Your credentials have expired. Please try again",
 	"signatureCanceled": "The signature was cancelled. Please try again.",
-	"approveSuccessfully": "Your token spend was successfully approved"
+	"approveSuccessfully": "Your token spend was successfully approved",
+	"employeeNotYetDeployed": "The employee has not yet been deployed. We will re-do the operation with the updated salary.",
+	"companyWithoutFunds": "The Company does't have enough balance for the transaction."
 }

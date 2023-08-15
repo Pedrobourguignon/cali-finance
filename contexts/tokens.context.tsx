@@ -2,7 +2,6 @@ import { COIN_SERVICE_ROUTES } from 'helpers';
 import debounce from 'lodash.debounce';
 import React, { createContext, useEffect, useMemo, useState } from 'react';
 import { useQuery } from 'react-query';
-import { OneInchService } from 'services';
 import { ICoin, ISelectedCoin, ISwapTokenSelector, IToken } from 'types';
 import { coinClient } from 'utils';
 
@@ -60,17 +59,13 @@ export const TokensProvider: React.FC<{ children: React.ReactNode }> = ({
 	// eslint-disable-next-line consistent-return
 	const getOneInchTokens = async () => {
 		try {
-			const allTokens = await OneInchService.allTokensData();
-			const oneInchResult: IToken[] = Object.keys(allTokens.tokens).map(
-				item => ({
-					...allTokens.tokens[item],
-				})
-			);
-			oneInchResult.sort((coinA, coinB) =>
-				coinA.symbol >= coinB.symbol ? 1 : -1
-			);
-			setListOfTokens(oneInchResult);
-			setFilteredTokens(oneInchResult);
+			const fetchTokens = await fetch('/api/tokens');
+			const tokens = fetchTokens.json();
+			const promiseResult = await Promise.all([tokens]);
+			const allTokens: IToken[] = promiseResult[0].tokens;
+			allTokens.sort((coinA, coinB) => (coinA.symbol >= coinB.symbol ? 1 : -1));
+			setListOfTokens(allTokens);
+			setFilteredTokens(allTokens);
 			return listOfTokens;
 		} catch (error) {
 			console.error(error);

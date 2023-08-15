@@ -19,9 +19,9 @@ export const AppLayout: React.FC<ILanding> = ({
 	const theme = usePicasso();
 
 	return (
-		<AuthProvider>
-			<ProfileProvider>
-				<CompaniesProvider>
+		<CompaniesProvider>
+			<AuthProvider>
+				<ProfileProvider>
 					<Flex
 						minH="100vh"
 						w="full"
@@ -67,8 +67,8 @@ export const AppLayout: React.FC<ILanding> = ({
 							</Flex>
 						</Flex>
 					</Flex>
-				</CompaniesProvider>
-			</ProfileProvider>
-		</AuthProvider>
+				</ProfileProvider>
+			</AuthProvider>
+		</CompaniesProvider>
 	);
 };

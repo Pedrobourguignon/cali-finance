@@ -33,11 +33,11 @@ export const ImageUploader: React.FC<IImageUploader> = ({
 	const { session } = useAuth();
 
 	return (
-		<Flex w="full" justify="space-evenly">
+		<Flex w="full" gap="4">
 			<Button
 				_active={{}}
 				_focus={{}}
-				onClick={onOpen}
+				onClick={() => setOpenImageUploaderModal(true)}
 				borderRadius="base"
 				bg={theme.bg.primary}
 				fontSize="xs"

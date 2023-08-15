@@ -3,8 +3,7 @@ import { usePicasso, useTokens } from 'hooks';
 import { useRouter } from 'next/router';
 import React from 'react';
 import { IAssetsOptions } from 'types';
-import { formatNumbers, getCoinLogo } from 'utils';
-import { formatUnits } from 'viem';
+import { formatContractNumbers, getCoinLogo } from 'utils';
 
 interface IAsset {
 	assetsOptions: IAssetsOptions;
@@ -36,15 +35,13 @@ export const Asset: React.FC<IAsset> = ({ assetsOptions }) => {
 			</Flex>
 			<Flex direction="column" align="flex-end" p="0.5">
 				<Text fontSize={{ base: 'sm', md: 'xs', lg: 'sm' }}>
-					{Number(formatUnits(BigInt(assetsOptions.value), 18)).toFixed(3)}
+					{locale &&
+						formatContractNumbers(assetsOptions.value, locale, 18, false)}
 				</Text>
 				<Text fontSize="xs" color="gray.400">
 					${' '}
 					{locale &&
-						formatNumbers(
-							Number(formatUnits(BigInt(assetsOptions.value), 18)),
-							locale
-						)}
+						formatContractNumbers(assetsOptions.value, locale, 18, true)}
 				</Text>
 			</Flex>
 		</Flex>
