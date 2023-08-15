@@ -12,5 +12,6 @@
 	"uploadFile": "Subir arquivo",
 	"cancel": "Cancelar",
 	"theFileIsTooLarge": "O arquivo é muito grande.",
-	"pleaseUploadAnother": "Carregue outra imagem com até"
+	"pleaseUploadAnother": "Carregue outra imagem com até",
+	"dontAcceptSvg": "Não suportamos arquivos SVG. Por favor, envie um arquivo de outro tipo!"
 }
