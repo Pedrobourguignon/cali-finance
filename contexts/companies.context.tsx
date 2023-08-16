@@ -225,6 +225,7 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 			});
 	};
 	useEffect(() => {
+		console.log('aqui');
 		handleMissingFunds();
 	}, [allUserCompanies]);
 
