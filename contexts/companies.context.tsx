@@ -16,7 +16,12 @@ import {
 	IHistoryNotifications,
 } from 'types';
 import { checkJwt, mainClient, navigationPaths } from 'utils';
-import { useQuery } from 'react-query';
+import {
+	QueryObserverResult,
+	RefetchOptions,
+	RefetchQueryFilters,
+	useQuery,
+} from 'react-query';
 import { useAccount } from 'wagmi';
 import {
 	GetUserCompaniesRes,
@@ -72,6 +77,9 @@ interface ICompanyContext {
 	setEmployeesRevenue: Dispatch<SetStateAction<number>>;
 	employeesRevenue: number;
 	isLoadingCompanies: boolean;
+	refetchAllUserCompanies: <TPageData>(
+		options?: (RefetchOptions & RefetchQueryFilters<TPageData>) | undefined
+	) => Promise<QueryObserverResult<GetUserCompaniesRes[], unknown>>;
 }
 
 export const CompaniesContext = createContext({} as ICompanyContext);
@@ -107,13 +115,13 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 		return response.data;
 	};
 
-	const { data: allUserCompanies, isLoading: isLoadingCompanies } = useQuery(
-		['all-companies'],
-		getAllUserCompanies,
-		{
-			enabled: !!isConnected && !!session,
-		}
-	);
+	const {
+		data: allUserCompanies,
+		isLoading: isLoadingCompanies,
+		refetch: refetchAllUserCompanies,
+	} = useQuery(['all-companies'], getAllUserCompanies, {
+		enabled: !!isConnected && !!session,
+	});
 
 	const getCompaniesOverview = async () => {
 		if (!wallet) throw new Error('User not connected');
@@ -137,9 +145,11 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 	};
 
 	useEffect(() => {
-		getAllUserCompanies();
-		if (query.id) getCompanyById(+query.id);
-	}, []);
+		if (session) {
+			getAllUserCompanies();
+			if (query.id) getCompanyById(+query.id);
+		}
+	}, [session]);
 
 	useEffect(() => {
 		if (
@@ -301,6 +311,7 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 		() => ({
 			setEditedInfo,
 			editedInfo,
+			refetchAllUserCompanies,
 			displayMissingFundsWarning,
 			setDisplayMissingFundsWarning,
 			displayNeedFundsCard,
@@ -332,6 +343,7 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 		}),
 		[
 			editedInfo,
+			refetchAllUserCompanies,
 			displayMissingFundsWarning,
 			displayNeedFundsCard,
 			companiesWithMissingFunds,
