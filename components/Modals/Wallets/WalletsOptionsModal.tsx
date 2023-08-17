@@ -24,7 +24,6 @@ import {
 	useSwitchNetwork,
 } from 'wagmi';
 import NextLink from 'next/link';
-import { useEffect } from 'react';
 
 interface IWallet {
 	name: string;
