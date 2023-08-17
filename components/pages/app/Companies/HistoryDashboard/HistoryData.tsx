@@ -3,7 +3,7 @@ import { usePicasso } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
 import { useRouter } from 'next/router';
 import { IHistoryNotifications } from 'types';
-import { dateHandler, notificationsData, truncateWallet } from 'utils';
+import { getNotificationsData, dateHandler, truncateWallet } from 'utils';
 
 interface IHistoryData {
 	userHistory: IHistoryNotifications;
@@ -47,7 +47,7 @@ export const HistoryData: React.FC<IHistoryData> = ({ userHistory }) => {
 					<Img src={handleIcon()} boxSize="4" />
 					<Flex direction="column">
 						<Text fontSize="sm">
-							{translate(notificationsData[userHistory.event.name]?.text)}
+							{translate(getNotificationsData(userHistory.event.name)?.text)}
 						</Text>
 						<Text color="gray.500" fontSize="xs">
 							{locale && dateHandler(userHistory.created_at, locale)}
@@ -91,7 +91,7 @@ export const HistoryData: React.FC<IHistoryData> = ({ userHistory }) => {
 						<Img src={handleIcon()} boxSize="4" />
 						<Flex direction="column">
 							<Text fontSize="xs">
-								{translate(notificationsData[userHistory.event.name]?.text)}
+								{translate(getNotificationsData(userHistory.event.name)?.text)}
 							</Text>
 							<Text color="gray.500" fontSize="xs">
 								{locale && dateHandler(userHistory.created_at, locale)}

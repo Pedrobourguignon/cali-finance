@@ -3,7 +3,7 @@ import { usePicasso } from 'hooks';
 import { useRouter } from 'next/router';
 import React from 'react';
 import { IActivitiesData } from 'types';
-import { dateHandler, notificationsData } from 'utils';
+import { dateHandler, getNotificationsData } from 'utils';
 
 export const RecentActivitiesData: React.FC<IActivitiesData> = ({
 	activities,
@@ -22,7 +22,10 @@ export const RecentActivitiesData: React.FC<IActivitiesData> = ({
 			display="flex"
 		>
 			<GridItem display="flex" flexDirection="row" alignItems="center" gap="2">
-				<Img src={notificationsData[activities.event.name].icon} boxSize="4" />
+				<Img
+					src={getNotificationsData(activities.event.name).icon}
+					boxSize="4"
+				/>
 				<Flex direction="column">
 					<Text fontSize="sm" color={theme.text.black}>
 						{activities.event.description}

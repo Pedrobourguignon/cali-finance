@@ -24,8 +24,8 @@ import {
 	getLogo,
 	handleLogoImage,
 	dateHandler,
-	notificationsData,
 	formatUsd,
+	getNotificationsData,
 } from 'utils';
 import { useAccount } from 'wagmi';
 
@@ -228,7 +228,7 @@ export const HistoryActivityData: React.FC<IActivitiesData> = ({
 							<GridItem flex="2.5" maxW={{ base: '70px', md: 'full' }}>
 								<Flex align="center" gap="2">
 									<Img
-										src={notificationsData[activities.event.name].icon}
+										src={getNotificationsData(activities.event.name).icon}
 										boxSize="4"
 									/>
 									<Flex direction="column">
@@ -239,7 +239,7 @@ export const HistoryActivityData: React.FC<IActivitiesData> = ({
 										>
 											{activities &&
 												translate(
-													notificationsData[activities.event.name]?.text
+													getNotificationsData(activities.event.name)?.text
 												)}
 										</Text>
 										<Text color="gray.500" fontSize="xs" wordBreak="break-word">

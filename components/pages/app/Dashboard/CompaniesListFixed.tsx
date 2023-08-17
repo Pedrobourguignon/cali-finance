@@ -18,7 +18,7 @@ export const CompaniesListFixed = () => {
 	const { isOpen: isFullList, onToggle: toggleListView } = useDisclosure();
 	const { t: translate } = useTranslation('company-overall');
 	const { t: translateDashboard } = useTranslation('dashboard');
-	const { allUserCompanies } = useCompanies();
+	const { allUserCompanies, refetchAllUserCompanies } = useCompanies();
 
 	const setInitialWidth = () => {
 		if (window.innerWidth < 1281) {
@@ -36,6 +36,7 @@ export const CompaniesListFixed = () => {
 				setFlexWidth(4);
 			else if (window.innerWidth > 1700) setFlexWidth(5);
 		};
+		if (!allUserCompanies) refetchAllUserCompanies();
 	}, []);
 
 	const showSeeAllOrLess = () => {

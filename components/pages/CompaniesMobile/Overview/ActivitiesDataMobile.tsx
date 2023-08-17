@@ -3,7 +3,7 @@ import { usePicasso } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
 import { useRouter } from 'next/router';
 import { IHistoryNotifications } from 'types';
-import { dateHandler, notificationsData, truncateWallet } from 'utils';
+import { dateHandler, getNotificationsData, truncateWallet } from 'utils';
 
 interface IActivitiesData {
 	activities: IHistoryNotifications;
@@ -65,7 +65,7 @@ export const ActivitiesDataMobile: React.FC<IActivitiesData> = ({
 					<Flex w="full" justify="space-between">
 						<Flex align="center" gap="2">
 							<Img
-								src={notificationsData[activities.event.name].icon}
+								src={getNotificationsData(activities.event.name).icon}
 								boxSize="4"
 							/>
 							<Flex direction="column">

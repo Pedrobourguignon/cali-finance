@@ -47,7 +47,7 @@ export const HistoryDashboard = () => {
 
 	useEffect(() => {
 		if (financialNotifications) setFilteredUserHistory(financialNotifications);
-	}, [financialNotifications]);
+	}, [companyFinancialActivities]);
 
 	const filterUserHistory = (filter: string[]) => {
 		setFilteredUserHistory(

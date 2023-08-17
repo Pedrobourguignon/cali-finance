@@ -1,12 +1,6 @@
 import React, { createContext, useMemo, useEffect, useState } from 'react';
-import {
-	useAccount,
-	useNetwork,
-	useSignMessage,
-	useSwitchNetwork,
-} from 'wagmi';
-import { useToasty } from 'hooks';
-import { getCookie, setCookie } from 'cookies-next';
+import { useAccount, useSignMessage } from 'wagmi';
+import { setCookie } from 'cookies-next';
 import { AUTH_SERVICE_ROUTES } from 'helpers';
 import { authClient, checkJwt } from 'utils';
 import { AlertToast } from 'components';
@@ -27,10 +21,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 }) => {
 	const { signMessageAsync } = useSignMessage();
 	const [session, setSession] = useState(false);
+	const { isConnected } = useAccount();
 	const toast = useToast();
-
-	const { chain } = useNetwork();
-	const { chains, switchNetworkAsync, isLoading } = useSwitchNetwork();
 
 	const getNonce = async (walletNumber: `0x${string}` | undefined) => {
 		try {
@@ -74,7 +66,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 			await authClient.get(AUTH_SERVICE_ROUTES.checkToken);
 			setSession(true);
 		} catch (error: any) {
-			if (!toast.isActive('credentials-toast')) {
+			if (!toast.isActive('credentials-toast') && session) {
 				toast({
 					position: 'top',
 					id: 'credentials-toast',
@@ -92,7 +84,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 
 	const handleSignIn = async (account: `0x${string}` | undefined) => {
 		try {
-			// if (chain?.id !== 80001) await switchNetworkAsync?.(chains[2].id);
 			const { nonce } = await getNonce(account);
 			const signature = await getSignature(nonce);
 			if (signature) {
@@ -114,8 +105,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 	};
 
 	useEffect(() => {
-		checkSession();
-	}, []);
+		if (isConnected) checkSession();
+	}, [session]);
 
 	const contextStates = useMemo(
 		() => ({
