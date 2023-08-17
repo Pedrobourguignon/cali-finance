@@ -24,7 +24,7 @@ export const WaitMetamaskFinishTransaction: React.FC<IBasicModal> = ({
 	const { t: translate } = useTranslation('swap-token');
 
 	return (
-		<Modal isOpen={isOpen} onClose={onClose} size="sm">
+		<Modal isOpen onClose={onClose} size="sm">
 			<ModalOverlay />
 			<ModalContent
 				m="auto"

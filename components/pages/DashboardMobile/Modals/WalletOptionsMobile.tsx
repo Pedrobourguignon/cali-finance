@@ -103,15 +103,6 @@ export const WalletOptionsMobile: React.FC<IWalletOptionsModal> = ({
 			icon: '/icons/walletConnect.svg',
 			connector: connectors[2],
 		},
-		{
-			name: 'Binance Wallet',
-			icon: '/icons/binance.svg',
-			connector: connectors[4],
-		},
-		{
-			name: 'More',
-			icon: '/icons/treedots.svg',
-		},
 	];
 	return (
 		<MobileModalLayout isOpen={isOpen} onClose={onClose}>

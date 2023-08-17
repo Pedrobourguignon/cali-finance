@@ -44,7 +44,7 @@ export const WalletsOptionsModal: React.FC<IWalletOptionsModal> = ({
 	const { isConnected, address } = useAccount();
 	const { toast } = useToasty();
 	const { chain } = useNetwork();
-	const { chains, switchNetworkAsync, isLoading } = useSwitchNetwork();
+	const { chains, switchNetworkAsync } = useSwitchNetwork();
 
 	const { connectors, connectAsync, status } = useConnect({
 		async onSuccess(data) {
@@ -55,11 +55,21 @@ export const WalletsOptionsModal: React.FC<IWalletOptionsModal> = ({
 		},
 	});
 
+	const isMetaMaskInstalled = () =>
+		typeof window.ethereum !== 'undefined' && window.ethereum.isMetaMask;
+
+	const redirectToMetaMaskInstallation = () => {
+		window.open('https://metamask.io/download.html');
+	};
+
 	const theme = usePicasso();
 
 	const onTriggerLoadingModal = async (wallet: IWallet) => {
 		const { connector, icon, name } = wallet;
 		try {
+			if (!isMetaMaskInstalled() && connector?.name === 'MetaMask') {
+				redirectToMetaMaskInstallation();
+			}
 			if (status !== 'success') {
 				setWalletData({ icon, name });
 				onClose();
@@ -106,15 +116,6 @@ export const WalletsOptionsModal: React.FC<IWalletOptionsModal> = ({
 			icon: '/icons/walletConnect.svg',
 			connector: connectors[2],
 		},
-		{
-			name: 'Binance Wallet',
-			icon: '/icons/binance.svg',
-			connector: connectors[4],
-		},
-		{
-			name: 'More',
-			icon: '/icons/treedots.svg',
-		},
 	];
 
 	return (
@@ -129,13 +130,14 @@ export const WalletsOptionsModal: React.FC<IWalletOptionsModal> = ({
 			>
 				<OffsetShadow
 					width="21.125rem"
-					height="27rem"
+					height="20rem"
 					top="0.625rem"
 					left="0.625rem"
 				>
 					<Flex
 						direction="column"
 						bg={theme.bg.modal}
+						h="21rem"
 						borderRadius="base"
 						w="full"
 					>
