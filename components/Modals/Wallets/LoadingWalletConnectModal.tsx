@@ -32,7 +32,7 @@ export const LoadingWalletConnectModal: React.FC<
 			<ModalOverlay />
 			<ModalContent
 				m="auto"
-				zIndex="1"
+				zIndex="hide"
 				bg="white"
 				borderWidth="1px"
 				borderStyle="solid"

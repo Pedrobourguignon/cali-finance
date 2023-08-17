@@ -73,9 +73,15 @@ export const WalletsOptionsModal: React.FC<IWalletOptionsModal> = ({
 			if (status !== 'success') {
 				setWalletData({ icon, name });
 				onClose();
+
 				if (!isConnected) {
-					await connectAsync({ connector });
-					return;
+					if (connector?.name.includes('WalletConnect')) {
+						await connectAsync({ connector });
+					} else {
+						openLoadingWalletModal();
+						await connectAsync({ connector });
+						onCloseLoading();
+					}
 				}
 				handleSignIn(address);
 			} else {
@@ -93,12 +99,6 @@ export const WalletsOptionsModal: React.FC<IWalletOptionsModal> = ({
 			});
 		}
 	};
-
-	useEffect(() => {
-		if (status === 'loading') {
-			openLoadingWalletModal();
-		}
-	}, [status]);
 
 	const walletsOptions = [
 		{
