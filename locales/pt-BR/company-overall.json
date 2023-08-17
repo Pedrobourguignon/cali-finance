@@ -43,5 +43,6 @@
 	"availableToWithdraw": "Disponível para retirada",
 	"needToAwaitThePolling": "Para adicionar um funcionario, é necessario aguardar o contrato ser confirmado na rede.",
 	"userWithdraw": "Retirada do usuário",
-	"companyDepositReceived": "Depósito recebido na organização"
+	"companyDepositReceived": "Depósito recebido na organização",
+	"eventNotFound": "Evento não encontrado"
 }

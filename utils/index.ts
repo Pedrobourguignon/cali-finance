@@ -9,6 +9,7 @@ export * from './formatDecimals';
 export * from './formatUsd';
 export * from './getCoinLogo';
 export * from './getLogo';
+export * from './getNotificationsData';
 export * from './historyFilterOptions';
 export * from './logoHandler';
 export * from './navigationPaths';
