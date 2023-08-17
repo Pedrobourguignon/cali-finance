@@ -76,6 +76,7 @@ export const ContactOptionsModal: React.FC<IBasicModal> = ({
 									alignItems="center"
 									gap="4"
 									pl="4"
+									target="_blank"
 									as={NextLink}
 								>
 									<Icon
@@ -105,6 +106,7 @@ export const ContactOptionsModal: React.FC<IBasicModal> = ({
 									alignItems="center"
 									gap="4"
 									pl="4"
+									target="_blank"
 									as={NextLink}
 								>
 									<Img src="/images/schedule.png" boxSize="6" />
