@@ -44,7 +44,7 @@ export const WalletsOptionsModal: React.FC<IWalletOptionsModal> = ({
 	const { isConnected, address } = useAccount();
 	const { toast } = useToasty();
 	const { chain } = useNetwork();
-	const { chains, switchNetworkAsync, isLoading } = useSwitchNetwork();
+	const { chains, switchNetworkAsync } = useSwitchNetwork();
 
 	const { connectors, connectAsync, status } = useConnect({
 		async onSuccess(data) {
