@@ -13,7 +13,6 @@ import {
 import { ProfileProvider, TokensProvider } from 'contexts';
 import { useAuth } from 'hooks';
 import { AppLayout, MobileLayout } from 'layouts';
-
 import React from 'react';
 
 export const DashboardContainer = () => {
@@ -24,9 +23,7 @@ export const DashboardContainer = () => {
 		<TokensProvider>
 			<ProfileProvider>
 				{isLargerThan767 ? (
-					<AppLayout
-						right={session ? <DashboardRightBar /> : <CreateAccountBanner />}
-					>
+					<AppLayout right={<DashboardRightBar />}>
 						<Flex h="full" direction={{ base: 'column', sm: 'row' }} py="6">
 							<DashboardComponent />
 						</Flex>
