@@ -78,9 +78,6 @@ export const FundsPageComponent = () => {
 								key={+index}
 							/>
 						))}
-						{/* {coins.map((coin, index) => (
-							<CoinCardSkeleton key={+index} />
-						))} */}
 					</Flex>
 				</Flex>
 				<HistoryDashboard />
