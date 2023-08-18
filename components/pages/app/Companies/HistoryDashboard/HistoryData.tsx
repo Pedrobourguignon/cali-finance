@@ -99,7 +99,6 @@ export const HistoryData: React.FC<IHistoryData> = ({ userHistory }) => {
 						</Flex>
 					</Flex>
 				</Flex>
-
 				<Flex direction="column" fontSize="xs">
 					<Flex gap="1">
 						<Text>

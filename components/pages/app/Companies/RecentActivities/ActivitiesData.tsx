@@ -29,7 +29,7 @@ export const ActivitiesData: React.FC<IActivitiesData> = ({ activities }) => {
 					borderRadius="base"
 					justify="space-between"
 				>
-					<Flex display="flex" alignContent="center" gap="2" flex="5">
+					<Flex display="flex" alignContent="center" gap="2" flex="3">
 						{activities.event.name !== 'user_added_to_company' &&
 						activities.event.name !== 'user_added_to_team' &&
 						activities.meta.data.companyLogo ? (
@@ -68,7 +68,7 @@ export const ActivitiesData: React.FC<IActivitiesData> = ({ activities }) => {
 							</Text>
 						)}
 					</Flex>
-					<Flex align="center" gap="3" flex="5">
+					<Flex align="center" gap="3" flex="3">
 						<Img
 							src={getNotificationsData(activities.event.name).icon}
 							boxSize="4"
@@ -86,6 +86,24 @@ export const ActivitiesData: React.FC<IActivitiesData> = ({ activities }) => {
 							</Text>
 						</Flex>
 					</Flex>
+					{activities.event.name === 'company_owner_withdraw' ||
+					activities.event.name === 'company_deposit_received' ? (
+						<Flex direction="column" fontSize="xs" flex="3" align="end">
+							<Flex gap="1">
+								<Text>
+									{Number(
+										activities.meta.data.amount?.toLocaleString(locale)
+									).toFixed(2)}
+								</Text>
+								<Text>USDT</Text>
+							</Flex>
+							<Text textAlign="end" color="green.400">
+								{translate('completed')}
+							</Text>
+						</Flex>
+					) : (
+						<Flex flex="3" />
+					)}
 				</Flex>
 			)}
 		</>
