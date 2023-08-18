@@ -202,6 +202,8 @@ export const HistoryActivityData: React.FC<IActivitiesData> = ({
 								activities.event.name === 'company_created' ||
 								activities.event.name === 'user_settings_updated' ||
 								activities.event.name === 'user_withdraw' ||
+								activities.event.name === 'company_owner_withdraw' ||
+								activities.event.name === 'user_company_withdraw' ||
 								activities.event.name === 'company_deposit_received' ||
 								activities.event.name === 'user_created' ? (
 									<Text
@@ -261,7 +263,10 @@ export const HistoryActivityData: React.FC<IActivitiesData> = ({
 											>
 												{activities.meta.data.amount &&
 													locale &&
-													formatUsd(activities.meta.data.amount, locale)}
+													formatUsd(
+														Number(activities.meta.data.amount),
+														locale
+													)}
 											</Text>
 											<Text
 												fontSize="xs"
