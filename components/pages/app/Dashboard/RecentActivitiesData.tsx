@@ -43,7 +43,7 @@ export const RecentActivitiesData: React.FC<IActivitiesData> = ({
 			>
 				<Flex direction="column" align="end">
 					<Text fontSize="xs" color={theme.text.black}>
-						{Number(activities.meta.data.amount).toFixed(2)} USDT
+						{Number(activities.meta.data.amount).toFixed(7)} USDT
 					</Text>
 					<Text color="green.400 " fontSize="xs" whiteSpace="nowrap">
 						Completed

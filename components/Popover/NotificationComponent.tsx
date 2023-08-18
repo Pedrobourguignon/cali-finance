@@ -1,11 +1,7 @@
 import { Flex, Img, Text } from '@chakra-ui/react';
 import { usePicasso } from 'hooks';
 import { IHistoryNotifications } from 'types';
-import {
-	dateHandler,
-	formatContractNumbers,
-	getNotificationsData,
-} from 'utils';
+import { dateHandler, getNotificationsData } from 'utils';
 import { useRouter } from 'next/router';
 
 export const NotificationComponent: React.FC<{
@@ -47,42 +43,6 @@ export const NotificationComponent: React.FC<{
 							</Text>
 						</Flex>
 					</Flex>
-					{activities.meta.data.event === 'user_withdraw' ||
-					activities.meta.data.event === 'company_deposit_received' ? (
-						<Flex maxW={{ base: '85px', md: 'full' }}>
-							<Flex align="end" direction="column">
-								<Flex gap="1">
-									<Text
-										wordBreak="break-all"
-										fontSize="xs"
-										fontWeight="normal"
-										color={theme.text.primary}
-									>
-										{activities.meta.data.amount &&
-											locale &&
-											formatContractNumbers(
-												BigInt(activities.meta.data.amount),
-												locale,
-												18,
-												false
-											)}
-									</Text>
-									<Text
-										fontSize="xs"
-										fontWeight="normal"
-										color={theme.text.primary}
-									>
-										USDT
-									</Text>
-								</Flex>
-								<Text fontSize="xs" fontWeight="normal" color="green.400">
-									Completed
-								</Text>
-							</Flex>
-						</Flex>
-					) : (
-						<Flex />
-					)}
 				</Flex>
 			</Flex>
 		</Flex>
