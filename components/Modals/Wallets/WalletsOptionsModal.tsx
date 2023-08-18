@@ -24,7 +24,6 @@ import {
 	useSwitchNetwork,
 } from 'wagmi';
 import NextLink from 'next/link';
-import { useEffect } from 'react';
 
 interface IWallet {
 	name: string;
@@ -55,17 +54,33 @@ export const WalletsOptionsModal: React.FC<IWalletOptionsModal> = ({
 		},
 	});
 
+	const isMetaMaskInstalled = () =>
+		typeof window.ethereum !== 'undefined' && window.ethereum.isMetaMask;
+
+	const redirectToMetaMaskInstallation = () => {
+		window.open('https://metamask.io/download.html');
+	};
+
 	const theme = usePicasso();
 
 	const onTriggerLoadingModal = async (wallet: IWallet) => {
 		const { connector, icon, name } = wallet;
 		try {
+			if (!isMetaMaskInstalled() && connector?.name === 'MetaMask') {
+				redirectToMetaMaskInstallation();
+			}
 			if (status !== 'success') {
 				setWalletData({ icon, name });
 				onClose();
+
 				if (!isConnected) {
-					await connectAsync({ connector });
-					return;
+					if (connector?.name.includes('WalletConnect')) {
+						await connectAsync({ connector });
+					} else {
+						openLoadingWalletModal();
+						await connectAsync({ connector });
+						onCloseLoading();
+					}
 				}
 				handleSignIn(address);
 			} else {
@@ -84,12 +99,6 @@ export const WalletsOptionsModal: React.FC<IWalletOptionsModal> = ({
 		}
 	};
 
-	useEffect(() => {
-		if (status === 'loading') {
-			openLoadingWalletModal();
-		}
-	}, [status]);
-
 	const walletsOptions = [
 		{
 			name: 'MetaMask',
@@ -106,15 +115,6 @@ export const WalletsOptionsModal: React.FC<IWalletOptionsModal> = ({
 			icon: '/icons/walletConnect.svg',
 			connector: connectors[2],
 		},
-		{
-			name: 'Binance Wallet',
-			icon: '/icons/binance.svg',
-			connector: connectors[4],
-		},
-		{
-			name: 'More',
-			icon: '/icons/treedots.svg',
-		},
 	];
 
 	return (
@@ -129,13 +129,14 @@ export const WalletsOptionsModal: React.FC<IWalletOptionsModal> = ({
 			>
 				<OffsetShadow
 					width="21.125rem"
-					height="27rem"
+					height="20rem"
 					top="0.625rem"
 					left="0.625rem"
 				>
 					<Flex
 						direction="column"
 						bg={theme.bg.modal}
+						h="21rem"
 						borderRadius="base"
 						w="full"
 					>
