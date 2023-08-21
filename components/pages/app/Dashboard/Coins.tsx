@@ -5,13 +5,14 @@ import useTranslation from 'next-translate/useTranslation';
 import { useAuth, usePicasso, useProfile, useTokens } from 'hooks';
 import { ICoin } from 'types';
 import { useAccount, useMutation, useQuery } from 'wagmi';
+import { getCoinLogo } from 'utils';
 
 export const Coins = () => {
 	const { t: translate } = useTranslation('dashboard');
 	const { address: walletAddress, isConnected } = useAccount();
 	const theme = usePicasso();
 	const { isOpen, onClose, onOpen } = useDisclosure();
-	const { getCoinServiceTokens } = useTokens();
+	const { getCoinServiceTokens, listOfTokens } = useTokens();
 	const { session } = useAuth();
 	const [flexWidth, setFlexWidth] = useState<number>();
 	const {
@@ -22,7 +23,7 @@ export const Coins = () => {
 		setCardItems,
 		cardItems,
 	} = useProfile();
-	const [listOfTokens, setListOfTokens] = useState<ICoin[]>([]);
+	const [selectedTokens, setSelectedTokens] = useState<ICoin[]>([]);
 
 	const symbols: string[] = [];
 
@@ -84,30 +85,30 @@ export const Coins = () => {
 	useEffect(() => {
 		if (Object.keys(selectedToken).length !== 0) {
 			if (
-				!listOfTokens.find(
+				!selectedTokens.find(
 					coin =>
 						coin.symbol.toLowerCase() === selectedToken.symbol.toLowerCase()
 				)
 			)
-				setListOfTokens(listOfTokens.concat(selectedToken));
+				setSelectedTokens(selectedTokens.concat(selectedToken));
 		}
 	}, [selectedToken]);
 
 	useEffect(() => {
 		if (favoriteCoins) {
-			listOfTokens.forEach(item => {
+			selectedTokens.forEach(item => {
 				if (
 					!favoriteCoins.find(
 						coin => coin.symbol.toLowerCase() === item.symbol.toLowerCase()
 					)
 				) {
-					mutate({ coin: listOfTokens });
+					mutate({ coin: selectedTokens });
 				}
 			});
 		} else if (isLoadingUserData === false) {
-			mutate({ coin: listOfTokens });
+			mutate({ coin: selectedTokens });
 		}
-	}, [listOfTokens]);
+	}, [selectedTokens]);
 
 	// checking if the token is already in the favorites list
 	const checkingAlreadyFavorite = () => {
@@ -115,11 +116,11 @@ export const Coins = () => {
 			Object.values(favoriteCoins).forEach(item => {
 				symbols.push(item.symbol);
 				if (
-					!listOfTokens.find(
+					!selectedTokens.find(
 						coin => coin.symbol.toLowerCase() === item.symbol.toLowerCase()
 					)
 				)
-					setListOfTokens(listOfTokens.concat(favoriteCoins));
+					setSelectedTokens(selectedTokens.concat(favoriteCoins));
 			});
 	};
 
@@ -151,18 +152,18 @@ export const Coins = () => {
 			isLoadingUserData === false &&
 			(!favoriteCoins || favoriteCoins.length === 0)
 		) {
-			setListOfTokens([
+			setSelectedTokens([
 				{
 					symbol: 'eth',
-					logo: 'https://tokens.1inch.io/0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee.png',
+					logo: 'https://tokens-data.1inch.io/images/0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee.png',
 				},
 				{
-					symbol: 'busd',
-					logo: 'https://tokens.1inch.io/0x4fabb145d64652a948d72533023f6e7a623c7c53.png',
+					symbol: 'btc',
+					logo: 'https://tokens-data.1inch.io/images/0x2260fac5e5542a773aa44fbcfedf7c193bc2c599.png',
 				},
 				{
-					symbol: 'usdc',
-					logo: 'https://tokens.1inch.io/0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48.png',
+					symbol: 'usdt',
+					logo: 'https://tokens.1inch.io/0xdac17f958d2ee523a2206206994597c13d831ec7.png',
 				},
 			]);
 		} else {
@@ -216,7 +217,7 @@ export const Coins = () => {
 				</Text>
 			</Flex>
 			<Flex justify="flex-start" mx="4" flex="1" gap={{ md: '4', '2xl': '4' }}>
-				{cardItems.slice(0, flexWidth).map((card, index) => (
+				{cardItems.map((card, index) => (
 					<CoinCard
 						coin={card}
 						borderColor="gray.100"
