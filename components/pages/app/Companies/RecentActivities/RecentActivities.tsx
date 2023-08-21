@@ -1,4 +1,4 @@
-import { Flex, Text, Link } from '@chakra-ui/react';
+import { Flex, Text, Link, useMediaQuery } from '@chakra-ui/react';
 import { ActivitiesData, ActivitiesDataMobile } from 'components';
 import { useAuth, useCompanies, usePicasso } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
@@ -17,6 +17,7 @@ export const RecentActivities = () => {
 	const { t: translate } = useTranslation('companies');
 	const { t: translateDashboard } = useTranslation('dashboard');
 	const { getAllCompaniesUserActivities } = useCompanies();
+	const [isLargerThan767] = useMediaQuery('(min-width: 767px)');
 
 	const { data: recentActivities, isLoading } = useQuery(
 		'recent-activities',
@@ -62,14 +63,16 @@ export const RecentActivities = () => {
 					</Text>
 				</Link>
 			</Flex>
-			{allCompaniesRecentActivities?.length === 0 || isLoading ? (
-				<Flex py="24" justify="center">
-					<Text color={theme.text.primary} fontWeight="semibold">
-						{translateDashboard('dontHaveCompaniesRecentActivities')}
-					</Text>
-				</Flex>
-			) : (
-				<Flex gap="2" direction="column" display={{ base: 'none', sm: 'flex' }}>
+			{allCompaniesRecentActivities?.length === 0 ||
+				(isLoading && (
+					<Flex py="24" justify="center">
+						<Text color={theme.text.primary} fontWeight="semibold">
+							{translateDashboard('dontHaveCompaniesRecentActivities')}
+						</Text>
+					</Flex>
+				))}
+			{isLargerThan767 ? (
+				<Flex gap="2" direction="column">
 					{Object.keys(query).length === 0
 						? allCompaniesRecentActivities
 								?.slice(0, 5)
@@ -82,13 +85,13 @@ export const RecentActivities = () => {
 									<ActivitiesData key={+index} activities={activity} />
 								))}
 				</Flex>
+			) : (
+				<Flex gap="2" direction="column">
+					{allCompaniesRecentActivities?.slice(0, 5).map((activity, index) => (
+						<ActivitiesDataMobile key={+index} activities={activity} />
+					))}
+				</Flex>
 			)}
-
-			<Flex gap="2" direction="column" display={{ base: 'flex', sm: 'none' }}>
-				{recentActivities?.slice(0, 5).map((activity, index) => (
-					<ActivitiesDataMobile key={+index} activities={activity} />
-				))}
-			</Flex>
 		</Flex>
 	);
 };

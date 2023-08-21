@@ -14,12 +14,7 @@ export const MobileLayout: React.FC<IMobileLayout> = ({ children }) => {
 		<CompaniesProvider>
 			<ProfileProvider>
 				<AuthProvider>
-					<Flex
-						w="full"
-						bg={theme.text.primary}
-						direction="column"
-						display={{ base: 'flex', sm: 'none' }}
-					>
+					<Flex w="full" bg={theme.text.primary} direction="column">
 						<MobileHeader />
 						<Flex
 							minH="100vh"
