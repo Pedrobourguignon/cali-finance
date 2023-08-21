@@ -18,7 +18,7 @@ export const MobileLayout: React.FC<IMobileLayout> = ({ children }) => {
 						w="full"
 						bg={theme.text.primary}
 						direction="column"
-						display={{ base: 'flex', sm: 'none' }}
+						display={{ base: 'flex', md: 'none' }}
 					>
 						<MobileHeader />
 						<Flex
