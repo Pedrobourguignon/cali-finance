@@ -24,5 +24,6 @@
 	"signatureCanceled": "The signature was cancelled. Please try again.",
 	"approveSuccessfully": "Your token spend was successfully approved",
 	"employeeNotYetDeployed": "The employee has not yet been deployed. We will re-do the operation with the updated salary.",
-	"companyWithoutFunds": "The Company does't have enough balance for the transaction."
+	"companyWithoutFunds": "The Company does't have enough balance for the transaction.",
+	"requestRejected": "The request was rejected. Please try again."
 }

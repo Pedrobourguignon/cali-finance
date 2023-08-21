@@ -7,8 +7,9 @@ import {
 	ModalCloseButton,
 	ModalHeader,
 	Text,
+	useToast,
 } from '@chakra-ui/react';
-import { useAuth, usePicasso, useToasty } from 'hooks';
+import { useAuth, usePicasso } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
 import { IWalletOptionsModal } from 'types';
 import { navigationPaths } from 'utils';
@@ -22,6 +23,7 @@ import {
 import NextLink from 'next/link';
 import { useEffect } from 'react';
 import { MobileModalLayout } from 'layouts';
+import { AlertToast } from 'components';
 
 interface IWallet {
 	name: string;
@@ -39,7 +41,7 @@ export const WalletOptionsMobile: React.FC<IWalletOptionsModal> = ({
 	const { t: translate } = useTranslation('sidebar');
 	const { handleSignIn } = useAuth();
 	const { isConnected, address } = useAccount();
-	const { toast } = useToasty();
+	const toast = useToast();
 	const { chain } = useNetwork();
 	const { chains, switchNetworkAsync, isLoading } = useSwitchNetwork();
 	const { connectors, connectAsync, status } = useConnect({
@@ -53,16 +55,31 @@ export const WalletOptionsMobile: React.FC<IWalletOptionsModal> = ({
 	});
 
 	const theme = usePicasso();
+	const isMetaMaskInstalled = () =>
+		typeof window.ethereum !== 'undefined' && window.ethereum.isMetaMask;
+
+	const redirectToMetaMaskInstallation = () => {
+		window.open('https://metamask.io/download.html');
+	};
 
 	const onTriggerLoadingModal = async (wallet: IWallet) => {
 		const { connector, icon, name } = wallet;
 		try {
+			if (!isMetaMaskInstalled() && connector?.name === 'MetaMask') {
+				redirectToMetaMaskInstallation();
+			}
 			if (status !== 'success') {
 				setWalletData({ icon, name });
 				onClose();
+
 				if (!isConnected) {
-					await connectAsync({ connector });
-					return;
+					if (connector?.name.includes('WalletConnect')) {
+						await connectAsync({ connector });
+					} else {
+						openLoadingWalletModal();
+						await connectAsync({ connector });
+						onCloseLoading();
+					}
 				}
 				handleSignIn(address);
 			} else {
@@ -74,13 +91,17 @@ export const WalletOptionsMobile: React.FC<IWalletOptionsModal> = ({
 		} catch (error: any) {
 			onCloseLoading();
 			toast({
-				title: 'Error',
-				description: 'The request was rejected. Please try again.',
-				status: 'error',
+				position: 'top-right',
+				render: () => (
+					<AlertToast
+						onClick={toast.closeAll}
+						text="requestRejected"
+						type="error"
+					/>
+				),
 			});
 		}
 	};
-
 	useEffect(() => {
 		if (status === 'loading') {
 			openLoadingWalletModal();
