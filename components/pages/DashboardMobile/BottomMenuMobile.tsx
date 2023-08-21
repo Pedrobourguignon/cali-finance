@@ -50,7 +50,7 @@ export const BottomMenuMobile = () => {
 
 	return (
 		<Flex
-			display={{ base: 'flex', sm: 'none' }}
+			display={{ base: 'flex', md: 'none' }}
 			h="14"
 			w="100%"
 			justify="space-between"
