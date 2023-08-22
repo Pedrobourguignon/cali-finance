@@ -18,12 +18,22 @@ import {
 	networkInfos,
 	truncateWallet,
 } from 'utils';
-import { NavigationBack, AlertToast } from 'components';
+import { NavigationBack, AlertToast, RedeployCompanyButton } from 'components';
 import useTranslation from 'next-translate/useTranslation';
 import router, { useRouter } from 'next/router';
 import NextLink from 'next/link';
 import { useQuery } from 'react-query';
 import { MdContentCopy } from 'react-icons/md';
+import {
+	useContractWrite,
+	useNetwork,
+	useSwitchNetwork,
+	useWaitForTransaction,
+} from 'wagmi';
+import { Hex } from 'viem';
+import { AxiosError } from 'axios';
+import { useState } from 'react';
+import factoryAbi from 'utils/abi/factory.json';
 
 export const CompaniesHeaderMobile = () => {
 	const theme = usePicasso();
@@ -32,8 +42,93 @@ export const CompaniesHeaderMobile = () => {
 	const { getCompanyById } = useCompanies();
 	const { t: translate } = useTranslation('company-overall');
 	const toast = useToast();
-
 	const companyId = query.id?.toString();
+
+	const { data: selectedCompany, isLoading: isLoadingSelectedCompany } =
+		useQuery(
+			'created-company-overview',
+			() => getCompanyById(Number(query.id)),
+			{
+				onError: () => router.push('/404'),
+			}
+		);
+
+	const { chain } = useNetwork();
+	const { chains, switchNetworkAsync } = useSwitchNetwork();
+
+	const { write: createCompanyWrite, data: createCompanyData } =
+		useContractWrite({
+			address: (process.env.NEXT_PUBLIC_FACTORY_CONTRACT || '') as Hex,
+			abi: factoryAbi,
+			functionName: 'createNewCompany',
+		});
+
+	const redeployCompanyContract = async () => {
+		try {
+			if (chain?.id !== 80001) await switchNetworkAsync?.(chains[2].id);
+			createCompanyWrite?.({ args: [selectedCompany?.checksum] });
+		} catch (error) {
+			if (error instanceof AxiosError) {
+				if (error.response?.status === 401) {
+					toast({
+						position: 'top',
+						render: () => (
+							<AlertToast
+								onClick={toast.closeAll}
+								text="unauthorized"
+								type="error"
+							/>
+						),
+					});
+				} else {
+					toast({
+						position: 'top',
+						render: () => (
+							<AlertToast
+								onClick={toast.closeAll}
+								text="weAreWorkingToSolve"
+								type="error"
+							/>
+						),
+					});
+				}
+			}
+		}
+	};
+
+	const [showButton, setShowButton] = useState<boolean>(
+		selectedCompany?.contract === null
+	);
+
+	const { isLoading } = useWaitForTransaction({
+		hash: createCompanyData?.hash,
+		confirmations: 3,
+		onSuccess() {
+			setShowButton(false);
+			toast({
+				position: 'top',
+				render: () => (
+					<AlertToast
+						onClick={toast.closeAll}
+						text="redeployWithSuccess"
+						type="success"
+					/>
+				),
+			});
+		},
+		onError() {
+			toast({
+				position: 'top',
+				render: () => (
+					<AlertToast
+						onClick={toast.closeAll}
+						text="weAreWorkingToSolve"
+						type="error"
+					/>
+				),
+			});
+		},
+	});
 
 	const menuOptions = [
 		{
@@ -46,14 +141,6 @@ export const CompaniesHeaderMobile = () => {
 		},
 	];
 
-	const { data: selectedCompany, isLoading: isLoadingSelectedCompany } =
-		useQuery(
-			'created-company-overview',
-			() => getCompanyById(Number(query.id)),
-			{
-				onError: () => router.push('/404'),
-			}
-		);
 	const { onCopy } = useClipboard(selectedCompany?.contract as string);
 
 	const handleCopyButton = () => {
@@ -236,6 +323,10 @@ export const CompaniesHeaderMobile = () => {
 					})}
 				</Flex>
 			</Flex>
+			<RedeployCompanyButton
+				onClick={() => redeployCompanyContract()}
+				showButton={showButton}
+			/>
 		</Flex>
 	);
 };

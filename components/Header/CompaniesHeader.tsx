@@ -72,7 +72,7 @@ export const CompaniesHeader = () => {
 			functionName: 'createNewCompany',
 		});
 
-	const createCompany = async () => {
+	const redeployCompanyContract = async () => {
 		try {
 			if (chain?.id !== 80001) await switchNetworkAsync?.(chains[2].id);
 			createCompanyWrite?.({ args: [selectedCompany?.checksum] });
@@ -226,7 +226,7 @@ export const CompaniesHeader = () => {
 				</NavigationBack>
 				<Flex align="center" gap="2">
 					<RedeployCompanyButton
-						onClick={() => createCompany()}
+						onClick={() => redeployCompanyContract()}
 						showButton={showButton}
 					/>
 					<NeedFundsCompaniesHeader />
