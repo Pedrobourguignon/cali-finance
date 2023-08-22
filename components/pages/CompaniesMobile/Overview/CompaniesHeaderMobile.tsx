@@ -152,6 +152,7 @@ export const CompaniesHeaderMobile = () => {
 										as="u"
 										fontSize="md"
 										cursor="pointer"
+										_hover={{ opacity: 0.7 }}
 										onClick={() =>
 											window.open(
 												`https://mumbai.polygonscan.com/address/${selectedCompany?.contract}`

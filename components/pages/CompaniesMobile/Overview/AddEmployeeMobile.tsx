@@ -112,7 +112,7 @@ export const AddEmployeeMobile: React.FC<IAddEmployee> = ({
 				if (chain?.id !== 80001) await switchNetworkAsync?.(chains[2].id);
 
 				toast({
-					position: 'top',
+					position: 'top-right',
 					render: () => (
 						<AlertToast
 							onClick={toast.closeAll}
@@ -126,7 +126,7 @@ export const AddEmployeeMobile: React.FC<IAddEmployee> = ({
 				if (error instanceof AxiosError) {
 					if (error.response?.status === 409) {
 						toast({
-							position: 'top',
+							position: 'top-right',
 							render: () => (
 								<AlertToast
 									onClick={toast.closeAll}
@@ -137,7 +137,7 @@ export const AddEmployeeMobile: React.FC<IAddEmployee> = ({
 						});
 					} else {
 						toast({
-							position: 'top',
+							position: 'top-right',
 							render: () => (
 								<AlertToast
 									onClick={toast.closeAll}

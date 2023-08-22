@@ -146,7 +146,7 @@ export const EditEmployeeMobile: React.FC<IEditEmployee> = ({
 		onSuccess() {
 			handleResetFormInputs();
 			toast({
-				position: 'top',
+				position: 'top-right',
 				render: () => (
 					<AlertToast
 						onClick={toast.closeAll}
@@ -159,7 +159,7 @@ export const EditEmployeeMobile: React.FC<IEditEmployee> = ({
 		onError() {
 			handleResetFormInputs();
 			toast({
-				position: 'top',
+				position: 'top-right',
 				render: () => (
 					<AlertToast
 						onClick={toast.closeAll}
@@ -192,7 +192,7 @@ export const EditEmployeeMobile: React.FC<IEditEmployee> = ({
 				if (error instanceof AxiosError) {
 					if (error.response?.data.message === 'Unauthorized') {
 						toast({
-							position: 'top',
+							position: 'top-right',
 							render: () => (
 								<AlertToast
 									onClick={toast.closeAll}
@@ -203,7 +203,7 @@ export const EditEmployeeMobile: React.FC<IEditEmployee> = ({
 						});
 					} else {
 						toast({
-							position: 'top',
+							position: 'top-right',
 							render: () => (
 								<AlertToast
 									onClick={toast.closeAll}

@@ -75,7 +75,7 @@ export const EditCompany = () => {
 				if (error instanceof AxiosError) {
 					if (error.response?.data.message === 'Unauthorized') {
 						toast({
-							position: 'top',
+							position: 'top-right',
 							render: () => (
 								<AlertToast
 									onClick={toast.closeAll}
@@ -86,7 +86,7 @@ export const EditCompany = () => {
 						});
 					} else {
 						toast({
-							position: 'top',
+							position: 'top-right',
 							render: () => (
 								<AlertToast
 									onClick={toast.closeAll}

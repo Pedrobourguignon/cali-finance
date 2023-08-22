@@ -153,7 +153,7 @@ export const AddEmployee: React.FC<IAddEmployee> = ({ isOpen, onClose }) => {
 		onSuccess() {
 			handleResetFormInputs();
 			toast({
-				position: 'top',
+				position: 'top-right',
 				render: () => (
 					<AlertToast
 						onClick={toast.closeAll}
@@ -166,7 +166,7 @@ export const AddEmployee: React.FC<IAddEmployee> = ({ isOpen, onClose }) => {
 		onError() {
 			handleResetFormInputs();
 			toast({
-				position: 'top',
+				position: 'top-right',
 				render: () => (
 					<AlertToast
 						onClick={toast.closeAll}
@@ -190,7 +190,7 @@ export const AddEmployee: React.FC<IAddEmployee> = ({ isOpen, onClose }) => {
 				if (error instanceof AxiosError) {
 					if (error.response?.status === 409) {
 						toast({
-							position: 'top',
+							position: 'top-right',
 							render: () => (
 								<AlertToast
 									onClick={toast.closeAll}
@@ -201,7 +201,7 @@ export const AddEmployee: React.FC<IAddEmployee> = ({ isOpen, onClose }) => {
 						});
 					} else {
 						toast({
-							position: 'top',
+							position: 'top-right',
 							render: () => (
 								<AlertToast
 									onClick={toast.closeAll}

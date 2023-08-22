@@ -89,7 +89,7 @@ export const ConfirmTransaction: React.FC<IConfirmTransaction> = ({
 		onError(error: any) {
 			if (error.cause.data.args[0] === 'Insufficient Company Balance') {
 				toast({
-					position: 'top',
+					position: 'top-right',
 					render: () => (
 						<AlertToast
 							onClick={toast.closeAll}
@@ -107,7 +107,7 @@ export const ConfirmTransaction: React.FC<IConfirmTransaction> = ({
 		confirmations: 3,
 		onSuccess: () => {
 			toast({
-				position: 'top',
+				position: 'top-right',
 				render: () => (
 					<AlertToast
 						onClick={toast.closeAll}
@@ -119,7 +119,7 @@ export const ConfirmTransaction: React.FC<IConfirmTransaction> = ({
 		},
 		onError: () => {
 			toast({
-				position: 'top',
+				position: 'top-right',
 				render: () => (
 					<AlertToast
 						onClick={toast.closeAll}
@@ -151,7 +151,7 @@ export const ConfirmTransaction: React.FC<IConfirmTransaction> = ({
 			setIsLoadingDeposit(false);
 			setConfirm(false);
 			toast({
-				position: 'top',
+				position: 'top-right',
 				render: () => (
 					<AlertToast
 						onClick={toast.closeAll}
@@ -164,7 +164,7 @@ export const ConfirmTransaction: React.FC<IConfirmTransaction> = ({
 			const error = err as IContractFunctionExecutionError;
 			if (error.cause.reason.includes('transfer amount exceeds balance')) {
 				toast({
-					position: 'top',
+					position: 'top-right',
 					render: () => (
 						<AlertToast
 							onClick={toast.closeAll}
@@ -176,7 +176,7 @@ export const ConfirmTransaction: React.FC<IConfirmTransaction> = ({
 				setConfirm(false);
 			} else {
 				toast({
-					position: 'top',
+					position: 'top-right',
 					render: () => (
 						<AlertToast
 							onClick={toast.closeAll}
@@ -215,7 +215,7 @@ export const ConfirmTransaction: React.FC<IConfirmTransaction> = ({
 			handleDeposit();
 			if (data) {
 				toast({
-					position: 'top',
+					position: 'top-right',
 					render: () => (
 						<AlertToast
 							onClick={toast.closeAll}
@@ -227,7 +227,7 @@ export const ConfirmTransaction: React.FC<IConfirmTransaction> = ({
 			}
 		} catch {
 			toast({
-				position: 'top',
+				position: 'top-right',
 				render: () => (
 					<AlertToast
 						onClick={toast.closeAll}

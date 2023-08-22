@@ -151,13 +151,13 @@ export const HistoryActivityData: React.FC<IActivitiesData> = ({
 														{isExpanded ? (
 															<Icon
 																as={AiOutlineArrowUp}
-																color="black"
+																color="gray.500"
 																boxSize="4"
 															/>
 														) : (
 															<Icon
 																as={AiOutlineArrowDown}
-																color="black"
+																color="gray.500"
 																boxSize="4"
 															/>
 														)}
