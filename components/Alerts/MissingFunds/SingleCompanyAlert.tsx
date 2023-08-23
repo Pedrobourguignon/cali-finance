@@ -5,7 +5,7 @@ import React from 'react';
 import NextLink from 'next/link';
 import { navigationPaths } from 'utils';
 
-export const SingleCompanyAlert: React.FC<{ missingValue: number }> = ({
+export const SingleCompanyAlert: React.FC<{ missingValue: string }> = ({
 	missingValue,
 }) => {
 	const theme = usePicasso();
@@ -41,7 +41,7 @@ export const SingleCompanyAlert: React.FC<{ missingValue: number }> = ({
 				whiteSpace="nowrap"
 			>
 				{translate('atLeast', {
-					value: missingValue.toLocaleString('en-US'),
+					value: missingValue,
 				})}
 			</Text>
 		</Flex>
