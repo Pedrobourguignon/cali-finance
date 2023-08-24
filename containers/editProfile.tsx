@@ -1,5 +1,5 @@
 import { Flex } from '@chakra-ui/react';
-import { EditProfileComponent } from 'components';
+import { AlertsComponent, EditProfileComponent } from 'components';
 import { ProfileProvider, TeamsProvider } from 'contexts';
 import { EditProfileLayout, MobileLayout } from 'layouts';
 import React from 'react';
@@ -7,7 +7,7 @@ import React from 'react';
 export const EditProfileContainer = () => (
 	<ProfileProvider>
 		<TeamsProvider>
-			<Flex display={{ base: 'none', sm: 'flex' }}>
+			<Flex display={{ base: 'none', sm: 'flex' }} direction="column">
 				<EditProfileLayout>
 					<EditProfileComponent />
 				</EditProfileLayout>

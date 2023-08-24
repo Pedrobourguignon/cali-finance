@@ -1,5 +1,5 @@
 import { Flex, Text } from '@chakra-ui/react';
-import { usePicasso, useTokens } from 'hooks';
+import { useCompanies, usePicasso, useTokens } from 'hooks';
 import {
 	CoinCard,
 	DepositOrWithdrawCard,
@@ -12,6 +12,7 @@ import useTranslation from 'next-translate/useTranslation';
 import { useEffect, useState } from 'react';
 import { useQuery } from 'wagmi';
 import { getCoinLogo } from 'utils';
+import { CompaniesProvider } from 'contexts';
 
 export const FundsPageComponentMobile = () => {
 	const theme = usePicasso();
