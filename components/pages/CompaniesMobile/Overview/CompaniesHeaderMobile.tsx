@@ -131,7 +131,7 @@ export const CompaniesHeaderMobile = () => {
 						<Flex direction="column">
 							<Text
 								maxW={{ md: '40', xl: '56' }}
-								maxH="20"
+								maxH="10"
 								overflow="hidden"
 								fontSize="2xl"
 								color={theme.text.primary}

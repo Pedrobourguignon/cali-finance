@@ -33,9 +33,15 @@
 	"withdrawn": "Retirada",
 	"thisWeek": "Essa Semana",
 	"thisMonth": "Esse Mês",
-	"confirmTransaction": "Confirme {{transactionType}}",
+	"confirmTransaction": {
+		"deposit": "Confirmação de depósito",
+		"withdrawal": "Confirmação de saque"
+	},
 	"fee": "Taxa",
-	"totalTransaction": "Total {{transactionType}}",
+	"totalTransaction": {
+		"deposit": "Total do depósito",
+		"withdrawal": "Total do saque"
+	},
 	"cancel": "Cancelar",
 	"youDontHaveEmployee": "Você ainda não tem funcionários cadastrados",
 	"awaitingPolling": "Aguardando a confirmação do contrato pela rede.",
