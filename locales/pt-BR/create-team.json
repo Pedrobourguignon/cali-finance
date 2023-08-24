@@ -24,11 +24,11 @@
 	"loadCsv": "Carregar lista CSV",
 	"yourCsvMustHave": "Seu arquivo .csv deve ter as colunas 'address' (endereço do usuário), 'revenue' (valor), 'asset' (moeda).",
 	"socialMediaLinks": "Links das redes sociais",
-	"editEmployee": "Editar funcionário",
+	"editEmployee": "Editar colaborador",
 	"perMonth": "por mês",
 	"thisChange": "Esta mudança causará",
 	"pleaseNote": "Observe que você terá que depositar mais {{expense}} USDT nos fundos da empresa.",
-	"updateEmployee": "Atualizar dados do funcionário",
+	"updateEmployee": "Atualizar dados do colaborador",
 	"more": "a mais",
 	"less": "a menos",
 	"expenses": "de despesas"

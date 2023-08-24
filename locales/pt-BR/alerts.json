@@ -13,8 +13,8 @@
 	"addressCopiedSuccessfully": "Endereço copiado com sucesso",
 	"changesMadeWithSuccessfully": "Alterações feitas com sucesso",
 	"employeeDataChangedWithSuccessfully": "Ei, recebemos sua solicitação de alteração! Pode levar um momento para atualizar o campo",
-	"employeeAdded": "Funcionário adicionado",
-	"employeesAdded": "Funcionários adicionados",
+	"employeeAdded": "Colaborador adicionado",
+	"employeesAdded": "Colaboradores adicionados",
 	"theContentOfTheCsv": "O conteúdo do arquivo CSV não está em conformidade com as especificações exigidas.",
 	"userAlreadyExists": "O usuário já existe nesta empresa",
 	"depositSuccessfully": "Depósito feito com sucesso",
@@ -23,6 +23,6 @@
 	"yourCredentials": "Suas credenciais expiraram. Por favor, tente novamente.",
 	"signatureCanceled": "A assinatura foi cancelada. Por favor, tente novamente.",
 	"approveSuccessfully": "Seu gasto de token foi aprovado com sucesso",
-	"employeeNotYetDeployed": "O funcionário ainda não foi implantado. Iremos refazer a operação com o salário já atualizado.",
+	"employeeNotYetDeployed": "O colaborador ainda não foi implantado. Iremos refazer a operação com o salário já atualizado.",
 	"companyWithoutFunds": "A Empresa não tem saldo suficiente para a transação."
 }
