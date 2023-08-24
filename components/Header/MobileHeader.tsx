@@ -31,18 +31,18 @@ import { VscBell, VscBellDot } from 'react-icons/vsc';
 import { deleteCookie } from 'cookies-next';
 
 const networks: INetwork[] = [
-	{
-		name: 'Ethereum',
-		icon: '/images/eth.png',
-	},
+	// {
+	// 	name: 'Ethereum',
+	// 	icon: '/images/eth.png',
+	// },
 	{
 		name: 'Polygon',
 		icon: '/images/polygon.png',
 	},
-	{
-		name: 'BNB Chain',
-		icon: '/images/bnbchain.png',
-	},
+	// {
+	// 	name: 'BNB Chain',
+	// 	icon: '/images/bnbchain.png',
+	// },
 ];
 
 export const MobileHeader = () => {
@@ -77,8 +77,8 @@ export const MobileHeader = () => {
 	);
 
 	const [networkData, setNetworkData] = useState<INetwork>({
-		name: 'Ethereum',
-		icon: '/images/bnbchain.png',
+		name: 'Polygon',
+		icon: '/images/polygon.png',
 	} as INetwork);
 
 	const handleSignOut = () => {

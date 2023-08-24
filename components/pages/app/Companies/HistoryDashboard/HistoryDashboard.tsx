@@ -34,7 +34,9 @@ export const HistoryDashboard = () => {
 	const financialNotifications = companyFinancialActivities?.filter(
 		notification =>
 			notification.event.name === 'user_withdraw' ||
+			notification.event.name === 'user_company_withdraw' ||
 			notification.event.name === 'company_withdraw' ||
+			notification.event.name === 'company_owner_withdraw' ||
 			notification.event.name === 'company_deposit_received'
 	);
 
