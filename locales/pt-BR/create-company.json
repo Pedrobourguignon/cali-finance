@@ -4,7 +4,7 @@
 	"createCompany": "Criar organização",
 	"editCompany": "Editar Organização",
 	"companyName": "Nome da Organização *",
-	"type": "Tipo *",
+	"type": "Tipo de organização*",
 	"pleaseSelect": "Selecione",
 	"financial": "Financeira",
 	"others": "Outras",
