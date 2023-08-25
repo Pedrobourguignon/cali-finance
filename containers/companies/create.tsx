@@ -74,6 +74,9 @@ export const CreateCompanyContainer = () => {
 
 	const createCompany = async (company: ICompany) => {
 		try {
+			// send transaction
+			// send to backend
+			// wait tx
 			if (chain?.id !== 80001) await switchNetworkAsync?.(chains[2].id);
 			const {
 				data: { checksum, id },
@@ -82,6 +85,7 @@ export const CreateCompanyContainer = () => {
 			});
 			setNewCompanyId(id);
 			createCompanyWrite?.({ args: [checksum] });
+			// aqui
 		} catch (error) {
 			if (error instanceof AxiosError) {
 				if (error.response?.data.message === 'Unique company name') {

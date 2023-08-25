@@ -51,7 +51,13 @@ export const CompaniesHeader = () => {
 	const { query, locale } = useRouter();
 	const { onClose, isOpen, onOpen } = useDisclosure();
 	const { t: translate } = useTranslation('company-overall');
-	const { getCompanyById } = useCompanies();
+	const {
+		getCompanyById,
+		selectedCompanyData,
+		getEmployeesBalance,
+		calculateEmployeeRevenue,
+		employees,
+	} = useCompanies();
 	const toast = useToast();
 	const { data: selectedCompany, isLoading: isLoadingSelectedCompany } =
 		useQuery(
@@ -105,9 +111,7 @@ export const CompaniesHeader = () => {
 		}
 	};
 
-	const [showButton, setShowButton] = useState<boolean>(
-		selectedCompany?.contract === null
-	);
+	const [showButton, setShowButton] = useState<boolean>(false);
 
 	const { isLoading } = useWaitForTransaction({
 		hash: createCompanyData?.hash,
@@ -207,6 +211,19 @@ export const CompaniesHeader = () => {
 		);
 	};
 
+	useEffect(() => {
+		const timeout = setTimeout(() => {
+			if (selectedCompany?.contract === null) {
+				console.log('null');
+				setShowButton(true);
+			}
+		}, 60000);
+
+		return () => clearTimeout(timeout);
+	}, [selectedCompany]);
+
+	console.log(showButton);
+
 	// eslint-disable-next-line consistent-return
 	useEffect(() => {
 		if (!selectedCompany?.contract) {
@@ -216,6 +233,11 @@ export const CompaniesHeader = () => {
 			return () => clearInterval(refetchContractAddress);
 		}
 	}, []);
+
+	useEffect(() => {
+		calculateEmployeeRevenue();
+		getEmployeesBalance();
+	}, [selectedCompanyData, employees]);
 
 	return (
 		<Flex direction="column" color={theme.text.primary} w="100%" gap="7">
