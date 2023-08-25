@@ -13,7 +13,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import useTranslation from 'next-translate/useTranslation';
 
 import router from 'next/router';
-import { useSchema } from 'hooks';
+import { useCompanies, useSchema } from 'hooks';
 import { ICompany } from 'types/interfaces/main-server/ICompany';
 import { useState } from 'react';
 import { useMutation } from 'react-query';
@@ -48,6 +48,7 @@ export const CreateCompanyContainer = () => {
 	const [selectedType, setSelectedType] = useState<string>(
 		translate('pleaseSelect')
 	);
+	const { sendCompanyTx } = useCompanies();
 
 	const [selectedNetwork, setSelectedNetwork] = useState<ISelectedNetwork>({
 		name: 'Polygon',
@@ -74,9 +75,6 @@ export const CreateCompanyContainer = () => {
 
 	const createCompany = async (company: ICompany) => {
 		try {
-			// send transaction
-			// send to backend
-			// wait tx
 			if (chain?.id !== 80001) await switchNetworkAsync?.(chains[2].id);
 			const {
 				data: { checksum, id },
@@ -85,7 +83,6 @@ export const CreateCompanyContainer = () => {
 			});
 			setNewCompanyId(id);
 			createCompanyWrite?.({ args: [checksum] });
-			// aqui
 		} catch (error) {
 			if (error instanceof AxiosError) {
 				if (error.response?.data.message === 'Unique company name') {
@@ -129,7 +126,8 @@ export const CreateCompanyContainer = () => {
 	const { isLoading } = useWaitForTransaction({
 		hash: createCompanyData?.hash,
 		confirmations: 3,
-		onSuccess() {
+		onSuccess: async () => {
+			await sendCompanyTx?.(newCompanyId, createCompanyData?.hash as string);
 			toast({
 				position: 'top',
 				render: () => (

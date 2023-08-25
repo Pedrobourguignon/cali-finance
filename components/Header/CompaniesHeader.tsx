@@ -51,6 +51,7 @@ export const CompaniesHeader = () => {
 	const { query, locale } = useRouter();
 	const { onClose, isOpen, onOpen } = useDisclosure();
 	const { t: translate } = useTranslation('company-overall');
+	const { sendCompanyTx } = useCompanies();
 	const {
 		getCompanyById,
 		selectedCompanyData,
@@ -116,7 +117,11 @@ export const CompaniesHeader = () => {
 	const { isLoading } = useWaitForTransaction({
 		hash: createCompanyData?.hash,
 		confirmations: 3,
-		onSuccess() {
+		onSuccess: async () => {
+			await sendCompanyTx?.(
+				selectedCompany?.id as number,
+				createCompanyData?.hash as string
+			);
 			setShowButton(false);
 			toast({
 				position: 'top',
@@ -211,19 +216,6 @@ export const CompaniesHeader = () => {
 		);
 	};
 
-	useEffect(() => {
-		const timeout = setTimeout(() => {
-			if (selectedCompany?.contract === null) {
-				console.log('null');
-				setShowButton(true);
-			}
-		}, 60000);
-
-		return () => clearTimeout(timeout);
-	}, [selectedCompany]);
-
-	console.log(showButton);
-
 	// eslint-disable-next-line consistent-return
 	useEffect(() => {
 		if (!selectedCompany?.contract) {
@@ -234,7 +226,16 @@ export const CompaniesHeader = () => {
 		}
 	}, []);
 
+	const showRedeployButton = () => {
+		if (selectedCompany?.status === 'await deploy') {
+			setShowButton(true);
+		} else if (selectedCompany?.status === 'await polling') {
+			setShowButton(false);
+		}
+	};
+
 	useEffect(() => {
+		showRedeployButton();
 		calculateEmployeeRevenue();
 		getEmployeesBalance();
 	}, [selectedCompanyData, employees]);
