@@ -13,7 +13,7 @@ export const FundsContainerMobile = () => (
 					w="100%"
 					bg="white"
 					position="absolute"
-					h="17.3rem"
+					h="18rem"
 					zIndex="0"
 					left="0"
 				/>

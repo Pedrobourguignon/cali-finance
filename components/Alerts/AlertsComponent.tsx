@@ -18,7 +18,7 @@ export const AlertsComponent = () => {
 	const { session } = useAuth();
 	const { locale } = useRouter();
 
-	const [missingValue, setMissingValue] = useState<number>(0);
+	const [missingValue, setMissingValue] = useState<string>('');
 
 	useEffect(() => {
 		if (!companiesWithMissingFunds?.[0]?.id) return;
@@ -56,12 +56,13 @@ export const AlertsComponent = () => {
 					(accumulator, currentValue) => accumulator + currentValue,
 					0
 				);
-				setMissingValue(+formatUsd(sum, locale));
+				setMissingValue(formatUsd(sum, locale));
 			} catch (err) {
 				console.log(err);
 			}
 		}
 	};
+
 	useEffect(() => {
 		calculateMissingFunds();
 	}, [employees]);

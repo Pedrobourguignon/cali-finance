@@ -21,13 +21,7 @@ export const MissingFundsWarning: React.FC<{
 				<Img src="/images/alert.png" boxSize="5" />
 				{children}
 			</Flex>
-			<Text
-				color="gray.700"
-				cursor="pointer"
-				fontSize="xs"
-				onClick={() => setDisplayMissingFundsWarning('none')}
-				pr="8"
-			>
+			<Text color="gray.700" cursor="pointer" fontSize="xs" pr="8">
 				X
 			</Text>
 		</Flex>

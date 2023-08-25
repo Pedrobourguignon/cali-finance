@@ -1,5 +1,5 @@
 import { Flex } from '@chakra-ui/react';
-import { BottomMenuMobile, MobileHeader } from 'components';
+import { AlertsComponent, BottomMenuMobile, MobileHeader } from 'components';
 import { AuthProvider, CompaniesProvider, ProfileProvider } from 'contexts';
 import { usePicasso } from 'hooks';
 import React from 'react';
