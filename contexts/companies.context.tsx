@@ -32,7 +32,6 @@ import { readContract } from '@wagmi/core';
 import companyAbi from 'utils/abi/company.json';
 import { GetCompanyUsersRes } from 'types/interfaces/main-server/IUser';
 import { useAuth } from 'hooks';
-import { formatContractNumbers } from 'utils/formatContractNumbers';
 
 interface ICompanyContext {
 	setSelectedCompany: Dispatch<SetStateAction<GetUserCompaniesRes>>;
@@ -241,21 +240,13 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 				});
 				const result = await Promise.all([...(data as bigint[])]);
 				if (locale && selectedCompanyData.tokenDecimals) {
-					const numberResult = result.map(item =>
-						Number(
-							formatContractNumbers(
-								item,
-								locale,
-								selectedCompanyData.tokenDecimals || 18,
-								false
-							)
-						)
+					const sum = result.reduce(
+						(accumulator: bigint, currentValue: bigint) =>
+							accumulator + currentValue,
+						0n
 					);
-					const sum = numberResult.reduce(
-						(accumulator, currentValue) => accumulator + currentValue,
-						0
-					);
-					setEmployeesBalance(sum);
+
+					setEmployeesBalance(Number(sum));
 				}
 			} catch (err) {
 				console.log(err);
@@ -286,12 +277,12 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 								});
 								const result = await Promise.all([...(data as bigint[])]);
 								if (locale) {
-									const numberResult = result.map(item =>
-										Number(formatContractNumbers(item, locale, 18, false))
-									);
-									const sum = numberResult.reduce(
-										(accumulator, currentValue) => accumulator + currentValue,
-										0
+									const sum = Number(
+										result.reduce(
+											(accumulator: bigint, currentValue: bigint) =>
+												accumulator + currentValue,
+											0n
+										)
 									);
 
 									if (!company.totalFundsUsd || company.totalFundsUsd < sum)

@@ -10,7 +10,8 @@ import { useCompanies, usePicasso, useTokens } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
 import React from 'react';
 import {
-	formatContractNumbers,
+	formatCrypto,
+	formatCryptoToDollar,
 	getCoinLogo,
 	getLogo,
 	handleLogoImage,
@@ -132,22 +133,18 @@ export const CompanyCard: React.FC<ICompanyCard> = ({
 									<Text>
 										${' '}
 										{employeeBalance && locale && company.tokenDecimals
-											? formatContractNumbers(
+											? formatCryptoToDollar(
 													employeeBalance as bigint,
-													locale,
-													company.tokenDecimals,
-													true
+													company.tokenDecimals
 											  )
 											: 0}
 									</Text>
 									<Flex align="center" gap="1">
 										<Text fontSize="xs">
 											{employeeBalance && company.tokenDecimals && locale
-												? formatContractNumbers(
+												? formatCrypto(
 														employeeBalance as bigint,
-														locale,
-														company.tokenDecimals,
-														false
+														company.tokenDecimals
 												  )
 												: 0}
 										</Text>
@@ -174,11 +171,9 @@ export const CompanyCard: React.FC<ICompanyCard> = ({
 										<Text>
 											$
 											{companyBalance && locale && company.tokenDecimals
-												? formatContractNumbers(
+												? formatCryptoToDollar(
 														companyBalance as bigint,
-														locale,
-														company.tokenDecimals,
-														true
+														company.tokenDecimals
 												  )
 												: 0}
 										</Text>

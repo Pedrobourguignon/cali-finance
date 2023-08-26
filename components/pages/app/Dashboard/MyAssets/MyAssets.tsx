@@ -6,7 +6,7 @@ import useTranslation from 'next-translate/useTranslation';
 import { useRouter } from 'next/router';
 import React, { useRef, useState, useEffect, useMemo } from 'react';
 import { IAssetsOptions } from 'types';
-import { formatContractNumbers } from 'utils';
+import { formatCryptoToDollar } from 'utils';
 import companyAbi from 'utils/abi/company.json';
 import { useAccount } from 'wagmi';
 
@@ -107,9 +107,7 @@ export const MyAssets = () => {
 								fontSize={{ base: 'sm', md: 'xs', lg: 'sm' }}
 								color={theme.text.primary}
 							>
-								$
-								{locale &&
-									formatContractNumbers(getUsdtBalance, locale, 18, true)}
+								{`$ ${locale ? formatCryptoToDollar(getUsdtBalance) : 0}`}
 							</Text>
 						</Flex>
 						{assetOptions.length > 3 && (

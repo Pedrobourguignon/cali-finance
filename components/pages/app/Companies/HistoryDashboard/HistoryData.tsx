@@ -7,7 +7,7 @@ import {
 	getNotificationsData,
 	dateHandler,
 	truncateWallet,
-	handleNotificationAmount,
+	formatFiat,
 } from 'utils';
 
 interface IHistoryData {
@@ -61,9 +61,7 @@ export const HistoryData: React.FC<IHistoryData> = ({ userHistory }) => {
 				</Flex>
 				<Flex direction="column" fontSize="xs">
 					<Flex gap="1">
-						<Text>
-							{handleNotificationAmount(userHistory.meta.data.amount)}
-						</Text>
+						<Text>{formatFiat(userHistory.meta.data.amount)}</Text>
 						<Text>USDT</Text>
 					</Flex>
 					<Text textAlign="end" color="green.400">
@@ -108,11 +106,7 @@ export const HistoryData: React.FC<IHistoryData> = ({ userHistory }) => {
 				</Flex>
 				<Flex direction="column" fontSize="xs">
 					<Flex gap="1">
-						<Text>
-							{Number(
-								handleNotificationAmount(userHistory.meta.data.amount)
-							).toLocaleString(locale)}
-						</Text>
+						<Text>{formatFiat(userHistory.meta.data.amount)}</Text>
 						<Text>USDT</Text>
 					</Flex>
 					<Text textAlign="end" color="green.400">

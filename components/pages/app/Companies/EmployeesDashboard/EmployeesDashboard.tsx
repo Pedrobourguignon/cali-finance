@@ -12,7 +12,7 @@ import useTranslation from 'next-translate/useTranslation';
 import router, { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { useQuery } from 'react-query';
-import { formatContractNumbers } from 'utils';
+import { formatCrypto } from 'utils';
 import companyAbi from 'utils/abi/company.json';
 
 interface IEmployeeDashboard {
@@ -81,14 +81,7 @@ export const EmployeesDashboard: React.FC<IEmployeeDashboard> = ({
 				const result = await Promise.all([...(data as bigint[])]);
 				if (locale && selectedCompanyData.tokenDecimals) {
 					const numberResult = result.map(item =>
-						Number(
-							formatContractNumbers(
-								item,
-								locale,
-								selectedCompanyData.tokenDecimals || 18,
-								false
-							)
-						)
+						Number(formatCrypto(item, selectedCompanyData.tokenDecimals))
 					);
 					const sum = numberResult.reduce(
 						(accumulator, currentValue) => accumulator + currentValue,

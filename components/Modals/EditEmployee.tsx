@@ -29,7 +29,7 @@ import {
 } from 'components';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { formatDecimals, getCoinLogo, mainClient, truncateWallet } from 'utils';
+import { toCrypto, getCoinLogo, mainClient, truncateWallet } from 'utils';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { AxiosError } from 'axios';
 import useTranslation from 'next-translate/useTranslation';
@@ -154,7 +154,7 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 		functionName: 'addEmployee',
 		args: [
 			employee.wallet,
-			formatDecimals(editedEmployeeData.amount, selectedCompany.tokenDecimals),
+			toCrypto(editedEmployeeData.amount, selectedCompany.tokenDecimals),
 		],
 		enabled: employee.wallet !== '' && editedEmployeeData.amount !== 0,
 	});
@@ -257,10 +257,7 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 				editEmployeeWrite?.({
 					args: [
 						employee.wallet,
-						formatDecimals(
-							editedEmployeeData.amount,
-							selectedCompany.tokenDecimals
-						),
+						toCrypto(editedEmployeeData.amount, selectedCompany.tokenDecimals),
 					],
 				});
 			},

@@ -4,11 +4,7 @@ import useTranslation from 'next-translate/useTranslation';
 import { useRouter } from 'next/router';
 import React from 'react';
 import { IActivitiesData } from 'types';
-import {
-	dateHandler,
-	getNotificationsData,
-	handleNotificationAmount,
-} from 'utils';
+import { dateHandler, formatFiat, getNotificationsData } from 'utils';
 
 export const RecentActivitiesData: React.FC<IActivitiesData> = ({
 	activities,
@@ -49,7 +45,7 @@ export const RecentActivitiesData: React.FC<IActivitiesData> = ({
 			>
 				<Flex direction="column" align="end">
 					<Text fontSize="xs" color={theme.text.black}>
-						{handleNotificationAmount(activities.meta.data.amount)} USDT
+						{formatFiat(activities.meta.data.amount)} USDT
 					</Text>
 					<Text color="green.400 " fontSize="xs" whiteSpace="nowrap">
 						{translate('completed')}

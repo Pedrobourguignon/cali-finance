@@ -21,7 +21,7 @@ import companyAbi from 'utils/abi/company.json';
 import caliTokenAbi from 'utils/abi/caliToken.json';
 import { useRouter } from 'next/router';
 import { Hex } from 'viem';
-import { formatDecimals } from 'utils';
+import { toCrypto } from 'utils';
 import {
 	prepareWriteContract,
 	waitForTransaction,
@@ -85,7 +85,7 @@ export const ConfirmTransaction: React.FC<IConfirmTransaction> = ({
 		address: selectedCompany.contract,
 		abi: companyAbi,
 		functionName: 'ownerWithdraw',
-		args: [formatDecimals(transaction.amount, selectedCompany.tokenDecimals)],
+		args: [toCrypto(transaction.amount, selectedCompany.tokenDecimals)],
 		onError(error: any) {
 			if (error.cause.data.args[0] === 'Insufficient Company Balance') {
 				toast({
@@ -141,7 +141,7 @@ export const ConfirmTransaction: React.FC<IConfirmTransaction> = ({
 				functionName: 'deposit',
 				args: [
 					selectedCompany.token,
-					formatDecimals(transaction.amount, selectedCompany.tokenDecimals),
+					toCrypto(transaction.amount, selectedCompany.tokenDecimals),
 				],
 			});
 			const { hash } = await writeContract(request);
@@ -202,7 +202,7 @@ export const ConfirmTransaction: React.FC<IConfirmTransaction> = ({
 				functionName: 'approve',
 				args: [
 					selectedCompany.contract,
-					formatDecimals(
+					toCrypto(
 						transaction.amount,
 						selectedCompany.tokenDecimals ? selectedCompany.tokenDecimals : 0
 					),

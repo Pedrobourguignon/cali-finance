@@ -14,7 +14,7 @@ import {
 } from '@chakra-ui/react';
 import { useCompanies, usePath, usePicasso } from 'hooks';
 import {
-	formatUsd,
+	formatFiat,
 	getLogo,
 	handleLogoImage,
 	navigationPaths,
@@ -301,17 +301,17 @@ export const CompaniesHeader = () => {
 					) : selectedCompany?.totalFundsUsd ? (
 						<Flex align="center" gap="2">
 							<Text fontSize="xl">{`$ ${
-								locale && formatUsd(selectedCompany.totalFundsUsd, locale)
+								locale && formatFiat(selectedCompany.totalFundsUsd)
 							}`}</Text>
 							{isLoadingTotalFunds && (
-								<Spinner boxSize="4" color={theme.branding.blue} />
+								<Spinner boxSize="4" color={theme.branding.blue2} />
 							)}
 						</Flex>
 					) : (
 						<Flex align="center" gap="2">
 							<Text fontSize="xl">$ 0</Text>
 							{isLoadingTotalFunds && (
-								<Spinner boxSize="4" color={theme.branding.blue} />
+								<Spinner boxSize="4" color={theme.branding.blue2} />
 							)}
 						</Flex>
 					)}
