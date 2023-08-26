@@ -24,5 +24,6 @@
 	"signatureCanceled": "A assinatura foi cancelada. Por favor, tente novamente.",
 	"approveSuccessfully": "Seu gasto de token foi aprovado com sucesso",
 	"employeeNotYetDeployed": "O colaborador ainda não foi implantado. Iremos refazer a operação com o salário já atualizado.",
-	"companyWithoutFunds": "A Empresa não tem saldo suficiente para a transação."
+	"companyWithoutFunds": "A Empresa não tem saldo suficiente para a transação.",
+	"requestRejected": "A conexão foi rejeitada. Por favor, tente novamente."
 }

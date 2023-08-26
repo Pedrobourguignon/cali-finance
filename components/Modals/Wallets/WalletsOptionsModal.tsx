@@ -10,9 +10,10 @@ import {
 	ModalHeader,
 	ModalOverlay,
 	Text,
+	useToast,
 } from '@chakra-ui/react';
-import { OffsetShadow } from 'components';
-import { useAuth, usePicasso, useToasty } from 'hooks';
+import { OffsetShadow, AlertToast } from 'components';
+import { useAuth, usePicasso } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
 import { IWalletOptionsModal } from 'types';
 import { navigationPaths } from 'utils';
@@ -41,7 +42,7 @@ export const WalletsOptionsModal: React.FC<IWalletOptionsModal> = ({
 	const { t: translate } = useTranslation('sidebar');
 	const { handleSignIn } = useAuth();
 	const { isConnected, address } = useAccount();
-	const { toast } = useToasty();
+	const toast = useToast();
 	const { chain } = useNetwork();
 	const { chains, switchNetworkAsync } = useSwitchNetwork();
 
@@ -81,8 +82,9 @@ export const WalletsOptionsModal: React.FC<IWalletOptionsModal> = ({
 						await connectAsync({ connector });
 						onCloseLoading();
 					}
+				} else {
+					handleSignIn(address);
 				}
-				handleSignIn(address);
 			} else {
 				onClose();
 				openLoadingWalletModal();
@@ -92,9 +94,14 @@ export const WalletsOptionsModal: React.FC<IWalletOptionsModal> = ({
 		} catch (error: any) {
 			onCloseLoading();
 			toast({
-				title: 'Error',
-				description: 'The request was rejected. Please try again.',
-				status: 'error',
+				position: 'top-right',
+				render: () => (
+					<AlertToast
+						onClick={toast.closeAll}
+						text="requestRejected"
+						type="error"
+					/>
+				),
 			});
 		}
 	};
