@@ -37,6 +37,7 @@ interface IEditCompanyComponent {
 	displayedEditedPicture: string | undefined;
 	handleEditedPicture: (picture: string) => void;
 	editedSocialLinksInputValue: ISociaLinksInputValue;
+	setEditedInfo: Dispatch<SetStateAction<ICompany>>;
 	setEditedSocialLinksInputValue: Dispatch<
 		SetStateAction<ISociaLinksInputValue>
 	>;
@@ -419,7 +420,7 @@ export const EditCompanyComponentMobile: React.FC<IEditCompanyComponent> = ({
 							</Text>
 							<Input
 								px="3"
-								{...register('contactEmail')}
+								defaultValue={company?.contactEmail}
 								disabled={!session}
 								placeholder={translate('exampleEmail')}
 								_placeholder={{
@@ -431,7 +432,7 @@ export const EditCompanyComponentMobile: React.FC<IEditCompanyComponent> = ({
 								borderRadius="base"
 								_hover={{}}
 								borderColor={theme.bg.primary}
-								defaultValue={company?.contactEmail}
+								{...register('contactEmail')}
 								onChange={editedEmail =>
 									setEditedInfo(prevState => ({
 										...prevState,

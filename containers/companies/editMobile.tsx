@@ -100,6 +100,12 @@ export const EditCompanyMobile = () => {
 		}
 	);
 
+	const [editedInfo, setEditedInfo] = useState<ICompany>({} as ICompany);
+
+	useEffect(() => {
+		setEditedInfo(companyToBeEdited!);
+	}, [companyToBeEdited]);
+
 	const [displayedEditedPicture, setDisplayedEditedPicture] = useState(
 		companyToBeEdited?.logo
 	);
@@ -108,8 +114,8 @@ export const EditCompanyMobile = () => {
 		setDisplayedEditedPicture(picture);
 	};
 
-	const handleEditCompany = (editedCompanyData: ICompany) => {
-		const { name, contactEmail, description } = editedCompanyData;
+	const handleEditCompany = () => {
+		const { name, contactEmail, description } = editedInfo;
 		const { websiteURL, instagramURL, twitterURL, telegramURL, mediumURL } =
 			editedSocialLinksInputValue;
 		mutate({
@@ -181,6 +187,7 @@ export const EditCompanyMobile = () => {
 								errors={errors}
 								register={register}
 								company={companyToBeEdited}
+								setEditedInfo={setEditedInfo}
 							/>
 						</Flex>
 					</MobileLayout>
