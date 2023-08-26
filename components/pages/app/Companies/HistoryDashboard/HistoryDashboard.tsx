@@ -138,22 +138,6 @@ export const HistoryDashboard = () => {
 				<Flex whiteSpace="normal">
 					<Text color={theme.text.primary} fontSize="sm" whiteSpace="normal">
 						{translateHistory('noResults')}
-						<Text
-							decoration="underline"
-							color={theme.text.primary}
-							fontSize="sm"
-							as="span"
-							whiteSpace="normal"
-							fontWeight="semibold"
-							cursor="pointer"
-							onClick={() => {
-								setFilteredUserHistory(financialNotifications);
-								setSelectedFilterOption(translate('all'));
-							}}
-						>
-							&nbsp;{translateHistory('returnToAllResults')}&nbsp;
-						</Text>
-						&nbsp;{translateHistory('orSelectAnother')}
 					</Text>
 				</Flex>
 			)}

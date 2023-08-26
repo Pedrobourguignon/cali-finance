@@ -27,5 +27,6 @@
 	"redeployCompany": "Company without Contract. Click here to redeploy.",
 	"redeployWithSuccess": "Redeployed with success",
 	"companyWithoutFunds": "The Company doesn't have enough balance for the transaction.",
-	"requestRejected": "The request was rejected. Please try again."
+	"requestRejected": "The request was rejected. Please try again.",
+	"maximumCompanyWithoutDeploy": "You have 10 incomplete companies. Please deploy a contract before creating any new company."
 }

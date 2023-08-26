@@ -24,6 +24,7 @@
 	"seeAll": "See all",
 	"seeLess": "See less",
 	"addEmployee": "Add Employee",
+	"addEmployeeMobile": "Add Employee",
 	"nameAddress": "Name/Address",
 	"manage": "Manage",
 	"sales": "Sales",
@@ -50,5 +51,7 @@
 	"needToAwaitThePolling": "To add an employee, it is necessary to wait for the contract to be confirmed on the network.",
 	"userWithdraw": "User withdraw",
 	"companyDepositReceived": "Company deposit received",
-	"eventNotFound": "Event not found"
+	"eventNotFound": "Event not found",
+	"status": "Status",
+	"tryAgain": "Try Again"
 }

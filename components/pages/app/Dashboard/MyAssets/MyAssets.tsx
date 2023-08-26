@@ -107,6 +107,7 @@ export const MyAssets = () => {
 								fontSize={{ base: 'sm', md: 'xs', lg: 'sm' }}
 								color={theme.text.primary}
 							>
+								$
 								{locale &&
 									formatContractNumbers(getUsdtBalance, locale, 18, true)}
 							</Text>

@@ -337,7 +337,7 @@ export const EditCompanyComponentMobile: React.FC<IEditCompanyComponent> = ({
 										}
 										placement="top"
 										hasArrow
-										arrowShadowColor={theme.branding.blue}
+										arrowShadowColor={theme.branding.blue2}
 										arrowPadding={10}
 										gutter={12}
 										bg="none"

@@ -3,7 +3,9 @@ import { EditCompany, EditCompanyMobile } from 'containers';
 import { CompaniesProvider } from 'contexts';
 
 export const Edit = () => {
-	const [isLargerThan767] = useMediaQuery('(min-width: 767px)');
+	const [isLargerThan767] = useMediaQuery('(min-width: 767px)', {
+		fallback: true,
+	});
 
 	return (
 		<CompaniesProvider>

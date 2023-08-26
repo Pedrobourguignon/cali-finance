@@ -1,22 +1,15 @@
-import { WagmiConfig, createConfig, configureChains } from 'wagmi';
-import { bsc, mainnet, polygonMumbai } from 'wagmi/chains';
-import { alchemyProvider } from 'wagmi/providers/alchemy';
+import { WagmiConfig, createConfig, configureChains, Chain } from 'wagmi';
 import { publicProvider } from 'wagmi/providers/public';
 import { CoinbaseWalletConnector } from 'wagmi/connectors/coinbaseWallet';
 import { InjectedConnector } from 'wagmi/connectors/injected';
 import { MetaMaskConnector } from 'wagmi/connectors/metaMask';
 import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
-import { RPCs } from 'helpers';
+import { bsc, mainnet, polygonMumbai } from 'utils';
 
 // Set up chains
 const { chains, publicClient, webSocketPublicClient } = configureChains(
 	[mainnet, bsc, polygonMumbai],
-	[
-		alchemyProvider({ apiKey: RPCs.alchemy.mainnet as string }),
-		alchemyProvider({ apiKey: RPCs.alchemy.polygon as string }),
-		alchemyProvider({ apiKey: RPCs.alchemy.mumbai as string }),
-		publicProvider(),
-	]
+	[publicProvider()]
 );
 
 // Set up client

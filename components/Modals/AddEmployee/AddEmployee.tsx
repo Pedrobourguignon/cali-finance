@@ -56,7 +56,7 @@ export const AddEmployee: React.FC<IAddEmployee> = ({ isOpen, onClose }) => {
 		amountInDollar: 0,
 	});
 	const { listOfTokens, usdtQuotation } = useTokens();
-	const { selectedCompany, addEmployeeToTeam } = useCompanies();
+	const { selectedCompanyData, addEmployeeToTeam } = useCompanies();
 	const { addEmployeeSchema } = useSchema();
 	const queryClient = useQueryClient();
 
@@ -82,6 +82,8 @@ export const AddEmployee: React.FC<IAddEmployee> = ({ isOpen, onClose }) => {
 		formState: { errors },
 	} = useForm<IAddEmployeeForm>({
 		resolver: yupResolver(addEmployeeSchema),
+		mode: 'onChange',
+		reValidateMode: 'onChange',
 	});
 
 	const [individuallyOrList, setIndividuallyOrList] = useState(true);
@@ -130,12 +132,15 @@ export const AddEmployee: React.FC<IAddEmployee> = ({ isOpen, onClose }) => {
 	};
 
 	const { config: addEmployeeConfig } = usePrepareContractWrite({
-		address: selectedCompany.contract,
+		address: selectedCompanyData?.contract,
 		abi: companyAbi,
 		functionName: 'addEmployee',
 		args: [
 			debouncedEmployeeAddress[0],
-			formatDecimals(debouncedEmployeeAmount[0], selectedCompany.tokenDecimals),
+			formatDecimals(
+				debouncedEmployeeAmount[0],
+				selectedCompanyData?.tokenDecimals
+			),
 		],
 		enabled:
 			addedEmployeeData.walletAddress !== '' && addedEmployeeData.amount !== 0,
@@ -261,7 +266,7 @@ export const AddEmployee: React.FC<IAddEmployee> = ({ isOpen, onClose }) => {
 									{translate('addEmployee')}
 								</Text>
 								<Text color="gray.500" fontWeight="normal" fontSize="sm">
-									{`${translate('to')} ${selectedCompany?.name}`}
+									{`${translate('to')} ${selectedCompanyData?.name}`}
 								</Text>
 							</Flex>
 							<ModalCloseButton
