@@ -19,8 +19,6 @@ export const HistoryActivityDataMobile: React.FC<IActivitiesData> = ({
 	const { t: translate } = useTranslation('history-page');
 	const { locale } = useRouter();
 
-	console.log(activities);
-
 	return (
 		// eslint-disable-next-line react/jsx-no-useless-fragment
 		<>
