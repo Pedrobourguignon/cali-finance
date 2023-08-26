@@ -2,6 +2,7 @@ export * from './chainList';
 export * from './chainLogo';
 export * from './clients';
 export * from './ColorHandler';
+export * from './customChains';
 export * from './dateHandler';
 export * from './firebaseConfig';
 export * from './formatContractNumbers';
