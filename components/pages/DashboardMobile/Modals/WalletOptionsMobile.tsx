@@ -43,7 +43,7 @@ export const WalletOptionsMobile: React.FC<IWalletOptionsModal> = ({
 	const { isConnected, address } = useAccount();
 	const toast = useToast();
 	const { chain } = useNetwork();
-	const { chains, switchNetworkAsync, isLoading } = useSwitchNetwork();
+	const { chains, switchNetworkAsync } = useSwitchNetwork();
 	const { connectors, connectAsync, status } = useConnect({
 		async onSuccess(data) {
 			const account = data?.account;
@@ -80,8 +80,9 @@ export const WalletOptionsMobile: React.FC<IWalletOptionsModal> = ({
 						await connectAsync({ connector });
 						onCloseLoading();
 					}
+				} else {
+					handleSignIn(address);
 				}
-				handleSignIn(address);
 			} else {
 				onClose();
 				openLoadingWalletModal();
@@ -102,6 +103,7 @@ export const WalletOptionsMobile: React.FC<IWalletOptionsModal> = ({
 			});
 		}
 	};
+
 	useEffect(() => {
 		if (status === 'loading') {
 			openLoadingWalletModal();

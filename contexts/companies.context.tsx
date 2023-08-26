@@ -127,7 +127,7 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 		isLoading: isLoadingCompanies,
 		refetch: refetchAllUserCompanies,
 	} = useQuery(['all-companies'], getAllUserCompanies, {
-		enabled: !!isConnected && !!session,
+		enabled: !!isConnected && !!session && !!wallet,
 	});
 
 	const getCompaniesOverview = async () => {
@@ -161,7 +161,7 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 	};
 
 	useEffect(() => {
-		if (session) {
+		if (session && wallet) {
 			getAllUserCompanies();
 			if (query.id) getCompanyById(+query.id);
 		}
