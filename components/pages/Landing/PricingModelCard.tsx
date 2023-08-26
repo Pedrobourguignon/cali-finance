@@ -6,7 +6,9 @@ import { FeeCalculator } from 'components';
 
 export const PricingModelCard = () => {
 	const theme = usePicasso();
-	const [isLargerThan480] = useMediaQuery('(min-width: 480px)');
+	const [isLargerThan480] = useMediaQuery('(min-width: 480px)', {
+		fallback: true,
+	});
 	const { t: translate } = useTranslation('landing');
 
 	return (

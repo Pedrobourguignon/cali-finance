@@ -17,7 +17,9 @@ export const RecentActivities = () => {
 	const { t: translate } = useTranslation('companies');
 	const { t: translateDashboard } = useTranslation('dashboard');
 	const { getAllCompaniesUserActivities } = useCompanies();
-	const [isLargerThan767] = useMediaQuery('(min-width: 767px)');
+	const [isLargerThan767] = useMediaQuery('(min-width: 767px)', {
+		fallback: true,
+	});
 
 	const { data: recentActivities, isLoading } = useQuery(
 		'recent-activities',
