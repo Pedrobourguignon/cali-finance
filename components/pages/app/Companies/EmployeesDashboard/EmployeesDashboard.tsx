@@ -141,7 +141,7 @@ export const EmployeesDashboard: React.FC<IEmployeeDashboard> = ({
 						</Text>
 					</Flex>
 				)}
-				<Flex gap="4" align="center" display={{ base: 'none', sm: 'flex' }}>
+				<Flex gap="6" align="center" display={{ base: 'none', md: 'flex' }}>
 					{employees && employees?.length > 3 && (
 						<Button h="max-content" onClick={() => toggleListView()}>
 							<Text fontSize="xs" color="gray.500" fontWeight="medium">
@@ -168,7 +168,7 @@ export const EmployeesDashboard: React.FC<IEmployeeDashboard> = ({
 						<Text>{translate('addEmployee')}</Text>
 					</BlackButton>
 				</Flex>
-				<Flex gap="4" align="center" display={{ base: 'flex', sm: 'none' }}>
+				<Flex gap="4" align="center" display={{ base: 'flex', md: 'none' }}>
 					{employees && employees?.length > 3 && (
 						<Button h="max-content" onClick={() => toggleListView()}>
 							<Text fontSize="xs" color="gray.500" fontWeight="medium">
@@ -186,7 +186,7 @@ export const EmployeesDashboard: React.FC<IEmployeeDashboard> = ({
 						borderRadius="base"
 					>
 						<Text>+</Text>
-						<Text>{translate('addEmployee')}</Text>
+						<Text>{translate('addEmployeeMobile')}</Text>
 					</BlackButton>
 				</Flex>
 			</Flex>
