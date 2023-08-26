@@ -10,7 +10,7 @@ export interface IHistoryNotifications {
 	id: number;
 	meta: {
 		data: {
-			amount: number;
+			amount: string;
 			companyId: number;
 			companyName: string;
 			companyLogo: string;

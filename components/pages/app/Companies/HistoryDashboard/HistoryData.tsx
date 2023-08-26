@@ -3,7 +3,12 @@ import { usePicasso } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
 import { useRouter } from 'next/router';
 import { IHistoryNotifications } from 'types';
-import { getNotificationsData, dateHandler, truncateWallet } from 'utils';
+import {
+	getNotificationsData,
+	dateHandler,
+	truncateWallet,
+	handleNotificationAmount,
+} from 'utils';
 
 interface IHistoryData {
 	userHistory: IHistoryNotifications;
@@ -56,7 +61,9 @@ export const HistoryData: React.FC<IHistoryData> = ({ userHistory }) => {
 				</Flex>
 				<Flex direction="column" fontSize="xs">
 					<Flex gap="1">
-						<Text>{userHistory.meta.data.amount.toLocaleString('en-US')}</Text>
+						<Text>
+							{handleNotificationAmount(userHistory.meta.data.amount)}
+						</Text>
 						<Text>USDT</Text>
 					</Flex>
 					<Text textAlign="end" color="green.400">
@@ -103,8 +110,8 @@ export const HistoryData: React.FC<IHistoryData> = ({ userHistory }) => {
 					<Flex gap="1">
 						<Text>
 							{Number(
-								userHistory.meta.data.amount.toLocaleString(locale)
-							).toFixed(2)}
+								handleNotificationAmount(userHistory.meta.data.amount)
+							).toLocaleString(locale)}
 						</Text>
 						<Text>USDT</Text>
 					</Flex>

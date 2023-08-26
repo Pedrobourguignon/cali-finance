@@ -10,6 +10,7 @@ export * from './formatUsd';
 export * from './getCoinLogo';
 export * from './getLogo';
 export * from './getNotificationsData';
+export * from './handleNotificationAmount';
 export * from './historyFilterOptions';
 export * from './logoHandler';
 export * from './navigationPaths';
