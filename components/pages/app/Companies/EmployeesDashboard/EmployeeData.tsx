@@ -11,7 +11,7 @@ import {
 	Skeleton,
 } from '@chakra-ui/react';
 import { MdContentCopy } from 'react-icons/md';
-import { truncateWallet } from 'utils';
+import { getLogo, truncateWallet } from 'utils';
 import useTranslation from 'next-translate/useTranslation';
 import { AlertToast, EditEmployee, EditEmployeeMobile } from 'components';
 import { GetCompanyUsersRes } from 'types/interfaces/main-server/IUser';
@@ -73,7 +73,7 @@ export const EmployeeData: React.FC<IEmployeeData> = ({
 					src={
 						employee.picture === null
 							? '/images/editImage.png'
-							: employee.picture
+							: getLogo(employee.picture as string)
 					}
 					boxSize="6"
 				/>

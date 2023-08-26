@@ -41,7 +41,14 @@ export const CompaniesHeader = () => {
 	const { query, locale } = useRouter();
 	const { onClose, isOpen, onOpen } = useDisclosure();
 	const { t: translate } = useTranslation('company-overall');
-	const { getCompanyById, isLoadingTotalFunds } = useCompanies();
+	const {
+		getCompanyById,
+		isLoadingTotalFunds,
+		selectedCompanyData,
+		getEmployeesBalance,
+		calculateEmployeeRevenue,
+		employees,
+	} = useCompanies();
 	const toast = useToast();
 
 	const menuOptions = [
@@ -130,6 +137,11 @@ export const CompaniesHeader = () => {
 			return () => clearInterval(refetchContractAddress);
 		}
 	}, []);
+
+	useEffect(() => {
+		calculateEmployeeRevenue();
+		getEmployeesBalance();
+	}, [selectedCompanyData, employees]);
 
 	return (
 		<Flex direction="column" color={theme.text.primary} w="100%" gap="7">
