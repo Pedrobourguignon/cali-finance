@@ -55,7 +55,7 @@ export const AlertToast: React.FC<IToast> = ({ onClick, text, type }) => {
 				borderRadius="base"
 				align="center"
 				color="gray.700"
-				gap="16"
+				gap={{ base: '2', md: '16' }}
 				px="4"
 			>
 				<Flex gap="3" align="center">
