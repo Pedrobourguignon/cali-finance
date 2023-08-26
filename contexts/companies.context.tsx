@@ -91,8 +91,7 @@ export const CompaniesContext = createContext({} as ICompanyContext);
 export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 	children,
 }) => {
-	const { isConnected } = useAccount();
-	const { address: wallet } = useAccount();
+	const { isConnected, address: wallet } = useAccount();
 	const { session } = useAuth();
 	const { locale, query } = useRouter();
 	const [displayNeedFundsCard, setDisplayNeedFundsCard] = useState('none');

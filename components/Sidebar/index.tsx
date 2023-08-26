@@ -275,13 +275,13 @@ export const Sidebar: React.FC = () => {
 									bgColor="transparent"
 									fontSize="sm"
 									borderRadius="none"
-									boxShadow={comparedPath ? theme.branding.blue : 'none'}
-									color={comparedPath ? theme.branding.blue : 'white'}
+									boxShadow={comparedPath ? theme.branding.blue2 : 'none'}
+									color={comparedPath ? theme.branding.blue2 : 'white'}
 								>
 									{comparedPath && (
 										<Box
 											position="absolute"
-											bgColor={theme.branding.blue}
+											bgColor={theme.branding.blue2}
 											w="1"
 											h="8"
 											borderLeftRadius="none"
@@ -335,7 +335,7 @@ export const Sidebar: React.FC = () => {
 								onClick={() => changeLanguage(lang)}
 								fontSize="sm"
 								fontWeight="semibold"
-								color={locale === lang ? theme.branding.blue : 'white'}
+								color={locale === lang ? theme.branding.blue2 : 'white'}
 							>
 								{locale === lang
 									? `[${lang.toUpperCase()}]`

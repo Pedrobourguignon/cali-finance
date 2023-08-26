@@ -20,7 +20,7 @@ export const EditProfileLayout: React.FC<ILanding> = ({ children }) => {
 							bg="white"
 							w="full"
 							borderLeft="0.25rem solid"
-							borderColor={theme.branding.blue}
+							borderColor={theme.branding.blue2}
 							borderLeftRadius="sm"
 							position="relative"
 						>

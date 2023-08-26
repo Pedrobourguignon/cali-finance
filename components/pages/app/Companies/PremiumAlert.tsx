@@ -6,7 +6,7 @@ export const Premium = () => {
 	const walletConnected = true;
 	return (
 		<Flex>
-			<Flex bg={theme.branding.blue} borderRadius="xl" px="3.5">
+			<Flex bg={theme.branding.blue2} borderRadius="xl" px="3.5">
 				<Text fontSize="xs">{walletConnected ? 'Premium' : 'Free'}</Text>
 			</Flex>
 		</Flex>

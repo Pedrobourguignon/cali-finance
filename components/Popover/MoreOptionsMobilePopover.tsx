@@ -60,7 +60,7 @@ export const MoreOptionsMobilePopover: React.FC<IMoreOptions> = ({
 									onClick={() => changeLanguage(lang)}
 									fontSize="sm"
 									fontWeight="semibold"
-									color={locale === lang ? theme.branding.blue : 'gray.900'}
+									color={locale === lang ? theme.branding.blue2 : 'gray.900'}
 								>
 									{locale === lang
 										? `[${lang.toUpperCase()}]`

@@ -83,7 +83,7 @@ export const BottomMenuMobile = () => {
 							<Icon
 								as={menuOption.icon}
 								boxSize="6"
-								color={comparedPath ? theme.branding.blue : 'white'}
+								color={comparedPath ? theme.branding.blue2 : 'white'}
 							/>
 						</Link>
 					</Flex>

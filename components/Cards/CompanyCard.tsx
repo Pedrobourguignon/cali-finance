@@ -219,7 +219,7 @@ export const CompanyCard: React.FC<ICompanyCard> = ({
 						as={NextLink}
 					>
 						<Text
-							color={theme.branding.blue}
+							color={theme.branding.blue2}
 							bg="none"
 							fontSize="xs"
 							fontWeight="medium"
@@ -232,7 +232,7 @@ export const CompanyCard: React.FC<ICompanyCard> = ({
 					<>
 						<Text
 							display={{ base: 'none', sm: 'flex' }}
-							color={theme.branding.blue}
+							color={theme.branding.blue2}
 							bg="none"
 							fontSize="xs"
 							fontWeight="medium"
@@ -243,7 +243,7 @@ export const CompanyCard: React.FC<ICompanyCard> = ({
 						</Text>
 						<Text
 							display={{ base: 'flex', sm: 'none' }}
-							color={theme.branding.blue}
+							color={theme.branding.blue2}
 							bg="none"
 							fontSize="xs"
 							fontWeight="medium"

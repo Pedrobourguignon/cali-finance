@@ -37,7 +37,7 @@ export const TeamCard: React.FC<ITeamCard> = ({ name, funds, members }) => {
 					</Flex>
 				</Flex>
 
-				<Button color={theme.branding.blue} bg="none" fontSize="xs">
+				<Button color={theme.branding.blue2} bg="none" fontSize="xs">
 					{translate('manage')}
 				</Button>
 			</Flex>
