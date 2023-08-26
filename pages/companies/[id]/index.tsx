@@ -23,7 +23,9 @@ export async function getServerSideProps(context: any) {
 }
 
 export const Overview = () => {
-	const [isLargerThan767] = useMediaQuery('(min-width: 767px)');
+	const [isLargerThan767] = useMediaQuery('(min-width: 767px)', {
+		fallback: true,
+	});
 
 	return isLargerThan767 ? <OverviewTab /> : <OverviewTabMobile />;
 };

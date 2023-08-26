@@ -6,7 +6,9 @@ import React from 'react';
 export const NeedFundsCompaniesHeader = () => {
 	const theme = usePicasso();
 	const { displayNeedFundsCard } = useCompanies();
-	const [isLargerThan767] = useMediaQuery('(min-width: 767px)');
+	const [isLargerThan767] = useMediaQuery('(min-width: 767px)', {
+		fallback: true,
+	});
 
 	const { t: translate } = useTranslation('alerts');
 	return isLargerThan767 ? (

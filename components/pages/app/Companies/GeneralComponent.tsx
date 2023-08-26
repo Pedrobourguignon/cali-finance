@@ -9,7 +9,9 @@ import React from 'react';
 import { useAuth } from 'hooks';
 
 export const GeneralComponent = () => {
-	const [isLargerThan767] = useMediaQuery('(min-width: 767px)');
+	const [isLargerThan767] = useMediaQuery('(min-width: 767px)', {
+		fallback: true,
+	});
 	const { session } = useAuth();
 
 	return isLargerThan767 ? (
