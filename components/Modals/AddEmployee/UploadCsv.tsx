@@ -29,7 +29,7 @@ export const UploadCsv: React.FC<IUploadCsv> = ({ onClose }) => {
 			onSuccess: () => {
 				queryClient.invalidateQueries({ queryKey: ['all-company-employees'] });
 				toast({
-					position: 'top',
+					position: 'top-right',
 					render: () => (
 						<AlertToast
 							onClick={toast.closeAll}
@@ -53,7 +53,7 @@ export const UploadCsv: React.FC<IUploadCsv> = ({ onClose }) => {
 				error.response?.data.errors[0].includes('Error adding user undefined')
 			) {
 				toast({
-					position: 'top',
+					position: 'top-right',
 					render: () => (
 						<AlertToast
 							onClick={toast.closeAll}
@@ -67,7 +67,7 @@ export const UploadCsv: React.FC<IUploadCsv> = ({ onClose }) => {
 			}
 			if (error.response?.data.errors[0].includes('Error adding user')) {
 				toast({
-					position: 'top',
+					position: 'top-right',
 					render: () => (
 						<AlertToast
 							onClick={toast.closeAll}
@@ -79,7 +79,7 @@ export const UploadCsv: React.FC<IUploadCsv> = ({ onClose }) => {
 				onClose();
 			} else {
 				toast({
-					position: 'top',
+					position: 'top-right',
 					render: () => (
 						<AlertToast
 							onClick={toast.closeAll}

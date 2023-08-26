@@ -168,7 +168,7 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 		onSuccess() {
 			handleResetFormInputs();
 			toast({
-				position: 'top',
+				position: 'top-right',
 				render: () => (
 					<AlertToast
 						onClick={toast.closeAll}
@@ -181,7 +181,7 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 		onError() {
 			handleResetFormInputs();
 			toast({
-				position: 'top',
+				position: 'top-right',
 				render: () => (
 					<AlertToast
 						onClick={toast.closeAll}
@@ -201,7 +201,7 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 			onError(error: any) {
 				if (error.cause.data.args[0] === "Employee doesn't exists.") {
 					toast({
-						position: 'top',
+						position: 'top-right',
 						render: () => (
 							<AlertToast
 								onClick={toast.closeAll}
@@ -222,7 +222,7 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 		onSuccess() {
 			handleResetFormInputs();
 			toast({
-				position: 'top',
+				position: 'top-right',
 				render: () => (
 					<AlertToast
 						onClick={toast.closeAll}
@@ -235,7 +235,7 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 		onError() {
 			handleResetFormInputs();
 			toast({
-				position: 'top',
+				position: 'top-right',
 				render: () => (
 					<AlertToast
 						onClick={toast.closeAll}
@@ -268,7 +268,7 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 				if (error instanceof AxiosError) {
 					if (error.response?.data.message === 'Unauthorized') {
 						toast({
-							position: 'top',
+							position: 'top-right',
 							render: () => (
 								<AlertToast
 									onClick={toast.closeAll}
@@ -279,7 +279,7 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 						});
 					} else {
 						toast({
-							position: 'top',
+							position: 'top-right',
 							render: () => (
 								<AlertToast
 									onClick={toast.closeAll}

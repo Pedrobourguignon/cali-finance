@@ -83,14 +83,10 @@ export const NewCompanyLinks: React.FC<{
 				w="100%"
 			>
 				<Flex direction="column" align="center" gap="4" w="100%">
-					<Flex
-						direction="column"
-						gap="4"
-						align="center"
-						cursor="pointer"
-						onClick={() => setOpenImageUploaderModal(true)}
-					>
-						<CompanyLogo logo={newCompanyPicture} />
+					<Flex direction="column" gap="4" align="center" cursor="pointer">
+						<Flex onClick={() => setOpenImageUploaderModal(true)}>
+							<CompanyLogo logo={newCompanyPicture} />
+						</Flex>
 						<ImageUploader
 							openImageUploaderModal={openImageUploaderModal}
 							setOpenImageUploaderModal={setOpenImageUploaderModal}

@@ -181,7 +181,7 @@ export const CompaniesHeader = () => {
 			return (
 				<Flex align="center" gap="2">
 					<Spinner size="sm" />
-					<Text color="gray.500" fontSize="sm">
+					<Text color="gray.500" fontSize="sm" _hover={{ opacity: 0.8 }}>
 						{translate('awaitingPolling')}
 					</Text>
 				</Flex>
@@ -193,6 +193,7 @@ export const CompaniesHeader = () => {
 					<Text
 						color="blue.300"
 						as="u"
+						_hover={{ opacity: 0.7 }}
 						fontSize="md"
 						cursor="pointer"
 						onClick={() =>

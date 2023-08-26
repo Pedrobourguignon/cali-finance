@@ -38,7 +38,7 @@ export const CoinCard: React.FC<ICoinCard> = ({
 		>
 			<Flex direction="column" w="max-content">
 				<Flex align="center" gap="2">
-					<Img src={coin.logo} boxSize={{ md: '5', xl: '6' }} />
+					<Img src={coin.logo} boxSize={{ base: '5', xl: '6' }} />
 					<Flex direction="column">
 						<Text fontSize="xs" color={color}>
 							{coin.symbol?.toUpperCase()}

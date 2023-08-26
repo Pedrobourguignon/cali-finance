@@ -27,7 +27,7 @@ export const ContactOptionsModal: React.FC<IBasicModal> = ({
 	const theme = usePicasso();
 
 	return (
-		<Modal isOpen={isOpen} onClose={onClose} size="sm">
+		<Modal isOpen={isOpen} onClose={onClose} size="sm" isCentered>
 			<ModalOverlay />
 			<ModalContent w="max-content">
 				<OffsetShadow top="0.5rem" left="0.5rem" width="22.2rem">

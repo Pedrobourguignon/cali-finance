@@ -52,12 +52,17 @@ export const RecentActivities = () => {
 				<Text fontWeight="medium" fontSize="md">
 					{translate('recentActivities')}
 				</Text>
-				<Link href={navigationPaths.dashboard.history} as={NextLink}>
+				<Link
+					href={navigationPaths.dashboard.history}
+					as={NextLink}
+					_hover={{ textDecoration: 'none' }}
+				>
 					<Text
 						color="gray.500"
 						fontSize="xs"
 						cursor="pointer"
 						fontWeight="medium"
+						_hover={{ opacity: 0.8 }}
 					>
 						{translate('seeAll')}
 					</Text>
