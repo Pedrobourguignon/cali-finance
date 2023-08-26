@@ -106,7 +106,7 @@ export const NotificationPopover: React.FC<INotificationPopover> = ({
 						direction="column"
 						gap="2"
 						overflow="auto"
-						overflowY="scroll"
+						overflowY="auto"
 						sx={{
 							'&::-webkit-scrollbar': {
 								width: '2',

@@ -128,7 +128,7 @@ export const CreateCompanyComponent: React.FC<ICreateCompanyComponent> = ({
 						>
 							<Flex direction="column" w="100%">
 								<Text {...labelStyle} mb="2">
-									Type *
+									{translate('type')}
 								</Text>
 								<Menu>
 									<MenuButton

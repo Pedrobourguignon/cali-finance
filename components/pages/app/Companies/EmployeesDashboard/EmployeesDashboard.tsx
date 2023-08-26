@@ -38,7 +38,6 @@ export const EmployeesDashboard: React.FC<IEmployeeDashboard> = ({
 		onClose: onCloseMobile,
 	} = useDisclosure();
 	const { isOpen: isFullList, onToggle: toggleListView } = useDisclosure();
-	const { session } = useAuth();
 
 	const {
 		data: employees,
