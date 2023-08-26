@@ -187,23 +187,7 @@ export const HistoryComponent: React.FC<IHistoryPage> = ({ history }) => {
 										fontSize="sm"
 										whiteSpace="normal"
 									>
-										{translate('noResults')}{' '}
-										<Text
-											decoration="underline"
-											color={theme.text.primary}
-											fontSize="sm"
-											as="span"
-											whiteSpace="normal"
-											fontWeight="semibold"
-											cursor="pointer"
-											onClick={() => {
-												setFilteredActivities(history || []);
-												setSelectedFilterOption(translate('all'));
-											}}
-										>
-											{translate('returnToAllResults')}
-										</Text>{' '}
-										{translate('orSelectAnother')}
+										{translate('noResults')}
 									</Text>
 								</Flex>
 							)}

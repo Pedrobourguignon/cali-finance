@@ -82,6 +82,8 @@ export const AddEmployee: React.FC<IAddEmployee> = ({ isOpen, onClose }) => {
 		formState: { errors },
 	} = useForm<IAddEmployeeForm>({
 		resolver: yupResolver(addEmployeeSchema),
+		mode: 'onChange',
+		reValidateMode: 'onChange',
 	});
 
 	const [individuallyOrList, setIndividuallyOrList] = useState(true);
