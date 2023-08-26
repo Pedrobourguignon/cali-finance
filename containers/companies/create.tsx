@@ -107,6 +107,20 @@ export const CreateCompanyContainer = () => {
 							/>
 						),
 					});
+				} else if (
+					error.response?.data.message ===
+					'You have 10 incomplete companies. Please deploy a contract before creating any new company.'
+				) {
+					toast({
+						position: 'top-right',
+						render: () => (
+							<AlertToast
+								onClick={toast.closeAll}
+								text="maximumCompanyWithoutDeploy"
+								type="error"
+							/>
+						),
+					});
 				} else {
 					toast({
 						position: 'top-right',

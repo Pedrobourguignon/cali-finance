@@ -27,5 +27,6 @@
 	"redeployCompany": "Empresa sem Contrato. Clique aqui para reimplantar.",
 	"redeployWithSuccess": "Reimplantada com sucesso",
 	"employeeNotYetDeployed": "O colaborador ainda não foi implantado. Iremos refazer a operação com o salário já atualizado.",
-	"requestRejected": "A conexão foi rejeitada. Por favor, tente novamente."
+	"requestRejected": "A conexão foi rejeitada. Por favor, tente novamente.",
+	"maximumCompanyWithoutDeploy": "Você tem 10 empresas incompletas. Implante um contrato antes de criar qualquer nova empresa."
 }
