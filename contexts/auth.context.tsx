@@ -5,6 +5,7 @@ import { AUTH_SERVICE_ROUTES } from 'helpers';
 import { authClient, checkJwt } from 'utils';
 import { AlertToast } from 'components';
 import { useToast } from '@chakra-ui/react';
+import router from 'next/router';
 
 interface IAuthContext {
 	getSignature: (nonce: string) => Promise<`0x${string}` | undefined>;
@@ -106,7 +107,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 
 	useEffect(() => {
 		if (isConnected) checkSession();
-	}, [session]);
+		if ((!isConnected && !session) || !isConnected) router.push('/dashboard');
+	}, [session, isConnected]);
 
 	const contextStates = useMemo(
 		() => ({
