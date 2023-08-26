@@ -5,6 +5,7 @@ import {
 	getLogo,
 	getNotificationsData,
 	handleLogoImage,
+	handleNotificationAmount,
 	truncateWallet,
 } from 'utils';
 import useTranslation from 'next-translate/useTranslation';
@@ -91,9 +92,7 @@ export const ActivitiesData: React.FC<IActivitiesData> = ({ activities }) => {
 						<Flex direction="column" fontSize="xs" flex="3" align="end">
 							<Flex gap="1">
 								<Text>
-									{Number(
-										activities.meta.data.amount?.toLocaleString(locale)
-									).toFixed(2)}
+									{handleNotificationAmount(activities.meta.data.amount)}
 								</Text>
 								<Text>USDT</Text>
 							</Flex>

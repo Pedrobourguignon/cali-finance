@@ -1,15 +1,21 @@
 import { Flex, Grid, GridItem, Img, Text } from '@chakra-ui/react';
 import { usePicasso } from 'hooks';
+import useTranslation from 'next-translate/useTranslation';
 import { useRouter } from 'next/router';
 import React from 'react';
 import { IActivitiesData } from 'types';
-import { dateHandler, getNotificationsData } from 'utils';
+import {
+	dateHandler,
+	getNotificationsData,
+	handleNotificationAmount,
+} from 'utils';
 
 export const RecentActivitiesData: React.FC<IActivitiesData> = ({
 	activities,
 }) => {
 	const theme = usePicasso();
 	const { locale } = useRouter();
+	const { t: translate } = useTranslation('dashboard');
 
 	return (
 		<Grid
@@ -43,10 +49,10 @@ export const RecentActivitiesData: React.FC<IActivitiesData> = ({
 			>
 				<Flex direction="column" align="end">
 					<Text fontSize="xs" color={theme.text.black}>
-						{Number(activities.meta.data.amount).toFixed(7)} USDT
+						{handleNotificationAmount(activities.meta.data.amount)} USDT
 					</Text>
 					<Text color="green.400 " fontSize="xs" whiteSpace="nowrap">
-						Completed
+						{translate('completed')}
 					</Text>
 				</Flex>
 			</GridItem>
