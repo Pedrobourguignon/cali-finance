@@ -7,7 +7,7 @@ import {
 	NoEmployeeSkeleton,
 	AddEmployeeMobile,
 } from 'components';
-import { useAuth, useCompanies, usePicasso } from 'hooks';
+import { useCompanies, usePicasso } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
 import router, { useRouter } from 'next/router';
 import { useEffect } from 'react';
@@ -192,10 +192,24 @@ export const EmployeesDashboard: React.FC<IEmployeeDashboard> = ({
 			</Flex>
 			{isLoadingEmployees ? (
 				<Flex w="100%" direction="column" gap="2">
-					<Flex justify="space-between" fontSize="sm">
-						<Text>{translate('nameAddress')}</Text>
-						{isGeneral && <Text>{translate('team')}</Text>}
-						<Text>{translate('amount')}</Text>
+					<Flex w="full" fontSize="sm">
+						<Flex fontSize="sm" w="full">
+							<Flex flex="3">
+								<Text>{translate('nameAddress')}</Text>
+							</Flex>
+							<Flex flex="3">
+								<Text flex="3" px="4.5rem">
+									{translate('status')}
+								</Text>
+							</Flex>
+
+							{isGeneral && <Text>{translate('team')}</Text>}
+							<Flex flex="3">
+								<Text flex="3" textAlign="end" px="20">
+									{translate('amount')}
+								</Text>
+							</Flex>
+						</Flex>
 					</Flex>
 					<Flex direction="column" gap="2">
 						<>
@@ -208,10 +222,22 @@ export const EmployeesDashboard: React.FC<IEmployeeDashboard> = ({
 			) : (
 				<Flex w="100%" direction="column" gap="2">
 					{employees && employees.length > 0 && (
-						<Flex justify="space-between" fontSize="sm">
-							<Text>{translate('nameAddress')}</Text>
+						<Flex fontSize="sm" w="full">
+							<Flex flex="3">
+								<Text>{translate('nameAddress')}</Text>
+							</Flex>
+							<Flex flex="3">
+								<Text flex="3" px="4.5rem">
+									{translate('status')}
+								</Text>
+							</Flex>
+
 							{isGeneral && <Text>{translate('team')}</Text>}
-							<Text>{translate('amount')}</Text>
+							<Flex flex="3">
+								<Text flex="3" textAlign="end" px="20">
+									{translate('amount')}
+								</Text>
+							</Flex>
 						</Flex>
 					)}
 					<Flex direction="column" gap="2">

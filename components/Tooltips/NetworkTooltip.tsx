@@ -10,10 +10,10 @@ export const NetworkTooltip: React.FC<INetworkTooltip> = ({ children }) => {
 	return (
 		<Flex position="relative" borderRadius="md" width="max-content">
 			<Flex
-				bg={theme.branding.blue}
+				bg={theme.branding.blue2}
 				zIndex="0"
 				border="1px solid"
-				borderColor={theme.branding.blue}
+				borderColor={theme.branding.blue2}
 				borderRadius="inherit"
 				w="100%"
 				px="0"
@@ -27,7 +27,7 @@ export const NetworkTooltip: React.FC<INetworkTooltip> = ({ children }) => {
 					w="100%"
 					h="max-content"
 					borderWidth="1px"
-					borderColor={theme.branding.blue}
+					borderColor={theme.branding.blue2}
 					borderRadius="md"
 					px="2"
 					py="2"

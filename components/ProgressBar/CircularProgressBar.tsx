@@ -22,7 +22,7 @@ export const CircularProgressBar: React.FC<IPercentage> = ({ percentage }) => {
 			<path
 				strokeWidth="5"
 				strokeLinecap="round"
-				stroke={theme.branding.blue}
+				stroke={theme.branding.blue2}
 				strokeDasharray="240"
 				strokeDashoffset={percentCalc}
 				d="M52,90

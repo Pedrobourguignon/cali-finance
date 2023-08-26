@@ -15,7 +15,8 @@ const usePicasso = () => {
 			black2: useColorModeValue('#1A202C', '#1A202C'),
 		},
 		branding: {
-			blue: '#1A94E1',
+			blue: { 50: '#E4F2F3', 600: '#00576B' },
+			blue2: '#1A94E1',
 			cyan: '#02E4D1',
 			red: '#E83151',
 			royal: '#0B132B',

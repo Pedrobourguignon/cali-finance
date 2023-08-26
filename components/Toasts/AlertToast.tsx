@@ -36,7 +36,7 @@ export const AlertToast: React.FC<IToast> = ({ onClick, text, type }) => {
 			};
 		}
 		return {
-			color: theme.branding.blue,
+			color: theme.branding.blue2,
 			icon: AiFillExclamationCircle,
 		};
 	};
