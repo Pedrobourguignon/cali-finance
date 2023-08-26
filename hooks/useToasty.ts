@@ -12,7 +12,7 @@ const useToasty = () => {
 		} else {
 			toast({
 				duration: 5000,
-				position: 'top',
+				position: 'top-right',
 				isClosable: true,
 				...newState,
 			});
@@ -23,7 +23,7 @@ const useToasty = () => {
 		if (state && Object.keys(state).length !== 0) {
 			toastIdRef.current = toast({
 				duration: 5000,
-				position: 'top',
+				position: 'top-right',
 				isClosable: true,
 				...state,
 			});

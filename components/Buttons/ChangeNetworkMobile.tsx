@@ -25,6 +25,8 @@ export const ChangeNetworkMobile: React.FC<IChangeNetworkMobile> = ({
 		_hover={{ bg: 'transparent' }}
 		_focus={{ bg: 'transparent' }}
 		p="0"
+		isDisabled
+		_disabled={{}}
 	>
 		<Img src={networkIcon} bg="transparent" boxSize="6" />
 		<Text display={{ base: 'none', lg: 'flex' }}>{networkName}</Text>

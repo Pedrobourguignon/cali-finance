@@ -180,7 +180,7 @@ export const CompaniesHeader = () => {
 			return (
 				<Flex align="center" gap="2">
 					<Spinner size="sm" />
-					<Text color="gray.500" fontSize="sm">
+					<Text color="gray.500" fontSize="sm" _hover={{ opacity: 0.8 }}>
 						{translate('awaitingPolling')}
 					</Text>
 				</Flex>
@@ -192,6 +192,7 @@ export const CompaniesHeader = () => {
 					<Text
 						color="blue.300"
 						as="u"
+						_hover={{ opacity: 0.7 }}
 						fontSize="md"
 						cursor="pointer"
 						onClick={() =>
@@ -301,7 +302,7 @@ export const CompaniesHeader = () => {
 							locale && formatUsd(selectedCompany.totalFundsUsd, locale)
 						}`}</Text>
 					) : (
-						`$ 0`
+						<Text fontSize="xl">$ 0</Text>
 					)}
 					<Text fontSize="sm" fontWeight="semibold">
 						{translate('totalFunds')}

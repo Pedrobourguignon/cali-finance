@@ -36,7 +36,7 @@ export const WithdrawModal: React.FC<IWithdrawModal> = ({
 	const { onOpen: onOpenSelector } = useDisclosure();
 
 	return (
-		<Modal isOpen={isOpen} onClose={onClose}>
+		<Modal isOpen={isOpen} onClose={onClose} isCentered>
 			<ModalOverlay />
 			<ModalContent>
 				<OffsetShadow top="0.5rem" width="100%" left="0.5rem">

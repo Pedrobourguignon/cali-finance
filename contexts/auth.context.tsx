@@ -43,7 +43,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 		} catch (error: any) {
 			if (error.message.includes('User rejected')) {
 				toast({
-					position: 'top',
+					position: 'top-right',
 					render: () => (
 						<AlertToast
 							onClick={toast.closeAll}
@@ -68,7 +68,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 		} catch (error: any) {
 			if (!toast.isActive('credentials-toast') && session) {
 				toast({
-					position: 'top',
+					position: 'top-right',
 					id: 'credentials-toast',
 					render: () => (
 						<AlertToast

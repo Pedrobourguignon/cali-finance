@@ -22,7 +22,7 @@ export const WithdrawButton: React.FC<{
 		onError(error: any) {
 			if (error.cause.data.args[0].includes('Insufficient Company Balance')) {
 				toast({
-					position: 'top',
+					position: 'top-right',
 					render: () => (
 						<AlertToast
 							onClick={toast.closeAll}
@@ -42,7 +42,7 @@ export const WithdrawButton: React.FC<{
 		onSuccess() {
 			onClose?.();
 			toast({
-				position: 'top',
+				position: 'top-right',
 				render: () => (
 					<AlertToast
 						onClick={toast.closeAll}
@@ -54,7 +54,7 @@ export const WithdrawButton: React.FC<{
 		},
 		onError() {
 			toast({
-				position: 'top',
+				position: 'top-right',
 				render: () => (
 					<AlertToast
 						onClick={toast.closeAll}

@@ -87,7 +87,7 @@ export const CreateCompanyContainer = () => {
 			if (error instanceof AxiosError) {
 				if (error.response?.data.message === 'Unique company name') {
 					toast({
-						position: 'top',
+						position: 'top-right',
 						render: () => (
 							<AlertToast
 								onClick={toast.closeAll}
@@ -98,7 +98,7 @@ export const CreateCompanyContainer = () => {
 					});
 				} else if (error.response?.status === 401) {
 					toast({
-						position: 'top',
+						position: 'top-right',
 						render: () => (
 							<AlertToast
 								onClick={toast.closeAll}
@@ -109,7 +109,7 @@ export const CreateCompanyContainer = () => {
 					});
 				} else {
 					toast({
-						position: 'top',
+						position: 'top-right',
 						render: () => (
 							<AlertToast
 								onClick={toast.closeAll}
@@ -129,7 +129,7 @@ export const CreateCompanyContainer = () => {
 		onSuccess: async () => {
 			await sendCompanyTx?.(newCompanyId, createCompanyData?.hash as string);
 			toast({
-				position: 'top',
+				position: 'top-right',
 				render: () => (
 					<AlertToast
 						onClick={toast.closeAll}
@@ -144,7 +144,7 @@ export const CreateCompanyContainer = () => {
 		},
 		onError() {
 			toast({
-				position: 'top',
+				position: 'top-right',
 				render: () => (
 					<AlertToast
 						onClick={toast.closeAll}
@@ -163,7 +163,7 @@ export const CreateCompanyContainer = () => {
 				if (error instanceof AxiosError) {
 					if (error.response?.data.message === 'Unique company name') {
 						toast({
-							position: 'top',
+							position: 'top-right',
 							render: () => (
 								<AlertToast
 									onClick={toast.closeAll}
@@ -174,7 +174,7 @@ export const CreateCompanyContainer = () => {
 						});
 					} else if (error.response?.status === 401) {
 						toast({
-							position: 'top',
+							position: 'top-right',
 							render: () => (
 								<AlertToast
 									onClick={toast.closeAll}
@@ -185,7 +185,7 @@ export const CreateCompanyContainer = () => {
 						});
 					} else {
 						toast({
-							position: 'top',
+							position: 'top-right',
 							render: () => (
 								<AlertToast
 									onClick={toast.closeAll}
