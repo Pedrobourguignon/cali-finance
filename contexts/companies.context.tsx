@@ -9,7 +9,6 @@ import {
 	useState,
 } from 'react';
 import {
-	IEmployee,
 	ISocialMedia,
 	INewEmployee,
 	IEditedEmployeeInfo,
@@ -86,6 +85,7 @@ interface ICompanyContext {
 	getEmployeesBalance: () => Promise<void>;
 	selectedCompanyData: GetUserCompaniesRes | undefined;
 	employees: GetCompanyUsersRes[] | undefined;
+	sendCompanyTx: (id: number, txId: string) => Promise<void>;
 }
 
 export const CompaniesContext = createContext({} as ICompanyContext);
@@ -152,6 +152,12 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 		}
 		setSelectedCompany(response.data);
 		return response.data;
+	};
+
+	const sendCompanyTx = async (id: number, txId: string) => {
+		await mainClient.patch(MAIN_SERVICE_ROUTES.sendCompanyTx(id), {
+			txId,
+		});
 	};
 
 	useEffect(() => {
@@ -430,6 +436,7 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 			getEmployeesBalance,
 			selectedCompanyData,
 			employees,
+			sendCompanyTx,
 		}),
 		[
 			editedInfo,
@@ -452,6 +459,7 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 			isLoadingTotalFunds,
 			selectedCompanyData,
 			employees,
+			sendCompanyTx,
 		]
 	);
 

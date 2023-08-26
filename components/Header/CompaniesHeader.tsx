@@ -26,14 +26,24 @@ import {
 	NeedFundsCompaniesHeader,
 	NotificationPopover,
 	AlertToast,
+	RedeployCompanyButton,
+	WaitMetamaskFinishTransaction,
 } from 'components';
 import useTranslation from 'next-translate/useTranslation';
 import router, { useRouter } from 'next/router';
 import NextLink from 'next/link';
 import { useQuery } from 'react-query';
 import { MdContentCopy } from 'react-icons/md';
-import { useEffect } from 'react';
-import { SpinnerIcon } from '@chakra-ui/icons';
+import { useEffect, useState } from 'react';
+import {
+	useContractWrite,
+	useNetwork,
+	useSwitchNetwork,
+	useWaitForTransaction,
+} from 'wagmi';
+import { Hex } from 'viem';
+import factoryAbi from 'utils/abi/factory.json';
+import { AxiosError } from 'axios';
 
 export const CompaniesHeader = () => {
 	const theme = usePicasso();
@@ -41,6 +51,7 @@ export const CompaniesHeader = () => {
 	const { query, locale } = useRouter();
 	const { onClose, isOpen, onOpen } = useDisclosure();
 	const { t: translate } = useTranslation('company-overall');
+	const { sendCompanyTx } = useCompanies();
 	const {
 		getCompanyById,
 		isLoadingTotalFunds,
@@ -50,6 +61,93 @@ export const CompaniesHeader = () => {
 		employees,
 	} = useCompanies();
 	const toast = useToast();
+	const { data: selectedCompany, isLoading: isLoadingSelectedCompany } =
+		useQuery(
+			'created-company-overview',
+			() => getCompanyById(Number(query.id)),
+			{
+				onError: () => router.push('/404'),
+			}
+		);
+
+	const { chain } = useNetwork();
+	const { chains, switchNetworkAsync } = useSwitchNetwork();
+
+	const { write: createCompanyWrite, data: createCompanyData } =
+		useContractWrite({
+			address: (process.env.NEXT_PUBLIC_FACTORY_CONTRACT || '') as Hex,
+			abi: factoryAbi,
+			functionName: 'createNewCompany',
+		});
+
+	const redeployCompanyContract = async () => {
+		try {
+			if (chain?.id !== 80001) await switchNetworkAsync?.(chains[2].id);
+			createCompanyWrite?.({ args: [selectedCompany?.checksum] });
+		} catch (error) {
+			if (error instanceof AxiosError) {
+				if (error.response?.status === 401) {
+					toast({
+						position: 'top',
+						render: () => (
+							<AlertToast
+								onClick={toast.closeAll}
+								text="unauthorized"
+								type="error"
+							/>
+						),
+					});
+				} else {
+					toast({
+						position: 'top',
+						render: () => (
+							<AlertToast
+								onClick={toast.closeAll}
+								text="weAreWorkingToSolve"
+								type="error"
+							/>
+						),
+					});
+				}
+			}
+		}
+	};
+
+	const [showButton, setShowButton] = useState<boolean>(false);
+
+	const { isLoading } = useWaitForTransaction({
+		hash: createCompanyData?.hash,
+		confirmations: 3,
+		onSuccess: async () => {
+			await sendCompanyTx?.(
+				selectedCompany?.id as number,
+				createCompanyData?.hash as string
+			);
+			setShowButton(false);
+			toast({
+				position: 'top',
+				render: () => (
+					<AlertToast
+						onClick={toast.closeAll}
+						text="redeployWithSuccess"
+						type="success"
+					/>
+				),
+			});
+		},
+		onError() {
+			toast({
+				position: 'top',
+				render: () => (
+					<AlertToast
+						onClick={toast.closeAll}
+						text="weAreWorkingToSolve"
+						type="error"
+					/>
+				),
+			});
+		},
+	});
 
 	const menuOptions = [
 		{
@@ -61,15 +159,6 @@ export const CompaniesHeader = () => {
 			route: navigationPaths.dashboard.companies.funds(query.id?.toString()),
 		},
 	];
-
-	const { data: selectedCompany, isLoading: isLoadingSelectedCompany } =
-		useQuery(
-			'created-company-overview',
-			() => getCompanyById(Number(query.id)),
-			{
-				onError: () => router.push('/404'),
-			}
-		);
 
 	const { onCopy } = useClipboard(selectedCompany?.contract || '');
 
@@ -138,18 +227,32 @@ export const CompaniesHeader = () => {
 		}
 	}, []);
 
+	const showRedeployButton = () => {
+		if (selectedCompany?.status === 'await deploy') {
+			setShowButton(true);
+		} else if (selectedCompany?.status === 'await polling') {
+			setShowButton(false);
+		}
+	};
+
 	useEffect(() => {
+		showRedeployButton();
 		calculateEmployeeRevenue();
 		getEmployeesBalance();
 	}, [selectedCompanyData, employees]);
 
 	return (
 		<Flex direction="column" color={theme.text.primary} w="100%" gap="7">
+			<WaitMetamaskFinishTransaction isOpen={isLoading} onClose={onClose} />
 			<Flex w="100%" justify="space-between" align="center">
 				<NavigationBack href={navigationPaths.dashboard.companies.home}>
 					{translate('backToCompanies')}
 				</NavigationBack>
 				<Flex align="center" gap="2">
+					<RedeployCompanyButton
+						onClick={() => redeployCompanyContract()}
+						showButton={showButton}
+					/>
 					<NeedFundsCompaniesHeader />
 					<NotificationPopover
 						onClose={onClose}

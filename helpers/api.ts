@@ -38,6 +38,7 @@ export const MAIN_SERVICE_ROUTES = {
 		path(API_URLS.main, `/user/${wallet}/settings`),
 	allCompaniesUserActivities: () =>
 		path(API_URLS.main, '/company/all/recent-activity'),
+	sendCompanyTx: (id: number) => path(API_URLS.main, `/company/${id}`),
 };
 export const COIN_SERVICE_ROUTES = {
 	getCoinService: path(API_URLS.main, '/coin'),
