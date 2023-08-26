@@ -202,6 +202,7 @@ export const CompaniesHeaderMobile = () => {
 					</Text>
 				</Flex>
 			</Flex>
+
 			<NeedFundsCompaniesHeader />
 			<Flex gap="4" w="100%" direction="column">
 				<Flex

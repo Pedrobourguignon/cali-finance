@@ -42,9 +42,9 @@ export const ConfirmTransaction: React.FC<IConfirmTransaction> = ({
 	setConfirm,
 }) => {
 	const { t: translate } = useTranslation('company-overall');
-	const buttonOptions = [translate('deposit'), translate('withdrawal')];
+	const buttonOptions = ['deposit', 'withdrawal'];
 	const toast = useToast();
-	const { getCompanyById } = useCompanies();
+	const { getCompanyById, setIsLoadingTotalFunds } = useCompanies();
 	const { locale } = useRouter();
 	const [selectedOption, setSelectedOption] = useState<string | undefined>(
 		transaction.type
@@ -106,6 +106,8 @@ export const ConfirmTransaction: React.FC<IConfirmTransaction> = ({
 		hash: withdrawFundsData?.hash,
 		confirmations: 3,
 		onSuccess: () => {
+			setIsLoadingTotalFunds(true);
+			setConfirm(false);
 			toast({
 				position: 'top-right',
 				render: () => (
@@ -150,6 +152,7 @@ export const ConfirmTransaction: React.FC<IConfirmTransaction> = ({
 			});
 			setIsLoadingDeposit(false);
 			setConfirm(false);
+			setIsLoadingTotalFunds(true);
 			toast({
 				position: 'top-right',
 				render: () => (
@@ -240,7 +243,7 @@ export const ConfirmTransaction: React.FC<IConfirmTransaction> = ({
 	};
 
 	const handleSendTransaction = async () => {
-		if (transaction.type === 'Deposit') {
+		if (transaction.type === 'deposit') {
 			handleApproveDeposit();
 		} else {
 			if (chain?.id !== 80001) await switchNetworkAsync?.(chains[2].id);
@@ -282,15 +285,13 @@ export const ConfirmTransaction: React.FC<IConfirmTransaction> = ({
 						fontSize="sm"
 						isDisabled={confirm}
 					>
-						{item}
+						{translate(item)}
 					</Button>
 				))}
 			</Flex>
 			<Flex direction="column" gap="4">
 				<Text color={theme.text.primary} fontWeight="medium" fontSize="sm">
-					{translate('confirmTransaction', {
-						transactionType: transaction.type,
-					})}
+					{translate(`confirmTransaction.${transaction.type}`)}
 				</Text>
 				<Flex direction="column" gap="3">
 					<Flex
@@ -307,7 +308,7 @@ export const ConfirmTransaction: React.FC<IConfirmTransaction> = ({
 								<Img src={transaction.logo} boxSize="4" />
 							</Flex>
 						</Flex>
-						{transaction.type === 'Deposit' && (
+						{transaction.type === 'deposit' && (
 							<Flex justify="space-between">
 								<Text>{translate('fee')}</Text>
 								<Text>0.5%</Text>
@@ -324,9 +325,7 @@ export const ConfirmTransaction: React.FC<IConfirmTransaction> = ({
 						px="2"
 					>
 						<Text fontWeight="medium" fontSize="sm">
-							{translate('totalTransaction', {
-								transactionType: transaction.type,
-							})}
+							{translate(`totalTransaction.${transaction.type}`)}
 						</Text>
 						<Flex align="center" gap="1">
 							{transaction.type === 'Deposit' ? (
@@ -362,7 +361,7 @@ export const ConfirmTransaction: React.FC<IConfirmTransaction> = ({
 					}}
 					onClick={() => handleSendTransaction()}
 				>
-					{selectedOption === translate('deposit')
+					{selectedOption?.toLowerCase() === 'deposit'
 						? translate('addFunds')
 						: translate('withdrawFunds')}
 				</Button>

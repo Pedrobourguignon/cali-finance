@@ -36,10 +36,8 @@ export const DepositOrWithdrawCard: React.FC<IDepositOrWithdrawCard> = ({
 	const { transactionSchema } = useSchema();
 	const theme = usePicasso();
 	const { onClose, isOpen, onOpen } = useDisclosure();
-	const buttonOptions = [translate('deposit'), translate('withdrawal')];
-	const [selectedOption, setSelectedOption] = useState<string>(
-		translate('deposit')
-	);
+	const buttonOptions = ['deposit', 'withdrawal'];
+	const [selectedOption, setSelectedOption] = useState<string>('deposit');
 	const { listOfTokens } = useTokens();
 	const {
 		register,
@@ -55,7 +53,7 @@ export const DepositOrWithdrawCard: React.FC<IDepositOrWithdrawCard> = ({
 
 	const handleSelectedButton = (btnName: string) => {
 		const selectedButton = buttonOptions.find(item => item === btnName);
-		setSelectedOption(selectedButton!);
+		if (selectedButton) setSelectedOption(selectedButton);
 	};
 
 	const handleDeposit = (transaction: IDepositOrWithdrawnForm) => {
@@ -98,7 +96,7 @@ export const DepositOrWithdrawCard: React.FC<IDepositOrWithdrawCard> = ({
 								_focus={{}}
 								fontSize="sm"
 							>
-								{item}
+								{translate(item)}
 							</Button>
 						))}
 					</Flex>
@@ -144,7 +142,7 @@ export const DepositOrWithdrawCard: React.FC<IDepositOrWithdrawCard> = ({
 							</Text>
 						</Flex>
 						<BlackButton py="1.5" type="submit" whiteSpace="normal">
-							{selectedOption === translate('deposit')
+							{selectedOption.toLowerCase() === 'deposit'
 								? translate('approveTokenSpend')
 								: translate('withdrawFunds')}
 						</BlackButton>

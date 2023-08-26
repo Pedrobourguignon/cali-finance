@@ -33,9 +33,15 @@
 	"withdrawn": "Withdrawn",
 	"thisWeek": "This Week",
 	"thisMonth": "This Month",
-	"confirmTransaction": "Confirm {{transactionType}}",
+	"confirmTransaction": {
+		"deposit": "Confirm deposit",
+		"withdrawal": "Confirm withdraw"
+	},
 	"fee": "Fee",
-	"totalTransaction": "Total {{transactionType}}",
+	"totalTransaction": {
+		"deposit": "Total deposit",
+		"withdrawal": "Total withdraw"
+	},
 	"cancel": "Cancel",
 	"youDontHaveEmployee": "You don’t have employees registered yet",
 	"awaitingPolling": "Waiting for the contract to be confirmed by the network.",

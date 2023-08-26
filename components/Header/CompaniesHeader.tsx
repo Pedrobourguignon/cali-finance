@@ -54,6 +54,7 @@ export const CompaniesHeader = () => {
 	const { sendCompanyTx } = useCompanies();
 	const {
 		getCompanyById,
+		isLoadingTotalFunds,
 		selectedCompanyData,
 		getEmployeesBalance,
 		calculateEmployeeRevenue,
@@ -262,7 +263,7 @@ export const CompaniesHeader = () => {
 				</Flex>
 			</Flex>
 			<Flex w="100%" justify="space-between" align="center">
-				<Flex gap="3" align="end">
+				<Flex gap="3" align="center" maxH="20">
 					{!selectedCompany?.logo ? (
 						<Flex
 							boxSize="20"
@@ -284,7 +285,7 @@ export const CompaniesHeader = () => {
 						<Flex direction="column" gap="1">
 							<Text
 								maxW={{ md: '40', xl: '80' }}
-								maxH="20"
+								maxH="10"
 								overflow="hidden"
 								fontSize="2xl"
 							>
@@ -298,11 +299,21 @@ export const CompaniesHeader = () => {
 					{isLoadingSelectedCompany ? (
 						<Skeleton w="14" h="6" />
 					) : selectedCompany?.totalFundsUsd ? (
-						<Text fontSize="xl">{`$ ${
-							locale && formatUsd(selectedCompany.totalFundsUsd, locale)
-						}`}</Text>
+						<Flex align="center" gap="2">
+							<Text fontSize="xl">{`$ ${
+								locale && formatUsd(selectedCompany.totalFundsUsd, locale)
+							}`}</Text>
+							{isLoadingTotalFunds && (
+								<Spinner boxSize="4" color={theme.branding.blue} />
+							)}
+						</Flex>
 					) : (
-						<Text fontSize="xl">$ 0</Text>
+						<Flex align="center" gap="2">
+							<Text fontSize="xl">$ 0</Text>
+							{isLoadingTotalFunds && (
+								<Spinner boxSize="4" color={theme.branding.blue} />
+							)}
+						</Flex>
 					)}
 					<Text fontSize="sm" fontWeight="semibold">
 						{translate('totalFunds')}

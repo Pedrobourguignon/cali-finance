@@ -18,11 +18,7 @@ export const NeedFundsCompaniesHeader = () => {
 			px="4"
 			display={displayNeedFundsCard}
 		>
-			<Text
-				fontWeight="medium"
-				fontSize={{ base: '2xs', '2xl': 'xs' }}
-				color={theme.text.white}
-			>
+			<Text fontWeight="medium" fontSize="xs" color={theme.text.white}>
 				{translate('needingFunds')}
 			</Text>
 		</Flex>
@@ -37,11 +33,7 @@ export const NeedFundsCompaniesHeader = () => {
 			px="4"
 			display={displayNeedFundsCard}
 		>
-			<Text
-				fontWeight="medium"
-				fontSize={{ base: '2xs', '2xl': 'xs' }}
-				color={theme.text.white}
-			>
+			<Text fontWeight="medium" fontSize="xs" color={theme.text.white}>
 				{translate('needingFunds')}
 			</Text>
 		</Flex>

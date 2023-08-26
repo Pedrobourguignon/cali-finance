@@ -79,6 +79,8 @@ interface ICompanyContext {
 	refetchAllUserCompanies: <TPageData>(
 		options?: (RefetchOptions & RefetchQueryFilters<TPageData>) | undefined
 	) => Promise<QueryObserverResult<GetUserCompaniesRes[], unknown>>;
+	setIsLoadingTotalFunds: Dispatch<SetStateAction<boolean>>;
+	isLoadingTotalFunds: boolean;
 	calculateEmployeeRevenue: () => void;
 	getEmployeesBalance: () => Promise<void>;
 	selectedCompanyData: GetUserCompaniesRes | undefined;
@@ -108,6 +110,7 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 	>([]);
 	const [employeesBalance, setEmployeesBalance] = useState<number>(0);
 	const [employeesRevenue, setEmployeesRevenue] = useState<number>(0);
+	const [isLoadingTotalFunds, setIsLoadingTotalFunds] = useState(false);
 
 	const getAllUserCompanies: () => Promise<
 		GetUserCompaniesRes[]
@@ -144,6 +147,9 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 	const getCompanyById = async (id: number): Promise<GetUserCompaniesRes> => {
 		checkJwt();
 		const response = await mainClient.get(`/company/${id}`);
+		if (response.data.totalFundsUsd !== selectedCompany.totalFundsUsd) {
+			setIsLoadingTotalFunds(false);
+		}
 		setSelectedCompany(response.data);
 		return response.data;
 	};
@@ -424,6 +430,8 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 			employeesRevenue,
 			setEmployeesRevenue,
 			isLoadingCompanies,
+			setIsLoadingTotalFunds,
+			isLoadingTotalFunds,
 			calculateEmployeeRevenue,
 			getEmployeesBalance,
 			selectedCompanyData,
@@ -447,6 +455,8 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 			employeesBalance,
 			employeesRevenue,
 			isLoadingCompanies,
+			setIsLoadingTotalFunds,
+			isLoadingTotalFunds,
 			selectedCompanyData,
 			employees,
 			sendCompanyTx,
