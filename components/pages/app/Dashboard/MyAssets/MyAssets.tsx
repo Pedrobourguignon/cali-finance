@@ -107,7 +107,9 @@ export const MyAssets = () => {
 								fontSize={{ base: 'sm', md: 'xs', lg: 'sm' }}
 								color={theme.text.primary}
 							>
-								{`$ ${locale ? formatCryptoToDollar(getUsdtBalance) : 0}`}
+								{`$ ${
+									getUsdtBalance ? formatCryptoToDollar(getUsdtBalance) : 0
+								}`}
 							</Text>
 						</Flex>
 						{assetOptions.length > 3 && (
