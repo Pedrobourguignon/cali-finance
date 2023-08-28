@@ -2,13 +2,13 @@ import { Flex } from '@chakra-ui/react';
 import {
 	DashboardComponent,
 	DashboardRightBar,
-	CreateAccountBanner,
 	DashboardHeader,
 	HaveProblemCard,
 	MyAssets,
 	RecentActivitiesDashboard,
 	YourCompaniesMobile,
 	CoinsMobile,
+	CreateAccountBanner,
 } from 'components';
 import { CompaniesProvider, ProfileProvider, TokensProvider } from 'contexts';
 import { useAuth } from 'hooks';

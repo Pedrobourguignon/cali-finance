@@ -1,6 +1,6 @@
 import { Flex, Text } from '@chakra-ui/react';
 import { CompanyCard } from 'components/Cards';
-import { useCompanies, usePicasso } from 'hooks';
+import { useAuth, useCompanies, usePicasso } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
 import React from 'react';
 import { CreateCompanyCard } from '../app';
@@ -9,8 +9,7 @@ export const YourCompaniesMobile = () => {
 	const theme = usePicasso();
 	const { t: translateDashboard } = useTranslation('dashboard');
 	const { allUserCompanies } = useCompanies();
-
-	console.log(allUserCompanies);
+	const { session } = useAuth();
 
 	return (
 		<Flex overflowX="hidden" direction="column" py="10">
@@ -27,7 +26,7 @@ export const YourCompaniesMobile = () => {
 						},
 					}}
 				>
-					{allUserCompanies && allUserCompanies.length > 0 ? (
+					{session && allUserCompanies && allUserCompanies.length > 0 ? (
 						allUserCompanies.map((company, index) => (
 							<Flex key={+index}>
 								<CompanyCard
