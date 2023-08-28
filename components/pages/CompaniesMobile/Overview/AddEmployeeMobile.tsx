@@ -102,6 +102,8 @@ export const AddEmployeeMobile: React.FC<IAddEmployee> = ({
 		formState: { errors },
 	} = useForm<IAddEmployeeForm>({
 		resolver: yupResolver(addEmployeeSchema),
+		mode: 'onChange',
+		reValidateMode: 'onChange',
 	});
 
 	const { mutate } = useMutation(

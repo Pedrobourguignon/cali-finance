@@ -7,12 +7,12 @@ import {
 	NoEmployeeSkeleton,
 	AddEmployeeMobile,
 } from 'components';
-import { useAuth, useCompanies, usePicasso } from 'hooks';
+import { useCompanies, usePicasso } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
 import router, { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { useQuery } from 'react-query';
-import { formatContractNumbers } from 'utils';
+import { formatCrypto } from 'utils';
 import companyAbi from 'utils/abi/company.json';
 
 interface IEmployeeDashboard {
@@ -81,14 +81,7 @@ export const EmployeesDashboard: React.FC<IEmployeeDashboard> = ({
 				const result = await Promise.all([...(data as bigint[])]);
 				if (locale && selectedCompanyData.tokenDecimals) {
 					const numberResult = result.map(item =>
-						Number(
-							formatContractNumbers(
-								item,
-								locale,
-								selectedCompanyData.tokenDecimals || 18,
-								false
-							)
-						)
+						Number(formatCrypto(item, selectedCompanyData.tokenDecimals))
 					);
 					const sum = numberResult.reduce(
 						(accumulator, currentValue) => accumulator + currentValue,
@@ -141,7 +134,7 @@ export const EmployeesDashboard: React.FC<IEmployeeDashboard> = ({
 						</Text>
 					</Flex>
 				)}
-				<Flex gap="8" align="center" display={{ base: 'none', sm: 'flex' }}>
+				<Flex gap="6" align="center" display={{ base: 'none', md: 'flex' }}>
 					{employees && employees?.length > 3 && (
 						<Button h="max-content" onClick={() => toggleListView()}>
 							<Text fontSize="xs" color="gray.500" fontWeight="medium">
@@ -152,10 +145,10 @@ export const EmployeesDashboard: React.FC<IEmployeeDashboard> = ({
 					<BlackButton
 						px="4"
 						onClick={onOpen}
-						fontSize="sm"
+						fontSize="xs"
 						gap="2.5"
 						fontWeight="medium"
-						py="2"
+						py="1.5"
 						borderRadius="base"
 						isDisabled={selectedCompanyData?.contract === null}
 						title={
@@ -168,7 +161,7 @@ export const EmployeesDashboard: React.FC<IEmployeeDashboard> = ({
 						<Text>{translate('addEmployee')}</Text>
 					</BlackButton>
 				</Flex>
-				<Flex gap="8" align="center" display={{ base: 'flex', sm: 'none' }}>
+				<Flex gap="4" align="center" display={{ base: 'flex', md: 'none' }}>
 					{employees && employees?.length > 3 && (
 						<Button h="max-content" onClick={() => toggleListView()}>
 							<Text fontSize="xs" color="gray.500" fontWeight="medium">
@@ -179,23 +172,37 @@ export const EmployeesDashboard: React.FC<IEmployeeDashboard> = ({
 					<BlackButton
 						px="4"
 						onClick={onOpenMobile}
-						fontSize="sm"
+						fontSize="xs"
 						gap="2.5"
 						fontWeight="medium"
-						py="2"
+						py="1.5"
 						borderRadius="base"
 					>
 						<Text>+</Text>
-						<Text>{translate('addEmployee')}</Text>
+						<Text>{translate('addEmployeeMobile')}</Text>
 					</BlackButton>
 				</Flex>
 			</Flex>
 			{isLoadingEmployees ? (
 				<Flex w="100%" direction="column" gap="2">
-					<Flex justify="space-between" fontSize="sm">
-						<Text>{translate('nameAddress')}</Text>
-						{isGeneral && <Text>{translate('team')}</Text>}
-						<Text>{translate('amount')}</Text>
+					<Flex w="full" fontSize="sm">
+						<Flex fontSize="sm" w="full">
+							<Flex flex="3">
+								<Text>{translate('nameAddress')}</Text>
+							</Flex>
+							<Flex flex="3">
+								<Text flex="3" px="4.5rem">
+									{translate('status')}
+								</Text>
+							</Flex>
+
+							{isGeneral && <Text>{translate('team')}</Text>}
+							<Flex flex="3">
+								<Text flex="3" textAlign="end" px="20">
+									{translate('amount')}
+								</Text>
+							</Flex>
+						</Flex>
 					</Flex>
 					<Flex direction="column" gap="2">
 						<>
@@ -208,10 +215,22 @@ export const EmployeesDashboard: React.FC<IEmployeeDashboard> = ({
 			) : (
 				<Flex w="100%" direction="column" gap="2">
 					{employees && employees.length > 0 && (
-						<Flex justify="space-between" fontSize="sm">
-							<Text>{translate('nameAddress')}</Text>
+						<Flex fontSize="sm" w="full">
+							<Flex flex="3">
+								<Text>{translate('nameAddress')}</Text>
+							</Flex>
+							<Flex flex="3">
+								<Text flex="3" px="4.5rem">
+									{translate('status')}
+								</Text>
+							</Flex>
+
 							{isGeneral && <Text>{translate('team')}</Text>}
-							<Text>{translate('amount')}</Text>
+							<Flex flex="3">
+								<Text flex="3" textAlign="end" px="20">
+									{translate('amount')}
+								</Text>
+							</Flex>
 						</Flex>
 					)}
 					<Flex direction="column" gap="2">

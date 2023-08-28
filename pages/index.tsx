@@ -4,7 +4,9 @@ import { TokensProvider } from 'contexts';
 import type { NextPage } from 'next';
 
 const Home: NextPage = () => {
-	const [isLargerThan480] = useMediaQuery('(min-width: 480px)');
+	const [isLargerThan480] = useMediaQuery('(min-width: 480px)', {
+		fallback: true,
+	});
 	return (
 		<TokensProvider>
 			{isLargerThan480 ? (

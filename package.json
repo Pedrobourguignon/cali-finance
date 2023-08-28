@@ -31,6 +31,7 @@
 		"lodash.debounce": "^4.0.8",
 		"next": "^13.1.6",
 		"next-translate": "^2.5.0",
+		"numbro": "^2.3.6",
 		"react": "^18.2.0",
 		"react-dom": "^18.2.0",
 		"react-drag-drop-files": "^2.3.7",

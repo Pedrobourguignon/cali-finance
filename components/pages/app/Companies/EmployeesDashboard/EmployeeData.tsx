@@ -13,7 +13,12 @@ import {
 import { MdContentCopy } from 'react-icons/md';
 import { getLogo, truncateWallet } from 'utils';
 import useTranslation from 'next-translate/useTranslation';
-import { AlertToast, EditEmployee, EditEmployeeMobile } from 'components';
+import {
+	AlertToast,
+	EditEmployee,
+	EditEmployeeMobile,
+	EmployeeStatus,
+} from 'components';
 import { GetCompanyUsersRes } from 'types/interfaces/main-server/IUser';
 
 const teams = ['General', 'Marketing', 'Finance', 'Trozorba'];
@@ -35,7 +40,7 @@ export const EmployeeData: React.FC<IEmployeeData> = ({
 		onOpen: onOpenMobile,
 		onClose: onCloseMobile,
 	} = useDisclosure();
-	const { onCopy } = useClipboard(employee.wallet!);
+	const { onCopy } = useClipboard(employee.wallet ? employee.wallet : '');
 
 	const handleCopyButton = () => {
 		onCopy();
@@ -51,10 +56,62 @@ export const EmployeeData: React.FC<IEmployeeData> = ({
 		});
 	};
 
+	const handleEmployeeAmount = () => {
+		if (employee.status === 1 && employee.revenue) {
+			return (
+				<Flex direction="column" align="end" flex="3">
+					<Flex gap="1" fontSize="xs">
+						<Text>{employee.revenue.toLocaleString('en-US')}</Text>
+						<Text>{employee.asset?.toUpperCase()}</Text>
+					</Flex>
+					<Flex display={{ base: 'none', sm: 'flex' }}>
+						<Button
+							color="gray.500"
+							fontSize="xs"
+							fontWeight="medium"
+							h="max-content"
+							px="0"
+							onClick={onOpen}
+						>
+							<Text w="100%" align="end">
+								{translate('edit')}
+							</Text>
+						</Button>
+					</Flex>
+					<Flex display={{ base: 'flex', sm: 'none' }}>
+						<Button
+							color="gray.500"
+							fontSize="xs"
+							fontWeight="medium"
+							h="max-content"
+							px="0"
+							onClick={onOpenMobile}
+						>
+							<Text w="100%" align="end">
+								{translate('edit')}
+							</Text>
+						</Button>
+					</Flex>
+				</Flex>
+			);
+		}
+		if (employee.status === 0) {
+			return (
+				<Flex direction="column" align="end" flex="3">
+					<Text>-</Text>
+				</Flex>
+			);
+		}
+		return (
+			<Flex direction="column" align="end" flex="3">
+				<Text>{translate('tryAgain')}</Text>
+			</Flex>
+		);
+	};
+
 	return (
 		<Flex
 			w="100%"
-			justify="space-between"
 			align="center"
 			bg="white"
 			color="black"
@@ -68,7 +125,7 @@ export const EmployeeData: React.FC<IEmployeeData> = ({
 				onClose={onCloseMobile}
 				employee={employee}
 			/>
-			<Flex justify="center" align="center" gap="3">
+			<Flex justify="start" align="center" gap="3" flex="3">
 				<Img
 					src={
 						employee.picture === null
@@ -105,7 +162,8 @@ export const EmployeeData: React.FC<IEmployeeData> = ({
 					</Flex>
 				</Flex>
 			</Flex>
-			<Flex>
+			<Flex flex="3" justify="center">
+				<EmployeeStatus status={employee.status} />
 				{isGeneral && (
 					<Select
 						borderColor="gray.200"
@@ -123,47 +181,7 @@ export const EmployeeData: React.FC<IEmployeeData> = ({
 					</Select>
 				)}
 			</Flex>
-			<Flex direction="column" align="end">
-				{employee.revenue ? (
-					<Flex gap="1" fontSize="xs">
-						<Text>{employee.revenue.toLocaleString('en-US')}</Text>
-						<Text>{employee.asset?.toUpperCase()}</Text>
-					</Flex>
-				) : (
-					<Flex gap="1">
-						<Skeleton width="16" height="3" />
-						<Skeleton width="8" height="3" />
-					</Flex>
-				)}
-				<Flex display={{ base: 'none', sm: 'flex' }}>
-					<Button
-						color="gray.500"
-						fontSize="xs"
-						fontWeight="medium"
-						h="max-content"
-						px="0"
-						onClick={onOpen}
-					>
-						<Text w="100%" align="end">
-							{translate('edit')}
-						</Text>
-					</Button>
-				</Flex>
-				<Flex display={{ base: 'flex', sm: 'none' }}>
-					<Button
-						color="gray.500"
-						fontSize="xs"
-						fontWeight="medium"
-						h="max-content"
-						px="0"
-						onClick={onOpenMobile}
-					>
-						<Text w="100%" align="end">
-							{translate('edit')}
-						</Text>
-					</Button>
-				</Flex>
-			</Flex>
+			{handleEmployeeAmount()}
 		</Flex>
 	);
 };

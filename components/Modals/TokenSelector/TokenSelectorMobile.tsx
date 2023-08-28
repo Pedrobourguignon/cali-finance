@@ -94,7 +94,7 @@ export const TokenSelectorMobile: React.FC<ITokenSelector> = ({
 			<ModalBody>
 				<Flex align="center" gap="2">
 					<Text color={theme.bg.primary}>{translate('tokenName')}</Text>
-					<Icon boxSize="5" color={theme.branding.blue} as={IoMdArrowDown} />
+					<Icon boxSize="5" color={theme.branding.blue2} as={IoMdArrowDown} />
 				</Flex>
 				<Flex
 					direction="column"

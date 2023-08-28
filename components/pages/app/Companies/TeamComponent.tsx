@@ -102,17 +102,17 @@ export const TeamComponent = () => {
 										}
 									/>
 									{showSaving && (
-										<Flex align="center" color={theme.branding.blue} gap="1.5">
+										<Flex align="center" color={theme.branding.blue2} gap="1.5">
 											<CircularProgress
 												isIndeterminate
-												color={theme.branding.blue}
+												color={theme.branding.blue2}
 												size="4"
 											/>
 											<Text fontSize="xs">Saving...</Text>
 										</Flex>
 									)}
 									{showSaved && (
-										<Flex align="center" color={theme.branding.blue}>
+										<Flex align="center" color={theme.branding.blue2}>
 											<Icon as={BsCheck} boxSize="6" />
 											<Text fontSize="xs">Saved</Text>
 										</Flex>

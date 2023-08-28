@@ -91,9 +91,9 @@ export const NotificationPopover: React.FC<INotificationPopover> = ({
 								filterTeamNotifications && filterTeamNotifications.length <= 0
 							}
 							fontSize="sm"
-							color={theme.branding.blue}
-							_hover={{ color: 'theme.branding.blue', bg: 'none' }}
-							_focus={{ color: 'theme.branding.blue', bg: 'none' }}
+							color={theme.branding.blue2}
+							_hover={{ color: 'theme.branding.blue2', bg: 'none' }}
+							_focus={{ color: 'theme.branding.blue2', bg: 'none' }}
 							w="max-content"
 							pt="7"
 							onClick={() => clearAllNotifications()}

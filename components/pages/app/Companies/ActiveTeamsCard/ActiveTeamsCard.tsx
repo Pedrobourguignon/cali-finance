@@ -77,7 +77,7 @@ export const ActiveTeamsCard = () => {
 				<Text color="black" fontSize="md" fontWeight="medium">
 					{translate('activeTeams')}
 				</Text>
-				<Text fontSize="xs" color={theme.branding.blue} fontWeight="medium">
+				<Text fontSize="xs" color={theme.branding.blue2} fontWeight="medium">
 					{translate('seeAll')}
 				</Text>
 			</Flex>

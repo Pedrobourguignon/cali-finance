@@ -14,7 +14,9 @@ import { AppLayout, MobileLayout } from 'layouts';
 import React from 'react';
 
 export const DashboardContainer = () => {
-	const [isLargerThan767] = useMediaQuery('(min-width: 767px)');
+	const [isLargerThan767] = useMediaQuery('(min-width: 767px)', {
+		fallback: true,
+	});
 
 	return (
 		<TokensProvider>

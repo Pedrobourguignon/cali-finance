@@ -1,22 +1,12 @@
-import {
-	Button,
-	Flex,
-	Icon,
-	Img,
-	Input,
-	InputGroup,
-	Select,
-	Text,
-} from '@chakra-ui/react';
+import { Flex, Img, Select, Text } from '@chakra-ui/react';
 import { usePicasso, useTokens } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
 import { useRouter } from 'next/router';
-import { IoIosArrowDown } from 'react-icons/io';
 import {
 	GetUserCompaniesRes,
 	ICompany,
 } from 'types/interfaces/main-server/ICompany';
-import { formatContractNumbers, getCoinLogo } from 'utils';
+import { formatCrypto, formatCryptoToDollar, getCoinLogo } from 'utils';
 
 interface ISelectedCoin {
 	onOpen: () => void;
@@ -73,26 +63,22 @@ export const WithdrawContent: React.FC<ISelectedCoin> = ({
 					<Flex fontSize={{ base: 'sm', md: 'xs', xl: 'sm' }}>
 						<Flex direction="column">
 							<Text color="black">
-								${' '}
-								{locale &&
-									company.tokenDecimals &&
-									formatContractNumbers(
-										employeeBalance,
-										locale,
-										company.tokenDecimals,
-										true
-									)}
+								{`$ ${
+									company.tokenDecimals
+										? formatCryptoToDollar(
+												employeeBalance,
+												company.tokenDecimals
+										  )
+										: 0
+								}`}
 							</Text>
 							<Flex align="center" gap="1">
 								<Text fontSize="xs" color="black">
-									{locale &&
-										company.tokenDecimals &&
-										formatContractNumbers(
-											employeeBalance,
-											locale,
-											company.tokenDecimals,
-											false
-										)}
+									{`${
+										company.tokenDecimals
+											? formatCrypto(employeeBalance, company.tokenDecimals)
+											: null
+									}`}
 								</Text>
 								<Img src={getCoinLogo('USDT', listOfTokens)} boxSize="4" />
 							</Flex>

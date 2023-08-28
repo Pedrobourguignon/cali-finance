@@ -31,7 +31,7 @@ import {
 } from 'components';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { formatDecimals, getCoinLogo, mainClient, truncateWallet } from 'utils';
+import { toCrypto, getCoinLogo, mainClient, truncateWallet } from 'utils';
 import { MobileModalLayout } from 'layouts';
 import useTranslation from 'next-translate/useTranslation';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
@@ -181,10 +181,7 @@ export const EditEmployeeMobile: React.FC<IEditEmployee> = ({
 				editEmployeeWrite?.({
 					args: [
 						employee.wallet,
-						formatDecimals(
-							editedEmployeeData.amount,
-							selectedCompany.tokenDecimals
-						),
+						toCrypto(editedEmployeeData.amount, selectedCompany.tokenDecimals),
 					],
 				});
 			},

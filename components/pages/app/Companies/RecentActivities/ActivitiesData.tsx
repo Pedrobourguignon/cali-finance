@@ -2,6 +2,7 @@ import { Flex, Img, Text } from '@chakra-ui/react';
 import { IActivitiesData } from 'types';
 import {
 	dateHandler,
+	formatFiat,
 	getLogo,
 	getNotificationsData,
 	handleLogoImage,
@@ -90,11 +91,7 @@ export const ActivitiesData: React.FC<IActivitiesData> = ({ activities }) => {
 					activities.event.name === 'company_deposit_received' ? (
 						<Flex direction="column" fontSize="xs" flex="3" align="end">
 							<Flex gap="1">
-								<Text>
-									{Number(
-										activities.meta.data.amount?.toLocaleString(locale)
-									).toFixed(2)}
-								</Text>
+								<Text>{formatFiat(activities.meta.data.amount)}</Text>
 								<Text>USDT</Text>
 							</Flex>
 							<Text textAlign="end" color="green.400">

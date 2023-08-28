@@ -12,7 +12,9 @@ export const HistoryContainer = () => {
 	const { data: historyNotifications } = useQuery('all-activities', () =>
 		getUserActivities(999)
 	);
-	const [isLargerThan767] = useMediaQuery('(min-width: 767px)');
+	const [isLargerThan767] = useMediaQuery('(min-width: 767px)', {
+		fallback: true,
+	});
 
 	return (
 		<ProfileProvider>

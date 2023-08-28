@@ -3,7 +3,7 @@ import { usePicasso, useTokens } from 'hooks';
 import { useRouter } from 'next/router';
 import React from 'react';
 import { IAssetsOptions } from 'types';
-import { formatContractNumbers, getCoinLogo } from 'utils';
+import { formatCrypto, formatCryptoToDollar, getCoinLogo } from 'utils';
 
 interface IAsset {
 	assetsOptions: IAssetsOptions;
@@ -35,13 +35,10 @@ export const Asset: React.FC<IAsset> = ({ assetsOptions }) => {
 			</Flex>
 			<Flex direction="column" align="flex-end" p="0.5">
 				<Text fontSize={{ base: 'sm', md: 'xs', lg: 'sm' }}>
-					{locale &&
-						formatContractNumbers(assetsOptions.value, locale, 18, false)}
+					{locale ? formatCrypto(assetsOptions.value) : null}
 				</Text>
 				<Text fontSize="xs" color="gray.400">
-					${' '}
-					{locale &&
-						formatContractNumbers(assetsOptions.value, locale, 18, true)}
+					{`$ ${locale ? formatCryptoToDollar(assetsOptions.value) : null}`}
 				</Text>
 			</Flex>
 		</Flex>
