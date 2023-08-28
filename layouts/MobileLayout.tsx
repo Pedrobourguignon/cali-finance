@@ -1,5 +1,5 @@
 import { Flex } from '@chakra-ui/react';
-import { AlertsComponent, BottomMenuMobile, MobileHeader } from 'components';
+import { BottomMenuMobile, MobileHeader } from 'components';
 import { AuthProvider, CompaniesProvider, ProfileProvider } from 'contexts';
 import { usePicasso } from 'hooks';
 import React from 'react';
@@ -11,10 +11,15 @@ interface IMobileLayout {
 export const MobileLayout: React.FC<IMobileLayout> = ({ children }) => {
 	const theme = usePicasso();
 	return (
-		<CompaniesProvider>
-			<ProfileProvider>
+		<ProfileProvider>
+			<CompaniesProvider>
 				<AuthProvider>
-					<Flex w="full" bg={theme.text.primary} direction="column">
+					<Flex
+						w="full"
+						bg={theme.text.primary}
+						direction="column"
+						display={{ base: 'flex', md: 'none' }}
+					>
 						<MobileHeader />
 						<Flex
 							minH="100vh"
@@ -40,8 +45,8 @@ export const MobileLayout: React.FC<IMobileLayout> = ({ children }) => {
 						</Flex>
 					</Flex>
 				</AuthProvider>
-			</ProfileProvider>
-		</CompaniesProvider>
+			</CompaniesProvider>
+		</ProfileProvider>
 	);
 };
 

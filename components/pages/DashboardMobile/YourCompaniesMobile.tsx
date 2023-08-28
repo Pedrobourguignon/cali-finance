@@ -10,6 +10,8 @@ export const YourCompaniesMobile = () => {
 	const { t: translateDashboard } = useTranslation('dashboard');
 	const { allUserCompanies } = useCompanies();
 
+	console.log(allUserCompanies);
+
 	return (
 		<Flex overflowX="hidden" direction="column" py="10">
 			<Text fontSize="md" fontWeight="medium" color={theme.text.primary} pb="4">

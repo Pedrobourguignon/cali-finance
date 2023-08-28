@@ -1,4 +1,4 @@
-import { Flex, useMediaQuery } from '@chakra-ui/react';
+import { Flex } from '@chakra-ui/react';
 import { CompaniesConnected, CompaniesLayoutNoConnected } from 'layouts';
 import {
 	CompaniesConnectedMobile,
@@ -9,19 +9,21 @@ import React from 'react';
 import { useAuth } from 'hooks';
 
 export const GeneralComponent = () => {
-	const [isLargerThan767] = useMediaQuery('(min-width: 767px)', {
-		fallback: true,
-	});
 	const { session } = useAuth();
 
-	return isLargerThan767 ? (
-		<Flex>
-			{session ? <CompaniesConnected /> : <CompaniesLayoutNoConnected />}
-		</Flex>
-	) : (
-		<Flex>
-			{session ? <CompaniesConnectedMobile /> : <CompaniesNoConnectedMobile />}
-		</Flex>
+	return (
+		<>
+			<Flex display={{ base: 'none', md: 'flex' }}>
+				{session ? <CompaniesConnected /> : <CompaniesLayoutNoConnected />}
+			</Flex>
+			<Flex display={{ base: 'flex', md: 'none' }}>
+				{session ? (
+					<CompaniesConnectedMobile />
+				) : (
+					<CompaniesNoConnectedMobile />
+				)}
+			</Flex>
+		</>
 	);
 };
 
