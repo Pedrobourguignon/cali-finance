@@ -80,6 +80,7 @@ export const HistoryActivityData: React.FC<IActivitiesData> = ({
 										borderRadius="base"
 									/>
 								) : activities.event.name === 'user_updated' ||
+								  activities.event.name === 'user_created' ||
 								  activities.event.name === 'team_member_updated' ? (
 									<Flex
 										boxSize="6"
@@ -138,6 +139,7 @@ export const HistoryActivityData: React.FC<IActivitiesData> = ({
 														p="0"
 														w="full"
 														justifyContent="space-between"
+														_hover={{ opacity: 0.8 }}
 													>
 														<Box
 															as="span"
@@ -180,7 +182,9 @@ export const HistoryActivityData: React.FC<IActivitiesData> = ({
 										color={theme.text.primary}
 										fontWeight="bold"
 									>
-										{activities.meta.data.companyName}
+										{activities.event.name === 'user_created'
+											? truncateWallet(activities.wallet)
+											: activities.meta.data.companyName}
 									</Text>
 								)}
 							</GridItem>
