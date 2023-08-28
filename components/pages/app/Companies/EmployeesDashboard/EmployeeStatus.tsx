@@ -27,16 +27,17 @@ export const EmployeeStatus: React.FC<{ status?: number }> = ({ status }) => {
 	};
 	return (
 		<Flex
-			w="11.3rem"
+			w={{ base: 'max-content', md: '11.4rem' }}
 			rounded="full"
-			h="5"
+			py={{ base: '0', md: '0.5' }}
+			px="2"
 			align="center"
 			justify="center"
 			bg={handleEmployeeStatus().bg}
 		>
 			<Text
 				color={handleEmployeeStatus().color}
-				fontSize="xs"
+				fontSize={{ base: '2xs', md: 'xs' }}
 				fontWeight="medium"
 				textAlign="center"
 			>

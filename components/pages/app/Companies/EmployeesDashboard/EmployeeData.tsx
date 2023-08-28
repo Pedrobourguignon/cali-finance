@@ -11,7 +11,7 @@ import {
 	Skeleton,
 } from '@chakra-ui/react';
 import { MdContentCopy } from 'react-icons/md';
-import { getLogo, truncateWallet } from 'utils';
+import { formatFiat, getLogo, truncateWallet } from 'utils';
 import useTranslation from 'next-translate/useTranslation';
 import {
 	AlertToast,
@@ -61,7 +61,7 @@ export const EmployeeData: React.FC<IEmployeeData> = ({
 			return (
 				<Flex direction="column" align="end" flex="3">
 					<Flex gap="1" fontSize="xs">
-						<Text>{employee.revenue.toLocaleString('en-US')}</Text>
+						<Text>{formatFiat(employee.revenue)}</Text>
 						<Text>{employee.asset?.toUpperCase()}</Text>
 					</Flex>
 					<Flex display={{ base: 'none', sm: 'flex' }}>
@@ -116,7 +116,7 @@ export const EmployeeData: React.FC<IEmployeeData> = ({
 			bg="white"
 			color="black"
 			px="4"
-			h="3.25rem"
+			h={{ base: '4.5rem', md: '3.25rem' }}
 			borderRadius="base"
 		>
 			<EditEmployee isOpen={isOpen} onClose={onClose} employee={employee} />
@@ -125,44 +125,63 @@ export const EmployeeData: React.FC<IEmployeeData> = ({
 				onClose={onCloseMobile}
 				employee={employee}
 			/>
-			<Flex justify="start" align="center" gap="3" flex="3">
-				<Img
-					src={
-						employee.picture === null
-							? '/images/editImage.png'
-							: getLogo(employee.picture as string)
-					}
-					boxSize="6"
-				/>
-				<Flex direction="column" justifyItems="center">
-					<Text fontSize="sm" display={{ base: 'flex', sm: 'none' }}>
-						{employee.name?.length !== 40
-							? truncateWallet(employee.wallet)
-							: employee.name}
-					</Text>
-					<Text fontSize="sm" display={{ base: 'none', sm: 'flex' }}>
-						{employee.name?.length !== 40
-							? truncateWallet(employee.wallet)
-							: employee.name}
-					</Text>
-					<Flex align="center">
-						<Text fontSize="xs" color="gray.500">
-							{truncateWallet(employee.wallet)}
-						</Text>
-						<Button
-							w="3"
-							h="3"
-							bg="transparent"
-							onClick={() => {
-								handleCopyButton();
-							}}
+			<Flex direction="column" gap="2">
+				<Flex display={{ base: 'flex', md: 'none' }}>
+					<EmployeeStatus status={employee.status} />
+				</Flex>
+
+				<Flex
+					justify="start"
+					align="center"
+					onClick={() => handleCopyButton()}
+					gap="3"
+					flex="4.5"
+				>
+					<Img
+						src={
+							employee.picture === null
+								? '/images/editImage.png'
+								: getLogo(employee.picture as string)
+						}
+						boxSize="6"
+					/>
+					<Flex direction="column" justifyItems="center">
+						<Text
+							fontSize={{ base: 'xs', md: 'sm' }}
+							display={{ base: 'flex', sm: 'none' }}
 						>
-							<Icon as={MdContentCopy} boxSize="3" color="gray.500" />
-						</Button>
+							{employee.name?.length !== 40
+								? truncateWallet(employee.wallet)
+								: employee.name}
+						</Text>
+						<Text
+							fontSize={{ base: 'xs', md: 'sm' }}
+							display={{ base: 'none', sm: 'flex' }}
+						>
+							{employee.name?.length !== 40
+								? truncateWallet(employee.wallet)
+								: employee.name}
+						</Text>
+						<Flex align="center">
+							<Text fontSize="xs" color="gray.500">
+								{truncateWallet(employee.wallet)}
+							</Text>
+							<Button
+								w="3"
+								h="3"
+								bg="transparent"
+								onClick={() => {
+									handleCopyButton();
+								}}
+							>
+								<Icon as={MdContentCopy} boxSize="3" color="gray.500" />
+							</Button>
+						</Flex>
 					</Flex>
 				</Flex>
 			</Flex>
-			<Flex flex="3" justify="center">
+
+			<Flex flex="3" display={{ base: 'none', md: 'flex' }}>
 				<EmployeeStatus status={employee.status} />
 				{isGeneral && (
 					<Select
