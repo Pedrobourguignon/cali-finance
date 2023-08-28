@@ -26,7 +26,7 @@ export const AppLayout: React.FC<ILanding> = ({
 						minH="100vh"
 						w="full"
 						direction="column"
-						display={{ base: 'none', sm: 'flex' }}
+						display={{ base: 'none', md: 'flex' }}
 					>
 						<AlertsComponent />
 						<Flex

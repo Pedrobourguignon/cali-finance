@@ -1,23 +1,17 @@
-import { useMediaQuery } from '@chakra-ui/react';
 import {
 	CreateCompanyContainer,
 	CreateCompanyMobileContainer,
 } from 'containers';
 import { CompaniesProvider } from 'contexts';
 
-export const CreateCompany = () => {
-	const [isLargerThan767] = useMediaQuery('(min-width: 767px)', {
-		fallback: true,
-	});
-
-	return (
+export const CreateCompany = () => (
+	<>
 		<CompaniesProvider>
-			{isLargerThan767 ? (
-				<CreateCompanyContainer />
-			) : (
-				<CreateCompanyMobileContainer />
-			)}
+			<CreateCompanyContainer />
 		</CompaniesProvider>
-	);
-};
+		<CompaniesProvider>
+			<CreateCompanyMobileContainer />
+		</CompaniesProvider>
+	</>
+);
 export default CreateCompany;
