@@ -1,4 +1,4 @@
-import { Flex, useMediaQuery } from '@chakra-ui/react';
+import { Flex } from '@chakra-ui/react';
 import {
 	DashboardComponent,
 	DashboardRightBar,
@@ -8,26 +8,27 @@ import {
 	RecentActivitiesDashboard,
 	YourCompaniesMobile,
 	CoinsMobile,
+	CreateAccountBanner,
 } from 'components';
-import { ProfileProvider, TokensProvider } from 'contexts';
+import { CompaniesProvider, ProfileProvider, TokensProvider } from 'contexts';
+import { useAuth } from 'hooks';
 import { AppLayout, MobileLayout } from 'layouts';
 import React from 'react';
 
 export const DashboardContainer = () => {
-	const [isLargerThan767] = useMediaQuery('(min-width: 767px)', {
-		fallback: true,
-	});
+	const { session } = useAuth();
 
 	return (
-		<TokensProvider>
-			<ProfileProvider>
-				{isLargerThan767 ? (
-					<AppLayout right={<DashboardRightBar />}>
+		<CompaniesProvider>
+			<TokensProvider>
+				<ProfileProvider>
+					<AppLayout
+						right={session ? <DashboardRightBar /> : <CreateAccountBanner />}
+					>
 						<Flex h="full" direction={{ base: 'column', sm: 'row' }} py="6">
 							<DashboardComponent />
 						</Flex>
 					</AppLayout>
-				) : (
 					<MobileLayout>
 						<DashboardHeader />
 						<CoinsMobile />
@@ -42,9 +43,9 @@ export const DashboardContainer = () => {
 							<HaveProblemCard />
 						</Flex>
 					</MobileLayout>
-				)}
-			</ProfileProvider>
-		</TokensProvider>
+				</ProfileProvider>
+			</TokensProvider>
+		</CompaniesProvider>
 	);
 };
 

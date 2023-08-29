@@ -65,7 +65,7 @@ export const RecentActivitiesDashboard = () => {
 					</Button>
 				</Link>
 			</Flex>
-			{filteredFinancialNotifications?.length === 0 || isLoading ? (
+			{!session || filteredFinancialNotifications?.length === 0 || isLoading ? (
 				<Flex py="24" justify="center">
 					<Text color={theme.text.primary} fontWeight="semibold">
 						{translate('dontHaveRecentActivities')}
