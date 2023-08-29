@@ -8,7 +8,6 @@ import {
 	useDisclosure,
 	useToast,
 	useClipboard,
-	Skeleton,
 } from '@chakra-ui/react';
 import { MdContentCopy } from 'react-icons/md';
 import { getLogo, truncateWallet } from 'utils';
