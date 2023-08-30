@@ -1,7 +1,6 @@
-import { Flex, Img, Select, Text } from '@chakra-ui/react';
-import { usePicasso, useTokens } from 'hooks';
+import { Flex, Img, Text } from '@chakra-ui/react';
+import { useTokens } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
-import { useRouter } from 'next/router';
 import {
 	GetUserCompaniesRes,
 	ICompany,
@@ -16,44 +15,18 @@ interface ISelectedCoin {
 }
 
 export const WithdrawContent: React.FC<ISelectedCoin> = ({
-	userCompanies,
 	company,
 	employeeBalance,
 }) => {
-	const theme = usePicasso();
-	const { t: translate } = useTranslation('dashboard');
 	const { t: translateCompanies } = useTranslation('companies');
 	const { listOfTokens } = useTokens();
-	const { locale } = useRouter();
 
 	return (
 		<Flex direction="column" gap="4">
 			<Flex direction="column" gap="2">
 				<Text color="black" fontSize="sm">
-					{translate('companies')}
+					{translateCompanies('company')}: {company.name}
 				</Text>
-				<Select
-					borderWidth="1px"
-					borderStyle="solid"
-					borderColor={theme.bg.primary}
-					color="black"
-					_hover={{}}
-					h="8"
-				>
-					<option disabled style={{ background: 'white' }}>
-						{translate('selectAOrg')}
-					</option>
-					{userCompanies?.map((org, index) => (
-						<option
-							style={{ background: 'white', color: theme.text.primary }}
-							selected={org.name === company.name}
-							key={+index}
-							color="black"
-						>
-							{org.name}
-						</option>
-					))}
-				</Select>
 			</Flex>
 			<Flex direction="column">
 				<Flex align="center" justify="space-between">
