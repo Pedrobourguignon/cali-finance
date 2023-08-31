@@ -185,20 +185,18 @@ export const EmployeesDashboard: React.FC<IEmployeeDashboard> = ({
 			</Flex>
 			{isLoadingEmployees ? (
 				<Flex w="100%" direction="column" gap="2">
-					<Flex w="full" fontSize="sm">
+					<Flex w="full" fontSize="sm" display={{ base: 'none', md: 'flex' }}>
 						<Flex fontSize="sm" w="full">
 							<Flex flex="3">
 								<Text>{translate('nameAddress')}</Text>
 							</Flex>
 							<Flex flex="3">
-								<Text flex="3" px="4.5rem">
-									{translate('status')}
-								</Text>
+								<Text flex="3">{translate('status')}</Text>
 							</Flex>
 
 							{isGeneral && <Text>{translate('team')}</Text>}
-							<Flex flex="3">
-								<Text flex="3" textAlign="end" px="20">
+							<Flex flex="1">
+								<Text flex="3" textAlign="center">
 									{translate('amount')}
 								</Text>
 							</Flex>
@@ -215,19 +213,17 @@ export const EmployeesDashboard: React.FC<IEmployeeDashboard> = ({
 			) : (
 				<Flex w="100%" direction="column" gap="2">
 					{employees && employees.length > 0 && (
-						<Flex fontSize="sm" w="full">
+						<Flex fontSize="sm" w="full" display={{ base: 'none', md: 'flex' }}>
 							<Flex flex="3">
 								<Text>{translate('nameAddress')}</Text>
 							</Flex>
 							<Flex flex="3">
-								<Text flex="3" px="4.5rem">
-									{translate('status')}
-								</Text>
+								<Text flex="3">{translate('status')}</Text>
 							</Flex>
 
 							{isGeneral && <Text>{translate('team')}</Text>}
-							<Flex flex="3">
-								<Text flex="3" textAlign="end" px="20">
+							<Flex flex="1">
+								<Text flex="3" textAlign="center">
 									{translate('amount')}
 								</Text>
 							</Flex>

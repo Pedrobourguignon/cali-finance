@@ -21,7 +21,7 @@ import companyAbi from 'utils/abi/company.json';
 import caliTokenAbi from 'utils/abi/caliToken.json';
 import { useRouter } from 'next/router';
 import { Hex } from 'viem';
-import { toCrypto } from 'utils';
+import { formatFiat, toCrypto } from 'utils';
 import {
 	prepareWriteContract,
 	waitForTransaction,
@@ -51,6 +51,7 @@ export const ConfirmTransaction: React.FC<IConfirmTransaction> = ({
 	);
 	const [isLoadingApproveDeposit, setIsLoadingApproveDeposit] = useState(false);
 	const [isLoadingDeposit, setIsLoadingDeposit] = useState(false);
+	const [isLoadingButton, setIsLoadingButton] = useState(false);
 	const [selectedCompany, setSelectedCompany] = useState<GetUserCompaniesRes>(
 		{} as GetUserCompaniesRes
 	);
@@ -135,6 +136,7 @@ export const ConfirmTransaction: React.FC<IConfirmTransaction> = ({
 
 	const handleDeposit = async () => {
 		try {
+			setIsLoadingButton(true);
 			const { request } = await prepareWriteContract({
 				address: selectedCompany.contract,
 				abi: companyAbi,
@@ -151,6 +153,7 @@ export const ConfirmTransaction: React.FC<IConfirmTransaction> = ({
 				hash,
 			});
 			setIsLoadingDeposit(false);
+			setIsLoadingButton(false);
 			setConfirm(false);
 			setIsLoadingTotalFunds(true);
 			toast({
@@ -210,11 +213,13 @@ export const ConfirmTransaction: React.FC<IConfirmTransaction> = ({
 			});
 			const { hash } = await writeContract(request);
 			setIsLoadingApproveDeposit(true);
+			setIsLoadingButton(true);
 			const data = await waitForTransaction({
 				confirmations: 3,
 				hash,
 			});
 			setIsLoadingApproveDeposit(false);
+			setIsLoadingButton(false);
 			handleDeposit();
 			if (data) {
 				toast({
@@ -244,9 +249,11 @@ export const ConfirmTransaction: React.FC<IConfirmTransaction> = ({
 
 	const handleSendTransaction = async () => {
 		if (transaction.type === 'deposit') {
+			setIsLoadingButton(true);
 			handleApproveDeposit();
 		} else {
 			if (chain?.id !== 80001) await switchNetworkAsync?.(chains[2].id);
+			setIsLoadingButton(true);
 			withdrawFunds?.();
 		}
 	};
@@ -304,7 +311,7 @@ export const ConfirmTransaction: React.FC<IConfirmTransaction> = ({
 						<Flex justify="space-between">
 							<Text>{translate('amount')}</Text>
 							<Flex align="center" gap="1">
-								<Text>{transaction.amount.toLocaleString('en-US')}</Text>
+								<Text>{formatFiat(transaction.amount)}</Text>
 								<Img src={transaction.logo} boxSize="4" />
 							</Flex>
 						</Flex>
@@ -333,7 +340,7 @@ export const ConfirmTransaction: React.FC<IConfirmTransaction> = ({
 									{locale && subtractFee(transaction.amount, locale)}
 								</Text>
 							) : (
-								<Text fontSize="sm">{transaction.amount}</Text>
+								<Text fontSize="sm">{formatFiat(transaction.amount)}</Text>
 							)}
 							<Img src={transaction.logo} boxSize="4" />
 						</Flex>
@@ -352,6 +359,7 @@ export const ConfirmTransaction: React.FC<IConfirmTransaction> = ({
 					px="6"
 					whiteSpace="normal"
 					fontSize="sm"
+					isLoading={isLoadingButton}
 					_hover={{
 						opacity: 0.8,
 					}}

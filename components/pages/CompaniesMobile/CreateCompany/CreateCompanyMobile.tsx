@@ -31,6 +31,7 @@ import { ICompany } from 'types/interfaces/main-server/ICompany';
 import { FieldErrors, UseFormRegister } from 'react-hook-form/dist/types';
 
 interface ICreateCompanyComponent {
+	isLoadingButton: boolean;
 	setSocialMediasInput: (name: string[], url: string) => void;
 	handleNewPicture: (picture: string) => void;
 	newCompanyPicture: string;
@@ -98,6 +99,7 @@ export const CreateCompanyMobile: React.FC<ICreateCompanyComponent> = ({
 	newCompanyPicture,
 	handleNewPicture,
 	setSocialMediasInput,
+	isLoadingButton,
 }) => {
 	const theme = usePicasso();
 	const { t: translate } = useTranslation('create-company');
@@ -420,6 +422,7 @@ export const CreateCompanyMobile: React.FC<ICreateCompanyComponent> = ({
 							lineHeight="6"
 							py="2.5"
 							borderRadius="sm"
+							isLoading={isLoadingButton}
 						>
 							<Text>+</Text>
 							<Text>{translate('createCompany')}</Text>

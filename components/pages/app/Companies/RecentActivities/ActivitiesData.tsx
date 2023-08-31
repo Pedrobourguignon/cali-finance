@@ -91,10 +91,14 @@ export const ActivitiesData: React.FC<IActivitiesData> = ({ activities }) => {
 					activities.event.name === 'company_deposit_received' ? (
 						<Flex direction="column" fontSize="xs" flex="3" align="end">
 							<Flex gap="1">
-								<Text>{formatFiat(activities.meta.data.amount)}</Text>
-								<Text>USDT</Text>
+								<Text fontSize="xs" color={theme.text.black}>
+									{formatFiat(activities.meta.data.amount)}
+								</Text>
+								<Text fontSize="xs" color={theme.text.black}>
+									USDT
+								</Text>
 							</Flex>
-							<Text textAlign="end" color="green.400">
+							<Text textAlign="end" color="green.400" fontSize="xs">
 								{translate('completed')}
 							</Text>
 						</Flex>

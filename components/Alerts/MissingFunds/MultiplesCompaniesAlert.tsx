@@ -18,7 +18,12 @@ export const MultipleCompaniesAlert = () => {
 			>
 				{translate('yourCompanies')}
 			</Text>
-			<Link href={navigationPaths.dashboard.companies.home} as={NextLink}>
+			<Link
+				href={navigationPaths.dashboard.companies.home}
+				textDecor={{}}
+				_hover={{ opacity: 0.8 }}
+				as={NextLink}
+			>
 				<Text
 					cursor="pointer"
 					fontSize={{ md: 'xs', xl: 'sm' }}

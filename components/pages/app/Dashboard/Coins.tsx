@@ -1,22 +1,19 @@
-import { Flex, Text, useDisclosure } from '@chakra-ui/react';
-import { NewCoinButton, CoinCard, TokenSelector } from 'components';
+import { Flex, Text } from '@chakra-ui/react';
+import { CoinCard } from 'components';
 import React, { useEffect, useState } from 'react';
 import useTranslation from 'next-translate/useTranslation';
 import { useAuth, usePicasso, useProfile, useTokens } from 'hooks';
 import { ICoin } from 'types';
 import { useAccount, useMutation, useQuery } from 'wagmi';
-import { getCoinLogo } from 'utils';
 
 export const Coins = () => {
 	const { t: translate } = useTranslation('dashboard');
 	const { address: walletAddress, isConnected } = useAccount();
 	const theme = usePicasso();
-	const { isOpen, onClose, onOpen } = useDisclosure();
-	const { getCoinServiceTokens, listOfTokens } = useTokens();
+	const { getCoinServiceTokens } = useTokens();
 	const { session } = useAuth();
 	const [flexWidth, setFlexWidth] = useState<number>();
 	const {
-		setSelectedToken,
 		getProfileData,
 		updateUserSettings,
 		selectedToken,
@@ -187,11 +184,6 @@ export const Coins = () => {
 			minW={{ md: '33.713rem', '2xl': '43.5rem' }}
 			minH={{ md: '5rem', lg: '6.44rem' }}
 		>
-			<TokenSelector
-				setToken={setSelectedToken}
-				isOpen={isOpen}
-				onClose={onClose}
-			/>
 			<Flex direction="column" gap={{ md: '1', xl: '1.5' }}>
 				<Text
 					fontSize={{ md: 'sm', xl: 'md' }}
@@ -226,9 +218,6 @@ export const Coins = () => {
 						key={+index}
 					/>
 				))}
-			</Flex>
-			<Flex>
-				<NewCoinButton onOpen={onOpen} />
 			</Flex>
 		</Flex>
 	);
