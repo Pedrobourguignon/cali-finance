@@ -87,7 +87,7 @@ export const HistoryDashboard = () => {
 				color={theme.text.primary}
 			>
 				<Text fontWeight="medium">{translate('history')}</Text>
-				<Menu gutter={0} autoSelect={false}>
+				<Menu gutter={0} autoSelect={false} placement="bottom-end">
 					<MenuButton
 						h="max-content"
 						py="1.5"
