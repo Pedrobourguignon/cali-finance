@@ -1,5 +1,5 @@
-import { Flex, Grid, Text, useDisclosure } from '@chakra-ui/react';
-import { NewCoinButton, TokenSelectorMobile, CoinCardMobile } from 'components';
+import { Flex, Grid, Text } from '@chakra-ui/react';
+import { CoinCardMobile } from 'components';
 import React, { useEffect, useState } from 'react';
 import useTranslation from 'next-translate/useTranslation';
 import { useAuth, usePicasso, useProfile, useTokens } from 'hooks';
@@ -10,10 +10,8 @@ export const CoinsMobile = () => {
 	const { t: translate } = useTranslation('dashboard');
 	const { address: walletAddress, isConnected } = useAccount();
 	const theme = usePicasso();
-	const { isOpen, onClose, onOpen } = useDisclosure();
 	const { getCoinServiceTokens } = useTokens();
 	const {
-		setSelectedToken,
 		getProfileData,
 		updateUserSettings,
 		selectedToken,
@@ -149,12 +147,7 @@ export const CoinsMobile = () => {
 			borderRadius="base"
 			boxShadow="md"
 		>
-			<TokenSelectorMobile
-				setToken={setSelectedToken}
-				isOpen={isOpen}
-				onClose={onClose}
-			/>
-			<Flex px="4" pt="3" direction="column" gap="1.5" w="full">
+			<Flex px="4" py="3" direction="column" gap="1.5" w="full">
 				<Text fontWeight="medium">{translate('coins')}</Text>
 				<Text fontSize="sm" lineHeight="5">
 					{translate('stayConnectedMobile')}
@@ -170,11 +163,6 @@ export const CoinsMobile = () => {
 						/>
 					))}
 				</Grid>
-				<Flex>
-					<Flex w="full" justify="center" pl="1" pt="4" pb="6">
-						<NewCoinButton onOpen={onOpen} />
-					</Flex>
-				</Flex>
 			</Flex>
 		</Flex>
 	);
