@@ -23,12 +23,20 @@ import { IAddEmployee, IAddEmployeeForm, INewEmployee } from 'types';
 import { IoPersonAddOutline } from 'react-icons/io5';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { getCoinLogo, navigationPaths } from 'utils';
+import { getCoinLogo, navigationPaths, toCrypto } from 'utils';
 import NextLink from 'next/link';
 import { useMutation, useQueryClient } from 'react-query';
 import { AxiosError } from 'axios';
 import { MobileModalLayout } from 'layouts';
-import { useNetwork, useSwitchNetwork } from 'wagmi';
+import companyAbi from 'utils/abi/company.json';
+import {
+	useContractWrite,
+	useNetwork,
+	usePrepareContractWrite,
+	useSwitchNetwork,
+	useWaitForTransaction,
+} from 'wagmi';
+import { useDebounce } from 'use-debounce';
 
 export const AddEmployeeMobile: React.FC<IAddEmployee> = ({
 	isOpen,
@@ -43,12 +51,13 @@ export const AddEmployeeMobile: React.FC<IAddEmployee> = ({
 		amount: 0,
 		amountInDollar: 0,
 	});
-	// const [token, setToken] = useState<ISelectedCoin>({
-	// 	logo: 'https://assets.coingecko.com/coins/images/1/thumb/bitcoin.png?1547033579',
-	// 	symbol: 'bitcoin',
-	// } as ISelectedCoin);
+	const debouncedEmployeeAddress = useDebounce(
+		addedEmployeeData.walletAddress,
+		500
+	);
+	const debouncedEmployeeAmount = useDebounce(addedEmployeeData.amount, 500);
 	const { addEmployeeSchema } = useSchema();
-	const { selectedCompany, addEmployeeToTeam } = useCompanies();
+	const { selectedCompanyData, addEmployeeToTeam } = useCompanies();
 	const queryClient = useQueryClient();
 	const { listOfTokens, usdtQuotation } = useTokens();
 
@@ -63,6 +72,17 @@ export const AddEmployeeMobile: React.FC<IAddEmployee> = ({
 	const [individuallyOrList, setIndividuallyOrList] = useState(true);
 	const shouldDisplay = individuallyOrList ? 'flex' : 'none';
 	const shouldntDisplay = individuallyOrList ? 'none' : 'flex';
+
+	const {
+		register,
+		handleSubmit,
+		reset,
+		formState: { errors },
+	} = useForm<IAddEmployeeForm>({
+		resolver: yupResolver(addEmployeeSchema),
+		mode: 'onChange',
+		reValidateMode: 'onChange',
+	});
 
 	const { chain } = useNetwork();
 	const { chains, switchNetworkAsync, isLoading } = useSwitchNetwork();
@@ -95,15 +115,64 @@ export const AddEmployeeMobile: React.FC<IAddEmployee> = ({
 		}
 	};
 
+	const handleResetFormInputs = () => {
+		reset();
+		onClose();
+		setAddedEmployeeData(prevState => ({
+			...prevState,
+			amount: 0,
+			walletAddress: '',
+			amountInDollar: 0,
+		}));
+	};
+
+	const { config: addEmployeeConfig } = usePrepareContractWrite({
+		address: selectedCompanyData?.contract,
+		abi: companyAbi,
+		functionName: 'addEmployee',
+		args: [
+			debouncedEmployeeAddress[0],
+			toCrypto(debouncedEmployeeAmount[0], selectedCompanyData?.tokenDecimals),
+		],
+		enabled:
+			addedEmployeeData.walletAddress !== '' && addedEmployeeData.amount !== 0,
+	});
+
+	const { data: addEmployeeData, write: addEmployeeWrite } =
+		useContractWrite(addEmployeeConfig);
+
 	const {
-		register,
-		handleSubmit,
-		reset,
-		formState: { errors },
-	} = useForm<IAddEmployeeForm>({
-		resolver: yupResolver(addEmployeeSchema),
-		mode: 'onChange',
-		reValidateMode: 'onChange',
+		data: useWaitForTransactionData,
+		isLoading: useWaitForTransactionLoading,
+	} = useWaitForTransaction({
+		hash: addEmployeeData?.hash,
+		confirmations: 3,
+		onSuccess() {
+			handleResetFormInputs();
+			toast({
+				position: 'top-right',
+				render: () => (
+					<AlertToast
+						onClick={toast.closeAll}
+						text="employeeAdded"
+						type="success"
+					/>
+				),
+			});
+		},
+		onError() {
+			handleResetFormInputs();
+			toast({
+				position: 'top-right',
+				render: () => (
+					<AlertToast
+						onClick={toast.closeAll}
+						text="weAreWorkingToSolve"
+						type="error"
+					/>
+				),
+			});
+		},
 	});
 
 	const { mutate } = useMutation(
@@ -112,7 +181,7 @@ export const AddEmployeeMobile: React.FC<IAddEmployee> = ({
 			onSuccess: async () => {
 				queryClient.invalidateQueries({ queryKey: ['all-company-employees'] });
 				if (chain?.id !== 80001) await switchNetworkAsync?.(chains[2].id);
-
+				addEmployeeWrite?.();
 				toast({
 					position: 'top-right',
 					render: () => (
@@ -154,17 +223,6 @@ export const AddEmployeeMobile: React.FC<IAddEmployee> = ({
 		}
 	);
 
-	const handleResetFormInputs = () => {
-		reset();
-		onClose();
-		setAddedEmployeeData(prevState => ({
-			...prevState,
-			amount: 0,
-			walletAddress: '',
-			amountInDollar: 0,
-		}));
-	};
-
 	const handleAddEmployee = (newEmployeeData: IAddEmployeeForm) => {
 		mutate({
 			userAddress: newEmployeeData.walletAddress,
@@ -197,7 +255,7 @@ export const AddEmployeeMobile: React.FC<IAddEmployee> = ({
 								{translate('addEmployee')}
 							</Text>
 							<Text color="gray.500" fontWeight="normal" fontSize="sm">
-								{`${translate('to')} ${selectedCompany?.name}`}
+								{`${translate('to')} ${selectedCompanyData?.name}`}
 							</Text>
 						</Flex>
 						<ModalCloseButton color="gray.400" py="7" onClick={() => reset()} />

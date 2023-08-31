@@ -43,6 +43,7 @@ export const CreateCompanyContainer = () => {
 	const [newCompanyId, setNewCompanyId] = useState(0);
 	const { t: translate } = useTranslation('create-company');
 	const [newCompanyPicture, setNewCompanyPicture] = useState('');
+	const [isLoadingButton, setIsLoadingButton] = useState<boolean>(false);
 	const [socialLinksInputValue, setSocialLinksInputValue] =
 		useState<ISociaLinksInputValue>({} as ISociaLinksInputValue);
 	const [selectedType, setSelectedType] = useState<string>(
@@ -75,6 +76,7 @@ export const CreateCompanyContainer = () => {
 
 	const createCompany = async (company: ICompany) => {
 		try {
+			setIsLoadingButton(true);
 			if (chain?.id !== 80001) await switchNetworkAsync?.(chains[2].id);
 			const {
 				data: { checksum, id },
@@ -292,6 +294,7 @@ export const CreateCompanyContainer = () => {
 								</NavigationBack>
 							</Flex>
 							<CreateCompanyComponent
+								isLoadingButton={isLoadingButton}
 								isValid={isValid}
 								errors={errors}
 								register={register}

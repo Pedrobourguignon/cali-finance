@@ -45,6 +45,7 @@ export const CreateCompanyMobileContainer = () => {
 		translate('pleaseSelect')
 	);
 	const [newCompanyPicture, setNewCompanyPicture] = useState('');
+	const [isLoadingButton, setIsLoadingButton] = useState<boolean>(false);
 	const [socialLinksInputValue, setSocialLinksInputValue] =
 		useState<ISociaLinksInputValue>({} as ISociaLinksInputValue);
 
@@ -77,6 +78,7 @@ export const CreateCompanyMobileContainer = () => {
 
 	const createCompany = async (company: ICompany) => {
 		try {
+			setIsLoadingButton(true);
 			if (chain?.id !== 80001) await switchNetworkAsync?.(chains[2].id);
 			const {
 				data: { checksum, id },
@@ -271,6 +273,7 @@ export const CreateCompanyMobileContainer = () => {
 								</NavigationBack>
 							</Flex>
 							<CreateCompanyMobile
+								isLoadingButton={isLoadingButton}
 								setSocialMediasInput={setSocialMediasInput}
 								newCompanyPicture={newCompanyPicture}
 								handleNewPicture={handleNewPicture}

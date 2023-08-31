@@ -59,7 +59,6 @@ export const DashboardHeader: React.FC = () => {
 			<Flex justify="space-between">
 				<Flex>
 					<Text
-						display={{ base: 'none', md: 'flex' }}
 						color={theme.text.primary}
 						fontSize="2xl"
 						fontWeight="medium"
@@ -67,16 +66,6 @@ export const DashboardHeader: React.FC = () => {
 						fontStyle="normal"
 					>
 						{greetingMessage} {session && handleDisplayedProfileName()}
-					</Text>
-					<Text
-						display={{ base: 'flex', md: 'none' }}
-						color={theme.text.primary}
-						fontSize="2xl"
-						fontWeight="medium"
-						lineHeight="8"
-						fontStyle="normal"
-					>
-						{greetingMessage}
 					</Text>
 				</Flex>
 				<Flex display={{ base: 'none', md: 'flex' }} h="8" align="center">
