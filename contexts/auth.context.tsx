@@ -65,7 +65,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 		try {
 			checkJwt();
 			await authClient.get(AUTH_SERVICE_ROUTES.checkToken);
-			console.log('aqui');
 			setSession(true);
 		} catch (error: any) {
 			if (!toast.isActive('credentials-toast') && session) {
