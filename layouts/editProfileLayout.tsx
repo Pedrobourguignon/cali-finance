@@ -1,6 +1,5 @@
 import { Flex } from '@chakra-ui/react';
 import { AlertsComponent, Sidebar } from 'components';
-import { AuthProvider } from 'contexts';
 import { usePicasso } from 'hooks';
 
 interface ILanding {
@@ -10,7 +9,7 @@ interface ILanding {
 export const EditProfileLayout: React.FC<ILanding> = ({ children }) => {
 	const theme = usePicasso();
 	return (
-		<AuthProvider>
+		<>
 			<AlertsComponent />
 			<Flex bg={theme.bg.primary} py="6" minH="100vh" w="full">
 				<Sidebar />
@@ -37,6 +36,6 @@ export const EditProfileLayout: React.FC<ILanding> = ({ children }) => {
 					</Flex>
 				</Flex>
 			</Flex>
-		</AuthProvider>
+		</>
 	);
 };

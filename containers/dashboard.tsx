@@ -10,7 +10,6 @@ import {
 	CoinsMobile,
 	CreateAccountBanner,
 } from 'components';
-import { AuthProvider } from 'contexts';
 import { useAuth } from 'hooks';
 import { AppLayout, MobileLayout } from 'layouts';
 import React from 'react';
@@ -19,7 +18,7 @@ export const DashboardContainer = () => {
 	const { session } = useAuth();
 
 	return (
-		<AuthProvider>
+		<>
 			<AppLayout
 				right={session ? <DashboardRightBar /> : <CreateAccountBanner />}
 			>
@@ -41,7 +40,7 @@ export const DashboardContainer = () => {
 					<HaveProblemCard />
 				</Flex>
 			</MobileLayout>
-		</AuthProvider>
+		</>
 	);
 };
 
