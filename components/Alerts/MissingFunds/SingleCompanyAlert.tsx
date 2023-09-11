@@ -11,6 +11,7 @@ export const SingleCompanyAlert: React.FC<{ missingValue: string }> = ({
 	const theme = usePicasso();
 	const { t: translate } = useTranslation('alerts');
 	const { companiesWithMissingFunds } = useCompanies();
+
 	return (
 		<Flex>
 			<Text
@@ -23,8 +24,12 @@ export const SingleCompanyAlert: React.FC<{ missingValue: string }> = ({
 					company: companiesWithMissingFunds[0]?.name,
 				})}
 			</Text>
-
-			<Link href={navigationPaths.dashboard.companies.funds('1')} as={NextLink}>
+			<Link
+				href={navigationPaths.dashboard.companies.funds(
+					companiesWithMissingFunds[0].id as string | string[] | undefined
+				)}
+				as={NextLink}
+			>
 				<Text
 					cursor="pointer"
 					fontSize={{ md: 'xs', xl: 'sm' }}

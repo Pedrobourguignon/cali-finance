@@ -143,6 +143,7 @@ export const EmployeeData: React.FC<IEmployeeData> = ({
 								: getLogo(employee.picture as string)
 						}
 						boxSize="6"
+						borderRadius="full"
 					/>
 					<Flex direction="column" justifyItems="center">
 						<Text

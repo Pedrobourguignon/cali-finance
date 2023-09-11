@@ -4,11 +4,11 @@ import React from 'react';
 
 const Dashboard = () => (
 	<TokensProvider>
-		<CompaniesProvider>
-			<AuthProvider>
+		<AuthProvider>
+			<CompaniesProvider>
 				<DashboardContainer />
-			</AuthProvider>
-		</CompaniesProvider>
+			</CompaniesProvider>
+		</AuthProvider>
 	</TokensProvider>
 );
 

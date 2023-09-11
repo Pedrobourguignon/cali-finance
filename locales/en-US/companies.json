@@ -17,5 +17,6 @@
 	"withdraw": "Withdraw",
 	"teamCreated": "Team created",
 	"addressCopiedSuccessfully": "Address copied successfully",
-	"yourLatestActivities": "Your latest activities will appear here."
+	"yourLatestActivities": "Your latest activities will appear here.",
+	"company": "Company"
 }
