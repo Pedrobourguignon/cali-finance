@@ -1,5 +1,5 @@
 import { OverviewTab, OverviewTabMobile } from 'containers';
-import { CompaniesProvider } from 'contexts';
+import { AuthProvider, CompaniesProvider } from 'contexts';
 import { AUTH_SERVICE_ROUTES } from 'helpers';
 import { authClient, checkJwt, mainClient } from 'utils';
 
@@ -23,14 +23,14 @@ export async function getServerSideProps(context: any) {
 }
 
 export const Overview = () => (
-	<>
+	<AuthProvider>
 		<CompaniesProvider>
 			<OverviewTab />
 		</CompaniesProvider>
 		<CompaniesProvider>
 			<OverviewTabMobile />
 		</CompaniesProvider>
-	</>
+	</AuthProvider>
 );
 
 export default Overview;
