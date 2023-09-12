@@ -27,7 +27,6 @@ import {
 } from 'wagmi';
 import factoryAbi from 'utils/abi/factory.json';
 import { MAIN_SERVICE_ROUTES } from 'helpers';
-import { CompaniesProvider } from 'contexts';
 import { Hex } from 'viem';
 
 interface ISelectedNetwork {
@@ -267,46 +266,41 @@ export const CreateCompanyContainer = () => {
 
 	return (
 		<form onSubmit={handleSubmit(handleCreateCompany)}>
-			<CompaniesProvider>
-				<FormControl>
-					<AppLayout
-						right={
-							<NewCompanyLinks
-								errors={errors}
-								isValid={isValid}
-								selectedNetwork={selectedNetwork}
-								selectedType={selectedType}
-								setSocialMediasInput={setSocialMediasInput}
-								newCompanyPicture={newCompanyPicture}
-								handleNewPicture={handleNewPicture}
-							/>
-						}
-					>
-						<WaitMetamaskFinishTransaction
-							isOpen={isLoading}
-							onClose={onClose}
+			<FormControl>
+				<AppLayout
+					right={
+						<NewCompanyLinks
+							errors={errors}
+							isValid={isValid}
+							selectedNetwork={selectedNetwork}
+							selectedType={selectedType}
+							setSocialMediasInput={setSocialMediasInput}
+							newCompanyPicture={newCompanyPicture}
+							handleNewPicture={handleNewPicture}
 						/>
-						<CompanyWhiteBackground />
-						<Flex direction="column" gap="10" zIndex="docked" pt="6" w="100%">
-							<Flex w="100%">
-								<NavigationBack href={navigationPaths.dashboard.companies.home}>
-									{translate('backToCompanies')}
-								</NavigationBack>
-							</Flex>
-							<CreateCompanyComponent
-								isLoadingButton={isLoadingButton}
-								isValid={isValid}
-								errors={errors}
-								register={register}
-								setSelectedNetwork={setSelectedNetwork}
-								setSelectedType={setSelectedType}
-								selectedNetwork={selectedNetwork}
-								selectedType={selectedType}
-							/>
+					}
+				>
+					<WaitMetamaskFinishTransaction isOpen={isLoading} onClose={onClose} />
+					<CompanyWhiteBackground />
+					<Flex direction="column" gap="10" zIndex="docked" pt="6" w="100%">
+						<Flex w="100%">
+							<NavigationBack href={navigationPaths.dashboard.companies.home}>
+								{translate('backToCompanies')}
+							</NavigationBack>
 						</Flex>
-					</AppLayout>
-				</FormControl>
-			</CompaniesProvider>
+						<CreateCompanyComponent
+							isLoadingButton={isLoadingButton}
+							isValid={isValid}
+							errors={errors}
+							register={register}
+							setSelectedNetwork={setSelectedNetwork}
+							setSelectedType={setSelectedType}
+							selectedNetwork={selectedNetwork}
+							selectedType={selectedType}
+						/>
+					</Flex>
+				</AppLayout>
+			</FormControl>
 		</form>
 	);
 };
