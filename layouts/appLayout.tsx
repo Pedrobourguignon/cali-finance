@@ -1,6 +1,6 @@
 import { Flex } from '@chakra-ui/react';
 import { AlertsComponent, Sidebar } from 'components';
-import { AuthProvider, CompaniesProvider, ProfileProvider } from 'contexts';
+import { CompaniesProvider, ProfileProvider } from 'contexts';
 import { usePicasso } from 'hooks';
 
 interface ILanding {
