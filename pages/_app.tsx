@@ -9,29 +9,39 @@ const queryClient = new QueryClient();
 const MyApp = ({ Component, pageProps: { ...pageProps } }: AppProps) => (
 	<>
 		<Head>
-			{/* Primary Meta Tags */}
-			<title>Cali Finance</title>
-			<meta name="title" content="Cali Finance" />
-			<meta name="description" content="Your money, any time." />
-			<link rel="icon" href="/favicon.svg" />
-
-			{/* Open Graph / Facebook */}
-			<meta property="og:url" content="https://cali.finance" key="ogurl" />
-			<meta property="og:image" content="/meta/default.png" key="ogimage" />
-			<meta property="og:site_name" content="Cali Finance" key="ogsitename" />
-			<meta property="og:title" content="Cali Finance" key="ogtitle" />
+			<title>
+				Cali - Real-Time Payroll Payments & Crypto Payroll Automation
+			</title>
+			<meta
+				name="description"
+				content="Revolutionize your business with Cali's real-time payroll payments. Pay-per-second processing, customizable payment schedules, and a decentralized system. Pay only 0.5% fees."
+			/>
+			<meta
+				name="keywords"
+				content="real-time payroll, crypto payroll, decentralized payroll, payroll automation, employee payments, Cali"
+			/>
+			<meta name="author" content="Cali Payroll Solutions" />
+			<meta
+				property="og:title"
+				content="Cali - Real-Time Payroll Payments & Crypto Payroll Automation"
+			/>
 			<meta
 				property="og:description"
-				content="Your money, any time."
-				key="ogdesc"
+				content="Pay your employees per second with Cali's revolutionary payroll technology. Improve employee morale, gain control, and save money."
 			/>
-
-			{/* Twitter */}
-			<meta property="twitter:card" content="summary_large_image" />
-			<meta property="twitter:url" content="https://cali.finance" />
-			<meta property="twitter:title" content="Cali Finance" />
-			<meta property="twitter:description" content="Your money, any time." />
-			<meta property="twitter:image" content="/meta/default.png" />
+			<meta property="og:image" content="/meta/landing.jpeg" key="ogimage" />
+			<meta property="og:url" content="https://cali.finance" key="ogurl" />
+			<meta name="twitter:card" content="/meta/landing.jpeg" />
+			<meta
+				name="twitter:title"
+				content="Cali - Real-Time Payroll Payments & Crypto Payroll Automation"
+			/>
+			<meta
+				name="twitter:description"
+				content="Revolutionize your payroll process with Cali. Pay-per-second, customizable schedules, and a decentralized system."
+			/>
+			<meta name="twitter:image" content="meta/landing.jpeg" />
+			<link rel="icon" href="/favicon.svg" />
 		</Head>
 		<WagmiWrapper>
 			<QueryClientProvider client={queryClient}>
