@@ -124,7 +124,7 @@ export const EmployeeData: React.FC<IEmployeeData> = ({
 				onClose={onCloseMobile}
 				employee={employee}
 			/>
-			<Flex direction="column" gap="2">
+			<Flex direction="column" flex="4.5" gap="2">
 				<Flex display={{ base: 'flex', md: 'none' }}>
 					<EmployeeStatus status={employee.status} />
 				</Flex>
