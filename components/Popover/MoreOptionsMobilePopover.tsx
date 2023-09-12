@@ -68,7 +68,6 @@ export const MoreOptionsMobilePopover: React.FC<IMoreOptions> = ({
 								</Text>
 							))}
 						</Flex>
-						<HelpAndDocsButton gap="10" />
 						<Flex>
 							<SocialMediasButtons justify="space-between" />
 						</Flex>

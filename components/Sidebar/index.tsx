@@ -343,7 +343,6 @@ export const Sidebar: React.FC = () => {
 							</Text>
 						))}
 					</Flex>
-					<HelpAndDocsButton gap="4" />
 					<SocialMediasButtons
 						pl={{ md: '2', lg: '0' }}
 						pt="5"
