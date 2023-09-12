@@ -4,7 +4,6 @@ const config: ThemeConfig = {
 	initialColorMode: 'dark',
 	useSystemColorMode: false,
 };
-
 export const theme = extendTheme({
 	config,
 	components: {
