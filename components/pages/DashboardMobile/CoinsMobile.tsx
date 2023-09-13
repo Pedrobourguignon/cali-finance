@@ -39,6 +39,7 @@ export const CoinsMobile = () => {
 			updateUserSettings(settings, walletAddress),
 		{
 			onSuccess: () => refetchUserData(),
+			retry: false,
 		}
 	);
 

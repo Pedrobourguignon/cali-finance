@@ -73,6 +73,7 @@ export const Coins = () => {
 			updateUserSettings(settings, walletAddress),
 		{
 			onSuccess: () => refetchUserData(),
+			retry: false,
 		}
 	);
 

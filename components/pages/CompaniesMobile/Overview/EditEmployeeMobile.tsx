@@ -177,7 +177,7 @@ export const EditEmployeeMobile: React.FC<IEditEmployee> = ({
 		{
 			onSuccess: async () => {
 				queryClient.invalidateQueries('all-company-employees');
-				if (chain?.id !== 80001) await switchNetworkAsync?.(chains[2].id);
+				if (chain?.id !== 137) await switchNetworkAsync?.(chains[3].id);
 				editEmployeeWrite?.({
 					args: [
 						employee.wallet,
