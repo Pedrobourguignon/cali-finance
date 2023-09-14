@@ -59,7 +59,7 @@ export const FundsPageComponent = () => {
 				<CompaniesHeader />
 			</Flex>
 			<Flex color={theme.text.primary} py="12" direction="column" gap="10">
-				<Flex
+				{/* <Flex
 					direction="column"
 					gap="4"
 					display={coins.length === 0 ? 'none' : 'flex'}
@@ -79,7 +79,7 @@ export const FundsPageComponent = () => {
 							/>
 						))}
 					</Flex>
-				</Flex>
+				</Flex> */}
 				<HistoryDashboard />
 			</Flex>
 		</AppLayout>

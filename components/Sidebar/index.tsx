@@ -24,7 +24,6 @@ import {
 	ConnectWalletButton,
 	ChangeNetworkButton,
 	SocialMediasButtons,
-	HelpAndDocsButton,
 } from 'components';
 import { getLogo, navigationPaths, truncateWallet } from 'utils';
 import { INetwork } from 'types';

@@ -81,7 +81,7 @@ export const WithdrawButton: React.FC<{
 				maxH="8"
 				onClick={() => writeWithdraw?.()}
 				py={{ lg: '1', xl: '1.5' }}
-				isDisabled={employeeBalance.toString() === '0'}
+				isDisabled={employeeBalance === 0n}
 			>
 				<Text fontSize="sm">{translate('withdraw')}</Text>
 			</Button>

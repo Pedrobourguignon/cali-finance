@@ -340,10 +340,10 @@ export const CreateCompanyComponent: React.FC<ICreateCompanyComponent> = ({
 						fontSize="md"
 						lineHeight="6"
 						display={{ md: 'none', lg: 'flex' }}
+						maxH="10"
 						py="2.5"
 						borderRadius="sm"
 						isLoading={isLoadingButton}
-						maxH="2.5rem"
 					>
 						<Text>+</Text>
 						<Text>{translate('createCompany')}</Text>
