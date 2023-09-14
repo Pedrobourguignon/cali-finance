@@ -113,11 +113,16 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 	const getAllUserCompanies: () => Promise<
 		GetUserCompaniesRes[]
 	> = async () => {
-		if (!wallet) throw new Error('User not connected');
-		const response = await mainClient.get(
-			MAIN_SERVICE_ROUTES.allUserCompanies(wallet)
-		);
-		return response.data;
+		try {
+			if (!wallet) throw new Error('User not connected');
+			const response = await mainClient.get(
+				MAIN_SERVICE_ROUTES.allUserCompanies(wallet)
+			);
+			return response.data;
+		} catch (error) {
+			console.error(error);
+			throw error;
+		}
 	};
 
 	const {
@@ -129,11 +134,15 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 	});
 
 	const getCompaniesOverview = async () => {
-		if (!wallet) throw new Error('User not connected');
-		const response = await mainClient.get(MAIN_SERVICE_ROUTES.getOverview);
-		return response.data;
+		try {
+			if (!wallet) throw new Error('User not connected');
+			const response = await mainClient.get(MAIN_SERVICE_ROUTES.getOverview);
+			return response.data;
+		} catch (error) {
+			console.error(error);
+			throw error;
+		}
 	};
-
 	useEffect(() => {
 		if (companiesWithMissingFunds.length) {
 			setDisplayMissingFundsWarning('flex');
@@ -153,9 +162,14 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 	};
 
 	const sendCompanyTx = async (id: number, txId: string) => {
-		await mainClient.patch(MAIN_SERVICE_ROUTES.sendCompanyTx(id), {
-			txId,
-		});
+		try {
+			await mainClient.patch(MAIN_SERVICE_ROUTES.sendCompanyTx(id), {
+				txId,
+			});
+		} catch (error) {
+			console.error(error);
+			throw error;
+		}
 	};
 
 	useEffect(() => {
@@ -166,34 +180,46 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 	}, [session]);
 
 	const createCompany = async (company: ICompany) => {
-		await mainClient
-			.post(MAIN_SERVICE_ROUTES.createCompany, {
+		try {
+			const id = await mainClient.post(MAIN_SERVICE_ROUTES.createCompany, {
 				company,
-			})
-			.then(id =>
-				router.push(
-					navigationPaths.dashboard.companies.overview(id.data.id.toString())
-				)
+			});
+
+			router.push(
+				navigationPaths.dashboard.companies.overview(id.data.id.toString())
 			);
+		} catch (error) {
+			console.error(error);
+		}
 	};
 
 	const updateCompany = async (company: ICompany) => {
-		await mainClient
-			.put(MAIN_SERVICE_ROUTES.updateCompany(Number(query.id)), {
-				company,
-			})
-			.then(id =>
-				router.push(navigationPaths.dashboard.companies.overview(query.id))
+		try {
+			const id = await mainClient.put(
+				MAIN_SERVICE_ROUTES.updateCompany(Number(query.id)),
+				{
+					company,
+				}
 			);
+
+			router.push(navigationPaths.dashboard.companies.overview(query.id));
+		} catch (error) {
+			console.error(error);
+		}
 	};
 
 	const getAllCompanyEmployees = async (
 		id: number
 	): Promise<GetCompanyUsersRes[]> => {
-		const response = await mainClient.get(
-			MAIN_SERVICE_ROUTES.allCompanyEmployees(id)
-		);
-		return response.data;
+		try {
+			const response = await mainClient.get(
+				MAIN_SERVICE_ROUTES.allCompanyEmployees(id)
+			);
+			return response.data;
+		} catch (error) {
+			console.error(error);
+			throw error;
+		}
 	};
 
 	const { data: employees } = useQuery(
@@ -319,10 +345,15 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 	}, [allUserCompanies]);
 
 	const getAllCompanyTeams = async (id: number) => {
-		const response = await mainClient.get(
-			MAIN_SERVICE_ROUTES.allCompanyTeams(id)
-		);
-		return response.data;
+		try {
+			const response = await mainClient.get(
+				MAIN_SERVICE_ROUTES.allCompanyTeams(id)
+			);
+			return response.data;
+		} catch (error) {
+			console.error(error);
+			throw error;
+		}
 	};
 
 	const { data: teams } = useQuery(
@@ -334,57 +365,79 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 	);
 
 	const addEmployeeToTeam = async (employee: INewEmployee) => {
-		const { id } = teams[0];
-		const groupId = 1;
-		await mainClient.post(
-			MAIN_SERVICE_ROUTES.addEmployee(id, groupId),
-			employee
-		);
+		try {
+			const { id } = teams[0];
+			const groupId = 1;
+			await mainClient.post(
+				MAIN_SERVICE_ROUTES.addEmployee(id, groupId),
+				employee
+			);
+		} catch (error) {
+			console.error(error);
+		}
 	};
 
 	const addEmployeeCsv = async (
 		employee: string | undefined | null | ArrayBuffer
 	) => {
-		const { id } = teams[0];
-		const groupId = 1;
-		await mainClient.post(
-			MAIN_SERVICE_ROUTES.addCsvEmployee(id, groupId),
-			employee,
-			{
-				headers: { 'Content-Type': 'text/plain' },
-			}
-		);
+		try {
+			const { id } = teams[0];
+			const groupId = 1;
+			await mainClient.post(
+				MAIN_SERVICE_ROUTES.addCsvEmployee(id, groupId),
+				employee,
+				{
+					headers: { 'Content-Type': 'text/plain' },
+				}
+			);
+		} catch (error) {
+			console.error(error);
+		}
 	};
 
 	const updateEmployee = async (
 		editedEmployeeInfo: IEditedEmployeeInfo,
 		teamId: number
 	) => {
-		await mainClient.put(`/team/${teamId}/user`, editedEmployeeInfo);
+		try {
+			await mainClient.put(`/team/${teamId}/user`, editedEmployeeInfo);
+		} catch (error) {
+			console.error(error);
+		}
 	};
 
 	const getCompanieActivities = async (companyId: number) => {
-		const response = await mainClient.get(
-			MAIN_SERVICE_ROUTES.companyRecentActivities(companyId),
-			{
-				params: {
-					pageLimit: 9,
-				},
-			}
-		);
-		return response.data;
+		try {
+			const response = await mainClient.get(
+				MAIN_SERVICE_ROUTES.companyRecentActivities(companyId),
+				{
+					params: {
+						pageLimit: 9,
+					},
+				}
+			);
+			return response.data;
+		} catch (error) {
+			console.error(error);
+			throw error;
+		}
 	};
 
 	const getAllCompaniesUserActivities = async () => {
-		const response = await mainClient.get(
-			MAIN_SERVICE_ROUTES.allCompaniesUserActivities(),
-			{
-				params: {
-					pageLimit: 300,
-				},
-			}
-		);
-		return response.data;
+		try {
+			const response = await mainClient.get(
+				MAIN_SERVICE_ROUTES.allCompaniesUserActivities(),
+				{
+					params: {
+						pageLimit: 300,
+					},
+				}
+			);
+			return response.data;
+		} catch (error) {
+			console.error(error);
+			throw error;
+		}
 	};
 
 	const contextStates = useMemo(

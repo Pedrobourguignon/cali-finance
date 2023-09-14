@@ -57,11 +57,16 @@ export const ProfileProvider: React.FC<{ children: React.ReactNode }> = ({
 	const { session } = useAuth();
 
 	const getProfileData = async (wallet: `0x${string}` | undefined) => {
-		if (!wallet) throw new Error('User not connected');
-		const response = await mainClient.get(
-			MAIN_SERVICE_ROUTES.profileData(wallet)
-		);
-		return response.data;
+		try {
+			if (!wallet) throw new Error('User not connected');
+			const response = await mainClient.get(
+				MAIN_SERVICE_ROUTES.profileData(wallet)
+			);
+			return response.data;
+		} catch (error) {
+			console.error(error);
+			throw error;
+		}
 	};
 
 	const updateUserSettings = async (
@@ -70,30 +75,45 @@ export const ProfileProvider: React.FC<{ children: React.ReactNode }> = ({
 		},
 		wallet: `0x${string}` | undefined
 	) => {
-		if (!wallet) throw new Error('User not connected');
-		await mainClient.put(MAIN_SERVICE_ROUTES.userSettings(wallet), {
-			settings,
-		});
+		try {
+			if (!wallet) throw new Error('User not connected');
+			await mainClient.put(MAIN_SERVICE_ROUTES.userSettings(wallet), {
+				settings,
+			});
+		} catch (error) {
+			console.error(error);
+			throw error;
+		}
 	};
 
 	const updateProfile = async (profileData: IUser) => {
-		if (!walletAddress) throw new Error('User not connected');
-		await mainClient.put(
-			MAIN_SERVICE_ROUTES.profileData(walletAddress),
-			profileData
-		);
+		try {
+			if (!walletAddress) throw new Error('User not connected');
+			await mainClient.put(
+				MAIN_SERVICE_ROUTES.profileData(walletAddress),
+				profileData
+			);
+		} catch (error) {
+			console.error(error);
+			throw error;
+		}
 	};
 
 	const getUserActivities = async (limit: number) => {
-		const response = await mainClient.get(
-			MAIN_SERVICE_ROUTES.userRecentActivities,
-			{
-				params: {
-					pageLimit: limit,
-				},
-			}
-		);
-		return response.data;
+		try {
+			const response = await mainClient.get(
+				MAIN_SERVICE_ROUTES.userRecentActivities,
+				{
+					params: {
+						pageLimit: limit,
+					},
+				}
+			);
+			return response.data;
+		} catch (error) {
+			console.error(error);
+			throw error;
+		}
 	};
 
 	useEffect(() => {

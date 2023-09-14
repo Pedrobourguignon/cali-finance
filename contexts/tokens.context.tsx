@@ -97,16 +97,21 @@ export const TokensProvider: React.FC<{ children: React.ReactNode }> = ({
 	);
 
 	const getCoinServiceTokens = async (symbols: string) => {
-		if (symbols) {
-			const response = await coinClient.get(
-				COIN_SERVICE_ROUTES.getCoinService,
-				{
-					params: { symbols },
-				}
-			);
-			return response.data;
+		try {
+			if (symbols) {
+				const response = await coinClient.get(
+					COIN_SERVICE_ROUTES.getCoinService,
+					{
+						params: { symbols },
+					}
+				);
+				return response.data;
+			}
+			return null;
+		} catch (error) {
+			console.error(error);
+			throw error;
 		}
-		return null;
 	};
 
 	const { data: usdtPrice } = useQuery('usdt-quotation', () =>
