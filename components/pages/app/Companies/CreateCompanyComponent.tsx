@@ -1,7 +1,6 @@
 import {
 	Button,
 	Flex,
-	Icon,
 	Img,
 	Input,
 	Menu,
@@ -11,12 +10,10 @@ import {
 	Text,
 	Textarea,
 	TextProps,
-	Tooltip,
 } from '@chakra-ui/react';
 import { useAuth, usePicasso } from 'hooks';
-import { BsQuestionCircle } from 'react-icons/bs';
 import useTranslation from 'next-translate/useTranslation';
-import { BlackButton, NetworkTooltip } from 'components';
+import { BlackButton } from 'components';
 
 import { ChevronDownIcon } from '@chakra-ui/icons';
 import { Dispatch, SetStateAction } from 'react';
@@ -326,6 +323,7 @@ export const CreateCompanyComponent: React.FC<ICreateCompanyComponent> = ({
 								minH="7.2rem"
 								borderColor={theme.bg.primary}
 								{...register('description')}
+								maxLength={255}
 							/>
 						</Flex>
 					</Flex>
@@ -345,6 +343,7 @@ export const CreateCompanyComponent: React.FC<ICreateCompanyComponent> = ({
 						py="2.5"
 						borderRadius="sm"
 						isLoading={isLoadingButton}
+						maxH="2.5rem"
 					>
 						<Text>+</Text>
 						<Text>{translate('createCompany')}</Text>

@@ -85,6 +85,7 @@ export const CreateCompanyContainer = () => {
 			setNewCompanyId(id);
 			createCompanyWrite?.({ args: [checksum] });
 		} catch (error) {
+			setIsLoadingButton(false);
 			if (error instanceof AxiosError) {
 				if (error.response?.data.message === 'Unique company name') {
 					toast({
@@ -158,6 +159,7 @@ export const CreateCompanyContainer = () => {
 			);
 		},
 		onError() {
+			setIsLoadingButton(false);
 			toast({
 				position: 'top-right',
 				render: () => (

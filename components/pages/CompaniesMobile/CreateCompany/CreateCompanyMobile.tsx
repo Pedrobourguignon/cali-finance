@@ -1,7 +1,6 @@
 import {
 	Button,
 	Flex,
-	Icon,
 	Img,
 	Input,
 	Menu,
@@ -11,15 +10,12 @@ import {
 	Text,
 	Textarea,
 	TextProps,
-	Tooltip,
 	useDisclosure,
 } from '@chakra-ui/react';
 import { useAuth, usePicasso } from 'hooks';
-import { BsQuestionCircle } from 'react-icons/bs';
 import useTranslation from 'next-translate/useTranslation';
 import {
 	BlackButton,
-	NetworkTooltip,
 	NewCompanyLinksModal,
 	ImageUploaderModalMobile,
 } from 'components';
@@ -404,6 +400,7 @@ export const CreateCompanyMobile: React.FC<ICreateCompanyComponent> = ({
 								minH="7.2rem"
 								borderColor={theme.bg.primary}
 								{...register('description')}
+								maxLength={255}
 							/>
 						</Flex>
 					</Flex>

@@ -32,6 +32,8 @@ import { readContract } from '@wagmi/core';
 import companyAbi from 'utils/abi/company.json';
 import { GetCompanyUsersRes } from 'types/interfaces/main-server/IUser';
 import { useAuth } from 'hooks';
+import { useToast } from '@chakra-ui/react';
+import { AlertToast } from 'components';
 
 interface ICompanyContext {
 	setSelectedCompany: Dispatch<SetStateAction<GetUserCompaniesRes>>;
@@ -94,6 +96,7 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 }) => {
 	const { isConnected, address: wallet } = useAccount();
 	const { session } = useAuth();
+	const toast = useToast();
 	const { locale, query } = useRouter();
 	const [displayNeedFundsCard, setDisplayNeedFundsCard] = useState('none');
 	const [socialMediasData, setSocialMediasData] = useState<ISocialMedia[]>([]);
@@ -143,13 +146,27 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 	}, [companiesWithMissingFunds]);
 
 	const getCompanyById = async (id: number): Promise<GetUserCompaniesRes> => {
-		checkJwt();
-		const response = await mainClient.get(`/company/${id}`);
-		if (response.data.totalFundsUsd !== selectedCompany.totalFundsUsd) {
-			setIsLoadingTotalFunds(false);
+		try {
+			checkJwt();
+			const response = await mainClient.get(`/company/${id}`);
+			if (response.data.totalFundsUsd !== selectedCompany.totalFundsUsd) {
+				setIsLoadingTotalFunds(false);
+			}
+			setSelectedCompany(response.data);
+			return response.data;
+		} catch (error) {
+			toast({
+				position: 'top-right',
+				render: () => (
+					<AlertToast
+						onClick={toast.closeAll}
+						text="weAreWorkingToSolve"
+						type="error"
+					/>
+				),
+			});
+			throw error;
 		}
-		setSelectedCompany(response.data);
-		return response.data;
 	};
 
 	const sendCompanyTx = async (id: number, txId: string) => {

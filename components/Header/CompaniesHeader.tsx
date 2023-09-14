@@ -198,7 +198,7 @@ export const CompaniesHeader = () => {
 						cursor="pointer"
 						onClick={() =>
 							window.open(
-								`https://mumbai.polygonscan.com/address/${selectedCompany?.contract}`
+								`https://polygonscan.com/address/${selectedCompany?.contract}`
 							)
 						}
 					>
@@ -223,6 +223,7 @@ export const CompaniesHeader = () => {
 		if (!selectedCompany?.contract) {
 			const refetchContractAddress = setInterval(() => {
 				contractAddress();
+				console.log('a');
 			}, 3000);
 			return () => clearInterval(refetchContractAddress);
 		}
@@ -250,10 +251,6 @@ export const CompaniesHeader = () => {
 					{translate('backToCompanies')}
 				</NavigationBack>
 				<Flex align="center" gap="2">
-					<RedeployCompanyButton
-						onClick={() => redeployCompanyContract()}
-						showButton={showButton}
-					/>
 					<NeedFundsCompaniesHeader />
 					<NotificationPopover
 						onClose={onClose}
@@ -291,7 +288,15 @@ export const CompaniesHeader = () => {
 							>
 								{selectedCompany?.name}
 							</Text>
-							{contractAddress()}
+							{selectedCompany?.status === 'await polling' ||
+							selectedCompany?.status === 'completed' ? (
+								contractAddress()
+							) : (
+								<RedeployCompanyButton
+									onClick={() => redeployCompanyContract()}
+									showButton={showButton}
+								/>
+							)}
 						</Flex>
 					)}
 				</Flex>

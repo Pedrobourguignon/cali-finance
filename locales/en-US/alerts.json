@@ -25,7 +25,7 @@
 	"approveSuccessfully": "Your token spend was successfully approved",
 	"employeeNotYetDeployed": "The employee has not yet been deployed. We will re-do the operation with the updated salary.",
 	"redeployCompany": "Company without Contract. Click here to redeploy.",
-	"redeployWithSuccess": "Redeployed with success",
+	"redeployWithSuccess": "Contract created with success",
 	"companyWithoutFunds": "The Company doesn't have enough balance for the transaction.",
 	"requestRejected": "The request was rejected. Please try again.",
 	"maximumCompanyWithoutDeploy": "You have 10 incomplete companies. Please deploy a contract before creating any new company."
