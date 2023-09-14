@@ -9,7 +9,8 @@ import { GetUserCompaniesRes } from 'types/interfaces/main-server/ICompany';
 export const WithdrawButton: React.FC<{
 	onClose?: () => void;
 	company: GetUserCompaniesRes;
-}> = ({ onClose, company }) => {
+	employeeBalance: bigint;
+}> = ({ onClose, company, employeeBalance }) => {
 	const theme = usePicasso();
 	const { t: translate } = useTranslation('dashboard');
 	const toast = useToast();
@@ -80,6 +81,7 @@ export const WithdrawButton: React.FC<{
 				maxH="8"
 				onClick={() => writeWithdraw?.()}
 				py={{ lg: '1', xl: '1.5' }}
+				isDisabled={employeeBalance === 0n}
 			>
 				<Text fontSize="sm">{translate('withdraw')}</Text>
 			</Button>

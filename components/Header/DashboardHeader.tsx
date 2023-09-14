@@ -76,7 +76,7 @@ export const DashboardHeader: React.FC = () => {
 					/>
 				</Flex>
 			</Flex>
-			<Flex display={{ base: 'none', md: 'flex' }}>
+			{/* <Flex display={{ base: 'none', md: 'flex' }} >
 				<Text fontSize="sm" color={theme.text.primary}>
 					{translate('assetInfo')}
 					<Text as="span" fontSize="sm" color={dynamicAssetInfo()?.color}>
@@ -107,7 +107,7 @@ export const DashboardHeader: React.FC = () => {
 						{variation}%
 					</Text>
 				</Text>
-			</Flex>
+			</Flex> */}
 		</Flex>
 	);
 };

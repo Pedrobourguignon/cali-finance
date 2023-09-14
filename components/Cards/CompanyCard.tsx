@@ -23,7 +23,6 @@ import { WithdrawModal, WithdrawModalMobile } from 'components';
 import { useAccount, useContractRead } from 'wagmi';
 import companyAbi from 'utils/abi/company.json';
 import { useRouter } from 'next/router';
-import { formatUnits } from 'viem';
 
 interface ICompanyCard {
 	company: GetUserCompaniesRes;
@@ -78,14 +77,14 @@ export const CompanyCard: React.FC<ICompanyCard> = ({
 			h="8.375rem"
 		>
 			<WithdrawModal
-				employeeBalance={employeeBalance as bigint}
+				employeeBalance={(employeeBalance || 0n) as bigint}
 				isOpen={isOpen}
 				onClose={onClose}
 				userCompanies={userCompanies}
 				company={company}
 			/>
 			<WithdrawModalMobile
-				employeeBalance={employeeBalance as bigint}
+				employeeBalance={(employeeBalance || 0n) as bigint}
 				isOpen={isOpenMobile}
 				onClose={onCloseMobile}
 				userCompanies={userCompanies}

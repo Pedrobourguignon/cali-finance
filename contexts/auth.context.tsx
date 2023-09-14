@@ -1,6 +1,12 @@
 import React, { createContext, useMemo, useEffect, useState } from 'react';
-import { useAccount, useSignMessage } from 'wagmi';
-import { setCookie } from 'cookies-next';
+import {
+	ConnectorData,
+	useAccount,
+	useDisconnect,
+	useSignMessage,
+	useWalletClient,
+} from 'wagmi';
+import { setCookie, deleteCookie } from 'cookies-next';
 import { AUTH_SERVICE_ROUTES } from 'helpers';
 import { authClient, checkJwt } from 'utils';
 import { AlertToast } from 'components';
@@ -22,8 +28,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 }) => {
 	const { signMessageAsync } = useSignMessage();
 	const [session, setSession] = useState(false);
-	const { isConnected } = useAccount();
+	const { isConnected, connector: activeConnector } = useAccount();
 	const toast = useToast();
+	const { data: walletClient } = useWalletClient();
+	const { disconnect } = useDisconnect();
 
 	const getNonce = async (walletNumber: `0x${string}` | undefined) => {
 		try {
@@ -106,7 +114,29 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 	};
 
 	useEffect(() => {
-		if (isConnected) checkSession();
+		const handleConnectorUpdate = async ({ account }: ConnectorData) => {
+			if (account) {
+				setSession(false);
+				deleteCookie('cali-finance-authorization');
+				localStorage.removeItem('cali-finance-authorization');
+				await handleSignIn(account);
+				router.push('/dashboard');
+			}
+		};
+
+		if (activeConnector) {
+			activeConnector.on('change', handleConnectorUpdate);
+		}
+
+		return () => {
+			activeConnector?.off('change', handleConnectorUpdate);
+		};
+	}, [activeConnector]);
+
+	useEffect(() => {
+		if (isConnected) {
+			checkSession();
+		}
 		if ((!isConnected && !session) || !isConnected) router.push('/dashboard');
 	}, [session, isConnected]);
 
