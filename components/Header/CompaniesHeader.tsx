@@ -223,7 +223,6 @@ export const CompaniesHeader = () => {
 		if (!selectedCompany?.contract) {
 			const refetchContractAddress = setInterval(() => {
 				contractAddress();
-				console.log('a');
 			}, 3000);
 			return () => clearInterval(refetchContractAddress);
 		}
