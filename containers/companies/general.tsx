@@ -1,10 +1,12 @@
 import { GeneralComponent } from 'components';
-import { AuthProvider, ProfileProvider } from 'contexts';
+import { AuthProvider, CompaniesProvider, ProfileProvider } from 'contexts';
 
 export const CompaniesContainer = () => (
 	<ProfileProvider>
 		<AuthProvider>
-			<GeneralComponent />
+			<CompaniesProvider>
+				<GeneralComponent />
+			</CompaniesProvider>
 		</AuthProvider>
 	</ProfileProvider>
 );

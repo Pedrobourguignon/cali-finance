@@ -1,17 +1,30 @@
 [
 	{
 		"inputs": [
-			{ "internalType": "address", "name": "_ownerAddress", "type": "address" },
+			{
+				"internalType": "address",
+				"name": "_ownerAddress",
+				"type": "address"
+			},
 			{
 				"internalType": "string",
 				"name": "_companyIdentifier",
 				"type": "string"
+			},
+			{
+				"internalType": "address",
+				"name": "_companyToken",
+				"type": "address"
 			}
 		],
 		"stateMutability": "nonpayable",
 		"type": "constructor"
 	},
-	{ "inputs": [], "name": "NotOwner", "type": "error" },
+	{
+		"inputs": [],
+		"name": "NotOwner",
+		"type": "error"
+	},
 	{
 		"anonymous": false,
 		"inputs": [
@@ -31,6 +44,12 @@
 				"indexed": false,
 				"internalType": "address",
 				"name": "ownerAddress",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"internalType": "address",
+				"name": "companyToken",
 				"type": "address"
 			}
 		],
@@ -56,6 +75,12 @@
 				"indexed": false,
 				"internalType": "uint256",
 				"name": "depositAmount",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "newCompanyBalance",
 				"type": "uint256"
 			}
 		],
@@ -129,6 +154,31 @@
 			},
 			{
 				"indexed": false,
+				"internalType": "bool",
+				"name": "status",
+				"type": "bool"
+			}
+		],
+		"name": "EmployeeStatusChanged",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"internalType": "address",
+				"name": "companyAddress",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"internalType": "address",
+				"name": "employeeAddress",
+				"type": "address"
+			},
+			{
+				"indexed": false,
 				"internalType": "uint256",
 				"name": "employeeSalary",
 				"type": "uint256"
@@ -137,6 +187,12 @@
 				"indexed": false,
 				"internalType": "uint256",
 				"name": "withdrawalAmount",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "newCompanyBalance",
 				"type": "uint256"
 			}
 		],
@@ -163,6 +219,12 @@
 				"internalType": "uint256",
 				"name": "withdrawalAmount",
 				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "newCompanyBalance",
+				"type": "uint256"
 			}
 		],
 		"name": "OwnerWithdrawal",
@@ -171,46 +233,103 @@
 	{
 		"inputs": [],
 		"name": "_CompanyAddress",
-		"outputs": [{ "internalType": "address", "name": "", "type": "address" }],
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
 		"stateMutability": "view",
 		"type": "function"
 	},
 	{
 		"inputs": [],
 		"name": "_CompanyBalance",
-		"outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
 		"stateMutability": "view",
 		"type": "function"
 	},
 	{
 		"inputs": [],
 		"name": "_CompanyIdentifier",
-		"outputs": [{ "internalType": "string", "name": "", "type": "string" }],
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
 		"stateMutability": "view",
 		"type": "function"
 	},
 	{
 		"inputs": [],
 		"name": "_CompanyOwner",
-		"outputs": [{ "internalType": "address", "name": "", "type": "address" }],
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
 		"stateMutability": "view",
 		"type": "function"
 	},
 	{
 		"inputs": [],
-		"name": "_Token",
-		"outputs": [{ "internalType": "address", "name": "", "type": "address" }],
+		"name": "_CompanyToken",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
 		"stateMutability": "view",
 		"type": "function"
 	},
 	{
-		"inputs": [{ "internalType": "address", "name": "", "type": "address" }],
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
 		"name": "_employees",
 		"outputs": [
-			{ "internalType": "uint256", "name": "salary", "type": "uint256" },
-			{ "internalType": "uint256", "name": "lockedBalance", "type": "uint256" },
-			{ "internalType": "uint256", "name": "joinDate", "type": "uint256" },
-			{ "internalType": "uint256", "name": "lastWithdrawal", "type": "uint256" }
+			{
+				"internalType": "uint256",
+				"name": "salary",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "lockedBalance",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "joinDate",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "lastWithdrawal",
+				"type": "uint256"
+			},
+			{
+				"internalType": "bool",
+				"name": "isActive",
+				"type": "bool"
+			}
 		],
 		"stateMutability": "view",
 		"type": "function"
@@ -222,7 +341,11 @@
 				"name": "_employeeAddress",
 				"type": "address"
 			},
-			{ "internalType": "uint256", "name": "_salary", "type": "uint256" }
+			{
+				"internalType": "uint256",
+				"name": "_salary",
+				"type": "uint256"
+			}
 		],
 		"name": "addEmployee",
 		"outputs": [],
@@ -231,8 +354,16 @@
 	},
 	{
 		"inputs": [
-			{ "internalType": "address", "name": "token", "type": "address" },
-			{ "internalType": "uint256", "name": "amount", "type": "uint256" }
+			{
+				"internalType": "address",
+				"name": "token",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "amount",
+				"type": "uint256"
+			}
 		],
 		"name": "deposit",
 		"outputs": [],
@@ -249,7 +380,11 @@
 		],
 		"name": "getBulkBalance",
 		"outputs": [
-			{ "internalType": "uint256[]", "name": "", "type": "uint256[]" }
+			{
+				"internalType": "uint256[]",
+				"name": "",
+				"type": "uint256[]"
+			}
 		],
 		"stateMutability": "view",
 		"type": "function"
@@ -263,13 +398,23 @@
 			}
 		],
 		"name": "getSingleBalance",
-		"outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
 		"stateMutability": "view",
 		"type": "function"
 	},
 	{
 		"inputs": [
-			{ "internalType": "uint256", "name": "_amount", "type": "uint256" }
+			{
+				"internalType": "uint256",
+				"name": "_amount",
+				"type": "uint256"
+			}
 		],
 		"name": "ownerWithdraw",
 		"outputs": [],
@@ -283,9 +428,31 @@
 				"name": "_employeeAddress",
 				"type": "address"
 			},
-			{ "internalType": "uint256", "name": "_newSalary", "type": "uint256" }
+			{
+				"internalType": "uint256",
+				"name": "_newSalary",
+				"type": "uint256"
+			}
 		],
 		"name": "updateEmployeeSalary",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "_employeeAddress",
+				"type": "address"
+			},
+			{
+				"internalType": "bool",
+				"name": "status",
+				"type": "bool"
+			}
+		],
+		"name": "updateEmployeeStatus",
 		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"
@@ -297,5 +464,8 @@
 		"stateMutability": "nonpayable",
 		"type": "function"
 	},
-	{ "stateMutability": "payable", "type": "receive" }
+	{
+		"stateMutability": "payable",
+		"type": "receive"
+	}
 ]

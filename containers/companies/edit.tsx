@@ -155,48 +155,46 @@ export const EditCompany = () => {
 	};
 
 	return (
-		<TokensProvider>
-			<form onSubmit={handleSubmit(handleEditCompany)}>
-				<FormControl>
-					<AppLayout
-						right={
-							<EditCompanyLink
-								displayedEditedPicture={displayedEditedPicture}
-								editedCompanyPicture={editedCompanyPicture}
-								logo={editedCompanyPicture}
-								setEditedSocialLinksInputValue={setEditedSocialLinksInputValue}
-								company={companyToBeEdited}
-								handleEditedPicture={handleEditedPicture}
-							/>
-						}
-					>
-						<CompanyWhiteBackground />
-						<Flex direction="column" gap="10" zIndex="docked" pt="6" w="100%">
-							<Flex w="100%">
-								<NavigationBack
-									href={navigationPaths.dashboard.companies.overview(query.id)}
-								>
-									{translate('backToCompany')}
-								</NavigationBack>
-							</Flex>
-							<EditCompanyComponent
-								setEditedSocialLinksInputValue={setEditedSocialLinksInputValue}
-								editedSocialLinksInputValue={editedSocialLinksInputValue}
-								editedCompanyPicture={displayedEditedPicture}
-								setSelectedNetwork={setSelectedNetwork}
-								setSelectedType={setSelectedType}
-								selectedNetwork={selectedNetwork}
-								selectedType={selectedType}
-								errors={errors}
-								register={register}
-								company={companyToBeEdited}
-								editedInfo={editedInfo}
-								setEditedInfo={setEditedInfo}
-							/>
+		<form onSubmit={handleSubmit(handleEditCompany)}>
+			<FormControl>
+				<AppLayout
+					right={
+						<EditCompanyLink
+							displayedEditedPicture={displayedEditedPicture}
+							editedCompanyPicture={editedCompanyPicture}
+							logo={editedCompanyPicture}
+							setEditedSocialLinksInputValue={setEditedSocialLinksInputValue}
+							company={companyToBeEdited}
+							handleEditedPicture={handleEditedPicture}
+						/>
+					}
+				>
+					<CompanyWhiteBackground />
+					<Flex direction="column" gap="10" zIndex="docked" pt="6" w="100%">
+						<Flex w="100%">
+							<NavigationBack
+								href={navigationPaths.dashboard.companies.overview(query.id)}
+							>
+								{translate('backToCompany')}
+							</NavigationBack>
 						</Flex>
-					</AppLayout>
-				</FormControl>
-			</form>
-		</TokensProvider>
+						<EditCompanyComponent
+							setEditedSocialLinksInputValue={setEditedSocialLinksInputValue}
+							editedSocialLinksInputValue={editedSocialLinksInputValue}
+							editedCompanyPicture={displayedEditedPicture}
+							setSelectedNetwork={setSelectedNetwork}
+							setSelectedType={setSelectedType}
+							selectedNetwork={selectedNetwork}
+							selectedType={selectedType}
+							errors={errors}
+							register={register}
+							company={companyToBeEdited}
+							editedInfo={editedInfo}
+							setEditedInfo={setEditedInfo}
+						/>
+					</Flex>
+				</AppLayout>
+			</FormControl>
+		</form>
 	);
 };

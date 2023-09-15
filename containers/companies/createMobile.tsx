@@ -86,7 +86,9 @@ export const CreateCompanyMobileContainer = () => {
 				company,
 			});
 			setNewCompanyId(id);
-			createCompanyWrite?.({ args: [checksum] });
+			createCompanyWrite?.({
+				args: [checksum, process.env.NEXT_PUBLIC_CALI_TOKEN],
+			});
 		} catch (error) {
 			if (error instanceof AxiosError) {
 				if (error.response?.data.message === 'Unique company name') {
@@ -253,41 +255,39 @@ export const CreateCompanyMobileContainer = () => {
 	};
 	return (
 		<form onSubmit={handleSubmit(handleCreateCompany)}>
-			<CompaniesProvider>
-				<FormControl>
-					<MobileLayout>
-						<WaitConfirmationModalMobile isOpen={isLoading} onClose={onClose} />
-						<Flex direction="column" w="full">
-							<Flex
-								borderTopRadius="3xl"
-								top="79"
-								w="100%"
-								bg="white"
-								position="absolute"
-								h="12.6rem"
-								left="0"
-							/>
-							<Flex w="100%">
-								<NavigationBack href={navigationPaths.dashboard.companies.home}>
-									{translate('backToCompanies')}
-								</NavigationBack>
-							</Flex>
-							<CreateCompanyMobile
-								isLoadingButton={isLoadingButton}
-								setSocialMediasInput={setSocialMediasInput}
-								newCompanyPicture={newCompanyPicture}
-								handleNewPicture={handleNewPicture}
-								errors={errors}
-								register={register}
-								setSelectedNetwork={setSelectedNetwork}
-								setSelectedType={setSelectedType}
-								selectedNetwork={selectedNetwork}
-								selectedType={selectedType}
-							/>
+			<FormControl>
+				<MobileLayout>
+					<WaitConfirmationModalMobile isOpen={isLoading} onClose={onClose} />
+					<Flex direction="column" w="full">
+						<Flex
+							borderTopRadius="3xl"
+							top="79"
+							w="100%"
+							bg="white"
+							position="absolute"
+							h="12.6rem"
+							left="0"
+						/>
+						<Flex w="100%">
+							<NavigationBack href={navigationPaths.dashboard.companies.home}>
+								{translate('backToCompanies')}
+							</NavigationBack>
 						</Flex>
-					</MobileLayout>
-				</FormControl>
-			</CompaniesProvider>
+						<CreateCompanyMobile
+							isLoadingButton={isLoadingButton}
+							setSocialMediasInput={setSocialMediasInput}
+							newCompanyPicture={newCompanyPicture}
+							handleNewPicture={handleNewPicture}
+							errors={errors}
+							register={register}
+							setSelectedNetwork={setSelectedNetwork}
+							setSelectedType={setSelectedType}
+							selectedNetwork={selectedNetwork}
+							selectedType={selectedType}
+						/>
+					</Flex>
+				</MobileLayout>
+			</FormControl>
 		</form>
 	);
 };

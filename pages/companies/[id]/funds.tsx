@@ -1,11 +1,20 @@
 import { FundsContainer, FundsContainerMobile } from 'containers';
-import { AuthProvider, CompaniesProvider } from 'contexts';
+import {
+	AuthProvider,
+	CompaniesProvider,
+	ProfileProvider,
+	TokensProvider,
+} from 'contexts';
 
 export const Funds = () => (
 	<AuthProvider>
 		<CompaniesProvider>
-			<FundsContainer />
-			<FundsContainerMobile />
+			<ProfileProvider>
+				<TokensProvider>
+					<FundsContainer />
+					<FundsContainerMobile />
+				</TokensProvider>
+			</ProfileProvider>
 		</CompaniesProvider>
 	</AuthProvider>
 );
