@@ -261,7 +261,7 @@ export const CompaniesHeaderMobile = () => {
 											cursor="pointer"
 											onClick={() =>
 												window.open(
-													`https://mumbai.polygonscan.com/address/${selectedCompany?.contract}`
+													`https://polygonscan.com/address/${selectedCompany?.contract}`
 												)
 											}
 										>
