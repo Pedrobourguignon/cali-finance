@@ -2,7 +2,6 @@
 import {
 	Button,
 	Flex,
-	Icon,
 	Img,
 	Input,
 	Menu,
@@ -12,17 +11,14 @@ import {
 	Text,
 	Textarea,
 	TextProps,
-	Tooltip,
 	useDisclosure,
 } from '@chakra-ui/react';
 import { useAuth, usePicasso } from 'hooks';
 import { FieldErrors, UseFormRegister } from 'react-hook-form';
-import { BsQuestionCircle } from 'react-icons/bs';
 import useTranslation from 'next-translate/useTranslation';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import {
 	BlackButton,
-	NetworkTooltip,
 	EditCompanyLinkModal,
 	ImageUploaderModalMobile,
 	CompanyLogoMobile,
@@ -30,10 +26,10 @@ import {
 
 import { ChevronDownIcon } from '@chakra-ui/icons';
 import { ICompany } from 'types/interfaces/main-server/ICompany';
-import { networkInfos } from 'utils';
 import { ISociaLinksInputValue } from 'types';
 
 interface IEditCompanyComponent {
+	isLoadingButton: boolean;
 	displayedEditedPicture: string | undefined;
 	handleEditedPicture: (picture: string) => void;
 	editedSocialLinksInputValue: ISociaLinksInputValue;
@@ -92,6 +88,7 @@ export const EditCompanyComponentMobile: React.FC<IEditCompanyComponent> = ({
 	editedSocialLinksInputValue,
 	setEditedSocialLinksInputValue,
 	handleEditedPicture,
+	isLoadingButton,
 }) => {
 	const [editedInfo, setEditedInfo] = useState<ICompany>({} as ICompany);
 	const theme = usePicasso();
@@ -328,7 +325,7 @@ export const EditCompanyComponentMobile: React.FC<IEditCompanyComponent> = ({
 								display={{ md: 'flex', lg: 'none' }}
 							>
 								<Flex gap="2" mb="2" align="center">
-									<Text {...labelStyle}>Network *</Text>
+									<Text {...labelStyle}>{translate('network')}</Text>
 									{/* <Tooltip
 										label={
 											<NetworkTooltip>
@@ -483,6 +480,7 @@ export const EditCompanyComponentMobile: React.FC<IEditCompanyComponent> = ({
 							display={{ md: 'none', lg: 'flex' }}
 							isDisabled={disableSaveChangesButton()}
 							_disabled={{ opacity: '50%', cursor: 'not-allowed' }}
+							isLoading={isLoadingButton}
 						>
 							{translate('saveChanges')}
 						</BlackButton>

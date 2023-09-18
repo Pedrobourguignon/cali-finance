@@ -30,10 +30,10 @@ export const EditCompanyMobile = () => {
 	const toast = useToast();
 	const { t: translate } = useTranslation('create-company');
 	const { query } = useRouter();
-	const { session } = useAuth();
 	const { editCompanySchema } = useSchema();
 	const { getCompanyById, updateCompany } = useCompanies();
 	const [selectedType, setSelectedType] = useState<string | undefined>('');
+	const [isLoadingButton, setIsLoadingButton] = useState<boolean>(false);
 	const [editedSocialLinksInputValue, setEditedSocialLinksInputValue] =
 		useState<ISociaLinksInputValue>({} as ISociaLinksInputValue);
 
@@ -118,6 +118,7 @@ export const EditCompanyMobile = () => {
 		const { name, contactEmail, description } = editedInfo;
 		const { websiteURL, instagramURL, twitterURL, telegramURL, mediumURL } =
 			editedSocialLinksInputValue;
+		setIsLoadingButton(true);
 		mutate({
 			name,
 			contactEmail,
@@ -174,6 +175,7 @@ export const EditCompanyMobile = () => {
 							</NavigationBack>
 						</Flex>
 						<EditCompanyComponentMobile
+							isLoadingButton={isLoadingButton}
 							handleEditedPicture={handleEditedPicture}
 							displayedEditedPicture={displayedEditedPicture}
 							setEditedSocialLinksInputValue={setEditedSocialLinksInputValue}
