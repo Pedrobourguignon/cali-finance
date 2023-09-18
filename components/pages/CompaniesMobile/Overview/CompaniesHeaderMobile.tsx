@@ -107,9 +107,7 @@ export const CompaniesHeaderMobile = () => {
 		}
 	};
 
-	const [showButton, setShowButton] = useState<boolean>(
-		selectedCompany?.contract === null
-	);
+	const [showButton, setShowButton] = useState<boolean>(false);
 
 	const { isLoading } = useWaitForTransaction({
 		hash: createCompanyData?.hash,
@@ -168,7 +166,16 @@ export const CompaniesHeaderMobile = () => {
 		});
 	};
 
+	const showRedeployButton = () => {
+		if (selectedCompany?.status === 'await deploy') {
+			setShowButton(true);
+		} else if (selectedCompany?.status === 'await polling') {
+			setShowButton(false);
+		}
+	};
+
 	useEffect(() => {
+		showRedeployButton();
 		calculateEmployeeRevenue();
 		getEmployeesBalance();
 	}, [selectedCompanyData, employees]);

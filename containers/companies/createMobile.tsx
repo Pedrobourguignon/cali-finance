@@ -148,6 +148,7 @@ export const CreateCompanyMobileContainer = () => {
 			);
 		},
 		onError() {
+			setIsLoadingButton(false);
 			toast({
 				position: 'top-right',
 				render: () => (

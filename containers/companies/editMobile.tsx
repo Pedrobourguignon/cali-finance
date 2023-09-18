@@ -31,6 +31,7 @@ export const EditCompanyMobile = () => {
 	const { editCompanySchema } = useSchema();
 	const { getCompanyById, updateCompany } = useCompanies();
 	const [selectedType, setSelectedType] = useState<string | undefined>('');
+	const [isLoadingButton, setIsLoadingButton] = useState<boolean>(false);
 	const [editedSocialLinksInputValue, setEditedSocialLinksInputValue] =
 		useState<ISociaLinksInputValue>({} as ISociaLinksInputValue);
 
@@ -116,6 +117,7 @@ export const EditCompanyMobile = () => {
 		const { name, contactEmail, description } = editedInfo;
 		const { websiteURL, instagramURL, twitterURL, telegramURL, mediumURL } =
 			editedSocialLinksInputValue;
+		setIsLoadingButton(true);
 		mutate({
 			name,
 			contactEmail,
@@ -173,6 +175,7 @@ export const EditCompanyMobile = () => {
 						</Flex>
 						<EditCompanyComponentMobile
 							editedInfo={editedInfo}
+							isLoadingButton={isLoadingButton}
 							handleEditedPicture={handleEditedPicture}
 							displayedEditedPicture={displayedEditedPicture}
 							setEditedSocialLinksInputValue={setEditedSocialLinksInputValue}

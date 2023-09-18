@@ -259,7 +259,7 @@ export const CreateCompanyMobile: React.FC<ICreateCompanyComponent> = ({
 								display={{ md: 'flex', lg: 'none' }}
 							>
 								<Flex gap="2" mb="2" align="center">
-									<Text {...labelStyle}>Network *</Text>
+									<Text {...labelStyle}>{translate('network')}</Text>
 									{/* <Tooltip
 										label={
 											<NetworkTooltip>
@@ -420,6 +420,7 @@ export const CreateCompanyMobile: React.FC<ICreateCompanyComponent> = ({
 							py="2.5"
 							borderRadius="sm"
 							isLoading={isLoadingButton}
+							maxH="10"
 						>
 							<Text>+</Text>
 							<Text>{translate('createCompany')}</Text>
