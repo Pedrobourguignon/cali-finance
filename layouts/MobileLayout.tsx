@@ -11,40 +11,30 @@ interface IMobileLayout {
 export const MobileLayout: React.FC<IMobileLayout> = ({ children }) => {
 	const theme = usePicasso();
 	return (
-		<ProfileProvider>
-			<CompaniesProvider>
-				<Flex
-					w="full"
-					bg={theme.text.primary}
-					direction="column"
-					display={{ base: 'flex', md: 'none' }}
-				>
-					<MobileHeader />
-					<Flex
-						minH="100vh"
-						w="full"
-						bg={theme.bg.gray2}
-						borderTopRadius="3xl"
-						px="4"
-						pt="4"
-						direction="column"
-					>
-						{children}
-					</Flex>
-					<Flex>
-						<Flex
-							w="full"
-							position="fixed"
-							zIndex="dropdown"
-							bottom="0"
-							pt="10"
-						>
-							<BottomMenuMobile />
-						</Flex>
-					</Flex>
+		<Flex
+			w="full"
+			bg={theme.text.primary}
+			direction="column"
+			display={{ base: 'flex', md: 'none' }}
+		>
+			<MobileHeader />
+			<Flex
+				minH="100vh"
+				w="full"
+				bg={theme.bg.gray2}
+				borderTopRadius="3xl"
+				px="4"
+				pt="4"
+				direction="column"
+			>
+				{children}
+			</Flex>
+			<Flex>
+				<Flex w="full" position="fixed" zIndex="dropdown" bottom="0" pt="10">
+					<BottomMenuMobile />
 				</Flex>
-			</CompaniesProvider>
-		</ProfileProvider>
+			</Flex>
+		</Flex>
 	);
 };
 

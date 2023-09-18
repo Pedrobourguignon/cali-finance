@@ -83,7 +83,9 @@ export const CompaniesHeader = () => {
 	const redeployCompanyContract = async () => {
 		try {
 			if (chain?.id !== 137) await switchNetworkAsync?.(chains[3].id);
-			createCompanyWrite?.({ args: [selectedCompany?.checksum] });
+			createCompanyWrite?.({
+				args: [selectedCompany?.checksum, process.env.NEXT_PUBLIC_CALI_TOKEN],
+			});
 		} catch (error) {
 			if (error instanceof AxiosError) {
 				if (error.response?.status === 401) {

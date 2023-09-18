@@ -137,7 +137,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 		if (isConnected) {
 			checkSession();
 		}
-		if ((!isConnected && !session) || !isConnected) router.push('/dashboard');
 	}, [session, isConnected]);
 
 	const contextStates = useMemo(

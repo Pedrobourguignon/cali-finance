@@ -1,13 +1,20 @@
 import { EditCompany, EditCompanyMobile } from 'containers';
-import { AuthProvider, CompaniesProvider } from 'contexts';
+import {
+	AuthProvider,
+	CompaniesProvider,
+	ProfileProvider,
+	TokensProvider,
+} from 'contexts';
 
 export const Edit = () => (
 	<AuthProvider>
 		<CompaniesProvider>
-			<EditCompany />
-		</CompaniesProvider>
-		<CompaniesProvider>
-			<EditCompanyMobile />
+			<ProfileProvider>
+				<TokensProvider>
+					<EditCompany />
+					<EditCompanyMobile />
+				</TokensProvider>
+			</ProfileProvider>
 		</CompaniesProvider>
 	</AuthProvider>
 );
