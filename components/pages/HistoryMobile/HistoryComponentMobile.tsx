@@ -31,7 +31,7 @@ export const HistoryComponentMobile: React.FC<IHistoryPage> = ({ history }) => {
 	const { session } = useAuth();
 	const [filteredActivities, setFilteredActivities] = useState<
 		IHistoryNotifications[]
-	>(history!);
+	>(history || []);
 
 	const notificationPerPage = 7;
 	const maxPage = useMemo(
@@ -52,13 +52,17 @@ export const HistoryComponentMobile: React.FC<IHistoryPage> = ({ history }) => {
 	);
 
 	const handleActivitiesFilterButton = (filter: string) => {
-		setFilteredActivities(
-			history!.filter(notification => notification.event.description === filter)
-		);
-		if (filter === translate('all')) {
-			setFilteredActivities(history!);
+		if (history) {
+			setFilteredActivities(
+				history.filter(
+					notification => notification.event.description === filter
+				)
+			);
+			if (filter === translate('all')) {
+				setFilteredActivities(history);
+			}
+			setSelectedFilterOption(filter);
 		}
-		setSelectedFilterOption(filter);
 	};
 
 	useEffect(() => {
@@ -66,12 +70,14 @@ export const HistoryComponentMobile: React.FC<IHistoryPage> = ({ history }) => {
 	}, [filteredActivities]);
 
 	useEffect(() => {
-		setFilteredActivities(history!);
+		if (history) setFilteredActivities(history);
 	}, [history]);
 
 	const returnToAllResults = () => {
-		setFilteredActivities(history!);
-		setSelectedFilterOption('all');
+		if (history) {
+			setFilteredActivities(history);
+			setSelectedFilterOption('all');
+		}
 	};
 
 	return (
