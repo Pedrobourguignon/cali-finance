@@ -69,7 +69,7 @@ export const FundsPageComponentMobile = () => {
 					/>
 				)}
 			</Flex>
-			<Flex overflowX="hidden" direction="column" py="10">
+			{/* <Flex overflowX="hidden" direction="column" py="10">
 				<Text
 					fontSize="md"
 					fontWeight="medium"
@@ -100,8 +100,8 @@ export const FundsPageComponentMobile = () => {
 						))}
 					</Flex>
 				</Flex>
-			</Flex>
-			<Flex w="full" pb="20">
+			</Flex> */}
+			<Flex w="full" pt="10" pb="20">
 				<HistoryDashboard />
 			</Flex>
 		</>
