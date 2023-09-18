@@ -154,7 +154,6 @@ export const HistoryComponent: React.FC<IHistoryPage> = ({ history }) => {
 							</MenuList>
 						</Menu>
 					</Flex>
-					{history?.length === 0 && <HistorySkeletons />}
 					{!session ? (
 						<>
 							<Text fontSize="sm" color={theme.text.primary}>
