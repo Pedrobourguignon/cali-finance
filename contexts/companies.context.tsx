@@ -14,7 +14,7 @@ import {
 	IEditedEmployeeInfo,
 	IHistoryNotifications,
 } from 'types';
-import { checkJwt, mainClient, navigationPaths } from 'utils';
+import { checkJwt, formatCrypto, mainClient, navigationPaths } from 'utils';
 import {
 	QueryObserverResult,
 	RefetchOptions,
@@ -289,7 +289,9 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 						0n
 					);
 
-					setEmployeesBalance(Number(sum));
+					setEmployeesBalance(
+						Number(formatCrypto(sum, selectedCompanyData.tokenDecimals))
+					);
 				}
 			} catch (err) {
 				console.log(err);
@@ -320,18 +322,24 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 								});
 								const result = await Promise.all([...(data as bigint[])]);
 								if (locale) {
-									const sum = Number(
-										result.reduce(
-											(accumulator: bigint, currentValue: bigint) =>
-												accumulator + currentValue,
-											0n
-										)
+									const sum = result.reduce(
+										(accumulator: bigint, currentValue: bigint) =>
+											accumulator + currentValue,
+										0n
 									);
 
-									if (!company.totalFundsUsd || company.totalFundsUsd < sum)
+									const formattedBalance = Number(
+										formatCrypto(sum, company.tokenDecimals)
+									);
+
+									if (
+										!company.totalFundsUsd ||
+										company.totalFundsUsd < formattedBalance
+									) {
 										setCompaniesWithMissingFunds(prevState =>
 											prevState.concat(company)
 										);
+									}
 								}
 							} catch (err) {
 								console.log(err);
