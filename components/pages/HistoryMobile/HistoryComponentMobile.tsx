@@ -25,9 +25,8 @@ import { historyPageFilterOptions } from 'utils';
 export const HistoryComponentMobile: React.FC<IHistoryPage> = ({ history }) => {
 	const { t: translate } = useTranslation('history-page');
 	const theme = usePicasso();
-	const [selectedFilterOption, setSelectedFilterOption] = useState<string>(
-		translate('all')
-	);
+	const [selectedFilterOption, setSelectedFilterOption] =
+		useState<string>('all');
 	const [pageNumber, setPageNumber] = useState(0);
 	const { session } = useAuth();
 	const [filteredActivities, setFilteredActivities] = useState<
@@ -72,7 +71,7 @@ export const HistoryComponentMobile: React.FC<IHistoryPage> = ({ history }) => {
 
 	const returnToAllResults = () => {
 		setFilteredActivities(history!);
-		setSelectedFilterOption(translate('all'));
+		setSelectedFilterOption('all');
 	};
 
 	return (
@@ -105,7 +104,9 @@ export const HistoryComponentMobile: React.FC<IHistoryPage> = ({ history }) => {
 								_focus={{}}
 							>
 								<Flex>
-									{!session ? translate('all') : selectedFilterOption}
+									{!session
+										? translate('all')
+										: translate(selectedFilterOption)}
 								</Flex>
 							</MenuButton>
 							<MenuList
