@@ -28,6 +28,7 @@ import {
 import factoryAbi from 'utils/abi/factory.json';
 import { MAIN_SERVICE_ROUTES } from 'helpers';
 import { Hex } from 'viem';
+import { CompaniesProvider, ProfileContext, ProfileProvider } from 'contexts';
 
 interface ISelectedNetwork {
 	name: string;
@@ -83,7 +84,9 @@ export const CreateCompanyContainer = () => {
 				company,
 			});
 			setNewCompanyId(id);
-			createCompanyWrite?.({ args: [checksum] });
+			createCompanyWrite?.({
+				args: [checksum, process.env.NEXT_PUBLIC_CALI_TOKEN],
+			});
 		} catch (error) {
 			setIsLoadingButton(false);
 			if (error instanceof AxiosError) {

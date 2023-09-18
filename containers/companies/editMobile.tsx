@@ -154,47 +154,45 @@ export const EditCompanyMobile = () => {
 	};
 
 	return (
-		<CompaniesProvider>
-			<form onSubmit={handleSubmit(handleEditCompany)}>
-				<FormControl>
-					<MobileLayout>
-						<Flex direction="column" w="100%">
-							<Flex
-								borderTopRadius="3xl"
-								top="79"
-								w="100%"
-								bg="white"
-								position="absolute"
-								h="12.6rem"
-								left="0"
-							/>
-							<Flex w="100%" pb="8">
-								<NavigationBack
-									href={navigationPaths.dashboard.companies.overview(query.id)}
-								>
-									{translate('backToCompany')}
-								</NavigationBack>
-							</Flex>
-							<EditCompanyComponentMobile
-								isLoadingButton={isLoadingButton}
-								handleEditedPicture={handleEditedPicture}
-								displayedEditedPicture={displayedEditedPicture}
-								setEditedSocialLinksInputValue={setEditedSocialLinksInputValue}
-								editedSocialLinksInputValue={editedSocialLinksInputValue}
-								editedCompanyPicture={displayedEditedPicture}
-								setSelectedNetwork={setSelectedNetwork}
-								setSelectedType={setSelectedType}
-								selectedNetwork={selectedNetwork}
-								selectedType={selectedType}
-								errors={errors}
-								register={register}
-								company={companyToBeEdited}
-								setEditedInfo={setEditedInfo}
-							/>
+		<form onSubmit={handleSubmit(handleEditCompany)}>
+			<FormControl>
+				<MobileLayout>
+					<Flex direction="column" w="100%">
+						<Flex
+							borderTopRadius="3xl"
+							top="79"
+							w="100%"
+							bg="white"
+							position="absolute"
+							h="12.6rem"
+							left="0"
+						/>
+						<Flex w="100%" pb="8">
+							<NavigationBack
+								href={navigationPaths.dashboard.companies.overview(query.id)}
+							>
+								{translate('backToCompany')}
+							</NavigationBack>
 						</Flex>
-					</MobileLayout>
-				</FormControl>
-			</form>
-		</CompaniesProvider>
+						<EditCompanyComponentMobile
+							isLoadingButton={isLoadingButton}
+							handleEditedPicture={handleEditedPicture}
+							displayedEditedPicture={displayedEditedPicture}
+							setEditedSocialLinksInputValue={setEditedSocialLinksInputValue}
+							editedSocialLinksInputValue={editedSocialLinksInputValue}
+							editedCompanyPicture={displayedEditedPicture}
+							setSelectedNetwork={setSelectedNetwork}
+							setSelectedType={setSelectedType}
+							selectedNetwork={selectedNetwork}
+							selectedType={selectedType}
+							errors={errors}
+							register={register}
+							company={companyToBeEdited}
+							setEditedInfo={setEditedInfo}
+						/>
+					</Flex>
+				</MobileLayout>
+			</FormControl>
+		</form>
 	);
 };

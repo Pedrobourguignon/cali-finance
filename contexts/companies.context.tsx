@@ -357,7 +357,7 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 	}, [employeesBalance, selectedCompanyData]);
 
 	useEffect(() => {
-		if (!allUserCompanies) refetchAllUserCompanies();
+		if (!allUserCompanies && session) refetchAllUserCompanies();
 		handleMissingFunds();
 	}, [allUserCompanies]);
 
