@@ -46,10 +46,12 @@ export const AlertToast: React.FC<IToast> = ({ onClick, text, type }) => {
 			left="0.25rem"
 			borderColor={handleToast().color}
 			bg={handleToast().color}
+			maxW={{ base: '22.5rem', md: 'full' }}
 		>
 			<Flex
 				bg="white"
-				h="14"
+				maxW={{ base: '22.5rem', md: 'full' }}
+				minW="14"
 				borderWidth="1px"
 				borderColor={handleToast().color}
 				borderRadius="base"
@@ -64,7 +66,7 @@ export const AlertToast: React.FC<IToast> = ({ onClick, text, type }) => {
 						color={handleToast().color}
 						boxSize="5"
 					/>
-					<Text w="max-content">{translate(text)}</Text>
+					<Text fontSize={{ base: 'xs', md: 'md' }}>{translate(text)}</Text>
 				</Flex>
 				<Button onClick={onClick}>
 					<Icon boxSize="5" as={AiOutlineClose} />
