@@ -51,7 +51,7 @@ export const AlertToast: React.FC<IToast> = ({ onClick, text, type }) => {
 			<Flex
 				bg="white"
 				maxW={{ base: '22.5rem', md: 'full' }}
-				minW="14"
+				minH="14"
 				borderWidth="1px"
 				borderColor={handleToast().color}
 				borderRadius="base"
