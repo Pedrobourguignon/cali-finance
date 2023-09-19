@@ -12,7 +12,7 @@ interface IActivitiesData {
 export const ActivitiesDataMobile: React.FC<IActivitiesData> = ({
 	activities,
 }) => {
-	const { t: translate } = useTranslation('companies');
+	const { t: translate } = useTranslation('history-page');
 	const theme = usePicasso();
 	const { locale } = useRouter();
 

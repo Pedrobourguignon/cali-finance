@@ -16,7 +16,7 @@ import {
 import { useAuth, usePicasso } from 'hooks';
 import { FieldErrors, UseFormRegister } from 'react-hook-form';
 import useTranslation from 'next-translate/useTranslation';
-import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect } from 'react';
 import {
 	BlackButton,
 	EditCompanyLinkModal,
@@ -34,6 +34,7 @@ interface IEditCompanyComponent {
 	handleEditedPicture: (picture: string) => void;
 	editedSocialLinksInputValue: ISociaLinksInputValue;
 	setEditedInfo: Dispatch<SetStateAction<ICompany>>;
+	editedInfo: ICompany;
 	setEditedSocialLinksInputValue: Dispatch<
 		SetStateAction<ISociaLinksInputValue>
 	>;
@@ -88,9 +89,10 @@ export const EditCompanyComponentMobile: React.FC<IEditCompanyComponent> = ({
 	editedSocialLinksInputValue,
 	setEditedSocialLinksInputValue,
 	handleEditedPicture,
+	setEditedInfo,
+	editedInfo,
 	isLoadingButton,
 }) => {
-	const [editedInfo, setEditedInfo] = useState<ICompany>({} as ICompany);
 	const theme = usePicasso();
 	const { t: translate } = useTranslation('create-company');
 	const { session } = useAuth();
@@ -106,7 +108,7 @@ export const EditCompanyComponentMobile: React.FC<IEditCompanyComponent> = ({
 	} = useDisclosure();
 
 	useEffect(() => {
-		setEditedInfo(company!);
+		if (company) setEditedInfo(company);
 	}, [company]);
 
 	const companiesType = [
@@ -193,8 +195,7 @@ export const EditCompanyComponentMobile: React.FC<IEditCompanyComponent> = ({
 					{translate('editCompany')}
 				</Text>
 				<Input
-					{...register('name')}
-					defaultValue={company?.name}
+					defaultValue={company && company.name}
 					color="black"
 					placeholder={translate('companyName')}
 					borderBottomWidth="0,125rem"
@@ -209,6 +210,7 @@ export const EditCompanyComponentMobile: React.FC<IEditCompanyComponent> = ({
 						fontSize: '2xl',
 					}}
 					_hover={{}}
+					{...register('name')}
 					onChange={editedName =>
 						setEditedInfo(prevState => ({
 							...prevState,

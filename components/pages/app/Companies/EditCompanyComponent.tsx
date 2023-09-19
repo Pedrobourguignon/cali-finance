@@ -15,8 +15,8 @@ import {
 import { useAuth, usePicasso } from 'hooks';
 import { FieldErrors, UseFormRegister } from 'react-hook-form';
 import useTranslation from 'next-translate/useTranslation';
-import { Dispatch, SetStateAction, useEffect, useState } from 'react';
-import { BlackButton, NetworkTooltip } from 'components';
+import { Dispatch, SetStateAction, useEffect } from 'react';
+import { BlackButton } from 'components';
 import { ChevronDownIcon } from '@chakra-ui/icons';
 import { ICompany } from 'types/interfaces/main-server/ICompany';
 import { ISociaLinksInputValue } from 'types';
@@ -80,13 +80,12 @@ export const EditCompanyComponent: React.FC<IEditCompanyComponent> = ({
 	setEditedInfo,
 	editedInfo,
 }) => {
-	// const [editedInfo, setEditedInfo] = useState<ICompany>({} as ICompany);
 	const theme = usePicasso();
 	const { t: translate } = useTranslation('create-company');
 	const { session } = useAuth();
 
 	useEffect(() => {
-		setEditedInfo(company!);
+		if (company) setEditedInfo(company);
 	}, [company]);
 
 	const companiesType = [
@@ -158,7 +157,7 @@ export const EditCompanyComponent: React.FC<IEditCompanyComponent> = ({
 					{translate('editCompany')}
 				</Text>
 				<Input
-					defaultValue={company && company?.name}
+					defaultValue={company && company.name}
 					color="black"
 					type="text"
 					placeholder={translate('companyName')}

@@ -16,13 +16,7 @@ import {
 } from '@chakra-ui/react';
 import { useCompanies, usePicasso, useSchema, useTokens } from 'hooks';
 import React, { useState } from 'react';
-import { IoIosArrowDown } from 'react-icons/io';
-import {
-	IEditedEmployeeInfo,
-	IEditEmployee,
-	IEditEmployeeForm,
-	ISelectedCoin,
-} from 'types';
+import { IEditedEmployeeInfo, IEditEmployee, ISelectedCoin } from 'types';
 import {
 	BlackButton,
 	EditProfileIcon,
@@ -74,7 +68,7 @@ export const EditEmployeeMobile: React.FC<IEditEmployee> = ({
 	} = useDisclosure();
 
 	const { chain } = useNetwork();
-	const { chains, switchNetworkAsync, isLoading } = useSwitchNetwork();
+	const { chains, switchNetworkAsync } = useSwitchNetwork();
 
 	const labelStyle: TextProps = {
 		color: 'black',
@@ -86,11 +80,30 @@ export const EditEmployeeMobile: React.FC<IEditEmployee> = ({
 		color: 'blackAlpha.500',
 	};
 
-	const expenseValue = 30;
-	const expenseCalculation = () =>
-		`${translate('thisChange')} ${expenseValue}% ${translate(
-			'more'
-		)} ${translate('expenses')}`;
+	const expenseCalculation = () => {
+		if (employee.revenue && editedEmployeeData.amountInDollar > 0) {
+			const newEmployeesRevenue =
+				employeesRevenue - employee.revenue + editedEmployeeData.amountInDollar;
+			const expense = newEmployeesRevenue - employeesRevenue;
+			const percentExpenses = (expense / employeesRevenue) * 100;
+			if (percentExpenses > 0) {
+				return {
+					text: `${percentExpenses.toFixed(0)}% ${translate('more')}`,
+					amount: expense.toString(),
+				};
+			}
+			const negativeExpensesPercent =
+				((employeesRevenue - newEmployeesRevenue) / employeesRevenue) * 100;
+			return {
+				text: `${negativeExpensesPercent.toFixed(0)}% ${translate('less')}`,
+				amount: '0',
+			};
+		}
+		return {
+			text: `0% ${translate('more')}`,
+			amount: '0',
+		};
+	};
 
 	const converterToDollar = (amountInDollar: number) => {
 		if (usdtQuotation.USDT?.value) {
@@ -334,17 +347,26 @@ export const EditEmployeeMobile: React.FC<IEditEmployee> = ({
 									{errors.revenue?.message}
 								</Text>
 								<Flex bg="blue.50" py="2" justify="center" borderRadius="base">
+									<Text fontSize="sm" color={theme.text.primary}>
+										{translate('thisChange')}
+									</Text>
 									<Text
 										fontSize="sm"
 										color={theme.text.primary}
 										fontWeight="bold"
 									>
 										&nbsp;
-										{expenseCalculation()}
+										{expenseCalculation().text}
+									</Text>
+									<Text fontSize="sm" color={theme.text.primary}>
+										&nbsp;
+										{translate('expenses')}
 									</Text>
 								</Flex>
 								<Text fontSize="xs" color={theme.text.primary}>
-									{translate('pleaseNote')}
+									{translate('pleaseNote', {
+										expense: expenseCalculation().amount,
+									})}
 								</Text>
 							</Flex>
 							<BlackButton

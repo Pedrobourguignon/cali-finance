@@ -82,7 +82,7 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 	};
 
 	const { chain } = useNetwork();
-	const { chains, switchNetworkAsync, isLoading } = useSwitchNetwork();
+	const { chains, switchNetworkAsync } = useSwitchNetwork();
 
 	const expenseCalculation = () => {
 		if (employee.revenue && editedEmployeeData.amountInDollar > 0) {
@@ -156,7 +156,7 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 			employee.wallet,
 			toCrypto(editedEmployeeData.amount, selectedCompany.tokenDecimals),
 		],
-		enabled: employee.wallet !== '' && editedEmployeeData.amount !== 0,
+		enabled: employee.status ? employee.status > 1 : false,
 	});
 
 	const { data: addEmployeeData, write: addEmployeeWrite } =
