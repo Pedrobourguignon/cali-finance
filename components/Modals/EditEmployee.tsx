@@ -63,6 +63,7 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 		logo: 'https://assets.coingecko.com/coins/images/1/thumb/bitcoin.png?1547033579',
 		symbol: 'BTC',
 	} as ISelectedCoin);
+	const [isLoadingButton, setIsLoadingButton] = useState<boolean>(false);
 
 	const {
 		isOpen: isOpenTokenSelector,
@@ -129,6 +130,7 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 
 	const handleResetFormInputs = () => {
 		reset();
+		setIsLoadingButton(false);
 		onClose();
 		setEditedEmployeeData(prevState => ({
 			...prevState,
@@ -210,6 +212,7 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 							/>
 						),
 					});
+					setIsLoadingButton(true);
 					addEmployeeWrite?.();
 				}
 			},
@@ -252,6 +255,7 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 			updateEmployee(newDataOfEmployee, teams[0].id),
 		{
 			onSuccess: async () => {
+				setIsLoadingButton(true);
 				queryClient.invalidateQueries('all-company-employees');
 				if (chain?.id !== 137) await switchNetworkAsync?.(chains[3].id);
 				editEmployeeWrite?.({
@@ -262,6 +266,7 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 				});
 			},
 			onError: error => {
+				setIsLoadingButton(false);
 				if (error instanceof AxiosError) {
 					if (error.response?.data.message === 'Unauthorized') {
 						toast({
@@ -455,7 +460,9 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 									gap="3"
 									borderRadius="sm"
 									mb="4"
-									isDisabled={!editedEmployeeData.amount}
+									isDisabled={editedEmployeeData.amount < 0}
+									isLoading={isLoadingButton}
+									maxH="10"
 								>
 									<Text>+</Text>
 									{translate('updateEmployee')}

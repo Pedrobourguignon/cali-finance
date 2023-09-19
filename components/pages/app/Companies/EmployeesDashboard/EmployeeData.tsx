@@ -56,11 +56,11 @@ export const EmployeeData: React.FC<IEmployeeData> = ({
 	};
 
 	const handleEmployeeAmount = () => {
-		if (employee.status === 1 && employee.revenue) {
+		if (employee.status === 1) {
 			return (
 				<Flex direction="column" align="end" flex="3">
 					<Flex gap="1" fontSize="xs">
-						<Text>{formatFiat(employee.revenue)}</Text>
+						<Text>{formatFiat(employee.revenue!)}</Text>
 						<Text>{employee.asset?.toUpperCase()}</Text>
 					</Flex>
 					<Flex display={{ base: 'none', sm: 'flex' }}>
