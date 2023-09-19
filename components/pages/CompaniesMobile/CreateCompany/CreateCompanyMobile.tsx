@@ -419,7 +419,7 @@ export const CreateCompanyMobile: React.FC<ICreateCompanyComponent> = ({
 							lineHeight="6"
 							py="2.5"
 							borderRadius="sm"
-							isLoading={isLoadingButton}
+							// isLoading={isLoadingButton}
 							maxH="10"
 						>
 							<Text>+</Text>
