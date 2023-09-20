@@ -84,7 +84,10 @@ export const CompaniesHeader = () => {
 		try {
 			if (chain?.id !== 137) await switchNetworkAsync?.(chains[3].id);
 			createCompanyWrite?.({
-				args: [selectedCompany?.checksum, process.env.NEXT_PUBLIC_USDT],
+				args: [
+					selectedCompany?.checksum,
+					'0xc2132D05D31c914a87C6611C10748AEb04B58e8F',
+				],
 			});
 		} catch (error) {
 			if (error instanceof AxiosError) {
