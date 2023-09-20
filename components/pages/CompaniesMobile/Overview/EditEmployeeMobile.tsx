@@ -54,6 +54,8 @@ export const EditEmployeeMobile: React.FC<IEditEmployee> = ({
 		amount: 0,
 		amountInDollar: 0,
 	});
+	const [isLoadingButton, setIsLoadingButton] = useState<boolean>(false);
+
 	const [token, setToken] = useState<ISelectedCoin>({
 		logo: 'https://assets.coingecko.com/coins/images/1/thumb/bitcoin.png?1547033579',
 		symbol: 'bitcoin',
@@ -126,6 +128,7 @@ export const EditEmployeeMobile: React.FC<IEditEmployee> = ({
 
 	const handleResetFormInputs = () => {
 		reset();
+		setIsLoadingButton(false);
 		onClose();
 		setEditedEmployeeData(prevState => ({
 			...prevState,
@@ -189,6 +192,7 @@ export const EditEmployeeMobile: React.FC<IEditEmployee> = ({
 			updateEmployee(newDataOfEmployee, teams[0].id),
 		{
 			onSuccess: async () => {
+				setIsLoadingButton(true);
 				queryClient.invalidateQueries('all-company-employees');
 				if (chain?.id !== 137) await switchNetworkAsync?.(chains[3].id);
 				editEmployeeWrite?.({
@@ -376,7 +380,8 @@ export const EditEmployeeMobile: React.FC<IEditEmployee> = ({
 								gap="3"
 								borderRadius="sm"
 								mb="4"
-								disabled={!editedEmployeeData.amount}
+								isDisabled={editedEmployeeData.amount < 0}
+								isLoading={isLoadingButton}
 							>
 								<Text>+</Text>
 								{translate('updateEmployee')}

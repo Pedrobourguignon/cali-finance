@@ -36,8 +36,8 @@ const useSchema = () => {
 				sixDigitsAfterComma.test(val)
 			)
 			.required(translate('required'))
-			.typeError(translate('amountMustBeANumber'))
-			.positive(translate('amountMustBeAPositive')),
+			.typeError(translate('amountMustBeANumber')),
+		// .positive(translate('amountMustBeAPositive')),
 	});
 
 	const createCompanySchema = yup.object().shape({

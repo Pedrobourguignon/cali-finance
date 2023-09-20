@@ -59,6 +59,7 @@ export const AddEmployee: React.FC<IAddEmployee> = ({ isOpen, onClose }) => {
 	const { selectedCompanyData, addEmployeeToTeam } = useCompanies();
 	const { addEmployeeSchema } = useSchema();
 	const queryClient = useQueryClient();
+	const [isLoadingButton, setIsLoadingButton] = useState<boolean>(false);
 
 	const debouncedEmployeeAddress = useDebounce(
 		addedEmployeeData.walletAddress,
@@ -122,6 +123,7 @@ export const AddEmployee: React.FC<IAddEmployee> = ({ isOpen, onClose }) => {
 	};
 	const handleResetFormInputs = () => {
 		reset();
+		setIsLoadingButton(false);
 		onClose();
 		setAddedEmployeeData(prevState => ({
 			...prevState,
@@ -184,11 +186,13 @@ export const AddEmployee: React.FC<IAddEmployee> = ({ isOpen, onClose }) => {
 		(employee: INewEmployee) => addEmployeeToTeam(employee),
 		{
 			onSuccess: async () => {
+				setIsLoadingButton(true);
 				queryClient.invalidateQueries({ queryKey: ['all-company-employees'] });
 				if (chain?.id !== 137) await switchNetworkAsync?.(chains[3].id);
 				addEmployeeWrite?.();
 			},
 			onError: error => {
+				setIsLoadingButton(false);
 				if (error instanceof AxiosError) {
 					if (error.response?.status === 409) {
 						toast({
@@ -422,6 +426,7 @@ export const AddEmployee: React.FC<IAddEmployee> = ({ isOpen, onClose }) => {
 									</Text>
 								</Flex>
 								<BlackButton
+									maxH="10"
 									py="2.5"
 									type="submit"
 									fontWeight="normal"
@@ -432,6 +437,7 @@ export const AddEmployee: React.FC<IAddEmployee> = ({ isOpen, onClose }) => {
 										!addedEmployeeData.walletAddress ||
 										!addedEmployeeData.amount
 									}
+									isLoading={isLoadingButton}
 								>
 									<Text>+</Text>
 									{translate('addEmployee')}

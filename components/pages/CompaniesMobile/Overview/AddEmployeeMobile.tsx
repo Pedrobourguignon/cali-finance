@@ -60,6 +60,7 @@ export const AddEmployeeMobile: React.FC<IAddEmployee> = ({
 	const { selectedCompanyData, addEmployeeToTeam } = useCompanies();
 	const queryClient = useQueryClient();
 	const { listOfTokens, usdtQuotation } = useTokens();
+	const [isLoadingButton, setIsLoadingButton] = useState<boolean>(false);
 
 	const toast = useToast();
 	const theme = usePicasso();
@@ -117,6 +118,7 @@ export const AddEmployeeMobile: React.FC<IAddEmployee> = ({
 
 	const handleResetFormInputs = () => {
 		reset();
+		setIsLoadingButton(false);
 		onClose();
 		setAddedEmployeeData(prevState => ({
 			...prevState,
@@ -179,6 +181,7 @@ export const AddEmployeeMobile: React.FC<IAddEmployee> = ({
 		(employee: INewEmployee) => addEmployeeToTeam(employee),
 		{
 			onSuccess: async () => {
+				setIsLoadingButton(true);
 				queryClient.invalidateQueries({ queryKey: ['all-company-employees'] });
 				if (chain?.id !== 137) await switchNetworkAsync?.(chains[3].id);
 				addEmployeeWrite?.();
@@ -194,6 +197,7 @@ export const AddEmployeeMobile: React.FC<IAddEmployee> = ({
 				});
 			},
 			onError: error => {
+				setIsLoadingButton(false);
 				if (error instanceof AxiosError) {
 					if (error.response?.status === 409) {
 						toast({
@@ -413,6 +417,7 @@ export const AddEmployeeMobile: React.FC<IAddEmployee> = ({
 								</Text>
 							</Flex>
 							<BlackButton
+								maxH="10"
 								py="2.5"
 								type="submit"
 								fontWeight="normal"
@@ -422,6 +427,7 @@ export const AddEmployeeMobile: React.FC<IAddEmployee> = ({
 								isDisabled={
 									!addedEmployeeData.walletAddress || !addedEmployeeData.amount
 								}
+								isLoading={isLoadingButton}
 							>
 								<Text>+</Text>
 								{translate('addEmployee')}
