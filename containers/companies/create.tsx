@@ -85,7 +85,7 @@ export const CreateCompanyContainer = () => {
 			});
 			setNewCompanyId(id);
 			createCompanyWrite?.({
-				args: [checksum, process.env.NEXT_PUBLIC_CALI_TOKEN],
+				args: [checksum, process.env.NEXT_PUBLIC_USDT],
 			});
 		} catch (error) {
 			setIsLoadingButton(false);
