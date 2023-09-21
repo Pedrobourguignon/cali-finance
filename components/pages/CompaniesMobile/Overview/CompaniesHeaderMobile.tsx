@@ -42,6 +42,7 @@ import factoryAbi from 'utils/abi/factory.json';
 
 export const CompaniesHeaderMobile = () => {
 	const theme = usePicasso();
+	const [isLoadingButton, setIsLoadingButton] = useState<boolean>(false);
 	const { isSamePath } = usePath();
 	const { query } = useRouter();
 	const {
@@ -76,9 +77,11 @@ export const CompaniesHeaderMobile = () => {
 
 	const redeployCompanyContract = async () => {
 		try {
+			setIsLoadingButton(true);
 			if (chain?.id !== 137) await switchNetworkAsync?.(chains[3].id);
 			createCompanyWrite?.({ args: [selectedCompany?.checksum] });
 		} catch (error) {
+			setIsLoadingButton(false);
 			if (error instanceof AxiosError) {
 				if (error.response?.status === 401) {
 					toast({
@@ -126,6 +129,7 @@ export const CompaniesHeaderMobile = () => {
 			});
 		},
 		onError() {
+			setIsLoadingButton(false);
 			toast({
 				position: 'top',
 				render: () => (
@@ -353,6 +357,7 @@ export const CompaniesHeaderMobile = () => {
 				</Flex>
 			</Flex>
 			<RedeployCompanyButton
+				isLoadingButton={isLoadingButton}
 				onClick={() => redeployCompanyContract()}
 				showButton={showButton}
 			/>

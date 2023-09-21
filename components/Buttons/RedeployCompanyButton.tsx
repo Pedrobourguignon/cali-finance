@@ -5,11 +5,13 @@ import React from 'react';
 interface IRedeployCompanyButton {
 	onClick: () => void;
 	showButton: boolean;
+	isLoadingButton: boolean;
 }
 
 export const RedeployCompanyButton: React.FC<IRedeployCompanyButton> = ({
 	onClick,
 	showButton,
+	isLoadingButton,
 }) => {
 	const { t: translate } = useTranslation('alerts');
 	return (
@@ -28,6 +30,7 @@ export const RedeployCompanyButton: React.FC<IRedeployCompanyButton> = ({
 					display={showButton ? 'flex' : 'none'}
 					_active={{}}
 					_focus={{}}
+					isLoading={isLoadingButton}
 				>
 					{translate('redeployCompany')}
 				</Button>

@@ -39,7 +39,10 @@ const CompanyLogo: React.FC<{
 	logo: string;
 	onClick?: () => void;
 }> = ({ logo }) => {
-	if (logo) return <Img src={logo} boxSize="20" borderRadius="base" />;
+	if (logo)
+		return (
+			<Img src={logo} objectFit="cover" boxSize="20" borderRadius="base" />
+		);
 	return <Img src="/images/work.png" boxSize="20" borderRadius="base" />;
 };
 
