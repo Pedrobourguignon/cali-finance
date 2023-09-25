@@ -42,6 +42,11 @@ import {
 } from 'wagmi';
 import companyAbi from 'utils/abi/company.json';
 
+interface IEditedEmployee {
+	amount: number | null;
+	amountInDollar: number | null;
+}
+
 export const EditEmployee: React.FC<IEditEmployee> = ({
 	isOpen,
 	onClose,
@@ -54,11 +59,13 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 	const toast = useToast();
 	const { listOfTokens, usdtQuotation } = useTokens();
 	const { editEmployeeSchema } = useSchema();
-	const { updateEmployee, selectedCompany, employeesRevenue } = useCompanies();
-	const [editedEmployeeData, setEditedEmployeeData] = useState({
-		amount: 0,
-		amountInDollar: 0,
-	});
+	const { updateEmployee, selectedCompany } = useCompanies();
+	const [editedEmployeeData, setEditedEmployeeData] = useState<IEditedEmployee>(
+		{
+			amount: null,
+			amountInDollar: null,
+		}
+	);
 	const [token, setToken] = useState<ISelectedCoin>({
 		logo: 'https://assets.coingecko.com/coins/images/1/thumb/bitcoin.png?1547033579',
 		symbol: 'BTC',
@@ -86,26 +93,32 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 	const { chains, switchNetworkAsync } = useSwitchNetwork();
 
 	const expenseCalculation = () => {
-		if (employee.revenue && editedEmployeeData.amountInDollar > 0) {
-			const newEmployeesRevenue =
-				employeesRevenue - employee.revenue + editedEmployeeData.amountInDollar;
-			const expense = newEmployeesRevenue - employeesRevenue;
-			const percentExpenses = (expense / employeesRevenue) * 100;
-			if (percentExpenses > 0) {
+		if (employee.revenue && editedEmployeeData.amountInDollar) {
+			if (employee.revenue > editedEmployeeData.amountInDollar) {
+				const expense = employee.revenue - editedEmployeeData.amountInDollar;
+				const percentExpenses = (expense / employee.revenue) * 100;
+				return {
+					text: `${percentExpenses.toFixed(0)}% ${translate('less')}`,
+					amount: '0',
+				};
+			}
+			if (employee.revenue < editedEmployeeData.amountInDollar) {
+				const expense = editedEmployeeData.amountInDollar - employee.revenue;
+				const percentExpenses = (expense / employee.revenue) * 100;
 				return {
 					text: `${percentExpenses.toFixed(0)}% ${translate('more')}`,
 					amount: expense.toString(),
 				};
 			}
-			const negativeExpensesPercent =
-				((employeesRevenue - newEmployeesRevenue) / employeesRevenue) * 100;
+		}
+		if (employee.revenue && editedEmployeeData.amountInDollar === 0) {
 			return {
-				text: `${negativeExpensesPercent.toFixed(0)}% ${translate('less')}`,
-				amount: '0',
+				text: `100% ${translate('less')}`,
+				amount: employee.revenue.toString(),
 			};
 		}
 		return {
-			text: `0% ${translate('more')}`,
+			text: `0% `,
 			amount: '0',
 		};
 	};
@@ -156,7 +169,10 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 		functionName: 'addEmployee',
 		args: [
 			employee.wallet,
-			toCrypto(editedEmployeeData.amount, selectedCompany.tokenDecimals),
+			toCrypto(
+				editedEmployeeData.amount ? editedEmployeeData.amount : 0,
+				selectedCompany.tokenDecimals
+			),
 		],
 		enabled: employee.status ? employee.status > 1 : false,
 	});
@@ -261,7 +277,10 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 				editEmployeeWrite?.({
 					args: [
 						employee.wallet,
-						toCrypto(editedEmployeeData.amount, selectedCompany.tokenDecimals),
+						toCrypto(
+							editedEmployeeData.amount ? editedEmployeeData.amount : 0,
+							selectedCompany.tokenDecimals
+						),
 					],
 				});
 			},
@@ -397,8 +416,8 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 													!amount.currentTarget.value &&
 													setEditedEmployeeData(prevState => ({
 														...prevState,
-														amountInDollar: 0,
-														amount: 0,
+														amountInDollar: null,
+														amount: null,
 													}))
 												);
 											}}
@@ -425,28 +444,30 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 									<Text fontSize="xs" color="red">
 										{errors.revenue?.message}
 									</Text>
-									<Flex
-										bg="blue.50"
-										py="2"
-										justify="center"
-										borderRadius="base"
-									>
-										<Text fontSize="sm" color={theme.text.primary}>
-											{translate('thisChange')}
-										</Text>
-										<Text
-											fontSize="sm"
-											color={theme.text.primary}
-											fontWeight="bold"
+									{editedEmployeeData.amountInDollar !== null && (
+										<Flex
+											bg="blue.50"
+											py="2"
+											justify="center"
+											borderRadius="base"
 										>
-											&nbsp;
-											{expenseCalculation().text}
-										</Text>
-										<Text fontSize="sm" color={theme.text.primary}>
-											&nbsp;
-											{translate('expenses')}
-										</Text>
-									</Flex>
+											<Text fontSize="sm" color={theme.text.primary}>
+												{translate('thisChange')}
+											</Text>
+											<Text
+												fontSize="sm"
+												color={theme.text.primary}
+												fontWeight="bold"
+											>
+												&nbsp;
+												{expenseCalculation().text}
+											</Text>
+											<Text fontSize="sm" color={theme.text.primary}>
+												&nbsp;
+												{translate('expenses')}
+											</Text>
+										</Flex>
+									)}
 									<Text fontSize="xs" color={theme.text.primary}>
 										{translate('pleaseNote', {
 											expense: expenseCalculation().amount,
@@ -460,7 +481,11 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 									gap="3"
 									borderRadius="sm"
 									mb="4"
-									isDisabled={editedEmployeeData.amount < 0}
+									isDisabled={
+										(editedEmployeeData.amount &&
+											editedEmployeeData.amount < 0) ||
+										editedEmployeeData.amount === employee.revenue
+									}
 									isLoading={isLoadingButton}
 									maxH="10"
 								>

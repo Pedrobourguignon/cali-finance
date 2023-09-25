@@ -50,17 +50,17 @@ export const AlertToast: React.FC<IToast> = ({ onClick, text, type }) => {
 		>
 			<Flex
 				bg="white"
-				maxW={{ base: '22.5rem', md: 'full' }}
+				maxW={{ base: '22.5rem', md: 'lg' }}
 				minH="14"
 				borderWidth="1px"
 				borderColor={handleToast().color}
 				borderRadius="base"
 				align="center"
 				color="gray.700"
-				gap={{ base: '2', md: '16' }}
+				gap="2"
 				px="4"
 			>
-				<Flex gap="3" align="center">
+				<Flex gap="3" align="center" w="full">
 					<Icon
 						as={handleToast().icon}
 						color={handleToast().color}
