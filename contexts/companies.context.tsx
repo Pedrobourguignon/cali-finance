@@ -336,9 +336,14 @@ export const CompaniesProvider: React.FC<{ children: React.ReactNode }> = ({
 										!company.totalFundsUsd ||
 										company.totalFundsUsd < formattedBalance
 									) {
-										setCompaniesWithMissingFunds(prevState =>
-											prevState.concat(company)
-										);
+										if (
+											!companiesWithMissingFunds.filter(
+												item => item.id === company.id
+											)
+										)
+											setCompaniesWithMissingFunds(prevState =>
+												prevState.concat(company)
+											);
 									}
 								}
 							} catch (err) {
