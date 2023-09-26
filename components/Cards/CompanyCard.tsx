@@ -1,4 +1,5 @@
 import {
+	Button,
 	Flex,
 	Img,
 	Link,
@@ -8,7 +9,7 @@ import {
 } from '@chakra-ui/react';
 import { useCompanies, usePicasso, useTokens } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
-import React from 'react';
+import React, { useState } from 'react';
 import {
 	formatCrypto,
 	formatCryptoToDollar,
@@ -34,6 +35,7 @@ export const CompanyCard: React.FC<ICompanyCard> = ({
 	userCompanies,
 }) => {
 	const theme = usePicasso();
+	const [isLoadingButton, setIsLoadingButton] = useState<boolean>(false);
 	const { t: translate } = useTranslation('companies');
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const {
@@ -199,6 +201,7 @@ export const CompanyCard: React.FC<ICompanyCard> = ({
 				)}
 			</Flex>
 			<Flex
+				// bg="red"
 				w="100%"
 				align="center"
 				justify="center"
@@ -207,45 +210,58 @@ export const CompanyCard: React.FC<ICompanyCard> = ({
 			>
 				{company?.isAdmin ? (
 					<Link
+						w="full"
 						href={navigationPaths.dashboard.companies.overview(
 							company.id?.toString()
 						)}
 						as={NextLink}
 					>
-						<Text
+						<Button
+							pb="3"
+							isLoading={isLoadingButton}
 							color={theme.branding.blue2}
-							bg="none"
+							h="max-content"
+							w="full"
 							fontSize="xs"
 							fontWeight="medium"
 							cursor="pointer"
+							onClick={() => setIsLoadingButton(true)}
 						>
 							{translate('manage')}
-						</Text>
+						</Button>
 					</Link>
 				) : (
 					<>
-						<Text
+						<Button
+							pb="3"
 							display={{ base: 'none', sm: 'flex' }}
 							color={theme.branding.blue2}
 							bg="none"
 							fontSize="xs"
 							fontWeight="medium"
 							cursor="pointer"
-							onClick={onOpen}
+							onClick={() => {
+								onOpen();
+								setIsLoadingButton(true);
+							}}
 						>
 							{translate('withdraw')}
-						</Text>
-						<Text
+						</Button>
+						<Button
+							pb="3"
 							display={{ base: 'flex', sm: 'none' }}
 							color={theme.branding.blue2}
 							bg="none"
 							fontSize="xs"
 							fontWeight="medium"
 							cursor="pointer"
-							onClick={onOpenMobile}
+							onClick={() => {
+								onOpenMobile();
+								setIsLoadingButton(true);
+							}}
 						>
 							{translate('withdraw')}
-						</Text>
+						</Button>
 					</>
 				)}
 			</Flex>

@@ -24,7 +24,7 @@
 	"signatureCanceled": "A assinatura foi cancelada. Por favor, tente novamente.",
 	"approveSuccessfully": "Seu gasto de token foi aprovado com sucesso",
 	"companyWithoutFunds": "A Empresa não tem saldo suficiente para a transação.",
-	"redeployCompany": "Empresa sem Contrato. Clique aqui para reimplantar.",
+	"redeployCompany": "Empresa sem Contrato. Clique aqui para reenviar a solicitação.",
 	"redeployWithSuccess": "Reimplantada com sucesso",
 	"employeeNotYetDeployed": "O colaborador ainda não foi implantado. Iremos refazer a operação com o salário já atualizado.",
 	"requestRejected": "A conexão foi rejeitada. Por favor, tente novamente.",

@@ -43,7 +43,12 @@ const CompanyLogo: React.FC<ICompanyLogo> = ({
 
 	if (displayedEditedPicture !== logo) {
 		return (
-			<Img src={displayedEditedPicture} boxSize="20" borderRadius="base" />
+			<Img
+				src={displayedEditedPicture}
+				objectFit="cover"
+				boxSize="20"
+				borderRadius="base"
+			/>
 		);
 	}
 	if (logo) {

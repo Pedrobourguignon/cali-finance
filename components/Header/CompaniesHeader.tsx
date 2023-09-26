@@ -47,6 +47,7 @@ import { AxiosError } from 'axios';
 
 export const CompaniesHeader = () => {
 	const theme = usePicasso();
+	const [isLoadingButton, setIsLoadingButton] = useState<boolean>(false);
 	const { isSamePath } = usePath();
 	const { query, locale } = useRouter();
 	const { onClose, isOpen, onOpen } = useDisclosure();
@@ -82,6 +83,7 @@ export const CompaniesHeader = () => {
 
 	const redeployCompanyContract = async () => {
 		try {
+			setIsLoadingButton(true);
 			if (chain?.id !== 137) await switchNetworkAsync?.(chains[3].id);
 			createCompanyWrite?.({
 				args: [
@@ -90,6 +92,7 @@ export const CompaniesHeader = () => {
 				],
 			});
 		} catch (error) {
+			setIsLoadingButton(false);
 			if (error instanceof AxiosError) {
 				if (error.response?.status === 401) {
 					toast({
@@ -141,6 +144,7 @@ export const CompaniesHeader = () => {
 			});
 		},
 		onError() {
+			setIsLoadingButton(false);
 			toast({
 				position: 'top',
 				render: () => (
@@ -297,6 +301,7 @@ export const CompaniesHeader = () => {
 								contractAddress()
 							) : (
 								<RedeployCompanyButton
+									isLoadingButton={isLoadingButton}
 									onClick={() => redeployCompanyContract()}
 									showButton={showButton}
 								/>
