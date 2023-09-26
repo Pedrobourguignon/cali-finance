@@ -69,7 +69,7 @@ export const AlertsComponent = () => {
 			</MissingFundsWarning>
 		);
 	}
-	if (missingValue) {
+	if (+missingValue > 0) {
 		return (
 			<MissingFundsWarning>
 				<SingleCompanyAlert missingValue={missingValue} />
