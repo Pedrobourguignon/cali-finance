@@ -468,11 +468,14 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 											</Text>
 										</Flex>
 									)}
-									<Text fontSize="xs" color={theme.text.primary}>
-										{translate('pleaseNote', {
-											expense: expenseCalculation().amount,
-										})}
-									</Text>
+									{editedEmployeeData.amountInDollar !== null ||
+										(editedEmployeeData.amountInDollar !== 0 && (
+											<Text fontSize="xs" color={theme.text.primary}>
+												{translate('pleaseNote', {
+													expense: expenseCalculation().amount,
+												})}
+											</Text>
+										))}
 								</Flex>
 								<BlackButton
 									py="2.5"

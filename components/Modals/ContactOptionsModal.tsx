@@ -129,7 +129,7 @@ export const ContactOptionsModal: React.FC<IBasicModal> = ({
 							</Text>
 							<Link
 								as={NextLink}
-								href={navigationPaths.docs}
+								href={socialMediaLinks.email}
 								color={theme.text.black2}
 								textDecoration="underline"
 								fontSize="sm"

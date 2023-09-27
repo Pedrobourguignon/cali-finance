@@ -104,13 +104,13 @@ export const AddEmployee: React.FC<IAddEmployee> = ({ isOpen, onClose }) => {
 		color: 'blackAlpha.500',
 	};
 
-	const changeTab = (tab: string) => {
-		setSelectedTab(tab);
-		setIndividuallyOrList(false);
-		if (selectedTab === translate('uploadList')) {
-			setIndividuallyOrList(true);
-		}
-	};
+	// const changeTab = (tab: string) => {
+	// 	setSelectedTab(tab);
+	// 	setIndividuallyOrList(false);
+	// 	if (selectedTab === translate('uploadList')) {
+	// 		setIndividuallyOrList(true);
+	// 	}
+	// };
 
 	const converterToDollar = (amountInDollar: number) => {
 		if (usdtQuotation.USDT?.value) {
@@ -276,7 +276,7 @@ export const AddEmployee: React.FC<IAddEmployee> = ({ isOpen, onClose }) => {
 								onClick={() => reset()}
 							/>
 						</Flex>
-						<Flex>
+						{/* <Flex>
 							<Button
 								disabled={selectedTab === 'Add individually'}
 								_disabled={{ color: theme.text.primary }}
@@ -331,7 +331,7 @@ export const AddEmployee: React.FC<IAddEmployee> = ({ isOpen, onClose }) => {
 							>
 								{translate('uploadList')}
 							</Button>
-						</Flex>
+						</Flex> */}
 					</ModalHeader>
 					<form onSubmit={handleSubmit(handleAddEmployee)}>
 						<FormControl>

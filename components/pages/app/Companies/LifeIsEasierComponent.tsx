@@ -37,7 +37,7 @@ export const LifeIsEasier = () => {
 			</Text>
 			<Flex gap="6">
 				{socialMedias.map((item, index) => (
-					<Link key={+index} href={item.link} as={NextLink}>
+					<Link key={+index} href={item.link} target="_blank" as={NextLink}>
 						<Icon boxSize="5" color={theme.branding.cyan} as={item.icon} />
 					</Link>
 				))}
