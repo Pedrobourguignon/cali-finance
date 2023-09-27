@@ -10,7 +10,7 @@ import {
 	useClipboard,
 } from '@chakra-ui/react';
 import { MdContentCopy } from 'react-icons/md';
-import { formatFiat, getLogo, truncateWallet } from 'utils';
+import { ethAddressRegex, formatFiat, getLogo, truncateWallet } from 'utils';
 import useTranslation from 'next-translate/useTranslation';
 import {
 	AlertToast,
@@ -19,6 +19,7 @@ import {
 	EmployeeStatus,
 } from 'components';
 import { GetCompanyUsersRes } from 'types/interfaces/main-server/IUser';
+import { isAddress } from 'viem';
 
 const teams = ['General', 'Marketing', 'Finance', 'Trozorba'];
 interface IEmployeeData {
@@ -60,7 +61,7 @@ export const EmployeeData: React.FC<IEmployeeData> = ({
 			return (
 				<Flex direction="column" align="end" flex="3">
 					<Flex gap="1" fontSize="xs">
-						<Text>{formatFiat(employee.revenue!)}</Text>
+						<Text>{employee.revenue ? formatFiat(employee.revenue) : 0}</Text>
 						<Text>{employee.asset?.toUpperCase()}</Text>
 					</Flex>
 					<Flex display={{ base: 'none', sm: 'flex' }}>
@@ -142,6 +143,7 @@ export const EmployeeData: React.FC<IEmployeeData> = ({
 								? '/images/editImage.png'
 								: getLogo(employee.picture as string)
 						}
+						objectFit="cover"
 						boxSize="6"
 						borderRadius="full"
 					/>
@@ -150,7 +152,7 @@ export const EmployeeData: React.FC<IEmployeeData> = ({
 							fontSize={{ base: 'xs', md: 'sm' }}
 							display={{ base: 'flex', sm: 'none' }}
 						>
-							{employee.name?.length !== 40
+							{employee.name && isAddress(employee.name)
 								? truncateWallet(employee.wallet)
 								: employee.name}
 						</Text>
@@ -158,7 +160,7 @@ export const EmployeeData: React.FC<IEmployeeData> = ({
 							fontSize={{ base: 'xs', md: 'sm' }}
 							display={{ base: 'none', sm: 'flex' }}
 						>
-							{employee.name?.length !== 40
+							{employee.name && isAddress(employee.name)
 								? truncateWallet(employee.wallet)
 								: employee.name}
 						</Text>
