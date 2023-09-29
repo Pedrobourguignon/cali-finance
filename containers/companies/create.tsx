@@ -28,7 +28,6 @@ import {
 import factoryAbi from 'utils/abi/factory.json';
 import { MAIN_SERVICE_ROUTES } from 'helpers';
 import { Hex } from 'viem';
-import { CompaniesProvider, ProfileContext, ProfileProvider } from 'contexts';
 
 interface ISelectedNetwork {
 	name: string;
@@ -72,6 +71,9 @@ export const CreateCompanyContainer = () => {
 			address: (process.env.NEXT_PUBLIC_FACTORY_CONTRACT || '') as Hex,
 			abi: factoryAbi,
 			functionName: 'createNewCompany',
+			onError() {
+				setIsLoadingButton(false);
+			},
 		});
 
 	const createCompany = async (company: ICompany) => {
@@ -180,6 +182,7 @@ export const CreateCompanyContainer = () => {
 		(createdCompanyData: ICompany) => createCompany(createdCompanyData),
 		{
 			onError: error => {
+				setIsLoadingButton(false);
 				if (error instanceof AxiosError) {
 					if (error.response?.data.message === 'Unique company name') {
 						toast({

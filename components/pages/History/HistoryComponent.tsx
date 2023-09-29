@@ -50,22 +50,18 @@ export const HistoryComponent: React.FC<IHistoryPage> = ({ history }) => {
 		setPageNumber(pageNumber + 1);
 	};
 
-	const historyFilterOptions = historyPageFilterOptions.map(option =>
-		translate(option)
-	);
-
-	const handleActivitiesFilterButton = (filter: string) => {
+	const handleActivitiesFilterButton = (filter: string[]) => {
 		if (history) {
 			setFilteredActivities(
 				history.filter(
-					notification => notification.event.description === filter
+					notification => notification.event.description === filter[0]
 				)
 			);
 		}
-		if (filter === translate('all') && history) {
+		if (translate(filter[1]) === translate('all') && history) {
 			setFilteredActivities(history);
 		}
-		setSelectedFilterOption(filter);
+		setSelectedFilterOption(translate(filter[1]));
 	};
 
 	useEffect(() => {
@@ -134,7 +130,7 @@ export const HistoryComponent: React.FC<IHistoryPage> = ({ history }) => {
 								borderColor="white"
 								minW={theme.sizes.menuItem}
 							>
-								{historyFilterOptions.map((option, index) => (
+								{historyPageFilterOptions.map((option, index) => (
 									<MenuItem
 										key={+index}
 										bg="white"
@@ -143,13 +139,15 @@ export const HistoryComponent: React.FC<IHistoryPage> = ({ history }) => {
 										_hover={{ bg: theme.bg.black, color: 'white' }}
 										borderBottom="1px solid"
 										borderBottomColor="gray.200"
-										borderBottomRadius={
-											option === translate('teamCreated') ? 'base' : 'none'
-										}
-										onClick={() => handleActivitiesFilterButton(option)}
+										// borderBottomRadius={
+										// 	translate(option[0]) === translate('teamCreated')
+										// 		? 'base'
+										// 		: 'none'
+										// }
+										onClick={() => handleActivitiesFilterButton(option.filter)}
 										_active={{}}
 									>
-										{option}
+										{translate(option.filter[1])}
 									</MenuItem>
 								))}
 							</MenuList>
