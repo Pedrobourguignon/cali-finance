@@ -198,7 +198,7 @@ export const ConfirmTransaction: React.FC<IConfirmTransaction> = ({
 
 	const handleApproveDeposit = async () => {
 		try {
-			if (chain?.id !== 137) await switchNetworkAsync?.(chains[3].id);
+			if (chain?.id !== 80001) await switchNetworkAsync?.(chains[2].id);
 			const { request } = await prepareWriteContract({
 				address: (selectedCompany.token || '') as Hex,
 				abi: caliTokenAbi,
@@ -252,7 +252,7 @@ export const ConfirmTransaction: React.FC<IConfirmTransaction> = ({
 			setIsLoadingButton(true);
 			handleApproveDeposit();
 		} else {
-			if (chain?.id !== 137) await switchNetworkAsync?.(chains[3].id);
+			if (chain?.id !== 80001) await switchNetworkAsync?.(chains[2].id);
 			setIsLoadingButton(true);
 			withdrawFunds?.();
 		}

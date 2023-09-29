@@ -4,12 +4,12 @@ import { CoinbaseWalletConnector } from 'wagmi/connectors/coinbaseWallet';
 import { InjectedConnector } from 'wagmi/connectors/injected';
 import { MetaMaskConnector } from 'wagmi/connectors/metaMask';
 import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
-import { polygon } from 'utils';
+import { bsc, mainnet, polygon, polygonMumbai } from 'utils';
 
 // Set up chains
 const { chains, publicClient, webSocketPublicClient } = configureChains(
-	// [mainnet, bsc, polygonMumbai, polygon],
-	[polygon],
+	[mainnet, bsc, polygonMumbai, polygon],
+	// [polygon],
 	[publicProvider()]
 );
 

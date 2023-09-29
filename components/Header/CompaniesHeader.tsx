@@ -76,7 +76,7 @@ export const CompaniesHeader = () => {
 
 	const { write: createCompanyWrite, data: createCompanyData } =
 		useContractWrite({
-			address: (process.env.NEXT_PUBLIC_FACTORY_CONTRACT || '') as Hex,
+			address: (process.env.NEXT_PUBLIC_MUMBAI_FACTORY_CONTRACT || '') as Hex,
 			abi: factoryAbi,
 			functionName: 'createNewCompany',
 		});
@@ -84,11 +84,11 @@ export const CompaniesHeader = () => {
 	const redeployCompanyContract = async () => {
 		try {
 			setIsLoadingButton(true);
-			if (chain?.id !== 137) await switchNetworkAsync?.(chains[3].id);
+			if (chain?.id !== 80001) await switchNetworkAsync?.(chains[2].id);
 			createCompanyWrite?.({
 				args: [
 					selectedCompany?.checksum,
-					'0xc2132D05D31c914a87C6611C10748AEb04B58e8F',
+					'0xE5BA18A72D14538804738f4b80D459C98a90560c ',
 				],
 			});
 		} catch (error) {

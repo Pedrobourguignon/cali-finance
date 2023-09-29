@@ -70,7 +70,7 @@ export const CompaniesHeaderMobile = () => {
 
 	const { write: createCompanyWrite, data: createCompanyData } =
 		useContractWrite({
-			address: (process.env.NEXT_PUBLIC_FACTORY_CONTRACT || '') as Hex,
+			address: (process.env.NEXT_PUBLIC_MUMBAI_FACTORY_CONTRACT || '') as Hex,
 			abi: factoryAbi,
 			functionName: 'createNewCompany',
 		});
@@ -78,7 +78,7 @@ export const CompaniesHeaderMobile = () => {
 	const redeployCompanyContract = async () => {
 		try {
 			setIsLoadingButton(true);
-			if (chain?.id !== 137) await switchNetworkAsync?.(chains[3].id);
+			if (chain?.id !== 80001) await switchNetworkAsync?.(chains[2].id);
 			createCompanyWrite?.({ args: [selectedCompany?.checksum] });
 		} catch (error) {
 			setIsLoadingButton(false);

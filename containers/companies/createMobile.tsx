@@ -71,7 +71,7 @@ export const CreateCompanyMobileContainer = () => {
 
 	const { write: createCompanyWrite, data: createCompanyData } =
 		useContractWrite({
-			address: (process.env.NEXT_PUBLIC_FACTORY_CONTRACT || '') as Hex,
+			address: (process.env.NEXT_PUBLIC_MUMBAI_FACTORY_CONTRACT || '') as Hex,
 			abi: factoryAbi,
 			functionName: 'createNewCompany',
 		});
@@ -79,7 +79,7 @@ export const CreateCompanyMobileContainer = () => {
 	const createCompany = async (company: ICompany) => {
 		try {
 			setIsLoadingButton(true);
-			if (chain?.id !== 137) await switchNetworkAsync?.(chains[3].id);
+			if (chain?.id !== 80001) await switchNetworkAsync?.(chains[2].id);
 			const {
 				data: { checksum, id },
 			} = await mainClient.post(MAIN_SERVICE_ROUTES.createCompany, {
@@ -87,7 +87,7 @@ export const CreateCompanyMobileContainer = () => {
 			});
 			setNewCompanyId(id);
 			createCompanyWrite?.({
-				args: [checksum, '0xc2132D05D31c914a87C6611C10748AEb04B58e8F'],
+				args: [checksum, '0xE5BA18A72D14538804738f4b80D459C98a90560c '],
 			});
 		} catch (error) {
 			if (error instanceof AxiosError) {
