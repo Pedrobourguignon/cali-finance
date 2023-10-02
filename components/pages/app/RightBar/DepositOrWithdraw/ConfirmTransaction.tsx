@@ -88,6 +88,7 @@ export const ConfirmTransaction: React.FC<IConfirmTransaction> = ({
 		functionName: 'ownerWithdraw',
 		args: [toCrypto(transaction.amount, selectedCompany.tokenDecimals)],
 		onError(error: any) {
+			setIsLoadingButton(false);
 			if (error.cause.data.args[0] === 'Insufficient Company Balance') {
 				toast({
 					position: 'top-right',
@@ -121,6 +122,7 @@ export const ConfirmTransaction: React.FC<IConfirmTransaction> = ({
 			});
 		},
 		onError: () => {
+			setIsLoadingButton(false);
 			toast({
 				position: 'top-right',
 				render: () => (
@@ -168,6 +170,7 @@ export const ConfirmTransaction: React.FC<IConfirmTransaction> = ({
 			});
 		} catch (err) {
 			const error = err as IContractFunctionExecutionError;
+			setIsLoadingButton(false);
 			if (error.cause.reason.includes('transfer amount exceeds balance')) {
 				toast({
 					position: 'top-right',
@@ -234,6 +237,7 @@ export const ConfirmTransaction: React.FC<IConfirmTransaction> = ({
 				});
 			}
 		} catch {
+			setIsLoadingButton(false);
 			toast({
 				position: 'top-right',
 				render: () => (

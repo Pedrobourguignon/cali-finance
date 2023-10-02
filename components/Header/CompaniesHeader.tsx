@@ -79,6 +79,9 @@ export const CompaniesHeader = () => {
 			address: (process.env.NEXT_PUBLIC_MUMBAI_FACTORY_CONTRACT || '') as Hex,
 			abi: factoryAbi,
 			functionName: 'createNewCompany',
+			onError() {
+				setIsLoadingButton(false);
+			},
 		});
 
 	const redeployCompanyContract = async () => {
@@ -207,7 +210,7 @@ export const CompaniesHeader = () => {
 						cursor="pointer"
 						onClick={() =>
 							window.open(
-								`https://polygonscan.com/address/${selectedCompany?.contract}`
+								`https://mumbai.polygonscan.com/address/${selectedCompany?.contract}`
 							)
 						}
 					>

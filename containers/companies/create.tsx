@@ -72,6 +72,9 @@ export const CreateCompanyContainer = () => {
 			address: (process.env.NEXT_PUBLIC_MUMBAI_FACTORY_CONTRACT || '') as Hex,
 			abi: factoryAbi,
 			functionName: 'createNewCompany',
+			onError() {
+				setIsLoadingButton(false);
+			},
 		});
 
 	const createCompany = async (company: ICompany) => {
