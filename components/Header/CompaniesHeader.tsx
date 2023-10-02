@@ -88,7 +88,7 @@ export const CompaniesHeader = () => {
 			createCompanyWrite?.({
 				args: [
 					selectedCompany?.checksum,
-					'0xE5BA18A72D14538804738f4b80D459C98a90560c ',
+					'0xE5BA18A72D14538804738f4b80D459C98a90560c',
 				],
 			});
 		} catch (error) {

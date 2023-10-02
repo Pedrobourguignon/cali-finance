@@ -87,7 +87,7 @@ export const CreateCompanyMobileContainer = () => {
 			});
 			setNewCompanyId(id);
 			createCompanyWrite?.({
-				args: [checksum, '0xE5BA18A72D14538804738f4b80D459C98a90560c '],
+				args: [checksum, '0xE5BA18A72D14538804738f4b80D459C98a90560c'],
 			});
 		} catch (error) {
 			if (error instanceof AxiosError) {
