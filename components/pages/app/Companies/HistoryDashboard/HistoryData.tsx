@@ -40,7 +40,7 @@ export const HistoryData: React.FC<IHistoryData> = ({ userHistory }) => {
 				px="3"
 				py="2"
 			>
-				<Flex align="center" gap="4">
+				<Flex align="center" gap="4" flex="3">
 					<Img src="/images/avatar.png" boxSize="6" />
 					<Flex direction="column">
 						<Text fontSize="sm">
@@ -48,7 +48,7 @@ export const HistoryData: React.FC<IHistoryData> = ({ userHistory }) => {
 						</Text>
 					</Flex>
 				</Flex>
-				<Flex align="center" gap="4">
+				<Flex align="center" justify="start" gap="4" flex="3" pl="24">
 					<Img src={handleIcon()} boxSize="4" />
 					<Flex direction="column">
 						<Text fontSize="sm">
@@ -59,7 +59,13 @@ export const HistoryData: React.FC<IHistoryData> = ({ userHistory }) => {
 						</Text>
 					</Flex>
 				</Flex>
-				<Flex direction="column" fontSize="xs">
+				<Flex
+					direction="column"
+					fontSize="xs"
+					justify="center"
+					flex="3"
+					align="end"
+				>
 					<Flex gap="1">
 						<Text>{formatFiat(userHistory.meta.data.amount)}</Text>
 						<Text>USDT</Text>
