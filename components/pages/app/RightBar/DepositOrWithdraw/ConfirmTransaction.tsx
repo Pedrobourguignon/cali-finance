@@ -138,7 +138,6 @@ export const ConfirmTransaction: React.FC<IConfirmTransaction> = ({
 
 	const handleDeposit = async () => {
 		try {
-			console.log(selectedCompany.contract);
 			setIsLoadingButton(true);
 			const { request } = await prepareWriteContract({
 				address: selectedCompany.contract,
@@ -172,7 +171,6 @@ export const ConfirmTransaction: React.FC<IConfirmTransaction> = ({
 		} catch (err) {
 			const error = err as IContractFunctionExecutionError;
 			setIsLoadingButton(false);
-			console.log(error);
 			if (error.cause.reason.includes('transfer amount exceeds balance')) {
 				toast({
 					position: 'top-right',

@@ -88,7 +88,7 @@ export const CreateCompanyContainer = () => {
 			});
 			setNewCompanyId(id);
 			createCompanyWrite?.({
-				args: [checksum, '0xE5BA18A72D14538804738f4b80D459C98a90560c'],
+				args: [checksum, '0xe42A18Fd805a41BD27cA465Cf4240E5A0db7BDD4'],
 			});
 		} catch (error) {
 			setIsLoadingButton(false);
