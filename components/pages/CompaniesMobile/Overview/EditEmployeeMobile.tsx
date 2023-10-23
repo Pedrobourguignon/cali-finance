@@ -237,6 +237,7 @@ export const EditEmployeeMobile: React.FC<IEditEmployee> = ({
 			asset: 'USDT',
 			revenue: editedEmployee.revenue,
 			userAddress: employee.wallet,
+			admissionDate: editedEmployee.admissionDate,
 		});
 	};
 	return (
@@ -373,6 +374,30 @@ export const EditEmployeeMobile: React.FC<IEditEmployee> = ({
 									})}
 								</Text>
 							</Flex>
+							<Flex direction="column" gap="2" pb="4">
+								<Text {...labelStyle}>{translate('dayOfAdmission')}</Text>
+								<Input
+									type="date"
+									placeholder="0x6856...BF99"
+									borderColor={errors.admissionDate ? 'red' : theme.bg.primary}
+									_placeholder={{ ...placeholderStyle }}
+									_focusVisible={{}}
+									_hover={{}}
+									color={theme.text.primary}
+									{...register('admissionDate')}
+									h="max-content"
+									py="1"
+									onChange={date =>
+										setEditedEmployeeData(prevState => ({
+											...prevState,
+											admissionDate: date.target.value,
+										}))
+									}
+								/>
+								<Text fontSize="xs" color="red">
+									{errors.admissionDate?.message}
+								</Text>
+							</Flex>
 							<BlackButton
 								py="2.5"
 								type="submit"
@@ -386,6 +411,11 @@ export const EditEmployeeMobile: React.FC<IEditEmployee> = ({
 								<Text>+</Text>
 								{translate('updateEmployee')}
 							</BlackButton>
+							<Flex w="full" h="max-content" justify="center">
+								<Button color="red.500" fontWeight="medium">
+									{translate('deleteEmployee')}
+								</Button>
+							</Flex>
 						</ModalBody>
 					</FormControl>
 				</form>

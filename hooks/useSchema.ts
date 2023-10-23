@@ -28,6 +28,7 @@ const useSchema = () => {
 			.required(translate('required'))
 			.positive(translate('amountMustBeAPositive'))
 			.typeError(translate('amountMustBeANumber')),
+		admissionDate: yup.date().required(),
 	});
 	const editEmployeeSchema = yup.object().shape({
 		revenue: yup
@@ -37,6 +38,8 @@ const useSchema = () => {
 			)
 			.required(translate('required'))
 			.typeError(translate('amountMustBeANumber')),
+		admissionDate: yup.date().required(),
+
 		// .positive(translate('amountMustBeAPositive')),
 	});
 

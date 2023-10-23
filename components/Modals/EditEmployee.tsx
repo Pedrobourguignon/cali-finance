@@ -15,6 +15,7 @@ import {
 	Img,
 	useDisclosure,
 	useToast,
+	Button,
 } from '@chakra-ui/react';
 import { useCompanies, usePicasso, useSchema, useTokens } from 'hooks';
 import { useRouter } from 'next/router';
@@ -45,6 +46,7 @@ import companyAbi from 'utils/abi/company.json';
 interface IEditedEmployee {
 	amount: number | null;
 	amountInDollar: number | null;
+	admissionDate: string;
 }
 
 export const EditEmployee: React.FC<IEditEmployee> = ({
@@ -64,6 +66,7 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 		{
 			amount: null,
 			amountInDollar: null,
+			admissionDate: '',
 		}
 	);
 	const [token, setToken] = useState<ISelectedCoin>({
@@ -320,7 +323,9 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 			asset: 'USDT',
 			revenue: editedEmployee.revenue,
 			userAddress: employee.wallet,
+			admissionDate: editedEmployee.admissionDate,
 		});
+		console.log(editedEmployeeData.admissionDate);
 	};
 
 	return (
@@ -381,7 +386,7 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 					<form onSubmit={handleSubmit(handleEditEmployee)}>
 						<FormControl>
 							<ModalBody display="flex" flexDirection="column">
-								<Flex direction="column" gap="2" pb="8">
+								<Flex direction="column" gap="2" pb="4">
 									<Flex align="center" justify="space-between">
 										<Text {...labelStyle}>
 											{translate('amount')} ({translate('perMonth')})*
@@ -477,6 +482,32 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 											</Text>
 										))}
 								</Flex>
+								<Flex direction="column" gap="2" pb="8">
+									<Text {...labelStyle}>{translate('dayOfAdmission')}</Text>
+									<Input
+										type="date"
+										placeholder="0x6856...BF99"
+										borderColor={
+											errors.admissionDate ? 'red' : theme.bg.primary
+										}
+										_placeholder={{ ...placeholderStyle }}
+										_focusVisible={{}}
+										_hover={{}}
+										color={theme.text.primary}
+										{...register('admissionDate')}
+										h="max-content"
+										py="1"
+										onChange={date =>
+											setEditedEmployeeData(prevState => ({
+												...prevState,
+												admissionDate: date.target.value,
+											}))
+										}
+									/>
+									<Text fontSize="xs" color="red">
+										{errors.admissionDate?.message}
+									</Text>
+								</Flex>
 								<BlackButton
 									py="2.5"
 									type="submit"
@@ -495,6 +526,11 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 									<Text>+</Text>
 									{translate('updateEmployee')}
 								</BlackButton>
+								<Flex w="full" h="max-content" justify="center">
+									<Button color="red.500" fontWeight="medium">
+										{translate('deleteEmployee')}
+									</Button>
+								</Flex>
 							</ModalBody>
 						</FormControl>
 					</form>

@@ -50,6 +50,7 @@ export const AddEmployeeMobile: React.FC<IAddEmployee> = ({
 		walletAddress: '',
 		amount: 0,
 		amountInDollar: 0,
+		admissionDate: '',
 	});
 	const debouncedEmployeeAddress = useDebounce(
 		addedEmployeeData.walletAddress,
@@ -86,7 +87,7 @@ export const AddEmployeeMobile: React.FC<IAddEmployee> = ({
 	});
 
 	const { chain } = useNetwork();
-	const { chains, switchNetworkAsync, isLoading } = useSwitchNetwork();
+	const { chains, switchNetworkAsync } = useSwitchNetwork();
 
 	const labelStyle: TextProps = {
 		color: 'black',
@@ -416,6 +417,30 @@ export const AddEmployeeMobile: React.FC<IAddEmployee> = ({
 									{errors.amount?.message}
 								</Text>
 							</Flex>
+							<Flex direction="column" gap="2">
+								<Text {...labelStyle}>{translate('dayOfAdmission')}</Text>
+								<Input
+									type="date"
+									placeholder="0x6856...BF99"
+									borderColor={errors.admissionDate ? 'red' : theme.bg.primary}
+									_placeholder={{ ...placeholderStyle }}
+									_focusVisible={{}}
+									_hover={{}}
+									color={theme.text.primary}
+									{...register('admissionDate')}
+									h="max-content"
+									py="1"
+									onChange={date =>
+										setAddedEmployeeData(prevState => ({
+											...prevState,
+											admissionDate: date.target.value,
+										}))
+									}
+								/>
+								<Text fontSize="xs" color="red">
+									{errors.admissionDate?.message}
+								</Text>
+							</Flex>
 							<BlackButton
 								maxH="10"
 								py="2.5"
@@ -425,7 +450,9 @@ export const AddEmployeeMobile: React.FC<IAddEmployee> = ({
 								borderRadius="sm"
 								onClick={() => handleAddEmployee}
 								isDisabled={
-									!addedEmployeeData.walletAddress || !addedEmployeeData.amount
+									!addedEmployeeData.walletAddress ||
+									!addedEmployeeData.amount ||
+									!addedEmployeeData.admissionDate
 								}
 								isLoading={isLoadingButton}
 							>

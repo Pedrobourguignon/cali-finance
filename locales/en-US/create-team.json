@@ -30,5 +30,7 @@
 	"updateEmployee": "Update Employee’s Data",
 	"more": "more",
 	"less": "less",
-	"expenses": "expenses"
+	"expenses": "expenses",
+	"dayOfAdmission": "Day of admission",
+	"deleteEmployee": "Delete Employee"
 }

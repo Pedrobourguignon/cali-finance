@@ -7,6 +7,7 @@ const usePicasso = () => {
 			white: useColorModeValue('#FFFFFF', '#FFFFFF'),
 			mono: useColorModeValue('black', 'black'),
 			gray: useColorModeValue('#718096', '#718096'),
+			gray2: useColorModeValue('#E2E8F0', '#E2E8F0'),
 			green: useColorModeValue('#9B93AB', '#2ECC71'),
 			red: useColorModeValue('#9B93AB', '#E17055'),
 			black: useColorModeValue('#010D0C', '#010D0C'),

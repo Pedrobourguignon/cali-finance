@@ -31,5 +31,7 @@
 	"updateEmployee": "Atualizar dados do colaborador",
 	"more": "a mais",
 	"less": "a menos",
-	"expenses": "de despesas"
+	"expenses": "de despesas",
+	"dayOfAdmission": "Dia da admissão",
+	"deleteEmployee": "Deletar Colaborador"
 }
