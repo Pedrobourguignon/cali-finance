@@ -1,5 +1,5 @@
 export const socialMediaLinks = {
-	discord: 'https://discord.gg/ZE5c76D3Ju',
+	discord: 'https://discord.cali.finance',
 	twitter: 'https://twitter.com/cali_finance',
 	linkedin: 'https://www.linkedin.com/company/califinance',
 	instagram: 'https://www.instagram.com/cali.finance/',

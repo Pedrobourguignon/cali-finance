@@ -1,5 +1,6 @@
 export * from './companies';
 export * from './dashboard';
+export * from './discordRedirectContainer';
 export * from './editProfile';
 export * from './history';
 export * from './landing';

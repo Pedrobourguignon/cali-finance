@@ -56,6 +56,7 @@ export const ConfirmTransaction: React.FC<IConfirmTransaction> = ({
 		{} as GetUserCompaniesRes
 	);
 	const { query } = useRouter();
+	const depositFeeValue = 0.0;
 
 	const getSelectedCompany = async () => {
 		if (query.id) await getCompanyById(+query.id).then(setSelectedCompany);
@@ -322,7 +323,7 @@ export const ConfirmTransaction: React.FC<IConfirmTransaction> = ({
 						{transaction.type === 'deposit' && (
 							<Flex justify="space-between">
 								<Text>{translate('fee')}</Text>
-								<Text>0.5%</Text>
+								<Text>{depositFeeValue} %</Text>
 							</Flex>
 						)}
 					</Flex>

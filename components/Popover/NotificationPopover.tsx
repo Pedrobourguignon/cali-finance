@@ -120,7 +120,7 @@ export const NotificationPopover: React.FC<INotificationPopover> = ({
 							px: '1',
 						}}
 					>
-						{filterTeamNotifications?.map((notification, index) => (
+						{filterTeamNotifications?.reverse().map((notification, index) => (
 							<NotificationComponent
 								activities={notificationsList && notification}
 								key={+index}

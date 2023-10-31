@@ -54,6 +54,7 @@ export const AddEmployee: React.FC<IAddEmployee> = ({ isOpen, onClose }) => {
 		walletAddress: '',
 		amount: 0,
 		amountInDollar: 0,
+		admissionDate: '',
 	});
 	const { listOfTokens, usdtQuotation } = useTokens();
 	const { selectedCompanyData, addEmployeeToTeam } = useCompanies();
@@ -425,6 +426,32 @@ export const AddEmployee: React.FC<IAddEmployee> = ({ isOpen, onClose }) => {
 										{errors.amount?.message}
 									</Text>
 								</Flex>
+								<Flex direction="column" gap="2">
+									<Text {...labelStyle}>{translate('dayOfAdmission')}</Text>
+									<Input
+										type="date"
+										placeholder="0x6856...BF99"
+										borderColor={
+											errors.admissionDate ? 'red' : theme.bg.primary
+										}
+										_placeholder={{ ...placeholderStyle }}
+										_focusVisible={{}}
+										_hover={{}}
+										color={theme.text.primary}
+										{...register('admissionDate')}
+										h="max-content"
+										py="1"
+										onChange={date =>
+											setAddedEmployeeData(prevState => ({
+												...prevState,
+												admissionDate: date.target.value,
+											}))
+										}
+									/>
+									<Text fontSize="xs" color="red">
+										{errors.admissionDate?.message}
+									</Text>
+								</Flex>
 								<BlackButton
 									maxH="10"
 									py="2.5"
@@ -435,7 +462,8 @@ export const AddEmployee: React.FC<IAddEmployee> = ({ isOpen, onClose }) => {
 									onClick={() => handleAddEmployee}
 									isDisabled={
 										!addedEmployeeData.walletAddress ||
-										!addedEmployeeData.amount
+										!addedEmployeeData.amount ||
+										!addedEmployeeData.admissionDate
 									}
 									isLoading={isLoadingButton}
 								>

@@ -9,7 +9,6 @@ export const DisplayedNotificationsMobile: React.FC<
 	const filterTeamNotifications = filteredNotifications?.filter(
 		notification =>
 			notification.event.name !== 'team_member_added' &&
-			notification.event.name !== 'user_added_to_company' &&
 			notification.event.name !== 'user_added_to_team'
 	);
 	const displayNotifications = filterTeamNotifications?.slice(
