@@ -26,12 +26,17 @@ import {
 } from 'components';
 import { useCompanies, usePicasso, useSchema, useTokens } from 'hooks';
 import useTranslation from 'next-translate/useTranslation';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { IAddEmployee, IAddEmployeeForm, INewEmployee } from 'types';
 import { IoPersonAddOutline } from 'react-icons/io5';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { toCrypto, getCoinLogo, navigationPaths } from 'utils';
+import {
+	toCrypto,
+	getCoinLogo,
+	navigationPaths,
+	convertJoinDateToBigInt,
+} from 'utils';
 import NextLink from 'next/link';
 import { useMutation, useQueryClient } from 'react-query';
 import { AxiosError } from 'axios';
@@ -141,6 +146,8 @@ export const AddEmployee: React.FC<IAddEmployee> = ({ isOpen, onClose }) => {
 		args: [
 			debouncedEmployeeAddress[0],
 			toCrypto(debouncedEmployeeAmount[0], selectedCompanyData?.tokenDecimals),
+			convertJoinDateToBigInt(addedEmployeeData.admissionDate),
+			// convertJoinDateToBigInt(),
 		],
 		enabled:
 			addedEmployeeData.walletAddress !== '' && addedEmployeeData.amount !== 0,

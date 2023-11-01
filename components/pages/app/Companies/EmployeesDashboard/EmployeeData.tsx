@@ -120,7 +120,11 @@ export const EmployeeData: React.FC<IEmployeeData> = ({
 			borderRadius="base"
 		>
 			<EditEmployee isOpen={isOpen} onClose={onClose} employee={employee} />
-			<EditEmployeeMobile isOpen onClose={onCloseMobile} employee={employee} />
+			<EditEmployeeMobile
+				isOpen={isOpen}
+				onClose={onCloseMobile}
+				employee={employee}
+			/>
 			<Flex direction="column" flex="4.5" gap="2">
 				<Flex display={{ base: 'flex', md: 'none' }}>
 					<EmployeeStatus status={employee.status} />

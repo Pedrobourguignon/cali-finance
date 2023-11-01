@@ -23,7 +23,12 @@ import { IAddEmployee, IAddEmployeeForm, INewEmployee } from 'types';
 import { IoPersonAddOutline } from 'react-icons/io5';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { getCoinLogo, navigationPaths, toCrypto } from 'utils';
+import {
+	convertJoinDateToBigInt,
+	getCoinLogo,
+	navigationPaths,
+	toCrypto,
+} from 'utils';
 import NextLink from 'next/link';
 import { useMutation, useQueryClient } from 'react-query';
 import { AxiosError } from 'axios';
@@ -136,6 +141,7 @@ export const AddEmployeeMobile: React.FC<IAddEmployee> = ({
 		args: [
 			debouncedEmployeeAddress[0],
 			toCrypto(debouncedEmployeeAmount[0], selectedCompanyData?.tokenDecimals),
+			convertJoinDateToBigInt(addedEmployeeData.admissionDate),
 		],
 		enabled:
 			addedEmployeeData.walletAddress !== '' && addedEmployeeData.amount !== 0,
