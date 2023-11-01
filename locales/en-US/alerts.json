@@ -28,5 +28,6 @@
 	"redeployWithSuccess": "Contract created with success",
 	"companyWithoutFunds": "The Company doesn't have enough balance for the transaction.",
 	"requestRejected": "The request was rejected. Please try again.",
-	"maximumCompanyWithoutDeploy": "You have 10 incomplete companies. Please deploy a contract before creating any new company."
+	"maximumCompanyWithoutDeploy": "You have 10 incomplete companies. Please deploy a contract before creating any new company.",
+	"employeeDeleted": "Employee deleted successfully"
 }

@@ -325,7 +325,64 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 			userAddress: employee.wallet,
 			admissionDate: editedEmployee.admissionDate,
 		});
-		console.log(editedEmployeeData.admissionDate);
+	};
+
+	const { data: deleteEmployeeData, write: deleteEmployeeWrite } =
+		useContractWrite({
+			address: selectedCompany.contract,
+			abi: companyAbi,
+			functionName: 'updateEmployeeStatus',
+			onError(error: any) {
+				if (error.cause.data.args[0] === "Employee doesn't exists.") {
+					toast({
+						position: 'top-right',
+						render: () => (
+							<AlertToast
+								onClick={toast.closeAll}
+								text="employeeNotYetDeployed"
+								type="warning"
+							/>
+						),
+					});
+					setIsLoadingButton(true);
+					addEmployeeWrite?.();
+				}
+			},
+		});
+
+	const { isLoading: useWaitForTransactionDelete } = useWaitForTransaction({
+		hash: deleteEmployeeData?.hash,
+		confirmations: 3,
+		onSuccess() {
+			handleResetFormInputs();
+			toast({
+				position: 'top-right',
+				render: () => (
+					<AlertToast
+						onClick={toast.closeAll}
+						text="employeeDeleted"
+						type="success"
+					/>
+				),
+			});
+		},
+		onError() {
+			handleResetFormInputs();
+			toast({
+				position: 'top-right',
+				render: () => (
+					<AlertToast
+						onClick={toast.closeAll}
+						text="weAreWorkingToSolve"
+						type="error"
+					/>
+				),
+			});
+		},
+	});
+
+	const handleDeleteEmployee = () => {
+		deleteEmployeeWrite?.({ args: [employee.wallet, false] });
 	};
 
 	return (
@@ -337,7 +394,11 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 				setToken={setToken}
 			/>
 			<WaitMetamaskFinishTransaction
-				isOpen={useWaitForTransactionLoading || useWaitForTransactionEdit}
+				isOpen={
+					useWaitForTransactionLoading ||
+					useWaitForTransactionEdit ||
+					useWaitForTransactionDelete
+				}
 				onClose={onCloseLoadingConfirmation}
 			/>
 			<ModalContent
@@ -527,7 +588,11 @@ export const EditEmployee: React.FC<IEditEmployee> = ({
 									{translate('updateEmployee')}
 								</BlackButton>
 								<Flex w="full" h="max-content" justify="center">
-									<Button color="red.500" fontWeight="medium">
+									<Button
+										color="red.500"
+										fontWeight="medium"
+										onClick={handleDeleteEmployee}
+									>
 										{translate('deleteEmployee')}
 									</Button>
 								</Flex>

@@ -121,7 +121,7 @@ export const EmployeeData: React.FC<IEmployeeData> = ({
 		>
 			<EditEmployee isOpen={isOpen} onClose={onClose} employee={employee} />
 			<EditEmployeeMobile
-				isOpen={isOpen}
+				isOpen={isOpenMobile}
 				onClose={onCloseMobile}
 				employee={employee}
 			/>
