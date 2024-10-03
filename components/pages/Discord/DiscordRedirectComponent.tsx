@@ -56,11 +56,11 @@ export const DiscordRedirectComponent = () => {
 					>
 						{translate('solveTheCaptcha')}
 					</Text>
-					<ReCAPTCHA
+					{/* <ReCAPTCHA
 						sitekey={process.env.NEXT_PUBLIC_GOOGLE_CAPTCHA_API_KEY!}
 						style={{ height: '100px', width: '100px' }}
 						onChange={value => setCaptcha(value)}
-					/>
+					/> */}
 				</Flex>
 			</Flex>
 		</Flex>

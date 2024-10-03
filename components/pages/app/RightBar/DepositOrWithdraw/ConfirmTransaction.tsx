@@ -59,7 +59,10 @@ export const ConfirmTransaction: React.FC<IConfirmTransaction> = ({
 	const depositFeeValue = 0.0;
 
 	const getSelectedCompany = async () => {
-		if (query.id) await getCompanyById(+query.id)(setSelectedCompany);
+		if (query.id) {
+			const result = await getCompanyById(+query.id);
+			if (result) setSelectedCompany(result);
+		}
 	};
 
 	useEffect(() => {

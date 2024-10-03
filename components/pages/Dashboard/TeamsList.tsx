@@ -76,12 +76,13 @@ export const TeamsList = () => {
 			</Flex>
 			<Box position="relative">
 				<Flex w="43.4rem" display="block" bg="transparent">
-					<Slider
+					{/* <Slider
 						{...settings}
 						ref={sliderRef => setSlider(sliderRef)}
 						arrows={false}
 						className="slider"
 					>
+						
 						{teamList.map((team, index) => (
 							<TeamCard
 								key={+index}
@@ -90,7 +91,7 @@ export const TeamsList = () => {
 								members={team.members}
 							/>
 						))}
-					</Slider>
+					</Slider> */}
 				</Flex>
 			</Box>
 		</Flex>
