@@ -105,7 +105,7 @@ export const NewLandingHeader: React.FC = () => {
 				})}
 			</Flex>
 			<Link
-				href={usefulLinks.joinOurWaitlist}
+				href="/dashboard"
 				textDecoration="none"
 				_hover={{ textDecoration: 'none' }}
 				as={NextLink}
